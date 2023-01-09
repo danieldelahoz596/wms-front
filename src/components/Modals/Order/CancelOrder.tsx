@@ -1,0 +1,122 @@
+import React from 'react';
+import { Alert, Col, Form, Row } from 'antd';
+import { OModal } from '@/components/Globals/OModal';
+import { OInput } from '@/components/Globals/OInput';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+
+interface ICancelOrderModal {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: () => void;
+}
+
+const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave }) => {
+  return (
+    <OModal
+      title="CANCEL ORDER"
+      width={800}
+      className="OModal"
+      centered
+      isOpen={isOpen}
+      handleCancel={onClose}
+      buttons={[
+        {
+          key: 'back',
+          type: 'default',
+          btnLabel: 'CANCEL',
+          onClick: onClose,
+        },
+        {
+          key: 'submit',
+          type: 'primary',
+          btnLabel: 'YES - CANCEL ORDER',
+          onClick: onSave,
+        },
+      ]}
+    >
+      <>
+        <Alert
+          message=""
+          description={
+            <ul style={{ listStyleType: 'circle' }}>
+              <li>If the sales channel is not notified, these orders can be restored.</li>
+              <li>
+                When "Notify Channel" is selected, the options to "Refund order(s)" and "Request
+                Channel Email Update" will be available if all sales channels selected support those
+                options.{' '}
+              </li>
+            </ul>
+          }
+          type="info"
+          style={{ backgroundColor: '#DEE0FF', borderColor: '#8C93FF' }}
+        />
+        <Row style={{ marginTop: '1rem' }}>
+          <Col span={18}>
+            <Form>
+              <Form.Item name={'reason'} label="Select Reason">
+                <OInput
+                  type="select"
+                  options={[
+                    {
+                      text: 'No Inventory Available',
+                      value: '1',
+                    },
+                    {
+                      text: 'Shipping Address Undeliverable',
+                      value: '2',
+                    },
+                    {
+                      text: 'Customer Exchange',
+                      value: '3',
+                    },
+                    {
+                      text: 'Buyer Cancelled',
+                      value: '4',
+                    },
+                    {
+                      text: 'Buyer Has Not Paid',
+                      value: '5',
+                    },
+                    {
+                      text: 'General Adjustment',
+                      value: '6',
+                    },
+                    {
+                      text: 'Carrier Credit Decision',
+                      value: '7',
+                    },
+                    {
+                      text: 'Risk Assessment Information Not Valid',
+                      value: '8',
+                    },
+                    {
+                      text: 'Customer Return',
+                      value: '9',
+                    },
+                  ]}
+                  placeholder="No Inventory Available"
+                />
+              </Form.Item>
+              <Form.Item name={'details'} label="Details">
+                <OInput type="textarea" />
+              </Form.Item>
+              <Form.Item name={'notify'}>
+                <OInput type="checkbox" /> Notify sales channel
+              </Form.Item>
+              <Form.Item name={'refund'}>
+                <OInput type="checkbox" /> Refund order(s)
+                <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
+              </Form.Item>
+              <Form.Item name={'emailUpdate'}>
+                <OInput type="checkbox" /> Request channel email update
+                <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
+      </>
+    </OModal>
+  );
+};
+
+export default CancelOrderModal;

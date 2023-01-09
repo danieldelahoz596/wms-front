@@ -1,0 +1,258 @@
+@import '~antd/es/style/variable.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
+  left: unset;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+
+    &-thead>tr,
+    &-tbody>tr {
+
+      >th,
+      >td {
+        white-space: pre;
+
+        >span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.pb-3 {
+  padding-bottom: 3px;
+}
+
+.search-bar {
+  min-height: 90vh;
+}
+
+.drag-handle {
+  cursor: move !important;
+}
+
+.ant-pro-page-container-children-content {
+  padding: 0px !important;
+}
+
+header.ant-layout-header {
+  background: #5f5fff !important;
+
+  .ant-pro-top-nav-header-logo {
+    h1 {
+      color: #ffffff !important;
+    }
+  }
+  .ant-pro-top-nav-header-menu .ant-menu .ant-menu-item{
+    &:after {
+        content: "";
+        display: block;
+        left: 0;
+        right: 0;
+        border-bottom-width: 4px !important;
+        bottom: -6px;
+    }
+    &:hover:after{
+        border-color: rgb(131, 250, 36) !important;
+    }
+    &.ant-menu-item-selected:after{
+        border-color: rgb(131, 250, 36) !important;
+    }
+    a, span {
+        color: #fff !important;
+    }
+  }
+}
+
+.ant-btn-primary, .ant-btn {
+    background: #ececec8a !important;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #4c5f7c !important;
+    box-shadow: 0 0;
+    padding: 6px 20px;
+    height: auto;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.ant-btn-primary:hover{
+  background: #5f5fff !important;
+  color: #ffffff !important;
+}
+
+.panel-top-action{
+  button.ant-btn {
+      margin-right: 8px;
+  }
+}
+
+.ant-modal-header {
+  background: transparent;
+  border: none;
+
+  .ant-modal-title {
+    color: #5f5fff;
+    font-weight: 700;
+  }
+}
+
+.ant-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  background: #f4f4f4;
+  button.ant-btn:first-child {
+    margin-right: auto;
+  }
+  button.ant-btn {
+    background: #5f5fff !important;
+    color: #fff !important;
+    border-radius: 0;
+  }
+}
+
+.choose-vendor {
+  .ant-row.ant-form-item-row {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    .ant-form-item-label {
+      position: absolute;
+      top: -14px;
+      z-index: 9;
+      display: block;
+      max-width: 100%;
+      color: #3892d2;
+      text-align: left;
+      background: #fff;
+      label {
+        height: auto;
+      }
+    }
+  }
+
+  .ant-form-item-control {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.OModal {
+  .ant-card {
+    .ant-card-head {
+      position: absolute;
+      top: -12px;
+      left: 3px;
+      min-height: auto;
+      margin: 0;
+      padding: 0;
+      border: none;
+
+      .ant-card-head-title {
+        padding: 0 10px;
+        background: #fff;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .ant-row{
+    justify-content: flex-end;
+  }
+
+  .ant-form {
+    .ant-form-item {
+      margin-bottom: 10px;
+
+      .ant-col.ant-form-item-label {
+        width: 130px;
+        text-align: left;
+        white-space: normal;
+        height: auto;
+         > label {
+            height: auto;
+            font-size: 15px;
+            display: block;
+        }
+      }
+    }
+  }
+
+  .ant-card-body {
+    padding: 15px;
+  }
+
+  .communication-card {
+    .ant-form {
+      .ant-form-item {
+        .ant-col.ant-form-item-label {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  .ant-row.add-item-row {
+    align-items: center;
+    .ant-form-item {
+        margin-bottom: 0;
+        .ant-row {
+            align-items: center;
+        }
+    }
+    .ant-col.ant-form-item-label {
+      width: auto;
+    }
+  }
+
+  .ant-col.table-bottom {
+    width: 100%;
+
+    .ant-card-body {
+      padding: 0;
+    }
+
+    .ant-table-thead th,
+    .ant-table-tbody td {
+      padding: 5px 10px;
+      font-size: 15px;
+    }
+  }
+}
+
