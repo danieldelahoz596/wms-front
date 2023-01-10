@@ -17,7 +17,7 @@ const HistoricalExports: React.FC = () => {
       {
         ...values,
         key: uuid(),
-        export_request_date: moment().format('D-M-YYYY, h:mm:ss a'),
+        export_request_date: moment().format('MM-DD-YYYY, hh:mm:ss A'),
         export_completion_date: null,
         status: 'In progress',
       },
@@ -31,12 +31,16 @@ const HistoricalExports: React.FC = () => {
       title: 'Export Request Date',
       dataIndex: 'export_request_date',
       key: 'export_request_date',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.export_request_date < b.export_request_date,
     },
     {
       title: 'Export Completion Date',
       dataIndex: 'export_completion_date',
       key: 'export_completion_date',
       align: 'center',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.export_completion_date < b.export_completion_date,
     },
     {
       title: 'Status',
@@ -67,7 +71,7 @@ const HistoricalExports: React.FC = () => {
 
   return (
     <>
-      <div style={{ marginTop: '10px' }}>
+      <div style={{ margin: '10px' }}>
         <h2>ORDERS {'>'} HISTORICAL EXPORTS</h2>
         <Row>
           <Col span={23}>
@@ -114,7 +118,7 @@ const HistoricalExports: React.FC = () => {
                     label="Shipped Date From"
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
-                    <DatePicker defaultValue={moment().subtract(1, 'year')} format={'YYYY-MM-DD'} />
+                    <DatePicker />
                   </Form.Item>
                   <Form.Item
                     name="shipped_date_to"
@@ -128,7 +132,7 @@ const HistoricalExports: React.FC = () => {
                     label="Order Date From"
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
-                    <DatePicker />
+                    <DatePicker defaultValue={moment().subtract(1, 'year')} format={'YYYY-MM-DD'} />
                   </Form.Item>
                   <Form.Item
                     name="order_date_to"
