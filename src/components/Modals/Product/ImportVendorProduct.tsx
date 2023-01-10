@@ -12,7 +12,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
   return (
     <OModal
       title={'SELECT HOW TO IMPORT VENDOR PRODUCTS'}
-      width={800}
+      width={400}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -47,7 +47,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
               btnText={'IMPORT ALL AT ONCE'}
               onClick={() => onClick(modalType.VendorProductImportOnce)}
             />
-            <p>Import all your vendor products in one file that includes vendor names.</p>
+            <p>Import all your vendor products with one file that includes vendor names.</p>
           </div>
         </div>
       </div>

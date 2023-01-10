@@ -38,18 +38,21 @@ export default () => {
   };
 
   // update customer
-  const handleUpdateCustomer = useCallback(() => {
-    httpClient
-      .post('/api/customers/id/' + selectedCustomer.id, selectedCustomer)
-      .then((response) => {
-        const updatedCustomer = response.data.customer;
-        setCustomerList((prevState) =>
-          prevState.map((_item) => (_item.id === updatedCustomer.id ? updatedCustomer : _item)),
-        );
-        setSelectedCustomer(updatedCustomer);
-      })
-      .catch((error) => console.log(error));
-  }, [selectedCustomer]);
+  const handleUpdateCustomer = useCallback(
+    (_id, _values) => {
+      httpClient
+        .post('/api/customers/id/' + _id, _values)
+        .then((response) => {
+          const updatedCustomer = response.data.customer;
+          setCustomerList((prevState) =>
+            prevState.map((_item) => (_item.id === updatedCustomer.id ? updatedCustomer : _item)),
+          );
+          setSelectedCustomer(updatedCustomer);
+        })
+        .catch((error) => console.log(error));
+    },
+    [selectedCustomer],
+  );
 
   // delete customer
   const handleDeleteCustomer = useCallback(() => {

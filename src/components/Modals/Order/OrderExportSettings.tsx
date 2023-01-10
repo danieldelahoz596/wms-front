@@ -24,6 +24,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
     setEditableExportSetting(_item);
     onAddOrderExportSettings();
   };
+
   const settings = orderExportSettings.map((_item, _index) => ({
     setting: _item.settingName,
     actions: (
@@ -59,7 +60,14 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
       <>
         <Card
           title={
-            <OButton type="dashed" btnText={'New Settings'} onClick={onAddOrderExportSettings} />
+            <OButton
+              type="dashed"
+              btnText={'New Settings'}
+              onClick={() => {
+                setEditableExportSetting(null);
+                onAddOrderExportSettings();
+              }}
+            />
           }
         >
           <OTable

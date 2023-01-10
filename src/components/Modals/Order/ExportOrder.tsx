@@ -65,8 +65,8 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
     >
       <>
         <p>
-          Skubana allows you to export any of the available order information in CSV, Excel, or plain
-          text format.
+          Skubana allows you to export any of the available order information in CSV, Excel, or
+          plain text format.
         </p>
         <p>
           To export the selected orders, select one of your pre-configured export settings and click
@@ -80,7 +80,6 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
             type="select"
             placeholder="Select.."
             options={[
-              { value: '0', text: 'Select ...' },
               ...orderExportSettings.map((_item, _index) => ({
                 value: `${_index + 1}`,
                 text: _item.settingName,

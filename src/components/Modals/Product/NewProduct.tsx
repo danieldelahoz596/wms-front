@@ -75,7 +75,7 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, onSave }) => {
       {
         type: 'select',
         onChange: () => {},
-        label: 'Buy | Band *:',
+        label: 'Buy | Brand *:',
         name: 'buy',
         defaultValue: 'lucy',
         options: [
@@ -182,90 +182,6 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, onSave }) => {
       onChange: () => {},
       label: 'Description:',
       name: 'description',
-    },
-  ];
-
-  const listingSkuButtons: IOButton[] = [
-    {
-      type: 'dashed',
-      btnText: 'New vendor product',
-      onClick: () => onSave(modalType.NewVendorProduct),
-      size: 'small',
-      style: { border: '1px solid blue' },
-    },
-    {
-      type: 'dashed',
-      btnText: 'Edit',
-      size: 'small',
-    },
-    {
-      type: 'dashed',
-      btnText: 'Deactivate',
-      size: 'small',
-    },
-    {
-      type: 'dashed',
-      btnText: 'Default',
-      size: 'small',
-    },
-    {
-      type: 'dashed',
-      btnText: 'Show Inactive',
-      size: 'small',
-      style: { border: '1px solid blue' },
-    },
-  ];
-
-  const listingSkuTableColumns = [
-    {
-      title: 'Channel',
-      dataIndex: 'channel',
-      key: 'channel',
-    },
-    {
-      title: 'Listing SKU',
-      dataIndex: 'listingSku',
-      key: 'listingSku',
-    },
-    {
-      title: 'Push Inventory',
-      dataIndex: 'pushInventory',
-      key: 'pushInventory',
-    },
-    {
-      title: 'Latency',
-      dataIndex: 'latency',
-      key: 'latency',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-    },
-  ];
-
-  const listingSkuTableRows = [
-    {
-      channel: 'EBAY',
-      listingSku: 'K8321',
-      pushInventory: (
-        <span>
-          <Switch size="small" checked={true} /> Yes
-        </span>
-      ),
-      latency: '',
-      status: 'ACTIVE',
-    },
-    {
-      channel: 'MANUAL ORDERS',
-      listingSku: 'TEST',
-      pushInventory: (
-        <span>
-          <Switch size="small" checked={true} /> Yes
-        </span>
-      ),
-      latency: '',
-      status: 'ACTIVE',
     },
   ];
 
@@ -384,27 +300,9 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, onSave }) => {
             </Modal>
           </>
         </TabPane>
-        <TabPane tab="LISTING SKUS" key="3">
-          <>
-            <p>Add vendor SKUs associated with this product.</p>
-            {listingSkuButtons.map((btn, index) => (
-              <OButton onClick={btn.onClick} key={index} {...btn} />
-            ))}
-            <div style={{ marginTop: '1rem', minHeight: '200px' }}>
-              <OTable
-                columns={listingSkuTableColumns}
-                rows={listingSkuTableRows}
-                pagination={false}
-              />
-            </div>
-          </>
-        </TabPane>
         <TabPane tab="VENDOR PRODUCTS" key="4">
           <>
             <p>Add vendor SKUs associated with this product.</p>
-            {listingSkuButtons.map((btn, index) => (
-              <OButton onClick={btn.onClick} key={index} {...btn} />
-            ))}
             <div style={{ marginTop: '1rem', minHeight: '200px' }}>
               <OTable
                 columns={vendorProductsTableColumns}

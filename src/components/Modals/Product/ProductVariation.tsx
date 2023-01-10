@@ -29,14 +29,15 @@ const ProductVariation: React.FC<IProductVariation> = ({ isOpen, onClose, handle
   ];
   return (
     <OModal
-      title={'Select Type'}
-      width={600}
+      title={'New Product'}
+      width={300}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[]}
     >
       <Row>
+        <p>Select Type</p>
         {buttons.map((btn, index) => (
           <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
             <OButton

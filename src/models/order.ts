@@ -1,5 +1,6 @@
+import { renderSearchQuery } from '@/utils/common';
+import httpClient from '@/utils/http-client';
 import { useCallback, useState } from 'react';
-import { demoOrderTableRows } from '@/data/orderData';
 
 export default () => {
   const [orderList, setOrderList] = useState<any[]>([]);
@@ -9,8 +10,14 @@ export default () => {
     orderItems: [],
   });
 
-  const initialOrderList = useCallback(() => {
-    setOrderList(demoOrderTableRows);
+  const initialOrderList = useCallback((_query) => {
+    const query = renderSearchQuery(_query);
+    httpClient
+      .get('/api/orders/' + query)
+      .then((response) => {
+        setOrderList(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const saveEditableOrder = () => {

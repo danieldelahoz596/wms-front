@@ -1,84 +1,441 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { OInput } from '@/components/Globals/OInput';
-import { Card, Col, Form, Input, Radio, Row } from 'antd';
+import { Card, Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select } from 'antd';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import moment from 'moment';
-import { uuidv4 } from '@antv/xflow-core';
 interface IAddExportSettingsModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
 }
 
-const initialState = {
-  settingName: '',
-  date: moment.now(),
-  fileFormat: 'csv',
-};
-
 const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
+  const [selectedExportFields, setSelectedExportFields] = useState([]);
 
   const {
-    orderExportSettings,
     editableExportSetting,
     setEditableExportSetting,
     addOrderExportSettings,
     updateOrderExportSettings,
   } = useModel('orderExportSettings');
-  const [selectedExportFields, setSelectedExportFields] = useState(
-    editableExportSetting?.exportFields ?? [],
-  );
-  const [newSettings, setNewSettings] = useState(editableExportSetting ?? initialState);
 
   const exportFields = [
     {
       key: 1,
-      field: 'Carrier Fee',
-      name: '',
-    },
-    {
-      key: 2,
       field: 'Order Number',
       name: '',
     },
     {
+      key: 2,
+      field: 'Order Date',
+      name: '',
+    },
+    {
       key: 3,
-      field: 'Buyer Name',
+      field: 'Status Description',
       name: '',
     },
     {
       key: 4,
-      field: 'Ship To Address 1',
+      field: 'Order Type',
       name: '',
     },
     {
       key: 5,
-      field: 'Sales Channel',
+      field: 'Order Total',
       name: '',
     },
     {
       key: 6,
-      field: 'Product Name',
-      name: 'Product Name',
+      field: 'Currency Code3',
+      name: '',
     },
     {
       key: 7,
-      field: 'Customer Name',
-      name: 'Customer Name',
+      field: 'Amount Paid',
+      name: '',
     },
     {
       key: 8,
-      field: 'Shiop To Name',
-      name: 'Shiop To Name',
+      field: 'Amount Paid',
+      name: '',
     },
     {
       key: 9,
-      field: 'Ship To Phone',
-      name: 'Ship To Phone',
+      field: 'Payment Date',
+      name: '',
+    },
+    {
+      key: 10,
+      field: 'Customer Ship Amount',
+      name: '',
+    },
+    {
+      key: 11,
+      field: 'Ship by Date',
+      name: '',
+    },
+    {
+      key: 12,
+      field: 'Receive by Date',
+      name: '',
+    },
+    {
+      key: 13,
+      field: 'Notes from Buyer',
+      name: '',
+    },
+    {
+      key: 14,
+      field: 'Notes to Buyer',
+      name: '',
+    },
+    {
+      key: 15,
+      field: 'Internal Notes',
+      name: '',
+    },
+    {
+      key: 16,
+      field: 'Requested Shipping Service',
+      name: '',
+    },
+    {
+      key: 17,
+      field: 'Order Weight',
+      name: '',
+    },
+    {
+      key: 18,
+      field: 'Order Height',
+      name: '',
+    },
+    {
+      key: 19,
+      field: 'Order Width',
+      name: '',
+    },
+    {
+      key: 20,
+      field: 'Order Length',
+      name: '',
+    },
+    {
+      key: 21,
+      field: 'Insured Value',
+      name: '',
+    },
+    {
+      key: 22,
+      field: 'Insurance Cost',
+      name: '',
+    },
+    {
+      key: 23,
+      field: 'Other Cost',
+      name: '',
+    },
+    {
+      key: 24,
+      field: 'Saturday Delivery',
+      name: '',
+    },
+    {
+      key: 25,
+      field: 'Contains Alcohol',
+      name: '',
+    },
+    {
+      key: 26,
+      field: 'Contains Dry Ice',
+      name: '',
+    },
+    {
+      key: 27,
+      field: 'Dry Ice Weight',
+      name: '',
+    },
+    {
+      key: 28,
+      field: 'Gift',
+      name: '',
+    },
+    {
+      key: 29,
+      field: 'Gift Message',
+      name: '',
+    },
+    {
+      key: 30,
+      field: 'Non-Machinable',
+      name: '',
+    },
+    {
+      key: 31,
+      field: 'Show Postage',
+      name: '',
+    },
+    {
+      key: 32,
+      field: 'ITN',
+      name: '',
+    },
+    {
+      key: 33,
+      field: 'Intl Non-Delivery Action',
+      name: '',
+    },
+    {
+      key: 34,
+      field: 'Bill Duties to Sender',
+      name: '',
+    },
+    {
+      key: 35,
+      field: 'Do Not Prepay Postage',
+      name: '',
+    },
+    {
+      key: 36,
+      field: 'Include Return Label',
+      name: '',
+    },
+    {
+      key: 37,
+      field: 'Release Without Signature',
+      name: '',
+    },
+    {
+      key: 38,
+      field: 'Custom Field 1',
+      name: '',
+    },
+    {
+      key: 39,
+      field: 'Custom Field 2',
+      name: '',
+    },
+    {
+      key: 40,
+      field: 'Custom Field 3',
+      name: '',
+    },
+    {
+      key: 41,
+      field: 'External Order',
+      name: '',
+    },
+    {
+      key: 42,
+      field: 'Discount',
+      name: '',
+    },
+    {
+      key: 43,
+      field: 'Order Payment Type',
+      name: '',
+    },
+    {
+      key: 44,
+      field: 'Multi Package',
+      name: '',
+    },
+    {
+      key: 45,
+      field: 'Channel Priority',
+      name: '',
+    },
+    {
+      key: 46,
+      field: 'Fraud Analysis',
+      name: '',
+    },
+    {
+      key: 47,
+      field: 'Order Labels',
+      name: '',
+    },
+    {
+      key: 48,
+      field: 'Ship to Name',
+      name: '',
+    },
+    {
+      key: 49,
+      field: 'Ship Company',
+      name: '',
+    },
+    {
+      key: 50,
+      field: 'Ship Address1',
+      name: '',
+    },
+    {
+      key: 51,
+      field: 'Ship Address2',
+      name: '',
+    },
+    {
+      key: 52,
+      field: 'Ship Address3',
+      name: '',
+    },
+    {
+      key: 53,
+      field: 'Ship City',
+      name: '',
+    },
+    {
+      key: 54,
+      field: 'Ship State',
+      name: '',
+    },
+    {
+      key: 55,
+      field: 'Ship Zip Code',
+      name: '',
+    },
+    {
+      key: 56,
+      field: 'Ship Country',
+      name: '',
+    },
+    {
+      key: 57,
+      field: 'Ship to Phone',
+      name: '',
+    },
+    {
+      key: 58,
+      field: 'Ship Address Type',
+      name: '',
+    },
+    {
+      key: 59,
+      field: 'Buyer Name',
+      name: '',
+    },
+    {
+      key: 60,
+      field: 'Buyer Email',
+      name: '',
+    },
+    {
+      key: 61,
+      field: 'Ship Date',
+      name: '',
+    },
+    {
+      key: 62,
+      field: 'Tracking Number',
+      name: '',
+    },
+    {
+      key: 63,
+      field: 'Carrier Fee',
+      name: '',
+    },
+    {
+      key: 64,
+      field: 'Transaction ID',
+      name: '',
+    },
+    {
+      key: 65,
+      field: 'Ship Carrier Name',
+      name: '',
+    },
+    {
+      key: 66,
+      field: 'Ship Service Name',
+      name: '',
+    },
+    {
+      key: 67,
+      field: 'Ship Package Name',
+      name: '',
+    },
+    {
+      key: 68,
+      field: 'Listing SKU',
+      name: '',
+    },
+    {
+      key: 69,
+      field: 'Item Qty Ordered',
+      name: '',
+    },
+    {
+      key: 70,
+      field: 'Item Unit Price',
+      name: '',
+    },
+    {
+      key: 71,
+      field: 'Item Tax',
+      name: '',
+    },
+    {
+      key: 72,
+      field: 'Item Discount',
+      name: '',
+    },
+    {
+      key: 73,
+      field: 'Item Notes',
+      name: '',
+    },
+    {
+      key: 74,
+      field: 'Warehouse Name',
+      name: '',
+    },
+    {
+      key: 75,
+      field: 'Sales Channel Name',
+      name: '',
+    },
+    {
+      key: 76,
+      field: 'Sales Channel Type Name',
+      name: '',
+    },
+    {
+      key: 77,
+      field: 'Internal SKU',
+      name: '',
+    },
+    {
+      key: 78,
+      field: 'UPC',
+      name: '',
+    },
+    {
+      key: 79,
+      field: 'Digital',
+      name: '',
+    },
+    {
+      key: 80,
+      field: 'Giftcard',
+      name: '',
+    },
+    {
+      key: 81,
+      field: 'Product Name',
+      name: '',
+    },
+    {
+      key: 82,
+      field: 'Brand Name',
+      name: '',
+    },
+    {
+      key: 83,
+      field: 'Customer Name',
+      name: '',
     },
   ];
 
@@ -105,35 +462,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     },
   ];
 
-  const handleNewSettingsChange = (name, value) => {
-    setNewSettings((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleMultiSkuSelect = (e) => {
-    const _name = e.target.value;
-    if (_name === 'multiline') {
-      handleNewSettingsChange('multiSku', {
-        name: 'multiline',
-        value: '',
-      });
-    }
-
-    if (_name === 'delimit') {
-      handleNewSettingsChange('multiSku', {
-        name: 'delimit',
-        value: '',
-      });
-    }
-  };
-
-  const handleDelimitChange = (value) => {
-    handleNewSettingsChange('multiSku', {
-      name: 'delimit',
-      value,
-    });
-  };
-
-  const handleAddField = (name, value) => {
+  const handleAddField = (value) => {
     // check if is already added
     const _index = selectedExportFields.findIndex((item) => item.key === value);
     if (_index < 0) {
@@ -153,34 +482,29 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   };
 
   const handleSave = () => {
-    // update or create settings
-    // check if exists
+    const values = form.getFieldsValue();
 
-    if (!newSettings.key) {
-      // create new
-      addOrderExportSettings({
-        ...newSettings,
-        key: uuidv4(),
+    if (editableExportSetting) {
+      updateOrderExportSettings({
+        ...values,
+        id: editableExportSetting?.id,
         exportFields: selectedExportFields,
       });
     } else {
-      // update existing
-      updateOrderExportSettings({
-        ...newSettings,
-        exportFields: selectedExportFields,
-      });
+      addOrderExportSettings(values);
     }
 
     setEditableExportSetting(null);
-
-    setSelectedExportFields([]);
     form.resetFields();
-    setNewSettings(initialState);
-
     onSave();
   };
 
-  const preparedImportFieldsRows = selectedExportFields.map((item, index) => ({
+  const handleClose = () => {
+    setEditableExportSetting(null);
+    onClose();
+  };
+
+  const preparedImportFieldsRows = selectedExportFields?.map((item, index) => ({
     sl: index + 1,
     dataField: item.field.toUpperCase(),
     columnName: (
@@ -196,6 +520,16 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     ),
   }));
 
+  useEffect(() => {
+    if (editableExportSetting) {
+      form.setFieldsValue(editableExportSetting);
+    }
+
+    if (editableExportSetting?.exportFields) {
+      setSelectedExportFields(editableExportSetting?.exportFields);
+    }
+  }, [editableExportSetting, form]);
+
   return (
     <OModal
       title="NEW EXPORT SETTINGS"
@@ -203,13 +537,13 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
       centered
       className="OModal"
       isOpen={isOpen}
-      handleCancel={onClose}
+      handleCancel={handleClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
           btnLabel: 'CLOSE',
-          onClick: onClose,
+          onClick: handleClose,
         },
         {
           key: 'submit',
@@ -219,110 +553,93 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         },
       ]}
     >
-      <Row>
-        <Col span={10}>
-          <Form form={form}>
+      <Form form={form}>
+        <Row>
+          <Col span={10}>
             <div style={{ padding: '0.5rem', marginBottom: '1rem' }}>
-              <label>Settings Name</label>
-              <OInput
-                type="text"
-                defaultValue={newSettings.settingName}
-                name="settingName"
-                onChange={handleNewSettingsChange}
-              />
+              <Form.Item name="settingName" label="Settings Name">
+                <Input />
+              </Form.Item>
             </div>
             <Card title="FILE CONFIGURATION" style={{ padding: '0.5rem' }}>
               <Form.Item name={'fileFormat'} label="File Format">
-                <OInput
-                  type="select"
-                  name={'fileFormat'}
-                  defaultValue={newSettings.fileFormat ?? 'csv'}
+                <Select
+                  placeholder="Select.."
                   options={[
-                    { value: 'csv', text: 'CSV' },
-                    { value: 'excel', text: 'EXCEL' },
-                    { value: 'text', text: 'Text' },
+                    { value: 'csv', label: 'CSV' },
+                    { value: 'excel', label: 'EXCEL' },
+                    { value: 'text', label: 'Text' },
                   ]}
-                  onChange={handleNewSettingsChange}
                 />
               </Form.Item>
 
               <Form.Item name={'date'} label="Date Format ">
-                <OInput
-                  type="date"
-                  defaultValue={newSettings.date}
-                  onChange={handleNewSettingsChange}
-                />
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
 
-              <Form.Item name={'multiSku'} label="Multi SKUs">
-                <Radio.Group style={{ display: 'flex' }} onChange={handleMultiSkuSelect}>
-                  <Radio value={'multiline'} checked={newSettings.multiSku?.name == 'multiline'}>
-                    Multiline
-                  </Radio>
-                  <Radio value={'delimit'} checked={newSettings.multiSku?.name == 'delimit'}>
-                    <div style={{ display: 'flex' }}>
-                      Delimit:{' '}
-                      <OInput
-                        defaultValue={newSettings?.multiline?.value}
-                        onChange={(name, value) => handleDelimitChange(value)}
-                      />
-                    </div>
-                  </Radio>
+              <Form.Item label="Multi SKUs">
+                <Radio.Group
+                  name={'multi_sku'}
+                  style={{ display: 'flex' }}
+                  onChange={(_e) => form.setFieldValue('multi_sku', _e.target.value)}
+                  defaultValue={form.getFieldValue('multi_sku')}
+                >
+                  <Radio value={'multiline'}>Multiline</Radio>
+                  <Radio value={'delimit'}>Delimit</Radio>
                 </Radio.Group>
+                <Form.Item name="delimit_value" style={{ display: 'flex' }}>
+                  <Input />
+                </Form.Item>
               </Form.Item>
             </Card>
-          </Form>
-          <p style={{ padding: '1rem' }}>
-            Wrap values in double quotes when exporting CSV/text files?{' '}
-            <OInput
+            <Form.Item
+              labelCol={{ span: '22' }}
               name="wrapDoubleQuote"
-              checked={!!newSettings.wrapDoubleQuote}
-              type="checkbox"
-              onChange={handleNewSettingsChange}
-            />
-          </p>
-          <p style={{ padding: '0 1rem' }}>
-            NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.
-          </p>
-        </Col>
-        <Col span={14}>
-          <Card
-            title={
-              <div>
-                EXPORT FIELDS{' '}
-                <span style={{ color: 'blue' }}>
-                  (Include column headers?{' '}
-                  <OInput
-                    type="checkbox"
-                    name="includeColumnHeader"
-                    checked={!!newSettings.includeColumnHeader}
-                    onChange={handleNewSettingsChange}
+              label="Wrap values in double quotes when exporting CSV/text files?"
+              style={{ padding: '0.5rem', marginBottom: '1rem' }}
+            >
+              <Checkbox
+                defaultChecked={form.getFieldValue('wrapDoubleQuote')}
+                onChange={(e) => form.setFieldValue('wrapDoubleQuote', e.target.checked)}
+              />
+            </Form.Item>
+
+            <p style={{ padding: '0 1rem' }}>
+              NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.
+            </p>
+          </Col>
+          <Col span={14}>
+            <Card
+              title={
+                <Form.Item name="includeColumnHeader">
+                  <span>
+                    EXPORT FIELDS <span style={{ color: 'blue' }}>( Include column headers? </span>
+                  </span>
+                  <Checkbox
+                    defaultChecked={form.getFieldValue('includeColumnHeader')}
+                    onChange={(e) => form.setFieldValue('includeColumnHeader', e.target.checked)}
                   />
-                  )
-                </span>
-              </div>
-            }
-            style={{ padding: '0.5rem' }}
-          >
-            <Form>
-              <Form.Item name={'fileFormat'} label="Add Field">
-                <OInput
-                  name="add_field"
-                  type="select"
+                  <span style={{ color: 'blue' }}> )</span>
+                </Form.Item>
+              }
+              style={{ padding: '0.5rem' }}
+            >
+              <Form.Item name={'exportFields'} label="Add Field">
+                <Select
                   placeholder="Select.."
-                  options={exportFields.map((item) => ({ value: item.key, text: item.field }))}
-                  onChange={handleAddField}
+                  onChange={(_val) => handleAddField(_val)}
+                  options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />
               </Form.Item>
-            </Form>
-            <OTable
-              pagination={false}
-              columns={exportFieldsColumns}
-              rows={preparedImportFieldsRows}
-            />
-          </Card>
-        </Col>
-      </Row>
+              <OTable
+                pagination={false}
+                columns={exportFieldsColumns}
+                rows={preparedImportFieldsRows}
+              />
+            </Card>
+          </Col>
+        </Row>
+      </Form>
     </OModal>
   );
 };

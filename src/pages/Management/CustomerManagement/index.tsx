@@ -134,55 +134,64 @@ const CustomerManagement: React.FC = () => {
 
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
-            <Col span={24}>
-              <Row>
-                <Col span={24}>
-                  <Card
-                    size="small"
-                    title={
-                      <span
-                        style={{
-                          fontSize: '1rem',
-                          textTransform: 'uppercase',
-                          fontWeight: '700',
-                          color: '#A2A2A2',
-                        }}
-                      >
-                        CUSTOMERS
-                      </span>
-                    }
-                  >
-                    <Row>
-                      <Col span={24} className="panel-top-action">
-                        <Button type="dashed" onClick={() => setModal(modalType.Merge)}>
-                          Merge
+            <Row style={{ width: '100%' }}>
+              <Col span={24}>
+                <Card
+                  size="small"
+                  title={
+                    <span
+                      style={{
+                        fontSize: '1rem',
+                        textTransform: 'uppercase',
+                        fontWeight: '700',
+                        color: '#A2A2A2',
+                      }}
+                    >
+                      CUSTOMERS
+                    </span>
+                  }
+                >
+                  <Row>
+                    <Col span={24} className="panel-top-action">
+                      <Button type="dashed" onClick={() => setModal(modalType.Merge)}>
+                        Merge
+                      </Button>
+                      {selectedCustomer && (
+                        <Button type="dashed" onClick={() => setModal(modalType.History)}>
+                          History
                         </Button>
-                        {selectedCustomer && (
-                          <Button type="dashed" onClick={() => setModal(modalType.History)}>
-                            History
-                          </Button>
-                        )}
-                        <Button type="dashed" onClick={() => setModal(modalType.New)}>
-                          New Customer
-                        </Button>
-                      </Col>
-                    </Row>
-                    <br />
-                    <Row>
-                      <Col span={24}>
-                        <OTable
-                          columns={Tcolumns}
-                          rows={prepareCustomersTableData}
-                          type="radio"
-                          selectedRows={selectedRows}
-                          setSelectedRows={setSelectedRows}
-                        />
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              </Row>
-            </Col>
+                      )}
+                      <Button type="dashed" onClick={() => setModal(modalType.New)}>
+                        New Customer
+                      </Button>
+                    </Col>
+                  </Row>
+                  <br />
+                  <Row>
+                    <Col span={24}>
+                      <OTable
+                        columns={Tcolumns}
+                        rows={prepareCustomersTableData}
+                        type="radio"
+                        selectedRows={selectedRows}
+                        setSelectedRows={setSelectedRows}
+                      />
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
+            <Row>
+              <div
+                className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
+                style={{ width: RightW }}
+              >
+                <div className="">
+                  <RightPanel />
+                </div>
+              </div>
+            </Row>
           </div>
 
           <SampleSplitter
@@ -197,15 +206,6 @@ const CustomerManagement: React.FC = () => {
             <div className="w-full">
               <Bottom />
             </div>
-          </div>
-        </div>
-        <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: RightW }}
-        >
-          <div className="w-full">
-            <RightPanel modalOpen={modalOpen} />
           </div>
         </div>
       </div>

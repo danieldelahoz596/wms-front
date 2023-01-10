@@ -1,12 +1,18 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useModel } from 'umi';
-import { demoOrderTableRows } from '@/data/orderData';
 import httpClient from '@/utils/http-client';
 
 export default () => {
-  const { setOrderList } = useModel('order');
+  const { initialOrderList } = useModel('order');
   const [orderStatusList, setOrderStatusList] = useState<any[]>([]);
-  const [selectedOrderStatus, setSelectedOrderStatus] = useState(null);
+  const [selectedOrderStatus, setSelectedOrderStatus] = useState({
+    status: {
+      id: 3,
+      name: 'Awaiting Shipment',
+      num: 7,
+    },
+    filter: null,
+  });
 
   const initialOrderStatus = useCallback(() => {
     // fetch order statuses from api
@@ -18,10 +24,13 @@ export default () => {
   //when change order status, we need to update the Order List
   const changeSelectedOrderStatus = (data: any) => {
     setSelectedOrderStatus(data);
-
-    //load data with api in the future
-    setOrderList(demoOrderTableRows);
   };
+
+  useEffect(() => {
+    initialOrderList({
+      order_status: selectedOrderStatus?.status?.id,
+    });
+  }, [initialOrderList, selectedOrderStatus]);
 
   return {
     selectedOrderStatus,

@@ -53,8 +53,7 @@ import moment from 'moment';
 
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const { orderList, initialOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
-  const { initialProductList } = useModel('product');
+  const { orderList, setEditableOrder, setSelectedOrders } = useModel('order');
   const [modalOpen, setModal] = useState('');
   const { selectedOrderStatus } = useModel('orderStatus');
 
@@ -65,7 +64,7 @@ const OrderManagement: React.FC = () => {
 
   const handleSelectedRows = (_selectedRows = []) => {
     setSelectedRows(_selectedRows);
-    const _selectedOrders = orderList.filter((item) => _selectedRows.includes(item.key));
+    const _selectedOrders = orderList.filter((item) => _selectedRows.includes(item.id));
     setSelectedOrders(_selectedOrders);
   };
 
@@ -294,7 +293,7 @@ const OrderManagement: React.FC = () => {
                     <GlobalOutlined /> Manual Orders
                   </span>
                 ),
-              }
+              },
             ],
           }}
         >
@@ -358,9 +357,11 @@ const OrderManagement: React.FC = () => {
   const orderListTableRows = orderList.map((item) => {
     return {
       ...item,
+      key: item.id,
       channel: (
         <span>
-          <GlobalOutlined /> {item.channel}{' '}
+          <img src={item.sales_channel.icon} />
+          <span>{item.sales_channel.name}</span>
         </span>
       ),
       orderTotal: `$${item.orderTotal}`,
@@ -401,15 +402,6 @@ const OrderManagement: React.FC = () => {
     };
   });
 
-  // get selected po product items
-  const selectedFullOrder = orderList.find((orderItem) => orderItem.key === selectedRows[0]);
-  const orderItems = selectedFullOrder ? selectedFullOrder.orderItems : [];
-
-  useEffect(() => {
-    initialOrderList();
-    initialProductList();
-  }, [initialOrderList, initialProductList]);
-
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
@@ -427,10 +419,19 @@ const OrderManagement: React.FC = () => {
             <Card size="small" className="horizon-card">
               <Row style={{ marginBottom: '0.5rem' }}>
                 <Col span={12}>
-                  <p>ORDERS :: {selectedOrderStatus?.status.name}</p>
+                  <p
+                    style={{
+                      fontSize: '1rem',
+                      textTransform: 'uppercase',
+                      fontWeight: '700',
+                      color: '#A2A2A2',
+                    }}
+                  >
+                    ORDERS :: {selectedOrderStatus?.status.name}{' '}
+                  </p>
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
-                  {selectedOrderStatus?.status.id == '3' && selectedOrderStatus?.filter && (
+                  {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && (
                     <Button type="primary" style={{ paddingTop: '0', paddingBottom: '0' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span>
@@ -473,9 +474,7 @@ const OrderManagement: React.FC = () => {
             className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
             style={{ height: bottomH }}
           >
-            <div className="w-full">
-              {selectedRows.length == 1 && <OrderItems orderItems={orderItems} />}
-            </div>
+            <div className="w-full">{selectedRows.length == 1 && <OrderItems />}</div>
           </div>
         </div>
 

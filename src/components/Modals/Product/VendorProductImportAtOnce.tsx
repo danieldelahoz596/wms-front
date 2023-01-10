@@ -19,7 +19,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
   return (
     <OModal
       title={'GLOBAL VENDOR PRODUCT IMPORT'}
-      width={1000}
+      width={600}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -40,7 +40,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
     >
       <div style={{ padding: '1rem' }}>
         <p>
-          Batch imports of Vendor products is done through the Microsoft Excel Spreadsheet format.
+          Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.
         </p>
         <a href="#" style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}>
           Download the Excel Template for Global Vendor Product Import.
@@ -52,9 +52,9 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
         <br />
         <p>
           <strong>Vendor name</strong> must be <strong>unique</strong> for each vendor and are not
-          case sensitive. <strong>Vendor SKUs are not case sensitive.</strong> For example, 'sku123'{' '}
-          <b>is regarded the same as</b> 'SKU123' by the system. The same applies for product's
-          Master SKU's.
+          case sensitive. <strong>Vendor SKUs are <i>not</i> case sensitive.</strong> For example, <i>'sku123'</i>{' '}
+          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
+          Master SKUs.
         </p>
         <div
           style={{
@@ -72,7 +72,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
         </div>
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }}>
-          <p>Update exiting SKUs if changes found in the Excel file?</p>
+          <p>Update existing SKUs if changes found in the Excel file?</p>
           <Select placeholder="Yes - Update existing SKUs and import new.">
             <Option value="1">Yes - Update existing SKUs and import new.</Option>
             <Option value="2">No - Ignore exisiting SKUs only import new.</Option>

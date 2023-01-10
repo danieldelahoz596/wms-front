@@ -5,6 +5,7 @@ interface IOTableColumn {
   title?: string;
   dataIndex?: string;
   key?: string;
+  align?: string;
 }
 
 interface IOTable {
@@ -17,6 +18,7 @@ interface IOTable {
   onSelect?: (record: any) => void;
   scrollx?: false;
   scrolly?: false;
+  bordered?: boolean;
 }
 
 export const OTable: React.FC<IOTable> = ({
@@ -29,6 +31,7 @@ export const OTable: React.FC<IOTable> = ({
   onSelect,
   scrollx,
   scrolly,
+  bordered = true,
 }) => {
   const selectRow = (record: any) => {
     let _selectedRowKeys = selectedRows ? [...selectedRows] : [];
@@ -67,7 +70,7 @@ export const OTable: React.FC<IOTable> = ({
           selectRow(record);
         },
       })}
-      bordered
+      bordered={bordered}
       columns={columns}
       scroll={
         scrollx

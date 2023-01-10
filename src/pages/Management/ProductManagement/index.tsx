@@ -13,8 +13,6 @@ import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductModal from '@/components/Modals/Product/ImportProduct';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
 import ProductVariationModal from '@/components/Modals/Product/ProductVariation';
-import ImportListingSkuModal from '@/components/Modals/Product/ImportListingSku';
-import ExportListingSkuModal from '@/components/Modals/Product/ExportListingSku';
 import ExportVendorProductModal from '@/components/Modals/Product/ExportVendorProduct';
 import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorProduct';
 import VendorProductImportByVendorModal from '@/components/Modals/Product/VendorProductImportByVendor';
@@ -103,10 +101,6 @@ const ProductManagement: React.FC = () => {
       label: <span onClick={() => setModal(modalType.Import)}>Import Products</span>,
     },
     {
-      key: '2',
-      label: <span onClick={() => setModal(modalType.ImportListingSkus)}>Import Listing SKUs</span>,
-    },
-    {
       key: '3',
       label: (
         <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>
@@ -123,10 +117,6 @@ const ProductManagement: React.FC = () => {
     {
       key: '6',
       label: <span onClick={() => setModal(modalType.Export)}>Export Products</span>,
-    },
-    {
-      key: '7',
-      label: <span onClick={() => setModal(modalType.ExportListingSkus)}>Export Listing SKUs</span>,
     },
     {
       key: '8',
@@ -235,20 +225,6 @@ const ProductManagement: React.FC = () => {
                     <Form.Item>
                       <OInput
                         type="select"
-                        name="channel"
-                        defaultValue={'1'}
-                        options={[
-                          {
-                            value: '1',
-                            text: '44 Channel Selected',
-                          },
-                        ]}
-                        onChange={() => {}}
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <OInput
-                        type="select"
                         name="days"
                         defaultValue={'30'}
                         options={[
@@ -300,11 +276,6 @@ const ProductManagement: React.FC = () => {
                         title: 'Channel',
                       },
                       {
-                        key: 'listingSKU',
-                        dataIndex: 'listingSKU',
-                        title: 'Listing SKU',
-                      },
-                      {
                         key: 'pushInventory',
                         dataIndex: 'pushInventory',
                         title: 'Push Inventory',
@@ -351,26 +322,6 @@ const ProductManagement: React.FC = () => {
       <ProductVariationModal
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => setModal(value)}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ImportListingSkuModal
-        isOpen={modalOpen == modalType.ImportListingSkus}
-        onSave={(value: any) => setModal(value)}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ImportSummaryModal
-        isOpen={modalOpen == modalType.ImportListingSkusSummary}
-        title={'LISTING SKU IMPORT'}
-        info={'Listing SKU Summary'}
-        onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ExportListingSkuModal
-        isOpen={modalOpen == modalType.ExportListingSkus}
-        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 

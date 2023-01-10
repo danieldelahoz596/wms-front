@@ -1,3 +1,4 @@
+import { useModel } from '@umijs/max';
 import { Card, Col, Row } from 'antd';
 import type { FC } from 'react';
 
@@ -5,25 +6,43 @@ interface IOrderItems {
   orderItems: any[];
 }
 
-const OrderItems: FC<IOrderItems> = ({ orderItems = [] }) => {
-  return (
+const OrderItems: FC<IOrderItems> = () => {
+  const { selectedOrders } = useModel('order');
+
+  const order = selectedOrders[0];
+
+  return order ? (
     <>
-      <Card title="Order Items" size="small" style={{ width: '100%' }} tabProps={{ size: 'small' }}>
-        {orderItems.map((item, index) => {
+      <Card
+        title={
+          <span
+            style={{
+              fontSize: '1rem',
+              textTransform: 'uppercase',
+              fontWeight: '700',
+              color: '#A2A2A2',
+            }}
+          >
+            Order Items
+          </span>
+        }
+        size="small"
+        style={{ width: '100%' }}
+        tabProps={{ size: 'small' }}
+      >
+        {order.orderItems?.map((item, index) => {
           const subTotal = item.unitQty * item.unitAmount;
 
           return (
-            <Row
-              gutter={32}
-              key={index}
-              style={{ borderBottom: '2px dashed #ccc', padding: '0.5rem' }}
-            >
-              <Col xs={24} md={12}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    {item.image ? (
-                      <img src={item.image} />
-                    ) : (
+            <div key={index} style={{ borderBottom: '2px dashed #ccc', padding: '0.5rem' }}>
+              <Row gutter={32}>
+                <Col span={16}>
+                  <div>
+                    <div>
+                      <img src={order.sales_channel?.icon} />
+                      {order.sales_channel?.name} :: {order.orderNumber}
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                       <div
                         style={{
                           padding: '1rem',
@@ -32,44 +51,69 @@ const OrderItems: FC<IOrderItems> = ({ orderItems = [] }) => {
                           border: '1px solid #ccc',
                         }}
                       >
-                        No Image Found
+                        <img src={item.image} />
                       </div>
-                    )}
-                    <div>
                       <div>
-                        <strong>{item.name}</strong>
+                        <div>LISTING SKU: {item.listingSku}</div>
+                        <div>LISTING NAME: {item.name}</div>
+                        <div>MASTER SKU: {item.masterSku}</div>
+                        <div>ATTRIBUTES: VENDOR PRODUCT SKU: {item.listingSku}</div>
                       </div>
-                      <div>Listing SKU: {item.listingSku}</div>
                       <div>Master SKU: {item.masterSku}</div>
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <h3>{item.unitAmount}</h3>
-                    <h2 style={{ color: '#5F5FFF' }}>X{item.unitQty}</h2>
-                    <h3
-                      style={{
-                        backgroundColor: '#5F5FFF',
-                        color: 'white',
-                        padding: '0.1rem 0.1rem 0.1rem 3rem',
-                      }}
-                    >
-                      {subTotal}
-                    </h3>
+                </Col>
+                <Col span={4}>
+                  <Row style={{ marginTop: '0.2rem' }}>
+                    <Col span={12}>
+                      <strong style={{ color: '#5F5FFF' }}>Quantity:</strong>
+                    </Col>
+                    <Col span={12} style={{ textAlign: 'right' }}>
+                      <strong style={{ color: '#5F5FFF' }}>X{item.unitQty}</strong>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: '0.2rem' }}>
+                    <Col span={12}>
+                      <strong style={{ color: '#626262' }}>Unit Price:</strong>
+                    </Col>
+                    <Col span={12} style={{ textAlign: 'right' }}>
+                      <strong style={{ color: '#626262' }}>${item.unitAmount}</strong>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: '0.2rem' }}>
+                    <Col span={12}>
+                      <strong style={{ color: '#626262' }}>Total Discount:</strong>
+                    </Col>
+                    <Col span={12} style={{ textAlign: 'right' }}>
+                      <strong style={{ color: '#626262' }}>-${item.discount}</strong>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: '0.2rem', padding: '0.4rem', background: '#5F5FFF' }}>
+                    <Col span={12}>
+                      <strong style={{ color: '#fff' }}>Total:</strong>
+                    </Col>
+                    <Col span={12} style={{ textAlign: 'right' }}>
+                      <strong style={{ color: '#fff' }}>${subTotal}</strong>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '1rem' }}>
+                <Col span={24}>
+                  <div style={{ textTransform: 'uppercase' }}>Unit Weight: {item.unitWeight}</div>
+                  <div style={{ textTransform: 'uppercase' }}>Unit H/W/L: {item.unitHWL}</div>
+                  <div style={{ textTransform: 'uppercase' }}>Warehouse: {item.warehouse}</div>
+                  <div style={{ textTransform: 'uppercase' }}>
+                    Pick Location: {item.pickLocation}
                   </div>
-                </div>
-              </Col>
-              <Col xs={24} md={12}>
-                <div>Unit Weight: {item.unitWeight}</div>
-                <div>Unit H/W/L: {item.unitHWL}</div>
-                <div>Warehouse: {item.warehouse}</div>
-                <div>Pick Location: {item.pickLocation}</div>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </div>
           );
         })}
       </Card>
     </>
-  );
+  ) : null;
 };
 
 export default OrderItems;

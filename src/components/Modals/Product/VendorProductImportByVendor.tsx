@@ -20,7 +20,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({
   return (
     <OModal
       title={'VENDOR PRODUCT IMPORT BY VENDOR'}
-      width={1000}
+      width={600}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -41,7 +41,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({
     >
       <div style={{ padding: '1rem' }}>
         <p>
-          Batch imports of Vendor products is done through the Microsoft Excel Spreadsheet format.
+          Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.
         </p>
         <a href="#" style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}>
           Download the Excel Template for Vendor Product Import By Vendor
@@ -52,8 +52,8 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({
         </p>
         <br />
         <p>
-          <strong>Vendor SKUs, are not case sensitive.</strong> For example, 'sku123'{' '}
-          <b>is regarded the same as</b> 'SKU123' by the system. The same applies for product's
+          <strong>Vendor SKUs, are <i>not</i> case sensitive.</strong> For example, <i>'sku123'</i>{' '}
+          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
           Master SKU's.
         </p>
         <div
@@ -83,7 +83,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({
         </div>
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }}>
-          <p>Update exiting SKUs if changes found in the Excel file?</p>
+          <p>Update existing SKUs if changes found in the Excel file?</p>
           <Select placeholder="Yes - Update existing SKUs and import new.">
             <Option value="1">Yes - Update existing SKUs and import new.</Option>
             <Option value="2">No - Ignore exisiting SKUs only import new.</Option>

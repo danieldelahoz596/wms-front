@@ -2,8 +2,8 @@ export const data = [
     {
       key: 1,
       type: 'type1',
-      master_sku: '222',
-      name: 'product1',
+      master_sku: 'Spring Bar',
+      name: 'Everest Spring Bar',
       brand: 'brand1',
       description: 'description1',
       on_hands: 'on_hands',
@@ -17,8 +17,8 @@ export const data = [
     {
       key: 2,
       type: 'type2',
-      master_sku: '222',
-      name: 'product2',
+      master_sku: 'Buckle',
+      name: 'Everest Buckle',
       brand: 'brand2',
       description: 'description2',
       on_hands: 'on_hands',
@@ -32,8 +32,8 @@ export const data = [
     {
       key: 1,
       type: 'type1',
-      master_sku: '222',
-      name: 'product1',
+      master_sku: 'Black Rubber Strap',
+      name: 'Everest Strap (Black Rubber)',
       brand: 'brand1',
       description: 'description1',
       on_hands: 'on_hands',
@@ -47,8 +47,8 @@ export const data = [
     {
       key: 2,
       type: 'type2',
-      master_sku: '222',
-      name: 'product2',
+      master_sku: 'Rudysku_4',
+      name: 'Toys',
       brand: 'brand2',
       description: 'description2',
       on_hands: 'on_hands',

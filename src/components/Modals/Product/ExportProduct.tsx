@@ -14,7 +14,7 @@ const ExportProduct: React.FC<IExportProduct> = ({ isOpen, onClose, onSave }) =>
   return (
     <OModal
       title={'Export Product'}
-      width={800}
+      width={400}
       centered
       isOpen={isOpen}
       handleCancel={onClose}

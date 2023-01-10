@@ -13,7 +13,7 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
   return (
     <OModal
       title={'SELECT HOW TO EXPORT VENDOR PRODUCTS'}
-      width={800}
+      width={400}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -35,7 +35,7 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <OButton type="dashed" btnText={'EXPORT BY VENDOR'} />
-            <p>Export vendor product through individual file for each vendor.</p>
+            <p>Export vendor productS through individual file for each vendor.</p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <OButton type="dashed" btnText={'EXPORT ALL AT ONCE'} />

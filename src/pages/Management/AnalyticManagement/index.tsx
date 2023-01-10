@@ -1,17 +1,18 @@
-import { Layout, Menu, MenuProps, Divider  } from 'antd';
+import type { MenuProps } from 'antd';
+import { Layout, Menu, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import HistoricalExports from './Orders/HistoricalExports';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 const { Sider, Content } = Layout;
 
 const AnalyticManagement: React.FC = () => {
-  
   const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
 
   const [openKeys, setOpenKeys] = useState(['main3']);
-  
+  const [selectKey, setSelectedKey] = useState('sub34');
+
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
     if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
@@ -19,7 +20,14 @@ const AnalyticManagement: React.FC = () => {
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
-  }
+  };
+
+  const handleSelect = ({ key }) => {
+    setSelectedKey(key);
+  };
+
+  let renderableContent = null;
+  if (selectKey === 'sub34') renderableContent = <HistoricalExports />;
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
@@ -28,9 +36,10 @@ const AnalyticManagement: React.FC = () => {
           <div className="logo" />
           <Menu
             mode="inline"
-            defaultSelectedKeys={['main3', 'sub34']}
+            defaultSelectedKeys={['main3', selectKey]}
             openKeys={openKeys}
             onOpenChange={onOpenChange}
+            onSelect={handleSelect}
             items={[
               {
                 key: 'main1',
@@ -41,7 +50,7 @@ const AnalyticManagement: React.FC = () => {
                     key: 'sub11',
                     icon: <UserOutlined />,
                     label: 'Test',
-                  }
+                  },
                 ],
               },
               {
@@ -53,7 +62,7 @@ const AnalyticManagement: React.FC = () => {
                     key: 'sub21',
                     icon: <UserOutlined />,
                     label: 'Test',
-                  }
+                  },
                 ],
               },
               {
@@ -80,7 +89,7 @@ const AnalyticManagement: React.FC = () => {
                     key: 'sub34',
                     icon: <UserOutlined />,
                     label: 'Historical Exports',
-                  }
+                  },
                 ],
               },
               {
@@ -92,7 +101,7 @@ const AnalyticManagement: React.FC = () => {
                     key: 'sub41',
                     icon: <UserOutlined />,
                     label: 'Test',
-                  }
+                  },
                 ],
               },
               {
@@ -104,17 +113,15 @@ const AnalyticManagement: React.FC = () => {
                     key: 'sub51',
                     icon: <UserOutlined />,
                     label: 'Test',
-                  }
+                  },
                 ],
               },
             ]}
           />
         </Sider>
-        <Divider type="vertical" orientation="left"></Divider>
+        <Divider type="vertical" orientation="left" />
         <Layout className="site-layout">
-          <Content className="site-layout-background">
-            <HistoricalExports />
-          </Content>
+          <Content className="site-layout-background">{renderableContent}</Content>
         </Layout>
       </Layout>
     </PageContainer>

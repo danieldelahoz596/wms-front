@@ -15,8 +15,8 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
 
   return (
     <OModal
-      title={'Import Product'}
-      width={1000}
+      title={'Product Import'}
+      width={600}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -62,7 +62,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
             </Upload>
           </Col>
         </Row>
-        <p>Update exiting products if changes found in the Excel file?</p>
+        <p>Update existing products if changes found in the Excel file?</p>
         <Select placeholder="Yes - Update existing products and import n...">
           <Option value="1">Yes - Update existing products and import new.</Option>
           <Option value="2">No - Ignore exisiting products; only import new.</Option>

@@ -1,4 +1,5 @@
 import { OTable } from '@/components/Globals/OTable';
+import { FormOutlined, GlobalOutlined, MessageOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card } from 'antd';
 
@@ -42,9 +43,9 @@ export default function Index() {
       key: 'items',
     },
     {
-      title: 'Item Name',
-      dataIndex: 'item_name',
-      key: 'item_name',
+      title: 'Item Names',
+      dataIndex: 'item_names',
+      key: 'item_names',
     },
     {
       title: 'Item Skus',
@@ -55,6 +56,36 @@ export default function Index() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+    },
+  ];
+
+  const rows = [
+    {
+      channel: (
+        <div>
+          <GlobalOutlined /> Manual Order
+        </div>
+      ),
+      notes: (
+        <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
+          <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+          <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+          <MessageOutlined
+            style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
+          />
+        </div>
+      ),
+      order_number: (
+        <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
+          markashippmenttest
+        </span>
+      ),
+      order_date: '12/8/2020',
+      order_total: '$0.00',
+      items: 1,
+      item_names: 'item name',
+      item_skus: '123456',
+      status: 'Shipped',
     },
   ];
 
@@ -75,7 +106,7 @@ export default function Index() {
           </h3>
         }
       >
-        <OTable columns={TOrdercolumns} rows={selectedCustomer.orders ?? []} />
+        <OTable columns={TOrdercolumns} rows={rows} />
       </Card>
     )
   );

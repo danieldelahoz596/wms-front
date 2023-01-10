@@ -13,7 +13,6 @@ const OrderItems: React.FC = () => {
   const productList = [
     {
       key: uuidv4(),
-      listingSku: 'The SKU',
       listingName: 'Toys',
       masterSku: 'rudysku_4',
       productAttributes: '',
@@ -28,7 +27,6 @@ const OrderItems: React.FC = () => {
     },
     {
       key: uuidv4(),
-      listingSku: 'The SKU2',
       listingName: 'Toys',
       masterSku: 'rudysku_4',
       productAttributes: '',
@@ -87,7 +85,6 @@ const OrderItems: React.FC = () => {
           ),
           product: (
             <div>
-              <div>Listing SKU: {item.listingSku}</div>
               <div>Listing Name: {item.listingName}</div>
               <div>Master SKU: {item.masterSku}</div>
               <div>Product Attributes: {item.productAttributes}</div>
@@ -148,7 +145,7 @@ const OrderItems: React.FC = () => {
 
   let productOptions = productList.map((_item) => ({
     value: _item.key,
-    label: `${_item.listingSku}::${_item.name} (${_item.stock} in stock)`,
+    label: `${_item.name} (${_item.stock} in stock)`,
   }));
 
   if (!!search) {

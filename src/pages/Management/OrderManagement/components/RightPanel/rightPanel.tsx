@@ -46,8 +46,8 @@ const RightPanel: FC = () => {
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
-              <strong style={strongStyle}>3 orders</strong> selected requesting{' '}
-              <strong style={strongStyle}>STANDARD</strong> from{' '}
+              <strong style={strongStyle}>{selectedOrders?.length} orders</strong> selected
+              requesting <strong style={strongStyle}>STANDARD</strong> from{' '}
               <strong style={strongStyle}>2</strong> different countries.
             </div>
           }
@@ -111,12 +111,12 @@ const RightPanel: FC = () => {
         onChange={onChange}
         items={[
           {
-            label: <OButton type="dashed" btnText={'Method'} />,
+            label: 'Method',
             key: '1',
             children: <Method />,
           },
           {
-            label: <OButton type="dashed" btnText={'Recipient'} />,
+            label: 'Recipient',
             key: '2',
             children: `Recipient`,
           },
@@ -128,7 +128,18 @@ const RightPanel: FC = () => {
   return (
     <>
       <Card
-        title="Order Fulfillment"
+        title={
+          <span
+            style={{
+              fontSize: '1rem',
+              textTransform: 'uppercase',
+              fontWeight: '700',
+              color: '#A2A2A2',
+            }}
+          >
+            Order Fulfillment
+          </span>
+        }
         size="small"
         style={{ width: '100%' }}
         tabProps={{ size: 'small' }}

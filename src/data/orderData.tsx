@@ -69,7 +69,6 @@ export const demoOrderTableRows = [
       {
         key: 1,
         type: 'type1',
-        listingSku: '222',
         masterSku: '222',
         name: 'product1',
         buyer: 'buyer1',
@@ -104,7 +103,6 @@ export const demoOrderTableRows = [
       {
         key: 1,
         type: 'type1',
-        listingSku: '222',
         masterSku: '222',
         name: 'product1',
         buyer: 'buyer1',

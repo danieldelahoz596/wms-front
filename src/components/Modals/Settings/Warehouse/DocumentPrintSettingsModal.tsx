@@ -156,9 +156,6 @@ export default function ({ isOpen, onSave, onClose }) {
                       <Form.Item label="Product UPC">
                         <Checkbox defaultChecked /> Include UPC for each product
                       </Form.Item>
-                      <Form.Item label="Listing SKU">
-                        <Checkbox defaultChecked /> Include listing SKU for each product
-                      </Form.Item>
                       <Form.Item label="FNSKU">
                         <Checkbox defaultChecked /> Include FNSKU for each product
                       </Form.Item>

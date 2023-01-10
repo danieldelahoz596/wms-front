@@ -82,7 +82,9 @@ const SideFilterTree: React.FC = () => {
                       key: `${statusItem.order_status.id}-${filter.filter.id}-${_child.filter.id}`,
                       title: (
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                          {_child.filter.icon && <img src={_child.filter.icon} style={{ width: '1.2rem' }} />}
+                          {_child.filter.icon && (
+                            <img src={_child.filter.icon} style={{ width: '1.2rem' }} />
+                          )}
                           {_child.filter.name} <span className="tree-badge"> {_child.num} </span>
                         </div>
                       ),
@@ -96,7 +98,14 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return <Tree treeData={prepareOrderFiltersForTree} showLine={true} onSelect={onSelect} />;
+  return (
+    <Tree
+      treeData={prepareOrderFiltersForTree}
+      showLine={true}
+      onSelect={onSelect}
+      defaultSelectedKeys={['2']}
+    />
+  );
 };
 
 export default SideFilterTree;

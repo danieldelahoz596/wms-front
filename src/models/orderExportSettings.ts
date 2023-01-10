@@ -1,72 +1,70 @@
+import { uuidv4 } from '@antv/xflow-core';
 import { useState } from 'react';
 
 export default () => {
   const [orderExportSettings, setOrderExportSettings] = useState<any[]>([
     {
-      key: 1,
+      id: 1,
       settingName: 'Default Export',
       fileFormat: 'csv',
-      multiSku: {
-        name: 'multiline',
-        value: '',
-      },
+      date: null,
+      delimit_value: '',
+      multi_sku: 'multiline',
+      wrapDoubleQuote: false,
+      includeColumnHeader: false,
       exportFields: [
         {
-          key: 1,
+          key: 63,
           field: 'Carrier Fee',
           name: '',
         },
         {
-          key: 2,
+          key: 1,
           field: 'Order Number',
           name: '',
         },
         {
-          key: 3,
+          key: 59,
           field: 'Buyer Name',
           name: '',
         },
         {
-          key: 4,
-          field: 'Ship To Address 1',
+          key: 50,
+          field: 'Ship Address1',
           name: '',
         },
         {
-          key: 5,
-          field: 'Sales Channel',
+          key: 75,
+          field: 'Sales Channel Name',
           name: '',
         },
       ],
     },
     {
-      key: 2,
-      settingName: 'Customer_Phone_Number',
+      id: 2,
+      settingName: 'Customers_Phone_Numbers',
       fileFormat: 'csv',
-      undefined: '2022-12-28T16:59:05.238Z',
-      multiSku: {
-        name: 'delimit',
-        value: '',
-      },
+      multi_sku: 'delimit',
       exportFields: [
         {
-          key: 6,
+          key: 81,
           field: 'Product Name',
-          name: 'Product Name',
+          name: 'PRODUCT NAME',
         },
         {
-          key: 7,
+          key: 83,
           field: 'Customer Name',
-          name: 'Customer Name',
+          name: 'CUSTOMER NAME',
         },
         {
-          key: 8,
-          field: 'Shiop To Name',
-          name: 'Shiop To Name',
+          key: 48,
+          field: 'Ship to Name',
+          name: 'SHIP TO NAME',
         },
         {
-          key: 9,
-          field: 'Ship To Phone',
-          name: 'Ship To Phone',
+          key: 57,
+          field: 'Ship to Phone',
+          name: 'SHIP TO PHONE',
         },
       ],
     },
@@ -74,11 +72,18 @@ export default () => {
   const [editableExportSetting, setEditableExportSetting] = useState(null);
 
   const addOrderExportSettings = (_newSettings) =>
-    setOrderExportSettings((prevState) => [...prevState, _newSettings]);
+    setOrderExportSettings((prevState) => [
+      {
+        id: uuidv4(),
+        ..._newSettings,
+      },
+      ...prevState,
+    ]);
 
   const updateOrderExportSettings = (_updatedSetting) => {
+    console.log(_updatedSetting);
     setOrderExportSettings((prevState) =>
-      prevState.map((_item) => (_item.key == _updatedSetting.key ? _updatedSetting : _item)),
+      prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)),
     );
   };
   const removeOrderExportSettings = (_index) => {

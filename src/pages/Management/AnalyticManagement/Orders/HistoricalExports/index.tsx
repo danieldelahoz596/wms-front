@@ -1,30 +1,31 @@
-import { Button, Input, message, Card, Row, Col, SelectProps,  Modal, Select, Popconfirm, Checkbox, Space } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
-import React, { useState } from 'react';
-import { Tabs } from 'antd';
-import { data } from './data';
-import { modalType } from '../../../../../utils/helpers/types';
+import { DatePicker, Form } from 'antd';
+import { Button, Card, Row, Col, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { OTable } from '@/components/Globals/OTable';
-
-const { Option } = Select;
-const { TabPane } = Tabs;
-const { Search } = Input;
+import { useModel } from '@umijs/max';
+import moment from 'moment';
+import { uuid } from '@antv/x6/lib/util/string/uuid';
+import httpClient from '@/utils/http-client';
 
 const HistoricalExports: React.FC = () => {
+  const { initialState } = useModel('@@initialState');
+  const [exports, setExports] = useState(null);
+  const [form] = Form.useForm();
 
-  const options: SelectProps['options'] = [];
-  for (let i = 10; i < 36; i++) {
-    options.push({
-      label: i.toString(36) + i,
-      value: i.toString(36) + i,
-    });
-  }
-
-  const handleChange = (value: string[]) => {
-    console.log(`selected ${value}`);
+  const handleSubmit = (values) => {
+    setExports((prev) => [
+      {
+        ...values,
+        key: uuid(),
+        export_request_date: moment().format('D-M-YYYY, h:mm:ss a'),
+        export_completion_date: null,
+        status: 'In progress',
+      },
+      ...prev,
+    ]);
+    console.log(values);
   };
 
-  const [dataSource, setDataSource] = useState(data);
   const Tcolumns = [
     {
       title: 'Export Request Date',
@@ -35,106 +36,130 @@ const HistoricalExports: React.FC = () => {
       title: 'Export Completion Date',
       dataIndex: 'export_completion_date',
       key: 'export_completion_date',
+      align: 'center',
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      align: 'center',
     },
     {
       title: 'Actions',
-      dataIndex: '',
-      render: (record: { key: React.Key }) =>
-        dataSource.length >= 1 ? (
-          <>
-              <Button type="primary">Download</Button>
-          </>
-        ) : null,
-    }
+      dataIndex: 'actions',
+      align: 'right',
+    },
   ];
+
+  const exportRows = exports?.map((_item) => ({
+    ..._item,
+    actions:
+      _item.status === 'Succeeded' || _item.status === 'Failed' ? (
+        <Button type="primary">Download</Button>
+      ) : null,
+  }));
+
+  useEffect(() => {
+    httpClient('/api/orders/order-historic-exports')
+      .then((res) => setExports(res.data.data))
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <>
-      <div style={{marginTop: '10px'}}>
+      <div style={{ marginTop: '10px' }}>
         <h2>ORDERS {'>'} HISTORICAL EXPORTS</h2>
         <Row>
           <Col span={23}>
             <Card>
-              <div style={{marginBottom: '20px'}}>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>Sales Channels : </p>
-                <div style={{ width: 240, display: 'inline-block', marginRight: '10px' }}>
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    style={{ width: '100%' }}
-                    placeholder="Please select"
-                    defaultValue={['a10', 'c12']}
-                    onChange={handleChange}
-                    options={options}
-                  />
-                </div>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>Warehouses : </p>
-                <div style={{ width: 240, display: 'inline-block', marginRight: '10px' }}>
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    style={{ width: '100%' }}
-                    placeholder="Please select"
-                    defaultValue={['a10', 'c12']}
-                    onChange={handleChange}
-                    options={options}
-                  />
-                </div>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>Status : </p>
-                <div style={{ width: 240, display: 'inline-block', marginRight: '10px' }}>
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    style={{ width: '100%' }}
-                    placeholder="Please select"
-                    defaultValue={['a10', 'c12']}
-                    onChange={handleChange}
-                    options={options}
-                  />
-                </div>
-              </div>
+              <Form form={form} onFinish={handleSubmit}>
+                <Form.Item>
+                  <Form.Item
+                    name="warehouses"
+                    label="Warehouses"
+                    style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 8px' }}
+                  >
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      style={{ width: '100%' }}
+                      placeholder="Please select"
+                      options={initialState?.initialData?.warehouses?.map((_item) => ({
+                        label: _item.name,
+                        value: _item.id,
+                      }))}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="statuses"
+                    label="Statuses"
+                    style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 8px' }}
+                  >
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      style={{ width: '100%' }}
+                      placeholder="Please select"
+                      options={initialState?.initialData?.statuses?.map((_item) => ({
+                        label: _item.name,
+                        value: _item.id,
+                      }))}
+                    />
+                  </Form.Item>
+                </Form.Item>
 
-              <div>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>Shipped Date From : </p>
-                <div style={{ width: 80, display: 'inline-block', marginRight: '10px' }}>
-                    <Input placeholder="" />
-                </div>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>To : </p>
-                <div style={{ width: 80, display: 'inline-block', marginRight: '20px' }}>
-                    <Input placeholder="" />
-                </div>
-
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>Order Date From : </p>
-                <div style={{ width: 80, display: 'inline-block', marginRight: '10px' }}>
-                    <Input placeholder="" />
-                </div>
-                <p style={{fontSize: '14px', display: 'inline-block', marginRight: '10px'}}>To : </p>
-                <div style={{ width: 80, display: 'inline-block', marginRight: '30px' }}>
-                    <Input placeholder="" />
-                </div>
-
-                <Button type='primary'>Generate Export</Button>
-              </div>
+                <Form.Item>
+                  <Form.Item
+                    name="shipped_date_from"
+                    label="Shipped Date From"
+                    style={{ display: 'inline-block', margin: '0 8px' }}
+                  >
+                    <DatePicker defaultValue={moment().subtract(1, 'year')} format={'YYYY-MM-DD'} />
+                  </Form.Item>
+                  <Form.Item
+                    name="shipped_date_to"
+                    label="To"
+                    style={{ display: 'inline-block', margin: '0 8px' }}
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                  <Form.Item
+                    name="order_date_from"
+                    label="Order Date From"
+                    style={{ display: 'inline-block', margin: '0 8px' }}
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                  <Form.Item
+                    name="order_date_to"
+                    label="To"
+                    style={{ display: 'inline-block', margin: '0 8px' }}
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                  <Form.Item style={{ display: 'inline-block', margin: '0 8px' }}>
+                    <Button type="primary" htmlType="submit">
+                      Generate Export
+                    </Button>
+                  </Form.Item>
+                </Form.Item>
+              </Form>
             </Card>
           </Col>
         </Row>
+
         <br />
         <Row>
           <Col span={23}>
             <Card>
-              <h3>Note: This data from Historical Exports might be delayed for up to 24 hours, the exports do not reflect the most up-to-date state of the orders.</h3>
+              <h3>
+                Note: This data from Historical Exports might be delayed for up to 24 hours, the
+                exports do not reflect the most up-to-date state of the orders.
+              </h3>
               <Card>
-                <OTable
-                  columns={Tcolumns}
-                  rows={dataSource}
-                />
+                <OTable columns={Tcolumns} rows={exportRows} bordered={false} />
               </Card>
-            </Card>  
+            </Card>
           </Col>
         </Row>
       </div>
