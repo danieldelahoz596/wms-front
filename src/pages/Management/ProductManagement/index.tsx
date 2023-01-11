@@ -7,17 +7,19 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import type { MenuProps } from 'antd';
 
-import NewProductModal from '@/components/Modals/Product/NewProduct';
+import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductModal from '@/components/Modals/Product/ImportProduct';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
-import ProductVariationModal from '@/components/Modals/Product/ProductVariation';
+import NewProductModal from '@/components/Modals/Product/NewProduct';
 import ExportVendorProductModal from '@/components/Modals/Product/ExportVendorProduct';
 import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorProduct';
 import VendorProductImportByVendorModal from '@/components/Modals/Product/VendorProductImportByVendor';
 import VendorProductImportAtOnceModal from '@/components/Modals/Product/VendorProductImportAtOnce';
 import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
+import BundleKitModal from '@/components/Modals/Product/BundleKit';
+import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import { PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
@@ -225,7 +227,11 @@ const ProductManagement: React.FC = () => {
               </Row>
             </Card>
           </div>
-          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+          <SampleSplitter
+            dir={'horizontal'}
+            isDragging={isBottomDragging}
+            {...bottomDragBarProps}
+          />
           <div
             className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
             style={{ height: bottomH }}
@@ -254,7 +260,7 @@ const ProductManagement: React.FC = () => {
                               text: '30 Days',
                             },
                           ]}
-                          onChange={() => { }}
+                          onChange={() => {}}
                         />
                       </Form.Item>
                       <Form.Item>
@@ -268,7 +274,7 @@ const ProductManagement: React.FC = () => {
                               text: 'Quantity Solds',
                             },
                           ]}
-                          onChange={() => { }}
+                          onChange={() => {}}
                         />
                       </Form.Item>
                     </Form>
@@ -311,15 +317,27 @@ const ProductManagement: React.FC = () => {
           </div>
         </div>
       </div>
-      <NewProductModal
+      <CoreProductModal
         isOpen={modalOpen == modalType.New}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
+      <BundleKitModal
+        isOpen={modalOpen == modalType.BundleKit}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ProductVariantsModal
+        isOpen={modalOpen == modalType.ProductVariants}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
       <NewVendorProductModal
         isOpen={modalOpen == modalType.NewVendorProduct}
-        onSave={() => { }}
+        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -341,7 +359,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ProductVariationModal
+      <NewProductModal
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
@@ -369,12 +387,12 @@ const ProductManagement: React.FC = () => {
         isOpen={modalOpen == modalType.ImportVendorProductSummary}
         title={'VENDOR PRODUCT IMPORT BY VENDOR'}
         info={'Vendor SKU Import Summary'}
-        onSave={() => { }}
+        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
       <ExportVendorProductModal
         isOpen={modalOpen == modalType.ExportVendorProducts}
-        onSave={() => { }}
+        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
