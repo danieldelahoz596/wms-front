@@ -47,7 +47,7 @@ export default function () {
               onClick={() => setShowInactive((prev) => !prev)}
               style={{ marginRight: '5px' }}
             >
-              {showInactive ? 'SHOW ALL' : 'SHOW INACTIVE'}
+              {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
             </Button>
           </Col>
         </Row>

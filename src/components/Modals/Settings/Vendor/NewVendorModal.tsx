@@ -172,7 +172,7 @@ export default function ({ isOpen, onSave, onClose }) {
               </Col>
             </Row>
             <Row className="pb-3">
-              <Col span={4}>Phone 1</Col>
+              <Col span={4}>Phone 2</Col>
               <Col span={20}>
                 <Input
                   placeholder="Phone 2"

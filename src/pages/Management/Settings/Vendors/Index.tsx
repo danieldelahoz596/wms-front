@@ -98,7 +98,7 @@ export default function () {
             <Row gutter={5}>
               <Col span={8}>
                 <Search
-                  placeholder="Search Vendors"
+                  placeholder="Search vendors by name..."
                   onSearch={(value) => handleSearch(value)}
                   enterButton={
                     <Button style={{ padding: '3px 10px' }}>
@@ -122,7 +122,7 @@ export default function () {
                   onClick={() => setShowInactive((prev) => !prev)}
                   style={{ marginRight: '5px' }}
                 >
-                  {showInactive ? 'SHOW ALL' : 'SHOW INACTIVE'}
+                  {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
                 </Button>
               </Col>
             </Row>
@@ -161,11 +161,6 @@ export default function () {
                       title: 'Pending Value',
                       dataIndex: 'pendingValue',
                       key: 'pendingValue',
-                    },
-                    {
-                      title: 'Action',
-                      dataIndex: 'action',
-                      key: 'action',
                     },
                   ]}
                   rows={vendorListRows}
