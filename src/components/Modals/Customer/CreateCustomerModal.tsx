@@ -13,7 +13,7 @@ export default function CreateCustomerModal({ isOpen, onClose }) {
 
   return (
     <Modal
-      title="CUSTOMER EDIT HISTORY"
+      title="CREATE NEW CUSTOMER"
       centered
       open={isOpen}
       onOk={handleNewCustomerCreate}

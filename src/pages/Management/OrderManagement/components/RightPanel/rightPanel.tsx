@@ -42,7 +42,23 @@ const RightPanel: FC = () => {
 
   if (selectedOrders.length > 1) {
     element = (
-      <>
+      <Card
+        title={
+          <span
+            style={{
+              fontSize: '1rem',
+              textTransform: 'uppercase',
+              fontWeight: '700',
+              color: '#A2A2A2',
+            }}
+          >
+            Order Fulfillment
+          </span>
+        }
+        size="small"
+        style={{ width: '100%' }}
+        tabProps={{ size: 'small' }}
+      >
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
@@ -102,31 +118,10 @@ const RightPanel: FC = () => {
             </Form.Item>
           </Form>
         </div>
-      </>
+      </Card>
     );
   } else if (selectedOrders.length === 1) {
     element = (
-      <Tabs
-        defaultActiveKey="1"
-        onChange={onChange}
-        items={[
-          {
-            label: 'Method',
-            key: '1',
-            children: <Method />,
-          },
-          {
-            label: 'Recipient',
-            key: '2',
-            children: `Recipient`,
-          },
-        ]}
-      />
-    );
-  }
-
-  return (
-    <>
       <Card
         title={
           <span
@@ -144,10 +139,27 @@ const RightPanel: FC = () => {
         style={{ width: '100%' }}
         tabProps={{ size: 'small' }}
       >
-        {element}
+        <Tabs
+          defaultActiveKey="1"
+          onChange={onChange}
+          items={[
+            {
+              label: 'Method',
+              key: '1',
+              children: <Method />,
+            },
+            {
+              label: 'Recipient',
+              key: '2',
+              children: `Recipient`,
+            },
+          ]}
+        />
       </Card>
-    </>
-  );
+    );
+  }
+
+  return element;
 };
 
 export default RightPanel;

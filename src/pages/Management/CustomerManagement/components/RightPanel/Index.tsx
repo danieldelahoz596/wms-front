@@ -43,10 +43,10 @@ export default function Index() {
               <Form.Item name="card_number" label={'Card ID Number *'}>
                 <Input />
               </Form.Item>
-              <Form.Item name="name" label={'Name *'}>
+              <Form.Item name="name" label={'Name'}>
                 <Input />
               </Form.Item>
-              <Form.Item name="address" label={'Address *'}>
+              <Form.Item name="address" label={'Address'}>
                 <Input />
               </Form.Item>
               <Form.Item>

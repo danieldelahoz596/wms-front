@@ -106,8 +106,8 @@ export const data = [
   export const stock_history = [
     {
       key: 1,
-      edit_time: '04/09/2022',
-      user: 'support@test.com',
+      edit_time: '04/09/2021 10:49 AM',
+      user: 'support@skubana.com',
       edit_type: 'Adjust',
       description: 'This is test',
       notes: 'Test',

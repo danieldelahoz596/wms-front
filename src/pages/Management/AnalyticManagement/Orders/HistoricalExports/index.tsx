@@ -11,6 +11,7 @@ const HistoricalExports: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const [exports, setExports] = useState(null);
   const [form] = Form.useForm();
+  const { orderStatusList, initialOrderStatus } = useModel('orderStatus');
 
   const handleSubmit = (values) => {
     setExports((prev) => [
@@ -64,10 +65,11 @@ const HistoricalExports: React.FC = () => {
   }));
 
   useEffect(() => {
+    initialOrderStatus();
     httpClient('/api/orders/order-historic-exports')
       .then((res) => setExports(res.data.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [initialOrderStatus]);
 
   return (
     <>
@@ -104,9 +106,9 @@ const HistoricalExports: React.FC = () => {
                       allowClear
                       style={{ width: '100%' }}
                       placeholder="Please select"
-                      options={initialState?.initialData?.statuses?.map((_item) => ({
-                        label: _item.name,
-                        value: _item.id,
+                      options={orderStatusList?.map((_item) => ({
+                        label: _item.order_status.name,
+                        value: _item.order_status.id,
                       }))}
                     />
                   </Form.Item>
@@ -116,6 +118,7 @@ const HistoricalExports: React.FC = () => {
                   <Form.Item
                     name="shipped_date_from"
                     label="Shipped Date From"
+                    initialValue={moment().subtract(1, 'year').startOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
                     <DatePicker />
@@ -123,6 +126,7 @@ const HistoricalExports: React.FC = () => {
                   <Form.Item
                     name="shipped_date_to"
                     label="To"
+                    initialValue={moment().subtract(1, 'year').endOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
                     <DatePicker />
@@ -130,6 +134,7 @@ const HistoricalExports: React.FC = () => {
                   <Form.Item
                     name="order_date_from"
                     label="Order Date From"
+                    initialValue={moment().subtract(1, 'year').startOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
                     <DatePicker defaultValue={moment().subtract(1, 'year')} format={'YYYY-MM-DD'} />
@@ -137,6 +142,7 @@ const HistoricalExports: React.FC = () => {
                   <Form.Item
                     name="order_date_to"
                     label="To"
+                    initialValue={moment().subtract(1, 'year').endOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
                     <DatePicker />

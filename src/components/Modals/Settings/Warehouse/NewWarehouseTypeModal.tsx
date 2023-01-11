@@ -7,7 +7,7 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
     <OModal
       title="NEW WAREHOUSE"
       isOpen={isOpen}
-      width={400}
+      width={300}
       centered
       handleCancel={onClose}
       buttons={[

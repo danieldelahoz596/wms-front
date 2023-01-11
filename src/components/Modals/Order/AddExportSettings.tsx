@@ -13,6 +13,8 @@ interface IAddExportSettingsModal {
 const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const [selectedExportFields, setSelectedExportFields] = useState([]);
+  const [multiSku, setMultiSku] = useState(null);
+  const [includeColumnHeader, setIncludeColumnHeader] = useState(false);
 
   const {
     editableExportSetting,
@@ -482,25 +484,33 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   };
 
   const handleSave = () => {
-    const values = form.getFieldsValue();
+    let values = form.getFieldsValue();
+    values = {
+      ...values,
+      id: editableExportSetting?.id,
+      exportFields: selectedExportFields,
+      multi_sku: multiSku,
+      includeColumnHeader: includeColumnHeader,
+    };
 
     if (editableExportSetting) {
-      updateOrderExportSettings({
-        ...values,
-        id: editableExportSetting?.id,
-        exportFields: selectedExportFields,
-      });
+      updateOrderExportSettings(values);
     } else {
       addOrderExportSettings(values);
     }
 
     setEditableExportSetting(null);
     form.resetFields();
+    setMultiSku(null);
+    setIncludeColumnHeader(false);
     onSave();
   };
 
   const handleClose = () => {
     setEditableExportSetting(null);
+    form.resetFields();
+    setMultiSku(null);
+    setIncludeColumnHeader(false);
     onClose();
   };
 
@@ -523,6 +533,8 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   useEffect(() => {
     if (editableExportSetting) {
       form.setFieldsValue(editableExportSetting);
+      setMultiSku(editableExportSetting.multi_sku);
+      setIncludeColumnHeader(editableExportSetting.includeColumnHeader);
     }
 
     if (editableExportSetting?.exportFields) {
@@ -553,7 +565,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         },
       ]}
     >
-      <Form form={form}>
+      <Form form={form} initialValues={editableExportSetting}>
         <Row>
           <Col span={10}>
             <div style={{ padding: '0.5rem', marginBottom: '1rem' }}>
@@ -577,31 +589,31 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
 
-              <Form.Item label="Multi SKUs">
-                <Radio.Group
-                  name={'multi_sku'}
-                  style={{ display: 'flex' }}
-                  onChange={(_e) => form.setFieldValue('multi_sku', _e.target.value)}
-                  defaultValue={form.getFieldValue('multi_sku')}
-                >
-                  <Radio value={'multiline'}>Multiline</Radio>
-                  <Radio value={'delimit'}>Delimit</Radio>
-                </Radio.Group>
-                <Form.Item name="delimit_value" style={{ display: 'flex' }}>
-                  <Input />
-                </Form.Item>
+              <Form.Item label="Multi SKUs" name={'multi_sku'} style={{ display: 'flex' }}>
+                <Input.Group style={{ display: 'flex' }}>
+                  <Radio.Group
+                    style={{ display: 'flex' }}
+                    name={'multi_sku'}
+                    value={multiSku}
+                    onChange={(e) => setMultiSku(e.target.value)}
+                  >
+                    <Radio value={'multiline'}>Multiline</Radio>
+                    <Radio value={'delimit'}>Delimit</Radio>
+                  </Radio.Group>
+                  <Form.Item name="delimit_value" style={{ display: 'flex' }}>
+                    <Input />
+                  </Form.Item>
+                </Input.Group>
               </Form.Item>
             </Card>
             <Form.Item
               labelCol={{ span: '22' }}
+              valuePropName="checked"
               name="wrapDoubleQuote"
               label="Wrap values in double quotes when exporting CSV/text files?"
               style={{ padding: '0.5rem', marginBottom: '1rem' }}
             >
-              <Checkbox
-                defaultChecked={form.getFieldValue('wrapDoubleQuote')}
-                onChange={(e) => form.setFieldValue('wrapDoubleQuote', e.target.checked)}
-              />
+              <Checkbox />
             </Form.Item>
 
             <p style={{ padding: '0 1rem' }}>
@@ -611,13 +623,13 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
           <Col span={14}>
             <Card
               title={
-                <Form.Item name="includeColumnHeader">
+                <Form.Item name="includeColumnHeader" initialValue={includeColumnHeader}>
                   <span>
                     EXPORT FIELDS <span style={{ color: 'blue' }}>( Include column headers? </span>
                   </span>
                   <Checkbox
-                    defaultChecked={form.getFieldValue('includeColumnHeader')}
-                    onChange={(e) => form.setFieldValue('includeColumnHeader', e.target.checked)}
+                    checked={includeColumnHeader}
+                    onChange={(e) => setIncludeColumnHeader(e.target.checked)}
                   />
                   <span style={{ color: 'blue' }}> )</span>
                 </Form.Item>

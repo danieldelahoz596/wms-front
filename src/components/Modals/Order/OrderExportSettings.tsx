@@ -21,6 +21,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
     useModel('orderExportSettings');
 
   const handleEdit = (_item) => {
+    console.log(_item);
     setEditableExportSetting(_item);
     onAddOrderExportSettings();
   };

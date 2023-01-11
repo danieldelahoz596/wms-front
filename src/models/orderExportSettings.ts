@@ -86,6 +86,7 @@ export default () => {
       prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)),
     );
   };
+
   const removeOrderExportSettings = (_index) => {
     setOrderExportSettings((prevState) =>
       prevState.filter((_item, _curIndex) => _index !== _curIndex),

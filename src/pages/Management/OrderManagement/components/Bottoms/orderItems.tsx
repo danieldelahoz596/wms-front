@@ -2,11 +2,7 @@ import { useModel } from '@umijs/max';
 import { Card, Col, Row } from 'antd';
 import type { FC } from 'react';
 
-interface IOrderItems {
-  orderItems: any[];
-}
-
-const OrderItems: FC<IOrderItems> = () => {
+const OrderItems: FC = () => {
   const { selectedOrders } = useModel('order');
 
   const order = selectedOrders[0];
