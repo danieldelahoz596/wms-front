@@ -1,5 +1,5 @@
 import type { MenuProps } from 'antd';
-import { Layout, Menu, Divider } from 'antd';
+import { Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import ProductsIcon from '@/utils/icons/products';
@@ -16,6 +16,7 @@ import HistoricalExports from './Orders/HistoricalExports';
 import React, { useState } from 'react';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
+import { Link } from '@umijs/max';
 
 const { Sider, Content } = Layout;
 
@@ -116,7 +117,9 @@ const AnalyticManagement: React.FC = () => {
                         {
                           key: 'sub34',
                           icon: <SalesIcon />,
-                          label: 'Historical Exports',
+                          label: (
+                            <Link to="/Analytics/Orders/HistoricalExports">Historical Exports</Link>
+                          ),
                         },
                       ],
                     },

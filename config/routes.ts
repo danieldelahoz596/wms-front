@@ -59,6 +59,14 @@ export default [
     path: '/Analytics',
     name: 'ANALYTICS',
     component: './Management/AnalyticManagement',
+    routes: [
+      {
+        hideInMenu: true,
+        name: 'HISTORICALORDERSEXPORTS',
+        path: '/Analytics/Orders/HistoricalExports',
+        component: './Management/AnalyticManagement',
+      },
+    ],
   },
   {
     path: '/Settings',
