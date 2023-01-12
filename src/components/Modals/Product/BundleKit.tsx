@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Col, Row, Select, Input, Table, Tabs, Upload, Modal, UploadFile } from 'antd';
+import { Col, Row, Select, Input, Table, Tabs, Upload, Modal, UploadFile, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import {
   CheckCircleOutlined,
@@ -32,7 +32,10 @@ interface DataType {
 const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
   const [step, setStep] = useState(1);
   const { productList } = useModel('product');
-  const [selectedProducts, setSelectedProduct] = useState([]);
+  const [selectedProductIds, setSelectedProductIds] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [bundledTableRows, setBundledTableRows] = useState([]);
+  const [selectedBundleRowId, setSelectedBundleRowId] = useState(-1);
   const [tableData, setTableData] = useState([]);
   const [fileList, setFileList] = useState<UploadFile[]>(sampleImages);
   const [previewImage, setPreviewImage] = useState('');
@@ -41,9 +44,11 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
 
   useEffect(() => {
     setStep(1);
-    setSelectedProduct([]);
+    setSelectedProductIds([]);
     setTableData([]);
   }, [isOpen]);
+
+  const handleCancel = () => setModal(modalType.Close);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -64,8 +69,6 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
-  const handleCancel = () => setModal(modalType.Close);
 
   const inputFields = [
     {
@@ -263,8 +266,6 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
     },
   ];
 
-  const bundledTableRows = [];
-
   const vendorProductsButtons = [
     {
       type: 'dashed',
@@ -308,19 +309,40 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
 
   const handleContiuneClick = () => {
     if (step === 1) {
+      const result = productList.filter((product) => selectedProductIds.includes(product.id));
+      setSelectedProducts(result);
       setTableData(
-        selectedProducts.map((product, index) => ({
-          key: index + 1,
-          name: product,
-          quantity: '',
+        result.map((product) => ({
+          key: product.id,
+          name: product.name,
+          quantity: product.quantity,
+        })),
+      );
+    } else if (step === 2) {
+      setBundledTableRows(
+        selectedProducts.map((product) => ({
+          id: product.id,
+          masterSKU: product.master_sku,
+          name: product.name,
+          quantity: product.quantity,
         })),
       );
     }
     setStep(step + 1);
   };
 
-  const handleProductSelect = (value: string[]) => {
-    setSelectedProduct(value);
+  const handleProductSelect = (values: string[]) => {
+    setSelectedProductIds(values);
+  };
+
+  const handleQuantityChange = (index, event) => {
+    const products = selectedProducts;
+    products[index].quantity = event.target.value;
+    setSelectedProducts(products);
+  };
+
+  const handleBundleRowClick = (record) => {
+    setSelectedBundleRowId(record.id);
   };
 
   const columns: ColumnsType<DataType> = [
@@ -332,7 +354,9 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
     {
       title: 'Quantity',
       dataIndex: 'quantity',
-      render: () => <Input />,
+      render: (text, record, index) => (
+        <Input onChange={(event) => handleQuantityChange(index, event)} />
+      ),
     },
   ];
 
@@ -409,7 +433,27 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
             <OButton key={index} {...btn} />
           ))}
           <div style={{ marginTop: '5px' }}>
-            <OTable columns={bundledTableColumns} rows={bundledTableRows} pagination={false} />
+            <Table
+              columns={bundledTableColumns}
+              dataSource={bundledTableRows}
+              pagination={false}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: () => {
+                    handleBundleRowClick(record);
+                  }, // click row
+                  onDoubleClick: (event) => {
+                    handleBundleRowClick(record);
+                  }, // double click row
+                  onContextMenu: (event) => {}, // right button click row
+                  onMouseEnter: (event) => {}, // mouse enter row
+                  onMouseLeave: (event) => {}, // mouse leave row
+                };
+              }}
+              rowClassName={(record) =>
+                record.id === selectedBundleRowId ? `data-row active-row pb-3` : 'data-row'
+              }
+            />
           </div>
         </>
       ),
@@ -476,7 +520,7 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
             onChange={handleProductSelect}
           >
             {productList.map((product, index) => (
-              <Select.Option key={`product-${index}`} value={product.name}>
+              <Select.Option key={`product-${index}`} value={product.id}>
                 {product.name}
               </Select.Option>
             ))}

@@ -39,8 +39,8 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
       handleCancel={onClose}
       buttons={[]}
     >
+      <p>Select Type</p>
       <Row>
-        <p>Select Type</p>
         {buttons.map((btn, index) => (
           <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
             <OButton
