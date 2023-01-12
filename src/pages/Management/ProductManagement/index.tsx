@@ -69,9 +69,14 @@ const ProductManagement: React.FC = () => {
       key: 'name',
     },
     {
-      title: 'Buyer',
+      title: 'Vendor SKU(s)',
       dataIndex: 'buyer',
       key: 'buyer',
+    },
+    {
+      title: 'Desc.',
+      dataIndex: 'description',
+      key: 'description',
     },
     {
       title: 'Brand',
@@ -87,11 +92,6 @@ const ProductManagement: React.FC = () => {
       title: 'Labels',
       dataIndex: 'labels',
       key: 'labels',
-    },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
     },
     {
       title: 'Action',
