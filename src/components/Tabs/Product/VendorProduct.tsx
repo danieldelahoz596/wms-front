@@ -8,26 +8,43 @@ import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct'
 
 const VendorProduct: React.FC = () => {
   const [modalOpen, setModal] = useState('');
-  const [selectedProductId, setSelectedProductId] = useState(-1);
-  const [vendorProducts, setVendorProducts] = useState([]);
-  const { productList } = useModel('product');
+  const [vendorProductsTableRows, setVendorProductsTableRows] = useState([]);
+  const [vendorProductList, setVendorProductList] = useState([]);
+  const [selectedVendorProductKey, setSelectedVendorProductKey] = useState(null);
 
   useEffect(() => {
-    setVendorProducts(
-      productList.map((product) => ({
+    setVendorProductsTableRows(
+      vendorProductList.map((vendorProduct) => ({
+        key: vendorProduct.key,
         id: (
           <span>
             <CheckCircleOutlined color="blue" />
           </span>
         ),
-        vendor: <span>{product.name}</span>,
-        vendorSku: product.master_sku,
-        minOrderQty: '1',
-        leadTime: 1,
+        vendor: vendorProduct.vendor,
+        vendorSku: vendorProduct.vendorSku,
+        minOrderQty: vendorProduct.minOrderQty,
+        leadTime: vendorProduct.leadTime,
         uom: <UnorderedListOutlined />,
       })),
     );
-  }, [productList]);
+  }, [vendorProductList]);
+
+  const handleDeactiveClick = () => {
+    setVendorProductList(
+      vendorProductList.filter((_item) => _item.key !== selectedVendorProductKey),
+    );
+    setSelectedVendorProductKey(null);
+  };
+
+  const handleDefaultClick = () => {
+    setVendorProductList(
+      vendorProductList.map((_item) =>
+        _item.key === selectedVendorProductKey ? { ..._item, vendorSku: 'Default Vendor' } : _item,
+      ),
+    );
+    setSelectedVendorProductKey(null);
+  };
 
   const vendorProductsTableColumns = [
     {
@@ -70,23 +87,23 @@ const VendorProduct: React.FC = () => {
     },
     {
       type: 'dashed',
-      onClick: () => {},
+      onClick: () => setModal(modalType.NewVendorProduct),
       btnText: 'EDIT',
     },
     {
       type: 'dashed',
-      onClick: () => {},
+      onClick: handleDeactiveClick,
       btnText: 'DEACTIVE',
     },
     {
       type: 'dashed',
-      onClick: () => {},
+      onClick: handleDefaultClick,
       btnText: 'DEFAULT',
     },
   ];
 
   const handleVendorRowClick = (record) => {
-    setSelectedProductId(record.id);
+    setSelectedVendorProductKey(record.key);
   };
 
   return (
@@ -106,7 +123,7 @@ const VendorProduct: React.FC = () => {
         <div style={{ marginTop: '1rem', minHeight: '200px' }}>
           <Table
             columns={vendorProductsTableColumns}
-            dataSource={vendorProducts}
+            dataSource={vendorProductsTableRows}
             pagination={false}
             onRow={(record, rowIndex) => {
               return {
@@ -119,7 +136,7 @@ const VendorProduct: React.FC = () => {
               };
             }}
             rowClassName={(record) =>
-              record.id === selectedProductId ? `data-row active-row pb-3` : 'data-row'
+              record.key === selectedVendorProductKey ? `data-row active-row pb-3` : 'data-row'
             }
           />
         </div>
@@ -129,6 +146,10 @@ const VendorProduct: React.FC = () => {
         isOpen={modalOpen == modalType.NewVendorProduct}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
+        vendorProductList={vendorProductList}
+        setVendorProductList={setVendorProductList}
+        selectedItemKey={selectedVendorProductKey}
+        setSelectedItemkey={setSelectedVendorProductKey}
       />
     </>
   );
