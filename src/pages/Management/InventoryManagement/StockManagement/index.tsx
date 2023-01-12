@@ -8,7 +8,7 @@ import React, { useRef, useState } from 'react';
 import { Tabs, Upload, Descriptions } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import { stock_data, stock_history, stock_allocation } from './components/structure';
+import { data, stock_data, stock_history, stock_allocation } from './components/structure';
 import { getBase64, fileUploadProps, mselectChildren, sampleImages } from '@/utils/helpers/base';
 import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
