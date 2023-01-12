@@ -5,10 +5,12 @@ import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
 import moment from 'moment';
 import { uuid } from '@antv/x6/lib/util/string/uuid';
+import dayjs from 'dayjs';
 import httpClient from '@/utils/http-client';
 
 const HistoricalExports: React.FC = () => {
   const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
   const [exports, setExports] = useState(null);
   const [form] = Form.useForm();
   const { orderStatusList, initialOrderStatus } = useModel('orderStatus');
@@ -90,7 +92,7 @@ const HistoricalExports: React.FC = () => {
                       allowClear
                       style={{ width: '100%' }}
                       placeholder="Please select"
-                      options={initialState?.initialData?.warehouses?.map((_item) => ({
+                      options={warehouseList?.map((_item) => ({
                         label: _item.name,
                         value: _item.id,
                       }))}
@@ -137,7 +139,13 @@ const HistoricalExports: React.FC = () => {
                     initialValue={moment().subtract(1, 'year').startOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
-                    <DatePicker defaultValue={moment().subtract(1, 'year')} format={'YYYY-MM-DD'} />
+                    <DatePicker
+                      defaultValue={dayjs(
+                        new Date(new Date().getFullYear() - 1, 0, 1),
+                        'YYYY-MM-DD',
+                      )}
+                      format={'YYYY-MM-DD'}
+                    />
                   </Form.Item>
                   <Form.Item
                     name="order_date_to"
@@ -145,7 +153,13 @@ const HistoricalExports: React.FC = () => {
                     initialValue={moment().subtract(1, 'year').endOf('year')}
                     style={{ display: 'inline-block', margin: '0 8px' }}
                   >
-                    <DatePicker />
+                    <DatePicker
+                      defaultValue={dayjs(
+                        new Date(new Date().getFullYear() - 1, 11, 31),
+                        'YYYY-MM-DD',
+                      )}
+                      format={'YYYY-MM-DD'}
+                    />
                   </Form.Item>
                   <Form.Item style={{ display: 'inline-block', margin: '0 8px' }}>
                     <Button type="primary" htmlType="submit">

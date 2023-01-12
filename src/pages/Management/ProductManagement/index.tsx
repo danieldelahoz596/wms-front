@@ -7,31 +7,44 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import type { MenuProps } from 'antd';
 
-import NewProductModal from '@/components/Modals/Product/NewProduct';
+import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductModal from '@/components/Modals/Product/ImportProduct';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
-import ProductVariationModal from '@/components/Modals/Product/ProductVariation';
+import NewProductModal from '@/components/Modals/Product/NewProduct';
 import ExportVendorProductModal from '@/components/Modals/Product/ExportVendorProduct';
 import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorProduct';
 import VendorProductImportByVendorModal from '@/components/Modals/Product/VendorProductImportByVendor';
 import VendorProductImportAtOnceModal from '@/components/Modals/Product/VendorProductImportAtOnce';
 import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
+import BundleKitModal from '@/components/Modals/Product/BundleKit';
+import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import { PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from '@umijs/max';
+import SidePanel from './components/SidePanel/sidePanel';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
   const { productList } = useModel('product');
 
   const {
+    isDragging: isLeftDragging,
+    position: LeftW,
+    separatorProps: leftDragBarProps,
+  } = useResizable({
+    axis: 'x',
+    initial: 250,
+    min: 100,
+  });
+
+  const {
     isDragging: isBottomDragging,
     position: bottomH,
-    splitterProps: bottomDragBarProps,
+    separatorProps: bottomDragBarProps,
   } = useResizable({
     axis: 'y',
     initial: 400,
@@ -186,112 +199,139 @@ const ProductManagement: React.FC = () => {
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
-      <div className="w-full flex flex-column h-screen">
-        <div className="horizon-content">
-          <Card style={{ width: '100%' }}>
-            <Row>
-              <Col span={24}>
-                {actionButtons.map((btn, index) => (
-                  <OButton key={index} {...btn} />
-                ))}
-              </Col>
-            </Row>
-            <br />
-            <Row>
-              <Col span={24}>
-                <OTable columns={Tcolumns} rows={productList} type={'checkbox'} />
-              </Col>
-            </Row>
-          </Card>
-        </div>
-        <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+      <div className={'flex grow'}>
         <div
-          className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
-          style={{ height: bottomH }}
+          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
+          style={{ width: LeftW }}
         >
           <div className="w-full">
-            <Row gutter={32}>
-              <Col span={12}>
-                <Card
-                  title="PERFORMANCE"
-                  extra={
-                    <div>
-                      <OButton type="primary" btnText={'Year-Over-Year'} />
-                      <OButton type="primary" btnText={'Recent Orders'} />
+            <SidePanel />
+          </div>
+        </div>
+        <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
+        <div className="w-full flex flex-column h-screen">
+          <div className="horizon-content">
+            <Card style={{ width: '100%' }}>
+              <Row>
+                <Col span={24}>
+                  {actionButtons.map((btn, index) => (
+                    <OButton key={index} {...btn} />
+                  ))}
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col span={24}>
+                  <OTable columns={Tcolumns} rows={productList} type={'checkbox'} />
+                </Col>
+              </Row>
+            </Card>
+          </div>
+          <SampleSplitter
+            dir={'horizontal'}
+            isDragging={isBottomDragging}
+            {...bottomDragBarProps}
+          />
+          <div
+            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
+            style={{ height: bottomH }}
+          >
+            <div className="w-full">
+              <Row gutter={32}>
+                <Col span={12}>
+                  <Card
+                    title="PERFORMANCE"
+                    extra={
+                      <div>
+                        <OButton type="primary" btnText={'Year-Over-Year'} />
+                        <OButton type="primary" btnText={'Recent Orders'} />
+                      </div>
+                    }
+                  >
+                    <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+                      <Form.Item>
+                        <OInput
+                          type="select"
+                          name="days"
+                          defaultValue={'30'}
+                          options={[
+                            {
+                              value: '30',
+                              text: '30 Days',
+                            },
+                          ]}
+                          onChange={() => {}}
+                        />
+                      </Form.Item>
+                      <Form.Item>
+                        <OInput
+                          type="select"
+                          name="quantity"
+                          defaultValue={'30'}
+                          options={[
+                            {
+                              value: 'quantitySold',
+                              text: 'Quantity Solds',
+                            },
+                          ]}
+                          onChange={() => {}}
+                        />
+                      </Form.Item>
+                    </Form>
+                    <div style={{ textAlign: 'center', padding: '1rem' }}>
+                      Select a product to view performance
                     </div>
-                  }
-                >
-                  <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <Form.Item>
-                      <OInput
-                        type="select"
-                        name="days"
-                        defaultValue={'30'}
-                        options={[
-                          {
-                            value: '30',
-                            text: '30 Days',
-                          },
-                        ]}
-                        onChange={() => {}}
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <OInput
-                        type="select"
-                        name="quantity"
-                        defaultValue={'30'}
-                        options={[
-                          {
-                            value: 'quantitySold',
-                            text: 'Quantity Solds',
-                          },
-                        ]}
-                        onChange={() => {}}
-                      />
-                    </Form.Item>
-                  </Form>
-                  <div style={{ textAlign: 'center', padding: '1rem' }}>
-                    Select a product to view performance
-                  </div>
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card
-                  title="PRODUCT DETAILS"
-                  extra={
-                    <div>
-                      <OButton type="primary" btnText={'Fields'} />
-                      <OButton type="primary" btnText={'Active Listing'} />
-                      <OButton type="primary" btnText={'Vendor Products'} />
-                      <OButton type="primary" btnText={'Gallery'} />
-                    </div>
-                  }
-                >
-                  <OTable
-                    columns={[
-                      {
-                        key: 'channel',
-                        dataIndex: 'channel',
-                        title: 'Channel',
-                      },
-                      {
-                        key: 'pushInventory',
-                        dataIndex: 'pushInventory',
-                        title: 'Push Inventory',
-                      },
-                    ]}
-                    rows={[]}
-                  />
-                </Card>
-              </Col>
-            </Row>
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card
+                    title="PRODUCT DETAILS"
+                    extra={
+                      <div>
+                        <OButton type="primary" btnText={'Fields'} />
+                        <OButton type="primary" btnText={'Active Listing'} />
+                        <OButton type="primary" btnText={'Vendor Products'} />
+                        <OButton type="primary" btnText={'Gallery'} />
+                      </div>
+                    }
+                  >
+                    <OTable
+                      columns={[
+                        {
+                          key: 'channel',
+                          dataIndex: 'channel',
+                          title: 'Channel',
+                        },
+                        {
+                          key: 'pushInventory',
+                          dataIndex: 'pushInventory',
+                          title: 'Push Inventory',
+                        },
+                      ]}
+                      rows={[]}
+                    />
+                  </Card>
+                </Col>
+              </Row>
+            </div>
           </div>
         </div>
       </div>
-      <NewProductModal
+      <CoreProductModal
         isOpen={modalOpen == modalType.New}
         onSave={(value: any) => setModal(value)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <BundleKitModal
+        isOpen={modalOpen == modalType.BundleKit}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ProductVariantsModal
+        isOpen={modalOpen == modalType.ProductVariants}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -319,7 +359,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ProductVariationModal
+      <NewProductModal
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
