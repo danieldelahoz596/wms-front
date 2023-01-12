@@ -480,6 +480,16 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
                 {product.name}
               </Select.Option>
             ))}
+
+            {/* <Option key="1" value="1">08086-10000 - KOMATSU 08086-10000 IGNITION SWITCH</Option>
+            <Option key="2" value="2">10000000000000 - Stephen's Watches</Option>
+            <Option key="3" value="3">1165100000028-glittersilver-37 - Australian Shephard Glitter Color Moccasin glittersilver M5/L6</Option>
+            <Option key="4" value="4">1165100000028-glittersilver-38 - Australian Shephard Glitter Color Moccasin glittersilver M6/L7</Option>
+            <Option key="5" value="5">1165100000028-glittersilver-39 - Australian Shephard Glitter Color Moccasin glittersilver M7/L8</Option>
+            <Option key="6" value="6">180551000046 - Original Sprout Hair & Body Baby Wash 12oz</Option>
+            <Option key="7" value="7">863151000004 - Vera Mona Duo Instant Bruch Cleaner</Option>
+            <Option key="8" value="8">863151000011 - Vera Mona Solo Instant Bruch Cleaner</Option>
+            <Option key="9" value="9">KO10000 - Okapi Cane Knife Short Handle with Hook</Option> */}
           </Select>
         </div>
       )}

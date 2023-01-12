@@ -38,18 +38,6 @@ const SearchByProductPanel: React.FC = () => {
       placeholder: 'SKU',
     },
     {
-      type: 'text',
-      label: 'UPC:',
-      name: 'upc',
-      placeholder: 'UPC',
-    },
-    {
-      type: 'text',
-      label: 'MPN:',
-      name: 'mpn',
-      placeholder: 'MPN',
-    },
-    {
       type: 'select',
       label: 'Brand',
       placeholder: 'Select...',
