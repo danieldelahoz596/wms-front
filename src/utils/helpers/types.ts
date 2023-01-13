@@ -25,6 +25,7 @@ export enum modalType {
   BundleKit = 'BundleKit',
   ProductVariants = 'ProductVariants',
   AttributeGroup = 'AttributeGroup',
+  AddCoreProduct = 'AddCoreProduct',
 
   // order
   ManualOrder = 'Manual Order',

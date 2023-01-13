@@ -16,6 +16,7 @@ interface INewVendorProduct {
   setVendorProductList: (newVendorProduct: any) => void;
   selectedItemKey: string;
   setSelectedItemkey: (key: any) => void;
+  type: string;
 }
 
 const NewVendorProduct: React.FC<INewVendorProduct> = ({
@@ -26,6 +27,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   setVendorProductList,
   selectedItemKey,
   setSelectedItemkey,
+  type,
 }) => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [newVendorProduct, setNewVendorProduct] = useState({
@@ -42,9 +44,9 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   };
 
   const handleSave = () => {
-    if (!selectedItemKey)
+    if (type === 'add')
       setVendorProductList([...vendorProductList, { ...newVendorProduct, key: uuidv4() }]);
-    else {
+    else if (type === 'edit') {
       setVendorProductList(
         vendorProductList.map((_item) =>
           _item.key === selectedItemKey ? newVendorProduct : _item,
@@ -56,7 +58,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   };
 
   useEffect(() => {
-    if (!selectedItemKey)
+    if (type === 'add')
       setNewVendorProduct({
         vendor: '',
         vendorSku: '',
@@ -65,7 +67,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
         autoPoRounding: '',
         packaging: '',
       });
-    else {
+    else if (type === 'edit') {
       const selecetedItem = vendorProductList.find((_item) => _item.key === selectedItemKey);
       setNewVendorProduct({ ...selecetedItem });
     }

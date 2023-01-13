@@ -11,6 +11,7 @@ const VendorProduct: React.FC = () => {
   const [vendorProductsTableRows, setVendorProductsTableRows] = useState([]);
   const [vendorProductList, setVendorProductList] = useState([]);
   const [selectedVendorProductKey, setSelectedVendorProductKey] = useState(null);
+  const [buttonType, setButtonType] = useState('');
 
   useEffect(() => {
     setVendorProductsTableRows(
@@ -79,15 +80,25 @@ const VendorProduct: React.FC = () => {
     },
   ];
 
+  const handleNewVendorProductClick = () => {
+    setModal(modalType.NewVendorProduct);
+    setButtonType('add');
+  };
+
+  const handleEditVendorProductClick = () => {
+    setModal(modalType.NewVendorProduct);
+    setButtonType('edit');
+  };
+
   const actionButtons = [
     {
       type: 'dashed',
-      onClick: () => setModal(modalType.NewVendorProduct),
+      onClick: handleNewVendorProductClick,
       btnText: 'NEW VENDOR PRODUCT',
     },
     {
       type: 'dashed',
-      onClick: () => setModal(modalType.NewVendorProduct),
+      onClick: handleEditVendorProductClick,
       btnText: 'EDIT',
     },
     {
@@ -150,6 +161,7 @@ const VendorProduct: React.FC = () => {
         setVendorProductList={setVendorProductList}
         selectedItemKey={selectedVendorProductKey}
         setSelectedItemkey={setSelectedVendorProductKey}
+        type={buttonType}
       />
     </>
   );
