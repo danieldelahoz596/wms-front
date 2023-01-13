@@ -26,6 +26,7 @@ export enum modalType {
   ProductVariants = 'ProductVariants',
   AttributeGroup = 'AttributeGroup',
   AddCoreProduct = 'AddCoreProduct',
+  ConfigAttributeGroups = 'ConfigAttributeGroups',
 
   // order
   ManualOrder = 'Manual Order',

@@ -235,6 +235,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     ],
     rows: [
       {
+        key: uuidv4(),
         name: 'carton',
         unitQty: '100',
         action: <CloseOutlined style={{ color: 'blue' }} />,

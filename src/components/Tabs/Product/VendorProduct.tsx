@@ -100,16 +100,19 @@ const VendorProduct: React.FC = () => {
       type: 'dashed',
       onClick: handleEditVendorProductClick,
       btnText: 'EDIT',
+      disabled: !selectedVendorProductKey,
     },
     {
       type: 'dashed',
       onClick: handleDeactiveClick,
       btnText: 'DEACTIVE',
+      disabled: !selectedVendorProductKey,
     },
     {
       type: 'dashed',
       onClick: handleDefaultClick,
       btnText: 'DEFAULT',
+      disabled: !selectedVendorProductKey,
     },
   ];
 
@@ -128,7 +131,7 @@ const VendorProduct: React.FC = () => {
             ))}
           </Col>
           <Col>
-            <OButton type="dashed" btnText="SHOW INACTIVE" />
+            <OButton type="dashed" btnText="SHOW INACTIVE" disabled={!selectedVendorProductKey} />
           </Col>
         </Row>
         <div style={{ marginTop: '1rem', minHeight: '200px' }}>

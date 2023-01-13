@@ -12,6 +12,8 @@ import { OInput } from '@/components/Globals/OInput';
 import { productSelectOptions } from '@/utils/helpers/base';
 import AttributeGroupModal from './AttributeGroup';
 import { modalType } from '@/utils/helpers/types';
+import { uuidv4 } from '@antv/xflow-core';
+import ConfigAttributeGroups from './ConfigAttributeGroups';
 
 interface IProductVariants {
   isOpen: boolean;
@@ -22,6 +24,9 @@ interface IProductVariants {
 const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }) => {
   const [modalOpen, setModal] = useState('');
   const [step, setStep] = useState(1);
+  const [attributeGroups, setAttributeGroups] = useState<any[]>([]);
+  const [variationDetailsGroup, setVariationDetailsGroup] = useState([{ key: uuidv4() }]);
+  const [selectedAttributeGroup, setSelectedAttributeGroup] = useState(null);
   const handleSave = () => onSave();
 
   useEffect(() => {
@@ -30,6 +35,14 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
 
   const handleContinueClick = () => {
     setStep(step + 1);
+  };
+
+  const handleAddVariantDetails = () => {
+    setVariationDetailsGroup([...variationDetailsGroup, { key: uuidv4() }]);
+  };
+
+  const handleRemoveVariantDetails = (item) => {
+    setVariationDetailsGroup(variationDetailsGroup.filter((group) => group.key !== item.key));
   };
 
   const newProductInputFields = [
@@ -267,9 +280,14 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                     <Col flex="auto">
                       <OInput
                         type="select"
-                        onChange={() => {}}
+                        onChange={(name, value) => setSelectedAttributeGroup(value)}
                         name="attributes"
                         placeholder="Select the attribute groups you want to work with ..."
+                        options={attributeGroups.map((item) => ({
+                          value: item.name,
+                          text: item.name,
+                        }))}
+                        value={selectedAttributeGroup}
                       />
                     </Col>
                     <Col style={{ marginLeft: '10px' }}>
@@ -296,6 +314,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                   borderColor: 'blue',
                 }}
                 icon={<SettingOutlined />}
+                onClick={() => setModal(modalType.ConfigAttributeGroups)}
               />
               <h2> variations below by clicking on the + symbol</h2>
             </Row>
@@ -310,6 +329,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                         borderColor: 'blue',
                       }}
                       icon={<PlusCircleFilled />}
+                      onClick={handleAddVariantDetails}
                     />
                   </Col>
                   <Col span={20}>
@@ -317,26 +337,32 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={4}>
-                    <Button
-                      style={{
-                        width: '20px',
-                        height: '20px',
-                        borderColor: 'blue',
-                      }}
-                      icon={<CloseCircleFilled />}
-                    />
-                  </Col>
-                  <Col span={20}>
-                    {variationDetailsInputFields.map((inputItem, inputItemIndex) => (
-                      <Row key={`inputItem2-${inputItemIndex}`} className="pb-3">
-                        <Col span={4}>{inputItem.label}</Col>
-                        <Col span={20}>
-                          <OInput {...inputItem} style={{ width: '100%' }} />
-                        </Col>
-                      </Row>
-                    ))}
-                  </Col>
+                  {variationDetailsGroup.map((group) => (
+                    <Fragment key={group.key}>
+                      <Col span={4}>
+                        <Button
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            borderColor: 'blue',
+                          }}
+                          icon={<CloseCircleFilled />}
+                          onClick={() => handleRemoveVariantDetails(group)}
+                          disabled={variationDetailsGroup.length < 2}
+                        />
+                      </Col>
+                      <Col span={20}>
+                        {variationDetailsInputFields.map((inputItem, inputItemIndex) => (
+                          <Row key={`inputItem2-${inputItemIndex}`} className="pb-3">
+                            <Col span={4}>{inputItem.label}</Col>
+                            <Col span={20}>
+                              <OInput {...inputItem} style={{ width: '100%' }} />
+                            </Col>
+                          </Row>
+                        ))}
+                      </Col>
+                    </Fragment>
+                  ))}
                 </Row>
               </Col>
               <Col span={15}>
@@ -429,6 +455,13 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
       <AttributeGroupModal
         isOpen={modalOpen === modalType.AttributeGroup}
         onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+        attributeGroups={attributeGroups}
+        setAttributeGroups={setAttributeGroups}
+      />
+
+      <ConfigAttributeGroups
+        isOpen={modalOpen === modalType.ConfigAttributeGroups}
         onClose={() => setModal(modalType.Close)}
       />
     </OModal>

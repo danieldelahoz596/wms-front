@@ -116,7 +116,7 @@ export const EditableTable: React.FC<ITable> = ({
     },
   };
 
-  const _columns = columns.map((col: any) => {
+  const _columns = columns.map((col: any, index) => {
     if (!col.editable) {
       return col;
     }

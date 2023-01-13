@@ -1,27 +1,48 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Input, Button, Collapse } from 'antd';
+import { Input, Button, Collapse, List } from 'antd';
 import { useState } from 'react';
-import { SettingOutlined } from '@ant-design/icons';
+import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 
 interface IAttributeGroup {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
+  attributeGroups: any[];
+  setAttributeGroups: (item: any) => void;
 }
 
-const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave }) => {
-  const [attributeList, setAttributeList] = useState<string[]>([]);
-  const [attribute, setAttribute] = useState<string>('');
+const AttributeGroup: React.FC<IAttributeGroup> = ({
+  isOpen,
+  onClose,
+  onSave,
+  attributeGroups,
+  setAttributeGroups,
+}) => {
+  const [groupName, setGroupName] = useState<string>('');
+  const [attribute, setattribute] = useState<string>('');
+  const [showInput, setShowInput] = useState(false);
+  const [selectedPanel, setSelectedPanel] = useState(null);
   const handleSave = () => onSave();
 
-  const handleAttributeAddClick = () => {
-    setAttributeList([...attributeList, attribute]);
-    setAttribute('');
+  const handleAttributeAdd = () => {
+    setAttributeGroups([...attributeGroups, { name: groupName, attributes: [] }]);
+    setGroupName('');
   };
 
   const handleAttributeChange = (e) => {
-    setAttribute(e.target.value);
+    setGroupName(e.target.value);
+  };
+
+  const handleAddType = (event, key) => {
+    event.stopPropagation();
+    setShowInput(true);
+    setSelectedPanel(key);
+  };
+
+  const handleRemoveType = (group) => {
+    event.stopPropagation();
+    setAttributeGroups(attributeGroups.filter((_item) => _item.name !== group.name));
   };
 
   return (
@@ -54,28 +75,68 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave }) 
         <Input
           placeholder="Enter a valid attribute group name"
           addonAfter={
-            <Button size="small" type="primary" onClick={handleAttributeAddClick}>
+            <Button size="small" type="primary" onClick={handleAttributeAdd}>
               Add
             </Button>
           }
-          value={attribute}
+          value={groupName}
           onChange={handleAttributeChange}
         />
-        <Collapse onChange={() => {}} expandIconPosition="end" style={{ marginTop: '5px' }}>
-          {attributeList.map((item, key) => (
+        <Collapse
+          onChange={(key) => {
+            setShowInput(false);
+            setSelectedPanel(key);
+          }}
+          expandIconPosition="end"
+          expandIcon={() => <MinusOutlined />}
+          style={{ marginTop: '5px', overflow: 'scroll', height: '300px' }}
+          activeKey={selectedPanel}
+          accordion
+        >
+          {attributeGroups.map((_group, index) => (
             <Panel
-              header={item}
-              key={key}
-              extra={() => (
-                <SettingOutlined
-                  onClick={(event) => {
-                    // If you don't want click extra trigger collapse, you can prevent this:
-                    event.stopPropagation();
-                  }}
-                />
-              )}
+              header={<h3>{_group.name}</h3>}
+              key={_group.name}
+              extra={
+                <>
+                  <Button
+                    icon={<CloseOutlined />}
+                    style={{ marginRight: '50px' }}
+                    onClick={() => handleRemoveType(_group)}
+                  />
+                  <Button icon={<PlusOutlined />} onClick={(e) => handleAddType(e, _group.name)} />
+                </>
+              }
             >
-              <div>{item}</div>
+              <>
+                <List
+                  bordered={false}
+                  dataSource={_group.attributes}
+                  renderItem={(item) => (
+                    <List.Item style={{ marginLeft: '30px' }}>
+                      <h3>{item}</h3>
+                    </List.Item>
+                  )}
+                />
+                {showInput && (
+                  <Input
+                    value={attribute}
+                    onChange={(e) => setattribute(e.target.value)}
+                    onPressEnter={() => {
+                      setAttributeGroups(
+                        attributeGroups.map((item) =>
+                          item.name === _group.name
+                            ? { ...item, attributes: [...item.attributes, attribute] }
+                            : item,
+                        ),
+                      );
+                      setattribute('');
+                      setShowInput(false);
+                    }}
+                    autoFocus
+                  />
+                )}
+              </>
             </Panel>
           ))}
         </Collapse>
