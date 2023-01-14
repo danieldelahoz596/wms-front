@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
-import { OTable } from '@/components/Globals/OTable';
-import { CloseOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Form } from 'antd';
+import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { Card, Col, Row, Form, Table } from 'antd';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { uuidv4 } from '@antv/xflow-core';
 
@@ -29,7 +28,6 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   setSelectedItemkey,
   type,
 }) => {
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [newVendorProduct, setNewVendorProduct] = useState({
     vendor: '',
     vendorSku: '',
@@ -38,9 +36,56 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     autoPoRounding: '',
     packaging: '',
   });
+  const [pricingTiers, setPricingTigers] = useState({
+    from: '',
+    to: '',
+    cost: 0,
+  });
+  const [pricingTiersDataRows, setPricingTiersDataRows] = useState([]);
+  const [unitMeasureDataRows, setUnitMeasureDataRows] = useState([]);
 
   const handleNewVendorProductChange = (name, value) => {
     setNewVendorProduct((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handlePricingTiersChange = (name, value) => {
+    setPricingTigers((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handlePricingTiersAdd = () => {
+    setPricingTiersDataRows([
+      ...pricingTiersDataRows,
+      {
+        key: uuidv4(),
+        fromQty: pricingTiers.from,
+        toQty: pricingTiers.to,
+        cost: pricingTiers.cost,
+      },
+    ]);
+  };
+
+  const handleUnitMeasureAdd = () => {
+    setUnitMeasureDataRows([
+      ...unitMeasureDataRows,
+      {
+        key: uuidv4(),
+        name: 'Name',
+        unitQty: 'Unit Quantity',
+      },
+    ]);
+  };
+
+  const handleEditableTableChange = (key, name, value) => {
+    setUnitMeasureDataRows(
+      unitMeasureDataRows.map((row) =>
+        row.key === key
+          ? {
+              ...row,
+              [name]: value,
+            }
+          : row,
+      ),
+    );
   };
 
   const handleSave = () => {
@@ -150,98 +195,104 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
 
   const pricingTiersInputsFields = [
     {
-      type: 'number',
+      type: 'text',
       label: 'From: ',
       name: 'from',
       defaultValue: 0,
-      onChange: () => {},
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.from,
     },
     {
-      type: 'number',
+      type: 'text',
       label: 'To: ',
       name: 'to',
       defaultValue: 0,
-      onChange: () => {},
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.to,
     },
     {
       type: 'number',
       label: 'Cost: ',
       name: 'cost',
       defaultValue: 0,
-      onChange: () => {},
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.cost,
     },
   ];
 
-  const pricingTiersData = {
-    columns: [
-      {
-        key: 'fromQty',
-        dataIndex: 'fromQty',
-        title: 'From Quantity',
-      },
-      {
-        key: 'toQty',
-        dataIndex: 'toQty',
-        title: 'To Quantity',
-      },
-      {
-        key: 'cost',
-        dataIndex: 'cost',
-        title: 'Cost',
-      },
-      {
-        key: 'action',
-        dataIndex: 'action',
-        title: '',
-      },
-    ],
-    rows: [
-      {
-        key: 1,
-        fromQty: 1,
-        toQty: 500,
-        cost: '$5.00',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-      {
-        key: 2,
-        fromQty: 5001,
-        toQty: 2000,
-        cost: '$4.00',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-    ],
-  };
+  const pricingTiersDataColumns = [
+    {
+      key: 'fromQty',
+      dataIndex: 'fromQty',
+      title: 'From Quantity',
+    },
+    {
+      key: 'toQty',
+      dataIndex: 'toQty',
+      title: 'To Quantity',
+    },
+    {
+      key: 'cost',
+      dataIndex: 'cost',
+      title: 'Cost',
+    },
+    {
+      key: 'action',
+      title: '',
+      render: (_, record) => (
+        <span
+          onClick={() =>
+            setPricingTiersDataRows(pricingTiersDataRows.filter((item) => item.key !== record.key))
+          }
+        >
+          <CloseOutlined style={{ color: 'blue' }} />
+        </span>
+      ),
+    },
+  ];
 
-  const unitMeasureData = {
-    columns: [
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        editable: true,
-      },
-      {
-        title: 'Unit Quantity',
-        dataIndex: 'unitQty',
-        key: 'unitQty',
-        editable: true,
-      },
-      {
-        title: '',
-        dataIndex: 'action',
-        key: 'action',
-      },
-    ],
-    rows: [
-      {
-        key: uuidv4(),
-        name: 'carton',
-        unitQty: '100',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-    ],
-  };
+  const unitMeasureDataColumns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name < b.name,
+      editable: true,
+    },
+    {
+      title: 'Unit Quantity',
+      dataIndex: 'unitQty',
+      key: 'unitQty',
+      editable: true,
+    },
+    {
+      title: (
+        <span onClick={handleUnitMeasureAdd}>
+          <PlusCircleFilled style={{ color: 'blue' }} />
+        </span>
+      ),
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, record) => (
+        <span
+          onClick={() =>
+            setUnitMeasureDataRows(unitMeasureDataRows.filter((item) => item.key !== record.key))
+          }
+        >
+          <CloseOutlined style={{ color: 'blue' }} />
+        </span>
+      ),
+    },
+  ];
+  // rows: [
+  //   {
+  //     key: uuidv4(),
+  //     name: 'carton',
+  //     unitQty: '100',
+  //     action: <CloseOutlined style={{ color: 'blue' }} />,
+  //   },
+  // ],
 
   return (
     <OModal
@@ -289,22 +340,25 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
                     <OInput {...inputItem} />
                   </div>
                 ))}
-                <OButton type="primary" btnText={'ADD'} style={{ border: '1px solid blue' }} />
+                <OButton
+                  type="primary"
+                  btnText={'ADD'}
+                  style={{ border: '1px solid blue' }}
+                  onClick={handlePricingTiersAdd}
+                />
               </div>
-              <OTable
-                columns={pricingTiersData.columns}
-                rows={pricingTiersData.rows}
+              <Table
+                columns={pricingTiersDataColumns}
+                dataSource={pricingTiersDataRows}
                 pagination={false}
-                selectedRows={selectedRows}
-                setSelectedRows={setSelectedRows}
               />
             </Card>
             <Card title="UNITS OF MEASURE">
               <EditableTable
-                dataSource={unitMeasureData.rows}
-                columns={unitMeasureData.columns}
-                handleSave={() => {}}
+                dataSource={unitMeasureDataRows}
+                columns={unitMeasureDataColumns}
                 pagination={false}
+                handleSave={handleEditableTableChange}
               />
             </Card>
           </Col>

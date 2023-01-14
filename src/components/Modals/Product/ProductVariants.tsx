@@ -377,6 +377,12 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                       name="attributes"
                       onChange={() => {}}
                       placeholder="Selected..."
+                      options={attributeGroups
+                        .find((item) => item.name === selectedAttributeGroup)
+                        ?.attributes.map((item) => ({
+                          value: item,
+                          text: item,
+                        }))}
                     />
                   </Col>
                 </Row>
