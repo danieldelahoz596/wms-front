@@ -64,8 +64,16 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
       onChange: () => {},
       label: 'Auto-P.O. Rounding:',
       name: 'autoPoRounding',
-      defaultValue: 'round-properly',
+      defaultValue: 'exact',
       options: [
+        {
+          value: 'exact',
+          text: 'Exact',
+        },
+        {
+          value: 'round-up',
+          text: 'Round Up',
+        },
         {
           value: 'round-properly',
           text: 'Round Properly',
@@ -78,6 +86,16 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
       onChange: () => {},
       label: 'Packaging:',
       name: 'packaging',
+      options: [
+        {
+          value: 'plastic',
+          text: 'plastic',
+        },
+        {
+          value: 'cardboard box',
+          text: 'cardboard box',
+        },
+      ],
     },
   ];
 

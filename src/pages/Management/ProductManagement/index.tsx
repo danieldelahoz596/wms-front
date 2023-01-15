@@ -70,8 +70,8 @@ const ProductManagement: React.FC = () => {
     },
     {
       title: 'Vendor SKU(s)',
-      dataIndex: 'buyer',
-      key: 'buyer',
+      dataIndex: 'vendor_skus',
+      key: 'vendor_skus',
     },
     {
       title: 'Desc.',
@@ -92,6 +92,16 @@ const ProductManagement: React.FC = () => {
       title: 'Labels',
       dataIndex: 'labels',
       key: 'labels',
+    },
+    {
+      title: 'Weight',
+      dataIndex: 'weight',
+      key: 'weight',
+    },
+    {
+      title: 'H/W/L',
+      dataIndex: 'h/w/l',
+      key: 'h/w/l',
     },
     {
       title: 'Action',
@@ -289,7 +299,6 @@ const ProductManagement: React.FC = () => {
                     extra={
                       <div>
                         <OButton type="primary" btnText={'Fields'} />
-                        <OButton type="primary" btnText={'Active Listing'} />
                         <OButton type="primary" btnText={'Vendor Products'} />
                         <OButton type="primary" btnText={'Gallery'} />
                       </div>
@@ -297,11 +306,6 @@ const ProductManagement: React.FC = () => {
                   >
                     <OTable
                       columns={[
-                        {
-                          key: 'channel',
-                          dataIndex: 'channel',
-                          title: 'Channel',
-                        },
                         {
                           key: 'pushInventory',
                           dataIndex: 'pushInventory',

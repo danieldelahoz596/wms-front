@@ -55,12 +55,12 @@ const StockManagement: React.FC = () => {
       key: 'brand',
     },
     {
-      title: 'Description',
+      title: 'Des',
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'On Hands',
+      title: 'On Hand',
       dataIndex: 'on_hands',
       key: 'on_hands',
     },
