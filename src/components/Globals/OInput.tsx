@@ -44,6 +44,7 @@ export const OInput: React.FC<IOInput> = ({
         onChange={(e) => onChange(name, e.target.value)}
         placeholder={placeholder}
         defaultValue={parseFloat(defaultValue)}
+        value={value}
         addonBefore={addonBefore}
         style={style}
       />
@@ -52,6 +53,7 @@ export const OInput: React.FC<IOInput> = ({
     inputField = (
       <OSelect
         defaultValue={defaultValue}
+        value={value}
         name={name}
         onChange={onChange}
         placeholder={placeholder}
@@ -72,6 +74,7 @@ export const OInput: React.FC<IOInput> = ({
         onChange={(e) => onChange(name, e.target.value)}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        value={value}
       />
     );
   } else if (type === 'checkbox') {

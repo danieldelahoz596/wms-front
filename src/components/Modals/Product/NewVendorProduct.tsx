@@ -1,28 +1,131 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
-import { OTable } from '@/components/Globals/OTable';
-import { CloseOutlined } from '@ant-design/icons';
-import { Card, Col, Row } from 'antd';
+import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { Card, Col, Row, Form, Table } from 'antd';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { uuidv4 } from '@antv/xflow-core';
 
 interface INewVendorProduct {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
+  vendorProductList: any[];
+  setVendorProductList: (newVendorProduct: any) => void;
+  selectedItemKey: string;
+  setSelectedItemkey: (key: any) => void;
+  type: string;
 }
 
-const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave }) => {
-  const handleSave = () => onSave();
+const NewVendorProduct: React.FC<INewVendorProduct> = ({
+  isOpen,
+  onClose,
+  onSave,
+  vendorProductList,
+  setVendorProductList,
+  selectedItemKey,
+  setSelectedItemkey,
+  type,
+}) => {
+  const [newVendorProduct, setNewVendorProduct] = useState({
+    vendor: '',
+    vendorSku: '',
+    minOrderQty: 0,
+    leadTime: 0,
+    autoPoRounding: '',
+    packaging: '',
+  });
+  const [pricingTiers, setPricingTigers] = useState({
+    from: '',
+    to: '',
+    cost: 0,
+  });
+  const [pricingTiersDataRows, setPricingTiersDataRows] = useState([]);
+  const [unitMeasureDataRows, setUnitMeasureDataRows] = useState([]);
+
+  const handleNewVendorProductChange = (name, value) => {
+    setNewVendorProduct((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handlePricingTiersChange = (name, value) => {
+    setPricingTigers((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handlePricingTiersAdd = () => {
+    setPricingTiersDataRows([
+      ...pricingTiersDataRows,
+      {
+        key: uuidv4(),
+        fromQty: pricingTiers.from,
+        toQty: pricingTiers.to,
+        cost: pricingTiers.cost,
+      },
+    ]);
+  };
+
+  const handleUnitMeasureAdd = () => {
+    setUnitMeasureDataRows([
+      ...unitMeasureDataRows,
+      {
+        key: uuidv4(),
+        name: 'Name',
+        unitQty: 'Unit Quantity',
+      },
+    ]);
+  };
+
+  const handleEditableTableChange = (key, name, value) => {
+    setUnitMeasureDataRows(
+      unitMeasureDataRows.map((row) =>
+        row.key === key
+          ? {
+              ...row,
+              [name]: value,
+            }
+          : row,
+      ),
+    );
+  };
+
+  const handleSave = () => {
+    if (type === 'add')
+      setVendorProductList([...vendorProductList, { ...newVendorProduct, key: uuidv4() }]);
+    else if (type === 'edit') {
+      setVendorProductList(
+        vendorProductList.map((_item) =>
+          _item.key === selectedItemKey ? newVendorProduct : _item,
+        ),
+      );
+      setSelectedItemkey(null);
+    }
+    onSave();
+  };
+
+  useEffect(() => {
+    if (type === 'add')
+      setNewVendorProduct({
+        vendor: '',
+        vendorSku: '',
+        minOrderQty: 0,
+        leadTime: 0,
+        autoPoRounding: '',
+        packaging: '',
+      });
+    else if (type === 'edit') {
+      const selecetedItem = vendorProductList.find((_item) => _item.key === selectedItemKey);
+      setNewVendorProduct({ ...selecetedItem });
+    }
+  }, [isOpen]);
 
   const productDetailsInputFields = [
     {
       type: 'select',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Vendor:',
       name: 'vendor',
-      defaultValue: 'cool-stuff',
+      defaultValue: newVendorProduct.vendor,
+      value: newVendorProduct.vendor,
       options: [
         {
           value: 'cool-stuff',
@@ -33,15 +136,19 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
     },
     {
       type: 'text',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Vendor SKU:',
       name: 'vendorSku',
+      defaultValue: newVendorProduct.vendorSku,
+      value: newVendorProduct.vendorSku,
     },
     {
       type: 'number',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Minimum Order Qty:',
       name: 'minOrderQty',
+      defaultValue: newVendorProduct.minOrderQty,
+      value: newVendorProduct.minOrderQty,
       render: (inputField: any) => (
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {inputField} <span>Unit(s)</span>
@@ -50,9 +157,11 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
     },
     {
       type: 'number',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Lead Time:',
-      name: 'minOrderQty',
+      name: 'leadTime',
+      defaultValue: newVendorProduct.leadTime,
+      value: newVendorProduct.leadTime,
       render: (inputField: any) => (
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {inputField} <span>Day(s)</span>
@@ -61,10 +170,11 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
     },
     {
       type: 'select',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Auto-P.O. Rounding:',
       name: 'autoPoRounding',
-      defaultValue: 'exact',
+      defaultValue: newVendorProduct.autoPoRounding,
+      value: newVendorProduct.autoPoRounding,
       options: [
         {
           value: 'exact',
@@ -83,9 +193,11 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
     },
     {
       type: 'text',
-      onChange: () => {},
+      onChange: handleNewVendorProductChange,
       label: 'Packaging:',
       name: 'packaging',
+      defaultValue: newVendorProduct.packaging,
+      value: newVendorProduct.packaging,
       options: [
         {
           value: 'plastic',
@@ -101,92 +213,104 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
 
   const pricingTiersInputsFields = [
     {
-      type: 'number',
+      type: 'text',
       label: 'From: ',
       name: 'from',
-      onChange: () => {},
+      defaultValue: 0,
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.from,
     },
     {
-      type: 'number',
+      type: 'text',
       label: 'To: ',
       name: 'to',
-      onChange: () => {},
+      defaultValue: 0,
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.to,
     },
     {
       type: 'number',
       label: 'Cost: ',
       name: 'cost',
-      onChange: () => {},
+      defaultValue: 0,
+      onChange: handlePricingTiersChange,
+      value: pricingTiers.cost,
     },
   ];
 
-  const pricingTiersData = {
-    columns: [
-      {
-        key: 'fromQty',
-        dataIndex: 'fromQty',
-        title: 'From Quantity',
-      },
-      {
-        key: 'toQty',
-        dataIndex: 'toQty',
-        title: 'To Quantity',
-      },
-      {
-        key: 'cost',
-        dataIndex: 'cost',
-        title: 'Cost',
-      },
-      {
-        key: 'action',
-        dataIndex: 'action',
-        title: '',
-      },
-    ],
-    rows: [
-      {
-        formQty: 1,
-        toQty: 500,
-        cost: '$5.00',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-      {
-        formQty: 5001,
-        toQty: 2000,
-        cost: '$4.00',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-    ],
-  };
+  const pricingTiersDataColumns = [
+    {
+      key: 'fromQty',
+      dataIndex: 'fromQty',
+      title: 'From Quantity',
+    },
+    {
+      key: 'toQty',
+      dataIndex: 'toQty',
+      title: 'To Quantity',
+    },
+    {
+      key: 'cost',
+      dataIndex: 'cost',
+      title: 'Cost',
+    },
+    {
+      key: 'action',
+      title: '',
+      render: (_, record) => (
+        <span
+          onClick={() =>
+            setPricingTiersDataRows(pricingTiersDataRows.filter((item) => item.key !== record.key))
+          }
+        >
+          <CloseOutlined style={{ color: 'blue' }} />
+        </span>
+      ),
+    },
+  ];
 
-  const unitMeasureData = {
-    columns: [
-      {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        editable: true,
-      },
-      {
-        title: 'Unit Quantity',
-        dataIndex: 'unitQty',
-        key: 'unitQty',
-        editable: true,
-      },
-      {
-        title: '',
-        dataIndex: 'action',
-        key: 'action',
-      },
-    ],
-    rows: [
-      {
-        name: 'carton',
-        unitQty: '100',
-        action: <CloseOutlined style={{ color: 'blue' }} />,
-      },
-    ],
-  };
+  const unitMeasureDataColumns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name < b.name,
+      editable: true,
+    },
+    {
+      title: 'Unit Quantity',
+      dataIndex: 'unitQty',
+      key: 'unitQty',
+      editable: true,
+    },
+    {
+      title: (
+        <span onClick={handleUnitMeasureAdd}>
+          <PlusCircleFilled style={{ color: 'blue' }} />
+        </span>
+      ),
+      dataIndex: 'action',
+      key: 'action',
+      render: (_, record) => (
+        <span
+          onClick={() =>
+            setUnitMeasureDataRows(unitMeasureDataRows.filter((item) => item.key !== record.key))
+          }
+        >
+          <CloseOutlined style={{ color: 'blue' }} />
+        </span>
+      ),
+    },
+  ];
+  // rows: [
+  //   {
+  //     key: uuidv4(),
+  //     name: 'carton',
+  //     unitQty: '100',
+  //     action: <CloseOutlined style={{ color: 'blue' }} />,
+  //   },
+  // ],
 
   return (
     <OModal
@@ -210,44 +334,54 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({ isOpen, onClose, onSave
         },
       ]}
     >
-      <Row gutter={20}>
-        <Col span={8}>
-          <Card title="PRODUCT DETAILS">
-            {productDetailsInputFields?.map((inputItem, index) => (
-              <div key={index} style={{ padding: '0.5rem 0' }}>
-                <div>{inputItem.label}</div>
-                <OInput {...inputItem} />
-              </div>
-            ))}
-          </Card>
-        </Col>
-        <Col span={16}>
-          <Card title="PRICING TIERS">
-            <div style={{ display: 'flex', gap: '0.3rem', marginBottom: '1rem' }}>
-              {pricingTiersInputsFields?.map((inputItem, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
+      <Form>
+        <Row gutter={20}>
+          <Col span={8}>
+            <Card title="PRODUCT DETAILS">
+              {productDetailsInputFields?.map((inputItem, index) => (
+                <div key={`productDetail-${index}`} style={{ padding: '0.5rem 0' }}>
                   <div>{inputItem.label}</div>
                   <OInput {...inputItem} />
                 </div>
               ))}
-              <OButton type="primary" btnText={'ADD'} style={{ border: '1px solid blue' }} />
-            </div>
-            <OTable
-              columns={pricingTiersData.columns}
-              rows={pricingTiersData.rows}
-              pagination={false}
-            />
-          </Card>
-          <Card title="UNITS OF MEASURE">
-            <EditableTable
-              dataSource={unitMeasureData.rows}
-              columns={unitMeasureData.columns}
-              handleSave={() => {}}
-              pagination={false}
-            />
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+          <Col span={16}>
+            <Card title="PRICING TIERS">
+              <div style={{ display: 'flex', gap: '0.3rem', marginBottom: '1rem' }}>
+                {pricingTiersInputsFields?.map((inputItem, index) => (
+                  <div
+                    key={`pricingTiers-${index}`}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}
+                  >
+                    <div>{inputItem.label}</div>
+                    <OInput {...inputItem} />
+                  </div>
+                ))}
+                <OButton
+                  type="primary"
+                  btnText={'ADD'}
+                  style={{ border: '1px solid blue' }}
+                  onClick={handlePricingTiersAdd}
+                />
+              </div>
+              <Table
+                columns={pricingTiersDataColumns}
+                dataSource={pricingTiersDataRows}
+                pagination={false}
+              />
+            </Card>
+            <Card title="UNITS OF MEASURE">
+              <EditableTable
+                dataSource={unitMeasureDataRows}
+                columns={unitMeasureDataColumns}
+                pagination={false}
+                handleSave={handleEditableTableChange}
+              />
+            </Card>
+          </Col>
+        </Row>
+      </Form>
     </OModal>
   );
 };

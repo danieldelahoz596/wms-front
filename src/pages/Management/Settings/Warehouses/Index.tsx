@@ -5,6 +5,8 @@ import NewWarehouseModal from '@/components/Modals/Settings/Warehouse/NewWarehou
 import NewWarehouseTypeModal from '@/components/Modals/Settings/Warehouse/NewWarehouseTypeModal';
 import RankOrderModal from '@/components/Modals/Settings/Warehouse/RankOrderModal';
 import ReturnLocationModal from '@/components/Modals/Settings/Warehouse/ReturnLocationModal';
+import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivateModal';
+import WarehouseHistoryModal from '@/components/Modals/Settings/Warehouse/WarehouseHistoryModal';
 import { modalType } from '@/utils/helpers/types';
 import {
   ArrowLeftOutlined,
@@ -26,9 +28,15 @@ import { Card, Row, Col, Button, Dropdown, Space } from 'antd';
 import { useState } from 'react';
 
 export default function () {
-  const [modlaOpen, setModalOpen] = useState('');
+  const [modalOpen, setModalOpen] = useState('');
   const [showInactive, setShowInactive] = useState(false);
-  const { warehouseList, setSelectedWarehouse } = useModel('warehouse');
+  const {
+    warehouseList,
+    setSelectedWarehouse,
+    selectedWarehouse,
+    updateWarehouse,
+    getWarehouseHistory,
+  } = useModel('warehouse');
 
   return (
     <div className="w-full">
@@ -44,7 +52,9 @@ export default function () {
             </Button>
             <Button
               type="dashed"
-              onClick={() => setShowInactive((prev) => !prev)}
+              onClick={() => {
+                setShowInactive((prev) => !prev);
+              }}
               style={{ marginRight: '5px' }}
             >
               {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
@@ -53,187 +63,213 @@ export default function () {
         </Row>
         <Row gutter={5} style={{ marginTop: '1rem' }}>
           <Col span={12}>
-            {warehouseList?.map((_item) => (
-              <Card key={_item.id} style={{ width: 300, marginTop: '1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div
-                    style={{
-                      fontSize: '0.8rem',
-                      textTransform: 'uppercase',
-                      fontWeight: '700',
-                      color: '#A2A2A2',
-                    }}
-                  >
-                    <HomeTwoTone style={{ fontSize: '1rem' }} /> {_item.name}
-                  </div>
-                  <div>
-                    <Dropdown
-                      menu={{
-                        items: [
-                          {
-                            key: '1',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setSelectedWarehouse(_item);
-                                  setModalOpen(modalType.WarehouseBasicInfo);
-                                }}
-                              >
-                                <HomeOutlined /> Basic Info & I.D Color
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '2',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setSelectedWarehouse(_item);
-                                  setModalOpen(modalType.WarehouseReturnLocation);
-                                }}
-                              >
-                                <ArrowLeftOutlined /> Return Location{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '3',
-                            label: (
-                              <span>
-                                <DatabaseOutlined />
-                                Secondary Addresses
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '4',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setSelectedWarehouse(_item);
-                                  setModalOpen(modalType.DocumentPrintSettings);
-                                }}
-                              >
-                                <FileOutlined /> Document Print Settings{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '5',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setSelectedWarehouse(_item);
-                                  setModalOpen(modalType.RankOrder);
-                                }}
-                              >
-                                <FlagOutlined /> International Rank{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '6',
-                            label: (
-                              <span>
-                                <ColumnHeightOutlined /> Domestic Backup Order{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '7',
-                            label: (
-                              <span>
-                                <PaperClipOutlined /> Inventory Dependents{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '8',
-                            label: (
-                              <span>
-                                <StopOutlined /> Deactivate{' '}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '9',
-                            label: (
-                              <span>
-                                <CarryOutOutlined /> History
-                              </span>
-                            ),
-                          },
-                        ],
+            {warehouseList
+              ?.filter((_item) => Boolean(_item.status) == !showInactive)
+              .map((_item) => (
+                <Card key={_item.id} style={{ width: 300, marginTop: '1rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div
+                      style={{
+                        fontSize: '0.8rem',
+                        textTransform: 'uppercase',
+                        fontWeight: '700',
+                        color: '#A2A2A2',
                       }}
                     >
-                      <Space
-                        style={{
-                          border: '1px solid #ccc',
-                          padding: '0.2rem',
-                          borderRadius: '0.2rem',
+                      <HomeTwoTone style={{ fontSize: '1rem' }} /> {_item.name}
+                    </div>
+                    <div>
+                      <Dropdown
+                        menu={{
+                          items: [
+                            {
+                              key: '1',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    setSelectedWarehouse(_item);
+                                    setModalOpen(modalType.WarehouseBasicInfo);
+                                  }}
+                                >
+                                  <HomeOutlined /> Basic Info & I.D Color
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '2',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    setSelectedWarehouse(_item);
+                                    setModalOpen(modalType.WarehouseReturnLocation);
+                                  }}
+                                >
+                                  <ArrowLeftOutlined /> Return Location{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '3',
+                              label: (
+                                <span>
+                                  <DatabaseOutlined />
+                                  Secondary Addresses
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '4',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    setSelectedWarehouse(_item);
+                                    setModalOpen(modalType.DocumentPrintSettings);
+                                  }}
+                                >
+                                  <FileOutlined /> Document Print Settings{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '5',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    setSelectedWarehouse(_item);
+                                    setModalOpen(modalType.RankOrder);
+                                  }}
+                                >
+                                  <FlagOutlined /> International Rank{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '6',
+                              label: (
+                                <span>
+                                  <ColumnHeightOutlined /> Domestic Backup Order{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '7',
+                              label: (
+                                <span>
+                                  <PaperClipOutlined /> Inventory Dependents{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '8',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    setSelectedWarehouse(_item);
+                                    setModalOpen(modalType.WarehouseDeactivate);
+                                  }}
+                                >
+                                  <StopOutlined /> Deactivate{' '}
+                                </span>
+                              ),
+                            },
+                            {
+                              key: '9',
+                              label: (
+                                <span
+                                  onClick={() => {
+                                    getWarehouseHistory(_item.id);
+                                    setModalOpen(modalType.WarehouseHistory);
+                                  }}
+                                >
+                                  <CarryOutOutlined /> History
+                                </span>
+                              ),
+                            },
+                          ],
                         }}
                       >
-                        <CaretDownFilled />
-                        <ToolFilled />
-                      </Space>
-                    </Dropdown>
+                        <Space
+                          style={{
+                            border: '1px solid #ccc',
+                            padding: '0.2rem',
+                            borderRadius: '0.2rem',
+                          }}
+                        >
+                          <CaretDownFilled />
+                          <ToolFilled />
+                        </Space>
+                      </Dropdown>
+                    </div>
                   </div>
-                </div>
-                <br />
-                <p>{_item.address1}</p>
-                <p>{_item.address2}</p>
-                <p>{_item.address3}</p>
-                <br />
-                <p>Phone: {_item.phone}</p>
-                <p>
-                  <QuestionCircleTwoTone /> International Rank: {_item.rank}
-                </p>
-              </Card>
-            ))}
+                  <br />
+                  <p>{_item.address1}</p>
+                  <p>{_item.address2}</p>
+                  <p>{_item.address3}</p>
+                  <br />
+                  <p>Phone: {_item.phone}</p>
+                  <p>
+                    <QuestionCircleTwoTone /> International Rank: {_item.rank}
+                  </p>
+                </Card>
+              ))}
           </Col>
         </Row>
       </Card>
 
       {/* Modals */}
       <NewWarehouseTypeModal
-        isOpen={modlaOpen === modalType.Void}
+        isOpen={modalOpen === modalType.Void}
         onClose={() => setModalOpen(modalType.Close)}
         handleOpenNew={() => setModalOpen(modalType.New)}
       />
 
       <NewWarehouseModal
-        isOpen={modlaOpen === modalType.New}
+        isOpen={modalOpen === modalType.New}
         onSave={() => setModalOpen(modalType.WarehouseShippingZones)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 
       <AddShippingZonesModal
-        isOpen={modlaOpen === modalType.WarehouseShippingZones}
+        isOpen={modalOpen === modalType.WarehouseShippingZones}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 
       <BasicInfoModal
-        isOpen={modlaOpen === modalType.WarehouseBasicInfo}
+        isOpen={modalOpen === modalType.WarehouseBasicInfo}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 
       <ReturnLocationModal
-        isOpen={modlaOpen === modalType.WarehouseReturnLocation}
+        isOpen={modalOpen === modalType.WarehouseReturnLocation}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 
       <DocumentPrintSettingsModal
-        isOpen={modlaOpen === modalType.DocumentPrintSettings}
+        isOpen={modalOpen === modalType.DocumentPrintSettings}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 
       <RankOrderModal
-        isOpen={modlaOpen === modalType.RankOrder}
+        isOpen={modalOpen === modalType.RankOrder}
         onSave={() => setModalOpen(modalType.Close)}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
+
+      <WarehouseDeactivateModal
+        isOpen={modalOpen === modalType.WarehouseDeactivate}
+        onSave={() => {
+          updateWarehouse(selectedWarehouse.id, { ...selectedWarehouse, status: false });
+          setModalOpen(modalType.Close);
+        }}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
+
+      <WarehouseHistoryModal
+        isOpen={modalOpen === modalType.WarehouseHistory}
         onClose={() => setModalOpen(modalType.Close)}
       />
     </div>

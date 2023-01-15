@@ -24,6 +24,9 @@ export enum modalType {
   NewVendorProduct = 'NewVendorProduct',
   BundleKit = 'BundleKit',
   ProductVariants = 'ProductVariants',
+  AttributeGroup = 'AttributeGroup',
+  AddCoreProduct = 'AddCoreProduct',
+  ConfigAttributeGroups = 'ConfigAttributeGroups',
 
   // order
   ManualOrder = 'Manual Order',
@@ -56,6 +59,8 @@ export enum modalType {
   WarehouseShippingZones = 'WarehouseShippingZones',
   DocumentPrintSettings = 'DocumentPrintSettings',
   RankOrder = 'RankOrder',
+  WarehouseDeactivate = 'WarehouseDeactivate',
+  WarehouseHistory = 'WarehouseHistory',
 }
 
 export enum EPOStatus {

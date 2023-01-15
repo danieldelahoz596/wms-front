@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 export default () => {
   const [warehouseList, setWarehouseList] = useState<any[]>([]);
   const [selectedWarehouse, setSelectedWarehouse] = useState(null);
+  const [warehouseHistoryList, setWarehouseHistoryList] = useState<any[]>([]);
   const { initialState } = useModel('@@initialState');
 
   const initialWarehouseList = useCallback(() => {
@@ -43,6 +44,15 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
+  const getWarehouseHistory = useCallback((id) => {
+    httpClient
+      .get('/api/warehouses/' + id + '/history')
+      .then((response: any) => {
+        setWarehouseHistoryList(response.data.histories);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   useEffect(() => {
     if (initialState?.currentUser) {
       initialWarehouseList();
@@ -52,10 +62,12 @@ export default () => {
   return {
     warehouseList,
     selectedWarehouse,
+    warehouseHistoryList,
     initialWarehouseList,
     createWarehouse,
     updateWarehouse,
     updateReturnLocation,
     setSelectedWarehouse,
+    getWarehouseHistory,
   };
 };
