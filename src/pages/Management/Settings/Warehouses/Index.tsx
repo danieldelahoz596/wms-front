@@ -5,7 +5,8 @@ import NewWarehouseModal from '@/components/Modals/Settings/Warehouse/NewWarehou
 import NewWarehouseTypeModal from '@/components/Modals/Settings/Warehouse/NewWarehouseTypeModal';
 import RankOrderModal from '@/components/Modals/Settings/Warehouse/RankOrderModal';
 import ReturnLocationModal from '@/components/Modals/Settings/Warehouse/ReturnLocationModal';
-import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivate';
+import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivateModal';
+import WarehouseHistoryModal from '@/components/Modals/Settings/Warehouse/WarehouseHistoryModal';
 import { modalType } from '@/utils/helpers/types';
 import {
   ArrowLeftOutlined,
@@ -29,8 +30,13 @@ import { useState } from 'react';
 export default function () {
   const [modalOpen, setModalOpen] = useState('');
   const [showInactive, setShowInactive] = useState(false);
-  const { warehouseList, setSelectedWarehouse, selectedWarehouse, updateWarehouse } =
-    useModel('warehouse');
+  const {
+    warehouseList,
+    setSelectedWarehouse,
+    selectedWarehouse,
+    updateWarehouse,
+    getWarehouseHistory,
+  } = useModel('warehouse');
 
   return (
     <div className="w-full">
@@ -169,7 +175,12 @@ export default function () {
                             {
                               key: '9',
                               label: (
-                                <span>
+                                <span
+                                  onClick={() => {
+                                    getWarehouseHistory(_item.id);
+                                    setModalOpen(modalType.WarehouseHistory);
+                                  }}
+                                >
                                   <CarryOutOutlined /> History
                                 </span>
                               ),
@@ -254,6 +265,11 @@ export default function () {
           updateWarehouse(selectedWarehouse.id, { ...selectedWarehouse, status: false });
           setModalOpen(modalType.Close);
         }}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
+
+      <WarehouseHistoryModal
+        isOpen={modalOpen === modalType.WarehouseHistory}
         onClose={() => setModalOpen(modalType.Close)}
       />
     </div>

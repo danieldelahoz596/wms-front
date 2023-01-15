@@ -60,6 +60,7 @@ export enum modalType {
   DocumentPrintSettings = 'DocumentPrintSettings',
   RankOrder = 'RankOrder',
   WarehouseDeactivate = 'WarehouseDeactivate',
+  WarehouseHistory = 'WarehouseHistory',
 }
 
 export enum EPOStatus {
