@@ -59,6 +59,7 @@ export enum modalType {
   WarehouseShippingZones = 'WarehouseShippingZones',
   DocumentPrintSettings = 'DocumentPrintSettings',
   RankOrder = 'RankOrder',
+  WarehouseDeactivate = 'WarehouseDeactivate',
 }
 
 export enum EPOStatus {
