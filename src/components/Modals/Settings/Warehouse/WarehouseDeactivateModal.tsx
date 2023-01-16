@@ -6,15 +6,24 @@ interface IWarehouseDeactivate {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
+  activate: boolean;
 }
 
-const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({ isOpen, onSave, onClose }) => {
-  const comment =
-    'Deactivating this warehouse will also deactivate all of its product stock and subtract all of its available inventory from associated product listings.';
+const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({
+  isOpen,
+  onSave,
+  onClose,
+  activate,
+}) => {
+  const comment = `${activate ? 'Activating' : 'Deactivating'} this warehouse will also ${
+    activate ? 'Activate' : 'Deactivate'
+  } all of its product stock and subtract all of its available inventory from associated product listings.`;
+
+  const title = `${activate ? 'ACTIVATE' : 'DEACTIVATE'} IN-HOUSE WAREHOUSE`;
 
   return (
     <OModal
-      title="DEACTIVATE IN-HOUSE WAREHOUSE"
+      title={title}
       isOpen={isOpen}
       width={400}
       centered
@@ -29,7 +38,7 @@ const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({ isOpen, onSave, o
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'YES-DEACTIVATE',
+          btnLabel: `YES-${activate ? 'ACTIVATE' : 'DEACTIVATE'}`,
           onClick: onSave,
         },
       ]}

@@ -7,13 +7,14 @@ import React, { useState } from 'react';
 const { Sider } = Layout;
 
 import Vendors from './Vendors/Index';
-import Warehouses from './Warehouses/Index';
+import Warehouses from './Warehouses';
+import { history } from '@umijs/max';
 
 const OrderManagement: React.FC = () => {
-  const [activeMenu, setActiveMenu] = useState<string>('2');
+  const [activeMenu, setActiveMenu] = useState<string>('Warehouses');
 
   let mainContent = null;
-  if (activeMenu === '2') {
+  if (activeMenu === 'Warehouses') {
     mainContent = <Warehouses />;
   } else if (activeMenu === '5') {
     mainContent = <Vendors />;
@@ -31,8 +32,16 @@ const OrderManagement: React.FC = () => {
     min: 50,
   });
 
+  const handleMenuItemClick = ({ key }) => {
+    history.push(`/Settings/${key}`);
+  };
+
   return (
-    <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
+    <PageContainer
+      title={false}
+      className={'flex flex-column overflow-hidden'}
+      header={{ breadcrumb: {} }}
+    >
       <div className={'flex grow'}>
         <div
           className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
@@ -50,9 +59,10 @@ const OrderManagement: React.FC = () => {
                   //   label: 'My Profile',
                   // },
                   {
-                    key: '2',
+                    key: 'Warehouses',
                     icon: <UserOutlined />,
                     label: 'Warehouses',
+                    onClick: handleMenuItemClick,
                   },
                   // {
                   //   key: '4',
