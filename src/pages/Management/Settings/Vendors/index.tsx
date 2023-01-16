@@ -20,6 +20,7 @@ export default function () {
     useModel('vendor');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [showInactive, setShowInactive] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const {
     isDragging: isRightDragging,
@@ -79,6 +80,7 @@ export default function () {
       status: showInactive ? false : true,
     });
 
+    setSearchText('');
     getVendorList(queryString);
   }, [showInactive, getVendorList]);
 
@@ -105,6 +107,8 @@ export default function () {
                       <SearchOutlined />
                     </Button>
                   }
+                  value={searchText}
+                  onChange={(event) => setSearchText(event.target.value)}
                 />
               </Col>
               <Col span={16}>

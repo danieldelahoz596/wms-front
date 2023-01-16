@@ -1,15 +1,14 @@
 import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
 import { Modal, Row, Col } from 'antd';
-import moment from 'moment';
 
 export default function EditHistoryModal({ isOpen, onSave, onClose }) {
-  const { selectedVendor } = useModel('vendor');
+  const { vendorHistory } = useModel('vendor');
 
   const THistoryColumns = [
     {
       title: 'Edit Time',
-      dataIndex: 'editTime',
+      dataIndex: 'time',
       key: 'editTime',
     },
     {
@@ -19,18 +18,10 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
     },
     {
       title: 'Changed Values',
-      dataIndex: 'changedValues',
+      dataIndex: 'value',
       key: 'changedValues',
     },
   ];
-
-  const historyData = selectedVendor
-    ? selectedVendor.edit_history?.map((_item) => ({
-        editTime: moment(_item.created_at).format('M/D/Y h:mm A'),
-        vendor: selectedVendor.name,
-        changedValues: _item.details?.toUpperCase(),
-      }))
-    : [];
 
   return (
     <Modal
@@ -43,7 +34,10 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
     >
       <Row>
         <Col span={24}>
-          <OTable columns={THistoryColumns} rows={historyData} />
+          <OTable
+            columns={THistoryColumns}
+            rows={vendorHistory.map((_item) => ({ ..._item, key: _item.id }))}
+          />
         </Col>
       </Row>
     </Modal>
