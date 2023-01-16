@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
 import { UserOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
 const { Sider } = Layout;
 
 import Vendors from './Vendors';
@@ -31,6 +31,10 @@ const OrderManagement: React.FC = () => {
     initial: 220,
     min: 50,
   });
+
+  useEffect(() => {
+    setActiveMenu(history.location.pathname.replace('/Settings/', ''));
+  }, []);
 
   const handleMenuItemClick = ({ key }) => {
     history.push(`/Settings/${key}`);
@@ -111,6 +115,7 @@ const OrderManagement: React.FC = () => {
                   //   label: 'Billing Info',
                   // },
                 ]}
+                selectedKeys={[activeMenu]}
               />
             </Sider>
           </div>
