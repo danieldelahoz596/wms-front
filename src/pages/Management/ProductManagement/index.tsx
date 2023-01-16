@@ -1,7 +1,19 @@
-import Icon from '@ant-design/icons';
-import { Button, message, Card, Row, Col, Dropdown, Popconfirm, Form } from 'antd';
+import Icon, { RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import {
+  Button,
+  message,
+  Card,
+  Row,
+  Col,
+  Dropdown,
+  Popconfirm,
+  Form,
+  Select,
+  Table,
+  Switch,
+} from 'antd';
 import React, { useState } from 'react';
-import { modalType } from '@/utils/helpers/types';
+import { modalType, productType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
@@ -26,10 +38,28 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from '@umijs/max';
 import SidePanel from './components/SidePanel/sidePanel';
+import styles from './index.less';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
-  const { productList } = useModel('product');
+  const [selectedProductRows, setSelectedProductRows] = useState([]);
+  const [showActivate, setShowActivate] = useState(true);
+  const {
+    productList,
+    selectedProducts,
+    editableProduct,
+    setSelectedProducts,
+    setProductList,
+    setEditableProduct,
+    handleUpdateProduct,
+  } = useModel('product');
+
+  const handleProductSelectedRows = (_selectedRows = []) => {
+    const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
+    setSelectedProductRows(_selectedRows);
+    setSelectedProducts(selectedList);
+    setEditableProduct(selectedList[0]);
+  };
 
   const {
     isDragging: isLeftDragging,
@@ -96,10 +126,19 @@ const ProductManagement: React.FC = () => {
     {
       title: 'Action',
       dataIndex: '',
-      render: () =>
+      render: (_, record) =>
         productList.length >= 1 ? (
           <>
-            <a onClick={() => setModal(modalType.Edit)}>Edit</a> &nbsp;&nbsp;
+            <a
+              onClick={(event) => {
+                event.stopPropagation();
+                setEditableProduct(productList.find((_item) => _item.id === record.id));
+                setModal(modalType.Edit);
+              }}
+            >
+              Edit
+            </a>{' '}
+            &nbsp;&nbsp;
             <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
               <a>Delete</a>
             </Popconfirm>
@@ -111,66 +150,126 @@ const ProductManagement: React.FC = () => {
   const importExportMenuOptions: MenuProps['items'] = [
     {
       key: '1',
-      label: <span onClick={() => setModal(modalType.Import)}>Import Products</span>,
+      label: (
+        <span onClick={() => setModal(modalType.Import)}>
+          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
+          Import Products
+        </span>
+      ),
     },
     {
       key: '3',
       label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
+          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
+          Import Vendor Products
+        </span>
       ),
     },
     {
       key: '4',
-      label: 'Import SKU Adjustments',
+      label: (
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
+          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
+          Import SKU Adjustments
+        </span>
+      ),
     },
     {
       key: '5',
-      label: 'Import Custom Fields',
+      label: (
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
+          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
+          Import Custom Fields
+        </span>
+      ),
     },
     {
       key: '6',
-      label: <span onClick={() => setModal(modalType.Export)}>Export Products</span>,
+      label: (
+        <span onClick={() => setModal(modalType.Export)}>
+          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
+          Export Products
+        </span>
+      ),
     },
     {
       key: '8',
       label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
+          Export Vendor Products
+        </span>
       ),
     },
     {
       key: '9',
-      label: 'Custom Product Export',
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
+          Custom Product Export
+        </span>
+      ),
     },
     {
       key: '10',
-      label: 'Custom Bundle/Kit Export',
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
+          Custom Bundle/Kit Export
+        </span>
+      ),
     },
   ];
 
   const actionButtons: IOButton[] = [
     {
       type: 'dashed',
-      onClick: () => console.log('Adjust Sku'),
+      onClick: () => setModal(modalType.Edit),
       btnText: 'Adjust Sku',
       hidden: false,
+      disabled: !editableProduct,
     },
     {
       type: 'dashed',
-      onClick: () => console.log('Convert To Bundle/Kit'),
+      onClick: () => {
+        handleUpdateProduct({ ...editableProduct, type: productType.BundleOrKit });
+        setEditableProduct(null);
+        setSelectedProducts([]);
+        setSelectedProductRows([]);
+      },
       btnText: 'Convert To Bundle/Kit',
       hidden: false,
+      disabled: !(editableProduct?.type === productType.CoreProduct),
     },
     {
       type: 'dashed',
-      onClick: () => console.log('Convert To Core'),
+      onClick: () => {
+        handleUpdateProduct({ ...editableProduct, type: productType.CoreProduct });
+        setEditableProduct(null);
+        setSelectedProducts([]);
+        setSelectedProductRows([]);
+      },
       btnText: 'Convert To Core',
       hidden: false,
+      disabled: !(editableProduct?.type === productType.Variations),
     },
     {
       type: 'dashed',
-      onClick: () => console.log('Deactivate'),
-      btnText: 'Deactivate',
+      onClick: () => {
+        setSelectedProducts([]);
+        setSelectedProductRows([]);
+        setProductList(
+          productList.map((_product) =>
+            selectedProductRows.includes(_product.id)
+              ? { ..._product, status: !showActivate }
+              : _product,
+          ),
+        );
+      },
+      btnText: `${showActivate ? 'Deactivate' : 'Activate'}`,
       hidden: false,
+      disabled: selectedProductRows.length === 0,
     },
     {
       type: 'dashed',
@@ -211,21 +310,51 @@ const ProductManagement: React.FC = () => {
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
-            <Card style={{ width: '100%' }}>
-              <Row>
-                <Col span={24}>
-                  {actionButtons.map((btn, index) => (
-                    <OButton key={index} {...btn} />
-                  ))}
-                </Col>
+            <div style={{ width: '100%' }}>
+              <Row style={{ marginLeft: '10px', marginTop: '10px' }}>
+                <div style={{ fontSize: '15px' }}>PRODUCTS :: </div>
+                <div>
+                  <Select
+                    options={[
+                      { label: 'Activate', value: 'activate' },
+                      { label: 'Deactivate', value: 'deactivate' },
+                    ]}
+                    defaultValue="activate"
+                    size="small"
+                    style={{ width: '100px', marginLeft: '5px' }}
+                    onChange={(value) => {
+                      setShowActivate(value === 'activate' ? true : false);
+                      setSelectedProductRows([]);
+                    }}
+                    value={showActivate ? 'activate' : 'deactivate'}
+                  />
+                  <Button icon={<RetweetOutlined />} type="primary" />
+                </div>
               </Row>
-              <br />
-              <Row>
-                <Col span={24}>
-                  <OTable columns={Tcolumns} rows={productList} type={'checkbox'} />
-                </Col>
-              </Row>
-            </Card>
+              <Card style={{ width: '100%' }}>
+                <Row>
+                  <Col span={24}>
+                    {actionButtons.map((btn, index) => (
+                      <OButton key={index} {...btn} />
+                    ))}
+                  </Col>
+                </Row>
+                <br />
+                <Row>
+                  <Col span={24}>
+                    <OTable
+                      type="checkbox"
+                      columns={Tcolumns}
+                      rows={productList
+                        .filter((_item) => _item.status == showActivate)
+                        .map((_item) => ({ ..._item, key: _item.id }))}
+                      selectedRows={selectedProductRows}
+                      setSelectedRows={handleProductSelectedRows}
+                    />
+                  </Col>
+                </Row>
+              </Card>
+            </div>
           </div>
           <SampleSplitter
             dir={'horizontal'}
@@ -295,8 +424,13 @@ const ProductManagement: React.FC = () => {
                       </div>
                     }
                   >
-                    <OTable
+                    <Table
                       columns={[
+                        {
+                          key: 'id',
+                          dataIndex: 'id',
+                          title: '',
+                        },
                         {
                           key: 'channel',
                           dataIndex: 'channel',
@@ -306,9 +440,42 @@ const ProductManagement: React.FC = () => {
                           key: 'pushInventory',
                           dataIndex: 'pushInventory',
                           title: 'Push Inventory',
+                          render: (pushInventory, record) => {
+                            return (
+                              <>
+                                <Switch
+                                  size="small"
+                                  className={pushInventory ? styles.checked : styles.unchecked}
+                                  onClick={() => {
+                                    const item = productList.find(
+                                      (_item) => _item.id === record.id,
+                                    );
+                                    handleUpdateProduct({
+                                      ...item,
+                                      push_inventory: !pushInventory,
+                                    });
+                                    setSelectedProducts(
+                                      selectedProducts.map((_item) =>
+                                        _item.id === record.id
+                                          ? { ..._item, push_inventory: !pushInventory }
+                                          : _item,
+                                      ),
+                                    );
+                                  }}
+                                  checked={!pushInventory}
+                                />
+                                {pushInventory ? 'YES' : 'NO'}
+                              </>
+                            );
+                          },
                         },
                       ]}
-                      rows={[]}
+                      dataSource={selectedProducts.map((_item) => ({
+                        key: _item.id,
+                        id: _item.id,
+                        channel: _item.channel,
+                        pushInventory: _item.push_inventory,
+                      }))}
                     />
                   </Card>
                 </Col>
@@ -343,7 +510,13 @@ const ProductManagement: React.FC = () => {
 
       <EditProductModal
         isOpen={modalOpen == modalType.Edit}
-        onSave={() => setModal(modalType.Close)}
+        onSave={() => {
+          setModal(modalType.Close);
+          handleUpdateProduct(editableProduct);
+          setSelectedProductRows([]);
+          setSelectedProducts([]);
+          setEditableProduct(null);
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
