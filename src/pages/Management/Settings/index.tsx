@@ -1,12 +1,12 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
-import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 const { Sider } = Layout;
 
-import Vendors from './Vendors/Index';
+import Vendors from './Vendors';
 import Warehouses from './Warehouses';
 import { history } from '@umijs/max';
 
@@ -16,7 +16,7 @@ const OrderManagement: React.FC = () => {
   let mainContent = null;
   if (activeMenu === 'Warehouses') {
     mainContent = <Warehouses />;
-  } else if (activeMenu === '5') {
+  } else if (activeMenu === 'Vendors') {
     mainContent = <Vendors />;
   } else {
     mainContent = <Vendors />;
@@ -70,9 +70,10 @@ const OrderManagement: React.FC = () => {
                   //   label: 'Shipping Providers',
                   // },
                   {
-                    key: '5',
+                    key: 'Vendors',
                     icon: <UserOutlined />,
                     label: 'Vendors',
+                    onClick: handleMenuItemClick,
                   },
                   // {
                   //   key: '6',
