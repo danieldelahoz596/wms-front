@@ -6,9 +6,10 @@ export default () => {
   const [vendorList, setVendorList] = useState<any[]>([]);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [editableVendor, setEditableVendor] = useState(null);
+  const [vendorHistory, setVendorHistory] = useState([]);
   const { initialState } = useModel('@@initialState');
 
-  const initialVendorList = useCallback((query = '') => {
+  const getVendorList = useCallback((query = '') => {
     httpClient
       .get('/api/vendors' + query)
       .then((response: any) => setVendorList(response.data.vendors))
@@ -49,30 +50,39 @@ export default () => {
     httpClient
       .put('/api/vendors/' + id + '/change-status', { status })
       .then((response) => {
-        setVendorList((prev) =>
-          prev.map((_item) => (_item.id == id ? response.data.vendor : _item)),
-        );
-        setSelectedVendor(response.data.vendor);
+        setVendorList((prev) => prev.filter((_item) => _item.id != id));
+        setSelectedVendor(null);
       })
       .catch((error) => console.log(error));
   }, []);
 
+  const getVendorHistory = useCallback((id) => {
+    httpClient
+      .get('/api/vendors/' + id + '/history')
+      .then((response: any) => {
+        setVendorHistory(response.data.vendorHistory);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   useEffect(() => {
     if (initialState?.currentUser) {
-      initialVendorList();
+      getVendorList();
     }
-  }, [initialVendorList, initialState?.currentUser]);
+  }, [getVendorList, initialState?.currentUser]);
 
   return {
     vendorList,
     selectedVendor,
     editableVendor,
+    vendorHistory,
     setEditableVendor,
-    initialVendorList,
+    getVendorList,
     setSelectedVendor,
     createNewVendor,
     updateNewVendor,
     deleteVendor,
     makeDeactivate,
+    getVendorHistory,
   };
 };

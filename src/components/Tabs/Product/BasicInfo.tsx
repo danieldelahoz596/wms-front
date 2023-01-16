@@ -3,32 +3,35 @@ import { Row, Col } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { productSelectOptions } from '@/utils/helpers/base';
+import { useModel } from '@umijs/max';
 
 const BasicInfo: React.FC = () => {
+  const { editableProduct, onChangeSelectedProduct } = useModel('product');
+
   const inputFields = [
     {
       type: 'text',
-      onChange: () => {},
+      onChange: onChangeSelectedProduct,
       label: 'Master Sku *:',
-      name: 'masterSku',
+      name: 'master_sku',
       placeholder: 'Master Sku',
-      defaultValue: '',
+      value: editableProduct?.master_sku,
     },
     {
       type: 'text',
-      onChange: () => {},
+      onChange: onChangeSelectedProduct,
       label: 'Name *:',
       name: 'name',
       placeholder: 'Name',
-      defaultValue: '',
+      value: editableProduct?.name,
     },
     [
       {
         type: 'select',
-        onChange: () => {},
+        onChange: onChangeSelectedProduct,
         label: 'Buy | Brand *:',
-        name: 'buy',
-        defaultValue: 'lucy',
+        name: 'buyer',
+        value: editableProduct?.buyer,
         options: [
           {
             value: 'lucy',
@@ -38,9 +41,9 @@ const BasicInfo: React.FC = () => {
       },
       {
         type: 'select',
-        onChange: () => {},
-        name: 'band',
-        defaultValue: 'lucy',
+        onChange: onChangeSelectedProduct,
+        name: 'brand',
+        value: editableProduct?.brand,
         options: [
           {
             value: 'lucy',
@@ -72,11 +75,12 @@ const BasicInfo: React.FC = () => {
     ],
     {
       type: 'select',
-      onChange: () => {},
+      onChange: onChangeSelectedProduct,
       label: 'Categories:',
       name: 'categories',
       placeholder: 'Please Select',
       options: productSelectOptions,
+      value: editableProduct?.categories,
       render: (inputField: any) => (
         <div style={{ display: 'flex' }}>
           {inputField}
@@ -101,11 +105,12 @@ const BasicInfo: React.FC = () => {
     },
     {
       type: 'select',
-      onChange: () => {},
-      label: 'Lables:',
-      name: 'lables',
+      onChange: onChangeSelectedProduct,
+      label: 'Labels:',
+      name: 'labels',
       placeholder: 'Please Select',
       options: productSelectOptions,
+      value: editableProduct?.labels,
       render: (inputField: any) => (
         <div style={{ display: 'flex' }}>
           {inputField}
@@ -130,9 +135,10 @@ const BasicInfo: React.FC = () => {
     },
     {
       type: 'textarea',
-      onChange: () => {},
+      onChange: onChangeSelectedProduct,
       label: 'Description:',
       name: 'description',
+      value: editableProduct?.description,
     },
   ];
 

@@ -72,6 +72,20 @@ export default [
     path: '/Settings',
     name: 'SETTINGS',
     component: './Management/Settings',
+    routes: [
+      {
+        hideInMenu: true,
+        name: 'WAREHOUSESETTINGS',
+        path: '/Settings/Warehouses',
+        component: './Management/Settings/Warehouses',
+      },
+      {
+        hideInMenu: true,
+        name: 'VENDORSETTINGS',
+        path: '/Settings/Vendors',
+        component: './Management/Settings/Vendors',
+      },
+    ],
   },
   {
     path: '/',

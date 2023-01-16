@@ -76,3 +76,10 @@ export enum EPOStatus {
   Voided = '9',
   Canceled = '10',
 }
+
+export enum productType {
+  CoreProduct = 'Core Product',
+  VariationCoreProduct = 'Variation Core Product',
+  BundleOrKit = 'Bundle or Kit',
+  Variations = 'Variations',
+}

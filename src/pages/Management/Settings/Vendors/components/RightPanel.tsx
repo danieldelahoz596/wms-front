@@ -3,7 +3,8 @@ import { useModel } from '@umijs/max';
 import { Button, Card, Row, Col, Descriptions, Space } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, makeDeactivate, setEditableVendor } = useModel('vendor');
+  const { selectedVendor, makeDeactivate, setEditableVendor, getVendorHistory } =
+    useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { incotermList } = useModel('incoterm');
   const { poFormatList } = useModel('poFormat');
@@ -42,7 +43,10 @@ const VendorDetails = ({ setModal }) => {
             </Button>
             <Button
               type="dashed"
-              onClick={() => setModal(modalType.History)}
+              onClick={() => {
+                getVendorHistory(vendorDetails.id);
+                setModal(modalType.History);
+              }}
               style={{ margin: '5px' }}
             >
               HISTORY

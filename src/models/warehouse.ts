@@ -48,7 +48,7 @@ export default () => {
     httpClient
       .get('/api/warehouses/' + id + '/history')
       .then((response: any) => {
-        setWarehouseHistoryList(response.data.histories);
+        setWarehouseHistoryList(response.data.warehouseHistory);
       })
       .catch((err) => console.log(err));
   }, []);

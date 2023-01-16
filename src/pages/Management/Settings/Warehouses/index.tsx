@@ -168,7 +168,7 @@ export default function () {
                                     setModalOpen(modalType.WarehouseDeactivate);
                                   }}
                                 >
-                                  <StopOutlined /> Deactivate{' '}
+                                  <StopOutlined /> {showInactive ? 'Activate' : 'Deactivate'}
                                 </span>
                               ),
                             },
@@ -262,10 +262,11 @@ export default function () {
       <WarehouseDeactivateModal
         isOpen={modalOpen === modalType.WarehouseDeactivate}
         onSave={() => {
-          updateWarehouse(selectedWarehouse.id, { ...selectedWarehouse, status: false });
+          updateWarehouse(selectedWarehouse.id, { status: showInactive });
           setModalOpen(modalType.Close);
         }}
         onClose={() => setModalOpen(modalType.Close)}
+        activate={showInactive}
       />
 
       <WarehouseHistoryModal

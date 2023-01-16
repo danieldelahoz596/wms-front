@@ -16,10 +16,11 @@ const { Search } = Input;
 
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const { vendorList, initialVendorList, setSelectedVendor, setEditableVendor, deleteVendor } =
+  const { vendorList, getVendorList, setSelectedVendor, setEditableVendor, deleteVendor } =
     useModel('vendor');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [showInactive, setShowInactive] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   const {
     isDragging: isRightDragging,
@@ -37,9 +38,9 @@ export default function () {
     setModal(modalType.Edit);
   };
 
-  const vendorListRows = vendorList.map((_item) => ({
+  const vendorListRows = vendorList?.map((_item) => ({
     key: _item.id,
-    name: <div style={{ width: '5rem' }}>{_item.name}</div>,
+    name: <div style={{ width: '10rem' }}>{_item.name}</div>,
     services: (
       <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center' }}>
         {_item.is_supplier ? <CarOutlined /> : ''}
@@ -48,9 +49,9 @@ export default function () {
       </div>
     ),
     status: _item.status ? 'Active' : 'Deactive',
-    openPos: _item.openPos,
-    pendingUnits: _item.pendingUnits,
-    pendingValue: _item.pendingValue,
+    openPos: 10,
+    pendingUnits: 100,
+    pendingValue: 100,
     action: (
       <div>
         <a
@@ -76,18 +77,19 @@ export default function () {
 
   useEffect(() => {
     const queryString = renderSearchQuery({
-      status: showInactive ? false : '',
+      status: showInactive ? false : true,
     });
 
-    initialVendorList(queryString);
-  }, [showInactive, initialVendorList]);
+    setSearchText('');
+    getVendorList(queryString);
+  }, [showInactive, getVendorList]);
 
   const handleSearch = (value) => {
     const queryString = renderSearchQuery({
       name: value,
     });
 
-    initialVendorList(queryString);
+    getVendorList(queryString);
   };
 
   return (
@@ -105,6 +107,8 @@ export default function () {
                       <SearchOutlined />
                     </Button>
                   }
+                  value={searchText}
+                  onChange={(event) => setSearchText(event.target.value)}
                 />
               </Col>
               <Col span={16}>
