@@ -1,4 +1,7 @@
 import { modalType } from '@/utils/helpers/types';
+import ManufacturerIcon from '@/utils/icons/manufacturer';
+import ShippingIcon from '@/utils/icons/shipping';
+import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
 import { Button, Card, Row, Col, Descriptions, Space, Popconfirm } from 'antd';
 
@@ -80,9 +83,48 @@ const VendorDetails = ({ setModal }) => {
             </Descriptions>
           </Card>
           <Card title="Services" size="small">
-            {vendorDetails.is_supplier ? <p>This vendor is a supplier</p> : ''}
-            {vendorDetails.is_manufacturer ? <p>This vendor manufactures products</p> : ''}
-            {vendorDetails.is_dropshipper ? <p>This vendor is a dropshipper</p> : ''}
+            {vendorDetails.is_supplier ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <TrainIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor is a supplier</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
+            {vendorDetails.is_manufacturer ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <ManufacturerIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor manufactures products</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
+            {vendorDetails.is_dropshipper ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <ShippingIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor is a dropshipper</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
           </Card>
           <Card title="P.O. Defaults" size="small">
             <Descriptions>

@@ -11,6 +11,9 @@ import RightPanel from './components/RightPanel';
 import { useResizable } from 'react-resizable-layout';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistoryModal';
+import TrainIcon from '@/utils/icons/train';
+import ManufacturerIcon from '@/utils/icons/manufacturer';
+import ShippingIcon from '@/utils/icons/shipping';
 
 const { Search } = Input;
 
@@ -48,15 +51,17 @@ export default function () {
     ?.filter((_item) => _item.status == !showInactive)
     .map((_item) => ({
       key: _item.id,
-      name: <div style={{ width: '10rem' }}>{_item.name}</div>,
+      name: <div style={{ width: '10rem' }}>{_item.name.toUpperCase()}</div>,
       services: (
-        <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center' }}>
-          {_item.is_supplier ? <CarOutlined /> : ''}
-          {_item.is_manufacturer ? <CarOutlined /> : ''}
-          {_item.is_dropshipper ? <CarOutlined /> : ''}
+        <div
+          style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}
+        >
+          {_item.is_supplier ? <TrainIcon /> : ''}
+          {_item.is_manufacturer ? <ManufacturerIcon /> : ''}
+          {_item.is_dropshipper ? <ShippingIcon /> : ''}
         </div>
       ),
-      status: _item.status ? 'Active' : 'Inactive',
+      status: _item.status ? 'ACTIVE' : 'INACTIVE',
       openPos: _item.open_pos,
       pendingUnits: _item.pending_units,
       pendingValue: _item.pending_value,
