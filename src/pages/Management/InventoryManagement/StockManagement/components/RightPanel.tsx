@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType } from '@/utils/helpers/types';
 import { Button, Card, Row, Col, Descriptions, Dropdown, Popconfirm } from 'antd';
 import { stock_data } from './structure';
 import { DownOutlined } from '@ant-design/icons';
+import { Column } from '@ant-design/plots';
+import { Line } from '@ant-design/charts';
 
 const StockDetails = () => {
   const [modal, setModal] = useState('');
   const [stockDataSource, setstockDataSource] = useState(stock_data);
+  const [selectedLocation, setSelectedLocation] = useState([]);
 
   const Scolumns = [
     {
@@ -34,6 +37,19 @@ const StockDetails = () => {
       title: 'Available',
       dataIndex: 'available',
       key: 'available',
+    },
+  ];
+
+  const columnData = [
+    {
+      year: '1991',
+      value: 3,
+      type: 'Lon',
+    },
+    {
+      year: '1991',
+      value: 3,
+      type: 'Bor',
     },
   ];
 
@@ -67,17 +83,26 @@ const StockDetails = () => {
                 <Descriptions.Item label="Incoming Units">0</Descriptions.Item>
               </Descriptions>
             </Col>
-            <Col span={10}></Col>
+            <Col span={12}>
+              {/* <Column data={columnData} xField="type" yField="value" /> */}
+            </Col>
           </Row>
           <Row>
             <Col span={24}>
               <Card title="Stock Breakdown">
-                <OTable columns={Scolumns} rows={stockDataSource} />
+                <OTable
+                  type="radio"
+                  columns={Scolumns}
+                  rows={stockDataSource}
+                  selectedRows={selectedLocation}
+                  setSelectedRows={setSelectedLocation}
+                />
                 <Row gutter={[20, 10]} justify="space-between">
                   <Button type="dashed" style={{ marginRight: '4px' }}>
                     New Stock
                   </Button>
                   <Dropdown
+                    disabled={selectedLocation.length === 0}
                     menu={{
                       items: [
                         {
