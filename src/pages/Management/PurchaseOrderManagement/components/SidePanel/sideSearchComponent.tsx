@@ -2,8 +2,13 @@ import React from 'react';
 import { Button, Form } from 'antd';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OInput } from '@/components/Globals/OInput';
+import { useModel } from '@umijs/max';
 
 const SideSearch: React.FC = () => {
+
+  const { initialState } = useModel('@@initialState');
+  const { initialData } = initialState;
+
   const statusOptions: IOSelectOption[] = [
     {
       text: 'Item 1',
@@ -54,7 +59,7 @@ const SideSearch: React.FC = () => {
       label: 'Status',
       placeholder: 'Select...',
       name: 'status',
-      options: statusOptions,
+      options: initialData?.purchasing_statuses?.map((item) => ({ value: item.id, text: item.name })),
       onChange: () => {},
     },
     {
@@ -96,7 +101,7 @@ const SideSearch: React.FC = () => {
       label: 'Vendor:',
       placeholder: 'Select...',
       name: 'vendor',
-      options: vendorOptions,
+      options: initialData?.vendors?.map((item) => ({ value: item.id, text: item.name })),
       onChange: () => {},
     },
 
@@ -105,7 +110,7 @@ const SideSearch: React.FC = () => {
       label: 'Destination:',
       placeholder: 'Select...',
       name: 'destination',
-      options: destinationOptions,
+      options: initialData?.warehouses?.map((item) => ({ value: item.id, text: item.name })),
       onChange: () => {},
     },
   ];

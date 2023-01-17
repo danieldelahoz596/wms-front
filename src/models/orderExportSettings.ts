@@ -33,11 +33,6 @@ export default () => {
           field: 'Ship Address1',
           name: '',
         },
-        {
-          key: 75,
-          field: 'Sales Channel Name',
-          name: '',
-        },
       ],
     },
     {

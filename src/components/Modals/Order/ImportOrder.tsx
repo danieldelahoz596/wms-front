@@ -126,10 +126,6 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
                   <Button icon={<UploadOutlined />}>SELECT...</Button>
                 </Upload>
               </Form.Item>
-
-              <Form.Item label="Manual Sales Channel: ">
-                <OInput type="select" options={[]} placeholder="Select.." />
-              </Form.Item>
             </Form>
           </Col>
         </Row>

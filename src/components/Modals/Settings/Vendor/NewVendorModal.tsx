@@ -151,18 +151,6 @@ export default function ({ isOpen, onSave, onClose }) {
               </Col>
             </Row>
             <Row className="pb-3">
-              <Col span={4}>Country:</Col>
-              <Col span={20}>
-                <Select
-                  onChange={(value) => handleInputChange('country', value)}
-                  style={{ width: '100%' }}
-                >
-                  <Option value="Country 1">United States of America</Option>
-                  <Option value="Country 2">China</Option>
-                </Select>
-              </Col>
-            </Row>
-            <Row className="pb-3">
               <Col span={4}>Phone 1</Col>
               <Col span={20}>
                 <Input
@@ -177,24 +165,6 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Input
                   placeholder="Phone 2"
                   onChange={(e) => handleInputChange('phone2', e.target.value)}
-                />
-              </Col>
-            </Row>
-            <Row className="pb-3">
-              <Col span={4}>Email</Col>
-              <Col span={20}>
-                <Input
-                  placeholder="Email"
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                />
-              </Col>
-            </Row>
-            <Row className="pb-3">
-              <Col span={4}>Website</Col>
-              <Col span={20}>
-                <Input
-                  placeholder="Website"
-                  onChange={(e) => handleInputChange('website', e.target.value)}
                 />
               </Col>
             </Row>

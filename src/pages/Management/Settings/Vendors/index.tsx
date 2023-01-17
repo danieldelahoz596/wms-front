@@ -48,25 +48,10 @@ export default function () {
         {_item.is_dropshipper ? <CarOutlined /> : ''}
       </div>
     ),
-    status: _item.status ? 'Active' : 'Deactive',
+    status: _item.status ? 'Active' : 'Inactive',
     openPos: 10,
     pendingUnits: 100,
     pendingValue: 100,
-    action: (
-      <div>
-        <a
-          onClick={() => {
-            editVendor(_item);
-          }}
-        >
-          Edit
-        </a>
-        &nbsp;&nbsp;
-        <Popconfirm title="Sure to delete?" onConfirm={() => deleteVendor(_item)}>
-          <a>Delete</a>
-        </Popconfirm>
-      </div>
-    ),
   }));
 
   const handleSelectedRows = (_selectedRows = []) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form } from 'antd';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
 
@@ -10,41 +9,19 @@ const SideSearch: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const { initialData } = initialState;
 
-  const options: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
-
   const formInputs = [
     {
       type: 'select',
       label: 'Status',
       placeholder: 'Select...',
       name: 'status',
-      options: initialData?.statuses?.map((item) => ({ value: item.id, text: item.name })),
+      options: initialData?.order_statuses?.map((item) => ({ value: item.id, text: item.name })),
       onChange: onChangeOrderSearchQuery,
     },
     {
       type: 'number',
       label: 'Order Number',
       name: 'orderNumber',
-      onChange: onChangeOrderSearchQuery,
-    },
-    {
-      type: 'select',
-      label: 'Sales Channel',
-      placeholder: 'Select...',
-      name: 'salesChannel',
-      options: initialData?.salesChannels?.map((item) => ({
-        value: item.id,
-        text: item.name,
-      })),
       onChange: onChangeOrderSearchQuery,
     },
     {
@@ -60,14 +37,6 @@ const SideSearch: React.FC = () => {
       label: 'Recipient',
       name: 'recipient',
       placeholder: 'Name',
-      onChange: onChangeOrderSearchQuery,
-    },
-    {
-      type: 'select',
-      label: 'Country',
-      name: 'country',
-      placeholder: 'Select...',
-      options: options,
       onChange: onChangeOrderSearchQuery,
     },
     {

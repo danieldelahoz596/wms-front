@@ -63,11 +63,6 @@ const TransferManagement: React.FC = () => {
       key: 'notes',
     },
     {
-      title: 'Sales Channel',
-      dataIndex: 'sales_channel',
-      key: 'sales_channel',
-    },
-    {
       title: 'Receiving Warehouse',
       dataIndex: 'receiving_warehouse',
       key: 'receiving_warehouse',

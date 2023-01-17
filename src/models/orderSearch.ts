@@ -7,7 +7,6 @@ import { demoOrderTableRows } from '@/data/orderData';
 const initialSearchQueryState = {
   status: '',
   orderNumber: '',
-  salesChannel: '',
   warehouse: '',
   recipient: '',
   country: '',

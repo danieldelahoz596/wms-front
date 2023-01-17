@@ -45,6 +45,7 @@ const Login: React.FC = () => {
   const fetchIinitialData = () => {
     httpClient.get('/api/initial-data').then((response) => {
       localStorage.setItem('initialData', JSON.stringify(response.data));
+      console.log(response.data);
       setInitialState((s) => ({
         ...s,
         initialData: response.data,

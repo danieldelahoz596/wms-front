@@ -42,7 +42,7 @@ const SearchByProductPanel: React.FC = () => {
       label: 'Brand',
       placeholder: 'Select...',
       name: 'brand',
-      options: initialData?.salesChannels?.map((item) => ({
+      options: initialData?.brands?.map((item) => ({
         value: item.id,
         text: item.name,
       })),
@@ -52,7 +52,7 @@ const SearchByProductPanel: React.FC = () => {
       label: 'Categories',
       placeholder: 'Select...',
       name: 'categories',
-      options: initialData?.salesChannels?.map((item) => ({
+      options: initialData?.categories?.map((item) => ({
         value: item.id,
         text: item.name,
       })),
@@ -62,7 +62,7 @@ const SearchByProductPanel: React.FC = () => {
       label: 'Labels',
       placeholder: 'Select...',
       name: 'labels',
-      options: initialData?.salesChannels?.map((item) => ({
+      options: initialData?.labels?.map((item) => ({
         value: item.id,
         text: item.name,
       })),

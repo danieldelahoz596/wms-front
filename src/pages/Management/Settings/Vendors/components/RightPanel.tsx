@@ -1,6 +1,6 @@
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
-import { Button, Card, Row, Col, Descriptions, Space } from 'antd';
+import { Button, Card, Row, Col, Descriptions, Space, Popconfirm } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
   const { selectedVendor, makeDeactivate, setEditableVendor, getVendorHistory } =
@@ -51,6 +51,9 @@ const VendorDetails = ({ setModal }) => {
             >
               HISTORY
             </Button>
+            <Popconfirm title="Sure to deactivate?" onConfirm={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}>
+              <a>DEACTIVATE</a>
+            </Popconfirm>
             <Button
               type="dashed"
               onClick={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}
@@ -74,12 +77,6 @@ const VendorDetails = ({ setModal }) => {
             </Descriptions>
             <Descriptions>
               <Descriptions.Item label="Phone 2">{vendorDetails.phone2}</Descriptions.Item>
-            </Descriptions>
-            <Descriptions>
-              <Descriptions.Item label="Email">{vendorDetails.email}</Descriptions.Item>
-            </Descriptions>
-            <Descriptions>
-              <Descriptions.Item label="Website">{vendorDetails.website}</Descriptions.Item>
             </Descriptions>
           </Card>
           <Card title="Services" size="small">

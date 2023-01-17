@@ -395,16 +395,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
       name: '',
     },
     {
-      key: 75,
-      field: 'Sales Channel Name',
-      name: '',
-    },
-    {
-      key: 76,
-      field: 'Sales Channel Type Name',
-      name: '',
-    },
-    {
       key: 77,
       field: 'Internal SKU',
       name: '',
