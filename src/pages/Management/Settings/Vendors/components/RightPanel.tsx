@@ -1,9 +1,12 @@
 import { modalType } from '@/utils/helpers/types';
+import ManufacturerIcon from '@/utils/icons/manufacturer';
+import ShippingIcon from '@/utils/icons/shipping';
+import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
 import { Button, Card, Row, Col, Descriptions, Space, Popconfirm } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, makeDeactivate, setEditableVendor, getVendorHistory } =
+  const { selectedVendor, setEditableVendor, getVendorHistory, updateNewVendor } =
     useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { incotermList } = useModel('incoterm');
@@ -51,16 +54,16 @@ const VendorDetails = ({ setModal }) => {
             >
               HISTORY
             </Button>
-            <Popconfirm title="Sure to deactivate?" onConfirm={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}>
-              <a>DEACTIVATE</a>
-            </Popconfirm>
-            <Button
-              type="dashed"
-              onClick={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}
-              style={{ margin: '5px' }}
+            <Popconfirm
+              title="Sure to deactivate?"
+              onConfirm={() => {
+                updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+              }}
             >
-              {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
-            </Button>
+              <Button type="dashed" style={{ margin: '5px' }}>
+                {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
+              </Button>
+            </Popconfirm>
           </Col>
         </Row>
         <br />
@@ -80,9 +83,48 @@ const VendorDetails = ({ setModal }) => {
             </Descriptions>
           </Card>
           <Card title="Services" size="small">
-            {vendorDetails.is_supplier ? <p>This vendor is a supplier</p> : ''}
-            {vendorDetails.is_manufacturer ? <p>This vendor manufactures products</p> : ''}
-            {vendorDetails.is_dropshipper ? <p>This vendor is a dropshipper</p> : ''}
+            {vendorDetails.is_supplier ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <TrainIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor is a supplier</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
+            {vendorDetails.is_manufacturer ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <ManufacturerIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor manufactures products</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
+            {vendorDetails.is_dropshipper ? (
+              <Row align="middle">
+                <Col span={4}>
+                  <Row justify="center">
+                    <ShippingIcon />
+                  </Row>
+                </Col>
+                <Col span={20}>
+                  <div style={{ fontSize: '10px' }}>This vendor is a dropshipper</div>
+                </Col>
+              </Row>
+            ) : (
+              ''
+            )}
           </Card>
           <Card title="P.O. Defaults" size="small">
             <Descriptions>

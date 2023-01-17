@@ -25,17 +25,19 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const updateNewVendor = useCallback(() => {
-    httpClient
-      .put('/api/vendors/' + editableVendor.id, editableVendor)
-      .then((response) => {
-        setVendorList((prev) =>
-          prev.map((_item) => (_item.id === editableVendor.id ? response.data.vendor : _item)),
-        );
-        setSelectedVendor(response.data.vendors);
-      })
-      .catch((error) => console.log(error));
-  }, [editableVendor]);
+  const updateNewVendor = useCallback(
+    (_item) => {
+      httpClient
+        .put('/api/vendors/' + _item.id, _item)
+        .then((response) => {
+          setVendorList((prev) =>
+            prev.map((_vendor) => (_vendor.id === _item.id ? response.data.vendor : _vendor)),
+          );
+        })
+        .catch((error) => console.log(error));
+    },
+    [vendorList],
+  );
 
   const deleteVendor = useCallback((data) => {
     httpClient
@@ -44,16 +46,6 @@ export default () => {
         setVendorList((prev) => prev.filter((_item) => _item.id != data.id));
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  const makeDeactivate = useCallback((id, status) => {
-    httpClient
-      .put('/api/vendors/' + id + '/change-status', { status })
-      .then((response) => {
-        setVendorList((prev) => prev.filter((_item) => _item.id != id));
-        setSelectedVendor(null);
-      })
-      .catch((error) => console.log(error));
   }, []);
 
   const getVendorHistory = useCallback((id) => {
@@ -79,10 +71,10 @@ export default () => {
     setEditableVendor,
     getVendorList,
     setSelectedVendor,
+    setVendorList,
     createNewVendor,
     updateNewVendor,
     deleteVendor,
-    makeDeactivate,
     getVendorHistory,
   };
 };

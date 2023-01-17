@@ -15,8 +15,8 @@ export const data = [
     status: 'yellow',
   },
   {
-    key: 1,
-    type: 'Core Product',
+    key: 2,
+    type: 'Variation Core Product',
     master_sku: 'SUNGLASS...',
     name: 'Sterling Silve...',
     brand: 'PAPER HEART IN...',
@@ -30,8 +30,8 @@ export const data = [
     status: 'green',
   },
   {
-    key: 1,
-    type: 'Core Product',
+    key: 3,
+    type: 'Variations',
     master_sku: '10068902',
     name: 'Sterling Silve...',
     brand: 'YOYO',
@@ -45,7 +45,7 @@ export const data = [
     status: 'red',
   },
   {
-    key: 1,
+    key: 4,
     type: 'Bundle or Kit',
     master_sku: '10068935',
     name: 'Sterling Silve...',
@@ -60,7 +60,7 @@ export const data = [
     status: 'light blue',
   },
   {
-    key: 1,
+    key: 5,
     type: 'Core Product',
     master_sku: '10069001',
     name: 'Sterling Silve...',
@@ -75,7 +75,7 @@ export const data = [
     status: 'light blue',
   },
   {
-    key: 1,
+    key: 6,
     type: 'Bundle or Kit',
     master_sku: '10069901',
     name: 'Sterling Silve...',
@@ -90,7 +90,7 @@ export const data = [
     status: 'red',
   },
   {
-    key: 1,
+    key: 7,
     type: 'Core Product',
     master_sku: 'DICE 2',
     name: 'Sterling Silve...',
@@ -105,7 +105,7 @@ export const data = [
     status: 'green',
   },
   {
-    key: 1,
+    key: 8,
     type: 'Core Product',
     master_sku: '19076456',
     name: 'Sterling Silve...',
@@ -120,7 +120,7 @@ export const data = [
     status: 'light blue',
   },
   {
-    key: 1,
+    key: 9,
     type: 'Core Product',
     master_sku: '19076457',
     name: 'Sterling Silve...',
@@ -135,7 +135,7 @@ export const data = [
     status: 'green',
   },
   {
-    key: 1,
+    key: 10,
     type: 'Core Product',
     master_sku: '19076458',
     name: 'Sterling Silve...',
@@ -150,7 +150,7 @@ export const data = [
     status: 'yellow',
   },
   {
-    key: 1,
+    key: 11,
     type: 'type1',
     master_sku: 'Spring Bar',
     name: 'Everest Spring Bar',
@@ -165,7 +165,7 @@ export const data = [
     status: 'active',
   },
   {
-    key: 2,
+    key: 12,
     type: 'type2',
     master_sku: 'Buckle',
     name: 'Everest Buckle',
@@ -180,7 +180,7 @@ export const data = [
     status: 'active',
   },
   {
-    key: 1,
+    key: 13,
     type: 'type1',
     master_sku: 'Black Rubber Strap',
     name: 'Everest Strap (Black Rubber)',
@@ -195,7 +195,7 @@ export const data = [
     status: 'active',
   },
   {
-    key: 2,
+    key: 14,
     type: 'type2',
     master_sku: 'Rudysku_4',
     name: 'Toys',
@@ -210,7 +210,7 @@ export const data = [
     status: 'active',
   },
   {
-    key: 3,
+    key: 15,
     type: 'type2',
     master_sku: '222',
     name: 'product2',
@@ -226,59 +226,59 @@ export const data = [
   },
 ];
 
-  export const stock_data = [
-    {
-      key: 1,
-      location: 'Location 1',
-      status: 'Active',
-      rank: '1',
-      min_level: '2',
-      available: '100',
-    },
-    {
-      key: 2,
-      location: 'Location 2',
-      status: 'Active',
-      rank: '2',
-      min_level: '3',
-      available: '200',
-    },
-    {
-      key: 3,
-      location: 'Location 3',
-      status: 'Active',
-      rank: '3',
-      min_level: '2',
-      available: '200',
-    },
-  ];
+export const stock_data = [
+  {
+    key: 1,
+    location: 'Location 1',
+    status: 'Active',
+    rank: '1',
+    min_level: '2',
+    available: '100',
+  },
+  {
+    key: 2,
+    location: 'Location 2',
+    status: 'Active',
+    rank: '2',
+    min_level: '3',
+    available: '200',
+  },
+  {
+    key: 3,
+    location: 'Location 3',
+    status: 'Active',
+    rank: '3',
+    min_level: '2',
+    available: '200',
+  },
+];
 
-  export const stock_history = [
-    {
-      key: 1,
-      edit_time: '04/09/2021 10:49 AM',
-      user: 'support@skubana.com',
-      edit_type: 'Adjust',
-      description: 'This is test',
-      notes: 'Test',
-    },
-    {
-      key: 2,
-      edit_time: '04/09/2022',
-      user: 'support@test.com',
-      edit_type: 'Adjust sf',
-      description: 'This is test dv',
-      notes: 'Test s',
-    },
-    {
-      key: 3,
-      edit_time: '04/09/2022',
-      user: 'support23@test.com',
-      edit_type: 'Adjust w3',
-      description: 'This is test 34',
-      notes: 'Test 34',
-    },
-  ];
+export const stock_history = [
+  {
+    key: 1,
+    edit_time: '04/09/2021 10:49 AM',
+    user: 'support@skubana.com',
+    edit_type: 'Adjust',
+    description: 'This is test',
+    notes: 'Test',
+  },
+  {
+    key: 2,
+    edit_time: '04/09/2022',
+    user: 'support@test.com',
+    edit_type: 'Adjust sf',
+    description: 'This is test dv',
+    notes: 'Test s',
+  },
+  {
+    key: 3,
+    edit_time: '04/09/2022',
+    user: 'support23@test.com',
+    edit_type: 'Adjust w3',
+    description: 'This is test 34',
+    notes: 'Test 34',
+  },
+];
 
 export const stock_allocation = [
   {

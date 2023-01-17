@@ -83,3 +83,10 @@ export enum productType {
   BundleOrKit = 'Bundle or Kit',
   Variations = 'Variations',
 }
+
+export enum productStatus {
+  yellow = 'yellow',
+  green = 'green',
+  red = 'red',
+  lightBlue = 'light blue',
+}
