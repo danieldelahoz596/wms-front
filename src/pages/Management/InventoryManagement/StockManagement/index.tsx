@@ -25,6 +25,11 @@ import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconcili
 import StockAllocationDetailsModal from '@/components/Modals/Inventory/StockAllocationDetails';
 import { useResizable } from 'react-resizable-layout';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { productType } from '@/utils/helpers/types';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
+import BundleIcon from '@/utils/icons/bundle';
+import ListIcon from '@/utils/icons/list';
+import VariationIcon from '@/utils/icons/variation';
 
 const { Search } = Input;
 
@@ -40,11 +45,35 @@ const StockManagement: React.FC = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+      align: 'center',
+      render: (text: any) => (
+        <>
+          {text === productType.CoreProduct ? (
+            <CoreProductsIcon />
+          ) : text === productType.BundleOrKit ? (
+            <BundleIcon />
+          ) : text === productType.Variations ? (
+            <VariationIcon />
+          ) : (
+            <span style={{ position: 'relative' }}>
+              <CoreProductsIcon />
+              <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
+                <DownOutlined />
+              </div>
+            </span>
+          )}
+        </>
+      ),
     },
     {
       title: 'MASTER SKU',
       dataIndex: 'master_sku',
       key: 'master_sku',
+      render: (text: any) => (
+        <a>
+          <u>{text}</u>
+        </a>
+      ),
     },
     {
       title: 'Name',
@@ -60,6 +89,7 @@ const StockManagement: React.FC = () => {
       title: 'Des',
       dataIndex: 'description',
       key: 'description',
+      render: (text: any) => <>{text && <ListIcon />}</>,
     },
     {
       title: 'On Hand',
@@ -80,7 +110,7 @@ const StockManagement: React.FC = () => {
           style={{ cursor: 'pointer', color: 'blue' }}
           onClick={() => setModal(modalType.StockAllocationDetails)}
         >
-          {text}
+          <u>{text}</u>
         </span>
       ),
     },
@@ -88,6 +118,14 @@ const StockManagement: React.FC = () => {
       title: 'In Transfer',
       dataIndex: 'in_transfer',
       key: 'in_transfer',
+      render: (text: any) => (
+        <span
+          style={{ cursor: 'pointer', color: 'blue' }}
+          onClick={() => setModal(modalType.StockAllocationDetails)}
+        >
+          <u>{text}</u>
+        </span>
+      ),
     },
     {
       title: 'Available',
@@ -98,6 +136,14 @@ const StockManagement: React.FC = () => {
       title: 'Discrepation',
       dataIndex: 'discrepation',
       key: 'discrepation',
+      render: (text: any) => (
+        <span
+          style={{ cursor: 'pointer', color: 'blue' }}
+          onClick={() => setModal(modalType.StockAllocationDetails)}
+        >
+          <u>{text}</u>
+        </span>
+      ),
     },
     {
       title: 'Status',
@@ -152,133 +198,162 @@ const StockManagement: React.FC = () => {
           <Row style={{ width: '100%' }}>
             <Col span={24}>
               <Card>
-                <div style={{ width: 300, display: 'inline-block', marginRight: '10px' }}>
-                  <Search
-                    placeholder="Enter SKU or product name..."
-                    onSearch={() => console.log('Inactive')}
-                    enterButton
-                  />
-                </div>
-                {/* <Button type="dashed" style={{ marginRight: '10px' }}>
-                  Bulk Edit
-                </Button> */}
-                <Dropdown
-                  menu={{
-                    items: [
-                      {
-                        key: '1',
-                        label: (
-                          <span onClick={() => setModal(modalType.StockHistory)}>History</span>
-                        ),
-                      },
-                      {
-                        key: '2',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>Deactivate</span>
-                        ),
-                      },
-                      {
-                        key: '3',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>Draw Rank</span>
-                        ),
-                      },
-                      {
-                        key: '4',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>Location</span>
-                        ),
-                      },
-                      {
-                        key: '5',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>Transfer</span>
-                        ),
-                      },
-                      {
-                        key: '6',
-                        label: <span onClick={() => setModal(modalType.ManualOrder)}>Adjust</span>,
-                      },
-                      {
-                        key: '7',
-                        label: <span onClick={() => setModal(modalType.ManualOrder)}>Remove</span>,
-                      },
-                      {
-                        key: '8',
-                        label: <span onClick={() => setModal(modalType.ManualOrder)}>Add</span>,
-                      },
-                    ],
-                  }}
-                >
-                  <Button type="dashed" style={{ marginRight: '4px' }}>
-                    Bulk Edit <DownOutlined />
-                  </Button>
-                </Dropdown>
-                <Dropdown
-                  menu={{
-                    items: [
-                      {
-                        key: '1',
-                        label: (
-                          <span onClick={() => setModal(modalType.StockHistory)}>
-                            Import Inventory
-                          </span>
-                        ),
-                      },
-                      {
-                        key: '2',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>
-                            Import Stock Minimums
-                          </span>
-                        ),
-                      },
-                      {
-                        key: '3',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>
-                            Import Reorder Rules
-                          </span>
-                        ),
-                      },
-                      {
-                        key: '4',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>
-                            Export Inventory
-                          </span>
-                        ),
-                      },
-                      {
-                        key: '5',
-                        label: (
-                          <span onClick={() => setModal(modalType.ManualOrder)}>
-                            Export Stock Details
-                          </span>
-                        ),
-                      },
-                      {
-                        key: '6',
-                        label: (
-                          <span onClick={() => setModal(modalType.ExportStockEditHistory)}>
-                            Export Stock Edit History
-                          </span>
-                        ),
-                      },
-                    ],
-                  }}
-                >
-                  <Button type="dashed" style={{ marginRight: '10px' }}>
-                    Import/Export <DownOutlined />
-                  </Button>
-                </Dropdown>
-                <Button
-                  onClick={() => setModal(modalType.BulkReconciliation)}
-                  type="dashed"
-                  style={{ marginRight: '10px' }}
-                >
-                  Bulk Reconciliation
-                </Button>
+                <Row gutter={10} align="middle">
+                  <Col span={8}>
+                    <Search
+                      placeholder="Enter SKU or product name..."
+                      onSearch={() => console.log('Inactive')}
+                      enterButton
+                      size="small"
+                    />
+                  </Col>
+                  <Col span={16}>
+                    <Row gutter={5}>
+                      <Col>
+                        <Dropdown
+                          menu={{
+                            items: [
+                              {
+                                key: '1',
+                                label: (
+                                  <span onClick={() => setModal(modalType.StockHistory)}>
+                                    History
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '2',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Deactivate
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '3',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Draw Rank
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '4',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Location
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '5',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Transfer
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '6',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Adjust
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '7',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Remove
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '8',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>Add</span>
+                                ),
+                              },
+                            ],
+                          }}
+                        >
+                          <Button type="dashed">
+                            Bulk Edit <DownOutlined />
+                          </Button>
+                        </Dropdown>
+                      </Col>
+                      <Col>
+                        <Dropdown
+                          menu={{
+                            items: [
+                              {
+                                key: '1',
+                                label: (
+                                  <span onClick={() => setModal(modalType.StockHistory)}>
+                                    Import Inventory
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '2',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Import Stock Minimums
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '3',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Import Reorder Rules
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '4',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Export Inventory
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '5',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                                    Export Stock Details
+                                  </span>
+                                ),
+                              },
+                              {
+                                key: '6',
+                                label: (
+                                  <span onClick={() => setModal(modalType.ExportStockEditHistory)}>
+                                    Export Stock Edit History
+                                  </span>
+                                ),
+                              },
+                            ],
+                          }}
+                        >
+                          <Button type="dashed">
+                            Import/Export <DownOutlined />
+                          </Button>
+                        </Dropdown>
+                      </Col>
+                      <Col>
+                        <Button
+                          onClick={() => setModal(modalType.BulkReconciliation)}
+                          type="dashed"
+                        >
+                          Bulk Reconciliation
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
               </Card>
               <Card>
                 <OTable columns={Tcolumns} rows={dataSource} />

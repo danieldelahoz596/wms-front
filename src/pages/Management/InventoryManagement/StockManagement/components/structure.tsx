@@ -16,7 +16,7 @@ export const data = [
   },
   {
     key: 2,
-    type: 'Core Product',
+    type: 'Variation Core Product',
     master_sku: 'SUNGLASS...',
     name: 'Sterling Silve...',
     brand: 'PAPER HEART IN...',
@@ -31,7 +31,7 @@ export const data = [
   },
   {
     key: 3,
-    type: 'Core Product',
+    type: 'Variations',
     master_sku: '10068902',
     name: 'Sterling Silve...',
     brand: 'YOYO',
