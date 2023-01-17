@@ -25,7 +25,9 @@ export default function ({ isOpen, onSave, onClose }) {
     }));
 
   const handleSave = () => {
-    updateNewVendor();
+    const { open_pos, pending_units, pending_value, po_default, edit_history, ...updatedData } =
+      editableVendor;
+    updateNewVendor(updatedData);
     onSave();
   };
 

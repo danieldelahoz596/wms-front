@@ -3,7 +3,7 @@ import { useModel } from '@umijs/max';
 import { Button, Card, Row, Col, Descriptions, Space, Popconfirm } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, makeDeactivate, setEditableVendor, getVendorHistory } =
+  const { selectedVendor, setEditableVendor, getVendorHistory, updateNewVendor } =
     useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { incotermList } = useModel('incoterm');
@@ -51,16 +51,16 @@ const VendorDetails = ({ setModal }) => {
             >
               HISTORY
             </Button>
-            <Popconfirm title="Sure to deactivate?" onConfirm={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}>
-              <a>DEACTIVATE</a>
-            </Popconfirm>
-            <Button
-              type="dashed"
-              onClick={() => makeDeactivate(selectedVendor.id, !selectedVendor.status)}
-              style={{ margin: '5px' }}
+            <Popconfirm
+              title="Sure to deactivate?"
+              onConfirm={() => {
+                updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+              }}
             >
-              {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
-            </Button>
+              <Button type="dashed" style={{ margin: '5px' }}>
+                {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
+              </Button>
+            </Popconfirm>
           </Col>
         </Row>
         <br />
