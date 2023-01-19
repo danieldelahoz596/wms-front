@@ -28,6 +28,26 @@ const HistoricalExports: React.FC = () => {
     console.log(values);
   };
 
+  const handleDownload = () => {
+    httpClient
+      .post('/api/orders/export_history')
+      .then((res) => {
+        const fileName = 'historical-data.csv';
+        const url = window.URL.createObjectURL(
+          new Blob([res.data], {
+            type: 'text/csv',
+          }),
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((error) => console.log(error));
+  };
+
   const Tcolumns = [
     {
       title: 'Export Request Date',
@@ -61,7 +81,9 @@ const HistoricalExports: React.FC = () => {
     ..._item,
     actions:
       _item.status === 'Succeeded' || _item.status === 'Failed' ? (
-        <Button type="primary">Download</Button>
+        <Button type="primary" onClick={handleDownload}>
+          Download
+        </Button>
       ) : null,
   }));
 
