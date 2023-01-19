@@ -91,7 +91,7 @@ const HistoricalExports: React.FC = () => {
                       allowClear
                       style={{ width: '100%' }}
                       placeholder="Please select"
-                      options={warehouseList?.map((_item) => ({
+                      options={initialState?.initialData.warehouses.map((_item) => ({
                         label: _item.name,
                         value: _item.id,
                       }))}
@@ -107,9 +107,9 @@ const HistoricalExports: React.FC = () => {
                       allowClear
                       style={{ width: '100%' }}
                       placeholder="Please select"
-                      options={orderStatusList?.map((_item) => ({
-                        label: _item.order_status.name,
-                        value: _item.order_status.id,
+                      options={initialState?.initialData.order_statuses.map((_item) => ({
+                        label: _item.name,
+                        value: _item.id,
                       }))}
                     />
                   </Form.Item>
