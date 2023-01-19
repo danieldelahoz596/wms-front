@@ -1,19 +1,4 @@
-import {
-  Button,
-  Input,
-  Card,
-  Row,
-  Col,
-  Dropdown,
-  Descriptions,
-  Table,
-  Menu,
-  Modal,
-  Select,
-  Popconfirm,
-  Tabs,
-  Upload,
-} from 'antd';
+import { Button, Input, Card, Row, Col, Dropdown, Select } from 'antd';
 import React, { useState } from 'react';
 import { data, stock_history, stock_allocation } from './components/structure';
 import { modalType } from '@/utils/helpers/types';
@@ -187,6 +172,24 @@ const StockManagement: React.FC = () => {
         <div className="horizon-content">
           <Row style={{ width: '100%' }}>
             <Col span={24}>
+              <Row style={{ width: '100%', marginBottom: '10px' }} justify="end" gutter={10}>
+                <Col>
+                  <Select
+                    options={[{ value: 'warehouse', label: 'Shwoing 2 Warehouses' }]}
+                    defaultValue="warehouse"
+                    size="small"
+                    style={{ width: '200px' }}
+                  />
+                </Col>
+                <Col>
+                  <Select
+                    options={[{ value: 'status', label: '5 Statuses' }]}
+                    defaultValue="status"
+                    size="small"
+                    style={{ width: '100px' }}
+                  />
+                </Col>
+              </Row>
               <Card>
                 <Row gutter={10} align="middle">
                   <Col span={8}>

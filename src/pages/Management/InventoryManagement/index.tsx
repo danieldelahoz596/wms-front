@@ -1,12 +1,8 @@
-import { Button, Layout, Card, Row, Col, Select } from 'antd';
+import { Button, Row, Col } from 'antd';
 import StockManagement from './StockManagement';
 import TransferManagement from './TransferManagement';
 import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-
-const { Content } = Layout;
 
 const InventoryManagement: React.FC = () => {
   const [stockTab, setStockTab] = useState(true);
@@ -21,16 +17,6 @@ const InventoryManagement: React.FC = () => {
       settransferTab(true);
     }
   };
-
-  const {
-    isDragging: isLeftDragging,
-    position: LeftW,
-    separatorProps: leftDragBarProps,
-  } = useResizable({
-    axis: 'x',
-    initial: 250,
-    min: 100,
-  });
 
   return (
     <PageContainer
@@ -54,26 +40,6 @@ const InventoryManagement: React.FC = () => {
         </Col>
       </Row>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
-          <div className="w-full">
-            <Row gutter={[, 20]} style={{ marginLeft: '10px', marginRight: '10px' }}>
-              <Select
-                options={[{ value: 'warehouse', label: 'Shwoing 2 Warehouses' }]}
-                style={{ width: '100%' }}
-                defaultValue="warehouse"
-              />
-              <Select
-                options={[{ value: 'status', label: '5 Statuses' }]}
-                style={{ width: '100%' }}
-                defaultValue="status"
-              />
-            </Row>
-          </div>
-        </div>
-        <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         {stockTab && <StockManagement />}
         {transferTab && <TransferManagement />}
       </div>
