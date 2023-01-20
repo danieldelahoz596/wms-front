@@ -1,4 +1,4 @@
-import Icon, { RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import Icon, { DownOutlined, RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import {
   Button,
   message,
@@ -39,6 +39,9 @@ import { useResizable } from 'react-resizable-layout';
 import { useModel } from '@umijs/max';
 import SidePanel from './components/SidePanel/sidePanel';
 import styles from './index.less';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
+import BundleIcon from '@/utils/icons/bundle';
+import VariationIcon from '@/utils/icons/variation';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -87,6 +90,25 @@ const ProductManagement: React.FC = () => {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+      align: 'center',
+      render: (text: any) => (
+        <>
+          {text === productType.CoreProduct ? (
+            <CoreProductsIcon />
+          ) : text === productType.BundleOrKit ? (
+            <BundleIcon />
+          ) : text === productType.Variations ? (
+            <VariationIcon />
+          ) : (
+            <span style={{ position: 'relative' }}>
+              <CoreProductsIcon />
+              <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
+                <DownOutlined />
+              </div>
+            </span>
+          )}
+        </>
+      ),
     },
     {
       title: 'MASTER SKU',

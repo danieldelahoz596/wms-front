@@ -2,6 +2,7 @@ import { OModal } from '@/components/Globals/OModal';
 import { Button, Col, Row, Select, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
+import httpClient from '@/utils/http-client';
 const { Option } = Select;
 
 interface IImportProduct {
@@ -12,6 +13,26 @@ interface IImportProduct {
 
 const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
+
+  const handleDownloadTemplate = () => {
+    httpClient
+      .post('/api/products/import_template', {}, { responseType: 'arraybuffer' })
+      .then((res) => {
+        const fileName = 'Excel Template for Product Import.xlsx';
+        const url = window.URL.createObjectURL(
+          new Blob([res.data], {
+            type: 'application/vnd.ms-excel',
+          }),
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <OModal
@@ -39,7 +60,10 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
         <p>
           All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
         </p>
-        <a href="" style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}>
+        <a
+          style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}
+          onClick={handleDownloadTemplate}
+        >
           Download the Excel Template for Product Import
         </a>
         <p>

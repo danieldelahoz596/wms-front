@@ -3,8 +3,8 @@ import Icon, { CustomIconComponentProps } from '@ant-design/icons/lib/components
 const ListSvg = () => (
   <svg viewBox="0 0 96 96" height="24" width="24">
     <linearGradient id="a">
-      <stop offset="0" stop-color="#fff" />
-      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+      <stop offset="0" stopColor="#fff" />
+      <stop offset="1" stopColor="#fff" stopOpacity="0" />
     </linearGradient>
     <linearGradient
       id="b"
@@ -32,7 +32,7 @@ const ListSvg = () => (
       y2="7.01654"
     >
       <stop offset="0" />
-      <stop offset="1" stop-opacity=".588235" />
+      <stop offset="1" stopOpacity=".588235" />
     </linearGradient>
     <linearGradient
       id="e"
@@ -61,8 +61,8 @@ const ListSvg = () => (
       y1="64.5"
       y2="25.499998"
     >
-      <stop offset="0" stop-color="#aaa" />
-      <stop offset="1" stop-color="#f0f0f0" />
+      <stop offset="0" stopColor="#aaa" />
+      <stop offset="1" stopColor="#f0f0f0" />
     </linearGradient>
     <g>
       <g fill="url(#e)">
