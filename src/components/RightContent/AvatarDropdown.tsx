@@ -1,11 +1,14 @@
+import SKUAlertsModal from '../Modals/Toolbar/SKUAlerts';
 import { outLogin } from '@/services/ant-design-pro/api';
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { modalType } from '@/utils/helpers/types';
+import ListIcon from '@/utils/icons/list';
+import { BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
-import { Avatar, Menu, Spin } from 'antd';
+import { Avatar, Menu, Spin, Badge, Row, Col } from 'antd';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
@@ -18,6 +21,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   /**
    * 退出登录，并且将当前的 url 保存
    */
+  const [modalOpen, setModalOpen] = useState('');
   const loginOut = async () => {
     await outLogin();
     localStorage.removeItem('authdata');
@@ -36,6 +40,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     }
   };
   const { initialState, setInitialState } = useModel('@@initialState');
+  const [alerts, setAlerts] = useState([]);
+
+  useEffect(() => {
+    setAlerts(initialState?.initialData?.sku_alerts);
+  }, [initialState]);
 
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
@@ -45,6 +54,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           setInitialState((s) => ({ ...s, currentUser: null }));
         });
         loginOut();
+        return;
+      } else if (key === 'sku_alerts') {
+        setModalOpen(modalType.SKUAlerts);
         return;
       }
       history.push(`/account/${key}`);
@@ -93,6 +105,18 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         ]
       : []),
     {
+      key: 'sku_alerts',
+      icon: <BellOutlined />,
+      label: (
+        <Row justify="space-between">
+          <Col>SKU ALERTS</Col>
+          <Col>
+            <Badge count={alerts.length} size="small" />
+          </Col>
+        </Row>
+      ),
+    },
+    {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: 'LogOut',
@@ -104,12 +128,30 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   );
 
   return (
-    <HeaderDropdown overlay={menuHeaderDropdown}>
-      <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser?.user?.full_name}</span>
-      </span>
-    </HeaderDropdown>
+    <>
+      <HeaderDropdown overlay={menuHeaderDropdown}>
+        <span className={`${styles.action} ${styles.account}`}>
+          <Badge count={alerts.length} size="small">
+            {/* <Avatar
+            shape="square"
+            size="large"
+            icon={<ListIcon style={{ fill: 'white' }} />}
+            // style={{ backgroundColor: 'transparent' }}
+          /> */}
+            <ListIcon style={{ fill: 'white' }} />
+            {/* <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+          <span className={`${styles.name} anticon`}>{currentUser?.user?.full_name}</span> */}
+          </Badge>
+        </span>
+      </HeaderDropdown>
+
+      <SKUAlertsModal
+        isOpen={modalOpen === modalType.SKUAlerts}
+        onClose={() => setModalOpen(modalType.Close)}
+        alerts={alerts}
+        setAlerts={setAlerts}
+      />
+    </>
   );
 };
 

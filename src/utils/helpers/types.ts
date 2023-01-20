@@ -61,6 +61,9 @@ export enum modalType {
   RankOrder = 'RankOrder',
   WarehouseDeactivate = 'WarehouseDeactivate',
   WarehouseHistory = 'WarehouseHistory',
+
+  //toolbar
+  SKUAlerts = 'SKUAlerts',
 }
 
 export enum EPOStatus {
@@ -89,4 +92,9 @@ export enum productStatus {
   green = 'green',
   red = 'red',
   lightBlue = 'light blue',
+}
+
+export enum skuAlertsType {
+  ALERT = 'ALERT',
+  POSTAGE = 'POSTAGE BALANCE REC...',
 }
