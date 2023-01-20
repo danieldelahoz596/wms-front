@@ -25,7 +25,7 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
 
   return (
     <Modal
-      title="VENDOR EDIT HISTORY"
+      title="Vendor Edit History"
       centered
       open={isOpen}
       onOk={onSave}

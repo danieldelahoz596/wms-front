@@ -9,8 +9,6 @@ const VendorDetails = ({ setModal }) => {
   const { selectedVendor, setEditableVendor, getVendorHistory, updateNewVendor } =
     useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
-  const { incotermList } = useModel('incoterm');
-  const { poFormatList } = useModel('poFormat');
   const { poTemplateList } = useModel('poTemplate');
 
   let vendorDetails = null;
@@ -20,9 +18,6 @@ const VendorDetails = ({ setModal }) => {
       po_default: {
         ...selectedVendor.po_default,
         template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)
-          ?.value,
-        format: poFormatList.find((_item) => _item.id == selectedVendor.po_default?.format)?.value,
-        incoterm: incotermList.find((_item) => _item.id == selectedVendor.po_default?.incoterm)
           ?.value,
         payment_term: paymentTermList.find(
           (_item) => _item.id == selectedVendor.po_default?.payment_term,
@@ -41,11 +36,11 @@ const VendorDetails = ({ setModal }) => {
       <Card title={'Vendor Details'}>
         <Row>
           <Col span={24}>
-            <Button type="dashed" onClick={handleEditVendor} style={{ margin: '5px' }}>
+            <Button type="primary" onClick={handleEditVendor} style={{ margin: '5px' }}>
               EDIT
             </Button>
             <Button
-              type="dashed"
+              type="primary" 
               onClick={() => {
                 getVendorHistory(vendorDetails.id);
                 setModal(modalType.History);
@@ -60,7 +55,7 @@ const VendorDetails = ({ setModal }) => {
                 updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
               }}
             >
-              <Button type="dashed" style={{ margin: '5px' }}>
+              <Button type="primary" style={{ margin: '5px' }}>
                 {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
               </Button>
             </Popconfirm>
@@ -73,7 +68,9 @@ const VendorDetails = ({ setModal }) => {
               <Descriptions.Item label="Name">{vendorDetails.name}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Address">{vendorDetails.address}</Descriptions.Item>
+              <Descriptions.Item label="Address">{vendorDetails.address}<br/><br/>
+              {vendorDetails.city}, {vendorDetails.state}, {vendorDetails.zip}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
               <Descriptions.Item label="Phone 1">{vendorDetails.phone1}</Descriptions.Item>
@@ -133,21 +130,8 @@ const VendorDetails = ({ setModal }) => {
               </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="P.O. E-Mail">
-                {vendorDetails.po_default.email}
-              </Descriptions.Item>
-            </Descriptions>
-            <Descriptions>
-              <Descriptions.Item label="P.O. Fax">{vendorDetails.po_default.fax}</Descriptions.Item>
-            </Descriptions>
-            <Descriptions>
               <Descriptions.Item label="P.O. Format">
                 {vendorDetails.po_default.format}
-              </Descriptions.Item>
-            </Descriptions>
-            <Descriptions>
-              <Descriptions.Item label="Incoterm">
-                {vendorDetails.po_default.incoterm}
               </Descriptions.Item>
             </Descriptions>
             <Descriptions>

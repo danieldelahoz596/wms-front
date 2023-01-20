@@ -42,13 +42,13 @@ const InventoryManagement: React.FC = () => {
       <Row style={{ marginBottom: '10px', marginLeft: '10px' }}>
         <Col span={24}>
           <Button
-            type="dashed"
+            type="primary"
             style={{ marginRight: '10px' }}
             onClick={() => changeManagementTab('stock')}
           >
             STOCK
           </Button>
-          <Button type="dashed" onClick={() => changeManagementTab('transfer')}>
+          <Button type="primary" onClick={() => changeManagementTab('transfer')}>
             TRANSFERS
           </Button>
         </Col>

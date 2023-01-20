@@ -98,7 +98,7 @@ const StockDetails = () => {
                   setSelectedRows={setSelectedLocation}
                 />
                 <Row gutter={[20, 10]} justify="space-between">
-                  <Button type="dashed" style={{ marginRight: '4px' }}>
+                  <Button type="primary" style={{ marginRight: '4px' }}>
                     New Stock
                   </Button>
                   <Dropdown
@@ -154,14 +154,14 @@ const StockDetails = () => {
                       ],
                     }}
                   >
-                    <Button type="dashed" style={{ marginRight: '4px' }}>
+                    <Button type="primary" style={{ marginRight: '4px' }}>
                       Edit <DownOutlined />
                     </Button>
                   </Dropdown>
-                  <Button type="dashed" style={{ marginRight: '4px' }}>
+                  <Button type="primary" style={{ marginRight: '4px' }}>
                     Inv. Val. Hist.
                   </Button>
-                  <Button type="dashed">Show Inactive</Button>
+                  <Button type="primary">Show Inactive</Button>
                 </Row>
               </Card>
             </Col>

@@ -102,25 +102,25 @@ const OrderManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => setModal(modalType.ExportQueueOrder),
       btnText: 'Queue',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Ship'),
       btnText: 'Ship',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     // {
-    //   type: 'dashed',
+    //   type: 'primary',
     //   onClick: () => console.log('Canceled'),
     //   btnText: 'Cancel',
     //   hidden: ![3, 6, 7].includes(selectedOrderStatus?.status.id),
     // },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: (
         <Dropdown
           menu={{
@@ -169,7 +169,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="dashed" style={{ marginRight: '5px' }}>
+          <Button type="primary" style={{ marginRight: '5px' }}>
             Print <DownOutlined />
           </Button>
         </Dropdown>
@@ -177,7 +177,7 @@ const OrderManagement: React.FC = () => {
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Label'),
       btnText: (
         <Dropdown
@@ -185,14 +185,14 @@ const OrderManagement: React.FC = () => {
             items: [],
           }}
         >
-          <Button type="dashed" style={{ marginRight: '5px', marginTop: '5px' }}>
+          <Button type="primary" style={{ marginRight: '5px', marginTop: '5px' }}>
             Label <DownOutlined />
           </Button>
         </Dropdown>
       ),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: (
         <Dropdown
           menu={{
@@ -259,7 +259,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="dashed" style={{ marginRight: '5px' }}>
+          <Button type="primary" style={{ marginRight: '5px' }}>
             Edit <DownOutlined />
           </Button>
         </Dropdown>
@@ -267,7 +267,7 @@ const OrderManagement: React.FC = () => {
       hidden: [7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => setModal(modalType.RestoreOrder),
       btnText: 'Restore',
       hidden:
@@ -275,13 +275,13 @@ const OrderManagement: React.FC = () => {
         ([6, 7].includes(selectedOrderStatus?.status.id) && selectedRows.length < 1),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Merge'),
       btnText: 'Merge',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: (
         <Dropdown
           menu={{
@@ -297,14 +297,14 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="dashed" style={{ marginRight: '5px' }}>
+          <Button type="primary" style={{ marginRight: '5px' }}>
             New Order <DownOutlined />
           </Button>
         </Dropdown>
       ),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Import/Export'),
       btnText: (
         <Dropdown
@@ -345,7 +345,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="dashed" style={{ marginRight: '5px' }}>
+          <Button type="primary" style={{ marginRight: '5px' }}>
             Import/Export <DownOutlined />
           </Button>
         </Dropdown>

@@ -92,24 +92,24 @@ const VendorProduct: React.FC = () => {
 
   const actionButtons = [
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: handleNewVendorProductClick,
       btnText: 'NEW VENDOR PRODUCT',
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: handleEditVendorProductClick,
       btnText: 'EDIT',
       disabled: !selectedVendorProductKey,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: handleDeactiveClick,
       btnText: 'DEACTIVE',
       disabled: !selectedVendorProductKey,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: handleDefaultClick,
       btnText: 'DEFAULT',
       disabled: !selectedVendorProductKey,
@@ -131,7 +131,7 @@ const VendorProduct: React.FC = () => {
             ))}
           </Col>
           <Col>
-            <OButton type="dashed" btnText="SHOW INACTIVE" disabled={!selectedVendorProductKey} />
+            <OButton type="primary" btnText="SHOW INACTIVE" disabled={!selectedVendorProductKey} />
           </Col>
         </Row>
         <div style={{ marginTop: '1rem', minHeight: '200px' }}>

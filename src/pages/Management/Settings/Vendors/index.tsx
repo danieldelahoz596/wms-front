@@ -24,7 +24,6 @@ export default function () {
     getVendorList,
     setSelectedVendor,
     setEditableVendor,
-    deleteVendor,
     setVendorList,
   } = useModel('vendor');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
@@ -111,16 +110,16 @@ export default function () {
               </Col>
               <Col span={16}>
                 <Button
-                  type="dashed"
+                  type="primary"
                   onClick={() => {
                     setModal(modalType.New);
                   }}
                   style={{ marginRight: '5px' }}
                 >
-                  NEW VENDOR
+                  New Vendor
                 </Button>
                 <Button
-                  type="dashed"
+                  type="primary"
                   onClick={() => {
                     setShowInactive((prev) => !prev);
                     setSelectedVendor(null);
@@ -128,7 +127,7 @@ export default function () {
                   }}
                   style={{ marginRight: '5px' }}
                 >
-                  {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
+                  {showInactive ? 'Show Active' : 'Show Inactive'}
                 </Button>
               </Col>
             </Row>
@@ -178,7 +177,9 @@ export default function () {
           </Card>
         </div>
       </div>
+
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
+
       <div
         className={cn('shrink-0 contents', isRightDragging && 'dragging')}
         style={{ width: RightW }}

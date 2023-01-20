@@ -73,9 +73,10 @@ const CustomerManagement: React.FC = () => {
 
   const onVendorChange = (value: string) => {
     handleSelectedPOChange('fromVendor', value);
-    const itemValue = initialState?.initialData?.vendorList?.find((item) => item.id == value)?.name;
+    // Need to use the local storage's vendors
+    // const itemValue = initialState?.initialData?.vendors?.find((item) => item.id == value)?.name;
     form.setFieldsValue({
-      vendor: itemValue,
+      vendor: value,
     });
   };
 
@@ -86,13 +87,13 @@ const CustomerManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Vendor'),
       btnText: 'Print',
       hidden: false,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Authorized'),
       btnText: 'Authorize',
       hidden:
@@ -100,25 +101,25 @@ const CustomerManagement: React.FC = () => {
         !selectedPOStatus?.selectedWarehouse,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Canceled'),
       btnText: 'Cancel',
       hidden: false,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: handleNewPOModalOpen,
       btnText: 'New P.O.',
       hidden: false,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('RESTORE P.O.'),
       btnText: 'RESTORE P.O.',
       hidden: selectedPOStatus?.key !== '10' || !selectedPOStatus?.selectedWarehouse,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('Import/Export'),
       btnText: 'Import/Export',
       hidden: false,

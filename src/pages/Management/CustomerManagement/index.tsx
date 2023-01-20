@@ -153,15 +153,15 @@ const CustomerManagement: React.FC = () => {
                 >
                   <Row>
                     <Col span={24} className="panel-top-action">
-                      <Button type="dashed" onClick={() => setModal(modalType.Merge)}>
+                      <Button type="primary" onClick={() => setModal(modalType.Merge)}>
                         Merge
                       </Button>
                       {selectedCustomer && (
-                        <Button type="dashed" onClick={() => setModal(modalType.History)}>
+                        <Button type="primary" onClick={() => setModal(modalType.History)}>
                           History
                         </Button>
                       )}
-                      <Button type="dashed" onClick={() => setModal(modalType.New)}>
+                      <Button type="primary" onClick={() => setModal(modalType.New)}>
                         New Customer
                       </Button>
                     </Col>

@@ -62,7 +62,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
         <Card
           title={
             <OButton
-              type="dashed"
+              type="primary"
               btnText={'New Settings'}
               onClick={() => {
                 setEditableExportSetting(null);

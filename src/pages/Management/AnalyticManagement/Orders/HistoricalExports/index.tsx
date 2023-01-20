@@ -115,7 +115,6 @@ const HistoricalExports: React.FC = () => {
                   </Form.Item>
                 </Form.Item>
 
-                <Form.Item>
                   <Form.Item
                     name="shipped_date_from"
                     label="Shipped Date From"
@@ -151,7 +150,6 @@ const HistoricalExports: React.FC = () => {
                       Generate Export
                     </Button>
                   </Form.Item>
-                </Form.Item>
               </Form>
             </Card>
           </Col>

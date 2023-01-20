@@ -2,22 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 const { Sider } = Layout;
 
 import Vendors from './Vendors';
 import Warehouses from './Warehouses';
+import MyProfile from './MyProfile';
+import CompanyInfo from './CompanyInfo';
+import UserAdministration from './UserAdministration';
+import POTemplates from './POTemplates';
 import { history } from '@umijs/max';
 
 const OrderManagement: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<string>('Warehouses');
 
   let mainContent = null;
-  if (activeMenu === 'Warehouses') {
+  if (activeMenu === 'warehouses') {
     mainContent = <Warehouses />;
-  } else if (activeMenu === 'Vendors') {
+  } else if (activeMenu === 'vendors') {
     mainContent = <Vendors />;
+  } else if (activeMenu === 'myprofile') {
+    mainContent = <MyProfile />;
+  } else if (activeMenu === 'useradministration') {
+    mainContent = <UserAdministration />;
+  } else if (activeMenu === 'companyinfo') {
+    mainContent = <CompanyInfo />;
+  } else if (activeMenu === 'potemplates') {
+    mainContent = <POTemplates />;
   } else {
     mainContent = <Vendors />;
   }
@@ -33,11 +45,11 @@ const OrderManagement: React.FC = () => {
   });
 
   useEffect(() => {
-    setActiveMenu(history.location.pathname.replace('/Settings/', ''));
+    setActiveMenu(history.location.pathname.replace('/settings/', ''));
   }, []);
 
   const handleMenuItemClick = ({ key }) => {
-    history.push(`/Settings/${key}`);
+    history.push(`/settings/${key}`);
   };
 
   return (
@@ -57,63 +69,54 @@ const OrderManagement: React.FC = () => {
                 defaultSelectedKeys={[activeMenu]}
                 onClick={(_item) => setActiveMenu(_item.key)}
                 items={[
-                  // {
-                  //   key: '1',
-                  //   icon: <UserOutlined />,
-                  //   label: 'My Profile',
-                  // },
                   {
-                    key: 'Warehouses',
+                    key: 'myprofile',
+                    icon: <UserOutlined />,
+                    label: 'My Profile',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
+                    key: 'warehouses',
                     icon: <UserOutlined />,
                     label: 'Warehouses',
                     onClick: handleMenuItemClick,
                   },
-                  // {
-                  //   key: '4',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Shipping Providers',
-                  // },
                   {
-                    key: 'Vendors',
+                    key: 'vendors',
                     icon: <UserOutlined />,
                     label: 'Vendors',
                     onClick: handleMenuItemClick,
                   },
-                  // {
-                  //   key: '6',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Orderbots',
-                  // },
-                  // {
-                  //   key: '8',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Packing Slip Templates',
-                  // },
-                  // {
-                  //   key: '9',
-                  //   icon: <UserOutlined />,
-                  //   label: 'P.O. Templates',
-                  // },
-                  // {
-                  //   key: '10',
-                  //   icon: <VideoCameraOutlined />,
-                  //   label: 'User Administration',
-                  // },
-                  // {
-                  //   key: '11',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Skubana Apps',
-                  // },
-                  // {
-                  //   key: '12',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Company Info',
-                  // },
-                  // {
-                  //   key: '13',
-                  //   icon: <UserOutlined />,
-                  //   label: 'Billing Info',
-                  // },
+                  {
+                    key: '6',
+                    icon: <UserOutlined />,
+                    label: 'Orderbots',
+                    disabled: true,
+                  },
+                  {
+                    key: '8',
+                    icon: <UserOutlined />,
+                    label: 'Packing Slip Templates',
+                    disabled: true,
+                  },
+                  {
+                    key: 'potemplates',
+                    icon: <UserOutlined />,
+                    label: 'P.O. Templates',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
+                    key: 'useradministration',
+                    icon: <VideoCameraOutlined />,
+                    label: 'User Administration',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
+                    key: 'companyinfo',
+                    icon: <UserOutlined />,
+                    label: 'Company Info',
+                    onClick: handleMenuItemClick,
+                  },
                 ]}
                 selectedKeys={[activeMenu]}
               />

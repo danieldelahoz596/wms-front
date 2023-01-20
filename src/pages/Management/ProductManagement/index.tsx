@@ -234,14 +234,14 @@ const ProductManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => setModal(modalType.Edit),
       btnText: 'Adjust Sku',
       hidden: false,
       disabled: !editableProduct,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => {
         handleUpdateProduct({ ...editableProduct, type: productType.BundleOrKit });
         setEditableProduct(null);
@@ -253,7 +253,7 @@ const ProductManagement: React.FC = () => {
       disabled: !(editableProduct?.type === productType.CoreProduct),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => {
         handleUpdateProduct({ ...editableProduct, type: productType.CoreProduct });
         setEditableProduct(null);
@@ -265,7 +265,7 @@ const ProductManagement: React.FC = () => {
       disabled: !(editableProduct?.type === productType.Variations),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => {
         setSelectedProducts([]);
         setSelectedProductRows([]);
@@ -282,22 +282,22 @@ const ProductManagement: React.FC = () => {
       disabled: selectedProductRows.length === 0,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => console.log('History'),
       btnText: 'History',
       hidden: false,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       onClick: () => setModal(modalType.Variation),
       btnText: 'New Product',
       hidden: false,
     },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: (
         <Dropdown menu={{ items: importExportMenuOptions }}>
-          <Button type="dashed">
+          <Button type="primary">
             Import/Export <Icon type="down" />
           </Button>
         </Dropdown>

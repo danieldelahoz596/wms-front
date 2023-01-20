@@ -268,7 +268,7 @@ const StockManagement: React.FC = () => {
                             ],
                           }}
                         >
-                          <Button type="dashed">
+                          <Button type="primary">
                             Bulk Edit <DownOutlined />
                           </Button>
                         </Dropdown>
@@ -328,7 +328,7 @@ const StockManagement: React.FC = () => {
                             ],
                           }}
                         >
-                          <Button type="dashed">
+                          <Button type="primary">
                             Import/Export <DownOutlined />
                           </Button>
                         </Dropdown>
@@ -336,7 +336,7 @@ const StockManagement: React.FC = () => {
                       <Col>
                         <Button
                           onClick={() => setModal(modalType.BulkReconciliation)}
-                          type="dashed"
+                          type="primary"
                         >
                           Bulk Reconciliation
                         </Button>

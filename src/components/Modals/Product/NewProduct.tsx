@@ -14,17 +14,17 @@ interface INewProduct {
 const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => {
   const buttons: IOButton[] = [
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: 'CORE PRODUCT',
       onClick: () => handleClick(modalType.New),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: 'BUNDLE/KIT',
       onClick: () => handleClick(modalType.BundleKit),
     },
     {
-      type: 'dashed',
+      type: 'primary',
       btnText: 'PRODUCT VARIATIONS',
       onClick: () => handleClick(modalType.ProductVariants),
     },

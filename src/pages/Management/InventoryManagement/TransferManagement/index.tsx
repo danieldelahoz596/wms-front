@@ -179,8 +179,8 @@ const TransferManagement: React.FC = () => {
                 enterButton 
               />
             </div>
-            <Button type="dashed" onClick={showReceive} style={{ marginRight: '10px' }}>Receive</Button>
-            <Button type="dashed" onClick={showHistory} style={{ marginRight: '10px' }}>History</Button>
+            <Button type="primary" onClick={showReceive} style={{ marginRight: '10px' }}>Receive</Button>
+            <Button type="primary" onClick={showHistory} style={{ marginRight: '10px' }}>History</Button>
             <Drawer title="History For Stock Transfer" width={800} placement="right" onClose={closeHistory} open={openHistory}>
               <OTable
                 columns={Hcolumns}

@@ -96,7 +96,7 @@ const SideSearch: React.FC = () => {
       </Form.Item>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button type="dashed" onClick={clearOrderSearchQuery}>
+        <Button type="primary" onClick={clearOrderSearchQuery}>
           Clear
         </Button>
         <Button type="primary" onClick={onOrderSearch}>

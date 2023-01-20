@@ -35,7 +35,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <OButton
-              type="dashed"
+              type="primary"
               btnText={'IMPORT BY VENDOR'}
               onClick={() => onClick(modalType.VendorProductImportByVendor)}
             />
@@ -43,7 +43,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <OButton
-              type="dashed"
+              type="primary"
               btnText={'IMPORT ALL AT ONCE'}
               onClick={() => onClick(modalType.VendorProductImportOnce)}
             />

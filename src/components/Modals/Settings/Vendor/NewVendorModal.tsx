@@ -17,8 +17,6 @@ export default function ({ isOpen, onSave, onClose }) {
   const { createNewVendor } = useModel('vendor');
   const { poTemplateList } = useModel('poTemplate');
   const { paymentTermList } = useModel('paymentTerm');
-  const { poFormatList } = useModel('poFormat');
-  const { incotermList } = useModel('incoterm');
 
   const [form] = Form.useForm();
 
@@ -43,7 +41,7 @@ export default function ({ isOpen, onSave, onClose }) {
 
   return (
     <OModal
-      title="NEW VENDOR"
+      title="New Vendor"
       centered
       isOpen={isOpen}
       handleCancel={onClose}
@@ -67,7 +65,7 @@ export default function ({ isOpen, onSave, onClose }) {
       <Form form={form} style={{ width: '100%' }}>
         <Row gutter={12}>
           <Col span={12}>
-            <Card title="BASIC INFO" style={{ padding: '0.5rem' }}>
+            <Card title="Basic Info" style={{ padding: '0.5rem' }}>
               <Row className="pb-3">
                 <Col span={4}>Name:</Col>
                 <Col span={20}>
@@ -183,7 +181,7 @@ export default function ({ isOpen, onSave, onClose }) {
             </Card>
           </Col>
           <Col span={12}>
-            <Card title="SERVICES" style={{ padding: '0.5rem' }}>
+            <Card title="Services" style={{ padding: '0.5rem' }}>
               <Form.Item name="is_supplier">
                 <Row className="pb-3">
                   <Col span={24}>
@@ -241,7 +239,7 @@ export default function ({ isOpen, onSave, onClose }) {
                 </Row>
               </Form.Item>
             </Card>
-            <Card title="P.O DEFAULTS" style={{ marginTop: '1rem', padding: '0.5rem' }}>
+            <Card title="P.O. Defaults" style={{ marginTop: '1rem', padding: '0.5rem' }}>
               <Row className="pb-3">
                 <Col span={4}>P.O Template:</Col>
                 <Col span={20}>
@@ -259,52 +257,14 @@ export default function ({ isOpen, onSave, onClose }) {
                 </Col>
               </Row>
               <Row className="pb-3">
-                <Col span={4}>P.O Email</Col>
-                <Col span={20}>
-                  <Input
-                    placeholder="Email"
-                    onChange={(e) => handlePOInputChange('email', e.target.value)}
-                  />
-                </Col>
-              </Row>
-              <Row className="pb-3">
-                <Col span={4}>P.O Fax</Col>
-                <Col span={20}>
-                  <Input
-                    placeholder="Fax"
-                    onChange={(e) => handlePOInputChange('fax', e.target.value)}
-                  />
-                </Col>
-              </Row>
-              <Row className="pb-3">
                 <Col span={4}>P.O Format:</Col>
                 <Col span={20}>
                   <Select
                     placeholder="Please select"
                     style={{ width: '100%' }}
-                    onChange={(value) => handlePOInputChange('format', value)}
                   >
-                    {poFormatList.map((_item) => (
-                      <Option key={_item.id} value={_item.id}>
-                        {_item.value}
-                      </Option>
-                    ))}
-                  </Select>
-                </Col>
-              </Row>
-              <Row className="pb-3">
-                <Col span={4}>Incoterm:</Col>
-                <Col span={20}>
-                  <Select
-                    placeholder="Please select"
-                    style={{ width: '100%' }}
-                    onChange={(value) => handlePOInputChange('incoterm', value)}
-                  >
-                    {incotermList.map((_item) => (
-                      <Option key={_item.id} value={_item.id}>
-                        {_item.value}
-                      </Option>
-                    ))}
+                      <Option key="PDF" value="PDF Attachment"></Option>
+                      <Option key="HTML" value="HTML Attachment"></Option>
                   </Select>
                 </Col>
               </Row>

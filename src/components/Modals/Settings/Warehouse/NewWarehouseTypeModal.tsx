@@ -29,7 +29,7 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
         }}
       >
         <OButton
-          type="dashed"
+          type="primary"
           btnText={'DIRECT (IN-HOUSE) FULFILLMENT'}
           style={{ border: '1px solid #5F5FFF' }}
           onClick={handleOpenNew}

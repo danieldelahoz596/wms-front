@@ -59,7 +59,7 @@ const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
       <>
         <Card
           title={
-            <OButton type="dashed" btnText={'New Settings'} onClick={onAddOrderImportSettings} />
+            <OButton type="primary" btnText={'New Settings'} onClick={onAddOrderImportSettings} />
           }
         >
           <OTable

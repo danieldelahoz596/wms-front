@@ -35,7 +35,7 @@ const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({
       <>
         <Card
           title={
-            <OButton type="dashed" btnText={'New Mapping'} onClick={onAdd} />
+            <OButton type="primary" btnText={'New Mapping'} onClick={onAdd} />
           }
         >
           <OTable
