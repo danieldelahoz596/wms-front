@@ -43,7 +43,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    setAlerts(initialState?.initialData?.sku_alerts);
+    if (initialState && initialState.initialData) setAlerts(initialState.initialData.sku_alerts);
   }, [initialState]);
 
   const onMenuClick = useCallback(
