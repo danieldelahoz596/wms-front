@@ -320,7 +320,7 @@ const ProductManagement: React.FC = () => {
       btnText: (
         <Dropdown menu={{ items: importExportMenuOptions }}>
           <Button type="primary">
-            Import/Export <Icon type="down" />
+            Import/Export <DownOutlined />
           </Button>
         </Dropdown>
       ),
