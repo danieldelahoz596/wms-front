@@ -3,7 +3,7 @@ import { outLogin } from '@/services/ant-design-pro/api';
 import { modalType } from '@/utils/helpers/types';
 import ListIcon from '@/utils/icons/list';
 import { BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { history, useModel } from '@umijs/max';
+import { FormattedMessage, history, useModel } from '@umijs/max';
 import { Avatar, Menu, Spin, Badge, Row, Col } from 'antd';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import { stringify } from 'querystring';
@@ -109,7 +109,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       icon: <BellOutlined />,
       label: (
         <Row justify="space-between">
-          <Col>SKU ALERTS</Col>
+          <Col>
+            <FormattedMessage id="menu.account.sku-alerts" />{' '}
+          </Col>
           <Col>
             <Badge count={alerts.length} size="small" />
           </Col>
@@ -119,7 +121,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: 'LogOut',
+      label: <FormattedMessage id="menu.account.logout" />,
     },
   ];
 

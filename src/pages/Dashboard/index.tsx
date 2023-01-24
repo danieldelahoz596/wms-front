@@ -5,6 +5,7 @@ import OrderAgingByWarehouse from './components/orderAgingByWarehouse';
 import FulfillmentPerformance from './components/fulfillmentPerformance';
 import StockRequiringAttention from './components/stockRequiringAttention';
 import IncomingStock from './components/incomingStock';
+
 const Dashboard: React.FC = () => {
   const { dashboardData } = useModel('dashboard');
 
