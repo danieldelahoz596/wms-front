@@ -5,44 +5,10 @@ import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
 
 const SideSearch: React.FC = () => {
-
   const { initialState } = useModel('@@initialState');
   const { initialData } = initialState;
 
-  const statusOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
-
   const createdByOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
-
-  const vendorOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
-
-  const destinationOptions: IOSelectOption[] = [
     {
       text: 'Item 1',
       value: '1',
@@ -59,7 +25,10 @@ const SideSearch: React.FC = () => {
       label: 'Status',
       placeholder: 'Select...',
       name: 'status',
-      options: initialData?.purchasing_statuses?.map((item) => ({ value: item.id, text: item.name })),
+      options: initialData?.purchaseorder_statuses?.map((item) => ({
+        value: item.id,
+        text: item.name,
+      })),
       onChange: () => {},
     },
     {

@@ -44,14 +44,14 @@ export default function () {
         <Row gutter={5}>
           <Col span={24}>
             <Button
-              type="dashed"
+              type="primary"
               onClick={() => setModalOpen(modalType.Void)}
               style={{ marginRight: '5px' }}
             >
               NEW WAREHOUSE
             </Button>
             <Button
-              type="dashed"
+              type="primary"
               onClick={() => {
                 setShowInactive((prev) => !prev);
               }}

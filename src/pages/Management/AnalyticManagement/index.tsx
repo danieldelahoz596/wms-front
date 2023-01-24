@@ -12,7 +12,8 @@ import CustomersIcon from '@/utils/icons/customers';
 import AccountingIcon from '@/utils/icons/accounting';
 
 import { PageContainer } from '@ant-design/pro-components';
-import HistoricalExports from './Orders/HistoricalExports';
+import HistoricalOrdersExports from './Orders/HistoricalExports';
+import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalExports';
 import React, { useState } from 'react';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
@@ -50,10 +51,15 @@ const AnalyticManagement: React.FC = () => {
   };
 
   let renderableContent = null;
-  if (selectKey === 'sub34') renderableContent = <HistoricalExports />;
+  if (selectKey === 'sub34') renderableContent = <HistoricalOrdersExports />;
+  else if (selectKey === 'sub41') renderableContent = <HistoricalPurchaseOrdersExports />;
 
   return (
-    <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
+    <PageContainer
+      title={false}
+      className={'flex flex-column overflow-hidden'}
+      header={{ breadcrumb: {} }}
+    >
       <Layout>
         <div className={'flex grow'}>
           <div
@@ -118,18 +124,34 @@ const AnalyticManagement: React.FC = () => {
                           key: 'sub34',
                           icon: <SalesIcon />,
                           label: (
-                            <Link to="/Analytics/Orders/HistoricalExports">Historical Exports</Link>
+                            <Link to="/analytics/orders/historicalexports">Historical Exports</Link>
                           ),
                         },
                       ],
                     },
                     {
                       key: 'main4',
+                      icon: <OrdersIcon />,
+                      label: 'Purchase Orders',
+                      children: [
+                        {
+                          key: 'sub41',
+                          icon: <SalesIcon />,
+                          label: (
+                            <Link to="/analytics/purchaseorders/historicalexports">
+                              Historical Exports
+                            </Link>
+                          ),
+                        },
+                      ],
+                    },
+                    {
+                      key: 'main41',
                       icon: <CustomersIcon />,
                       label: 'Customers',
                       children: [
                         {
-                          key: 'sub41',
+                          key: 'sub410',
                           icon: <UserOutlined />,
                           label: 'Test',
                         },

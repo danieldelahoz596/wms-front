@@ -57,7 +57,7 @@ export default function ({ isOpen, onSave, onClose }) {
           }}
         >
           <Form.Item
-            label="Location Name:"
+            label="Location Name"
             name={'name'}
             initialValue={selectedWarehouse?.return_location?.name}
           >
@@ -65,14 +65,14 @@ export default function ({ isOpen, onSave, onClose }) {
           </Form.Item>
 
           <Form.Item
-            label="Attention:"
+            label="Attention"
             name={'attention'}
             initialValue={selectedWarehouse?.return_location?.attention}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Address:">
+          <Form.Item label="Address">
             <Input.Group>
               <Form.Item name={'address1'} noStyle>
                 <Input />
@@ -87,14 +87,14 @@ export default function ({ isOpen, onSave, onClose }) {
           </Form.Item>
 
           <Form.Item
-            label="City:"
+            label="City"
             name={'city'}
             initialValue={selectedWarehouse?.return_location?.city}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item label="State/Province, Zip:">
+          <Form.Item label="State/Province, Zip">
             <Input.Group>
               <Form.Item
                 name={'state'}
@@ -121,7 +121,7 @@ export default function ({ isOpen, onSave, onClose }) {
               <Select.Option value="usa">United States of America</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="Contact Phone:">
+          <Form.Item label="Contact Phone">
             <Input.Group>
               <Form.Item
                 name={'phone'}

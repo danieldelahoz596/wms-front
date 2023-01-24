@@ -1,6 +1,6 @@
 import { Button, Input, Card, Form, Row, Col, Popconfirm } from 'antd';
 
-export default function() {
+export default function () {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -22,7 +22,7 @@ export default function() {
             autoComplete="off"
           >
             <Form.Item
-              label="Name: "
+              label="Name"
               name="username"
               rules={[{ required: true, message: 'Please input your username!' }]}
             >
@@ -48,7 +48,7 @@ export default function() {
             autoComplete="off"
           >
             <Form.Item
-              label="Current Password:"
+              label="Current Password"
               name="password"
               rules={[{ required: true, message: 'Please input your current password!' }]}
             >
@@ -56,7 +56,7 @@ export default function() {
             </Form.Item>
 
             <Form.Item
-              label="New Password:"
+              label="New Password"
               name="password"
               rules={[{ required: true, message: 'Please input your new password!' }]}
             >
@@ -64,7 +64,7 @@ export default function() {
             </Form.Item>
 
             <Form.Item
-              label="Confirm Password:"
+              label="Confirm Password"
               name="password"
               rules={[{ required: true, message: 'Please input your new password again!' }]}
             >

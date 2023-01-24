@@ -74,7 +74,7 @@ const RightPanel: FC = () => {
         <div>
           <Form>
             <Form.Item
-              label="Bulk Update: "
+              label="Bulk Update"
               style={{ margin: '1rem 0', paddingBottom: '1rem', borderBottom: '1px dashed black' }}
             >
               <OInput

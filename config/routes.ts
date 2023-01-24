@@ -66,6 +66,12 @@ export default [
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
+      {
+        hideInMenu: true,
+        name: 'Historical Purchase Orders Exports / Analytics',
+        path: '/analytics/purchaseorders/historicalexports',
+        component: './Management/AnalyticManagement',
+      },
     ],
   },
   {

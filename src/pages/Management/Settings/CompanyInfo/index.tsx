@@ -1,6 +1,6 @@
 import { Button, Input, Card, Form, Row, Col, Popconfirm, Checkbox, Select } from 'antd';
 
-export default function() {
+export default function () {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -22,45 +22,27 @@ export default function() {
               onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
-              <Form.Item
-                label="Company Name: "
-                name="username"
-              >
+              <Form.Item label="Company Name" name="username">
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Company Contact Name: "
-                name="username"
-              >
+              <Form.Item label="Company Contact Name" name="username">
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Phone Number: "
-                name="username"
-              >
+              <Form.Item label="Phone Number" name="username">
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Address: "
-                name="username"
-              >
+              <Form.Item label="Address" name="username">
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Address 2: "
-                name="username"
-              >
+              <Form.Item label="Address 2" name="username">
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                label="Address 3: "
-                name="username"
-              >
+              <Form.Item label="Address 3" name="username">
                 <Input />
               </Form.Item>
 
@@ -68,7 +50,7 @@ export default function() {
               <h3>Company Logo</h3>
 
               <Form.Item
-                label="Company Logo: "
+                label="Company Logo"
                 name="username"
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
@@ -78,70 +60,81 @@ export default function() {
               {/* Order Settings */}
               <h3>Order Settings</h3>
 
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
                 <Checkbox>Prevent the editing of partially picked orders</Checkbox>
               </Form.Item>
 
               {/* Purchase Order Settings */}
               <h3>Purchase Order Settings</h3>
 
-              <Form.Item
-                label="PO Number Prefix: "
-                name="username"
-              >
+              <Form.Item label="PO Number Prefix" name="username">
                 <Input value="PO12" />
               </Form.Item>
 
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
                 <Checkbox>Auto PO Generation?</Checkbox>???
               </Form.Item>
 
               {/* Product Settings */}
               <h3>Product Settings</h3>
 
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                <Checkbox>Automatically update product weight and dimensions from shipped orders?</Checkbox>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
+                <Checkbox>
+                  Automatically update product weight and dimensions from shipped orders?
+                </Checkbox>
               </Form.Item>
 
               {/* Inventory Settings */}
               <h3>Inventory Settings</h3>
 
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
                 <Checkbox>Use Component Inventory Across Warehouses?</Checkbox>???
               </Form.Item>
 
-              <Form.Item
-                label="Auto Reorder Sales Days Back Default: "
-                name="username"
-              >
-                <Input value="180" /><span>day(s) ???</span>
+              <Form.Item label="Auto Reorder Sales Days Back Default" name="username">
+                <Input value="180" />
+                <span>day(s) ???</span>
               </Form.Item>
 
-              <Form.Item
-                label="Auto Reorder Days In Stock Default: "
-                name="username"
-              >
-                <Input value="30" /><span>day(s) ???</span>
+              <Form.Item label="Auto Reorder Days In Stock Default" name="username">
+                <Input value="30" />
+                <span>day(s) ???</span>
               </Form.Item>
 
-              <Form.Item
-                label="Auto Reorder Growth Percentage Default: "
-                name="username"
-              >
-                <Input value="0.0" /><span>% ???</span>
+              <Form.Item label="Auto Reorder Growth Percentage Default" name="username">
+                <Input value="0.0" />
+                <span>% ???</span>
               </Form.Item>
 
-              <Form.Item
-                label="Auto Reorder Lead Days Buffer Default: "
-                name="username"
-              >
-                <Input value="5" /><span>day(s) ???</span>
+              <Form.Item label="Auto Reorder Lead Days Buffer Default" name="username">
+                <Input value="5" />
+                <span>day(s) ???</span>
               </Form.Item>
 
               {/* Inventory Value Reconciliation Settings */}
               <h3>Inventory Value Reconciliation Settings</h3>
 
-              <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
                 <Checkbox>Choose from all Vendors for reconciliation?</Checkbox>???
               </Form.Item>
 
@@ -154,12 +147,13 @@ export default function() {
                   // onChange={onGenderChange}
                   allowClear
                 >
-                  <Option value="male">male</Option>
-                  <Option value="female">female</Option>
-                  <Option value="other">other</Option>
-                </Select>???
+                  <Select.Option value="male">male</Select.Option>
+                  <Select.Option value="female">female</Select.Option>
+                  <Select.Option value="other">other</Select.Option>
+                </Select>
+                ???
               </Form.Item>
-              
+
               <Form.Item wrapperCol={{ offset: 15, span: 16 }}>
                 <Button type="primary" htmlType="submit">
                   Update
@@ -180,7 +174,7 @@ export default function() {
                 autoComplete="off"
               >
                 <Form.Item
-                  label="Full Name:"
+                  label="Full Name"
                   name="password"
                   rules={[{ required: true, message: 'Please input your current password!' }]}
                 >
@@ -188,13 +182,13 @@ export default function() {
                 </Form.Item>
 
                 <Form.Item
-                  label="Phone Number:"
+                  label="Phone Number"
                   name="password"
                   rules={[{ required: true, message: 'Please input your new password!' }]}
                 >
                   <Input.Password />
                 </Form.Item>
-                
+
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
                     Update
@@ -214,7 +208,7 @@ export default function() {
                 autoComplete="off"
               >
                 <Form.Item
-                  label="Full Name:"
+                  label="Full Name"
                   name="password"
                   rules={[{ required: true, message: 'Please input your current password!' }]}
                 >
@@ -222,13 +216,13 @@ export default function() {
                 </Form.Item>
 
                 <Form.Item
-                  label="Phone Number:"
+                  label="Phone Number"
                   name="password"
                   rules={[{ required: true, message: 'Please input your new password!' }]}
                 >
                   <Input.Password />
                 </Form.Item>
-                
+
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
                     Update
@@ -248,7 +242,7 @@ export default function() {
                 autoComplete="off"
               >
                 <Form.Item
-                  label="Full Name:"
+                  label="Full Name"
                   name="password"
                   rules={[{ required: true, message: 'Please input your current password!' }]}
                 >
@@ -256,13 +250,13 @@ export default function() {
                 </Form.Item>
 
                 <Form.Item
-                  label="Phone Number:"
+                  label="Phone Number"
                   name="password"
                   rules={[{ required: true, message: 'Please input your new password!' }]}
                 >
                   <Input.Password />
                 </Form.Item>
-                
+
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button type="primary" htmlType="submit">
                     Update
@@ -271,7 +265,6 @@ export default function() {
               </Form>
             </Card>
           </div>
-        
         </div>
       </div>
     </>

@@ -77,37 +77,37 @@ export default function ({ isOpen, onSave, onClose }) {
             span: 16,
           }}
         >
-          <Form.Item label="Warehouse Name:" name={'name'} initialValue={selectedWarehouse?.name}>
+          <Form.Item label="Warehouse Name" name={'name'} initialValue={selectedWarehouse?.name}>
             <Input />
           </Form.Item>
 
           <Form.Item
-            label="Address Line 1:"
+            label="Address Line 1"
             name={'address1'}
             initialValue={selectedWarehouse?.address1}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Address Line 2:"
+            label="Address Line 2"
             name={'address2'}
             initialValue={selectedWarehouse?.address2}
           >
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
           <Form.Item
-            label="Address Line 3:"
+            label="Address Line 3"
             name={'address3'}
             initialValue={selectedWarehouse?.address3}
           >
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
 
-          <Form.Item label="City:" name={'city'} initialValue={selectedWarehouse?.city}>
+          <Form.Item label="City" name={'city'} initialValue={selectedWarehouse?.city}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="State/Province, Zip:">
+          <Form.Item label="State/Province, Zip">
             <Input.Group>
               <Form.Item name={'state'} noStyle initialValue={selectedWarehouse?.state}>
                 <Input style={{ width: '49%', marginRight: '1%' }} />
@@ -122,7 +122,7 @@ export default function ({ isOpen, onSave, onClose }) {
               <Select.Option value="usa">United States of America</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="Contact Phone:">
+          <Form.Item label="Contact Phone">
             <Input.Group>
               <Form.Item name={'phone'} noStyle initialValue={selectedWarehouse?.phone}>
                 <Input style={{ width: '89%', marginRight: '1%' }} />
@@ -132,13 +132,13 @@ export default function ({ isOpen, onSave, onClose }) {
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Fax Number:" name={'fax'} initialValue={selectedWarehouse?.fax}>
+          <Form.Item label="Fax Number" name={'fax'} initialValue={selectedWarehouse?.fax}>
             <Input />
           </Form.Item>
-          <Form.Item label="Contact E-Mail:" name={'email'} initialValue={selectedWarehouse?.email}>
+          <Form.Item label="Contact E-Mail" name={'email'} initialValue={selectedWarehouse?.email}>
             <Input />
           </Form.Item>
-          <Form.Item label="Timezone:" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
+          <Form.Item label="Timezone" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
             <Select placeholder="Select..">
               <Select.Option value={'est'}>EST</Select.Option>
             </Select>

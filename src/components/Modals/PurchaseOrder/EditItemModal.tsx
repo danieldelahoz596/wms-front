@@ -82,22 +82,22 @@ const EditItemModal: React.FC<IEditItemModal> = ({
         <Row>
           <Col span={11} style={{ margin: '2%' }}>
             <Form layout="horizontal">
-              <Form.Item label="Billed On:">
+              <Form.Item label="Billed On">
                 <Input />
               </Form.Item>
-              <Form.Item label="Est. Delivery:">
+              <Form.Item label="Est. Delivery">
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="Delivered:">
+              <Form.Item label="Delivered">
                 <Input />
               </Form.Item>
-              <Form.Item label="Landed Cost Payment Date:">
+              <Form.Item label="Landed Cost Payment Date">
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="Packaging:">
+              <Form.Item label="Packaging">
                 <Input />
               </Form.Item>
-              <Form.Item label="Reference #:">
+              <Form.Item label="Reference #">
                 <Input />
               </Form.Item>
               <Form.Item label="Buyer">
@@ -106,38 +106,38 @@ const EditItemModal: React.FC<IEditItemModal> = ({
               {/* <Form.Item label="InputNumber">
                   <InputNumber />
                 </Form.Item> */}
-              <Form.Item label="Item Memo:">
+              <Form.Item label="Item Memo">
                 <TextArea rows={4} />
               </Form.Item>
             </Form>
           </Col>
           <Col span={11} style={{ margin: '2%' }}>
             <Form layout="horizontal">
-              <Form.Item label="Order Quantity:">
+              <Form.Item label="Order Quantity">
                 <InputNumber value={25} />
               </Form.Item>
-              <Form.Item label="Hold Quantity:">
+              <Form.Item label="Hold Quantity">
                 <label>0</label>
               </Form.Item>
-              <Form.Item label="Unit of Measure:">
+              <Form.Item label="Unit of Measure">
                 <label>Each (x1)</label>
               </Form.Item>
-              <Form.Item label="Total Unit Quantity:">
+              <Form.Item label="Total Unit Quantity">
                 <label>25</label>
               </Form.Item>
-              <Form.Item label="Unit Cost:">
+              <Form.Item label="Unit Cost">
                 <label>$1.00</label>
               </Form.Item>
-              <Form.Item label="Billed Cost:">
+              <Form.Item label="Billed Cost">
                 <Input type="number" addonBefore={prefixSelectorLabel} value={1.0} />
               </Form.Item>
-              <Form.Item label="Landed Cost:">
+              <Form.Item label="Landed Cost">
                 <Input type="number" addonBefore={prefixSelectorLabel} value={1.0} />
               </Form.Item>
-              <Form.Item label="Discount:">
+              <Form.Item label="Discount">
                 <Input type="number" addonBefore={prefixSelectorSelect} value={1.0} />
               </Form.Item>
-              <Form.Item label="Item Tax:">
+              <Form.Item label="Item Tax">
                 <Row gutter={8}>
                   <Col span={8}>
                     <Form.Item noStyle>
@@ -149,7 +149,7 @@ const EditItemModal: React.FC<IEditItemModal> = ({
                   </Col>
                 </Row>
               </Form.Item>
-              <Form.Item label="Total Cost:">
+              <Form.Item label="Total Cost">
                 <label>$27.50</label>
               </Form.Item>
             </Form>

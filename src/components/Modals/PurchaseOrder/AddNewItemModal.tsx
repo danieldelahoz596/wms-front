@@ -3,7 +3,7 @@ import { Button, Row, Form, Input, Table } from 'antd';
 import { modalType } from '@/utils/helpers/types';
 import { AddNewItemTableColumns, AddNewItemTableData } from '@/components/DemoData/index';
 import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption} from '@/components/Globals/OSelect';
+import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
 
 interface IAddNewItemModal {
@@ -74,12 +74,17 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
               />
             </Form.Item>
 
-            <Form.Item label="Quantity:">
+            <Form.Item label="Quantity">
               <Input type="number" />
             </Form.Item>
 
-            <Form.Item label="Unit of measure:">
-              <OSelect name="unitMeasure" options={unitMeasureOptions} onChange={() => {}} placeholder="Select..." />
+            <Form.Item label="Unit of measure">
+              <OSelect
+                name="unitMeasure"
+                options={unitMeasureOptions}
+                onChange={() => {}}
+                placeholder="Select..."
+              />
             </Form.Item>
             <Button type="default">Add</Button>
           </Form>

@@ -87,29 +87,29 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
         <Row>
           <Col span={7} style={{ margin: '2%' }}>
             <Form layout="horizontal">
-              <Form.Item label="Delivered:">
+              <Form.Item label="Delivered">
                 <Input />
               </Form.Item>
-              <Form.Item label="Received:">
+              <Form.Item label="Received">
                 <Input />
               </Form.Item>
-              <Form.Item label="Billed On:">
+              <Form.Item label="Billed On">
                 <Input />
               </Form.Item>
-              <Form.Item label="Landed Cost Payment Date:">
+              <Form.Item label="Landed Cost Payment Date">
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="Reference #:">
+              <Form.Item label="Reference #">
                 <Input />
               </Form.Item>
-              <Form.Item label="Item Memo:">
+              <Form.Item label="Item Memo">
                 <TextArea rows={4} />
               </Form.Item>
             </Form>
           </Col>
           <Col span={7} style={{ margin: '2%' }}>
             <Form layout="horizontal">
-              <Form.Item label="Original Unit Quantity:">
+              <Form.Item label="Original Unit Quantity">
                 <Row gutter={8}>
                   <Col span={8}>
                     <label>25</label>
@@ -117,19 +117,19 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
                   <Col span={4}>units</Col>
                 </Row>
               </Form.Item>
-              <Form.Item label="Billed Unit Cost:">
+              <Form.Item label="Billed Unit Cost">
                 <Input type="number" addonBefore={prefixSelectorLabel} value={1.0} />
               </Form.Item>
-              <Form.Item label="Landed Unit Cost:">
+              <Form.Item label="Landed Unit Cost">
                 <Input type="number" addonBefore={prefixSelectorLabel} value={1.0} />
               </Form.Item>
-              <Form.Item label="Discount:">
+              <Form.Item label="Discount">
                 <Input type="number" addonBefore={prefixSelectorSelect} value={1.0} />
               </Form.Item>
             </Form>
           </Col>
           <Col span={7} style={{ margin: '2%' }}>
-            <Form.Item label="Accept:">
+            <Form.Item label="Accept">
               <Row gutter={8}>
                 <Col span={8}>
                   <Form.Item>
@@ -139,7 +139,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
                 <Col span={4}>units</Col>
               </Row>
             </Form.Item>
-            <Form.Item label="Reject:">
+            <Form.Item label="Reject">
               <Row gutter={8}>
                 <Col span={8}>
                   <Form.Item>
@@ -149,7 +149,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
                 <Col span={4}>units</Col>
               </Row>
             </Form.Item>
-            <Form.Item label="Total:">
+            <Form.Item label="Total">
               <Row gutter={8}>
                 <Col span={8}>
                   <label>25</label>
@@ -157,7 +157,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
                 <Col span={4}>units</Col>
               </Row>
             </Form.Item>
-            <Form.Item label="Update inventory:">
+            <Form.Item label="Update inventory">
               <Row>
                 <Col span={4}>
                   <Checkbox />
@@ -167,7 +167,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
                 </Col>
               </Row>
             </Form.Item>
-            <Form.Item label="Receiving Location:">
+            <Form.Item label="Receiving Location">
               <Row>
                 <Col span={20}>
                   <Form.Item name="prefix" noStyle>

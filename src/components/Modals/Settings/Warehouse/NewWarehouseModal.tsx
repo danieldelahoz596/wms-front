@@ -68,11 +68,11 @@ export default function ({ isOpen, onSave, onClose }) {
             span: 20,
           }}
         >
-          <Form.Item label="Warehouse Name:" name={'name'}>
+          <Form.Item label="Warehouse Name" name={'name'}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Address:">
+          <Form.Item label="Address">
             <Input.Group>
               <Form.Item name={'address1'} noStyle>
                 <Input />
@@ -86,11 +86,11 @@ export default function ({ isOpen, onSave, onClose }) {
             </Input.Group>
           </Form.Item>
 
-          <Form.Item label="City:" name={'city'}>
+          <Form.Item label="City" name={'city'}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="State/Province, Zip:">
+          <Form.Item label="State/Province, Zip">
             <Input.Group>
               <Form.Item name={'state'} noStyle>
                 <Input style={{ width: '49%', marginRight: '1%' }} />
@@ -105,7 +105,7 @@ export default function ({ isOpen, onSave, onClose }) {
               <Select.Option value="usa">United States of America</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item label="Contact Phone:">
+          <Form.Item label="Contact Phone">
             <Input.Group>
               <Form.Item name={'phone'} noStyle>
                 <Input style={{ width: '89%', marginRight: '1%' }} />
@@ -115,10 +115,10 @@ export default function ({ isOpen, onSave, onClose }) {
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Fax Number:" name={'fax'}>
+          <Form.Item label="Fax Number" name={'fax'}>
             <Input />
           </Form.Item>
-          <Form.Item label="Contact E-Mail:" name={'email'}>
+          <Form.Item label="Contact E-Mail" name={'email'}>
             <Input />
           </Form.Item>
           <Form.Item colon={false} name={'is_backup_warehouse'} style={{ textAlign: 'right' }}>
@@ -143,7 +143,7 @@ export default function ({ isOpen, onSave, onClose }) {
                 wrapperCol={{
                   span: 18,
                 }}
-                label="Add Warehouse:"
+                label="Add Warehouse"
                 name={'backup_warehouses'}
               >
                 <Select placeholder="Select.." onChange={handleAddBackupWarehouse}>

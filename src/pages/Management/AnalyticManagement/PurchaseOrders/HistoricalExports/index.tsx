@@ -6,13 +6,13 @@ import moment from 'moment';
 import { uuid } from '@antv/x6/lib/util/string/uuid';
 import httpClient from '@/utils/http-client';
 
-const HistoricalOrdersExports: React.FC = () => {
+const HistoricalPurchaseOrdersExports: React.FC = () => {
   const { initialState } = useModel('@@initialState');
-  const [exports, setExports] = useState(null);
+  const [exports1, setExports1] = useState(null);
   const [form] = Form.useForm();
 
   const handleSubmit = (values) => {
-    setExports((prev) => [
+    setExports1((prev) => [
       {
         ...values,
         key: uuid(),
@@ -74,7 +74,7 @@ const HistoricalOrdersExports: React.FC = () => {
     },
   ];
 
-  const exportRows = exports?.map((_item) => ({
+  const exportRows = exports1?.map((_item) => ({
     ..._item,
     actions:
       _item.status === 'Succeeded' || _item.status === 'Failed' ? (
@@ -86,15 +86,15 @@ const HistoricalOrdersExports: React.FC = () => {
 
   useEffect(() => {
     httpClient('/api/orders/order-historic-exports')
-      .then((res) => setExports(res.data.data))
+      .then((res) => setExports1(res.data.data))
       .catch((error) => console.log(error));
   }, []);
 
   return (
     <>
       <div style={{ margin: '10px' }}>
-        <h2 className="page-title">Orders {'>'} Historical Exports</h2>
-
+        {/* Make this dynamic */}
+        <h2 className="page-title">Purchase Orders {'>'} Historical Exports</h2>
         <Card>
           <Form
             labelCol={{ span: 5 }}
@@ -105,72 +105,90 @@ const HistoricalOrdersExports: React.FC = () => {
             onFinish={handleSubmit}
           >
             <Row>
-              <Col span={7}>
-                <Form.Item name="warehouses" label="Warehouses">
+              <Col span={6}>
+                <Form.Item label="Destination" name="destination">
                   <Select
                     mode="multiple"
-                    allowClear
-                    placeholder="Please select"
-                    options={initialState?.initialData.warehouses.map((_item) => ({
+                    placeholder="No warehouses selected..."
+                    options={initialState?.initialData?.warehouses.map((_item) => ({
                       label: _item.name,
                       value: _item.id,
                     }))}
                   />
                 </Form.Item>
               </Col>
-              <Col span={7}>
-                <Form.Item name="status" label="Status">
+              <Col span={6}>
+                <Form.Item label="Milestones" name="milestone">
+                  <Select mode="multiple" placeholder="No milestones selected...">
+                    <Select.Option value="1">milestone1</Select.Option>
+                    <Select.Option value="2">milestone2</Select.Option>
+                    <Select.Option value="3">milestone3</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item label="Status" name="status">
                   <Select
                     mode="multiple"
-                    allowClear
-                    placeholder="Please select"
-                    options={initialState?.initialData.order_statuses.map((_item) => ({
+                    placeholder="No status selected..."
+                    options={initialState?.initialData?.purchaseorder_statuses.map((_item) => ({
                       label: _item.name,
                       value: _item.id,
                     }))}
                   />
                 </Form.Item>
               </Col>
-            </Row>
-            <Row>
+              <Col span={6}>
+                <Form.Item label="Vendors" name="vendor">
+                  <Select
+                    mode="multiple"
+                    placeholder="No vendors selected..."
+                    options={initialState?.initialData?.vendors.map((_item) => ({
+                      label: _item.name,
+                      value: _item.id,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={3}>
+                <Form.Item name="created_from" label="Created From" labelCol={{ span: 7 }}>
+                  <DatePicker />
+                </Form.Item>
+              </Col>
+              <Col span={3}>
+                <Form.Item name="created_to" label="To">
+                  <DatePicker />
+                </Form.Item>
+              </Col>
               <Col span={4}>
-                <Form.Item
-                  name="shipped_date_from"
-                  label="Shipped Date From"
-                  labelCol={{ span: 9 }}
-                >
-                  <DatePicker />
-                </Form.Item>
+                <Row>
+                  <Form.Item
+                    name="received_date_from"
+                    label="Received Date From"
+                    labelCol={{ span: 8 }}
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                </Row>
               </Col>
               <Col span={3}>
-                <Form.Item name="shipped_date_to" label="To">
+                <Form.Item name="received_date_to" label="To">
                   <DatePicker />
                 </Form.Item>
               </Col>
               <Col span={4}>
-                <Form.Item
-                  name="order_date_from"
-                  label="Order Date From"
-                  initialValue={moment().subtract(1, 'year').startOf('year')}
-                  labelCol={{ span: 9 }}
-                >
+                <Form.Item name="delivered_from" label="Delivered From" labelCol={{ span: 8 }}>
                   <DatePicker />
                 </Form.Item>
               </Col>
               <Col span={3}>
-                <Form.Item
-                  name="order_date_to"
-                  label="To"
-                  initialValue={moment().subtract(1, 'year').endOf('year')}
-                >
+                <Form.Item name="delivered_to" label="To">
                   <DatePicker />
                 </Form.Item>
               </Col>
-              <Col span={3}>
+              <Col span={4}>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    Generate Export
-                  </Button>
+                  <Button type="primary">Generate Export</Button>
                 </Form.Item>
               </Col>
             </Row>
@@ -181,9 +199,10 @@ const HistoricalOrdersExports: React.FC = () => {
 
         <Card>
           <h3>
-            Note: This data from Historical Exports might be delayed for up to 24 hours, the exports
-            do not reflect the most up-to-date state of the orders.
+            Note: The data from Historical Exports might be delayed for up to 24 hours, the exports
+            do not reflect the most up-to-date state of the purchase orders.
           </h3>
+
           <OTable columns={Tcolumns} rows={exportRows} bordered={false} />
         </Card>
       </div>
@@ -191,4 +210,4 @@ const HistoricalOrdersExports: React.FC = () => {
   );
 };
 
-export default HistoricalOrdersExports;
+export default HistoricalPurchaseOrdersExports;
