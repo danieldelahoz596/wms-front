@@ -1,10 +1,11 @@
 import httpClient from '@/utils/http-client';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Form, Button, Input, Row } from 'antd';
+import { Card, Form, Button, Input, Row, message } from 'antd';
 
 const MyInformation: React.FC = () => {
   const [form] = Form.useForm();
   const { initialState } = useModel('@@initialState');
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleUpdate = () => {
     form
@@ -17,6 +18,10 @@ const MyInformation: React.FC = () => {
               'authdata',
               JSON.stringify({ ...initialState.currentUser, user: response.data }),
             );
+            messageApi.open({
+              type: 'success',
+              content: 'Updated Information Successfully!',
+            });
           })
           .catch((err) => {
             const formData = [];
@@ -30,36 +35,42 @@ const MyInformation: React.FC = () => {
   };
 
   return (
-    <Card
-      title={<FormattedMessage id="app.settings.basic.title" />}
-      style={{ width: 600, borderRadius: 10 }}
-    >
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ full_name: initialState?.currentUser?.user.full_name }}
-        autoComplete="off"
-        form={form}
+    <>
+      {contextHolder}
+      <Card
+        title={<FormattedMessage id="app.settings.basic.title" />}
+        style={{ width: 600, borderRadius: 10 }}
       >
-        <Form.Item
-          label={<FormattedMessage id="app.settings.basic.name" />}
-          labelAlign="left"
-          name="full_name"
-          rules={[
-            { required: true, message: <FormattedMessage id="app.settings.basic.name-message" /> },
-          ]}
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ full_name: initialState?.currentUser?.user.full_name }}
+          autoComplete="off"
+          form={form}
         >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            label={<FormattedMessage id="app.settings.basic.name" />}
+            labelAlign="left"
+            name="full_name"
+            rules={[
+              {
+                required: true,
+                message: <FormattedMessage id="app.settings.basic.name-message" />,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Row justify="end">
-          <Button type="primary" onClick={handleUpdate}>
-            <FormattedMessage id="app.settings.basic.update" />
-          </Button>
-        </Row>
-      </Form>
-    </Card>
+          <Row justify="end">
+            <Button type="primary" onClick={handleUpdate}>
+              <FormattedMessage id="app.settings.basic.update" />
+            </Button>
+          </Row>
+        </Form>
+      </Card>
+    </>
   );
 };
 

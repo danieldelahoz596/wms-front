@@ -55,4 +55,11 @@ export default {
   'app.settings.notification.todo-description': '待办任务将以站内信的形式通知',
   'app.settings.open': '开',
   'app.settings.close': '关',
+  'app.settings.profile.change-password.title': '更改密码',
+  'app.settings.profile.change-password.current-password': '当前密码',
+  'app.settings.profile.change-password.current-password-message': '请输入您当前的密码！',
+  'app.settings.profile.change-password.new-password': '新密码',
+  'app.settings.profile.change-password.new-password-message': '请输入密码！',
+  'app.settings.profile.change-password.confirm-password': '确认密码',
+  'app.settings.profile.change-password.confirm-password-message1': '请确认您的密码！',
 };

@@ -60,4 +60,12 @@ export default {
     'The to-do list will be notified in the form of a letter from the station',
   'app.settings.open': 'Open',
   'app.settings.close': 'Close',
+  'app.settings.profile.change-password.title': 'CHANGE PASSWORD',
+  'app.settings.profile.change-password.current-password': 'Current Password',
+  'app.settings.profile.change-password.current-password-message':
+    'Please input your current password!',
+  'app.settings.profile.change-password.new-password': 'New Password!',
+  'app.settings.profile.change-password.new-password-message': 'Please input your password!',
+  'app.settings.profile.change-password.confirm-password': 'Confirm Password',
+  'app.settings.profile.change-password.confirm-password-message1': 'Please confirm your password!',
 };

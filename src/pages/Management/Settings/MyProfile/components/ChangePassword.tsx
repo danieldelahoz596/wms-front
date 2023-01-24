@@ -1,56 +1,117 @@
-import { Card, Form, Input, Button } from 'antd';
+import httpClient from '@/utils/http-client';
+import { FormattedMessage } from '@umijs/max';
+import { Card, Form, Input, Button, Row, message } from 'antd';
 
 const ChanagePassword: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+  const handleChangePassword = () => {
+    form
+      .validateFields()
+      .then((values) =>
+        httpClient
+          .post('/auth/change-password', values)
+          .then((response) => {
+            messageApi.open({
+              type: 'success',
+              content: response.data,
+            });
+          })
+          .catch((err) => {
+            const formData = [];
+            for (const [name, errors] of Object.entries(err.response.data)) {
+              formData.push({ name, errors });
+            }
+            form.setFields(formData);
+          }),
+      )
+      .catch(() => {});
   };
 
   return (
-    <Card title="Change Password" style={{ width: 400 }}>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
+    <>
+      {contextHolder}
+      <Card
+        title={<FormattedMessage id="app.settings.profile.change-password.title" />}
+        style={{ width: 600, marginTop: 10, borderRadius: 10 }}
       >
-        <Form.Item
-          label="Current Password:"
-          name="password"
-          rules={[{ required: true, message: 'Please input your current password!' }]}
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          autoComplete="off"
+          form={form}
         >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item
+            label={<FormattedMessage id="app.settings.profile.change-password.current-password" />}
+            labelAlign="left"
+            name="old_password"
+            rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage id="app.settings.profile.change-password.current-password-message" />
+                ),
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <Form.Item
-          label="New Password:"
-          name="password"
-          rules={[{ required: true, message: 'Please input your new password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item
+            name="new_password"
+            labelAlign="left"
+            label={<FormattedMessage id="app.settings.profile.change-password.new-password" />}
+            rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage id="app.settings.profile.change-password.new-password-message" />
+                ),
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <Form.Item
-          label="Confirm Password:"
-          name="password"
-          rules={[{ required: true, message: 'Please input your new password again!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
+          <Form.Item
+            name="new_password_confirmation"
+            labelAlign="left"
+            label={<FormattedMessage id="app.settings.profile.change-password.confirm-password" />}
+            dependencies={['new_password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage id="app.settings.profile.change-password.confirm-password-message1" />
+                ),
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('new_password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error('The two passwords that you entered do not match!'),
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Change Password
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
+          <Row justify="end">
+            <Button type="primary" htmlType="submit" onClick={handleChangePassword}>
+              <FormattedMessage id="app.settings.profile.change-password.title" />
+            </Button>
+          </Row>
+        </Form>
+      </Card>
+    </>
   );
 };
 
