@@ -22,47 +22,46 @@ export default [
   },
   {
     path: '/dashboard',
-    name: 'DASHBOARD',
     component: './Dashboard',
+    title: 'menu.dashboard',
   },
   {
     path: '/orders',
-    name: 'Orders',
     component: './Management/OrderManagement',
+    title: 'menu.orders',
   },
   {
     path: '/inventory',
-    name: 'Inventory',
     component: './Management/InventoryManagement',
+    title: 'menu.inventory',
   },
   {
     path: '/purchasing',
-    name: 'Purchasing',
     component: './Management/PurchaseOrderManagement',
+    title: 'menu.purchasing',
   },
   {
     path: '/shipments',
-    name: 'Shipments',
     component: './Welcome',
+    title: 'menu.shipments',
   },
   {
     path: '/customers',
-    name: 'Customers',
     component: './Management/CustomerManagement',
+    title: 'menu.customers',
   },
   {
     path: '/products',
-    name: 'Products',
     component: './Management/ProductManagement',
+    title: 'menu.products',
   },
   {
     path: '/analytics',
-    name: 'Analytics',
     component: './Management/AnalyticManagement',
+    title: 'menu.analytics',
     routes: [
       {
         hideInMenu: true,
-        name: 'Historical Orders Exports / Analytics',
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
@@ -76,42 +75,36 @@ export default [
   },
   {
     path: '/settings',
-    name: 'Settings',
     component: './Management/Settings',
+    title: 'menu.settings',
     routes: [
       {
         hideInMenu: true,
-        name: 'My Profile / Settings',
         path: '/settings/myprofile',
         component: './Management/Settings/MyProfile',
       },
       {
         hideInMenu: true,
-        name: 'Warehouses /Settings',
         path: '/settings/warehouses',
         component: './Management/Settings/Warehouses',
       },
       {
         hideInMenu: true,
-        name: 'Vendors / Setting',
         path: '/settings/vendors',
         component: './Management/Settings/Vendors',
       },
       {
         hideInMenu: true,
-        name: 'PO Templates / Setting',
         path: '/settings/potemplates',
         component: './Management/Settings/POTemplates',
       },
       {
         hideInMenu: true,
-        name: 'User Administration / Setting',
         path: '/settings/useradministration',
         component: './Management/Settings/UserAdministration',
       },
       {
         hideInMenu: true,
-        name: 'Company Info / Setting',
         path: '/settings/companyinfo',
         component: './Management/Settings/CompanyInfo',
       },
@@ -119,12 +112,11 @@ export default [
   },
   {
     path: '/help',
-    name: 'Help',
     component: './Help',
+    title: 'menu.help',
     routes: [
       {
         hideInMenu: true,
-        name: 'SKU Alerts / Dashboard - Help',
         path: '/help/dashboard/skualerts',
         component: './Help/Dashboard',
       },

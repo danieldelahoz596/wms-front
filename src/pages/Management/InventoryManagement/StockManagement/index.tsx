@@ -13,7 +13,7 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { productType, productStatus } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import BundleIcon from '@/utils/icons/bundle';
-import ListIcon from '@/utils/icons/list';
+import NoteIcon from '@/utils/icons/note';
 import VariationIcon from '@/utils/icons/variation';
 import ShieldAdmirationIcon from '@/utils/icons/shieldAdmiration';
 import ShieldCheckIcon from '@/utils/icons/shieldCheck';
@@ -78,7 +78,7 @@ const StockManagement: React.FC = () => {
       title: 'Des',
       dataIndex: 'description',
       key: 'description',
-      render: (text: any) => <>{text && <ListIcon />}</>,
+      render: (text: any) => <>{text && <NoteIcon />}</>,
     },
     {
       title: 'On Hand',

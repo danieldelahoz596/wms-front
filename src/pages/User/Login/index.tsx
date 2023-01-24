@@ -15,7 +15,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { history, useModel } from '@umijs/max';
+import { FormattedMessage, history, useModel } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
@@ -139,14 +139,14 @@ const Login: React.FC = () => {
             }}
           >
             <ProFormCheckbox noStyle name="autoLogin">
-              Remember Me
+              <FormattedMessage id="pages.login.rememberMe" />
             </ProFormCheckbox>
             <a
               style={{
                 float: 'right',
               }}
             >
-              Forget Password
+              <FormattedMessage id="pages.login.forgotPassword" />
             </a>
           </div>
         </LoginForm>

@@ -107,7 +107,11 @@ export default defineConfig({
    * @name 国际化插件
    * @doc https://umijs.org/docs/max/i18n
    */
-  locale: false,
+  locale: {
+    default: 'zh-CN',
+    // baseNavigator: true,
+    title: true,
+  },
   /**
    * @name antd 插件
    * @description 内置了 babel import 插件

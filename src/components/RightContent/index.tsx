@@ -1,5 +1,5 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { useModel, SelectLang } from '@umijs/max';
 import { Space } from 'antd';
 import React from 'react';
 import HeaderSearch from '../HeaderSearch';
@@ -23,6 +23,7 @@ const GlobalHeaderRight: React.FC = () => {
   }
   return (
     <Space className={className}>
+      <SelectLang />
       <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder="Search"
@@ -57,7 +58,7 @@ const GlobalHeaderRight: React.FC = () => {
       >
         <QuestionCircleOutlined />
       </span>
-      <Avatar />     
+      <Avatar />
     </Space>
   );
 };
