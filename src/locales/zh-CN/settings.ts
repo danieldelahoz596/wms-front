@@ -62,4 +62,12 @@ export default {
   'app.settings.profile.change-password.new-password-message': '请输入密码！',
   'app.settings.profile.change-password.confirm-password': '确认密码',
   'app.settings.profile.change-password.confirm-password-message1': '请确认您的密码！',
+  'app.settings.profile.email-preference.title': '电邮偏好',
+  'app.settings.profile.email-preference.shipment-imports': '货物进口',
+  'app.settings.profile.email-preference.orders-exports': '订单出口',
+  'app.settings.profile.email-preference.fba-workflow-creation': 'FBA 工作流创建',
+  'app.settings.profile.email-preference.skipped-orders': '跳过的订单',
+  'app.settings.profile.email-preference.inventory-imports': '库存进口',
+  'app.settings.profile.email-preference.inventory-min-alerts': '库存最低警报',
+  'app.settings.profile.email-preference.update-preferences': '更新首选项',
 };

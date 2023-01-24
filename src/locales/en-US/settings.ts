@@ -68,4 +68,12 @@ export default {
   'app.settings.profile.change-password.new-password-message': 'Please input your password!',
   'app.settings.profile.change-password.confirm-password': 'Confirm Password',
   'app.settings.profile.change-password.confirm-password-message1': 'Please confirm your password!',
+  'app.settings.profile.email-preference.title': 'EMAIL PREFERENCE',
+  'app.settings.profile.email-preference.shipment-imports': 'Shipment Imports',
+  'app.settings.profile.email-preference.orders-exports': 'Orders Exports',
+  'app.settings.profile.email-preference.fba-workflow-creation': 'FBA Workflow Creation',
+  'app.settings.profile.email-preference.skipped-orders': 'Skipped Orders',
+  'app.settings.profile.email-preference.inventory-imports': 'Inventory Imports',
+  'app.settings.profile.email-preference.inventory-min-alerts': 'Inventory Min Alerts',
+  'app.settings.profile.email-preference.update-preferences': 'UPDATE PREFERENCES',
 };

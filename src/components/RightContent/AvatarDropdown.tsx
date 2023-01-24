@@ -12,6 +12,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import ProfileIcon from '@/utils/icons/profile';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -57,6 +58,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         return;
       } else if (key === 'sku_alerts') {
         setModalOpen(modalType.SKUAlerts);
+        return;
+      } else if (key === 'my_profile') {
+        history.push(`/settings/myprofile`);
         return;
       }
       history.push(`/account/${key}`);
@@ -104,6 +108,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
           },
         ]
       : []),
+    {
+      key: 'my_profile',
+      icon: <ProfileIcon />,
+      label: 'My Profile',
+    },
     {
       key: 'sku_alerts',
       icon: <BellOutlined />,
