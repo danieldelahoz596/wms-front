@@ -1,8 +1,8 @@
 import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { Table } from 'antd';
 import { CloseOutlined, ExclamationCircleFilled, InfoCircleFilled } from '@ant-design/icons';
 import { skuAlertsType } from '@/utils/helpers/types';
+import { OTable } from '@/components/Globals/OTable';
 
 interface ISKUAlerts {
   isOpen: boolean;
@@ -25,11 +25,13 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
       key: 'type',
       dataIndex: 'type',
       title: 'Type',
+      align: 'center',
     },
     {
       key: 'created',
       dataIndex: 'created',
       title: 'Created',
+      align: 'center',
     },
     {
       key: 'message',
@@ -45,7 +47,7 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
                   lineHeight: '80%',
                 }}
               >
-                <InfoCircleFilled style={{ color: '#F6871B', fontSize: '20px' }} />
+                <InfoCircleFilled style={{ color: '#00CD0A', fontSize: '20px' }} />
               </span>
             )}
             {skuAlertsType.POSTAGE === record.type && (
@@ -56,7 +58,7 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
                   lineHeight: '80%',
                 }}
               >
-                <ExclamationCircleFilled style={{ color: '#00CD0A', fontSize: '20px' }} />
+                <ExclamationCircleFilled style={{ color: '#F6871B', fontSize: '20px' }} />
               </span>
             )}
             {record.message}
@@ -66,7 +68,8 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
     },
     {
       key: 'action',
-      title: '',
+      title: 'Dismiss',
+      align: 'center',
       render: (_, record) => {
         return (
           <span onClick={() => handleDelete(record.id)}>
@@ -88,7 +91,7 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
         {
           key: 'delete_all',
           type: 'default',
-          btnLabel: 'DELETE ALL',
+          btnLabel: 'Delete All',
           onClick: handleRemove,
         },
         {
@@ -99,14 +102,12 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
         },
       ]}
     >
-      <div>Hello</div>
-      <Table
+      <OTable
         columns={columns}
-        dataSource={alerts.map((_item) => ({
+        rows={alerts.map((_item) => ({
           key: _item.id,
           ..._item,
         }))}
-        pagination={false}
       />
     </OModal>
   );

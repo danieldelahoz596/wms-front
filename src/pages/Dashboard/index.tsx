@@ -10,22 +10,20 @@ const Dashboard: React.FC = () => {
   const { dashboardData } = useModel('dashboard');
 
   return (
-    <Card>
-      <Row gutter={[15, 15]}>
-        <Col span={16}>
-          <OrderAgingByWarehouse />
-        </Col>
-        <Col span={8}>
-          <FulfillmentPerformance data={dashboardData?.fullfillment_performance} />
-        </Col>
-        <Col span={12}>
-          <StockRequiringAttention stock={dashboardData?.stock_requiring} />
-        </Col>
-        <Col span={12}>
-          <IncomingStock stock={dashboardData?.incoming_stock} />
-        </Col>
-      </Row>
-    </Card>
+    <Row gutter={[15, 15]}>
+      <Col span={16}>
+        <OrderAgingByWarehouse />
+      </Col>
+      <Col span={8}>
+        <FulfillmentPerformance data={dashboardData?.fullfillment_performance} />
+      </Col>
+      <Col span={12}>
+        <StockRequiringAttention stock={dashboardData?.stock_requiring} />
+      </Col>
+      <Col span={12}>
+        <IncomingStock stock={dashboardData?.incoming_stock} />
+      </Col>
+    </Row>
   );
 };
 

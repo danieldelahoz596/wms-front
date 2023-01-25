@@ -13,7 +13,7 @@ interface IFulfillmentPerformance {
 const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => {
   return (
     <>
-      <div style={{ fontSize: 25 }}>FULFILLMENT PERFORMANCE</div>
+      <div style={{ fontSize: 25 }}>Fulfillment Performance</div>
       {!!data ? (
         <Row gutter={[30, 30]} style={{ marginTop: 10 }}>
           <Col span={12}>
@@ -167,7 +167,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
           <Col span={12}>
             <div
               style={{
-                backgroundColor: '#70FFB1',
+                backgroundColor: '#70D7B1',
                 borderRadius: 3,
                 width: '100%',
                 color: 'white',

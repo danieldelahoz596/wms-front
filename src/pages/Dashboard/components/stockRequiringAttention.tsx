@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Card, Table } from 'antd';
 import { useMemo } from 'react';
 
 interface IStockRequiringAttention {
@@ -40,13 +40,14 @@ const StockRequiringAttention: React.FC<IStockRequiringAttention> = ({ stock }) 
 
   return (
     <>
-      <div style={{ fontSize: 25, marginBottom: 10 }}>STOCK REQUIRING ATTENTION</div>
-      <Table
-        columns={Tcolumns}
-        dataSource={rows}
-        scroll={{ y: 200 }}
-        pagination={{ hideOnSinglePage: true }}
-      />
+      <Card title="Stock Requiring Attention">
+        <Table
+          columns={Tcolumns}
+          dataSource={rows}
+          scroll={{ y: 200 }}
+          pagination={{ hideOnSinglePage: true }}
+        />
+      </Card>
     </>
   );
 };

@@ -117,8 +117,13 @@ export default [
     routes: [
       {
         hideInMenu: true,
+        path: '/help/dashboard/general',
+        component: './Help/Dashboard/dashboard',
+      },
+      {
+        hideInMenu: true,
         path: '/help/dashboard/skualerts',
-        component: './Help/Dashboard',
+        component: './Help/Dashboard/skualerts',
       },
     ],
   },

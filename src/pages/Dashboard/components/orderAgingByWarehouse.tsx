@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useModel } from '@umijs/max';
 import { Pie } from '@ant-design/charts';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 
 const OrderAgingByWarehouse: React.FC = () => {
   const { warehouseList } = useModel('warehouse');
@@ -17,33 +17,34 @@ const OrderAgingByWarehouse: React.FC = () => {
 
   return (
     <>
-      <div style={{ fontSize: 25 }}>ORDER AGING BY WAREHOUSE</div>
-      <Row>
-        <Col span={24}>
-          <Pie
-            data={pieData}
-            angleField="days"
-            colorField="name"
-            radius={0.75}
-            interactions={[
-              {
-                type: 'element-selected',
-              },
-              {
-                type: 'element-active',
-              },
-            ]}
-            legend={{
-              position: 'bottom-left',
-              maxRow: 5,
-              flipPage: false,
-              marker: { symbol: 'square' },
-              offsetX: 100,
-            }}
-            label={false}
-          />
-        </Col>
-      </Row>
+      <Card title="Order Aging By Warehouse">
+        <Row>
+          <Col span={24}>
+            <Pie
+              data={pieData}
+              angleField="days"
+              colorField="name"
+              radius={0.75}
+              interactions={[
+                {
+                  type: 'element-selected',
+                },
+                {
+                  type: 'element-active',
+                },
+              ]}
+              legend={{
+                position: 'bottom-left',
+                maxRow: 5,
+                flipPage: false,
+                marker: { symbol: 'square' },
+                offsetX: 100,
+              }}
+              label={false}
+            />
+          </Col>
+        </Row>
+      </Card>
     </>
   );
 };

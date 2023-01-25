@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Card, Table } from 'antd';
 import { useMemo } from 'react';
 
 interface IIncomingStock {
@@ -32,7 +32,7 @@ const IncomingStock: React.FC<IIncomingStock> = ({ stock }) => {
       align: 'center',
     },
     {
-      title: 'P.O.#',
+      title: 'P.O. #',
       dataIndex: 'po_number',
       key: 'po_number',
       align: 'center',
@@ -45,13 +45,14 @@ const IncomingStock: React.FC<IIncomingStock> = ({ stock }) => {
 
   return (
     <>
-      <div style={{ fontSize: 25, marginBottom: 10 }}>INCOMING STOCK</div>
-      <Table
-        columns={Tcolumns}
-        dataSource={rows}
-        scroll={{ y: 200 }}
-        pagination={{ hideOnSinglePage: true }}
-      />
+      <Card title="Incoming Stock">
+        <Table
+          columns={Tcolumns}
+          dataSource={rows}
+          scroll={{ y: 200 }}
+          pagination={{ hideOnSinglePage: true }}
+        />
+      </Card>
     </>
   );
 };
