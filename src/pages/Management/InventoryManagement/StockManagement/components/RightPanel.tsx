@@ -17,8 +17,6 @@ const StockDetails = () => {
   const [selectedLocation, setSelectedLocation] = useState([]);
   const { initialState } = useModel('@@initialState');
 
-  console.log(initialState?.initialData?.warehouses);
-
   const Scolumns = [
     {
       title: 'Location',
