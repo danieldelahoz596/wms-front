@@ -1,4 +1,4 @@
-import Icon, { DownOutlined, RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import { DownOutlined, RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import {
   Button,
   message,
@@ -20,7 +20,6 @@ import { OButton } from '@/components/Globals/OButton';
 import type { MenuProps } from 'antd';
 
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
-import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductModal from '@/components/Modals/Product/ImportProduct';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
@@ -42,6 +41,9 @@ import styles from './index.less';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import BundleIcon from '@/utils/icons/bundle';
 import VariationIcon from '@/utils/icons/variation';
+import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductFields';
+import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
+import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -448,10 +450,25 @@ const ProductManagement: React.FC = () => {
                   <Card
                     title="PRODUCT DETAILS"
                     extra={
-                      <div>
-                        <OButton type="primary" btnText={'Fields'} />
-                        <OButton type="primary" btnText={'Vendor Products'} />
-                        <OButton type="primary" btnText={'Gallery'} />
+                      <div style={{ display: selectedProducts.length > 1 ? 'none' : 'inline' }}>
+                        <OButton
+                          type="primary"
+                          btnText={'Fields'}
+                          onClick={() => setModal(modalType.ShowProductFields)}
+                          disabled={selectedProducts.length === 0}
+                        />
+                        <OButton
+                          type="primary"
+                          btnText={'Vendor Products'}
+                          onClick={() => setModal(modalType.ShowVendorProduct)}
+                          disabled={selectedProducts.length === 0}
+                        />
+                        <OButton
+                          type="primary"
+                          btnText={'Gallery'}
+                          onClick={() => setModal(modalType.ShowGallery)}
+                          disabled={selectedProducts.length === 0}
+                        />
                       </div>
                     }
                   >
@@ -494,9 +511,9 @@ const ProductManagement: React.FC = () => {
                       dataSource={selectedProducts.map((_item) => ({
                         key: _item.id,
                         id: _item.id,
-                        channel: _item.channel,
                         pushInventory: _item.push_inventory,
                       }))}
+                      scroll={{ y: 150 }}
                     />
                   </Card>
                 </Col>
@@ -505,6 +522,7 @@ const ProductManagement: React.FC = () => {
           </div>
         </div>
       </div>
+
       <CoreProductModal
         isOpen={modalOpen == modalType.New}
         onSave={(value: any) => setModal(value)}
@@ -520,12 +538,6 @@ const ProductManagement: React.FC = () => {
       <ProductVariantsModal
         isOpen={modalOpen == modalType.ProductVariants}
         onSave={() => setModal(modalType.Close)}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <NewVendorProductModal
-        isOpen={modalOpen == modalType.NewVendorProduct}
-        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -587,6 +599,21 @@ const ProductManagement: React.FC = () => {
       <ExportVendorProductModal
         isOpen={modalOpen == modalType.ExportVendorProducts}
         onSave={() => {}}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ShowProductFieldsModal
+        isOpen={modalOpen == modalType.ShowProductFields}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ShowGalleryModal
+        isOpen={modalOpen == modalType.ShowGallery}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ShowVendorProductModal
+        isOpen={modalOpen == modalType.ShowVendorProduct}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
