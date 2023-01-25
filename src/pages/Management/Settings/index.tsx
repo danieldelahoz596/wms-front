@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
-import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import {
+  ContainerOutlined,
+  MailFilled,
+  RobotFilled,
+  ShoppingCartOutlined,
+  SnippetsFilled,
+} from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 const { Sider } = Layout;
 
@@ -13,6 +19,13 @@ import CompanyInfo from './CompanyInfo';
 import UserAdministration from './UserAdministration';
 import POTemplates from './POTemplates';
 import { history } from '@umijs/max';
+import ProfileIcon from '@/utils/icons/profile';
+import CustomersIcon from '@/utils/icons/customers';
+import CompanyIcon from '@/utils/icons/company';
+import WarehouseIcon from '@/utils/icons/warehouse';
+import ShippingIcon from '@/utils/icons/shipping';
+import InventoryIcon from '@/utils/icons/inventory';
+import VendorIcon from '@/utils/icons/vendor';
 
 const OrderManagement: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<string>('Warehouses');
@@ -71,49 +84,73 @@ const OrderManagement: React.FC = () => {
                 items={[
                   {
                     key: 'myprofile',
-                    icon: <UserOutlined />,
+                    icon: <ProfileIcon style={{ fontSize: 15 }} />,
                     label: 'My Profile',
                     onClick: handleMenuItemClick,
                   },
                   {
                     key: 'warehouses',
-                    icon: <UserOutlined />,
+                    icon: <WarehouseIcon style={{ fontSize: 15 }} />,
                     label: 'Warehouses',
                     onClick: handleMenuItemClick,
                   },
                   {
+                    key: 'saleschannel',
+                    icon: <ShoppingCartOutlined style={{ fontSize: 15 }} />,
+                    label: 'Sales Channel',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
+                    key: 'shipping',
+                    icon: <ShippingIcon style={{ fontSize: 15 }} />,
+                    label: 'Shipping Provider',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
                     key: 'vendors',
-                    icon: <UserOutlined />,
+                    icon: <VendorIcon style={{ fontSize: 15 }} />,
                     label: 'Vendors',
                     onClick: handleMenuItemClick,
                   },
                   {
-                    key: '6',
-                    icon: <UserOutlined />,
+                    key: 'orderbots',
+                    icon: <RobotFilled style={{ fontSize: 15 }} />,
                     label: 'Orderbots',
                     disabled: true,
                   },
                   {
-                    key: '8',
-                    icon: <UserOutlined />,
+                    key: 'emailtemplate',
+                    icon: <MailFilled style={{ fontSize: 15 }} />,
+                    label: 'E-mail Template',
+                    disabled: true,
+                  },
+                  {
+                    key: 'packingsliptemplates',
+                    icon: <SnippetsFilled style={{ fontSize: 15 }} />,
                     label: 'Packing Slip Templates',
                     disabled: true,
                   },
                   {
                     key: 'potemplates',
-                    icon: <UserOutlined />,
+                    icon: <ContainerOutlined style={{ fontSize: 15 }} />,
                     label: 'P.O. Templates',
                     onClick: handleMenuItemClick,
                   },
                   {
                     key: 'useradministration',
-                    icon: <VideoCameraOutlined />,
+                    icon: <CustomersIcon style={{ fontSize: 15 }} />,
                     label: 'User Administration',
                     onClick: handleMenuItemClick,
                   },
                   {
+                    key: 'skubanaapps',
+                    icon: <InventoryIcon style={{ fontSize: 15 }} />,
+                    label: 'Skubana Apps',
+                    onClick: handleMenuItemClick,
+                  },
+                  {
                     key: 'companyinfo',
-                    icon: <UserOutlined />,
+                    icon: <CompanyIcon style={{ fontSize: 12 }} />,
                     label: 'Company Info',
                     onClick: handleMenuItemClick,
                   },

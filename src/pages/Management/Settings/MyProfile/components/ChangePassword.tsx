@@ -1,4 +1,5 @@
 import httpClient from '@/utils/http-client';
+import NewPasswordIcon from '@/utils/icons/newPassword';
 import { FormattedMessage } from '@umijs/max';
 import { Card, Form, Input, Button, Row, message } from 'antd';
 
@@ -73,7 +74,7 @@ const ChanagePassword: React.FC = () => {
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password iconRender={() => <NewPasswordIcon style={{ fill: 'gray' }} />} />
           </Form.Item>
 
           <Form.Item
@@ -101,7 +102,7 @@ const ChanagePassword: React.FC = () => {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password iconRender={() => <NewPasswordIcon style={{ fill: 'gray' }} />} />
           </Form.Item>
 
           <Row justify="end">

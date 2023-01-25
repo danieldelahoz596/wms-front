@@ -20,6 +20,7 @@ interface IOmodal {
   width?: number;
   centered?: boolean;
   className?: string;
+  forceRender?: boolean;
 }
 
 export const OModal: React.FC<IOmodal> = (props) => {

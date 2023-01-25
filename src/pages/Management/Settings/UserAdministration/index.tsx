@@ -1,190 +1,122 @@
 import NewUserModal from '@/components/Modals/Settings/UserAdministration/NewUserModal';
+import UserAdministrationHistory from '@/components/Modals/Settings/UserAdministration/UserAdministrationHistoryModal';
 import { modalType } from '@/utils/helpers/types';
-import { Button, Card, Space, Table } from 'antd';
-import { useState, useMemo } from 'react';
+import { useModel } from '@umijs/max';
+import { Button, Card, Space, Table, message } from 'antd';
+import moment from 'moment';
+import { useState, useEffect } from 'react';
 
-const vendorList = [
+const TColumns = [
   {
-    id: 1,
-    name: 'Support',
-    phonenumber: '1234567890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
+    title: 'Name',
+    dataIndex: 'full_name',
+    key: 'name',
   },
   {
-    id: 2,
-    name: 'Arnaud Bouliann',
-    phonenumber: '98765443210',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
+    title: 'Status',
+    dataIndex: 'is_active',
+    key: 'status',
+    render: (status) => <>{status ? 'ACTIVE' : 'INACTIVE'}</>,
   },
   {
-    id: 3,
-    name: 'Chad Rubin',
-    phonenumber: '6543219870',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
+    title: 'Created',
+    dataIndex: 'created_at',
+    key: 'created',
+    render: (created_at) => <>{moment(created_at).format('M/D/Y')}</>,
   },
   {
-    id: 4,
-    name: 'Abdullah Wali',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 5,
-    name: 'Arnaud Bouliann',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 6,
-    name: 'Cindy Yuk',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 7,
-    name: 'Emily Garcia',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 8,
-    name: 'Sand',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 9,
-    name: 'Alex Mcvarish',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 10,
-    name: 'Jennifer Malise',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 11,
-    name: 'Samantha Potter',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 12,
-    name: 'Gareth Roberts',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 13,
-    name: 'Gina Tirelli',
-    phonenumber: '7564532890',
-    status: true,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 14,
-    name: 'Gina Tirelli',
-    phonenumber: '7564532890',
-    status: false,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
-  },
-  {
-    id: 15,
-    name: 'Gina Tirelli',
-    phonenumber: '7564532890',
-    status: false,
-    created: '03/24/2015',
-    lastlogin: '04/12/2018',
+    title: 'Last Login',
+    dataIndex: 'updated_at',
+    key: 'lastlogin',
+    render: (updated_at) => <>{moment(updated_at).format('M/D/Y')}</>,
   },
 ];
 
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const [showInactive, setShowInactive] = useState(true);
+  const {
+    userList,
+    selectedUser,
+    showInactive,
+    setSelectedUser,
+    setShowInactive,
+    getUsers,
+    updateUser,
+  } = useModel('user');
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const TRows = useMemo(() => vendorList.map((_item) => ({ ..._item, key: _item.id })), []);
-
-  const TColumns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Phone Number',
-      dataIndex: 'phonenumber',
-      key: 'phonenumber',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => <>{status ? 'ACTIVE' : 'INACTIVE'}</>,
-    },
-    {
-      title: 'Created',
-      dataIndex: 'created',
-      key: 'created',
-    },
-    {
-      title: 'Last Login',
-      dataIndex: 'lastlogin',
-      key: 'lastlogin',
-    },
-  ];
+  useEffect(() => {
+    getUsers({ is_active: showInactive });
+  }, [getUsers, showInactive]);
 
   return (
     <>
+      {contextHolder}
       <Card style={{ width: '100%' }}>
         <Space size={5}>
           <Button
             onClick={() => {
+              setSelectedUser(null);
               setModal(modalType.New);
             }}
           >
             New User
           </Button>
-          <Button>Edit User</Button>
-          <Button>Deactivate / Activate</Button>
-          <Button>History</Button>
+          <Button
+            onClick={() => {
+              setModal(modalType.New);
+            }}
+            disabled={!selectedUser}
+          >
+            Edit User
+          </Button>
+          <Button
+            disabled={!selectedUser}
+            onClick={() => {
+              updateUser({ ...selectedUser, is_active: !selectedUser.is_active }).then(() => {
+                messageApi.open({
+                  type: 'success',
+                  content: 'User updated successfully',
+                });
+              });
+            }}
+          >
+            Deactivate / Activate
+          </Button>
+          <Button onClick={() => setModal(modalType.History)}>History</Button>
           <Button onClick={() => setShowInactive((prev) => !prev)}>
-            {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
+            {showInactive ? 'SHOW INACTIVE' : 'SHOW ACTIVE'}
           </Button>
         </Space>
-        <Table columns={TColumns} dataSource={TRows} style={{ marginTop: 10 }} />
+        <Table
+          columns={TColumns}
+          rowSelection={{
+            selectedRowKeys: selectedUser ? [selectedUser.id] : [],
+            hideSelectAll: true,
+            columnWidth: 0, // Set the width to 0
+            renderCell: () => '', // Render nothing inside
+          }}
+          dataSource={userList.map((_item) => ({ ..._item, key: _item.id }))}
+          style={{ marginTop: 10 }}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                if (record.id === selectedUser?.id) setSelectedUser(null);
+                else setSelectedUser(record);
+              }, // click row
+            };
+          }}
+        />
       </Card>
 
       <NewUserModal
         isOpen={modalOpen === modalType.New}
         onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <UserAdministrationHistory
+        isOpen={modalOpen === modalType.History}
         onClose={() => setModal(modalType.Close)}
       />
     </>

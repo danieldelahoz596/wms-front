@@ -40,7 +40,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { setInitialState } = useModel('@@initialState');
-  const { login } = useModel('user');
+  const { login } = useModel('auth');
 
   const fetchIinitialData = () => {
     httpClient.get('/api/initial-data').then((response) => {
