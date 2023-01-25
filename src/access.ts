@@ -3,7 +3,9 @@
  * */
 export default function access(initialState: { currentUser?: API.CurrentUser } | undefined) {
   const { currentUser } = initialState ?? {};
+
   return {
     canAdmin: currentUser && currentUser.access === 'admin',
+    routeFilter: (route) => currentUser && currentUser.user.permissions.includes(route.key),
   };
 }

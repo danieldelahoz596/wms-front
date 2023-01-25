@@ -29,36 +29,50 @@ export default [
     path: '/orders',
     component: './Management/OrderManagement',
     title: 'menu.orders',
+    key: 'orders',
+    access: 'routeFilter',
   },
   {
     path: '/inventory',
     component: './Management/InventoryManagement',
     title: 'menu.inventory',
+    key: 'inventory',
+    access: 'routeFilter',
   },
   {
     path: '/purchasing',
     component: './Management/PurchaseOrderManagement',
     title: 'menu.purchasing',
+    key: 'purchase_orders',
+    access: 'routeFilter',
   },
   {
     path: '/shipments',
     component: './Welcome',
     title: 'menu.shipments',
+    key: 'shipments',
+    access: 'routeFilter',
   },
   {
     path: '/customers',
     component: './Management/CustomerManagement',
     title: 'menu.customers',
+    key: 'customers',
+    access: 'routeFilter',
   },
   {
     path: '/products',
     component: './Management/ProductManagement',
     title: 'menu.products',
+    key: 'products',
+    access: 'routeFilter',
   },
   {
     path: '/analytics',
     component: './Management/AnalyticManagement',
     title: 'menu.analytics',
+    key: 'analytics',
+    access: 'routeFilter',
     routes: [
       {
         hideInMenu: true,
@@ -76,6 +90,8 @@ export default [
     path: '/settings',
     component: './Management/Settings',
     title: 'menu.settings',
+    key: 'user_administration',
+    access: 'routeFilter',
     routes: [
       {
         hideInMenu: true,
@@ -113,6 +129,8 @@ export default [
     path: '/help',
     component: './Help',
     title: 'menu.help',
+    key: 'skubana_apps',
+    access: 'routeFilter',
     routes: [
       {
         hideInMenu: true,
@@ -120,10 +138,6 @@ export default [
         component: './Help/Dashboard',
       },
     ],
-  },
-  {
-    path: '/',
-    redirect: '/dashboard',
   },
   {
     path: '*',
