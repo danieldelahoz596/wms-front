@@ -1,31 +1,17 @@
-import Icon, { PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import {
-  PageContainer
-} from '@ant-design/pro-components';
-import { Button, Input, message, Table, Card, Row, Col, Dropdown, Menu, Modal, Select, Popconfirm } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
-import React, { useRef, useState } from 'react';
-import { Tabs, Upload, Drawer } from 'antd';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
+import { Button, Input, Drawer, Card, Row, Col } from 'antd';
+import React, { useState } from 'react';
 import { data, historyData, recieveData } from './components/structure';
-import { getBase64, fileUploadProps, mselectChildren, sampleImages } from '@/utils/helpers/base';
-import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
 const { Search } = Input;
+interface ITransferManagement {
+  changeManagementTab: (tabName: string) => void;
+}
 
-const { Option } = Select;
-const { TabPane } = Tabs;
-
-const TransferManagement: React.FC = () => {
-
-  const [modalOpen, setModal] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
+const TransferManagement: React.FC<ITransferManagement> = ({ changeManagementTab }) => {
   const [dataSource, setDataSource] = useState(data);
   const [historyDataSource, sethistoryDataSource] = useState(historyData);
   const [recieveDataSource, setrecieveDataSource] = useState(recieveData);
-  const [fileList, setFileList] = useState<UploadFile[]>(sampleImages);
+
   const Tcolumns = [
     {
       title: 'Status',
@@ -84,7 +70,6 @@ const TransferManagement: React.FC = () => {
     },
   ];
 
-
   const Hcolumns = [
     {
       title: 'Edit Time',
@@ -100,7 +85,7 @@ const TransferManagement: React.FC = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-    }
+    },
   ];
 
   const Rcolumns = [
@@ -128,29 +113,8 @@ const TransferManagement: React.FC = () => {
       title: 'Recieved Location',
       dataIndex: 'recieved_location',
       key: 'recieved_location',
-    }
+    },
   ];
-
-  const handleCancel = () => setModal(modalType.Close);
-  const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as RcFile);
-    }
-
-    setPreviewImage(file.url || (file.preview as string));
-    setModal(modalType.Preview);
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-  };
-
-  const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   const [openHistory, setopenHistory] = useState(false);
   const [openReceive, setopenReceive] = useState(false);
@@ -170,44 +134,61 @@ const TransferManagement: React.FC = () => {
   return (
     <>
       <Row>
+        <Col span={24}>
+          <Row justify="space-between">
+            <Col span={12} style={{ paddingLeft: 10 }}>
+              <Button
+                type="primary"
+                style={{ marginRight: '10px' }}
+                onClick={() => changeManagementTab('stock')}
+              >
+                STOCK
+              </Button>
+              <Button type="primary" onClick={() => changeManagementTab('transfer')}>
+                TRANSFERS
+              </Button>
+            </Col>
+          </Row>
+        </Col>
         <Col span={16}>
-          <Card>
+          <Card style={{ marginTop: 10 }}>
             <div style={{ width: 300, display: 'inline-block', marginRight: '10px' }}>
-              <Search 
-                placeholder="Enter Order#, SKU or product name..." 
+              <Search
+                placeholder="Enter Order#, SKU or product name..."
                 onSearch={() => console.log('Inactive')}
-                enterButton 
+                enterButton
               />
             </div>
-            <Button type="primary" onClick={showReceive} style={{ marginRight: '10px' }}>Receive</Button>
-            <Button type="primary" onClick={showHistory} style={{ marginRight: '10px' }}>History</Button>
-            <Drawer title="History For Stock Transfer" width={800} placement="right" onClose={closeHistory} open={openHistory}>
-              <OTable
-                columns={Hcolumns}
-                rows={historyDataSource}
-              />
+            <Button type="primary" onClick={showReceive} style={{ marginRight: '10px' }}>
+              Receive
+            </Button>
+            <Button type="primary" onClick={showHistory} style={{ marginRight: '10px' }}>
+              History
+            </Button>
+            <Drawer
+              title="History For Stock Transfer"
+              width={800}
+              placement="right"
+              onClose={closeHistory}
+              open={openHistory}
+            >
+              <OTable columns={Hcolumns} rows={historyDataSource} />
             </Drawer>
           </Card>
           <Card>
-            <OTable
-              columns={Tcolumns}
-              rows={dataSource}
-            />
+            <OTable columns={Tcolumns} rows={dataSource} />
           </Card>
         </Col>
-        {openReceive &&
+        {openReceive && (
           <Col span={8}>
             <Card>
               <h3>Stock Transfer Order Details</h3>
             </Card>
             <Card>
-              <OTable
-                  columns={Rcolumns}
-                  rows={recieveDataSource}
-              />
+              <OTable columns={Rcolumns} rows={recieveDataSource} />
             </Card>
           </Col>
-        }
+        )}
       </Row>
     </>
   );

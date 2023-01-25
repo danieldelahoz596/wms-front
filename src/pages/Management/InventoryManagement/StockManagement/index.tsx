@@ -23,7 +23,11 @@ import StockDetails from './components/RightPanel';
 
 const { Search } = Input;
 
-const StockManagement: React.FC = () => {
+interface IStockManagement {
+  changeManagementTab: (tabName: string) => void;
+}
+
+const StockManagement: React.FC<IStockManagement> = ({ changeManagementTab }) => {
   const [modalOpen, setModal] = useState('');
   const [dataSource, setDataSource] = useState(data);
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
@@ -172,22 +176,38 @@ const StockManagement: React.FC = () => {
         <div className="horizon-content">
           <Row style={{ width: '100%' }}>
             <Col span={24}>
-              <Row style={{ width: '100%', marginBottom: '10px' }} justify="end" gutter={10}>
-                <Col>
-                  <Select
-                    options={[{ value: 'warehouse', label: 'Shwoing 2 Warehouses' }]}
-                    defaultValue="warehouse"
-                    size="small"
-                    style={{ width: '200px' }}
-                  />
+              <Row justify="space-between">
+                <Col span={12} style={{ paddingLeft: 10 }}>
+                  <Button
+                    type="primary"
+                    style={{ marginRight: '10px' }}
+                    onClick={() => changeManagementTab('stock')}
+                  >
+                    STOCK
+                  </Button>
+                  <Button type="primary" onClick={() => changeManagementTab('transfer')}>
+                    TRANSFERS
+                  </Button>
                 </Col>
-                <Col>
-                  <Select
-                    options={[{ value: 'status', label: '5 Statuses' }]}
-                    defaultValue="status"
-                    size="small"
-                    style={{ width: '100px' }}
-                  />
+                <Col span={12}>
+                  <Row style={{ width: '100%', marginBottom: '10px' }} justify="end" gutter={10}>
+                    <Col>
+                      <Select
+                        options={[{ value: 'warehouse', label: 'Shwoing 2 Warehouses' }]}
+                        defaultValue="warehouse"
+                        size="small"
+                        style={{ width: '200px' }}
+                      />
+                    </Col>
+                    <Col>
+                      <Select
+                        options={[{ value: 'status', label: '5 Statuses' }]}
+                        defaultValue="status"
+                        size="small"
+                        style={{ width: '100px' }}
+                      />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
               <Card>

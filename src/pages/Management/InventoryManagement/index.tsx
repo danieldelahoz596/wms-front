@@ -1,4 +1,3 @@
-import { Button, Row, Col } from 'antd';
 import StockManagement from './StockManagement';
 import TransferManagement from './TransferManagement';
 import React, { useState } from 'react';
@@ -25,23 +24,9 @@ const InventoryManagement: React.FC = () => {
       header={{ breadcrumb: {} }}
       style={{ marginTop: '10px' }}
     >
-      <Row style={{ marginBottom: '10px', marginLeft: '10px' }}>
-        <Col span={24}>
-          <Button
-            type="primary"
-            style={{ marginRight: '10px' }}
-            onClick={() => changeManagementTab('stock')}
-          >
-            STOCK
-          </Button>
-          <Button type="primary" onClick={() => changeManagementTab('transfer')}>
-            TRANSFERS
-          </Button>
-        </Col>
-      </Row>
       <div className={'flex grow'}>
-        {stockTab && <StockManagement />}
-        {transferTab && <TransferManagement />}
+        {stockTab && <StockManagement changeManagementTab={changeManagementTab} />}
+        {transferTab && <TransferManagement changeManagementTab={changeManagementTab} />}
       </div>
     </PageContainer>
   );
