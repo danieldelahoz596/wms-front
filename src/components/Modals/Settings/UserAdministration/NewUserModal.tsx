@@ -165,11 +165,20 @@ export default function ({ isOpen, onSave, onClose }) {
               onSave();
             })
             .catch(({ response }) => {
-              const formData = [];
-              for (const [name, errors] of Object.entries(response.data)) {
-                formData.push({ name, errors });
+              if (response.status === 403) {
+                messageApi.open({
+                  type: 'error',
+                  content: 'Permission Denied',
+                });
+
+                onSave();
+              } else if (response.status === 422) {
+                const formData = [];
+                for (const [name, errors] of Object.entries(response.data)) {
+                  formData.push({ name, errors });
+                }
+                form.setFields(formData);
               }
-              form.setFields(formData);
             });
         }
       })
@@ -204,6 +213,7 @@ export default function ({ isOpen, onSave, onClose }) {
           },
         ]}
         width={700}
+        forceRender
       >
         <Form
           form={form}
