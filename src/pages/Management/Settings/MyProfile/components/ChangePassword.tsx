@@ -18,6 +18,11 @@ const ChanagePassword: React.FC = () => {
               type: 'success',
               content: response.data,
             });
+            form.setFieldsValue({
+              old_password: '',
+              new_password: '',
+              new_password_confirmation: '',
+            });
           })
           .catch((err) => {
             const formData = [];

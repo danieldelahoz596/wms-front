@@ -1,81 +1,141 @@
+import { useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { useModel } from '@umijs/max';
-import { Col, Row } from 'antd';
+import { Col, Row, message } from 'antd';
+import { uuidv4 } from '@antv/xflow-core';
+
+const productColumns = [
+  {
+    key: 'product',
+    dataIndex: 'product',
+    title: 'Product',
+  },
+  {
+    key: 'notes',
+    dataIndex: 'notes',
+    title: 'Notes',
+  },
+  {
+    key: 'available',
+    dataIndex: 'available',
+    title: 'Available',
+  },
+  {
+    key: 'quantity',
+    dataIndex: 'quantity',
+    title: 'Quantity',
+    editable: true,
+  },
+  {
+    key: 'uniPrice',
+    dataIndex: 'uniPrice',
+    title: 'Unit Price',
+  },
+  {
+    key: 'totalDiscount',
+    dataIndex: 'totalDiscount',
+    title: 'Total Discount',
+  },
+];
 
 const AddNewOrderItemTable = () => {
   const { productList } = useModel('product');
   const { newOrder, setNewOrder } = useModel('order');
+  const [productRows, setProductRows] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const productColumns = [
-    {
-      key: 'product',
-      dataIndex: 'product',
-      title: 'Product',
-    },
-    {
-      key: 'notes',
-      dataIndex: 'notes',
-      title: 'Notes',
-    },
-    {
-      key: 'available',
-      dataIndex: 'available',
-      title: 'Available',
-    },
-    {
-      key: 'quantity',
-      dataIndex: 'quantity',
-      title: 'Quantity',
-      editable: true,
-    },
-    {
-      key: 'uniPrice',
-      dataIndex: 'uniPrice',
-      title: 'Unit Price',
-    },
-    {
-      key: 'totalDiscount',
-      dataIndex: 'totalDiscount',
-      title: 'Total Discount',
-    },
-  ];
+  const products = useMemo(
+    () => productList.map((item) => ({ text: item.name, value: item.id })),
+    [productList],
+  );
 
-  const products = productList.map((item) => ({ text: item.name, value: item.key }));
+  // const productRows = useMemo(
+  //   () =>
+  //     newOrder.orderItems.map((item) => ({
+  //       key: item.id,
+  //       product: item.name,
+  //       notes: '',
+  //       available: '',
+  //       quantity: item.quantity,
+  //       uniPrice: 10,
+  //       totalDiscount: 0,
+  //     })),
+  //   [newOrder],
+  // );
 
-  const handleProductAdd = (productIndex) => {
-    const selectedProduct = productList.find((item, index) => index == productIndex);
+  const handleProductAdd = (value) => {
+    const selectedProduct = productList.find((item) => item.id === value);
 
     if (selectedProduct) {
       setNewOrder((prevState) => ({
         ...prevState,
-        orderItems: [...prevState.orderItems, selectedProduct],
+        orderItems: [...prevState.orderItems, { ...selectedProduct }],
       }));
+      setProductRows([
+        ...productRows,
+        {
+          key: selectedProduct.id,
+          product: selectedProduct.name,
+          notes: '',
+          available: '',
+          quantity: 0,
+          uniPrice: 10,
+          totalDiscount: 0,
+        },
+      ]);
     }
   };
 
-  const productRows = newOrder.orderItems.map((item, index) => ({
-    key: index,
-    product: item.name,
-    notes: '',
-    available: '',
-    quantity: 1,
-    uniPrice: 10,
-    totalDiscount: 0,
-  }));
-
   const handleRowEdit = (index, name, value) => {
-    setNewOrder((prevState) => ({
-      ...prevState,
-      orderItems: prevState.orderItems.map((item, itemIndex) =>
-        index == itemIndex ? { ...item, [name]: value } : item,
-      ),
-    }));
+    console.log(index, name, value);
+    console.log(productRows);
+    setProductRows(productRows.map((row) => (row.key === index ? { ...row, [name]: value } : row)));
+    // setNewOrder((prevState) => ({
+    //   ...prevState,
+    //   orderItems: prevState.orderItems.map((item) =>
+    //     index == item.id ? { ...item, [name]: value } : item,
+    //   ),
+    // }));
+  };
+
+  const handlePasteFromCSV = () => {
+    const productItems = [];
+    navigator.clipboard.readText().then((text) => {
+      const items = text.split(/\r\n|\r|\n/);
+      items.forEach((item) => {
+        const details = item.split(',');
+        if (details.length !== 3)
+          messageApi.open({
+            type: 'error',
+            content: `${item} should be have 3 inputs separated by commas.`,
+          });
+        else if (!details[2].includes('.'))
+          messageApi.open({
+            type: 'error',
+            content: `${item} Unit Price should have decimal points.`,
+          });
+        else {
+          const [name, quantity, price] = details;
+          productItems.push({
+            key: uuidv4(),
+            product: name,
+            notes: '',
+            available: '',
+            quantity: quantity,
+            uniPrice: price,
+            totalDiscount: 0,
+          });
+        }
+      });
+      setProductRows((prev) => [...prev, ...productItems]);
+    });
   };
 
   return (
     <>
+      {contextHolder}
       <Row style={{ marginTop: '0.5rem' }}>
         <Col span={12} style={{ display: 'flex', alignItems: 'center' }}>
           <small>Add Item: </small>
@@ -88,7 +148,7 @@ const AddNewOrderItemTable = () => {
           />
         </Col>
         <Col span={12} style={{ textAlign: 'right' }}>
-          <OButton type="primary" btnText={'Paste from CSV'} />
+          <OButton type="primary" btnText={'Paste from CSV'} onClick={handlePasteFromCSV} />
         </Col>
       </Row>
       <Row style={{ marginTop: '0.5rem' }}>
@@ -96,7 +156,7 @@ const AddNewOrderItemTable = () => {
           <EditableTable
             columns={productColumns}
             dataSource={productRows}
-            handleSave={(index, name, value) => handleRowEdit(index, name, value)}
+            handleSave={handleRowEdit}
           />
         </Col>
       </Row>

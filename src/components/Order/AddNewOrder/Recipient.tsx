@@ -92,10 +92,10 @@ const Recipient = () => {
       >
         {formInputs.map((item, index) =>
           Array.isArray(item) ? (
-            <Form.Item label={item[0]?.label}>
+            <Form.Item label={item[0]?.label} key={`item-${index}`}>
               {item.map((groupItem, groupIndex) => (
                 <Form.Item
-                  key={groupIndex}
+                  key={`groupitem-${groupIndex}`}
                   name={groupItem.name}
                   style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
                 >
@@ -105,7 +105,7 @@ const Recipient = () => {
             </Form.Item>
           ) : (
             <Form.Item
-              key={index}
+              key={`item-${index}`}
               label={item.label}
               name={item.name}
               style={{ justifyContent: 'flex-end' }}

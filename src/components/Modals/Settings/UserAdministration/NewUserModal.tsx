@@ -215,13 +215,15 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Input />
                 </Form.Item>
 
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[{ required: true, message: "Please inpute the password!" }]}
-                >
-                  <Input.Password />
-                </Form.Item>
+                {!selectedUser && (
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please inpute the password!' }]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+                )}
               </Card>
             </Col>
             <Col span={12}>

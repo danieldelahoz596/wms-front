@@ -1,5 +1,5 @@
-import { Button, Input, Card, Row, Col, Dropdown, Select } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Button, Input, Card, Row, Col, Dropdown, Select, Space } from 'antd';
 import { data, stock_history, stock_allocation } from './components/structure';
 import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
@@ -22,142 +22,144 @@ import SettingIcon from '@/utils/icons/setting';
 import StockDetails from './components/RightPanel';
 
 const { Search } = Input;
-
 interface IStockManagement {
-  changeManagementTab: (tabName: string) => void;
+  tabButtons: React.ReactNode;
 }
 
-const StockManagement: React.FC<IStockManagement> = ({ changeManagementTab }) => {
-  const [modalOpen, setModal] = useState('');
+const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
+  const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
-  const [stockAllocationSource, setstockAllocationSource] = useState(stock_allocation);
+  const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
 
-  const Tcolumns = [
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      align: 'center',
-      render: (text: any) => (
-        <>
-          {text === productType.CoreProduct ? (
-            <CoreProductsIcon />
-          ) : text === productType.BundleOrKit ? (
-            <BundleIcon />
-          ) : text === productType.Variations ? (
-            <VariationIcon />
-          ) : (
-            <span style={{ position: 'relative' }}>
+  const Tcolumns = useMemo(
+    () => [
+      {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        align: 'center',
+        render: (text: any) => (
+          <>
+            {text === productType.CoreProduct ? (
               <CoreProductsIcon />
-              <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
-                <DownOutlined />
-              </div>
-            </span>
-          )}
-        </>
-      ),
-    },
-    {
-      title: 'MASTER SKU',
-      dataIndex: 'master_sku',
-      key: 'master_sku',
-      render: (text: any) => (
-        <a>
-          <u>{text}</u>
-        </a>
-      ),
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Brand',
-      dataIndex: 'brand',
-      key: 'brand',
-    },
-    {
-      title: 'Des',
-      dataIndex: 'description',
-      key: 'description',
-      render: (text: any) => <>{text && <NoteIcon />}</>,
-    },
-    {
-      title: 'On Hand',
-      dataIndex: 'on_hands',
-      key: 'on_hands',
-    },
-    {
-      title: 'Locked',
-      dataIndex: 'locked',
-      key: 'locked',
-    },
-    {
-      title: 'Allocated',
-      dataIndex: 'allocated',
-      key: 'allocated',
-      render: (text: any) => (
-        <span
-          style={{ cursor: 'pointer', color: 'blue' }}
-          onClick={() => setModal(modalType.StockAllocationDetails)}
-        >
-          <u>{text}</u>
-        </span>
-      ),
-    },
-    {
-      title: 'In Transfer',
-      dataIndex: 'in_transfer',
-      key: 'in_transfer',
-      render: (text: any) => (
-        <span
-          style={{ cursor: 'pointer', color: 'blue' }}
-          onClick={() => setModal(modalType.StockAllocationDetails)}
-        >
-          <u>{text}</u>
-        </span>
-      ),
-    },
-    {
-      title: 'Available',
-      dataIndex: 'available',
-      key: 'available',
-    },
-    {
-      title: 'Discrepation',
-      dataIndex: 'discrepation',
-      key: 'discrepation',
-      render: (text: any) => (
-        <span
-          style={{ cursor: 'pointer', color: 'blue' }}
-          onClick={() => setModal(modalType.StockAllocationDetails)}
-        >
-          <u>{text}</u>
-        </span>
-      ),
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-      render: (text: any) => (
-        <>
-          {text === productStatus.yellow ? (
-            <ShieldAdmirationIcon />
-          ) : text === productStatus.green ? (
-            <ShieldCheckIcon />
-          ) : text === productStatus.red ? (
-            <ShieldDeniedIcon />
-          ) : (
-            <SettingIcon />
-          )}
-        </>
-      ),
-    },
-  ];
+            ) : text === productType.BundleOrKit ? (
+              <BundleIcon />
+            ) : text === productType.Variations ? (
+              <VariationIcon />
+            ) : (
+              <span style={{ position: 'relative' }}>
+                <CoreProductsIcon />
+                <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
+                  <DownOutlined />
+                </div>
+              </span>
+            )}
+          </>
+        ),
+      },
+      {
+        title: 'MASTER SKU',
+        dataIndex: 'master_sku',
+        key: 'master_sku',
+        render: (text: any) => (
+          <a>
+            <u>{text}</u>
+          </a>
+        ),
+      },
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Brand',
+        dataIndex: 'brand',
+        key: 'brand',
+      },
+      {
+        title: 'Des',
+        dataIndex: 'description',
+        key: 'description',
+        render: (text: any) => <>{text && <NoteIcon />}</>,
+      },
+      {
+        title: 'On Hand',
+        dataIndex: 'on_hands',
+        key: 'on_hands',
+      },
+      {
+        title: 'Locked',
+        dataIndex: 'locked',
+        key: 'locked',
+      },
+      {
+        title: 'Allocated',
+        dataIndex: 'allocated',
+        key: 'allocated',
+        render: (text: any) => (
+          <span
+            style={{ cursor: 'pointer', color: 'blue' }}
+            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
+          >
+            <u>{text}</u>
+          </span>
+        ),
+      },
+      {
+        title: 'In Transfer',
+        dataIndex: 'in_transfer',
+        key: 'in_transfer',
+        render: (text: any) => (
+          <span
+            style={{ cursor: 'pointer', color: 'blue' }}
+            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
+          >
+            <u>{text}</u>
+          </span>
+        ),
+      },
+      {
+        title: 'Available',
+        dataIndex: 'available',
+        key: 'available',
+      },
+      {
+        title: 'Discrepation',
+        dataIndex: 'discrepation',
+        key: 'discrepation',
+        render: (text: any) => (
+          <span
+            style={{ cursor: 'pointer', color: 'blue' }}
+            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
+          >
+            <u>{text}</u>
+          </span>
+        ),
+      },
+      {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        align: 'center',
+        render: (text: any) => (
+          <>
+            {text === productStatus.yellow ? (
+              <ShieldAdmirationIcon />
+            ) : text === productStatus.green ? (
+              <ShieldCheckIcon />
+            ) : text === productStatus.red ? (
+              <ShieldDeniedIcon />
+            ) : (
+              <SettingIcon />
+            )}
+          </>
+        ),
+      },
+    ],
+    [],
+  );
 
   const {
     isDragging: isRightDragging,
@@ -178,16 +180,7 @@ const StockManagement: React.FC<IStockManagement> = ({ changeManagementTab }) =>
             <Col span={24}>
               <Row justify="space-between">
                 <Col span={12} style={{ paddingLeft: 10 }}>
-                  <Button
-                    type="primary"
-                    style={{ marginRight: '10px' }}
-                    onClick={() => changeManagementTab('stock')}
-                  >
-                    STOCK
-                  </Button>
-                  <Button type="primary" onClick={() => changeManagementTab('transfer')}>
-                    TRANSFERS
-                  </Button>
+                  {tabButtons}
                 </Col>
                 <Col span={12}>
                   <Row style={{ width: '100%', marginBottom: '10px' }} justify="end" gutter={10}>
@@ -210,164 +203,156 @@ const StockManagement: React.FC<IStockManagement> = ({ changeManagementTab }) =>
                   </Row>
                 </Col>
               </Row>
+
               <Card>
-                <Row gutter={10} align="middle">
-                  <Col span={8}>
+                <Space size={10} align="center">
+                  <div style={{ width: 300, display: 'inline-block' }}>
                     <Search
                       placeholder="Enter SKU or product name..."
                       onSearch={() => console.log('Inactive')}
                       enterButton
                       size="small"
                     />
-                  </Col>
-                  <Col span={16}>
-                    <Row gutter={5}>
-                      <Col>
-                        <Dropdown
-                          menu={{
-                            items: [
-                              {
-                                key: '1',
-                                label: (
-                                  <span onClick={() => setModal(modalType.StockHistory)}>
-                                    History
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '2',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Deactivate
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '3',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Draw Rank
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '4',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Location
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '5',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Transfer
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '6',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Adjust
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '7',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Remove
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '8',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>Add</span>
-                                ),
-                              },
-                            ],
-                          }}
-                        >
-                          <Button type="primary">
-                            Bulk Edit <DownOutlined />
-                          </Button>
-                        </Dropdown>
-                      </Col>
-                      <Col>
-                        <Dropdown
-                          menu={{
-                            items: [
-                              {
-                                key: '1',
-                                label: (
-                                  <span onClick={() => setModal(modalType.StockHistory)}>
-                                    Import Inventory
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '2',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Import Stock Minimums
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '3',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Import Reorder Rules
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '4',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Export Inventory
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '5',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ManualOrder)}>
-                                    Export Stock Details
-                                  </span>
-                                ),
-                              },
-                              {
-                                key: '6',
-                                label: (
-                                  <span onClick={() => setModal(modalType.ExportStockEditHistory)}>
-                                    Export Stock Edit History
-                                  </span>
-                                ),
-                              },
-                            ],
-                          }}
-                        >
-                          <Button type="primary">
-                            Import/Export <DownOutlined />
-                          </Button>
-                        </Dropdown>
-                      </Col>
-                      <Col>
-                        <Button
-                          onClick={() => setModal(modalType.BulkReconciliation)}
-                          type="primary"
-                        >
-                          Bulk Reconciliation
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
+                  </div>
+                  <Dropdown
+                    menu={{
+                      items: [
+                        {
+                          key: '1',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.StockHistory)}>
+                              History
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '2',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Deactivate
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '3',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Draw Rank
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '4',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Location
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '5',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Transfer
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '6',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Adjust
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '7',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Remove
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '8',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Add</span>
+                          ),
+                        },
+                      ],
+                    }}
+                  >
+                    <Button type="primary">
+                      Bulk Edit <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                  <Dropdown
+                    menu={{
+                      items: [
+                        {
+                          key: '1',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.StockHistory)}>
+                              Import Inventory
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '2',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Import Stock Minimums
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '3',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Import Reorder Rules
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '4',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Export Inventory
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '5',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                              Export Stock Details
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '6',
+                          label: (
+                            <span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>
+                              Export Stock Edit History
+                            </span>
+                          ),
+                        },
+                      ],
+                    }}
+                  >
+                    <Button type="primary">
+                      Import/Export <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                  <Button
+                    onClick={() => setCurrentModal(modalType.BulkReconciliation)}
+                    type="primary"
+                  >
+                    Bulk Reconciliation
+                  </Button>
+                </Space>
               </Card>
+
               <Card>
                 <OTable columns={Tcolumns} rows={dataSource} />
               </Card>
@@ -384,25 +369,26 @@ const StockManagement: React.FC<IStockManagement> = ({ changeManagementTab }) =>
           <StockDetails />
         </div>
       </div>
+
       <StockHistoryModal
-        isOpen={modalOpen === modalType.StockHistory}
-        onClose={() => setModal(modalType.Close)}
+        isOpen={currentModal === modalType.StockHistory}
+        onClose={() => setCurrentModal(modalType.Close)}
         dataSource={stockHistorySource}
       />
       <ExportStockEditHistoryModal
-        isOpen={modalOpen === modalType.ExportStockEditHistory}
+        isOpen={currentModal === modalType.ExportStockEditHistory}
         onSave={() => {}}
-        onAddOrderExportSettings={() => setModal(modalType.AddOrderExportSettings)}
-        onClose={() => setModal(modalType.Close)}
+        onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
       <BulkReconciliationModal
-        isOpen={modalOpen === modalType.BulkReconciliation}
+        isOpen={currentModal === modalType.BulkReconciliation}
         onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
       <StockAllocationDetailsModal
-        isOpen={modalOpen === modalType.StockAllocationDetails}
-        onClose={() => setModal(modalType.Close)}
+        isOpen={currentModal === modalType.StockAllocationDetails}
+        onClose={() => setCurrentModal(modalType.Close)}
         dataSource={stockAllocationSource}
       />
     </>

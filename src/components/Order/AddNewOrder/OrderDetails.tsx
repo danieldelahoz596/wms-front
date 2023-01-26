@@ -39,7 +39,7 @@ const OrderDetails = () => {
       name: 'paymentType',
       label: 'Payment Type',
       placeholder: 'Select..',
-      options: [{'key':'credit', 'value':'Credit'}],
+      options: [{ key: 'credit', value: 'Credit' }],
       render: (inputField: any) => <PaymentTerm inputField={inputField} />,
     },
     [
@@ -94,7 +94,7 @@ const OrderDetails = () => {
         {formInputs.map((item, index) =>
           Array.isArray(item) ? (
             Array.isArray(item[0]) ? (
-              <Row gutter={12}>
+              <Row gutter={12} key={index}>
                 {item.map((group, groupIndex) => (
                   <Col span={groupIndex !== 0 ? 8 : 16} key={groupIndex}>
                     {group.map((groupInput, groupInputIndex) => (

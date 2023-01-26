@@ -1,5 +1,6 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Input, Card, Form, Row, Col, Popconfirm, Checkbox, Select, Image } from 'antd';
+import { Button, Input, Card, Form, Row, Col, Checkbox, Select, Image } from 'antd';
+import { Link } from 'umi';
 
 export default function () {
   const onFinish = (values: any) => {
@@ -24,7 +25,7 @@ export default function () {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
-            labelAlign='left'
+            labelAlign="left"
           >
             <Form.Item label="Company Name" name="username">
               <Input />
@@ -95,13 +96,15 @@ export default function () {
             <Form.Item label="PO Number Prefix" name="username">
               <Input value="PO12" />
             </Form.Item>
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label="Auto PO Generation?"
-            >
-              <Checkbox />
-              <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+            <Form.Item name="remember" valuePropName="checked" label="Auto PO Generation?">
+              <>
+                <Checkbox />
+                <Link to="/help/settings/companyinfo/#Product_Settings_Section">
+                  <QuestionCircleOutlined
+                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
+                  />
+                </Link>
+              </>
             </Form.Item>
 
             {/* Product Settings */}
@@ -121,13 +124,11 @@ export default function () {
             <h2>Inventory Settings</h2>
             <hr />
 
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label="Inventory Update?"
-            >
-              <Checkbox />
-              <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+            <Form.Item name="remember" valuePropName="checked" label="Inventory Update?">
+              <>
+                <Checkbox />
+                <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+              </>
             </Form.Item>
 
             <Form.Item
@@ -135,14 +136,13 @@ export default function () {
               valuePropName="checked"
               label="Use Component Inventory Across Warehouses?"
             >
-              <Checkbox />
-              <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+              <>
+                <Checkbox />
+                <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+              </>
             </Form.Item>
 
-            <Form.Item
-              label="Auto Reorder Sales Days Back Default"
-              name="username"
-            >
+            <Form.Item label="Auto Reorder Sales Days Back Default" name="username">
               <Row align="middle">
                 <Col span={6}>
                   <Input value="180" />
@@ -156,10 +156,7 @@ export default function () {
               </Row>
             </Form.Item>
 
-            <Form.Item
-              label="Auto Reorder Days In Stock Default"
-              name="username"
-            >
+            <Form.Item label="Auto Reorder Days In Stock Default" name="username">
               <Row align="middle">
                 <Col span={6}>
                   <Input value="30" />
@@ -173,10 +170,7 @@ export default function () {
               </Row>
             </Form.Item>
 
-            <Form.Item
-              label="Auto Reorder Growth Percentage Default"
-              name="username"
-            >
+            <Form.Item label="Auto Reorder Growth Percentage Default" name="username">
               <Row align="middle">
                 <Col span={6}>
                   <Input value="0.0" />
@@ -190,10 +184,7 @@ export default function () {
               </Row>
             </Form.Item>
 
-            <Form.Item
-              label="Auto Reorder Lead Days Buffer Default"
-              name="username"
-            >
+            <Form.Item label="Auto Reorder Lead Days Buffer Default" name="username">
               <Row align="middle">
                 <Col span={6}>
                   <Input value="5" />
@@ -216,18 +207,17 @@ export default function () {
               valuePropName="checked"
               label="Choose from all Vendors for reconciliation?"
             >
-              <Checkbox />
-              <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+              <>
+                <Checkbox />
+                <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
+              </>
             </Form.Item>
 
             {/* Returns Settings */}
             <h2>Returns Settings</h2>
             <hr />
 
-            <Form.Item
-              name="gender"
-              label="Automated Returns Receiving Warehouse"
-            >
+            <Form.Item name="gender" label="Automated Returns Receiving Warehouse">
               <Row align="middle">
                 <Col span={6}>
                   <Select

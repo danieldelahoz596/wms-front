@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 
-interface IStockHistoryModal {
+interface ITransferHistoryModal {
   isOpen: boolean;
   onClose: () => void;
   dataSource: any[];
@@ -21,26 +21,16 @@ const Tcolumns = [
     key: 'user',
   },
   {
-    title: 'Edit Type',
-    dataIndex: 'edit_type',
-    key: 'edit_type',
-  },
-  {
     title: 'Description',
     dataIndex: 'description',
     key: 'description',
   },
-  {
-    title: 'Notes',
-    dataIndex: 'notes',
-    key: 'notes',
-  },
 ];
 
-const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, onClose, dataSource }) => {
+const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose, dataSource }) => {
   return (
     <OModal
-      title="In House Warehouse Stock Edit History for 1234 AT Location232"
+      title="History for stock transfer order stock-transfer-test-snow-peak"
       width={1000}
       className="OModal"
       centered
@@ -64,4 +54,4 @@ const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, onClose, data
   );
 };
 
-export default StockHistoryModal;
+export default TransferHistoryModal;
