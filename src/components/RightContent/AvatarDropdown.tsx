@@ -26,6 +26,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const loginOut = async () => {
     await outLogin();
     localStorage.removeItem('authdata');
+    localStorage.removeItem('initialData');
     const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
     /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -52,7 +53,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       const { key } = event;
       if (key === 'logout') {
         flushSync(() => {
-          setInitialState((s) => ({ ...s, currentUser: null }));
+          setInitialState((s) => ({ ...s, currentUser: null, initialData: null }));
         });
         loginOut();
         return;
