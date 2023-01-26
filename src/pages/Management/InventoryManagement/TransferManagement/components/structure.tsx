@@ -49,15 +49,22 @@ export const data = [
 export const historyData = [
   {
     key: 1,
-    edit_time: '23-10-2022 02:00:00',
-    user: 'Alex',
-    description: 'This order is changes',
+    edit_time: '10/27/2020 3:56 PM',
+    user: 'JENNIFER.MALISE@SKUBANA',
+    description: "Remaining pending item '1234000' created for 25 units",
   },
   {
     key: 2,
-    edit_time: '30-10-2022 10:00:00',
-    user: 'Alex 2',
-    description: 'This order is changes',
+    edit_time: '10/27/2020 3:56 PM',
+    user: 'JENNIFER.MALISE@SKUBANA',
+    description: "Item '1234000' rejected for 5 units",
+  },
+  {
+    key: 3,
+    edit_time: '10/27/2020 3:56 PM',
+    user: 'JENNIFER.MALISE@SKUBANA',
+    description:
+      "Stock transfer shippped, from Jeff's warehouse to Alex's Warehouse, item[pink water bottle:30]",
   },
 ];
 
@@ -68,7 +75,7 @@ export const recieveData = [
     master_sku: '123323',
     notes: 'This order is changes',
     quantity: '2',
-    recieved_location: 'Warehouse',
+    recieved_location: 'Rejected Item',
   },
   {
     key: 2,
@@ -76,6 +83,6 @@ export const recieveData = [
     master_sku: '124354',
     notes: 'This order is changes',
     quantity: '25',
-    recieved_location: 'Warehouse',
+    recieved_location: 'Not Received Yet',
   },
 ];
