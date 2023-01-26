@@ -20,7 +20,7 @@ const MyInformation: React.FC = () => {
             );
             messageApi.open({
               type: 'success',
-              content: 'Updated Information Successfully!',
+              content: 'Username is updated successfully!',
             });
           })
           .catch((err) => {
@@ -39,24 +39,37 @@ const MyInformation: React.FC = () => {
       {contextHolder}
       <Card
         title={<FormattedMessage id="app.settings.basic.title" />}
-        style={{ width: 600, borderRadius: 10 }}
+        style={{ width: 600 }}
       >
         <Form
           name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ full_name: initialState?.currentUser?.user.full_name }}
+          initialValues={{ full_name: initialState?.currentUser?.user.full_name, username: initialState?.currentUser?.user.username}}
           autoComplete="off"
           form={form}
+          labelAlign="left"
         >
           <Form.Item
-            label={<FormattedMessage id="app.settings.basic.name" />}
-            labelAlign="left"
+            label={<FormattedMessage id="app.settings.basic.fullname" />}
             name="full_name"
             rules={[
               {
                 required: true,
-                message: <FormattedMessage id="app.settings.basic.name-message" />,
+                message: <FormattedMessage id="app.settings.basic.fullname-message" />,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label={<FormattedMessage id="app.settings.basic.username" />}
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: <FormattedMessage id="app.settings.basic.username-message" />,
               },
             ]}
           >

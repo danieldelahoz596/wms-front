@@ -18,7 +18,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
   const formInputs = [
     {
       type: 'select',
-      label: 'To Destination:',
+      label: 'To Destination',
       name: 'destination',
       placeholder: 'Select..',
       defaultValue: selectedPO?.destination?.value,
@@ -41,7 +41,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
     },
     {
       type: 'select',
-      label: 'Shipping terms :',
+      label: 'Shipping terms',
       name: 'shippingTerm',
       placeholder: 'Select..',
       defaultValue: selectedPO?.shippingTerm?.value,
@@ -51,7 +51,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
     },
     {
       type: 'select',
-      label: 'Payment Terms :',
+      label: 'Payment Terms',
       name: 'paymentTerm',
       placeholder: 'Select..',
       defaultValue: selectedPO?.paymentTerm?.value,
@@ -62,7 +62,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
     },
     {
       type: 'date',
-      label: 'Confirmed By :',
+      label: 'Confirmed By',
       name: 'confirmedBy',
       defaultValue: selectedPO?.confirmedBy,
       onChange: handleSelectedPOChange,

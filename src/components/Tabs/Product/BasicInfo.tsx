@@ -12,7 +12,7 @@ const BasicInfo: React.FC = () => {
     {
       type: 'text',
       onChange: onChangeSelectedProduct,
-      label: 'Master Sku *:',
+      label: 'Master Sku *',
       name: 'master_sku',
       placeholder: 'Master Sku',
       value: editableProduct?.master_sku,
@@ -20,7 +20,7 @@ const BasicInfo: React.FC = () => {
     {
       type: 'text',
       onChange: onChangeSelectedProduct,
-      label: 'Name *:',
+      label: 'Name *',
       name: 'name',
       placeholder: 'Name',
       value: editableProduct?.name,
@@ -29,7 +29,7 @@ const BasicInfo: React.FC = () => {
       {
         type: 'select',
         onChange: onChangeSelectedProduct,
-        label: 'Buy | Brand *:',
+        label: 'Buy | Brand *',
         name: 'buyer',
         value: editableProduct?.buyer,
         options: [
@@ -76,7 +76,7 @@ const BasicInfo: React.FC = () => {
     {
       type: 'select',
       onChange: onChangeSelectedProduct,
-      label: 'Categories:',
+      label: 'Categories',
       name: 'categories',
       placeholder: 'Please Select',
       options: productSelectOptions,
@@ -106,7 +106,7 @@ const BasicInfo: React.FC = () => {
     {
       type: 'select',
       onChange: onChangeSelectedProduct,
-      label: 'Labels:',
+      label: 'Labels',
       name: 'labels',
       placeholder: 'Please Select',
       options: productSelectOptions,
@@ -136,7 +136,7 @@ const BasicInfo: React.FC = () => {
     {
       type: 'textarea',
       onChange: onChangeSelectedProduct,
-      label: 'Description:',
+      label: 'Description',
       name: 'description',
       value: editableProduct?.description,
     },

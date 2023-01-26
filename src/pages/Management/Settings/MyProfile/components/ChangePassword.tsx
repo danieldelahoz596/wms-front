@@ -35,7 +35,7 @@ const ChanagePassword: React.FC = () => {
       {contextHolder}
       <Card
         title={<FormattedMessage id="app.settings.profile.change-password.title" />}
-        style={{ width: 600, marginTop: 10, borderRadius: 10 }}
+        style={{ width: 600, marginTop: 10 }}
       >
         <Form
           name="basic"
@@ -43,10 +43,10 @@ const ChanagePassword: React.FC = () => {
           wrapperCol={{ span: 16 }}
           autoComplete="off"
           form={form}
+          labelAlign="left"
         >
           <Form.Item
             label={<FormattedMessage id="app.settings.profile.change-password.current-password" />}
-            labelAlign="left"
             name="old_password"
             rules={[
               {
@@ -62,7 +62,6 @@ const ChanagePassword: React.FC = () => {
 
           <Form.Item
             name="new_password"
-            labelAlign="left"
             label={<FormattedMessage id="app.settings.profile.change-password.new-password" />}
             rules={[
               {
@@ -79,7 +78,6 @@ const ChanagePassword: React.FC = () => {
 
           <Form.Item
             name="new_password_confirmation"
-            labelAlign="left"
             label={<FormattedMessage id="app.settings.profile.change-password.confirm-password" />}
             dependencies={['new_password']}
             hasFeedback

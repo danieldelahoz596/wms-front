@@ -80,7 +80,7 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
     {
       type: 'select',
       onChange: handleInputChange,
-      label: 'Product:',
+      label: 'Product',
       name: 'product',
       defaultValue: newCoreProduct.product,
       value: newCoreProduct.product,
@@ -90,7 +90,7 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
     {
       type: 'number',
       onChange: handleInputChange,
-      label: 'quantity:',
+      label: 'quantity',
       name: 'quantity',
       defaultValue: newCoreProduct.quantity,
       value: newCoreProduct.quantity,

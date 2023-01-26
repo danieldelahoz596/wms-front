@@ -122,7 +122,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'select',
       onChange: handleNewVendorProductChange,
-      label: 'Vendor:',
+      label: 'Vendor',
       name: 'vendor',
       defaultValue: newVendorProduct.vendor,
       value: newVendorProduct.vendor,
@@ -137,7 +137,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'text',
       onChange: handleNewVendorProductChange,
-      label: 'Vendor SKU:',
+      label: 'Vendor SKU',
       name: 'vendorSku',
       defaultValue: newVendorProduct.vendorSku,
       value: newVendorProduct.vendorSku,
@@ -145,7 +145,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'number',
       onChange: handleNewVendorProductChange,
-      label: 'Minimum Order Qty:',
+      label: 'Minimum Order Qty',
       name: 'minOrderQty',
       defaultValue: newVendorProduct.minOrderQty,
       value: newVendorProduct.minOrderQty,
@@ -158,7 +158,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'number',
       onChange: handleNewVendorProductChange,
-      label: 'Lead Time:',
+      label: 'Lead Time',
       name: 'leadTime',
       defaultValue: newVendorProduct.leadTime,
       value: newVendorProduct.leadTime,
@@ -171,7 +171,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'select',
       onChange: handleNewVendorProductChange,
-      label: 'Auto-P.O. Rounding:',
+      label: 'Auto-P.O. Rounding',
       name: 'autoPoRounding',
       defaultValue: newVendorProduct.autoPoRounding,
       value: newVendorProduct.autoPoRounding,
@@ -194,7 +194,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     {
       type: 'text',
       onChange: handleNewVendorProductChange,
-      label: 'Packaging:',
+      label: 'Packaging',
       name: 'packaging',
       defaultValue: newVendorProduct.packaging,
       value: newVendorProduct.packaging,

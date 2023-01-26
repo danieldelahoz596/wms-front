@@ -61,18 +61,6 @@ const userAdministration = [
       'Ability to create and modify in-house warehouses and 3PLs from which your company fulfills orders, including document print settings (in-house warehouses) and FTP settings (3PLs).',
   },
   {
-    id: 'sales_channels',
-    title: 'Sales Channels',
-    content:
-      'Ability to create and modify the sales channels on which your company sells. This includes channel connection, general settings, and requested shipment service mappings.',
-  },
-  {
-    id: 'shipping_providers',
-    title: 'Shipping Providers',
-    content:
-      'Ability to create and modify shipping providers used for address verification, rate calculation, and printing of shipping labels for orders fulfilled from direct/in-house warehouses.',
-  },
-  {
     id: 'templates',
     title: 'Templates',
     content:
@@ -91,21 +79,10 @@ const userAdministration = [
       'Ability to create and modify orderbots used for filtering and workflow automation of customer orders from marketplaces and shopping carts.',
   },
   {
-    id: 'skubana_apps',
-    title: 'Skubana Apps',
-    content: 'Ability to install and uninstall apps from the Skubana App Store.',
-  },
-  {
     id: 'user_administration',
     title: 'User Administration',
     content:
       "Ability to create new users, modify other users' permissions, as well as activate and deactivate users in Skubana. This permission should be given to administrators only.",
-  },
-  {
-    id: 'billing_invoices',
-    title: 'Billing & Invoices',
-    content:
-      'Ability to enter and edit billing information, as well as view Skubana invoices of your monthly order totals. This permission should be given to administrators only.',
   },
   {
     id: 'inventory_reconciliation',
@@ -221,7 +198,7 @@ export default function ({ isOpen, onSave, onClose }) {
         >
           <Row style={{ marginTop: 10 }} align="middle" gutter={10}>
             <Col span={12}>
-              <Card title={<h5>Login Info</h5>}>
+              <Card title="Login Info">
                 <Form.Item
                   label="Full Name: "
                   name="full_name"
@@ -233,9 +210,17 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Form.Item
                   label="Username:"
                   name="username"
-                  rules={[{ required: true, type: 'email', message: 'Please input the Username!' }]}
+                  rules={[{ required: true, message: 'Please input the Username!' }]}
                 >
                   <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[{ required: true, message: "Please inpute the password!" }]}
+                >
+                  <Input.Password />
                 </Form.Item>
               </Card>
             </Col>
@@ -251,11 +236,11 @@ export default function ({ isOpen, onSave, onClose }) {
             </Col>
           </Row>
 
-          <Card title={<h5>ACCESS PERMISSIONS</h5>} style={{ marginTop: 30 }}>
+          <Card title="Access Permissions" style={{ marginTop: 30 }}>
             <List
               size="small"
               header={
-                <Row className={styles.row}>
+                <Row className={styles.row} style={{ color: 'blue' }}>
                   <Col>
                     <span>Permission</span>
                   </Col>

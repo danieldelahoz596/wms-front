@@ -5,7 +5,7 @@ const EmailPreference: React.FC = () => {
   return (
     <Card
       title={<FormattedMessage id="app.settings.profile.email-preference.title" />}
-      style={{ width: 600, marginTop: 10, borderRadius: 10 }}
+      style={{ width: 600, marginTop: 10 }}
     >
       <Row>
         <Col span={12}>

@@ -19,6 +19,9 @@ import React, { useState } from 'react';
 
 import SkuAlerts from './Dashboard/skualerts';
 import Dashboard from './Dashboard/dashboard';
+import Myprofile from './Settings/myprofile';
+import Companyinfo from './Settings/companyinfo';
+import Useradministration from './Settings/useradministration';
 
 
 const { Sider, Content } = Layout;
@@ -26,8 +29,8 @@ const { Sider, Content } = Layout;
 const Help: React.FC = () => {
 
   const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
-  const [openKeys, setOpenKeys] = useState(['main3']);
-  const [selectKey, setSelectedKey] = useState('sub34');
+  const [openKeys, setOpenKeys] = useState(['main1']);
+  const [selectKey, setSelectedKey] = useState('settings_useradministration');
 
   const {
     isDragging: isLeftDragging,
@@ -54,7 +57,10 @@ const Help: React.FC = () => {
 
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
-  else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />;;
+  else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
+  else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
+  else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
+  else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
@@ -110,23 +116,6 @@ const Help: React.FC = () => {
                     icon: <SalesIcon />,
                     label: 'Sales Overview',
                   },
-                  {
-                    key: 'sub32',
-                    icon: <BiggestTicketsIcon />,
-                    label: 'Biggest Tickets',
-                  },
-                  {
-                    key: 'sub33',
-                    icon: <ShippingIcon />,
-                    label: 'Shipments',
-                  },
-                  {
-                    key: 'sub34',
-                    icon: <SalesIcon />,
-                    label: (
-                      <Link to="/Analytics/Orders/HistoricalExports">Historical Exports</Link>
-                    ),
-                  },
                 ],
               },
               {
@@ -154,60 +143,76 @@ const Help: React.FC = () => {
                 ],
               },
               {
-                key: 'main5',
+                key: 'main6',
                 icon: <AccountingIcon />,
                 label: 'Customers',
                 children: [
                   {
-                    key: 'sub51',
+                    key: 'sub61',
                     icon: <UserOutlined />,
                     label: 'Test',
                   },
                 ],
               },
               {
-                key: 'main5',
+                key: 'main7',
                 icon: <AccountingIcon />,
                 label: 'Products',
                 children: [
                   {
-                    key: 'sub51',
+                    key: 'sub71',
                     icon: <UserOutlined />,
                     label: 'Test',
                   },
                 ],
               },
               {
-                key: 'main5',
-                icon: <AccountingIcon />,
+                key: 'main8',
+                icon: <ShippingIcon />,
                 label: 'Analytics',
                 children: [
                   {
-                    key: 'sub51',
+                    key: 'sub81',
                     icon: <UserOutlined />,
                     label: 'Test',
                   },
                 ],
               },
               {
-                key: 'main5',
-                icon: <AccountingIcon />,
+                key: 'main9',
+                icon: <BiggestTicketsIcon />,
                 label: 'Settings',
                 children: [
                   {
-                    key: 'sub51',
-                    icon: <UserOutlined />,
-                    label: 'Test',
+                    key: 'settings_myprofile',
+                    icon: <SalesIcon />,
+                    label: (
+                      <Link to="/help/settings/myprofile">My Profile</Link>
+                    ),
+                  },
+                  {
+                    key: 'settings_useradministration',
+                    icon: <SalesIcon />,
+                    label: (
+                      <Link to="/help/settings/useradministration">User Administration</Link>
+                    ),
+                  },
+                  {
+                    key: 'settings_companyinfo',
+                    icon: <SalesIcon />,
+                    label: (
+                      <Link to="/help/settings/companyinfo">Company Info</Link>
+                    ),
                   },
                 ],
               },
               {
-                key: 'main5',
+                key: 'main10',
                 icon: <AccountingIcon />,
                 label: 'Help',
                 children: [
                   {
-                    key: 'sub51',
+                    key: 'sub101',
                     icon: <UserOutlined />,
                     label: 'Test',
                   },
@@ -218,7 +223,7 @@ const Help: React.FC = () => {
         </Sider>
         
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-
+        
         {renderableContent}
 
         {/* <div className="w-full flex flex-column h-screen">

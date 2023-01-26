@@ -9,7 +9,7 @@ const POCommunication: React.FC = () => {
   const formInputs = [
     {
       type: 'textarea',
-      label: 'Message To Vendor:',
+      label: 'Message To Vendor',
       name: 'messageToVendor',
       rows: 4,
       defaultValue: selectedPO?.messageToVendor,

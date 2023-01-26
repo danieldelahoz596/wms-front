@@ -95,18 +95,6 @@ const OrderManagement: React.FC = () => {
                     onClick: handleMenuItemClick,
                   },
                   {
-                    key: 'saleschannel',
-                    icon: <ShoppingCartOutlined style={{ fontSize: 15 }} />,
-                    label: 'Sales Channel',
-                    onClick: handleMenuItemClick,
-                  },
-                  {
-                    key: 'shipping',
-                    icon: <ShippingIcon style={{ fontSize: 15 }} />,
-                    label: 'Shipping Provider',
-                    onClick: handleMenuItemClick,
-                  },
-                  {
                     key: 'vendors',
                     icon: <VendorIcon style={{ fontSize: 15 }} />,
                     label: 'Vendors',
@@ -116,12 +104,6 @@ const OrderManagement: React.FC = () => {
                     key: 'orderbots',
                     icon: <RobotFilled style={{ fontSize: 15 }} />,
                     label: 'Orderbots',
-                    disabled: true,
-                  },
-                  {
-                    key: 'emailtemplate',
-                    icon: <MailFilled style={{ fontSize: 15 }} />,
-                    label: 'E-mail Template',
                     disabled: true,
                   },
                   {
@@ -140,12 +122,6 @@ const OrderManagement: React.FC = () => {
                     key: 'useradministration',
                     icon: <CustomersIcon style={{ fontSize: 15 }} />,
                     label: 'User Administration',
-                    onClick: handleMenuItemClick,
-                  },
-                  {
-                    key: 'skubanaapps',
-                    icon: <InventoryIcon style={{ fontSize: 15 }} />,
-                    label: 'Skubana Apps',
                     onClick: handleMenuItemClick,
                   },
                   {

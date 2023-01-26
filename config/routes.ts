@@ -142,6 +142,21 @@ export default [
         path: '/help/dashboard/skualerts',
         component: './Help/Dashboard/skualerts',
       },
+      {
+        hideInMenu: true,
+        path: '/help/settings/myprofile',
+        component: './Help/Settings/myprofile',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/useradministration',
+        component: './Help/Settings/useradministration',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/companyinfo',
+        component: './Help/Settings/companyinfo',
+      },
     ],
   },
   {

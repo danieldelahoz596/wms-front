@@ -10,13 +10,13 @@ const SearchByProductPanel: React.FC = () => {
   const formInputs = [
     {
       type: 'text',
-      label: 'Product Name:',
+      label: 'Product Name',
       name: 'productName',
       placeholder: 'Name',
     },
     {
       type: 'text',
-      label: 'SKU:',
+      label: 'SKU',
       name: 'sku',
       placeholder: 'SKU',
     },
@@ -27,13 +27,13 @@ const SearchByProductPanel: React.FC = () => {
     },
     {
       type: 'text',
-      label: 'Listing SKU:',
+      label: 'Listing SKU',
       name: 'listingSku',
       placeholder: 'SKU',
     },
     {
       type: 'text',
-      label: 'Vendor SKU:',
+      label: 'Vendor SKU',
       name: 'vendorSku',
       placeholder: 'SKU',
     },

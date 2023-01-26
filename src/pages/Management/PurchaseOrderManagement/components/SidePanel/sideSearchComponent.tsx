@@ -33,7 +33,7 @@ const SideSearch: React.FC = () => {
     },
     {
       type: 'select',
-      label: 'Created By:',
+      label: 'Created By',
       placeholder: 'Select...',
       name: 'createdBy',
       options: createdByOptions,
@@ -41,33 +41,33 @@ const SideSearch: React.FC = () => {
     },
     {
       type: 'number',
-      label: 'P.O. Number:',
+      label: 'P.O. Number',
       name: 'poNumber',
       defaultValue: 1020,
       onChange: () => {},
     },
     {
       type: 'number',
-      label: 'Custom P.O. Number:',
+      label: 'Custom P.O. Number',
       name: 'customPoNumber',
       onChange: () => {},
     },
     {
       type: 'text',
-      label: 'Product Name:',
+      label: 'Product Name',
       name: 'product_name',
       onChange: () => {},
     },
     {
       type: 'text',
-      label: 'SKU:',
+      label: 'SKU',
       placeholder: 'Master SKU, Vendor SKU',
       name: 'sku',
       onChange: () => {},
     },
     {
       type: 'select',
-      label: 'Vendor:',
+      label: 'Vendor',
       placeholder: 'Select...',
       name: 'vendor',
       options: initialData?.vendors?.map((item) => ({ value: item.id, text: item.name })),
@@ -76,7 +76,7 @@ const SideSearch: React.FC = () => {
 
     {
       type: 'select',
-      label: 'Destination:',
+      label: 'Destination',
       placeholder: 'Select...',
       name: 'destination',
       options: initialData?.warehouses?.map((item) => ({ value: item.id, text: item.name })),

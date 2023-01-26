@@ -49,7 +49,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'text',
       onChange: () => {},
-      label: 'Master Sku *:',
+      label: 'Master Sku *',
       name: 'masterSku',
       placeholder: 'Master Sku',
       defaultValue: '',
@@ -57,7 +57,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'text',
       onChange: () => {},
-      label: 'Name *:',
+      label: 'Name *',
       name: 'name',
       placeholder: 'Name',
       defaultValue: '',
@@ -66,7 +66,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
       {
         type: 'select',
         onChange: () => {},
-        label: 'Buy | Brand *:',
+        label: 'Buy | Brand *',
         name: 'buy',
         defaultValue: 'lucy',
         options: [
@@ -119,7 +119,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'select',
       onChange: () => {},
-      label: 'Categories:',
+      label: 'Categories',
       name: 'categories',
       placeholder: 'Please Select',
       options: productSelectOptions,
@@ -154,7 +154,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'select',
       onChange: () => {},
-      label: 'Lables:',
+      label: 'Lables',
       name: 'lables',
       placeholder: 'Please Select',
       options: productSelectOptions,
@@ -189,7 +189,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'textarea',
       onChange: () => {},
-      label: 'Description:',
+      label: 'Description',
       name: 'description',
     },
   ];
@@ -198,7 +198,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'text',
       onChange: () => {},
-      label: 'SKU:',
+      label: 'SKU',
       name: 'sku',
       placeholder: 'Required',
       defaultValue: '',
@@ -206,14 +206,14 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'text',
       onChange: () => {},
-      label: 'UPC:',
+      label: 'UPC',
       name: 'sku',
       defaultValue: '',
     },
     {
       type: 'text',
       onChange: () => {},
-      label: 'Image:',
+      label: 'Image',
       name: 'image',
       defaultValue: '',
     },
