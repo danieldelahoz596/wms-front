@@ -130,7 +130,6 @@ export default [
     component: './Help',
     title: 'menu.help',
     key: 'skubana_apps',
-    access: 'routeFilter',
     routes: [
       {
         hideInMenu: true,
@@ -141,6 +140,16 @@ export default [
         hideInMenu: true,
         path: '/help/dashboard/skualerts',
         component: './Help/Dashboard/skualerts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/orders/historicalexports',
+        component: './Help/Analytics/Orders/historicalordersexports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/purchaseorders/historicalexports',
+        component: './Help/Analytics/PurchaseOrders/historicalpurchaseordersexports',
       },
       {
         hideInMenu: true,

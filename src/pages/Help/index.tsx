@@ -22,6 +22,8 @@ import Dashboard from './Dashboard/dashboard';
 import Myprofile from './Settings/myprofile';
 import Companyinfo from './Settings/companyinfo';
 import Useradministration from './Settings/useradministration';
+import Historicalordersexports from './Analytics/Orders/historicalordersexports';
+import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
 
 
 const { Sider, Content } = Layout;
@@ -58,6 +60,8 @@ const Help: React.FC = () => {
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
+  else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
+  else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
   else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
   else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
   else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
@@ -172,9 +176,28 @@ const Help: React.FC = () => {
                 label: 'Analytics',
                 children: [
                   {
-                    key: 'sub81',
-                    icon: <UserOutlined />,
-                    label: 'Test',
+                    key: 'sub83',
+                    icon: <OrdersIcon />,
+                    label: 'Orders',
+                    children: [
+                      {
+                        key: 'analytics_orders_historicalexports',
+                        icon: <SalesIcon />,
+                        label: 'Historical Exports',
+                      },
+                    ],
+                  },
+                  {
+                    key: 'sub83',
+                    icon: <OrdersIcon />,
+                    label: 'Purchase Orders',
+                    children: [
+                      {
+                        key: 'analytics_purchaseorders_historicalexports',
+                        icon: <SalesIcon />,
+                        label: 'Historical Exports',
+                      },
+                    ],
                   },
                 ],
               },
