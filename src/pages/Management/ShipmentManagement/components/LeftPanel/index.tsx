@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import SearchPanel from './searchPanel';
+import FilterPanel from './filterPanel';
 
 const LeftPanel: React.FC = () => {
   const tabItems = useMemo(
@@ -14,6 +15,7 @@ const LeftPanel: React.FC = () => {
           </span>
         ),
         key: '1',
+        children: <FilterPanel />,
       },
       {
         label: (
