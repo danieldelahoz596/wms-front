@@ -48,7 +48,7 @@ export default [
   },
   {
     path: '/shipments',
-    component: './Welcome',
+    component: './Management/ShipmentManagement',
     title: 'menu.shipments',
     key: 'shipments',
     access: 'routeFilter',
