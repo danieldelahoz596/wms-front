@@ -135,10 +135,10 @@ const Rcolumns = [
   },
 ];
 interface ITransferManagement {
-  changeManagementTab: (tabName: string) => void;
+  tabButtons: React.ReactNode;
 }
 
-const TransferManagement: React.FC<ITransferManagement> = ({ changeManagementTab }) => {
+const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
   const [dataSource, setDataSource] = useState(data);
   const [historyDataSource, sethistoryDataSource] = useState(historyData);
   const [recieveDataSource, setrecieveDataSource] = useState(recieveData);
@@ -165,16 +165,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ changeManagementTab
         <Col span={16}>
           <Row justify="space-between">
             <Col span={12} style={{ paddingLeft: 10 }}>
-              <Button
-                type="primary"
-                style={{ marginRight: '10px' }}
-                onClick={() => changeManagementTab('stock')}
-              >
-                STOCK
-              </Button>
-              <Button type="primary" onClick={() => changeManagementTab('transfer')}>
-                TRANSFERS
-              </Button>
+              {tabButtons}
             </Col>
             <Col span={12}>
               <Row style={{ marginBottom: '10px' }} gutter={10}>
