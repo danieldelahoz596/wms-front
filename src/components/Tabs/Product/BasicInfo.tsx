@@ -143,20 +143,22 @@ const BasicInfo: React.FC = () => {
         </Col>
         <Col span={2}>
           <Row justify="end">
-            <CoreProductsIcon style={{ fontSize: 50 }} />
-            <div
-              style={{
-                position: 'absolute',
-                top: 25,
-                left: 34,
-                backgroundColor: 'white',
-                color: 'blue',
-                paddingLeft: 8,
-                paddingRight: 8,
-                borderRadius: 5,
-              }}
-            >
-              Active
+            <div style={{ position: 'relative' }}>
+              <CoreProductsIcon style={{ fontSize: 50 }} />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 25,
+                  left: editableProduct?.status === 1 ? 4 : 1,
+                  backgroundColor: 'white',
+                  color: 'blue',
+                  paddingLeft: 8,
+                  paddingRight: 8,
+                  borderRadius: 5,
+                }}
+              >
+                {editableProduct?.status === 1 ? 'Active' : 'Deactive'}
+              </div>
             </div>
           </Row>
         </Col>

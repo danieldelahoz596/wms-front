@@ -11,11 +11,11 @@ import {
   Select,
   Table,
   Switch,
+  Space,
 } from 'antd';
 import React, { useState } from 'react';
 import { modalType, productType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
-import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import type { MenuProps } from 'antd';
 
@@ -45,6 +45,7 @@ import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductField
 import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
 import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 import VectorIcon from '@/utils/icons/vector';
+import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -81,7 +82,7 @@ const ProductManagement: React.FC = () => {
     separatorProps: bottomDragBarProps,
   } = useResizable({
     axis: 'y',
-    initial: 400,
+    initial: 300,
     min: 50,
     reverse: true,
   });
@@ -255,77 +256,6 @@ const ProductManagement: React.FC = () => {
     },
   ];
 
-  const actionButtons: IOButton[] = [
-    {
-      type: 'primary',
-      onClick: () => setModal(modalType.Edit),
-      btnText: 'Adjust Sku',
-      hidden: false,
-      disabled: !editableProduct,
-    },
-    {
-      type: 'primary',
-      onClick: () => {
-        handleUpdateProduct({ ...editableProduct, type: productType.BundleOrKit });
-        setEditableProduct(null);
-        setSelectedProducts([]);
-      },
-      btnText: 'Convert To Bundle/Kit',
-      hidden: false,
-      disabled: !(editableProduct?.type === productType.CoreProduct),
-    },
-    {
-      type: 'primary',
-      onClick: () => {
-        handleUpdateProduct({ ...editableProduct, type: productType.CoreProduct });
-        setEditableProduct(null);
-        setSelectedProducts([]);
-      },
-      btnText: 'Convert To Core',
-      hidden: false,
-      disabled: !(editableProduct?.type === productType.Variations),
-    },
-    {
-      type: 'primary',
-      onClick: () => {
-        setSelectedProducts([]);
-        const selectedKeys = selectedProducts.map((_item) => _item.id);
-        setProductList(
-          productList.map((_product) =>
-            selectedKeys.includes(_product.id) ? { ..._product, status: !showActivate } : _product,
-          ),
-        );
-      },
-      btnText: `${showActivate ? 'Deactivate' : 'Activate'}`,
-      hidden: false,
-      disabled: selectedProducts.length === 0,
-    },
-    {
-      type: 'primary',
-      onClick: () => console.log('History'),
-      btnText: 'History',
-      hidden: false,
-      disabled: selectedProducts.length === 0,
-    },
-    {
-      type: 'primary',
-      onClick: () => setModal(modalType.Variation),
-      btnText: 'New Product',
-      hidden: false,
-    },
-    {
-      type: 'primary',
-      btnText: (
-        <Dropdown menu={{ items: importExportMenuOptions }}>
-          <Button type="primary">
-            Import/Export <DownOutlined />
-          </Button>
-        </Dropdown>
-      ),
-      hidden: false,
-    },
-  ];
-
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
@@ -339,7 +269,7 @@ const ProductManagement: React.FC = () => {
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
             <div style={{ width: '100%' }}>
               <Row style={{ marginLeft: '10px', marginTop: '10px' }}>
                 <div style={{ fontSize: '15px' }}>Products :: </div>
@@ -354,6 +284,8 @@ const ProductManagement: React.FC = () => {
                     style={{ width: '100px', marginLeft: '5px' }}
                     onChange={(value) => {
                       setShowActivate(value === 'active' ? true : false);
+                      setEditableProduct(null);
+                      setSelectedProducts([]);
                     }}
                     value={showActivate ? 'active' : 'inactive'}
                   />
@@ -363,9 +295,84 @@ const ProductManagement: React.FC = () => {
               <Card style={{ width: '100%' }}>
                 <Row>
                   <Col span={24}>
-                    {actionButtons.map((btn, index) => (
-                      <OButton key={index} {...btn} />
-                    ))}
+                    <Space size={10}>
+                      <Button
+                        type="primary"
+                        onClick={() => setModal(modalType.AdjustMasterSKU)}
+                        disabled={!editableProduct}
+                      >
+                        Adjust Sku
+                      </Button>
+                      <Popconfirm
+                        title="Sure to convert to bundle/kit"
+                        onConfirm={() => {
+                          handleUpdateProduct({
+                            ...editableProduct,
+                            type: productType.BundleOrKit,
+                          });
+                          setEditableProduct(null);
+                          setSelectedProducts([]);
+                        }}
+                      >
+                        <Button
+                          type="primary"
+                          disabled={!(editableProduct?.type === productType.CoreProduct)}
+                        >
+                          Convert To Bundle/Kit
+                        </Button>
+                      </Popconfirm>
+                      <Popconfirm
+                        title="Sure to convert to Core"
+                        onConfirm={() => {
+                          handleUpdateProduct({
+                            ...editableProduct,
+                            type: productType.CoreProduct,
+                          });
+                          setEditableProduct(null);
+                          setSelectedProducts([]);
+                        }}
+                      >
+                        <Button
+                          type="primary"
+                          disabled={!(editableProduct?.type === productType.Variations)}
+                        >
+                          Convert To Core
+                        </Button>
+                      </Popconfirm>
+                      <Popconfirm
+                        title={`Sure to Convert to ${showActivate ? 'Activate' : 'Deactivate'}`}
+                        onConfirm={() => {
+                          setSelectedProducts([]);
+                          const selectedKeys = selectedProducts.map((_item) => _item.id);
+                          setProductList(
+                            productList.map((_product) =>
+                              selectedKeys.includes(_product.id)
+                                ? { ..._product, status: !showActivate }
+                                : _product,
+                            ),
+                          );
+                        }}
+                      >
+                        <Button type="primary" disabled={selectedProducts.length === 0}>
+                          {showActivate ? 'Deactivate' : 'Activate'}
+                        </Button>
+                      </Popconfirm>
+                      <Button
+                        type="primary"
+                        onClick={() => console.log('History')}
+                        disabled={selectedProducts.length === 0}
+                      >
+                        History
+                      </Button>
+                      <Button type="primary" onClick={() => setModal(modalType.Variation)}>
+                        New Product
+                      </Button>
+                      <Dropdown menu={{ items: importExportMenuOptions }}>
+                        <Button type="primary">
+                          Import/Export <DownOutlined />
+                        </Button>
+                      </Dropdown>
+                    </Space>
                   </Col>
                 </Row>
                 <br />
@@ -561,7 +568,11 @@ const ProductManagement: React.FC = () => {
 
       <NewProductModal
         isOpen={modalOpen == modalType.Variation}
-        handleClick={(value) => setModal(value)}
+        handleClick={(value) => {
+          setModal(value);
+          setSelectedProducts([]);
+          setEditableProduct(null);
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -590,6 +601,7 @@ const ProductManagement: React.FC = () => {
         onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
+
       <ExportVendorProductModal
         isOpen={modalOpen == modalType.ExportVendorProducts}
         onSave={() => {}}
@@ -608,6 +620,17 @@ const ProductManagement: React.FC = () => {
 
       <ShowVendorProductModal
         isOpen={modalOpen == modalType.ShowVendorProduct}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <AdjustMasterSKUModal
+        isOpen={modalOpen == modalType.AdjustMasterSKU}
+        onSave={(master_sku) => {
+          handleUpdateProduct({ ...editableProduct, master_sku });
+          setEditableProduct([]);
+          setSelectedProducts([]);
+          setModal(modalType.Close);
+        }}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
