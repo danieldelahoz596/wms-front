@@ -1,6 +1,6 @@
 import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { Tabs } from 'antd';
+import { Tabs, Form } from 'antd';
 import type { TabsProps } from 'antd';
 import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
 import GalleryTab from '@/components/Tabs/Product/Gallery';
@@ -13,11 +13,13 @@ interface ICoreProduct {
 }
 
 const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
+  const [form] = Form.useForm();
+
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
       label: 'Basic Info',
-      children: <BasicInfoTab />,
+      children: <BasicInfoTab form={form} />,
     },
     {
       key: 'tab-2',
@@ -30,6 +32,12 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
       children: <VendorProductTab />,
     },
   ];
+
+  const handleSave = () => {
+    form.validateFields().then(() => {
+      onSave(null);
+    });
+  };
 
   return (
     <OModal
@@ -49,7 +57,7 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: () => onSave(null),
+          onClick: handleSave,
         },
       ]}
     >

@@ -66,6 +66,12 @@ const ProductManagement: React.FC = () => {
     setEditableProduct(selectedList.length === 0 ? null : selectedList[0]);
   };
 
+  const handleMasterSKUClick = (event, record) => {
+    event.stopPropagation();
+    setModal(modalType.New);
+    setEditableProduct(record);
+  };
+
   const {
     isDragging: isLeftDragging,
     position: LeftW,
@@ -116,6 +122,11 @@ const ProductManagement: React.FC = () => {
       title: 'Master SKU',
       dataIndex: 'master_sku',
       key: 'master_sku',
+      render: (master_sku, record) => (
+        <a onClick={(event) => handleMasterSKUClick(event, record)}>
+          <u>{master_sku}</u>
+        </a>
+      ),
     },
     {
       title: 'Name',
@@ -219,6 +230,9 @@ const ProductManagement: React.FC = () => {
       ),
     },
     {
+      type: 'divider',
+    },
+    {
       key: '6',
       label: (
         <span onClick={() => setModal(modalType.Export)}>
@@ -235,6 +249,9 @@ const ProductManagement: React.FC = () => {
           Export Vendor Products
         </span>
       ),
+    },
+    {
+      type: 'divider',
     },
     {
       key: '9',
