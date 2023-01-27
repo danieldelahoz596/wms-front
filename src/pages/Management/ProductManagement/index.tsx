@@ -46,6 +46,7 @@ import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
 import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 import VectorIcon from '@/utils/icons/vector';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
+import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -214,7 +215,7 @@ const ProductManagement: React.FC = () => {
     {
       key: '4',
       label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
+        <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>
           <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
           Import SKU Adjustments
         </span>
@@ -648,6 +649,12 @@ const ProductManagement: React.FC = () => {
           setSelectedProducts([]);
           setModal(modalType.Close);
         }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ImportSKUAdjustment
+        isOpen={modalOpen == modalType.ImportSKUAdjustment}
+        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>

@@ -31,6 +31,7 @@ export enum modalType {
   ShowGallery = 'ShowGallery',
   ShowVendorProduct = 'ShowVendorProduct',
   AdjustMasterSKU = 'AdjustMasterSKU',
+  ImportSKUAdjustment = 'ImportSKUAdjustment',
 
   // order
   ManualOrder = 'Manual Order',
