@@ -12,6 +12,7 @@ interface IBasicInfo {
 
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct, onChangeSelectedProduct } = useModel('product');
+  const { initialState } = useModel('@@initialState');
 
   return (
     <>
@@ -97,12 +98,10 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             >
               <div style={{ display: 'flex' }}>
                 <Select
-                  options={[
-                    {
-                      value: 'lucy',
-                      label: 'lucky',
-                    },
-                  ]}
+                  options={initialState?.initialData?.brands.map((brand) => ({
+                    value: brand.id,
+                    label: brand.name,
+                  }))}
                 />
                 <PlusOutlined
                   style={{
@@ -132,7 +131,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           rules={[{ required: true, message: 'Please input Categories' }]}
         >
           <div style={{ display: 'flex' }}>
-            <Select placeholder="Please Select" options={productSelectOptions} />
+            <Select
+              placeholder="Please Select"
+              options={initialState?.initialData?.categories.map((brand) => ({
+                value: brand.id,
+                label: brand.name,
+              }))}
+            />
             <PlusOutlined
               style={{
                 color: 'blue',
@@ -159,7 +164,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           rules={[{ required: true, message: 'Please input Labels' }]}
         >
           <div style={{ display: 'flex' }}>
-            <Select placeholder="Please Select" options={productSelectOptions} />
+            <Select
+              placeholder="Please Select"
+              options={initialState?.initialData?.labels.map((brand) => ({
+                value: brand.id,
+                label: brand.name,
+              }))}
+            />
             <PlusOutlined
               style={{
                 color: 'blue',
