@@ -14,6 +14,7 @@ export interface IOSelect {
   defaultValue?: any;
   value?: any;
   style?: any;
+  hidden?: boolean;
 }
 
 export const OSelect: React.FC<IOSelect> = ({
@@ -25,8 +26,11 @@ export const OSelect: React.FC<IOSelect> = ({
   defaultValue,
   value,
   style,
+  hidden = false,
 }) => {
-  return (
+  return hidden ? (
+    <></>
+  ) : (
     <Select
       placeholder={placeholder}
       onChange={(value) => onChange(name, value)}

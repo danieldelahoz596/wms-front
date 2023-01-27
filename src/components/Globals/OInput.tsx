@@ -17,6 +17,7 @@ export interface IOInput {
   style?: any;
   value?: any;
   checked?: boolean;
+  hidden?: boolean;
 }
 const { TextArea } = Input;
 
@@ -33,6 +34,7 @@ export const OInput: React.FC<IOInput> = ({
   style,
   value,
   checked = false,
+  hidden = false,
 }) => {
   let inputField = null;
 
@@ -47,6 +49,7 @@ export const OInput: React.FC<IOInput> = ({
         value={value}
         addonBefore={addonBefore}
         style={style}
+        hidden={hidden}
       />
     );
   } else if (type === 'select') {
@@ -59,6 +62,7 @@ export const OInput: React.FC<IOInput> = ({
         placeholder={placeholder}
         options={options}
         style={style}
+        hidden={hidden}
       />
     );
   } else if (type === 'date') {
@@ -75,6 +79,7 @@ export const OInput: React.FC<IOInput> = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
         value={value}
+        hidden={hidden}
       />
     );
   } else if (type === 'checkbox') {
@@ -91,6 +96,7 @@ export const OInput: React.FC<IOInput> = ({
         value={value}
         addonBefore={addonBefore}
         style={style}
+        hidden={hidden}
       />
     );
   }
