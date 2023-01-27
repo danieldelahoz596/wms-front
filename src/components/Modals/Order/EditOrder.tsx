@@ -44,23 +44,23 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
       ]}
     >
       <Tabs defaultActiveKey="1">
-        <TabPane tab="BASIC INFO" key="1">
-          BASIC INFO
+        <TabPane tab="Basic Info" key="1">
+          Basic Info
         </TabPane>
-        <TabPane tab="PROCESSING" key="2">
-          PROCESSING
+        <TabPane tab="Processing" key="2">
+          Processing
         </TabPane>
-        <TabPane tab="ORDER ITEMS" key="3">
+        <TabPane tab="Order Items" key="3">
           <OrderItems />
         </TabPane>
-        <TabPane tab="COMMUNICATION" key="4">
-          COMMUNICATION
+        <TabPane tab="Communication" key="4">
+          Communication
         </TabPane>
-        <TabPane tab="CHANNEL FIELDS" key="5">
-          CHANNEL FIELDS
+        <TabPane tab="Channel Fields" key="5">
+          Channel Fields
         </TabPane>
-        <TabPane tab="HISTORY" key="6">
-          HISTORY
+        <TabPane tab="History" key="6">
+          History
         </TabPane>
       </Tabs>
     </OModal>

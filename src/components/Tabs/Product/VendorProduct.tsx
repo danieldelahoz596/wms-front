@@ -94,24 +94,24 @@ const VendorProduct: React.FC = () => {
     {
       type: 'primary',
       onClick: handleNewVendorProductClick,
-      btnText: 'NEW VENDOR PRODUCT',
+      btnText: 'New Vendor Product',
     },
     {
       type: 'primary',
       onClick: handleEditVendorProductClick,
-      btnText: 'EDIT',
+      btnText: 'Edit',
       disabled: !selectedVendorProductKey,
     },
     {
       type: 'primary',
       onClick: handleDeactiveClick,
-      btnText: 'DEACTIVE',
+      btnText: 'Deactivate',
       disabled: !selectedVendorProductKey,
     },
     {
       type: 'primary',
       onClick: handleDefaultClick,
-      btnText: 'DEFAULT',
+      btnText: 'Default',
       disabled: !selectedVendorProductKey,
     },
   ];
@@ -131,7 +131,7 @@ const VendorProduct: React.FC = () => {
             ))}
           </Col>
           <Col>
-            <OButton type="primary" btnText="SHOW INACTIVE" disabled={!selectedVendorProductKey} />
+            <OButton type="primary" btnText="Show Inactive" disabled={!selectedVendorProductKey} />
           </Col>
         </Row>
         <div style={{ marginTop: '1rem', minHeight: '200px' }}>

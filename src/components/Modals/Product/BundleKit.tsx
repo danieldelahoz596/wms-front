@@ -87,29 +87,34 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
-      label: 'BASIC INFO FIEDLS',
+      label: 'Basic Info',
       children: <BasicInfoTab />,
     },
     {
       key: 'tab-2',
-      label: 'GALLERY CUSTOMS',
+      label: 'Gallery',
       children: <GalleryTab />,
     },
     {
       key: 'tab-3',
-      label: 'BUNDLED ITEMS',
+      label: 'Bundled Items',
       children: <BundledItemsTab tableRows={bundledTableRows} />,
     },
     {
       key: 'tab-4',
-      label: 'VENDOR PRODUCTS',
+      label: 'Vendor Products',
       children: <VendorProductTab />,
+    },
+    {
+      key: 'tab-5',
+      label: 'Fields',
+      children: '',
     },
   ];
 
   return (
     <OModal
-      title={'NEW BUNDLE/KIT'}
+      title={'New Bundle/Kit'}
       width={800}
       centered
       isOpen={isOpen}

@@ -75,6 +75,16 @@ const ChanagePassword: React.FC = () => {
                   <FormattedMessage id="app.settings.profile.change-password.new-password-message" />
                 ),
               },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('old_password') !== value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error('The new password should be different from the current password'),
+                  );
+                },
+              }),
             ]}
             hasFeedback
           >

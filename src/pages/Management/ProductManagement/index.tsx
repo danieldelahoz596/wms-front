@@ -113,7 +113,7 @@ const ProductManagement: React.FC = () => {
       ),
     },
     {
-      title: 'MASTER SKU',
+      title: 'Master SKU',
       dataIndex: 'master_sku',
       key: 'master_sku',
     },
@@ -310,6 +310,7 @@ const ProductManagement: React.FC = () => {
       onClick: () => console.log('History'),
       btnText: 'History',
       hidden: false,
+      disabled: selectedProductRows.length === 0,
     },
     {
       type: 'primary',
@@ -346,21 +347,21 @@ const ProductManagement: React.FC = () => {
           <div className="horizon-content">
             <div style={{ width: '100%' }}>
               <Row style={{ marginLeft: '10px', marginTop: '10px' }}>
-                <div style={{ fontSize: '15px' }}>PRODUCTS :: </div>
+                <div style={{ fontSize: '15px' }}>Products :: </div>
                 <div>
                   <Select
                     options={[
-                      { label: 'Activate', value: 'activate' },
-                      { label: 'Deactivate', value: 'deactivate' },
+                      { label: 'Active', value: 'active' },
+                      { label: 'Inactive', value: 'inactive' },
                     ]}
-                    defaultValue="activate"
+                    defaultValue="active"
                     size="small"
                     style={{ width: '100px', marginLeft: '5px' }}
                     onChange={(value) => {
-                      setShowActivate(value === 'activate' ? true : false);
+                      setShowActivate(value === 'active' ? true : false);
                       setSelectedProductRows([]);
                     }}
-                    value={showActivate ? 'activate' : 'deactivate'}
+                    value={showActivate ? 'active' : 'inactive'}
                   />
                   <Button icon={<RetweetOutlined />} type="primary" />
                 </div>
@@ -403,7 +404,7 @@ const ProductManagement: React.FC = () => {
               <Row gutter={32}>
                 <Col span={12}>
                   <Card
-                    title="PERFORMANCE"
+                    title="Performance"
                     extra={
                       <div>
                         <OButton type="primary" btnText={'Year-Over-Year'} />

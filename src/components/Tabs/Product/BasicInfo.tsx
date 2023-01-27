@@ -14,15 +14,19 @@ const BasicInfo: React.FC = () => {
       onChange: onChangeSelectedProduct,
       label: 'Master Sku *',
       name: 'master_sku',
-      placeholder: 'Master Sku',
       value: editableProduct?.master_sku,
+      rules: [
+        {
+          required: true,
+          message: "ssdfds",
+        },
+      ]
     },
     {
       type: 'text',
       onChange: onChangeSelectedProduct,
       label: 'Name *',
       name: 'name',
-      placeholder: 'Name',
       value: editableProduct?.name,
     },
     [

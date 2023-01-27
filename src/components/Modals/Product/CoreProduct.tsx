@@ -16,17 +16,17 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
-      label: 'BASIC INFO',
+      label: 'Basic Info',
       children: <BasicInfoTab />,
     },
     {
       key: 'tab-2',
-      label: 'GALLERY',
+      label: 'Gallery',
       children: <GalleryTab />,
     },
     {
       key: 'tab-3',
-      label: 'VENDOR PRODUCTS',
+      label: 'Vendor Products',
       children: <VendorProductTab />,
     },
   ];

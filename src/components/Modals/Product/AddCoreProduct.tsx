@@ -90,7 +90,7 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
     {
       type: 'number',
       onChange: handleInputChange,
-      label: 'quantity',
+      label: 'Quantity',
       name: 'quantity',
       defaultValue: newCoreProduct.quantity,
       value: newCoreProduct.quantity,
@@ -100,7 +100,7 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
   return (
     <OModal
       title={'Add Core Product'}
-      width={1000}
+      width={400}
       centered
       isOpen={isOpen}
       handleCancel={onClose}

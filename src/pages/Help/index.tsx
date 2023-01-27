@@ -24,6 +24,8 @@ import Companyinfo from './Settings/companyinfo';
 import Useradministration from './Settings/useradministration';
 import Historicalordersexports from './Analytics/Orders/historicalordersexports';
 import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
+import Howtomanageproducts from './Products/howtomanageproducts';
+import Createproducts from './Products/createproducts';
 
 
 const { Sider, Content } = Layout;
@@ -32,7 +34,7 @@ const Help: React.FC = () => {
 
   const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
   const [openKeys, setOpenKeys] = useState(['main1']);
-  const [selectKey, setSelectedKey] = useState('settings_useradministration');
+  const [selectKey, setSelectedKey] = useState('products_createproducts');
 
   const {
     isDragging: isLeftDragging,
@@ -60,6 +62,8 @@ const Help: React.FC = () => {
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
+  else if (selectKey === 'products_howtomanageproducts') renderableContent = <Howtomanageproducts />
+  else if (selectKey === 'products_createproducts') renderableContent = <Createproducts />
   else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
   else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
   else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
@@ -164,9 +168,14 @@ const Help: React.FC = () => {
                 label: 'Products',
                 children: [
                   {
-                    key: 'sub71',
-                    icon: <UserOutlined />,
-                    label: 'Test',
+                    key: 'products_howtomanageproducts',
+                    icon: <AccountingIcon />,
+                    label: 'How to Manage Products',
+                  },
+                  {
+                    key: 'products_createproducts',
+                    icon: <AccountingIcon />,
+                    label: 'How to Create a Product MANUALLY',
                   },
                 ],
               },

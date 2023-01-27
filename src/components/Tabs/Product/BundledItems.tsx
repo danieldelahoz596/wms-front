@@ -36,18 +36,18 @@ const BundledItems: React.FC<IBundleItems> = ({ tableRows }) => {
     {
       type: 'primary',
       onClick: handleAddCoreProductClick,
-      btnText: 'ADD CORE PRODUCT',
+      btnText: 'Add Core Product',
     },
     {
       type: 'primary',
       onClick: handleEditCoreProductClick,
-      btnText: 'EDIT QUANTITY',
+      btnText: 'Edit Quantity',
       disabled: !selectedItem,
     },
     {
       type: 'primary',
       onClick: handleRemoveClick,
-      btnText: 'REMOVE',
+      btnText: 'Remove',
       disabled: !selectedItem,
     },
   ];

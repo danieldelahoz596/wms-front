@@ -143,6 +143,16 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/help/products/howtomanageproducts',
+        component: './Help/Products/howtomanageproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/createproducts',
+        component: './Help/Products/createproducts',
+      },
+      {
+        hideInMenu: true,
         path: '/help/analytics/orders/historicalexports',
         component: './Help/Analytics/Orders/historicalordersexports',
       },

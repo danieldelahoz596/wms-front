@@ -15,17 +15,17 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
   const buttons: IOButton[] = [
     {
       type: 'primary',
-      btnText: 'CORE PRODUCT',
+      btnText: 'Core Product',
       onClick: () => handleClick(modalType.New),
     },
     {
       type: 'primary',
-      btnText: 'BUNDLE/KIT',
+      btnText: 'Bundle/Kit',
       onClick: () => handleClick(modalType.BundleKit),
     },
     {
       type: 'primary',
-      btnText: 'PRODUCT VARIATIONS',
+      btnText: 'Product Variations',
       onClick: () => handleClick(modalType.ProductVariants),
     },
   ];
@@ -39,7 +39,7 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
       handleCancel={onClose}
       buttons={[]}
     >
-      <p>Select Type</p>
+      <h2 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Select Type</h2>
       <Row>
         {buttons.map((btn, index) => (
           <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
