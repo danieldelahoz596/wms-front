@@ -144,13 +144,12 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
             style={{ width: '100%' }}
             placeholder="Searcy by Master SKU or Name..."
             onChange={handleProductSelect}
-          >
-            {productList.map((product, index) => (
-              <Select.Option key={`product-${index}`} value={product.id}>
-                {product.master_sku} - {product.name}
-              </Select.Option>
-            ))}
-          </Select>
+            options={productList.map((product) => ({
+              value: product.id,
+              label: `${product.master_sku} - ${product.name}`,
+            }))}
+            filterOption={(input, option) => option.label.includes(input)}
+          />
         </div>
       )}
       {step === 2 && (
