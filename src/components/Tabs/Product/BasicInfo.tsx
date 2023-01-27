@@ -4,31 +4,12 @@ import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { productSelectOptions } from '@/utils/helpers/base';
 import { useModel } from '@umijs/max';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
 
 const BasicInfo: React.FC = () => {
   const { editableProduct, onChangeSelectedProduct } = useModel('product');
 
   const inputFields = [
-    {
-      type: 'text',
-      onChange: onChangeSelectedProduct,
-      label: 'Master Sku *',
-      name: 'master_sku',
-      value: editableProduct?.master_sku,
-      rules: [
-        {
-          required: true,
-          message: "ssdfds",
-        },
-      ]
-    },
-    {
-      type: 'text',
-      onChange: onChangeSelectedProduct,
-      label: 'Name *',
-      name: 'name',
-      value: editableProduct?.name,
-    },
     [
       {
         type: 'select',
@@ -148,6 +129,38 @@ const BasicInfo: React.FC = () => {
 
   return (
     <>
+      <Row key="name" className="pb-3" align="bottom">
+        <Col span={4}>Name</Col>
+        <Col span={18}>
+          <OInput
+            type="text"
+            onChange={onChangeSelectedProduct}
+            label="Name *"
+            name="name"
+            value={editableProduct?.name}
+            style={{ width: '100%' }}
+          />
+        </Col>
+        <Col span={2}>
+          <Row justify="end">
+            <CoreProductsIcon style={{ fontSize: 50 }} />
+            <div
+              style={{
+                position: 'absolute',
+                top: 25,
+                left: 34,
+                backgroundColor: 'white',
+                color: 'blue',
+                paddingLeft: 8,
+                paddingRight: 8,
+                borderRadius: 5,
+              }}
+            >
+              Active
+            </div>
+          </Row>
+        </Col>
+      </Row>
       {inputFields.map((inputItem, inputItemIndex) =>
         Array.isArray(inputItem) ? (
           <Row className="pb-3" key={inputItemIndex}>

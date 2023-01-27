@@ -44,10 +44,10 @@ import VariationIcon from '@/utils/icons/variation';
 import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductFields';
 import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
 import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
+import VectorIcon from '@/utils/icons/vector';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
-  const [selectedProductRows, setSelectedProductRows] = useState([]);
   const [showActivate, setShowActivate] = useState(true);
   const {
     productList,
@@ -61,9 +61,8 @@ const ProductManagement: React.FC = () => {
 
   const handleProductSelectedRows = (_selectedRows = []) => {
     const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
-    setSelectedProductRows(_selectedRows);
     setSelectedProducts(selectedList);
-    setEditableProduct(selectedList[0]);
+    setEditableProduct(selectedList.length === 0 ? null : selectedList[0]);
   };
 
   const {
@@ -96,16 +95,16 @@ const ProductManagement: React.FC = () => {
       render: (text: any) => (
         <>
           {text === productType.CoreProduct ? (
-            <CoreProductsIcon />
+            <CoreProductsIcon style={{ fontSize: 32 }} />
           ) : text === productType.BundleOrKit ? (
-            <BundleIcon />
+            <BundleIcon style={{ fontSize: 32 }} />
           ) : text === productType.Variations ? (
-            <VariationIcon />
+            <VariationIcon style={{ fontSize: 32 }} />
           ) : (
             <span style={{ position: 'relative' }}>
-              <CoreProductsIcon />
-              <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
-                <DownOutlined />
+              <CoreProductsIcon style={{ fontSize: 32 }} />
+              <div style={{ position: 'absolute', top: -1, left: 18 }}>
+                <VectorIcon style={{ fontSize: 18 }} />
               </div>
             </span>
           )}
@@ -270,7 +269,6 @@ const ProductManagement: React.FC = () => {
         handleUpdateProduct({ ...editableProduct, type: productType.BundleOrKit });
         setEditableProduct(null);
         setSelectedProducts([]);
-        setSelectedProductRows([]);
       },
       btnText: 'Convert To Bundle/Kit',
       hidden: false,
@@ -282,7 +280,6 @@ const ProductManagement: React.FC = () => {
         handleUpdateProduct({ ...editableProduct, type: productType.CoreProduct });
         setEditableProduct(null);
         setSelectedProducts([]);
-        setSelectedProductRows([]);
       },
       btnText: 'Convert To Core',
       hidden: false,
@@ -292,25 +289,23 @@ const ProductManagement: React.FC = () => {
       type: 'primary',
       onClick: () => {
         setSelectedProducts([]);
-        setSelectedProductRows([]);
+        const selectedKeys = selectedProducts.map((_item) => _item.id);
         setProductList(
           productList.map((_product) =>
-            selectedProductRows.includes(_product.id)
-              ? { ..._product, status: !showActivate }
-              : _product,
+            selectedKeys.includes(_product.id) ? { ..._product, status: !showActivate } : _product,
           ),
         );
       },
       btnText: `${showActivate ? 'Deactivate' : 'Activate'}`,
       hidden: false,
-      disabled: selectedProductRows.length === 0,
+      disabled: selectedProducts.length === 0,
     },
     {
       type: 'primary',
       onClick: () => console.log('History'),
       btnText: 'History',
       hidden: false,
-      disabled: selectedProductRows.length === 0,
+      disabled: selectedProducts.length === 0,
     },
     {
       type: 'primary',
@@ -359,7 +354,6 @@ const ProductManagement: React.FC = () => {
                     style={{ width: '100px', marginLeft: '5px' }}
                     onChange={(value) => {
                       setShowActivate(value === 'active' ? true : false);
-                      setSelectedProductRows([]);
                     }}
                     value={showActivate ? 'active' : 'inactive'}
                   />
@@ -383,7 +377,7 @@ const ProductManagement: React.FC = () => {
                       rows={productList
                         .filter((_item) => _item.status == showActivate)
                         .map((_item) => ({ ..._item, key: _item.id }))}
-                      selectedRows={selectedProductRows}
+                      selectedRows={selectedProducts.map((_item) => _item.id)}
                       setSelectedRows={handleProductSelectedRows}
                     />
                   </Col>
@@ -547,7 +541,6 @@ const ProductManagement: React.FC = () => {
         onSave={() => {
           setModal(modalType.Close);
           handleUpdateProduct(editableProduct);
-          setSelectedProductRows([]);
           setSelectedProducts([]);
           setEditableProduct(null);
         }}
