@@ -35,7 +35,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <WarningOutlined style={{ marginRight: 10 }} />
+                  <WarningOutlined style={{ marginRight: 10 }}/>
                   UNRESOLVED
                 </Col>
               </Row>
@@ -87,7 +87,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <PauseOutlined style={{ marginRight: 10 }} />
+                  <PauseOutlined style={{ marginRight: 10 }}/>
                   PAUSED
                 </Col>
               </Row>
@@ -131,7 +131,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <ClockCircleOutlined style={{ marginRight: 10 }} />
+                  <ClockCircleOutlined style={{ marginRight: 10 }}/>
                   AWAITING FULFILLMENT
                 </Col>
               </Row>
@@ -183,7 +183,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <CheckCircleOutlined style={{ marginRight: 10 }} />
+                  <CheckCircleOutlined style={{ marginRight: 10 }}/>
                   SHIPPED
                 </Col>
               </Row>

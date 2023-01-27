@@ -11,7 +11,7 @@ export default function () {
             <Card>
               <h1>Company Info and Additional Account Settings</h1>
               <p>Your company's name, address, and contact information are visible in the Settings module, in addition to account settings like Purchase Order Settings, Product Settings, Inventory Settings, Inventory Value Reconciliation Settings, and Shipping Settings. To update this info, first, go to the Settings Module, click on the Company Info tab, then follow the steps below.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504838/info.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504838/info.PNG" style={{ width: 600 }}/>
               
               <h2>Company Info Section</h2>
               <p>You can edit your company name, contact name, email address, phone number, and address. These fields are pulled from for Field Replacements on things like packing slip templates, email templates, PO templates, etc.</p>

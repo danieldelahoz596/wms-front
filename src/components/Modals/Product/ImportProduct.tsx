@@ -61,36 +61,37 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
           All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
         </p>
         <a
-          style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}
+          style={{ display: 'block', textAlign: 'center', margin: '1rem 0', fontSize: '1rem' }}
           onClick={handleDownloadTemplate}
         >
-          Download the Excel Template for Product Import
+          <u>Download the Excel Template for Product Import</u>
         </a>
         <p>
-          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are{' '}
-          <i>not</i> case sensitive. For example, <i>'sku123'</i>
+          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are 
+          <i><strong> not</strong></i> case sensitive. For example, <i>'sku123' </i>
           is regarded the same as <i>'SKU123'</i> by the system.
         </p>
-        <br />
         <p>
           If Skubana encounters duplicate SKU values in your Excel file, it will process the first
           encounter of that product with that SKU and disregard all remaining products with that SKU
           and log them in the <b>Import Summary</b> that is generated at the end, which you can use
           to correct duplicate values and re-submit.
         </p>
-        <Row style={{ padding: '1rem 0' }}>
-          <Col span={4}>Products File:</Col>
-          <Col span={8}>
+        <Row >
+          <Col offset={16} span={8} style={{ textAlign: 'right' }}>
+            <label>Products File:</label>&nbsp;&nbsp;
             <Upload {...fileUploadProps}>
               <Button icon={<UploadOutlined />}>SELECT...</Button>
             </Upload>
           </Col>
+          <Col span={24} style={{ textAlign: 'right', marginTop: '1rem' }}>
+            <label>Update existing products if changes found in the Excel file?</label>&nbsp;&nbsp;
+            <Select placeholder="Yes - Update existing products and import new" style={{ textIndent: '0.5rem' }}>
+              <Option value="1">Yes - Update existing products and import new.</Option>
+              <Option value="2">No - Ignore exisiting products; only import new.</Option>
+            </Select>
+          </Col>
         </Row>
-        <p>Update existing products if changes found in the Excel file?</p>
-        <Select placeholder="Yes - Update existing products and import n...">
-          <Option value="1">Yes - Update existing products and import new.</Option>
-          <Option value="2">No - Ignore exisiting products; only import new.</Option>
-        </Select>
       </div>
     </OModal>
   );

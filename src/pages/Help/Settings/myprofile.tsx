@@ -12,7 +12,7 @@ export default function () {
               <p>The fly-out menu that you can always see in the top right corner of Extensiv Order Manager contains a link to the My Profile page. The My Profile page is also accessible from the Settings module.</p>
               <h2>My Information</h2>
               <p>To update or change your email address and name, edit the email address and name fields and click the Update My Info button.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502820/image.png" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502820/image.png" style={{ width: 600 }}/>
               
               <h2>Change Password</h2>
               <p>To change your password, enter your current password in the Current Password field, then enter your new password in the New Password and Confirm Password fields, then click the Change Password button.</p>

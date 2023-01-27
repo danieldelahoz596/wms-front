@@ -144,6 +144,13 @@ const BasicInfo: React.FC = () => {
       name: 'description',
       value: editableProduct?.description,
     },
+    {
+      type: 'text',
+      onChange: onChangeSelectedProduct,
+      label: 'Vendor Cost',
+      name: 'vendor_cost',
+      value: editableProduct?.vendor_cost,
+    },
   ];
 
   return (

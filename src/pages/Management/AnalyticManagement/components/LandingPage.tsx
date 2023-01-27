@@ -208,7 +208,7 @@ const LandingPage: React.FC = () => {
             </Col>
             <Col>
               <Space size={10} align="center">
-                <QuestionCircleFilled style={{ fontSize: 20 }} />
+                <QuestionCircleFilled style={{ fontSize: 20 }}/>
                 <LaunchIcon style={{ width: 20, paddingTop: 5 }} />
               </Space>
             </Col>

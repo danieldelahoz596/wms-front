@@ -24,8 +24,10 @@ import Companyinfo from './Settings/companyinfo';
 import Useradministration from './Settings/useradministration';
 import Historicalordersexports from './Analytics/Orders/historicalordersexports';
 import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
-import Howtomanageproducts from './Products/howtomanageproducts';
+import Manageproducts from './Products/manageproducts';
 import Createproducts from './Products/createproducts';
+import Importproducts from './Products/importproducts';
+import Exportproducts from './Products/exportproducts';
 
 
 const { Sider, Content } = Layout;
@@ -34,7 +36,7 @@ const Help: React.FC = () => {
 
   const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
   const [openKeys, setOpenKeys] = useState(['main1']);
-  const [selectKey, setSelectedKey] = useState('products_createproducts');
+  const [selectKey, setSelectedKey] = useState('');
 
   const {
     isDragging: isLeftDragging,
@@ -62,8 +64,10 @@ const Help: React.FC = () => {
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
-  else if (selectKey === 'products_howtomanageproducts') renderableContent = <Howtomanageproducts />
+  else if (selectKey === 'products_manageproducts') renderableContent = <Manageproducts />
   else if (selectKey === 'products_createproducts') renderableContent = <Createproducts />
+  else if (selectKey === 'products_importproducts') renderableContent = <Importproducts />
+  else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
   else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
   else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
   else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
@@ -168,14 +172,32 @@ const Help: React.FC = () => {
                 label: 'Products',
                 children: [
                   {
-                    key: 'products_howtomanageproducts',
+                    key: 'products_manageproducts',
                     icon: <AccountingIcon />,
-                    label: 'How to Manage Products',
+                    label: (
+                      <Link to="/help/products/manageproducts">How to Manage Products</Link>
+                    ),
                   },
                   {
                     key: 'products_createproducts',
                     icon: <AccountingIcon />,
-                    label: 'How to Create a Product MANUALLY',
+                    label: (
+                      <Link to="/help/products/createproducts">How to Create a Product MANUALLY</Link>
+                    ),
+                  },
+                  {
+                    key: 'products_importproducts',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/importproducts">How to Import Products</Link>
+                    ),
+                  },
+                  {
+                    key: 'products_exportproducts',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/exportproducts">How to Export Products</Link>
+                    ),
                   },
                 ],
               },
@@ -192,7 +214,9 @@ const Help: React.FC = () => {
                       {
                         key: 'analytics_orders_historicalexports',
                         icon: <SalesIcon />,
-                        label: 'Historical Exports',
+                        label: (
+                          <Link to="/help/analytics/orders/historicalsexports">Historical Exports</Link>
+                        ),
                       },
                     ],
                   },
@@ -204,7 +228,9 @@ const Help: React.FC = () => {
                       {
                         key: 'analytics_purchaseorders_historicalexports',
                         icon: <SalesIcon />,
-                        label: 'Historical Exports',
+                        label: (
+                          <Link to="/help/analytics/purchaseorders/historicalexports">Historical Exports</Link>
+                        ),
                       },
                     ],
                   },

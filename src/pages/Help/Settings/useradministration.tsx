@@ -12,7 +12,7 @@ export default function () {
               <h2>Adding a New User</h2>
               <p>Click the <strong>+ New User</strong> button.</p>
               <p>Enter the user's full name, user name, password and assign proper access permissions (detailed in the next section). When you’re finished setting up user permissions, click Save. A new created user will be active by default.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504827/settings1__4_.png" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504827/settings1__4_.png" style={{ width: 600 }}/>
               
               <h2>Specific Permissions</h2>
               <p>To assign Access Permissions, scroll through the listand check the box in the Allow?column for permissions you wish to grant the new user. The list of assignable permissions and what they allow access to is provided below.</p>

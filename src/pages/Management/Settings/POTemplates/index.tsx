@@ -83,7 +83,7 @@ export default function () {
         </Button>
       </Space>
 
-      <Table columns={TColumns} dataSource={potemplateList} style={{ marginTop: 10 }} />
+      <Table columns={TColumns} dataSource={potemplateList} style={{ marginTop: 10 }}/>
     </Card>
   );
 }

@@ -143,8 +143,8 @@ export default [
       },
       {
         hideInMenu: true,
-        path: '/help/products/howtomanageproducts',
-        component: './Help/Products/howtomanageproducts',
+        path: '/help/products/manageproducts',
+        component: './Help/Products/manageproducts',
       },
       {
         hideInMenu: true,
@@ -153,7 +153,17 @@ export default [
       },
       {
         hideInMenu: true,
-        path: '/help/analytics/orders/historicalexports',
+        path: '/help/products/importproducts',
+        component: './Help/Products/importproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/exportproducts',
+        component: './Help/Products/exportproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/orders/historicalsexports',
         component: './Help/Analytics/Orders/historicalordersexports',
       },
       {

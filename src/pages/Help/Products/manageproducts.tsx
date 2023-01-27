@@ -23,16 +23,16 @@ export default function () {
               </ul>
 
               <p>The <strong>Products</strong> module is split into two main sections: the left panel, where you can organize products by <strong>Label</strong> or <strong>Category</strong>, in addition to searching for them, and the right panel, where you can see your entire product catalog. Click the magnifying glass in the left panel to open the <strong>Search</strong> panel and search for products.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503728/products__4_.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503728/products__4_.PNG" style={{ width: 600 }}/>
 
               <p>When you click into the row for a product, the bottom of the panel of will show product details (custom fields, active listings, vendor products, and images), as well as year-over-year performance and a list of recent orders.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503730/products__5_.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503730/products__5_.PNG" style={{ width: 600 }}/>
 
               <p>Clicking the master SKU for a specific product will open the Basic Info window, which provides additional product details and access to product images (click Gallery to seeproduct images), listing SKUs, vendor products, custom fields, and customs info associated with this product.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503732/products__6_.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503732/products__6_.PNG" style={{ width: 600 }}/>
 
               <p>The row of buttons along the top of the Products module allow you to perform various actions.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503733/products__7_.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503733/products__7_.PNG" style={{ width: 600 }}/>
               <ul>
                 <li><strong>Products Dropdown:</strong> This dropdown allows you to toggle your view between active and inactive products.</li>
                 <li><strong>Adjust SKU:</strong> Allows you to edit the master SKU of a specific product.</li>

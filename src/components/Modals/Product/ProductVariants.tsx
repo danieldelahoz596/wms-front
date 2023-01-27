@@ -49,9 +49,9 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     {
       type: 'text',
       onChange: () => {},
-      label: 'Master Sku *',
-      name: 'masterSku',
-      placeholder: 'Master Sku',
+      label: 'Virtual Sku *',
+      name: 'virtualSku',
+      placeholder: 'Virtual Sku',
       defaultValue: '',
     },
     {
@@ -221,7 +221,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
 
   return (
     <OModal
-      title={'NEW VIRTUAL PRODUCT'}
+      title={'New Virtual Product'}
       width={800}
       centered
       isOpen={isOpen}
@@ -293,7 +293,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                     <Col style={{ marginLeft: '10px' }}>
                       <Button
                         style={{
-                          width: '30px',
+                          width: '33px',
                           height: '33px',
                           borderColor: 'blue',
                         }}
@@ -301,23 +301,22 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                         onClick={() => setModal(modalType.AttributeGroup)}
                       />
                     </Col>
+                    <Col style={{ marginLeft: '10px' }}>
+                      <Button
+                        style={{
+                          width: '33px',
+                          height: '33px',
+                          borderColor: 'blue',
+                        }}
+                        icon={<SettingOutlined />}
+                        onClick={() => setModal(modalType.ConfigAttributeGroups)}
+                      />
+                    </Col>
                   </Row>
                 </Col>
               </>
             </Row>
-            <Row justify="start">
-              <h2>Create your Core pro </h2>
-              <Button
-                style={{
-                  width: '30px',
-                  height: '30px',
-                  borderColor: 'blue',
-                }}
-                icon={<SettingOutlined />}
-                onClick={() => setModal(modalType.ConfigAttributeGroups)}
-              />
-              <h2> variations below by clicking on the + symbol</h2>
-            </Row>
+            <h2>Create your Core product variations below by clicking on the + symbol</h2>
             <Row style={{ marginTop: '10px' }} justify="space-between">
               <Col span={8}>
                 <Row>

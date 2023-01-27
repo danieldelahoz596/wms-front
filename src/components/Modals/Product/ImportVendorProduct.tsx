@@ -11,7 +11,7 @@ interface IImportVendorProduct {
 const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, onClick }) => {
   return (
     <OModal
-      title={'SELECT HOW TO IMPORT VENDOR PRODUCTS'}
+      title={'Select how to import vendor products'}
       width={400}
       centered
       isOpen={isOpen}

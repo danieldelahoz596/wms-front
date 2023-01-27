@@ -39,7 +39,7 @@ const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({ isOpe
         },
       ]}
     >
-      <Table columns={columns} dataSource={[]} pagination={{ pageSize: 3 }} scroll={{ y: 600 }} />
+      <Table columns={columns} dataSource={[]} pagination={{ pageSize: 3 }} scroll={{ y: 600 }}/>
     </OModal>
   );
 };

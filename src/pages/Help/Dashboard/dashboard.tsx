@@ -11,7 +11,7 @@ export default function () {
             <Card>
               <h2></h2>
               <p>Upon logging in to Extensiv Order Manager, the first thing you'll see is the Dashboard.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/dashboard.PNG" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/dashboard.PNG" style={{ width: 600 }}/>
               <p>The Dashboard contains an Announcements panel on the left that shows important news and information from Extensiv Order Manager, in addition to four panels that include information about your orders and inventory. To learn more about each panel, click the panel title from the list below.</p>
               
               <h2>Details</h2>

@@ -24,7 +24,7 @@ export default function () {
               <p>Go to the Analytics Module and view the Orders subsection in the left-side panel. Then select the Historical Exports tab.</p>
               <p>Use the available filters to narrow down your export parameters. From there, click the Generate Export button and wait while your report is generated.</p>
               <p>You should be able to see your new request in the bottom section - when the Status column says "Succeeded", you can click the Download button in the Action column.</p>
-              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/image-20210113-174644.png" style={{ width: 600 }} />
+              <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/image-20210113-174644.png" style={{ width: 600 }}/>
               
               <h2>Columns Available for Export for Historical Data</h2>
               <ul>
