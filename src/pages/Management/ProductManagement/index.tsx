@@ -47,6 +47,7 @@ import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduc
 import VectorIcon from '@/utils/icons/vector';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
+import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -543,6 +544,16 @@ const ProductManagement: React.FC = () => {
         </div>
       </div>
 
+      <NewProductModal
+        isOpen={modalOpen == modalType.Variation}
+        handleClick={(value) => {
+          setModal(value);
+          setSelectedProducts([]);
+          setEditableProduct(null);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
       <CoreProductModal
         isOpen={modalOpen == modalType.New}
         onSave={(value: any) => setModal(value)}
@@ -552,6 +563,12 @@ const ProductManagement: React.FC = () => {
       <BundleKitModal
         isOpen={modalOpen == modalType.BundleKit}
         onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <NewVirtualProduct
+        isOpen={modalOpen == modalType.NewVirtualProduct}
+        onSave={() => setModal(modalType.ProductVariants)}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -581,16 +598,6 @@ const ProductManagement: React.FC = () => {
       <ExportProductModal
         isOpen={modalOpen == modalType.Export}
         onSave={() => setModal(modalType.Export)}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <NewProductModal
-        isOpen={modalOpen == modalType.Variation}
-        handleClick={(value) => {
-          setModal(value);
-          setSelectedProducts([]);
-          setEditableProduct(null);
-        }}
         onClose={() => setModal(modalType.Close)}
       />
 

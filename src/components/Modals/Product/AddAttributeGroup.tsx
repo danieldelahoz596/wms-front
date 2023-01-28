@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 
-interface IAttributeGroup {
+interface IAddAttributeGroup {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -12,7 +12,7 @@ interface IAttributeGroup {
   setAttributeGroups: (item: any) => void;
 }
 
-const AttributeGroup: React.FC<IAttributeGroup> = ({
+const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
   isOpen,
   onClose,
   onSave,
@@ -145,4 +145,4 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
   );
 };
 
-export default AttributeGroup;
+export default AddAttributeGroup;
