@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row, Space } from 'antd';
+import { Button, Col, Row } from 'antd';
 import {
   CloseCircleFilled,
   PlusCircleFilled,
@@ -260,16 +260,17 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
 
       <AddAttributeGroupModal
         isOpen={currentModal === modalType.AttributeGroup}
-        onSave={(items) => {
-          setCurrentModal(modalType.Close);
-          setAttributeGroups(items);
-        }}
+        onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
+        attributeGroups={attributeGroups}
+        setAttributeGroups={setAttributeGroups}
       />
 
       <ConfigAttributeGroups
         isOpen={currentModal === modalType.ConfigAttributeGroups}
         onClose={() => setCurrentModal(modalType.Close)}
+        attributeGroups={attributeGroups}
+        setAttributeGroups={setAttributeGroups}
       />
     </OModal>
   );

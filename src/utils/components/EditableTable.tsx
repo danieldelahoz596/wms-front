@@ -21,6 +21,7 @@ interface ITable {
   columns: any[];
   handleSave: (index: any, name: any, value: any) => void;
   pagination?: boolean;
+  props?: any;
 }
 
 interface IColumn {
@@ -109,6 +110,7 @@ export const EditableTable: React.FC<ITable> = ({
   columns,
   handleSave,
   pagination = false,
+  props,
 }) => {
   const components = {
     body: {
@@ -142,6 +144,7 @@ export const EditableTable: React.FC<ITable> = ({
         dataSource={dataSource}
         columns={_columns}
         pagination={pagination}
+        {...props}
       />
     </div>
   );

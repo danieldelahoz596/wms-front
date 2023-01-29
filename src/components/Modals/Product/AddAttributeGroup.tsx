@@ -3,27 +3,35 @@ import { Input, Button, Collapse, List, Space } from 'antd';
 import { useState } from 'react';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import AddAttributeModal from './AddAttribute';
+import { uuidv4 } from '@antv/xflow-core';
 const { Panel } = Collapse;
 
 interface IAddAttributeGroup {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (items: any[]) => void;
+  onSave: () => void;
+  attributeGroups: any[];
+  setAttributeGroups: (groups: any[]) => void;
 }
 
-const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSave }) => {
+const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
+  isOpen,
+  onClose,
+  onSave,
+  attributeGroups,
+  setAttributeGroups,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [groupName, setGroupName] = useState<string>('');
-  const [selectedGroupName, setSelectedGroupname] = useState<string>(null);
+  const [selectedGroupId, setSelectedGroupId] = useState<string>(null);
   const [selectedPanel, setSelectedPanel] = useState(null);
-  const [attributeGroups, setAttributeGroups] = useState<any[]>([]);
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
   };
 
   const handleAddGroup = () => {
-    setAttributeGroups([...attributeGroups, { name: groupName, items: [] }]);
+    setAttributeGroups([...attributeGroups, { id: uuidv4(), name: groupName, items: [] }]);
     setGroupName('');
   };
 
@@ -36,7 +44,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSa
     event.stopPropagation();
     setShowModal(true);
     setSelectedPanel(key);
-    setSelectedGroupname(key);
+    setSelectedGroupId(key);
   };
 
   return (
@@ -57,7 +65,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSa
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: () => onSave(attributeGroups),
+          onClick: onSave,
         },
       ]}
     >
@@ -88,7 +96,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSa
           {attributeGroups.map((_group) => (
             <Panel
               header={<h3>{_group.name}</h3>}
-              key={_group.name}
+              key={_group.id}
               extra={
                 <>
                   <Space size={50}>
@@ -98,7 +106,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSa
                     />
                     <Button
                       icon={<PlusOutlined />}
-                      onClick={(e) => handleAddAttribute(e, _group.name)}
+                      onClick={(e) => handleAddAttribute(e, _group.id)}
                     />
                   </Space>
                 </>
@@ -128,7 +136,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({ isOpen, onClose, onSa
           setShowModal(false);
           setAttributeGroups(
             attributeGroups.map((attributeGroup) =>
-              attributeGroup.name === selectedGroupName
+              attributeGroup.id === selectedGroupId
                 ? { ...attributeGroup, items: [...attributeGroup.items, value] }
                 : attributeGroup,
             ),
