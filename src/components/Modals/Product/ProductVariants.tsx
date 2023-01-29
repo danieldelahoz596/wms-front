@@ -191,7 +191,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                   placeholder="Selected..."
                   options={attributeGroups
                     .find((item) => item.name === selectedAttributeGroup)
-                    ?.attributes.map((item) => ({
+                    ?.items.map((item) => ({
                       value: item,
                       text: item,
                     }))}
@@ -260,10 +260,11 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
 
       <AddAttributeGroupModal
         isOpen={currentModal === modalType.AttributeGroup}
-        onSave={() => setCurrentModal(modalType.Close)}
+        onSave={(items) => {
+          setCurrentModal(modalType.Close);
+          setAttributeGroups(items);
+        }}
         onClose={() => setCurrentModal(modalType.Close)}
-        attributeGroups={attributeGroups}
-        setAttributeGroups={setAttributeGroups}
       />
 
       <ConfigAttributeGroups
