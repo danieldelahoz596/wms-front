@@ -32,11 +32,11 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
 
         <Row gutter={16}>
           <Col span={12}>
-            <OButton type="primary" btnText={'Export By Vendor'} style={{ width: '100%', marginBottom: 100 }}/>
+            <OButton type="primary" btnText={'Export By Vendor'} style={{ width: '100%', marginBottom: 10 }}/>
             <p>Export vendor products through individual file for each vendor.</p>
           </Col>
           <Col span={12}>
-            <OButton type="primary" btnText={'Export All At Once'} style={{ width: '100%', marginBottom: 100 }}/>
+            <OButton type="primary" btnText={'Export All At Once'} style={{ width: '100%', marginBottom: 10 }}/>
             <p>Export all your vendor products in one file that includes vendor names.</p>
           </Col>
         </Row>

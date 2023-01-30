@@ -38,32 +38,21 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
       handleCancel={onClose}
       buttons={[]}
     >
-      <>
-        <h2 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Select Type</h2>
-        <Row>
-          {buttons.map((btn, index) => (
-            <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
-              <OButton
-                type={btn.type}
-                btnText={btn.btnText}
-                onClick={btn.onClick}
-                style={{ width: '100%' }}
-              />
-            </Col>
-          ))}
-          <a
-            href="#"
-            style={{
-              textAlign: 'center',
-              margin: '0 auto',
-              marginTop: '1rem',
-              textDecoration: 'underline',
-            }}
-          >
-            <span>What's the difference</span> <QuestionCircleOutlined />
-          </a>
-        </Row>
-      </>
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
+        {buttons.map((btn, index) => (
+          <OButton
+            type={btn.type}
+            btnText={btn.btnText}
+            onClick={btn.onClick}
+            style={{ width: '50%', marginBottom: 5 }}
+          />
+        ))}
+        <br/>
+        <a href="#" className='help-link'>
+          <span>What's the difference</span> <QuestionCircleOutlined />
+        </a>
+      </div>
     </OModal>
   );
 };
