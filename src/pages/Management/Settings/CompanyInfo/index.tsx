@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Input, Card, Form, Row, Col, Checkbox, Select, Image } from 'antd';
+import { Button, Input, Card, Form, Row, Col, Checkbox, Select, Image, Upload } from 'antd';
 import { Link } from 'umi';
+import { useModel } from '@umijs/max';
 
 export default function () {
+  const { company, getCompany, uploadLogo, deleteLogo } = useModel('company');
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -61,6 +69,7 @@ export default function () {
                 height={200}
                 preview={false}
                 placeholder={<div style={{ fontSize: 30 }}>SKUBANA</div>}
+                src={company?.logo_path}
               />
               <Col style={{ marginLeft: 20 }}>
                 <Row align="middle" gutter={10}>
@@ -69,10 +78,25 @@ export default function () {
                     <Input size="small" />
                   </Col>
                   <Col span={6}>
+<<<<<<< HEAD
                     <Button>Select...</Button>
+=======
+                    <Upload
+                      beforeUpload={(file) => {
+                        const formData = new FormData();
+
+                        formData.append('logo', file, 'logo');
+
+                        uploadLogo(formData);
+                      }}
+                      itemRender={() => <></>}
+                    >
+                      <Button>SELECT...</Button>
+                    </Upload>
+>>>>>>> origin/develop
                   </Col>
                   <Col style={{ marginTop: 20 }}>
-                    <Button>DELETE LOGO</Button>
+                    <Button onClick={() => deleteLogo()}>DELETE LOGO</Button>
                   </Col>
                 </Row>
               </Col>
