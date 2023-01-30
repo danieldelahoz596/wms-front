@@ -8,7 +8,8 @@ httpClient.interceptors.request.use((config: any) => {
   const authData = JSON.parse(localStorage.getItem('authdata'));
 
   config.headers.Authorization = `Bearer ${authData?.access_token || ''}`;
-  config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  if (!config.headers['Content-Type'])
+    config.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   return config;
 });
 
