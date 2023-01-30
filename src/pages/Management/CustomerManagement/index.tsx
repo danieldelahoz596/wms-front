@@ -63,7 +63,7 @@ const CustomerManagement: React.FC = () => {
 
   const Tcolumns = [
     {
-      title: 'Phone',
+      title: 'Phone Number',
       dataIndex: 'phone',
       key: 'phone',
     },
@@ -147,7 +147,7 @@ const CustomerManagement: React.FC = () => {
                         color: '#A2A2A2',
                       }}
                     >
-                      CUSTOMERS
+                      Customers
                     </span>
                   }
                 >

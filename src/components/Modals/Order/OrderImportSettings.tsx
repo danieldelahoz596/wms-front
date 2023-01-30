@@ -42,16 +42,15 @@ const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
 
   return (
     <OModal
-      title="ORDER IMPORT SETTINGS"
+      title="Order import settings"
       width={600}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

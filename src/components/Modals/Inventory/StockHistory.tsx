@@ -40,26 +40,22 @@ const Tcolumns = [
 const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, onClose, dataSource }) => {
   return (
     <OModal
-      title="In House Warehouse Stock Edit History for 1234 AT Location232"
+      title="In house warehouse stock edit history for 1234 AT location232"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}
     >
-      <>
-        <Card>
-          <OTable columns={Tcolumns} rows={dataSource} />
-        </Card>
-      </>
+      <Card>
+        <OTable columns={Tcolumns} rows={dataSource} />
+      </Card>
     </OModal>
   );
 };

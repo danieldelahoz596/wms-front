@@ -37,23 +37,21 @@ export default function ({ isOpen, onSave, onClose }) {
 
   return (
     <OModal
-      title="NEW DIRECT  FULFILLMENT WAREHOUSE"
-      isOpen={isOpen}
+      title="New Direct Fulfillment Warehouse"
       width={600}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
-      className="OModal"
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: handleSave,
         },
       ]}

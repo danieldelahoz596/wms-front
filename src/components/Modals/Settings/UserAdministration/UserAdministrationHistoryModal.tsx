@@ -22,19 +22,18 @@ const columns = [
   },
 ];
 
-const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({ isOpen, onClose }) => {
+const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({ isOpen, onSave, onClose }) => {
   return (
     <OModal
       title="User Administration History"
-      isOpen={isOpen}
       width={1000}
-      centered
-      handleCancel={onClose}
+      isOpen={isOpen}
+      onCancel={onClose}
       buttons={[
         {
           key: 'cancel',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
       ]}

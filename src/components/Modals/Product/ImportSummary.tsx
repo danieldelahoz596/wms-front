@@ -50,7 +50,6 @@ const ImportSummary: React.FC<IImportSummary> = ({ title, info, isOpen, onClose,
     <OModal
       title={title}
       width={1000}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -69,12 +68,12 @@ const ImportSummary: React.FC<IImportSummary> = ({ title, info, isOpen, onClose,
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: handleSave,
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
+      <>
         <p style={{ borderBottom: '1px dashed black', marginBottom: '1rem', textAlign: 'center' }}>
           {info}
         </p>
@@ -104,7 +103,7 @@ const ImportSummary: React.FC<IImportSummary> = ({ title, info, isOpen, onClose,
           </div>
         </div>
         <OTable columns={errorState.logs.columns} rows={errorState.logs.rows} pagination={false} />
-      </div>
+      </>
     </OModal>
   );
 };

@@ -116,7 +116,6 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
     <OModal
       title={'New Bundle/Kit'}
       width={800}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -134,37 +133,39 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
         },
       ]}
     >
-      {step === 1 && (
-        <div style={{ height: '300px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h2>Select Core Products to Bundle</h2>
+      <>
+        {step === 1 && (
+          <div style={{ height: '300px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <h2>Select Core Products to Bundle</h2>
+            </div>
+            <Select
+              mode="multiple"
+              style={{ width: '100%' }}
+              placeholder="Searcy by Master SKU or Name..."
+              onChange={handleProductSelect}
+              options={productList.map((product) => ({
+                value: product.id,
+                label: `${product.master_sku} - ${product.name}`,
+              }))}
+              filterOption={(input, option) => option.label.includes(input)}
+            />
           </div>
-          <Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="Searcy by Master SKU or Name..."
-            onChange={handleProductSelect}
-            options={productList.map((product) => ({
-              value: product.id,
-              label: `${product.master_sku} - ${product.name}`,
-            }))}
-            filterOption={(input, option) => option.label.includes(input)}
-          />
-        </div>
-      )}
-      {step === 2 && (
-        <div style={{ height: '300px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h2>Provide Quantity of each Bundled Product</h2>
+        )}
+        {step === 2 && (
+          <div style={{ height: '300px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <h2>Provide Quantity of each Bundled Product</h2>
+            </div>
+            <Table columns={columns} dataSource={tableData} />
           </div>
-          <Table columns={columns} dataSource={tableData} />
-        </div>
-      )}
-      {step === 3 && (
-        <div>
-          <Tabs defaultActiveKey="1" items={tabItems} />
-        </div>
-      )}
+        )}
+        {step === 3 && (
+          <div>
+            <Tabs defaultActiveKey="1" items={tabItems} />
+          </div>
+        )}
+      </>
     </OModal>
   );
 };

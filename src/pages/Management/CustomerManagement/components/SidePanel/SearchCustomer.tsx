@@ -43,12 +43,12 @@ export default function SearchCustomer() {
     {
       type: 'text',
       name: 'phonenumber',
-      label: 'Phone #',
+      label: 'Phone Number',
     },
     {
       type: 'text',
       name: 'card_number',
-      label: 'Card ID #',
+      label: 'Card ID Number',
     },
     {
       type: 'text',
@@ -82,7 +82,6 @@ export default function SearchCustomer() {
             <h3
               style={{
                 fontSize: '1rem',
-                textTransform: 'uppercase',
                 fontWeight: '700',
                 color: '#A2A2A2',
               }}

@@ -55,9 +55,9 @@ export default function () {
         <div
           style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}
         >
-          {_item.is_supplier ? <TrainIcon /> : ''}
-          {_item.is_manufacturer ? <ManufacturerIcon /> : ''}
-          {_item.is_dropshipper ? <ShippingIcon /> : ''}
+          {_item.is_supplier ? <TrainIcon style={{ fontSize: 20 }}/> : ''}
+          {_item.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 20 }}/> : ''}
+          {_item.is_dropshipper ? <ShippingIcon style={{ fontSize: 24 }}/> : ''}
         </div>
       ),
       status: _item.status ? 'ACTIVE' : 'INACTIVE',

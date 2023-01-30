@@ -26,7 +26,6 @@ const CancelItemModal: React.FC<ICancelItemModal> = ({
     <OModal
       title={'Cancel Item ' + cancelItemData?.product}
       width={600}
-      centered
       isOpen={cancelItemModal == modalType.Cancel}
       handleCancel={handleCancel} 
       buttons={[

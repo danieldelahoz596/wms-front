@@ -1,6 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
 import { modalType } from '@/utils/helpers/types';
+import { Col, Row } from 'antd';
 
 interface IImportVendorProduct {
   isOpen: boolean;
@@ -11,9 +12,8 @@ interface IImportVendorProduct {
 const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, onClick }) => {
   return (
     <OModal
-      title={'Select how to import vendor products'}
+      title={'Select How To Import Vendor Products'}
       width={400}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -25,32 +25,34 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
+      <>
         <p>
           Skubana gives you the option to import your vendor products by uploading an individial
           file for each vendor, or by importing one global file that contains all your vendor
           products.
         </p>
 
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <Row gutter={16}>
+          <Col span={12}>
             <OButton
               type="primary"
-              btnText={'IMPORT BY VENDOR'}
+              btnText={'Import By Vendor'}
               onClick={() => onClick(modalType.VendorProductImportByVendor)}
+              style={{ width: '100%', marginBottom: 10 }}
             />
             <p>Import vendor products using an individual file for each vendor.</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <OButton
+          </Col>
+          <Col span={12}>
+           <OButton
               type="primary"
-              btnText={'IMPORT ALL AT ONCE'}
+              btnText={'Import All At Once'}
               onClick={() => onClick(modalType.VendorProductImportOnce)}
+              style={{ width: '100%', marginBottom: 10 }}
             />
             <p>Import all your vendor products with one file that includes vendor names.</p>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </>
     </OModal>
   );
 };

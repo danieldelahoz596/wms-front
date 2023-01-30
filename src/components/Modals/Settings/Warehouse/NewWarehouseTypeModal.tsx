@@ -5,10 +5,9 @@ import { QuestionCircleTwoTone } from '@ant-design/icons';
 export default function ({ isOpen, onClose, handleOpenNew }) {
   return (
     <OModal
-      title="NEW WAREHOUSE"
-      isOpen={isOpen}
+      title="New Warehouse"
       width={300}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
@@ -30,12 +29,12 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
       >
         <OButton
           type="primary"
-          btnText={'DIRECT (IN-HOUSE) FULFILLMENT'}
+          btnText={'Direct (In-House) Fulfillment'}
           style={{ border: '1px solid #5F5FFF' }}
           onClick={handleOpenNew}
         />
         <OButton
-          btnText={'THIRD PARTY LOGISTICS'}
+          btnText={'Third Party Logistics'}
           style={{ border: '1px solid #5F5FFF' }}
           onClick={onClose}
         />

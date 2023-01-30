@@ -13,9 +13,7 @@ interface IAttributeGroup {
 }
 
 const AttributeGroup: React.FC<IAttributeGroup> = ({
-  isOpen,
-  onClose,
-  onSave,
+  isOpen, onClose, onSave,
   attributeGroups,
   setAttributeGroups,
 }) => {
@@ -47,9 +45,8 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
 
   return (
     <OModal
-      title={'NEW ATTRIBUTE GROUPINGS'}
+      title={'New attribute groupings'}
       width={500}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -67,7 +64,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
+      <>
         <h3>
           Enter your attribute group names to begin adding attributes for use in product creation.
           (blank attributes will not be saved)
@@ -140,7 +137,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
             </Panel>
           ))}
         </Collapse>
-      </div>
+      </>
     </OModal>
   );
 };

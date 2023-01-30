@@ -11,17 +11,15 @@ interface IExportQueueOrderModal {
 const ExportQueueOrderModal: React.FC<IExportQueueOrderModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
-      title="Export ORDER(S)"
+      title="Export Order(s)"
       width={600}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {

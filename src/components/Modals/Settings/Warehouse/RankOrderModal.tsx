@@ -56,17 +56,15 @@ export default function ({ isOpen, onSave, onClose }) {
 
   return (
     <OModal
-      title="INTERNATIONAL SHIPPING WAREHOUSE ORDER"
-      isOpen={isOpen}
+      title="International Shipping Warehouse Order"
       width={600}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
-      className="OModal"
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {

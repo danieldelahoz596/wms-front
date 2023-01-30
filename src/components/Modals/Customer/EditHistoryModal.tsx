@@ -35,7 +35,6 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
   return (
     <Modal
       title="CUSTOMER EDIT HISTORY"
-      centered
       open={isOpen}
       onOk={onSave}
       onCancel={onClose}

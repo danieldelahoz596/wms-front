@@ -19,9 +19,7 @@ interface INewVendorProduct {
 }
 
 const NewVendorProduct: React.FC<INewVendorProduct> = ({
-  isOpen,
-  onClose,
-  onSave,
+  isOpen, onClose, onSave,
   vendorProductList,
   setVendorProductList,
   selectedItemKey,
@@ -316,7 +314,6 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     <OModal
       title={'New Vendor Product'}
       width={1000}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

@@ -44,7 +44,6 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
     <OModal
       title={'Add Items To ' + title}
       width={1200}
-      centered
       isOpen={newItemModal == modalType.New}
       handleCancel={handleCancel}
       buttons={[

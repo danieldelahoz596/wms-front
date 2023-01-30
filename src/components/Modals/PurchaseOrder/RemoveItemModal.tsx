@@ -24,7 +24,6 @@ const RemoveItemModal: React.FC<IRemoveItemModal> = ({
   return (
     <OModal
       title={'Remove Item ' + removeItemData?.product}
-      centered
       width={600}
       isOpen={removeItemModal == modalType.Remove}
       handleCancel={handleCancel} 

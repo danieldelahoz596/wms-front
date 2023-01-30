@@ -36,30 +36,28 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 25,
-                    left: editableProduct?.status === 1 ? 4 : 1,
+                    top: 26,
+                    left: editableProduct?.status === 1 ? 2 : 1,
                     backgroundColor: 'white',
                     color: 'blue',
-                    paddingLeft: 8,
+                    paddingLeft: 7,
                     paddingRight: 8,
                     borderRadius: 5,
                   }}
                 >
-                  {editableProduct?.status === 1 ? 'Active' : 'Deactive'}
+                  <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
                 </div>
               </div>
             </Row>
           </Col>
         </Row>
       )}
-      <Form form={form}>
+      <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
         {!editableProduct && (
           <>
             <Form.Item
               label="Master SKU"
               name="master_sku"
-              labelCol={{ span: 4 }}
-              labelAlign="left"
               rules={[{ required: true, message: 'Please input Master SKU' }]}
             >
               <Input placeholder="Required" />
@@ -67,20 +65,17 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             <Form.Item
               label="Name"
               name="name"
-              labelCol={{ span: 4 }}
-              labelAlign="left"
               rules={[{ required: true, message: 'Please input Name' }]}
             >
               <Input placeholder="Required" />
             </Form.Item>
           </>
         )}
-        <Form.Item label="Buy | Brand *" labelCol={{ span: 4 }} labelAlign="left">
+        <Form.Item label="Buy | Brand *" >
           <Input.Group compact>
             <Form.Item
               name="buyer"
               style={{ width: '50%', margin: 0 }}
-              rules={[{ required: true, message: 'Please input Buyer' }]}
             >
               <Select
                 options={[
@@ -126,9 +121,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Form.Item
           label="Categories"
           name="categories"
-          labelCol={{ span: 4 }}
-          labelAlign="left"
-          rules={[{ required: true, message: 'Please input Categories' }]}
         >
           <div style={{ display: 'flex' }}>
             <Select
@@ -159,9 +151,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Form.Item
           label="Labels"
           name="labels"
-          labelCol={{ span: 4 }}
-          labelAlign="left"
-          rules={[{ required: true, message: 'Please input Labels' }]}
         >
           <div style={{ display: 'flex' }}>
             <Select
@@ -192,9 +181,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Form.Item
           label="Description"
           name="description"
-          labelCol={{ span: 4 }}
-          labelAlign="left"
-          rules={[{ required: true, message: 'Please input Description' }]}
         >
           <Input.TextArea />
         </Form.Item>

@@ -1,5 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { Col, Row } from 'antd';
 
 interface IExportVendorProduct {
   isOpen: boolean;
@@ -12,9 +13,8 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
 
   return (
     <OModal
-      title={'SELECT HOW TO EXPORT VENDOR PRODUCTS'}
+      title={'Select How To Export Vendor Products'}
       width={400}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -26,23 +26,21 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
-        <p>
-          Skubana gives you the option to export vendor products by downloading an individial file
-          for each vendor, or by exporting one global file that contains all your vendor products.
-        </p>
+      <>
+        <p>Skubana gives you the option to export vendor products by downloading an individial file
+          for each vendor, or by exporting one global file that contains all your vendor products.</p>
 
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <OButton type="primary" btnText={'EXPORT BY VENDOR'} />
+        <Row gutter={16}>
+          <Col span={12}>
+            <OButton type="primary" btnText={'Export By Vendor'} style={{ width: '100%', marginBottom: 100 }}/>
             <p>Export vendor products through individual file for each vendor.</p>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <OButton type="primary" btnText={'EXPORT ALL AT ONCE'} />
+          </Col>
+          <Col span={12}>
+            <OButton type="primary" btnText={'Export All At Once'} style={{ width: '100%', marginBottom: 100 }}/>
             <p>Export all your vendor products in one file that includes vendor names.</p>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </>
     </OModal>
   );
 };

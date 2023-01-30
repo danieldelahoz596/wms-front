@@ -55,7 +55,6 @@ const EditItemModal: React.FC<IEditItemModal> = ({
     <OModal
       title={'Edit Item ' + editItemData?.product}
       width={1200}
-      centered
       isOpen={editItemModal == modalType.Edit}
       handleCancel={handleCancel}
       buttons={[

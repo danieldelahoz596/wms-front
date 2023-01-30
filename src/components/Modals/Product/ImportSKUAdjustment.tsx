@@ -16,7 +16,6 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
     <OModal
       title={'SKU Adjustment Import'}
       width={600}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -29,17 +28,20 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: handleSave,
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
+      <>
         <p>
           All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
         </p>
-        <a style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}>
-          Download the Excel Template for Product Import
+        <a
+          // onClick={handleDownloadTemplate}
+          className="download-link"
+        >
+          <u>Download the Excel Template for Product Import</u>
         </a>
         <p>
           Every product is uniquely identified by its <u>Internal SKU</u>, and those SKU's are not
@@ -55,11 +57,11 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
           <Col>
             SKU Adjustment File:{' '}
             <Upload {...fileUploadProps}>
-              <Button icon={<UploadOutlined />}>SELECT...</Button>
+              <Button icon={<UploadOutlined />}>Select...</Button>
             </Upload>
           </Col>
         </Row>
-      </div>
+      </>
     </OModal>
   );
 };

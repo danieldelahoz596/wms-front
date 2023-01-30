@@ -223,7 +223,6 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
     <OModal
       title={'New Virtual Product'}
       width={800}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -455,20 +454,20 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
             </Row>
           </>
         )}
+
+        <AttributeGroupModal
+          isOpen={modalOpen === modalType.AttributeGroup}
+          onSave={() => setModal(modalType.Close)}
+          onClose={() => setModal(modalType.Close)}
+          attributeGroups={attributeGroups}
+          setAttributeGroups={setAttributeGroups}
+        />
+
+        <ConfigAttributeGroups
+          isOpen={modalOpen === modalType.ConfigAttributeGroups}
+          onClose={() => setModal(modalType.Close)}
+        />
       </>
-
-      <AttributeGroupModal
-        isOpen={modalOpen === modalType.AttributeGroup}
-        onSave={() => setModal(modalType.Close)}
-        onClose={() => setModal(modalType.Close)}
-        attributeGroups={attributeGroups}
-        setAttributeGroups={setAttributeGroups}
-      />
-
-      <ConfigAttributeGroups
-        isOpen={modalOpen === modalType.ConfigAttributeGroups}
-        onClose={() => setModal(modalType.Close)}
-      />
     </OModal>
   );
 };

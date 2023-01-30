@@ -34,35 +34,36 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
     <OModal
       title={'New Product'}
       width={300}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[]}
     >
-      <h2 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Select Type</h2>
-      <Row>
-        {buttons.map((btn, index) => (
-          <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
-            <OButton
-              type={btn.type}
-              btnText={btn.btnText}
-              onClick={btn.onClick}
-              style={{ width: '100%' }}
-            />
-          </Col>
-        ))}
-        <a
-          href="#"
-          style={{
-            textAlign: 'center',
-            margin: '0 auto',
-            marginTop: '1rem',
-            textDecoration: 'underline',
-          }}
-        >
-          <span>What's the difference</span> <QuestionCircleOutlined />
-        </a>
-      </Row>
+      <>
+        <h2 style={{ textAlign: 'center', textTransform: 'uppercase' }}>Select Type</h2>
+        <Row>
+          {buttons.map((btn, index) => (
+            <Col key={index} span={12} offset={6} style={{ marginTop: '1rem' }}>
+              <OButton
+                type={btn.type}
+                btnText={btn.btnText}
+                onClick={btn.onClick}
+                style={{ width: '100%' }}
+              />
+            </Col>
+          ))}
+          <a
+            href="#"
+            style={{
+              textAlign: 'center',
+              margin: '0 auto',
+              marginTop: '1rem',
+              textDecoration: 'underline',
+            }}
+          >
+            <span>What's the difference</span> <QuestionCircleOutlined />
+          </a>
+        </Row>
+      </>
     </OModal>
   );
 };

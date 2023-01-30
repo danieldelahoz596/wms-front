@@ -174,23 +174,21 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
 
   return (
     <OModal
-      title="NEW IMPORT SETTINGS"
+      title="New import settings"
       width={1000}
-      centered
-      className="OModal"
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'SAVE',
+          btnLabel: 'Save',
           onClick: handleSave,
         },
       ]}

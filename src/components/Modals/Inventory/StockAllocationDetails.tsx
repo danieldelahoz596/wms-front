@@ -44,29 +44,25 @@ const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
 }) => {
   return (
     <OModal
-      title="Stock Allocation Details"
+      title="Stock allocation details"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}
     >
-      <>
-        <Card>
-            <OTable
-              columns={Tcolumns}
-              rows={dataSource}
-            />
-        </Card>
-      </>
+      <Card>
+          <OTable
+            columns={Tcolumns}
+            rows={dataSource}
+          />
+      </Card>
     </OModal>
   );
 };

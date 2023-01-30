@@ -5,17 +5,15 @@ import { Card, Checkbox, Col, Form, Input, Row, Select, Tabs } from 'antd';
 export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
-      title="DOCUMENT PRINT SETTINGS FOR IN HOUSE"
-      isOpen={isOpen}
+      title="Document Print Settings For In House"
       width={600}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
-      className="OModal"
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {

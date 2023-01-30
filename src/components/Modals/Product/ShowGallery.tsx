@@ -12,15 +12,13 @@ const ShowGalleryModal: React.FC<IShowGalleryModal> = ({ isOpen, onClose }) => {
     <OModal
       title="Product Gallery"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

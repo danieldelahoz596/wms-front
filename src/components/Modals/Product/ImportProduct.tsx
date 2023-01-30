@@ -37,8 +37,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
   return (
     <OModal
       title={'Product Import'}
-      width={600}
-      centered
+      width={550}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -51,18 +50,16 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: handleSave,
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
-        <p>
-          All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
-        </p>
+      <>
+        <p>All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
         <a
-          style={{ display: 'block', textAlign: 'center', margin: '1rem 0', fontSize: '1rem' }}
           onClick={handleDownloadTemplate}
+          className="download-link"
         >
           <u>Download the Excel Template for Product Import</u>
         </a>
@@ -81,7 +78,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
           <Col offset={16} span={8} style={{ textAlign: 'right' }}>
             <label>Products File:</label>&nbsp;&nbsp;
             <Upload {...fileUploadProps}>
-              <Button icon={<UploadOutlined />}>SELECT...</Button>
+              <Button icon={<UploadOutlined />}>Select...</Button>
             </Upload>
           </Col>
           <Col span={24} style={{ textAlign: 'right', marginTop: '1rem' }}>
@@ -92,7 +89,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
             </Select>
           </Col>
         </Row>
-      </div>
+      </>
     </OModal>
   );
 };

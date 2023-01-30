@@ -14,10 +14,8 @@ interface IAddNewOrderModal {
 const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
-      title="NEW MANUAL ORDER"
+      title="New Manual Order"
       width={1200}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

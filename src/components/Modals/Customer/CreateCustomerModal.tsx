@@ -1,8 +1,11 @@
 import { OInput } from '@/components/Globals/OInput';
+import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { Modal, Row, Col } from 'antd';
+import { Modal, Row, Col, Form, Input } from 'antd';
 
-export default function CreateCustomerModal({ isOpen, onClose }) {
+export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
+
+  const [form] = Form.useForm();
   const { onChangeNewCustomer, handleCreateCustomer } = useModel('customer');
 
   // new customer create modal handler
@@ -12,39 +15,58 @@ export default function CreateCustomerModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal
-      title="CREATE NEW CUSTOMER"
-      centered
-      open={isOpen}
-      onOk={handleNewCustomerCreate}
-      onCancel={onClose}
-      width={800}
-      className="newcustomer"
+    <OModal
+      title="Create New Customer"
+      width={500}
+      isOpen={isOpen}
+      handleCancel={onClose}
+      buttons={[
+        {
+          key: 'back',
+          type: 'default',
+          btnLabel: 'Cancel',
+          onClick: onClose,
+        },
+        {
+          key: 'submit',
+          type: 'primary',
+          btnLabel: 'Save',
+          onClick: handleCreateCustomer,
+        },
+      ]}
     >
-      <Row className="pb-3">
-        <Col span={4}>Phone *:</Col>
-        <Col span={20}>
-          <OInput name="phonenumber" onChange={onChangeNewCustomer} placeholder="Phone" />
-        </Col>
-      </Row>
-      <Row className="pb-3">
-        <Col span={4}>Card ID Number *:</Col>
-        <Col span={20}>
-          <OInput name="card_number" onChange={onChangeNewCustomer} placeholder="Card ID Number" />
-        </Col>
-      </Row>
-      <Row className="pb-3">
-        <Col span={4}>Address:</Col>
-        <Col span={20}>
-          <OInput name="address" onChange={onChangeNewCustomer} placeholder="Address" />
-        </Col>
-      </Row>
-      <Row className="pb-3">
-        <Col span={4}>Name:</Col>
-        <Col span={20}>
-          <OInput name="name" onChange={onChangeNewCustomer} placeholder="Name" />
-        </Col>
-      </Row>
-    </Modal>
+      <Form
+        form={form}
+        labelCol={{ span:7 }}
+        wrapperCol={{ span: 17 }}
+        >
+        <Form.Item
+          label="Phone Number"
+          name="phonenumber"
+          rules={[{ required: true, message: 'Please input Phone Number!' }]}
+        >
+          <Input placeholder="Phone Number"/>
+        </Form.Item>
+        <Form.Item
+          label="Card ID Number"
+          name="card_number"
+          rules={[{ required: true, message: 'Please input Card ID Number!' }]}
+        >
+          <Input placeholder="Card ID Number"/>
+        </Form.Item>
+        <Form.Item
+          label="Address"
+          name="address"
+        >
+          <Input placeholder="Customer Address"/>
+        </Form.Item>
+        <Form.Item
+          label="Name"
+          name="name"
+        >
+          <Input placeholder="Customer Name"/>
+        </Form.Item>
+      </Form>
+    </OModal>
   );
 }

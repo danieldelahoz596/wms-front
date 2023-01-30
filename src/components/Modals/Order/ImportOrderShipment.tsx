@@ -14,9 +14,7 @@ interface IImportOrderShipment {
 }
 
 const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
-  isOpen,
-  onClose,
-  onSave,
+  isOpen, onClose, onSave,
   onConfigure,
 }) => {
   const updateShipmentOptions = [
@@ -31,23 +29,21 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
   ];
   return (
     <OModal
-      title="EXTERNAL SHIPMENT IMPORT"
+      title="External Shipment Import"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: onSave,
         },
       ]}
@@ -101,7 +97,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
             >
               <Form.Item label="Excel Shipment File: ">
                 <Upload {...fileUploadProps}>
-                  <Button icon={<UploadOutlined />}>SELECT...</Button>
+                  <Button icon={<UploadOutlined />}>Select...</Button>
                 </Upload>
               </Form.Item>
 

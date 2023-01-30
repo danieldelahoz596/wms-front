@@ -8,11 +8,6 @@ export default function Index() {
 
   const TOrdercolumns = [
     {
-      title: 'Channel',
-      dataIndex: 'channel',
-      key: 'channel',
-    },
-    {
       title: 'Labels',
       dataIndex: 'labels',
       key: 'labels',
@@ -61,11 +56,6 @@ export default function Index() {
 
   const rows = [
     {
-      channel: (
-        <div>
-          <GlobalOutlined /> Manual Order
-        </div>
-      ),
       notes: (
         <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
           <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
@@ -97,7 +87,6 @@ export default function Index() {
           <h3
             style={{
               fontSize: '1rem',
-              textTransform: 'uppercase',
               fontWeight: '700',
               color: '#A2A2A2',
             }}

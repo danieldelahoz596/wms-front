@@ -11,17 +11,15 @@ interface IRestoreOrderModal {
 const RestoreOrderModal: React.FC<IRestoreOrderModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
-      title="RESTORE ORDERS"
+      title="Restore Orders"
       width={600}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {

@@ -163,6 +163,46 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/help/products/searchproducts',
+        component: './Help/Products/searchproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/adjustingmasterskus',
+        component: './Help/Products/adjustingmasterskus',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/importproducts',
+        component: './Help/Products/importproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/customproductfields',
+        component: './Help/Products/customproductfields',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/search',
+        component: './Help/Customers/searchcustomers',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/customersmodule',
+        component: './Help/Customers/customersmodule',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/exportcustomerphonenumbers',
+        component: './Help/Customers/exportcustomerphonenumbers',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/cancelorders',
+        component: './Help/Orders/cancelorders',
+      },
+      {
+        hideInMenu: true,
         path: '/help/analytics/orders/historicalsexports',
         component: './Help/Analytics/Orders/historicalordersexports',
       },

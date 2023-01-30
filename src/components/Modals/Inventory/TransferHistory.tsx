@@ -32,15 +32,13 @@ const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose
     <OModal
       title="History for stock transfer order stock-transfer-test-snow-peak"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

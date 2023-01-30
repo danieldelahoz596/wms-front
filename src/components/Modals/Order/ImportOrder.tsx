@@ -16,9 +16,7 @@ interface IImportOrder {
 }
 
 const ImportOrderModal: React.FC<IImportOrder> = ({
-  isOpen,
-  onClose,
-  onSave,
+  isOpen, onClose, onSave,
   handleConfigureSettings,
 }) => {
   const { orderImportSettings } = useModel('orderImportSettings');
@@ -45,23 +43,21 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
 
   return (
     <OModal
-      title="MANUAL IMPORT ORDERS"
+      title="Manual Import Orders"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: onSave,
         },
       ]}
@@ -123,7 +119,7 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
             >
               <Form.Item label="Order Import File: ">
                 <Upload {...fileUploadProps}>
-                  <Button icon={<UploadOutlined />}>SELECT...</Button>
+                  <Button icon={<UploadOutlined />}>Select...</Button>
                 </Upload>
               </Form.Item>
             </Form>

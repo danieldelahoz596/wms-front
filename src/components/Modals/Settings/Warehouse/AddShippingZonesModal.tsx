@@ -13,12 +13,10 @@ export default function ({ isOpen, onSave, onClose }) {
 
   return (
     <OModal
-      title="INVENTORY ALLOCATION SHIPPING ZONES"
-      isOpen={isOpen}
+      title="Inventory Allocation Shipping Zones"
       width={600}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
-      className="OModal"
       buttons={[]}
     >
       <>

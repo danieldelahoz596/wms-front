@@ -12,15 +12,13 @@ const ExportModal: React.FC<IExportModal> = ({ isOpen, title, onClose }) => {
     <OModal
       title={title}
       width={500}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

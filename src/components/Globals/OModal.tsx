@@ -30,6 +30,8 @@ export const OModal: React.FC<IOmodal> = (props) => {
     <Modal
       open={isOpen}
       onCancel={handleCancel}
+      className="OModal"
+      centered
       footer={buttons?.map((btn) => (
         <Button key={btn.key} type={btn.type} onClick={btn.onClick} htmlType={btn.htmlType}>
           {btn.btnLabel}

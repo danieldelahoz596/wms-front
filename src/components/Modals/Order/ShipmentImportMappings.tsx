@@ -18,16 +18,15 @@ const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({
   const mappings = [];
   return (
     <OModal
-      title="SHIPMENT IMPORT MAPPINGS"
+      title="Shipment import mappings"
       width={600}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

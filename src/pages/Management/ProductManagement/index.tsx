@@ -24,10 +24,10 @@ import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductModal from '@/components/Modals/Product/ImportProduct';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
-import ExportVendorProductModal from '@/components/Modals/Product/ExportVendorProduct';
+import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
 import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorProduct';
-import VendorProductImportByVendorModal from '@/components/Modals/Product/VendorProductImportByVendor';
-import VendorProductImportAtOnceModal from '@/components/Modals/Product/VendorProductImportAtOnce';
+import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
+import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
 import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
 import BundleKitModal from '@/components/Modals/Product/BundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
@@ -103,16 +103,16 @@ const ProductManagement: React.FC = () => {
       render: (text: any) => (
         <>
           {text === productType.CoreProduct ? (
-            <CoreProductsIcon style={{ fontSize: 32 }} />
+            <CoreProductsIcon style={{ fontSize: 24 }} />
           ) : text === productType.BundleOrKit ? (
-            <BundleIcon style={{ fontSize: 32 }} />
+            <BundleIcon style={{ fontSize: 24 }} />
           ) : text === productType.Variations ? (
-            <VariationIcon style={{ fontSize: 32 }} />
+            <VariationIcon style={{ fontSize: 24 }} />
           ) : (
             <span style={{ position: 'relative' }}>
-              <CoreProductsIcon style={{ fontSize: 32 }} />
-              <div style={{ position: 'absolute', top: -1, left: 18 }}>
-                <VectorIcon style={{ fontSize: 18 }} />
+              <CoreProductsIcon style={{ fontSize: 24 }} />
+              <div style={{ position: 'absolute', top: 3, left: 12 }}>
+                <VectorIcon style={{ fontSize: 14 }} />
               </div>
             </span>
           )}
@@ -358,7 +358,7 @@ const ProductManagement: React.FC = () => {
                         </Button>
                       </Popconfirm>
                       <Popconfirm
-                        title={`Sure to Convert to ${showActivate ? 'Activate' : 'Deactivate'}`}
+                        title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
                         onConfirm={() => {
                           setSelectedProducts([]);
                           const selectedKeys = selectedProducts.map((_item) => _item.id);
@@ -468,7 +468,7 @@ const ProductManagement: React.FC = () => {
                 </Col>
                 <Col span={12}>
                   <Card
-                    title="PRODUCT DETAILS"
+                    title="Product Details"
                     extra={
                       <div style={{ display: selectedProducts.length > 1 ? 'none' : 'inline' }}>
                         <OButton
@@ -578,9 +578,16 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ExportProductModal
+      {/* <ExportProductModal
         isOpen={modalOpen == modalType.Export}
         onSave={() => setModal(modalType.Export)}
+        onClose={() => setModal(modalType.Close)}
+      /> */}
+
+      {/* Export Vendor Products */}
+      <ExportVendorProductsModal
+        isOpen={modalOpen == modalType.ExportVendorProducts}
+        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -594,19 +601,20 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
+      {/* Import Vendor Products */}
       <ImportVendorProductModal
         isOpen={modalOpen == modalType.ImportVendorProducts}
         onClick={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
-      <VendorProductImportByVendorModal
+      <ImportVendorProductsByVendor
         isOpen={modalOpen == modalType.VendorProductImportByVendor}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
-      <VendorProductImportAtOnceModal
+      <ImportVendorProductsAll
         isOpen={modalOpen == modalType.VendorProductImportOnce}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
@@ -619,12 +627,7 @@ const ProductManagement: React.FC = () => {
         onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
-
-      <ExportVendorProductModal
-        isOpen={modalOpen == modalType.ExportVendorProducts}
-        onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
-      />
+     
 
       <ShowProductFieldsModal
         isOpen={modalOpen == modalType.ShowProductFields}

@@ -19,21 +19,19 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
     <OModal
       title="Bulk Reconciliation"
       width={600}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'CONTINUE',
+          btnLabel: 'Continue',
           onClick: onSave,
         },
       ]}

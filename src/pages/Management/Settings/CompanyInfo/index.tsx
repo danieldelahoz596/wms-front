@@ -69,7 +69,7 @@ export default function () {
                     <Input size="small" />
                   </Col>
                   <Col span={6}>
-                    <Button>SELECT...</Button>
+                    <Button>Select...</Button>
                   </Col>
                   <Col style={{ marginTop: 20 }}>
                     <Button>DELETE LOGO</Button>
@@ -259,7 +259,7 @@ export default function () {
             labelAlign="left"
           >
             <Form.Item
-              label="Full Name:"
+              label="Full Name"
               name="full_name"
               rules={[{ required: true, message: 'Please input your Name!' }]}
             >
@@ -267,7 +267,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Email:"
+              label="Email"
               name="email"
               rules={[{ required: true, message: 'Please input your Email!' }]}
             >
@@ -275,7 +275,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Phone Number:"
+              label="Phone Number"
               name="password"
               rules={[{ required: true, message: 'Please input your new password!' }]}
             >
@@ -302,7 +302,7 @@ export default function () {
             labelAlign="left"
           >
             <Form.Item
-              label="Full Name:"
+              label="Full Name"
               name="full_name"
               rules={[{ required: true, message: 'Please input your Name!' }]}
             >
@@ -310,7 +310,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Email:"
+              label="Email"
               name="email"
               rules={[{ required: true, message: 'Please input your Email!' }]}
             >
@@ -318,7 +318,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Phone Number:"
+              label="Phone Number"
               name="password"
               rules={[{ required: true, message: 'Please input your new password!' }]}
             >
@@ -345,7 +345,7 @@ export default function () {
             labelAlign="left"
           >
             <Form.Item
-              label="Full Name:"
+              label="Full Name"
               name="full_name"
               rules={[{ required: true, message: 'Please input your Name!' }]}
             >
@@ -353,7 +353,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Email:"
+              label="Email"
               name="email"
               rules={[{ required: true, message: 'Please input your Email!' }]}
             >
@@ -361,7 +361,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item
-              label="Phone Number:"
+              label="Phone Number"
               name="password"
               rules={[{ required: true, message: 'Please input your new password!' }]}
             >

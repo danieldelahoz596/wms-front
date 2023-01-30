@@ -174,7 +174,6 @@ export default function ({ isOpen, onSave, onClose }) {
         title="New User"
         isOpen={isOpen}
         handleCancel={onClose}
-        className="OModal"
         buttons={[
           {
             key: 'back',
@@ -200,7 +199,7 @@ export default function ({ isOpen, onSave, onClose }) {
             <Col span={12}>
               <Card title="Login Info">
                 <Form.Item
-                  label="Full Name: "
+                  label="Full Name"
                   name="full_name"
                   rules={[{ required: true, message: 'Please input Name!' }]}
                 >
@@ -208,7 +207,7 @@ export default function ({ isOpen, onSave, onClose }) {
                 </Form.Item>
 
                 <Form.Item
-                  label="Username:"
+                  label="Username"
                   name="username"
                   rules={[{ required: true, message: 'Please input the Username!' }]}
                 >

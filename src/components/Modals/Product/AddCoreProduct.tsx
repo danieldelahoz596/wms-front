@@ -16,9 +16,7 @@ interface IAddProduct {
 }
 
 const AddCoreProduct: React.FC<IAddProduct> = ({
-  isOpen,
-  onClose,
-  onSave,
+  isOpen, onClose, onSave,
   coreProductList,
   setCoreProductList,
   selectedItemKey,
@@ -101,7 +99,6 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
     <OModal
       title={'Add Core Product'}
       width={400}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

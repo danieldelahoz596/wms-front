@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Tabs } from 'antd';
+import { Form, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
 import GalleryTab from '@/components/Tabs/Product/Gallery';
@@ -10,11 +10,13 @@ interface IEditProduct {
 }
 
 const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
+  const [form] = Form.useForm();
+  
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
       label: 'BASIC INFO',
-      children: <BasicInfoTab />,
+      children: <BasicInfoTab form={form}/>,
     },
     {
       key: 'tab-2',
@@ -27,7 +29,6 @@ const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
     <OModal
       title={'New Core Product'}
       width={800}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

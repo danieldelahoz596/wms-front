@@ -43,7 +43,6 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
     <OModal
       title={'New Core Product'}
       width={1000}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

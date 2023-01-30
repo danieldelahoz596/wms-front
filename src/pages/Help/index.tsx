@@ -28,7 +28,13 @@ import Manageproducts from './Products/manageproducts';
 import Createproducts from './Products/createproducts';
 import Importproducts from './Products/importproducts';
 import Exportproducts from './Products/exportproducts';
-
+import Searchproducts from './Products/searchproducts';
+import AdjustmasterSkus from './Products/adjustingmasterskus';
+import Customproductfields from './Products/customproductfields';
+import Searchcustomers from './Customers/searchcustomers';
+import Customersmodule from './Customers/customersmodule';
+import Exportcustomerphonenumbers from './Customers/exportcustomerphonenumbers';
+import Cancelorders from './Orders/cancelorders';
 
 const { Sider, Content } = Layout;
 
@@ -68,11 +74,18 @@ const Help: React.FC = () => {
   else if (selectKey === 'products_createproducts') renderableContent = <Createproducts />
   else if (selectKey === 'products_importproducts') renderableContent = <Importproducts />
   else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
+  else if (selectKey === 'products_searchproducts') renderableContent = <Searchproducts />
+  else if (selectKey === 'products_adjustingmasterskus') renderableContent = <AdjustmasterSkus />
+  else if (selectKey === 'products_customproductfields') renderableContent = <Customproductfields />
+  else if (selectKey === 'customers_searchcustomers') renderableContent = <Searchcustomers />
+  else if (selectKey === 'customers_customersmodule') renderableContent = <Customersmodule />
+  else if (selectKey === 'customers_exportcustomerphonenumbers') renderableContent = <Exportcustomerphonenumbers />
   else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
   else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
   else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
   else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
   else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
+  else if (selectKey === 'orders_cancelorders') renderableContent = <Cancelorders />;
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
@@ -112,9 +125,11 @@ const Help: React.FC = () => {
                 label: 'Orders',
                 children: [
                   {
-                    key: 'sub21',
-                    icon: <UserOutlined />,
-                    label: 'Test',
+                    key: 'orders_cancelorders',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/orders/cancelorders">How to Cancel Order</Link>
+                    ),
                   },
                 ],
               },
@@ -160,9 +175,25 @@ const Help: React.FC = () => {
                 label: 'Customers',
                 children: [
                   {
-                    key: 'sub61',
-                    icon: <UserOutlined />,
-                    label: 'Test',
+                    key: 'customers_searchcustomers',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/customers/search">How to Search Customers</Link>
+                    ),
+                  },
+                  {
+                    key: 'customers_customersmodule',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/customers/customersmodule">Customers Module</Link>
+                    ),
+                  },
+                  {
+                    key: 'customers_exportcustomerphonenumbers',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/customers/exportcustomerphonenumbers">Exporting Customer Phone Numbers from the Orders Module</Link>
+                    ),
                   },
                 ],
               },
@@ -197,6 +228,27 @@ const Help: React.FC = () => {
                     icon: <AccountingIcon />,
                     label: (
                       <Link to="/help/products/exportproducts">How to Export Products</Link>
+                    ),
+                  },
+                  {
+                    key: 'products_searchproducts',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/searchproducts">How to Search Products</Link>
+                    ),
+                  },
+                  {
+                    key: 'products_adjustingmasterskus',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/adjustingmasterskus">How to Adjust Master SKUs</Link>
+                    ),
+                  },
+                  {
+                    key: 'products_customproductfields',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/customproductfields">How to Create Custom Product Fields</Link>
                     ),
                   },
                 ],
@@ -282,7 +334,10 @@ const Help: React.FC = () => {
         
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         
-        {renderableContent}
+        <div className='help-content'>
+          {renderableContent}
+        </div>
+        
 
         {/* <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">

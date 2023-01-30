@@ -82,10 +82,9 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
 
   return (
     <OModal
-      title="SKU ALERTS"
-      isOpen={isOpen}
+      title="SKU Alerts"
       width={800}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {

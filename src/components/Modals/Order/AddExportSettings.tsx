@@ -440,12 +440,12 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     {
       key: 'dataField',
       dataIndex: 'dataField',
-      title: 'DATA FIELD',
+      title: 'Data Field',
     },
     {
       key: 'columnName',
       dataIndex: 'columnName',
-      title: 'COLUMN NAME',
+      title: 'Column Name',
     },
     {
       key: 'remove',
@@ -534,23 +534,21 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
   return (
     <OModal
-      title="NEW EXPORT SETTINGS"
-      width={1000}
-      centered
-      className="OModal"
+      title="New export settings"
+      width={900}
       isOpen={isOpen}
       handleCancel={handleClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: handleClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'SAVE',
+          btnLabel: 'Save',
           onClick: handleSave,
         },
       ]}
@@ -563,7 +561,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 <Input />
               </Form.Item>
             </div>
-            <Card title="FILE CONFIGURATION" style={{ padding: '0.5rem' }}>
+            <Card title="File Configuration">
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
                   placeholder="Select.."
@@ -575,8 +573,14 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 />
               </Form.Item>
 
-              <Form.Item name={'date'} label="Date Format ">
-                <DatePicker style={{ width: '100%' }} />
+              <Form.Item name={'dateFormat'} label="Date Format ">
+                <Select
+                  placeholder="MM/dd/yyyy"
+                  options={[
+                    { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
+                    { value: 'yyyy-MM-dd', label: 'yyyy-MM-dd' },
+                  ]}
+                />
               </Form.Item>
 
               <Form.Item label="Multi SKUs" name={'multi_sku'} style={{ display: 'flex' }}>
@@ -605,17 +609,14 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
             >
               <Checkbox />
             </Form.Item>
-
-            <p style={{ padding: '0 1rem' }}>
-              NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.
-            </p>
           </Col>
-          <Col span={14}>
+
+          <Col offset={1} span={13}>
             <Card
               title={
                 <Form.Item name="includeColumnHeader" initialValue={includeColumnHeader}>
                   <span>
-                    EXPORT FIELDS <span style={{ color: 'blue' }}>( Include column headers? </span>
+                    Export Fields <span style={{ color: 'blue', textTransform: 'capitalize' }}>( Include column headers? </span>
                   </span>
                   <Checkbox
                     checked={includeColumnHeader}
@@ -624,9 +625,8 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                   <span style={{ color: 'blue' }}> )</span>
                 </Form.Item>
               }
-              style={{ padding: '0.5rem' }}
             >
-              <Form.Item name={'exportFields'} label="Add Field">
+              <Form.Item name={'exportFields'} label="Add Field" labelCol={{ offset: 2 }} labelAlign="right">
                 <Select
                   placeholder="Select.."
                   onChange={(_val) => handleAddField(_val)}

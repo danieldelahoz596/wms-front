@@ -11,7 +11,6 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({ isOpen, onClo
     <OModal
       title={'CONFIG ATTRIBUTE GROUPS'}
       width={400}
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -22,7 +21,9 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({ isOpen, onClo
           onClick: onClose,
         },
       ]}
-    ></OModal>
+    >
+      <></>
+    </OModal>
   );
 };
 

@@ -15,15 +15,13 @@ const ShowProductFieldsModal: React.FC<IShowProductFieldsModal> = ({ isOpen, onC
     <OModal
       title="Core Product Details"
       width={1000}
-      className="OModal"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'CLOSE',
+          btnLabel: 'Close',
           onClick: onClose,
         },
       ]}

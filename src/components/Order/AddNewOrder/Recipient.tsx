@@ -82,7 +82,7 @@ const Recipient = () => {
   };
 
   return (
-    <Card title="RECIPEINT">
+    <Card title="Recipient">
       <Form
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}

@@ -42,10 +42,8 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="New Vendor"
-      centered
       isOpen={isOpen}
       handleCancel={onClose}
-      className="OModal"
       buttons={[
         {
           key: 'back',

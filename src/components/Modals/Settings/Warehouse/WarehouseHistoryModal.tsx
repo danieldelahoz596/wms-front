@@ -30,16 +30,15 @@ const WarehouseHistory: React.FC<IWarehouseHistory> = ({ isOpen, onClose }) => {
 
   return (
     <OModal
-      title="IN_HOUSE WAREHOUSE EDIT HISTORY"
-      isOpen={isOpen}
+      title="In_House Warehouse Edit History"
       width={1000}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'cancel',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
       ]}

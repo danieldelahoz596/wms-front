@@ -19,26 +19,25 @@ const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({
     activate ? 'Activate' : 'Deactivate'
   } all of its product stock and subtract all of its available inventory from associated product listings.`;
 
-  const title = `${activate ? 'ACTIVATE' : 'DEACTIVATE'} IN-HOUSE WAREHOUSE`;
+  const title = `${activate ? 'Activate' : 'Deactivate'} In-House Warehouse`;
 
   return (
     <OModal
       title={title}
-      isOpen={isOpen}
       width={400}
-      centered
+      isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
         {
           key: 'cancel',
           type: 'default',
-          btnLabel: 'CANCEL',
+          btnLabel: 'Cancel',
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: `YES-${activate ? 'ACTIVATE' : 'DEACTIVATE'}`,
+          btnLabel: `Yes-${activate ? 'Actiavte' : 'Deactivate'}`,
           onClick: onSave,
         },
       ]}

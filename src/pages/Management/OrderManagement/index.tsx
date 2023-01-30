@@ -328,7 +328,6 @@ const OrderManagement: React.FC = () => {
               },
               selectedRows.length > 0
                 ? {
-                    key: '2',
                     type: 'divider',
                   }
                 : null,
