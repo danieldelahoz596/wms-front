@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { Table } from 'antd';
 import { modalType } from '@/utils/helpers/types';
 import AddCoreProductModal from '@/components/Modals/Product/AddCoreProduct';
+import { useModel } from '@umijs/max';
 
-interface IBundleItems {
-  tableRows: any[];
-}
+interface IBundleItems {}
 
-const BundledItems: React.FC<IBundleItems> = ({ tableRows }) => {
+const BundledItems: React.FC<IBundleItems> = () => {
+  const { selectedProducts } = useModel('product');
   const [modal, setModal] = useState('');
-  const [coreProductList, setCoreProductList] = useState(tableRows);
+  const [coreProductList, setCoreProductList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [buttonType, setButtonType] = useState('');
+
+  useEffect(() => {
+    setCoreProductList(
+      selectedProducts.map((product) => ({
+        id: product.id,
+        masterSKU: product.master_sku,
+        name: product.name,
+        quantity: product.quantity,
+      })),
+    );
+  }, [selectedProducts]);
 
   const handleAddCoreProductClick = () => {
     setButtonType('add');
@@ -90,7 +101,7 @@ const BundledItems: React.FC<IBundleItems> = ({ tableRows }) => {
             columns={tableColumns}
             dataSource={coreProductList}
             pagination={false}
-            onRow={(record, rowIndex) => {
+            onRow={(record) => {
               return {
                 onClick: () => handleRowClick(record), // click row
               };

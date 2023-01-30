@@ -29,7 +29,7 @@ import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorPr
 import VendorProductImportByVendorModal from '@/components/Modals/Product/VendorProductImportByVendor';
 import VendorProductImportAtOnceModal from '@/components/Modals/Product/VendorProductImportAtOnce';
 import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
-import BundleKitModal from '@/components/Modals/Product/BundleKit';
+import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import { PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
@@ -48,6 +48,8 @@ import VectorIcon from '@/utils/icons/vector';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
+import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
+import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -560,10 +562,34 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <BundleKitModal
+      <NewBundleKitModal
         isOpen={modalOpen == modalType.BundleKit}
-        onSave={() => setModal(modalType.Close)}
-        onClose={() => setModal(modalType.Close)}
+        onSave={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+      />
+
+      <SelectCoreProductModal
+        isOpen={modalOpen === modalType.SelectCoreProduct}
+        onSave={() => setModal(modalType.SelectQuantityOfSKU)}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+      />
+
+      <SelectQuantityOfSKUModal
+        isOpen={modalOpen === modalType.SelectQuantityOfSKU}
+        onSave={() => setModal(modalType.BundleKit)}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
       />
 
       <NewVirtualProduct
