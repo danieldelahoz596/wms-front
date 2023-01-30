@@ -32,6 +32,9 @@ export enum modalType {
   ShowVendorProduct = 'ShowVendorProduct',
   AdjustMasterSKU = 'AdjustMasterSKU',
   ImportSKUAdjustment = 'ImportSKUAdjustment',
+  NewVirtualProduct = 'NewVirtualProduct',
+  SelectCoreProduct = 'SelectCoreProduct',
+  SelectQuantityOfSKU = 'SelectQuantityOfSKU',
 
   // order
   ManualOrder = 'Manual Order',

@@ -1,8 +1,7 @@
-import React, { Fragment } from 'react';
-import { Row, Col, Form, Input, Select } from 'antd';
+import React from 'react';
+import { Row, Col, Form, Input, Select, Card, InputNumber, Checkbox } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { productSelectOptions } from '@/utils/helpers/base';
 import { useModel } from '@umijs/max';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 
@@ -52,7 +51,11 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
+<<<<<<< HEAD
       <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
+=======
+      <Form form={form} className="custom">
+>>>>>>> origin/develop
         {!editableProduct && (
           <>
             <Form.Item
@@ -184,6 +187,146 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         >
           <Input.TextArea />
         </Form.Item>
+        <Row>
+          <Col span={6}>
+            <Form.Item
+              label="M.A.P: $"
+              name="m_a_p"
+              labelCol={{ span: 10 }}
+              labelAlign="left"
+              rules={[{ required: true, message: 'Please input M.A.P' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={8}>
+            <Form.Item
+              label="Max Shipping Cost: $"
+              name="max_shipping_cost"
+              labelCol={{ span: 10 }}
+              labelAlign="left"
+              rules={[{ required: true, message: 'Please input Max Shipping Cost' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col offset={2} span={6}>
+            <Form.Item
+              label="Vendor Cost: $"
+              name="vendor_cost"
+              labelCol={{ span: 10 }}
+              labelAlign="left"
+              rules={[{ required: true, message: 'Please input Vendor Cost' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Card title="Measurements">
+          <Row>
+            <Col span={8}>
+              <Form.Item
+                label="Weight"
+                labelCol={{ span: 4 }}
+                labelAlign="left"
+                className="custom-form-item"
+              >
+                <Input.Group compact>
+                  <Form.Item
+                    label="lb."
+                    name="lb"
+                    style={{ width: '50%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
+                    <InputNumber style={{ width: '100%' }} />
+                  </Form.Item>
+                  <Form.Item
+                    label="oz."
+                    name="oz"
+                    style={{ width: '50%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
+                    <InputNumber style={{ width: '100%' }} />
+                  </Form.Item>
+                </Input.Group>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="H/W/L"
+                labelCol={{ span: 4, offset: 1 }}
+                labelAlign="left"
+                className="custom-form-item"
+              >
+                <Input.Group compact>
+                  <Form.Item
+                    label="x"
+                    name="x"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
+                    <InputNumber style={{ width: '100%' }} />
+                  </Form.Item>
+                  <Form.Item
+                    label="y"
+                    name="y"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
+                    <InputNumber style={{ width: '100%' }} />
+                  </Form.Item>
+                  <Form.Item
+                    label="z"
+                    name="z"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
+                    <InputNumber style={{ width: '100%' }} />
+                  </Form.Item>
+                </Input.Group>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
+        <Card title="Special" style={{ marginTop: 20 }}>
+          <Row>
+            <Col span={4}>
+              <Form.Item label="Has Barcode">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item label="Hazmat">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item label="Own Box">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item label="Allow Backorders">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item label="Git Card">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item label="Digital">
+                <Checkbox disabled={true} />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Card>
       </Form>
     </>
   );

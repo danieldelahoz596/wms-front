@@ -21,12 +21,12 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
     {
       type: 'primary',
       btnText: 'Bundle/Kit',
-      onClick: () => handleClick(modalType.BundleKit),
+      onClick: () => handleClick(modalType.SelectCoreProduct),
     },
     {
       type: 'primary',
       btnText: 'Product Variations',
-      onClick: () => handleClick(modalType.ProductVariants),
+      onClick: () => handleClick(modalType.NewVirtualProduct),
     },
   ];
 

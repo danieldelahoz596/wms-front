@@ -1,12 +1,64 @@
-import React from 'react';
+import { useMemo, useState } from 'react';
+import { Row, Col, Button } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
+import { ToolFilled } from '@ant-design/icons';
+import { EditableTable } from '@/utils/components/EditableTable';
+import ConfigAttributes from './ConfigAttributes';
 
 interface IConfigAttributeGroups {
   isOpen: boolean;
   onClose: () => void;
+  attributeGroups: any[];
+  setAttributeGroups: (items: any) => void;
 }
 
-const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({ isOpen, onClose }) => {
+const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
+  isOpen,
+  onClose,
+  attributeGroups,
+  setAttributeGroups,
+}) => {
+  const [enteredRow, setEnteredRow] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [editableGroup, setEditableGroup] = useState(null);
+  const TColumns = [
+    {
+      title: '',
+      key: 'id',
+      width: '16%',
+      align: 'center',
+    },
+    {
+      title: '',
+      dataIndex: 'name',
+      key: 'name',
+      editable: true,
+    },
+    {
+      title: '',
+      key: 'action',
+      width: '16%',
+      render: (_, record) => {
+        return record.name === enteredRow ? (
+          <Button
+            icon={<ToolFilled style={{ color: 'blue' }} />}
+            onClick={() => {
+              setShowModal(true);
+              setEditableGroup(record);
+            }}
+          />
+        ) : (
+          <></>
+        );
+      },
+    },
+  ];
+
+  const dataSource = useMemo(
+    () => attributeGroups.map((_item) => ({ ..._item, key: _item.id })),
+    [attributeGroups],
+  );
+
   return (
     <OModal
       title={'CONFIG ATTRIBUTE GROUPS'}
@@ -22,7 +74,68 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({ isOpen, onClo
         },
       ]}
     >
+<<<<<<< HEAD
       <></>
+=======
+      <>
+        <Row style={{ border: 'solid', borderWidth: 1, borderColor: 'gray' }}>
+          <Col span={4}></Col>
+          <Col
+            span={15}
+            style={{
+              border: 'solid',
+              borderWidth: 1,
+              borderColor: 'gray',
+              padding: 5,
+              borderTop: 0,
+              borderBottom: 0,
+            }}
+          >
+            Group Name
+          </Col>
+          <Col span={4}></Col>
+        </Row>
+        <EditableTable
+          columns={TColumns}
+          dataSource={dataSource}
+          props={{
+            showHeader: false,
+            style: { overflowX: 'hidden', overflowY: 'scroll', height: 500 },
+            onRow: (record) => {
+              return {
+                onMouseEnter: () => {
+                  setEnteredRow(record.name);
+                },
+                onMouseLeave: () => {
+                  setEnteredRow(null);
+                },
+              };
+            },
+          }}
+          handleSave={(key: any, name: any, value: any) => {
+            setAttributeGroups(
+              attributeGroups.map((item) => (item.id === key ? { ...item, [name]: value } : item)),
+            );
+          }}
+        />
+      </>
+
+      <ConfigAttributes
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSave={(items: any[]) => {
+          setAttributeGroups(
+            attributeGroups.map((attributeGroup) =>
+              attributeGroup.id === editableGroup.id
+                ? { ...attributeGroup, items }
+                : attributeGroup,
+            ),
+          );
+          setShowModal(false);
+        }}
+        attributes={editableGroup ? editableGroup.items : []}
+      />
+>>>>>>> origin/develop
     </OModal>
   );
 };

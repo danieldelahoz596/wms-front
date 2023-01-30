@@ -29,7 +29,7 @@ import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorPr
 import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
 import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
-import BundleKitModal from '@/components/Modals/Product/BundleKit';
+import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import { PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
@@ -47,6 +47,9 @@ import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduc
 import VectorIcon from '@/utils/icons/vector';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
+import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
+import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
+import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -543,15 +546,55 @@ const ProductManagement: React.FC = () => {
         </div>
       </div>
 
+      <NewProductModal
+        isOpen={modalOpen == modalType.Variation}
+        handleClick={(value) => {
+          setModal(value);
+          setSelectedProducts([]);
+          setEditableProduct(null);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
       <CoreProductModal
         isOpen={modalOpen == modalType.New}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
-      <BundleKitModal
+      <NewBundleKitModal
         isOpen={modalOpen == modalType.BundleKit}
-        onSave={() => setModal(modalType.Close)}
+        onSave={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+      />
+
+      <SelectCoreProductModal
+        isOpen={modalOpen === modalType.SelectCoreProduct}
+        onSave={() => setModal(modalType.SelectQuantityOfSKU)}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+      />
+
+      <SelectQuantityOfSKUModal
+        isOpen={modalOpen === modalType.SelectQuantityOfSKU}
+        onSave={() => setModal(modalType.BundleKit)}
+        onClose={() => {
+          setModal(modalType.Close);
+          setSelectedProducts([]);
+        }}
+      />
+
+      <NewVirtualProduct
+        isOpen={modalOpen == modalType.NewVirtualProduct}
+        onSave={() => setModal(modalType.ProductVariants)}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -591,6 +634,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
+<<<<<<< HEAD
       <NewProductModal
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => {
@@ -602,6 +646,8 @@ const ProductManagement: React.FC = () => {
       />
 
       {/* Import Vendor Products */}
+=======
+>>>>>>> origin/develop
       <ImportVendorProductModal
         isOpen={modalOpen == modalType.ImportVendorProducts}
         onClick={(value: any) => setModal(value)}
