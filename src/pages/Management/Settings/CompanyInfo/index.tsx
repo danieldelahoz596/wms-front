@@ -78,9 +78,6 @@ export default function () {
                     <Input size="small" />
                   </Col>
                   <Col span={6}>
-<<<<<<< HEAD
-                    <Button>Select...</Button>
-=======
                     <Upload
                       beforeUpload={(file) => {
                         const formData = new FormData();
@@ -93,7 +90,6 @@ export default function () {
                     >
                       <Button>SELECT...</Button>
                     </Upload>
->>>>>>> origin/develop
                   </Col>
                   <Col style={{ marginTop: 20 }}>
                     <Button onClick={() => deleteLogo()}>DELETE LOGO</Button>
