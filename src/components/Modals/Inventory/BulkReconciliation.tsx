@@ -10,8 +10,7 @@ interface IBulkReconciliationModal {
   onSave: () => void;
 }
 
-const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
-  isOpen,
+const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({ isOpen,
   onClose,
   onSave,
 }) => {

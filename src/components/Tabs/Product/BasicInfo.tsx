@@ -51,11 +51,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-<<<<<<< HEAD
-      <Form form={form} labelCol={{ span: 4 }} labelAlign="left">
-=======
       <Form form={form} className="custom">
->>>>>>> origin/develop
         {!editableProduct && (
           <>
             <Form.Item

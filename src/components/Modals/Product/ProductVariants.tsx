@@ -220,24 +220,6 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
                 </Row>
               </Col>
             </Row>
-<<<<<<< HEAD
-          </>
-        )}
-
-        <AttributeGroupModal
-          isOpen={modalOpen === modalType.AttributeGroup}
-          onSave={() => setModal(modalType.Close)}
-          onClose={() => setModal(modalType.Close)}
-          attributeGroups={attributeGroups}
-          setAttributeGroups={setAttributeGroups}
-        />
-
-        <ConfigAttributeGroups
-          isOpen={modalOpen === modalType.ConfigAttributeGroups}
-          onClose={() => setModal(modalType.Close)}
-        />
-      </>
-=======
             <Row className="pb-3">
               <Col span={4}>H/W/L:</Col>
               <Col span={6}>
@@ -273,23 +255,22 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
             </Row>
           </Col>
         </Row>
+
+        <AddAttributeGroupModal
+          isOpen={currentModal === modalType.AttributeGroup}
+          onSave={() => setCurrentModal(modalType.Close)}
+          onClose={() => setCurrentModal(modalType.Close)}
+          attributeGroups={attributeGroups}
+          setAttributeGroups={setAttributeGroups}
+        />
+
+        <ConfigAttributeGroups
+          isOpen={currentModal === modalType.ConfigAttributeGroups}
+          onClose={() => setCurrentModal(modalType.Close)}
+          attributeGroups={attributeGroups}
+          setAttributeGroups={setAttributeGroups}
+        />
       </>
-
-      <AddAttributeGroupModal
-        isOpen={currentModal === modalType.AttributeGroup}
-        onSave={() => setCurrentModal(modalType.Close)}
-        onClose={() => setCurrentModal(modalType.Close)}
-        attributeGroups={attributeGroups}
-        setAttributeGroups={setAttributeGroups}
-      />
-
-      <ConfigAttributeGroups
-        isOpen={currentModal === modalType.ConfigAttributeGroups}
-        onClose={() => setCurrentModal(modalType.Close)}
-        attributeGroups={attributeGroups}
-        setAttributeGroups={setAttributeGroups}
-      />
->>>>>>> origin/develop
     </OModal>
   );
 };

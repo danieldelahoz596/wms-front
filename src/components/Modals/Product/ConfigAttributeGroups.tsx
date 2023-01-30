@@ -74,9 +74,6 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
         },
       ]}
     >
-<<<<<<< HEAD
-      <></>
-=======
       <>
         <Row style={{ border: 'solid', borderWidth: 1, borderColor: 'gray' }}>
           <Col span={4}></Col>
@@ -135,7 +132,6 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
         }}
         attributes={editableGroup ? editableGroup.items : []}
       />
->>>>>>> origin/develop
     </OModal>
   );
 };

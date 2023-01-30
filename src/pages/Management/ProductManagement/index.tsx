@@ -634,7 +634,6 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-<<<<<<< HEAD
       <NewProductModal
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => {
@@ -646,8 +645,6 @@ const ProductManagement: React.FC = () => {
       />
 
       {/* Import Vendor Products */}
-=======
->>>>>>> origin/develop
       <ImportVendorProductModal
         isOpen={modalOpen == modalType.ImportVendorProducts}
         onClick={(value: any) => setModal(value)}
