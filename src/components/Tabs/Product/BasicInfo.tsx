@@ -44,7 +44,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                     borderRadius: 5,
                   }}
                 >
-                  <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
+                  <i style={{ textTransform: 'uppercase' }}>
+                    {editableProduct?.status === 1 ? 'Active' : 'Inactive'}
+                  </i>
                 </div>
               </div>
             </Row>
@@ -70,12 +72,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Form.Item>
           </>
         )}
-        <Form.Item label="Buy | Brand *" >
+        <Form.Item label="Buy | Brand *">
           <Input.Group compact>
-            <Form.Item
-              name="buyer"
-              style={{ width: '50%', margin: 0 }}
-            >
+            <Form.Item name="buyer" style={{ width: '50%', margin: 0 }}>
               <Select
                 options={[
                   {
@@ -117,10 +116,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Form.Item>
           </Input.Group>
         </Form.Item>
-        <Form.Item
-          label="Categories"
-          name="categories"
-        >
+        <Form.Item label="Categories" name="categories">
           <div style={{ display: 'flex' }}>
             <Select
               placeholder="Please Select"
@@ -147,10 +143,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </div>
         </Form.Item>
-        <Form.Item
-          label="Labels"
-          name="labels"
-        >
+        <Form.Item label="Labels" name="labels">
           <div style={{ display: 'flex' }}>
             <Select
               placeholder="Please Select"
@@ -177,10 +170,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </div>
         </Form.Item>
-        <Form.Item
-          label="Description"
-          name="description"
-        >
+        <Form.Item label="Description" name="description">
           <Input.TextArea />
         </Form.Item>
         <Row>
@@ -195,18 +185,18 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col offset={2} span={8}>
+          <Col offset={1} span={9}>
             <Form.Item
               label="Max Shipping Cost: $"
               name="max_shipping_cost"
-              labelCol={{ span: 10 }}
+              labelCol={{ span: 12 }}
               labelAlign="left"
               rules={[{ required: true, message: 'Please input Max Shipping Cost' }]}
             >
               <Input />
             </Form.Item>
           </Col>
-          <Col offset={2} span={6}>
+          <Col offset={1} span={7}>
             <Form.Item
               label="Vendor Cost: $"
               name="vendor_cost"
@@ -218,12 +208,12 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Form.Item>
           </Col>
         </Row>
-        <Card title="Measurements">
+        <Card title="Measurements" className="custom">
           <Row>
             <Col span={8}>
               <Form.Item
                 label="Weight"
-                labelCol={{ span: 4 }}
+                labelCol={{ span: 6 }}
                 labelAlign="left"
                 className="custom-form-item"
               >
@@ -231,18 +221,18 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                   <Form.Item
                     label="lb."
                     name="lb"
-                    style={{ width: '50%', margin: 0 }}
                     colon={false}
                     labelCol={{ offset: 1 }}
+                    style={{ width: '50%' }}
                   >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
                   <Form.Item
                     label="oz."
                     name="oz"
-                    style={{ width: '50%', margin: 0 }}
                     colon={false}
                     labelCol={{ offset: 1 }}
+                    style={{ width: '50%' }}
                   >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
