@@ -54,10 +54,12 @@ import OrderExportSettingsModal from '@/components/Modals/Order/OrderExportSetti
 import moment from 'moment';
 import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumns';
 import { defaultShowColumns } from '@/data/orderData';
+import SplitOrder from '@/components/Modals/Order/SplitOrder';
+import { uuidv4 } from '@antv/xflow-core';
 
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const { orderList, setEditableOrder, setSelectedOrders } = useModel('order');
+  const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
   const [modalOpen, setModal] = useState('');
   const { selectedOrderStatus } = useModel('orderStatus');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
@@ -72,6 +74,7 @@ const OrderManagement: React.FC = () => {
     setSelectedRows(_selectedRows);
     const _selectedOrders = orderList.filter((item) => _selectedRows.includes(item.id));
     setSelectedOrders(_selectedOrders);
+    setEditableOrder(_selectedOrders[0]);
   };
 
   const {
@@ -238,10 +241,10 @@ const OrderManagement: React.FC = () => {
                   </span>
                 ),
               },
-              {
+              selectedRows.length === 1 && {
                 key: '5',
                 label: (
-                  <span>
+                  <span onClick={() => setModal(modalType.SplitOrder)}>
                     <MinusCircleOutlined /> SplitOrder{' '}
                   </span>
                 ),
@@ -295,7 +298,11 @@ const OrderManagement: React.FC = () => {
               {
                 key: '3',
                 label: (
-                  <span onClick={() => setModal(modalType.ManualOrder)}>
+                  <span
+                    onClick={() => {
+                      setModal(modalType.ManualOrder);
+                    }}
+                  >
                     <GlobalOutlined /> Manual Orders
                   </span>
                 ),
@@ -665,6 +672,21 @@ const OrderManagement: React.FC = () => {
         isOpen={modalOpen === modalType.SelectOrderColumns}
         onSave={(items) => {
           setShowColumns(items);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <SplitOrder
+        isOpen={modalOpen === modalType.SplitOrder}
+        onSave={(item) => {
+          const newOrderList = [];
+          orderList.forEach((order) =>
+            order.id === item.id
+              ? newOrderList.push(order, { ...item, id: uuidv4() })
+              : newOrderList.push(order),
+          );
+          setOrderList(newOrderList);
           setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
