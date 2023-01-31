@@ -1,9 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import { Row, Col, Form, Input, Select, Card, InputNumber, Checkbox } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
+import AddBrandModal from '@/components/Modals/Product/AddBrand';
+import { modalType } from '@/utils/helpers/types';
+import EditBrandModal from '@/components/Modals/Product/EditBrand';
 
 interface IBasicInfo {
   form: any;
@@ -12,6 +15,8 @@ interface IBasicInfo {
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct, onChangeSelectedProduct } = useModel('product');
   const { initialState } = useModel('@@initialState');
+  const { brands } = useModel('brand');
+  const [currentModal, setCurrentModal] = useState(modalType.Close);
 
   return (
     <>
@@ -91,7 +96,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             >
               <div style={{ display: 'flex' }}>
                 <Select
-                  options={initialState?.initialData?.brands.map((brand) => ({
+                  options={brands.map((brand) => ({
                     value: brand.id,
                     label: brand.name,
                   }))}
@@ -103,6 +108,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                     padding: '0.5rem',
                     border: '1px solid blue',
                   }}
+                  onClick={() => setCurrentModal(modalType.New)}
                 />
                 <SettingOutlined
                   style={{
@@ -111,6 +117,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                     padding: '0.5rem',
                     border: '1px solid blue',
                   }}
+                  onClick={() => setCurrentModal(modalType.Edit)}
                 />
               </div>
             </Form.Item>
@@ -314,6 +321,18 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Row>
         </Card>
       </Form>
+
+      <AddBrandModal
+        isOpen={currentModal === modalType.New}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <EditBrandModal
+        isOpen={currentModal === modalType.Edit}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
     </>
   );
 };
