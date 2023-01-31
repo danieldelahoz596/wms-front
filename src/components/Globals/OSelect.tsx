@@ -39,7 +39,7 @@ export const OSelect: React.FC<IOSelect> = ({
       value={value ?? '0'}
       style={{ width: '100%', ...style }}
     >
-      <Select.Option value="0">Select..</Select.Option>
+      <Select.Option value="0">Select...</Select.Option>
       {options?.map((option, index) => (
         <Select.Option key={`option-${index}`} value={option.value}>
           {option.text}

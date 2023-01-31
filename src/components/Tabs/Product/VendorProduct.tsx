@@ -95,6 +95,7 @@ const VendorProduct: React.FC = () => {
       type: 'primary',
       onClick: handleNewVendorProductClick,
       btnText: 'New Vendor Product',
+      disabled: false
     },
     {
       type: 'primary',
@@ -125,12 +126,12 @@ const VendorProduct: React.FC = () => {
       <div>
         <p>Add vendor SKUs associated with this product.</p>
         <Row justify="space-between">
-          <Col>
+          <Col span={18} style={{ textAlign: 'left' }}>
             {actionButtons.map((btn, index) => (
               <OButton key={index} {...btn} />
             ))}
           </Col>
-          <Col>
+          <Col span={6} style={{ textAlign: 'right' }}>
             <OButton type="primary" btnText="Show Inactive" disabled={!selectedVendorProductKey} />
           </Col>
         </Row>

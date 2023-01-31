@@ -6,6 +6,7 @@ import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { Card, Col, Row, Form, Table } from 'antd';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from 'umi';
 
 interface INewVendorProduct {
   isOpen: boolean;
@@ -26,10 +27,13 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   setSelectedItemkey,
   type,
 }) => {
+
+  const { initialState } = useModel('@@initialState');
+  
   const [newVendorProduct, setNewVendorProduct] = useState({
-    vendor: '',
-    vendorSku: '',
-    minOrderQty: 0,
+    vendor: null,
+    vendorSku: 'Required',
+    minOrderQty: 10,
     leadTime: 0,
     autoPoRounding: '',
     packaging: '',
@@ -124,13 +128,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       name: 'vendor',
       defaultValue: newVendorProduct.vendor,
       value: newVendorProduct.vendor,
-      options: [
-        {
-          value: 'cool-stuff',
-          text: 'Cool Stuff',
-        },
-      ],
-      style: { width: '100%' },
+      options: initialState?.initialData?.vendors.map((_item) => ({ value: _item.id, text: _item.name })),
     },
     {
       type: 'text',
@@ -313,7 +311,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   return (
     <OModal
       title={'New Vendor Product'}
-      width={1000}
+      width={800}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -334,7 +332,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       <Form>
         <Row gutter={20}>
           <Col span={8}>
-            <Card title="PRODUCT DETAILS">
+            <Card title="Product Details">
               {productDetailsInputFields?.map((inputItem, index) => (
                 <div key={`productDetail-${index}`} style={{ padding: '0.5rem 0' }}>
                   <div>{inputItem.label}</div>

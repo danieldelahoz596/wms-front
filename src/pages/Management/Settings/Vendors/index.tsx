@@ -96,17 +96,20 @@ export default function () {
           <Card style={{ width: '100%' }}>
             <Row gutter={5}>
               <Col span={8}>
-                <Search
-                  placeholder="Search vendors by name..."
-                  onSearch={(value) => handleSearch(value)}
-                  enterButton={
-                    <Button style={{ padding: '3px 10px' }}>
-                      <SearchOutlined />
-                    </Button>
-                  }
-                  value={searchText}
-                  onChange={(event) => setSearchText(event.target.value)}
-                />
+                <Input.Group compact>
+                  <Input.Search 
+                    allowClear 
+                    placeholder="Search vendors by name..."
+                    onSearch={(value) => handleSearch(value)}
+                    enterButton={
+                      <Button style={{ padding: '6px 9px' }}>
+                        <SearchOutlined />
+                      </Button>
+                    }
+                    value={searchText}
+                    onChange={(event) => setSearchText(event.target.value)}
+                  />
+                </Input.Group>
               </Col>
               <Col span={16}>
                 <Button

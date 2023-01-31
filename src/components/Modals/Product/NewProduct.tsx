@@ -45,7 +45,7 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
             type={btn.type}
             btnText={btn.btnText}
             onClick={btn.onClick}
-            style={{ width: '50%', marginBottom: 5 }}
+            style={{ width: '100%', marginBottom: 5 }}
           />
         ))}
         <br/>

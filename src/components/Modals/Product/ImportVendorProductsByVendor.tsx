@@ -5,6 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { OInput } from '@/components/Globals/OInput';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from 'umi';
+import { useState } from 'react';
 const { Option } = Select;
 
 interface IImportVendorProductsByVendor {
@@ -15,7 +16,11 @@ interface IImportVendorProductsByVendor {
 
 const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({ isOpen, onClose, onSave }) => {
   const { initialState } = useModel('@@initialState');
-  
+  const [ vendor, setVonder] = useState(null);
+
+  const handleChangeVendor = (_name: string, value: any) => {
+    setVonder(value);
+  }
   return (
     <OModal
       title={'Vendor Product Import By Vendor'}
@@ -61,8 +66,8 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
               <OInput
                 type="select"
                 name="vendor"
-                // onChange={() => {}}
-                // placeholder="Select..."
+                value={vendor}
+                onChange={handleChangeVendor}
                 options={initialState?.initialData?.vendors.map((_item) => ({
                   value: _item.id,
                   text: _item.name,

@@ -24,18 +24,31 @@ import Companyinfo from './Settings/companyinfo';
 import Useradministration from './Settings/useradministration';
 import Historicalordersexports from './Analytics/Orders/historicalordersexports';
 import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
+
+// Products
 import Products from './Products/products';
 import Manageproducts from './Products/manageproducts';
-import Createproducts from './Products/createproducts';
+import CreateCoreProduct from './Products/createcoreproduct';
+import CreateBundleKit from './Products/createbundlekit';
+import CreateProductVariations from './Products/createproductvariations';
 import Importproducts from './Products/importproducts';
+import ImportVendorProducts from './Products/importvendorproducts';
+import ImportSkuAdjustments from './Products/importskuadjustments';
+
+
+
 import Exportproducts from './Products/exportproducts';
 import Searchproducts from './Products/searchproducts';
 import Customproductfields from './Products/customproductfields';
+
+// Customers
 import Searchcustomers from './Customers/searchcustomers';
 import Customersmodule from './Customers/customersmodule';
 import Exportcustomerphonenumbers from './Customers/exportcustomerphonenumbers';
 import Cancelorders from './Orders/cancelorders';
 import Orders from './Orders/orders';
+
+
 
 const { Sider, Content } = Layout;
 
@@ -73,8 +86,12 @@ const Help: React.FC = () => {
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
   else if (selectKey === 'products_general') renderableContent = <Products />;
   else if (selectKey === 'products_manageproducts') renderableContent = <Manageproducts />
-  else if (selectKey === 'products_createproducts') renderableContent = <Createproducts />
+  else if (selectKey === 'products_create_coreproduct') renderableContent = <CreateCoreProduct />
+  else if (selectKey === 'products_create_bundlekit') renderableContent = <CreateBundleKit />
+  else if (selectKey === 'products_create_productvariations') renderableContent = <CreateProductVariations />
   else if (selectKey === 'products_importproducts') renderableContent = <Importproducts />
+  else if (selectKey === 'products_importvendorproducts') renderableContent = <ImportVendorProducts />
+  else if (selectKey === 'products_importskuadjustments') renderableContent = <ImportSkuAdjustments />
   else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
   else if (selectKey === 'products_searchproducts') renderableContent = <Searchproducts />
   else if (selectKey === 'products_customproductfields') renderableContent = <Customproductfields />
@@ -134,11 +151,109 @@ const Help: React.FC = () => {
                     ),
                   },
                   {
-                    key: 'orders_cancelorders',
+                    key: 'orders_manage',
+                    icon: <AccountingIcon />,
+                    label: 'How to Manage Orders',                      
+                    children: [
+                      {
+                        key: 'orders_cancelorders',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/cancelorders">Cancel Order</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_mergeorders',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/mergeorders">Merge Orders</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_splitorders',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/splitorders">Split Orders</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_restoreorders',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/restoreorders">Restore Orders</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_markorders',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/markorders">Mark Orders as Shipped</Link>
+                        ),
+                      },
+                    ]
+                  },
+                  {
+                    key: 'orders_edit',
+                    icon: <AccountingIcon />,
+                    label: 'How to Edit Orders',                      
+                    children: [
+                      {
+                        key: '',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="">Add an item to an existing order</Link>
+                        ),
+                      },
+                    ]
+                  },
+                  {
+                    key: 'orders_exportorders',
                     icon: <AccountingIcon />,
                     label: (
-                      <Link to="/help/orders/cancelorders">How to Cancel Order</Link>
-                    ),
+                      <Link to="/help/orders/exportorders">How to Export Orders</Link>
+                    )
+                  },
+                  {
+                    key: 'orders_resolve',
+                    icon: <AccountingIcon />,
+                    label: 'How to Resolve Orders',                      
+                    children: [
+                      {
+                        key: 'orders_resolve_missingproductinfo',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="">Missing Order Info</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_resolve_missingproductinfo',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/resolvemissingproductinfo">Missing Product Info</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_resolve_outofstock',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/resolveoutofstock">Missing Fulfillment Source</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_resolve_missingstocklocation',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/resolvemissingstocklocation">Missing Stock Location</Link>
+                        ),
+                      },
+                      {
+                        key: 'orders_resolve_outofstock',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/orders/resolveoutofstock">Out of Stock</Link>
+                        ),
+                      },
+                    ]
                   },
                 ],
               },
@@ -226,18 +341,37 @@ const Help: React.FC = () => {
                     ),
                   },
                   {
-                    key: 'products_createproducts',
+                    key: 'products_create',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/createproducts">How to Create a Product MANUALLY</Link>
-                    ),
+                    label: 'How to Create Through the UI',                      
+                    children: [
+                      {
+                        key: 'products_create_coreproduct',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/createcoreproduct">Create Core Products</Link>
+                        ),
+                      },
+                      {
+                        key: 'products_create_bundlekit',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/createbundlekit">Create Bundles/Kits</Link>
+                        ),
+                      },
+                      {
+                        key: 'products_create_productvariations',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/createproductvariations">Create Product Variations</Link>
+                        ),
+                      },
+                    ]
                   },
                   {
-                    key: 'products_importproducts',
+                    key: '',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/importproducts">How to Import</Link>
-                    ),
+                    label: 'How to Import',
                     children: [
                       {
                         key: 'products_importproducts',
@@ -247,17 +381,17 @@ const Help: React.FC = () => {
                         ),
                       },
                       {
-                        key: '',
+                        key: 'products_importvendorproducts',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="">Import Vendor Products</Link>
+                          <Link to="/help/products/importvendorproducts">Import Vendor Products</Link>
                         ),
                       },
                       {
-                        key: '',
+                        key: 'products_importskuadjustments',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="">Import SKU Adjustments</Link>
+                          <Link to="/help/products/importskuadjustments">Import SKU Adjustments</Link>
                         ),
                       },
                     ]

@@ -166,6 +166,22 @@ const OrderManagement: React.FC = () => {
                   </span>
                 ),
               },
+              {
+                key: '6',
+                label: (
+                  <span>
+                    <FileOutlined /> Label(s)
+                  </span>
+                ),
+              },
+              {
+                key: '7',
+                label: (
+                  <span>
+                    <FileOutlined /> Custom Form(s)
+                  </span>
+                ),
+              },
             ],
           }}
         >
@@ -225,18 +241,18 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '4',
+                key: '5',
                 label: (
                   <span>
-                    <CheckCircleOutlined /> Mark 'Shipped'
+                    <MinusCircleOutlined /> Split Order
                   </span>
                 ),
               },
               {
-                key: '5',
+                key: '4',
                 label: (
                   <span>
-                    <MinusCircleOutlined /> SplitOrder{' '}
+                    <CheckCircleOutlined /> Mark 'Shipped'
                   </span>
                 ),
               },
@@ -248,14 +264,14 @@ const OrderManagement: React.FC = () => {
                   </span>
                 ),
               },
-              {
-                key: '7',
-                label: (
-                  <span>
-                    <RedoOutlined /> Restore
-                  </span>
-                ),
-              },
+              // {
+              //   key: '7',
+              //   label: (
+              //     <span>
+              //       <RedoOutlined /> Restore
+              //     </span>
+              //   ),
+              // },
             ],
           }}
         >

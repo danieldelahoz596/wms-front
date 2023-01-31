@@ -103,6 +103,6 @@ export enum productStatus {
 }
 
 export enum skuAlertsType {
-  ALERT = 'Alert',
-  POSTAGE = 'Postage Balance REC...',
+  WARNING = 'Warning',
+  INFO = 'Info',
 }

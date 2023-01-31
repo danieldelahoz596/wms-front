@@ -77,21 +77,21 @@ const SideSearch: React.FC = () => {
 
       <Form.Item label={'Order Date'}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="text" name="fromOrderDate" onChange={onChangeOrderSearchQuery} />
+          <OInput type="date" name="fromOrderDate" onChange={onChangeOrderSearchQuery} />
         </Form.Item>
         <div style={{ display: 'inline-block' }}>to</div>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="text" name="toOrderDate" onChange={onChangeOrderSearchQuery} />
+          <OInput type="date" name="toOrderDate" onChange={onChangeOrderSearchQuery} />
         </Form.Item>
       </Form.Item>
 
       <Form.Item label={'Ship Date'}>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="text" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
+          <OInput type="date" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
         </Form.Item>
         <div style={{ display: 'inline-block' }}>to</div>
         <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="text" name="toShipDate" onChange={onChangeOrderSearchQuery} />
+          <OInput type="date" name="toShipDate" onChange={onChangeOrderSearchQuery} />
         </Form.Item>
       </Form.Item>
 

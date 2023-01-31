@@ -7,6 +7,7 @@ import CoreProductsIcon from '@/utils/icons/coreProduct';
 import AddBrandModal from '@/components/Modals/Product/AddBrand';
 import { modalType } from '@/utils/helpers/types';
 import EditBrandModal from '@/components/Modals/Product/EditBrand';
+import { OSelect } from '@/components/Globals/OSelect';
 
 interface IBasicInfo {
   form: any;
@@ -58,7 +59,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-      <Form form={form} className="custom">
+      <Form form={form}  >
         {!editableProduct && (
           <>
             <Form.Item
@@ -71,151 +72,82 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             <Form.Item
               label="Name"
               name="name"
-              rules={[{ required: true, message: 'Please input Name' }]}
+              rules={[{ required: true, message: 'Please input Product Name' }]}
             >
               <Input placeholder="Required" />
             </Form.Item>
           </>
         )}
-        <Form.Item label="Buy | Brand *">
-          <Input.Group compact>
-            <Form.Item name="buyer" style={{ width: '50%', margin: 0 }}>
-              <Select
-                options={[
-                  {
-                    value: 'lucy',
-                    label: 'lucky',
-                  },
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              name="brand"
-              style={{ width: '50%', margin: 0 }}
-              rules={[{ required: true, message: 'Please input Brand' }]}
-            >
-              <div style={{ display: 'flex' }}>
-                <Select
-                  options={brands.map((brand) => ({
-                    value: brand.id,
-                    label: brand.name,
-                  }))}
-                />
-                <PlusOutlined
-                  style={{
-                    color: 'blue',
-                    cursor: 'pointer',
-                    padding: '0.5rem',
-                    border: '1px solid blue',
-                  }}
-                  onClick={() => setCurrentModal(modalType.New)}
-                />
-                <SettingOutlined
-                  style={{
-                    color: 'blue',
-                    cursor: 'pointer',
-                    padding: '0.5rem',
-                    border: '1px solid blue',
-                  }}
-                  onClick={() => setCurrentModal(modalType.Edit)}
-                />
-              </div>
-            </Form.Item>
-          </Input.Group>
-        </Form.Item>
-        <Form.Item label="Categories" name="categories">
-          <div style={{ display: 'flex' }}>
+        <Row>
+          <Form.Item 
+            label="Buy | Brand *" 
+            name="buyer" 
+            style={{ width: 'calc(50% + 30px)' }}
+          >
             <Select
-              placeholder="Please Select"
-              options={initialState?.initialData?.categories.map((brand) => ({
+              options={[
+                {
+                  value: 'lucy',
+                  label: 'lucky',
+                },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item
+            name="brand"
+            style={{ width: 'calc(50% - 110px)', marginLeft: 6 }}
+            rules={[{ required: true, message: 'Please input Brand' }]}
+          >
+            <Select
+              options={brands.map((brand) => ({
                 value: brand.id,
                 label: brand.name,
               }))}
             />
-            <PlusOutlined
-              style={{
-                color: 'blue',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                border: '1px solid blue',
-              }}
-            />
-            <SettingOutlined
-              style={{
-                color: 'blue',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                border: '1px solid blue',
-              }}
-            />
-          </div>
-        </Form.Item>
-        <Form.Item label="Labels" name="labels">
-          <div style={{ display: 'flex' }}>
+          </Form.Item>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
+        </Row>
+        <Row>
+          <Form.Item label="Categories" name="categories" style={{ width: 'calc(100% - 74px)' }}>
             <Select
-              placeholder="Please Select"
+            placeholder="Select..."
+            options={initialState?.initialData?.categories.map((brand) => ({
+              value: brand.id,
+              label: brand.name,
+            }))}
+          />
+          </Form.Item>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
+        </Row>
+        <Row>
+          <Form.Item label="Labels" name="labels" style={{ width: 'calc(100% - 74px)' }}>
+            <Select
+              placeholder="Select..."
               options={initialState?.initialData?.labels.map((brand) => ({
                 value: brand.id,
                 label: brand.name,
               }))}
             />
-            <PlusOutlined
-              style={{
-                color: 'blue',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                border: '1px solid blue',
-              }}
-            />
-            <SettingOutlined
-              style={{
-                color: 'blue',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                border: '1px solid blue',
-              }}
-            />
-          </div>
-        </Form.Item>
-        <Form.Item label="Description" name="description">
-          <Input.TextArea />
-        </Form.Item>
-        <Row>
-          <Col span={6}>
-            <Form.Item
-              label="M.A.P: $"
-              name="m_a_p"
-              labelCol={{ span: 10 }}
-              labelAlign="left"
-              rules={[{ required: true, message: 'Please input M.A.P' }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col offset={1} span={9}>
-            <Form.Item
-              label="Max Shipping Cost: $"
-              name="max_shipping_cost"
-              labelCol={{ span: 12 }}
-              labelAlign="left"
-              rules={[{ required: true, message: 'Please input Max Shipping Cost' }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col offset={1} span={7}>
-            <Form.Item
-              label="Vendor Cost: $"
-              name="vendor_cost"
-              labelCol={{ span: 10 }}
-              labelAlign="left"
-              rules={[{ required: true, message: 'Please input Vendor Cost' }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
+          </Form.Item>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
         </Row>
-        <Card title="Measurements" className="custom">
+        
+        <Form.Item label="Description" name="description">
+          <Input.TextArea rows={4} />
+        </Form.Item>
+        <Form.Item
+          label="Vendor Cost: $"
+          name="vendor_cost"
+          // wrapperCol={{ span: 4 }}
+          colon={false}
+        >
+          <Input />
+        </Form.Item>
+        <br/>
+        <Card title="Measurements">
           <Row>
             <Col span={8}>
               <Form.Item
@@ -251,7 +183,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                 label="H/W/L"
                 labelCol={{ span: 4, offset: 1 }}
                 labelAlign="left"
-                className="custom-form-item"
+                // className="custom-form-item"
               >
                 <Input.Group compact>
                   <Form.Item
@@ -289,33 +221,33 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Card title="Special" style={{ marginTop: 20 }}>
           <Row>
             <Col span={4}>
-              <Form.Item label="Has Barcode">
-                <Checkbox disabled={true} />
+              <Form.Item name="has_Barcode">
+                <Checkbox>Has Barcode</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item label="Hazmat">
-                <Checkbox disabled={true} />
+              <Form.Item name="hazmat">
+                <Checkbox>Hazmat</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item label="Own Box">
-                <Checkbox disabled={true} />
+              <Form.Item name="own_box">
+                <Checkbox>Own Box</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item label="Allow Backorders">
-                <Checkbox disabled={true} />
+              <Form.Item name="allow_backorders">
+                <Checkbox>Allow Backorders</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item label="Git Card">
-                <Checkbox disabled={true} />
+              <Form.Item name="gift_card">
+                <Checkbox>Gift Card</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item label="Digital">
-                <Checkbox disabled={true} />
+              <Form.Item name="digital">
+                <Checkbox>Digital</Checkbox>
               </Form.Item>
             </Col>
           </Row>

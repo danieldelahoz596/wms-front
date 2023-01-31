@@ -103,7 +103,7 @@ const SideFilterTree: React.FC = () => {
       treeData={prepareOrderFiltersForTree}
       showLine={true}
       onSelect={onSelect}
-      defaultSelectedKeys={['2']}
+      defaultSelectedKeys={['3']}
     />
   );
 };

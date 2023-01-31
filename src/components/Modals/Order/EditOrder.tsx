@@ -45,9 +45,6 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
         <TabPane tab="Basic Info" key="1">
           Basic Info
         </TabPane>
-        <TabPane tab="Processing" key="2">
-          Processing
-        </TabPane>
         <TabPane tab="Order Items" key="3">
           <OrderItems />
         </TabPane>

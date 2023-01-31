@@ -316,7 +316,7 @@ const ProductManagement: React.FC = () => {
               <Card style={{ width: '100%' }}>
                 <Row>
                   <Col span={24}>
-                    <Space size={10}>
+                    <Space size={4}>
                       <Button
                         type="primary"
                         onClick={() => setModal(modalType.AdjustMasterSKU)}

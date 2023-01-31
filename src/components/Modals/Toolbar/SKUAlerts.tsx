@@ -39,7 +39,7 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
       render: (_, record) => {
         return (
           <p>
-            {skuAlertsType.ALERT === record.type && (
+            {skuAlertsType.INFO === record.icon && (
               <span
                 style={{
                   float: 'left',
@@ -50,7 +50,7 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
                 <InfoCircleFilled style={{ color: '#00CD0A', fontSize: '20px' }} />
               </span>
             )}
-            {skuAlertsType.POSTAGE === record.type && (
+            {skuAlertsType.WARNING === record.icon && (
               <span
                 style={{
                   float: 'left',

@@ -354,24 +354,6 @@ export default function () {
                 <p>After entering your product information into the excel template, save the document and return to Extensiv Order Manager. Upload your saved document via the <b>Select</b> button. Choose whether you would like to update products already synced with Extensiv Order Manager. Press <b>continue</b> and wait for the upload to complete. When the file is finished uploading, Extensiv Order Manager will generate a short report summarizing your uploaded products.</p>
               </li>
             </ul>
-
-            <h1>3. Import SKU Adjustments</h1>
-            <ol>
-              <li>
-                <p>To adjust Master SKUs in Bulk via spreadsheet, click on the “Import/Export” button in the top menu bar and select “Import SKU Adjustments” from the dropdown menu.</p>
-                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502492/products__1_.png" style={{ width: 800 }}/>
-                <br/><br/>
-              </li>
-              <li>
-                <p>A new window will open where you can download an excel template for the SKU Adjustment Import:</p>
-                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502493/products__2_.png" style={{ width: 600 }}/>
-                <br/><br/>
-              </li>
-              <li>
-                <p>Fill in the appropriate columns and import it back into Extensiv Order Manager. This will update all the associated Master SKUs in Extensiv Order Manager:</p>
-                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502494/products__3_.png" style={{ width: 300 }}/>
-              </li>
-            </ol>
           </Card>
         </Col>
       </Row>

@@ -161,7 +161,7 @@ const OrderItems: React.FC = () => {
         <Col span={12}>
           <Select
             options={productOptions}
-            placeholder="Select a product.."
+            placeholder="Add a product.."
             style={{ width: '100%' }}
             onChange={(value: any) => handleOrderProductAdd(value)}
             dropdownRender={(_menu) => (

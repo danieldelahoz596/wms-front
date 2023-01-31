@@ -153,13 +153,33 @@ export default [
       },
       {
         hideInMenu: true,
-        path: '/help/products/createproducts',
-        component: './Help/Products/createproducts',
+        path: '/help/products/createcoreproduct',
+        component: './Help/Products/createcoreproduct',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/createbundlekit',
+        component: './Help/Products/createbundlekit',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/createproductvariations',
+        component: './Help/Products/createproductvariations',
       },
       {
         hideInMenu: true,
         path: '/help/products/importproducts',
         component: './Help/Products/importproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/importvendorproducts',
+        component: './Help/Products/importvendorproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/importskuadjustments',
+        component: './Help/Products/importskuadjustments',
       },
       {
         hideInMenu: true,
