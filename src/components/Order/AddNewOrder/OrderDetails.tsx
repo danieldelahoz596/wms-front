@@ -2,7 +2,11 @@ import { OInput } from '@/components/Globals/OInput';
 import PaymentTerm from '@/components/PaymentTerm';
 import { Card, Col, Form, Row } from 'antd';
 
-const OrderDetails = () => {
+interface IOrderDetails {
+  form: any;
+}
+
+const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
   const formInputs = [
     {
       type: 'text',
@@ -87,6 +91,7 @@ const OrderDetails = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
+        form={form}
       >
         <Form.Item name="channel" label="Channel">
           <div>Manual Orders</div>

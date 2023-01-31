@@ -56,6 +56,7 @@ import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumn
 import { defaultShowColumns } from '@/data/orderData';
 import SplitOrder from '@/components/Modals/Order/SplitOrder';
 import { uuidv4 } from '@antv/xflow-core';
+import DuplicateOrderModal from '@/components/Modals/Order/DuplicateOrder';
 
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
@@ -252,7 +253,7 @@ const OrderManagement: React.FC = () => {
               {
                 key: '6',
                 label: (
-                  <span>
+                  <span onClick={() => setModal(modalType.DuplicateOrder)}>
                     <PlusCircleOutlined /> Duplicate Order
                   </span>
                 ),
@@ -583,7 +584,7 @@ const OrderManagement: React.FC = () => {
 
       <ManualOrderModal
         isOpen={modalOpen === modalType.ManualOrder}
-        onSave={() => {}}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -689,6 +690,12 @@ const OrderManagement: React.FC = () => {
           setOrderList(newOrderList);
           setModal(modalType.Close);
         }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <DuplicateOrderModal
+        isOpen={modalOpen === modalType.DuplicateOrder}
+        onSave={() => setModal(modalType.ManualOrder)}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
