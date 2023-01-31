@@ -6,7 +6,6 @@ import { useModel } from '@umijs/max';
 import EditVendorModal from '@/components/Modals/Settings/Vendor/EditVendorModal';
 import NewVendorModal from '@/components/Modals/Settings/Vendor/NewVendorModal';
 import { CarOutlined, SearchOutlined } from '@ant-design/icons';
-import { renderSearchQuery } from '@/utils/common';
 import RightPanel from './components/RightPanel';
 import { useResizable } from 'react-resizable-layout';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
@@ -14,18 +13,14 @@ import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistoryMod
 import TrainIcon from '@/utils/icons/train';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import ShippingIcon from '@/utils/icons/shipping';
+import qs from 'qs';
 
 const { Search } = Input;
 
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const {
-    vendorList,
-    getVendorList,
-    setSelectedVendor,
-    setEditableVendor,
-    setVendorList,
-  } = useModel('vendor');
+  const { vendorList, getVendorList, setSelectedVendor, setEditableVendor, setVendorList } =
+    useModel('vendor');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [showInactive, setShowInactive] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -55,9 +50,9 @@ export default function () {
         <div
           style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}
         >
-          {_item.is_supplier ? <TrainIcon style={{ fontSize: 20 }}/> : ''}
-          {_item.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 20 }}/> : ''}
-          {_item.is_dropshipper ? <ShippingIcon style={{ fontSize: 24 }}/> : ''}
+          {_item.is_supplier ? <TrainIcon style={{ fontSize: 20 }} /> : ''}
+          {_item.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 20 }} /> : ''}
+          {_item.is_dropshipper ? <ShippingIcon style={{ fontSize: 24 }} /> : ''}
         </div>
       ),
       status: _item.status ? 'ACTIVE' : 'INACTIVE',
@@ -73,7 +68,7 @@ export default function () {
   };
 
   useEffect(() => {
-    const queryString = renderSearchQuery({
+    const queryString = qs.stringify({
       status: showInactive ? false : true,
     });
 
@@ -82,7 +77,7 @@ export default function () {
   }, [showInactive, getVendorList]);
 
   const handleSearch = (value) => {
-    const queryString = renderSearchQuery({
+    const queryString = qs.stringify({
       name: value,
     });
 

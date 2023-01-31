@@ -1,6 +1,6 @@
-import { renderSearchQuery } from '@/utils/common';
 import httpClient from '@/utils/http-client';
 import { useCallback, useState } from 'react';
+import qs from 'qs';
 
 export default () => {
   const [orderList, setOrderList] = useState<any[]>([]);
@@ -11,9 +11,8 @@ export default () => {
   });
 
   const initialOrderList = useCallback((_query) => {
-    const query = renderSearchQuery(_query);
     httpClient
-      .get('/api/orders/' + query)
+      .get('/api/orders?' + qs.stringify(_query))
       .then((response) => {
         setOrderList(response.data);
       })

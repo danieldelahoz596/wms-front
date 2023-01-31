@@ -11,7 +11,7 @@ export default () => {
 
   const getVendorList = useCallback((query = '') => {
     httpClient
-      .get('/api/vendors' + query)
+      .get('/api/vendors?' + query)
       .then((response: any) => setVendorList(response.data.vendors))
       .catch((error) => console.log(error));
   }, []);

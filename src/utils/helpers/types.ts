@@ -41,6 +41,9 @@ export enum modalType {
   EditOrder = 'EditOrder',
   CancelOrder = 'CancelOrder',
   RestoreOrder = 'RestoreOrder',
+  SelectOrderColumns = 'SelectOrderColumns',
+  SplitOrder = 'SplitOrder',
+  DuplicateOrder = 'DuplicateOrder',
 
   ImportOrder = 'ImportOrder',
   OrderImportSettings = 'OrderImportSettings',

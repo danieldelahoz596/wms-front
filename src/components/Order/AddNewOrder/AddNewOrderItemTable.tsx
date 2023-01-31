@@ -1,10 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { useModel } from '@umijs/max';
 import { Col, Row, message } from 'antd';
 import { uuidv4 } from '@antv/xflow-core';
+
+interface IAddNewOrderItemTable {
+  initialItems: any[];
+}
 
 const productColumns = [
   {
@@ -40,7 +44,7 @@ const productColumns = [
   },
 ];
 
-const AddNewOrderItemTable = () => {
+const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems }) => {
   const { productList } = useModel('product');
   const { newOrder, setNewOrder } = useModel('order');
   const [productRows, setProductRows] = useState([]);
@@ -50,6 +54,10 @@ const AddNewOrderItemTable = () => {
     () => productList.map((item) => ({ text: item.name, value: item.id })),
     [productList],
   );
+
+  useEffect(() => {
+    setProductRows(initialItems);
+  }, [initialItems]);
 
   // const productRows = useMemo(
   //   () =>

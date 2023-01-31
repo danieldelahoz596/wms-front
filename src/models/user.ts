@@ -1,6 +1,6 @@
-import { renderSearchQuery } from '@/utils/common';
 import httpClient from '@/utils/http-client';
 import { useCallback, useState, useEffect } from 'react';
+import qs from 'qs';
 
 export default () => {
   const [userList, setUserList] = useState([]);
@@ -8,9 +8,8 @@ export default () => {
   const [showInactive, setShowInactive] = useState(true);
 
   const getUsers = useCallback((_query) => {
-    const query = renderSearchQuery(_query);
     httpClient
-      .get('/api/users' + query)
+      .get('/api/users?' + qs.stringify(_query))
       .then((response) => setUserList(response.data))
       .catch((err) => console.log(err));
   }, []);

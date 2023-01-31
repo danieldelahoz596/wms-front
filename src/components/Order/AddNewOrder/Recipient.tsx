@@ -1,7 +1,11 @@
 import { OInput } from '@/components/Globals/OInput';
 import { Card, Form } from 'antd';
 
-const Recipient = () => {
+interface IRecipient {
+  form: any;
+}
+
+const Recipient: React.FC<IRecipient> = ({ form }) => {
   const formInputs = [
     {
       type: 'text',
@@ -89,6 +93,7 @@ const Recipient = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
+        form={form}
       >
         {formInputs.map((item, index) =>
           Array.isArray(item) ? (

@@ -1,9 +1,9 @@
+import { useState } from 'react';
+import { Button, Card, Col, Form, Row, Space } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
-import { renderSearchQuery } from '@/utils/common';
 import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
-import { Button, Card, Col, Form, Row, Space } from 'antd';
-import { useState } from 'react';
+import qs from 'qs';
 
 const initailState = {
   phonenumber: '',
@@ -23,9 +23,8 @@ export default function SearchCustomer() {
   };
 
   const onSearch = (query) => {
-    const _query = renderSearchQuery(query);
     httpClient
-      .get('/api/customers' + _query)
+      .get('/api/customers?' + qs.stringify(query))
       .then((response) => {
         setCustomerList(response.data.customers);
       })

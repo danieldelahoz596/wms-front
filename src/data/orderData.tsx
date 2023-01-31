@@ -220,3 +220,17 @@ export const demoOrderTableRows = [
     orderItems: [],
   },
 ];
+
+export const defaultShowColumns = [
+  'Channel',
+  'Order Number',
+  'Labels',
+  'Notes',
+  'Order Date',
+  'Date Paid',
+  'Age',
+  'Recipient',
+  'Order Total',
+  'Items',
+  'Item Names',
+];
