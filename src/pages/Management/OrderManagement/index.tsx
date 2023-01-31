@@ -2,7 +2,6 @@ import { PageContainer } from '@ant-design/pro-components';
 import { Card, Row, Col, Dropdown, Button, Badge } from 'antd';
 import React, { useEffect, useState } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
-import { demoOrderTableColumns } from '@/data/orderData';
 
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
@@ -13,7 +12,9 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { useModel } from '@umijs/max';
 import {
+  BorderHorizontalOutlined,
   CheckCircleOutlined,
+  CloseOutlined,
   DownOutlined,
   FieldTimeOutlined,
   FileFilled,
@@ -25,6 +26,7 @@ import {
   MinusCircleOutlined,
   PlusCircleOutlined,
   RedoOutlined,
+  RetweetOutlined,
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
@@ -50,12 +52,16 @@ import NewShipmentImportMappingsModal from '@/components/Modals/Order/NewShipmen
 import OrderExportSettingsModal from '@/components/Modals/Order/OrderExportSettings';
 
 import moment from 'moment';
+import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumns';
+import { defaultShowColumns } from '@/data/orderData';
 
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { orderList, setEditableOrder, setSelectedOrders } = useModel('order');
   const [modalOpen, setModal] = useState('');
   const { selectedOrderStatus } = useModel('orderStatus');
+  const [showChooseColumn, setShowChooseColumn] = useState(true);
+  const [showColumns, setShowColumns] = useState(defaultShowColumns);
 
   const handleProductEdit = (item: any) => {
     setEditableOrder(item);
@@ -352,8 +358,62 @@ const OrderManagement: React.FC = () => {
     },
   ];
 
+  //order list table columns
+  const orderTableColumns = [
+    {
+      title: 'Order Number',
+      dataIndex: 'orderNumber',
+      key: 'orderNumber',
+    },
+    {
+      title: 'Labels',
+      dataIndex: 'labels',
+      key: 'labels',
+    },
+    {
+      title: 'Notes',
+      dataIndex: 'notes',
+      key: 'notes',
+    },
+    {
+      title: 'Order Date',
+      dataIndex: 'orderDate',
+      key: 'orderDate',
+    },
+    {
+      title: 'Date Paid',
+      dataIndex: 'datePaid',
+      key: 'datePaid',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: 'Recipient',
+      dataIndex: 'recipient',
+      key: 'recipient',
+    },
+    {
+      title: 'Order Total',
+      dataIndex: 'orderTotal',
+      key: 'orderTotal',
+    },
+    {
+      title: 'Items',
+      dataIndex: 'items',
+      key: 'items',
+    },
+    {
+      title: 'Item Names',
+      dataIndex: 'itemNames',
+      key: 'itemNames',
+    },
+  ];
+
   // prepare order list table rows
-  const orderListTableRows = orderList.map((item) => {
+  const orderTableRows = orderList.map((item) => {
     return {
       ...item,
       key: item.id,
@@ -452,14 +512,31 @@ const OrderManagement: React.FC = () => {
               </Row>
               <br />
               <Row>
-                <Col span={24}>
+                <Col span={24} style={{ position: 'relative' }}>
                   <OTable
                     type="checkbox"
-                    columns={demoOrderTableColumns}
-                    rows={orderListTableRows}
+                    columns={orderTableColumns.filter((item) => showColumns.includes(item.title))}
+                    rows={orderTableRows}
                     selectedRows={selectedRows}
                     setSelectedRows={handleSelectedRows}
                   />
+                  <div
+                    className="choose-column"
+                    style={{ position: 'absolute', bottom: 20 }}
+                    hidden={!showChooseColumn}
+                  >
+                    <Button type="primary" icon={<RetweetOutlined style={{ color: 'gray' }} />} />
+                    <Button
+                      type="primary"
+                      icon={<BorderHorizontalOutlined style={{ color: 'gray' }} />}
+                      onClick={() => setModal(modalType.SelectOrderColumns)}
+                    />
+                    <Button
+                      type="primary"
+                      icon={<CloseOutlined style={{ color: 'gray' }} />}
+                      onClick={() => setShowChooseColumn(false)}
+                    />
+                  </div>
                 </Col>
               </Row>
             </Card>
@@ -582,6 +659,15 @@ const OrderManagement: React.FC = () => {
         isOpen={modalOpen === modalType.AddOrderExportSettings}
         onSave={() => setModal(modalType.ExportOrder)}
         onClose={() => setModal(modalType.ExportOrder)}
+      />
+
+      <SelectOrderColumnsModal
+        isOpen={modalOpen === modalType.SelectOrderColumns}
+        onSave={(items) => {
+          setShowColumns(items);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
   );
