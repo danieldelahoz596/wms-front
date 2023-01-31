@@ -17,9 +17,9 @@ export enum modalType {
 
   // products
   ImportVendorProducts = 'ImportVendorProducts',
-  VendorProductImportByVendor = 'VendorProductImportByVendor',
-  VendorProductImportOnce = 'VendorProductImportOnce',
-  ImportVendorProductSummary = 'ImportVendorProductSummary',
+  ImportVendorProductsByVendor = 'ImportVendorProductsByVendor',
+  ImportVendorProductsAll = 'ImportVendorProductsAll',
+  ImportVendorProductsSummary = 'ImportVendorProductsSummary',
   ExportVendorProducts = 'ExportVendorProducts',
   NewVendorProduct = 'NewVendorProduct',
   BundleKit = 'BundleKit',

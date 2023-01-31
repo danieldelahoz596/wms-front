@@ -21,14 +21,14 @@ import type { MenuProps } from 'antd';
 
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
-import ImportProductModal from '@/components/Modals/Product/ImportProduct';
+import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
 import ExportProductModal from '@/components/Modals/Product/ExportProduct';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
 import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
-import ImportVendorProductModal from '@/components/Modals/Product/ImportVendorProduct';
+import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
 import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
-import ImportSummaryModal from '@/components/Modals/Product/ImportSummary';
+import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import { PageContainer } from '@ant-design/pro-components';
@@ -615,7 +615,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportProductModal
+      <ImportProductsModal
         isOpen={modalOpen == modalType.Import}
         onSave={() => setModal(modalType.Import)}
         onClose={() => setModal(modalType.Close)}
@@ -645,27 +645,27 @@ const ProductManagement: React.FC = () => {
       />
 
       {/* Import Vendor Products */}
-      <ImportVendorProductModal
+      <ImportVendorProductsModal
         isOpen={modalOpen == modalType.ImportVendorProducts}
         onClick={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportVendorProductsByVendor
-        isOpen={modalOpen == modalType.VendorProductImportByVendor}
+        isOpen={modalOpen == modalType.ImportVendorProductsByVendor}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportVendorProductsAll
-        isOpen={modalOpen == modalType.VendorProductImportOnce}
+        isOpen={modalOpen == modalType.ImportVendorProductsAll}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportSummaryModal
-        isOpen={modalOpen == modalType.ImportVendorProductSummary}
-        title={'VENDOR PRODUCT IMPORT BY VENDOR'}
+      <ImportVendorProductsSummary
+        isOpen={modalOpen == modalType.ImportVendorProductsSummary}
+        title={'Vendor Product Import By Vendor'}
         info={'Vendor SKU Import Summary'}
         onSave={() => {}}
         onClose={() => setModal(modalType.Close)}

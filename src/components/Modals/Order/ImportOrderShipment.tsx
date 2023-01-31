@@ -53,7 +53,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
           External shipments are any shipments that were not processed through Skubana shipping
           module. This includes shipments for orders that were fulfilled by a channel (e.g. Amazon
           FBA), a 3PL, a dropship vendor, or any other source outside of Skubana. This is the batch
-          import equivalent of <strong>marking orders as "Shipped".</strong>
+          import equivalent of <b>marking orders as "Shipped".</b>
         </p>
         <Row gutter={32}>
           <Col span={14}>

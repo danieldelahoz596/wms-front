@@ -24,17 +24,18 @@ import Companyinfo from './Settings/companyinfo';
 import Useradministration from './Settings/useradministration';
 import Historicalordersexports from './Analytics/Orders/historicalordersexports';
 import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
+import Products from './Products/products';
 import Manageproducts from './Products/manageproducts';
 import Createproducts from './Products/createproducts';
 import Importproducts from './Products/importproducts';
 import Exportproducts from './Products/exportproducts';
 import Searchproducts from './Products/searchproducts';
-import AdjustmasterSkus from './Products/adjustingmasterskus';
 import Customproductfields from './Products/customproductfields';
 import Searchcustomers from './Customers/searchcustomers';
 import Customersmodule from './Customers/customersmodule';
 import Exportcustomerphonenumbers from './Customers/exportcustomerphonenumbers';
 import Cancelorders from './Orders/cancelorders';
+import Orders from './Orders/orders';
 
 const { Sider, Content } = Layout;
 
@@ -70,12 +71,12 @@ const Help: React.FC = () => {
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
+  else if (selectKey === 'products_general') renderableContent = <Products />;
   else if (selectKey === 'products_manageproducts') renderableContent = <Manageproducts />
   else if (selectKey === 'products_createproducts') renderableContent = <Createproducts />
   else if (selectKey === 'products_importproducts') renderableContent = <Importproducts />
   else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
   else if (selectKey === 'products_searchproducts') renderableContent = <Searchproducts />
-  else if (selectKey === 'products_adjustingmasterskus') renderableContent = <AdjustmasterSkus />
   else if (selectKey === 'products_customproductfields') renderableContent = <Customproductfields />
   else if (selectKey === 'customers_searchcustomers') renderableContent = <Searchcustomers />
   else if (selectKey === 'customers_customersmodule') renderableContent = <Customersmodule />
@@ -86,6 +87,7 @@ const Help: React.FC = () => {
   else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
   else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
   else if (selectKey === 'orders_cancelorders') renderableContent = <Cancelorders />;
+  else if (selectKey === 'orders_general') renderableContent = <Orders />;
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
@@ -124,6 +126,13 @@ const Help: React.FC = () => {
                 icon: <InventoryIcon />,
                 label: 'Orders',
                 children: [
+                  {
+                    key: 'orders_general',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/orders/general">Orders</Link>
+                    ),
+                  },
                   {
                     key: 'orders_cancelorders',
                     icon: <AccountingIcon />,
@@ -203,6 +212,13 @@ const Help: React.FC = () => {
                 label: 'Products',
                 children: [
                   {
+                    key: 'products_general',
+                    icon: <AccountingIcon />,
+                    label: (
+                      <Link to="/help/products/general">Products</Link>
+                    ),
+                  },
+                  {
                     key: 'products_manageproducts',
                     icon: <AccountingIcon />,
                     label: (
@@ -220,8 +236,31 @@ const Help: React.FC = () => {
                     key: 'products_importproducts',
                     icon: <AccountingIcon />,
                     label: (
-                      <Link to="/help/products/importproducts">How to Import Products</Link>
+                      <Link to="/help/products/importproducts">How to Import</Link>
                     ),
+                    children: [
+                      {
+                        key: 'products_importproducts',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/importproducts">Import Products</Link>
+                        ),
+                      },
+                      {
+                        key: '',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="">Import Vendor Products</Link>
+                        ),
+                      },
+                      {
+                        key: '',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="">Import SKU Adjustments</Link>
+                        ),
+                      },
+                    ]
                   },
                   {
                     key: 'products_exportproducts',
@@ -235,13 +274,6 @@ const Help: React.FC = () => {
                     icon: <AccountingIcon />,
                     label: (
                       <Link to="/help/products/searchproducts">How to Search Products</Link>
-                    ),
-                  },
-                  {
-                    key: 'products_adjustingmasterskus',
-                    icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/adjustingmasterskus">How to Adjust Master SKUs</Link>
                     ),
                   },
                   {

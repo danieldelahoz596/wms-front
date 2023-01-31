@@ -17,7 +17,7 @@ export default function () {
             <h1>Set-Up in the UI</h1>
             <ol>
               <li>
-                  <p>Go to the Products Module ➜ Click on the Master SKU, then click on the <strong>Fields</strong> tab</p>
+                  <p>Go to the Products Module ➜ Click on the Master SKU, then click on the <b>Fields</b> tab</p>
                   <Alert
                       message="Note"
                       description="This table is going to be empty the first time. And everything you add here is going to be accessible across all products."
@@ -28,14 +28,14 @@ export default function () {
                   <br/><br/><br/>
               </li>
               <li>
-                  <p>You can both Configure new/existing Field Types, as well as set custom field values for your product.<br />To <strong>Configure</strong>, Create, or Deactivate a Field Type, click the <strong>Configure Field Types</strong> button seen below. Make your edits, then click the <strong>Save</strong> button.<br /><strong>Ex:</strong> <i>Fragile, Contains Liquid, Flammable, etc.</i></p>
+                  <p>You can both Configure new/existing Field Types, as well as set custom field values for your product.<br />To <b>Configure</b>, Create, or Deactivate a Field Type, click the <b>Configure Field Types</b> button seen below. Make your edits, then click the <b>Save</b> button.<br /><b>Ex:</b> <i>Fragile, Contains Liquid, Flammable, etc.</i></p>
                   <br />
                   <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-04-19%2Bat%2B11.21.56%2BAM.png" style={{ width: 1000 }}/>
                   <br /><br />
-                  <p>If you mark the field as <strong>"Required"</strong>, then any product you add this field to must have a value. Otherwise, you won’t be able to save the product (see error example below)</p>
+                  <p>If you mark the field as <b>"Required"</b>, then any product you add this field to must have a value. Otherwise, you won’t be able to save the product (see error example below)</p>
                   <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-04-19%2Bat%2B11.32.04%2BAM.png" style={{ width: 1000 }}/>
                   <br /><br />
-                  <p>If you mark the field as <strong>"Show On Grid"</strong>, then the Field Type will populate as a column in the Products Module grid. You will be able to sort by that column's values just like any other column.</p>
+                  <p>If you mark the field as <b>"Show On Grid"</b>, then the Field Type will populate as a column in the Products Module grid. You will be able to sort by that column's values just like any other column.</p>
                   <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-04-19%2Bat%2B11.33.20%2BAM.png" style={{ width: 1000 }}/>
                   <br /><br />
                   <Alert
@@ -46,7 +46,7 @@ export default function () {
                   <br /><br />
               </li>
               <li>
-                  <p>After Step 2, you should see your active Field Types as options in the <strong>Add Field</strong> dropdown menu. To use them, select an option from the dropdown menu, then set the input in the <strong>Value</strong> column. You can only add the field type once, you cannot have two of the same field types set for one product. Make sure that any Field Types that are set to "Required" have a Value, then click <strong>Save</strong>.</p>
+                  <p>After Step 2, you should see your active Field Types as options in the <b>Add Field</b> dropdown menu. To use them, select an option from the dropdown menu, then set the input in the <b>Value</b> column. You can only add the field type once, you cannot have two of the same field types set for one product. Make sure that any Field Types that are set to "Required" have a Value, then click <b>Save</b>.</p>
                   <br />
                   <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-04-19%2Bat%2B11.42.38%2BAM.png" style={{ width: 1000 }}/>
                   <br /><br /><br />
@@ -72,12 +72,12 @@ export default function () {
             <br />
             {/* Export Products */}
             <h1>Export Products</h1>
-            <p>Custom fields that are <strong>active</strong> will be exported by default, regardless of whether Show on Grid is checked. If a field is inactive, it won’t be included in this export. No need to configure anything here.</p>
+            <p>Custom fields that are <b>active</b> will be exported by default, regardless of whether Show on Grid is checked. If a field is inactive, it won’t be included in this export. No need to configure anything here.</p>
             <br />
             {/* Custom Bundle / Kit Export */}
             <h1>Custom Bundle / Kit Export</h1>
-            <p>This works exactly the same way as the <strong>custom product export</strong>, except with the caveat that custom fields will be exported on a <i>per bundled product</i> basis – meaning that only the custom fields of the individual bundled items will be exported, <i>not</i> the custom fields of the bundle itself.</p>
-            <p><strong>In order to export custom fields for the bundle itself, the user must also select “Bundle [Custom Field Name]” from the dropdown</strong>. When exported, this value will be the same for all bundled item rows within a given bundle.</p>
+            <p>This works exactly the same way as the <b>custom product export</b>, except with the caveat that custom fields will be exported on a <i>per bundled product</i> basis – meaning that only the custom fields of the individual bundled items will be exported, <i>not</i> the custom fields of the bundle itself.</p>
+            <p><b>In order to export custom fields for the bundle itself, the user must also select “Bundle [Custom Field Name]” from the dropdown</b>. When exported, this value will be the same for all bundled item rows within a given bundle.</p>
             <br />
             {/* Import Custom Fields */}
             <h1>Import Custom Fields</h1>
@@ -95,17 +95,17 @@ export default function () {
                   <table>
                   <tbody>
                       <tr>
-                          <td><strong>Master SKU</strong></td>
+                          <td><b>Master SKU</b></td>
                           <td>The SKU of the product that you want to add this custom field to</td>
                           <td>Required</td>
                       </tr>
                       <tr>
-                          <td><strong>Custom Field Name</strong></td>
+                          <td><b>Custom Field Name</b></td>
                           <td>The custom field name</td>
                           <td>Required</td>
                       </tr>
                       <tr>
-                          <td><strong>Custom Field Value</strong></td>
+                          <td><b>Custom Field Value</b></td>
                           <td>The custom field value.</td>
                           <td>Required</td>
                       </tr>
@@ -128,16 +128,16 @@ export default function () {
               </li>
               <li>
                   <p>Fill out the Excel spreadsheet with the data you want to import in bulk. <i>For a quick reference of your Master SKUs, use the Import/Export button in the Products Module to Export Products.</i></p>
-                  <p><strong>Save</strong> your edits, then go back to the Extensiv Order Manager screen you left off in Step 2.</p>
+                  <p><b>Save</b> your edits, then go back to the Extensiv Order Manager screen you left off in Step 2.</p>
               </li>
               <li>
-                  <p>Select the file to import, then click <strong>Continue</strong>. Your spreadsheet will import and produce an Error Log. Check for any issues with the import and fix them if there are any.</p>
+                  <p>Select the file to import, then click <b>Continue</b>. Your spreadsheet will import and produce an Error Log. Check for any issues with the import and fix them if there are any.</p>
               </li>
             </ol>
             <Divider />
             {/* Searching by Custom Fields */}
             <h1>Searching by Custom Fields</h1>
-            <p>You can search your products by Custom Field Types and their Custom Field Values. Just open up the Search function (magnifying glass icon) and enter both the <strong>Type</strong> and <strong>Value</strong>, then click <strong>Search</strong>.</p>
+            <p>You can search your products by Custom Field Types and their Custom Field Values. Just open up the Search function (magnifying glass icon) and enter both the <b>Type</b> and <b>Value</b>, then click <b>Search</b>.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-04-19%2Bat%2B11.59.54%2BAM.png" style={{ width: 400 }}  />
           </Card>
         </Col>

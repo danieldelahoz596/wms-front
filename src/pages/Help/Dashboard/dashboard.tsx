@@ -22,10 +22,10 @@ export default function () {
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/dashboard1.PNG" style={{ width: 600}} />
 
             <ul>
-              <li><p><strong>Unresolved orders</strong> in these statuses are missing product info or are currently out of stock. These should be resolved as soon as possible so they can be shipped.</p></li>
-              <li><p><strong>Paused orders</strong> are in <a href="https://help.extensiv.com/om-orders/resolving-an-awaiting-payment-order" target="_blank">Awaiting Payment</a> or have been put On Hold.</p></li>
-              <li><p><strong>Awaiting Fulfillment orders</strong> are currently in <a href="https://help.extensiv.com/om-orders/shipping-orders" target="_blank">Awaiting Shipment</a>, <a href="https://help.extensiv.com/om-orders/export-an-order-to-a-3pl" target="_blank">Awaiting 3PL Export</a>, or <a href="https://help.extensiv.com/om-orders/shipping-orders" target="_blank">Pending Fulfillment</a>.</p></li>
-              <li><p><strong>Unresolved orders</strong> in these statuses are missing product info or are currently out of stock. These should be resolved as soon as possible so they can be shipped.</p></li>
+              <li><p><b>Unresolved orders</b> in these statuses are missing product info or are currently out of stock. These should be resolved as soon as possible so they can be shipped.</p></li>
+              <li><p><b>Paused orders</b> are in <a href="https://help.extensiv.com/om-orders/resolving-an-awaiting-payment-order" target="_blank">Awaiting Payment</a> or have been put On Hold.</p></li>
+              <li><p><b>Awaiting Fulfillment orders</b> are currently in <a href="https://help.extensiv.com/om-orders/shipping-orders" target="_blank">Awaiting Shipment</a>, <a href="https://help.extensiv.com/om-orders/export-an-order-to-a-3pl" target="_blank">Awaiting 3PL Export</a>, or <a href="https://help.extensiv.com/om-orders/shipping-orders" target="_blank">Pending Fulfillment</a>.</p></li>
+              <li><p><b>Unresolved orders</b> in these statuses are missing product info or are currently out of stock. These should be resolved as soon as possible so they can be shipped.</p></li>
             </ul>
 
             <h2>Stock Requiring Attention</h2>

@@ -62,9 +62,9 @@ const RightPanel: FC = () => {
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
-              <strong style={strongStyle}>{selectedOrders?.length} orders</strong> selected
-              requesting <strong style={strongStyle}>STANDARD</strong> from{' '}
-              <strong style={strongStyle}>2</strong> different countries.
+              <b style={strongStyle}>{selectedOrders?.length} orders</b> selected
+              requesting <b style={strongStyle}>STANDARD</b> from{' '}
+              <b style={strongStyle}>2</b> different countries.
             </div>
           }
           type="info"

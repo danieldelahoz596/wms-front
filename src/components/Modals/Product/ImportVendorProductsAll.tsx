@@ -31,7 +31,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
           key: 'submit',
           type: 'primary',
           btnLabel: 'Continue',
-          onClick: () => onSave(modalType.ImportVendorProductSummary),
+          onClick: () => onSave(modalType.ImportVendorProductsSummary),
         },
       ]}
     >
@@ -45,19 +45,19 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
         </a>
         <p>To associate your product Master SKUs with Vendor Names and SKUs, simply use the provided template.</p>
         <p>
-          <strong>Vendor name</strong> must be <strong>unique</strong> for each vendor and are not
-          case sensitive. <strong>Vendor SKUs are <i>not</i> case sensitive.</strong> For example, <i>'sku123'</i>{' '}
+          <b>Vendor name</b> must be <b>unique</b> for each vendor and are not
+          case sensitive. <b>Vendor SKUs are <i>not</i> case sensitive.</b> For example, <i>'sku123'</i>{' '}
           <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
           Master SKUs.
         </p>
-        <Row >
-          <Col offset={16} span={8} style={{ textAlign: 'right' }}>
+        <Row>
+          <Col >
             <label>Excel File:</label>&nbsp;&nbsp;
             <Upload {...fileUploadProps}>
               <Button icon={<UploadOutlined />}>Select...</Button>
             </Upload>
           </Col>
-          <Col span={24} style={{ textAlign: 'right', marginTop: '1rem' }}>
+          <Col style={{ marginTop: '1rem' }}>
             <label>Update existing SKUs if changes found in the Excel file?</label>&nbsp;&nbsp;
             <Select placeholder="Yes - Update existing SKUs and import new.">
               <Option value="1">Yes - Update existing SKUs and import new.</Option>

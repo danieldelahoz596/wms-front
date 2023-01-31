@@ -9,12 +9,12 @@ export default function () {
         <Col span={24}>
           <Card>
             <h1>How to Search Customers</h1>
-            <p>The <strong>Customers</strong> module's search function allows you to search by any combination of Phone Number, Card ID Number, Name, City, and/or State/Province. </p>
+            <p>The <b>Customers</b> module's search function allows you to search by any combination of Phone Number, Card ID Number, Name, City, and/or State/Province. </p>
             <h1>To Search for a Customer</h1>
             <ol>
-              <li><p>On the toolbar, click the <strong>Customers</strong> Module.</p></li>
+              <li><p>On the toolbar, click the <b>Customers</b> Module.</p></li>
               <li>
-                <p>On the Search Customers panel, enter the customer's details, then click <i><strong>Search</strong></i>. To narrow down your search, enter as much relevant information as possible.</p>
+                <p>On the Search Customers panel, enter the customer's details, then click <i><b>Search</b></i>. To narrow down your search, enter as much relevant information as possible.</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502809/customers.PNG" style={{ width: 250 }}/>
               </li>
             </ol>

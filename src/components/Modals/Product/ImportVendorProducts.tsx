@@ -3,13 +3,13 @@ import { OButton } from '@/components/Globals/OButton';
 import { modalType } from '@/utils/helpers/types';
 import { Col, Row } from 'antd';
 
-interface IImportVendorProduct {
+interface IImportVendorProducts {
   isOpen: boolean;
   onClose: () => void;
   onClick: (value: any) => void;
 }
 
-const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, onClick }) => {
+const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose, onClick }) => {
   return (
     <OModal
       title={'Select How To Import Vendor Products'}
@@ -37,7 +37,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
             <OButton
               type="primary"
               btnText={'Import By Vendor'}
-              onClick={() => onClick(modalType.VendorProductImportByVendor)}
+              onClick={() => onClick(modalType.ImportVendorProductsByVendor)}
               style={{ width: '100%', marginBottom: 10 }}
             />
             <p>Import vendor products using an individual file for each vendor.</p>
@@ -46,7 +46,7 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
            <OButton
               type="primary"
               btnText={'Import All At Once'}
-              onClick={() => onClick(modalType.VendorProductImportOnce)}
+              onClick={() => onClick(modalType.ImportVendorProductsAll)}
               style={{ width: '100%', marginBottom: 10 }}
             />
             <p>Import all your vendor products with one file that includes vendor names.</p>
@@ -57,4 +57,4 @@ const ImportVendorProduct: React.FC<IImportVendorProduct> = ({ isOpen, onClose, 
   );
 };
 
-export default ImportVendorProduct;
+export default ImportVendorProducts;

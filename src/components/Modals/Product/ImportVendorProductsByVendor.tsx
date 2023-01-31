@@ -1,19 +1,20 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Card, Col, Drawer, Row, Select, Upload } from 'antd';
+import { Button, Card, Col, Drawer, Input, Row, Select, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
 import { OInput } from '@/components/Globals/OInput';
 import { modalType } from '@/utils/helpers/types';
-import InitialState from '@/.umi/plugin-initialState/@@initialState';
+import { useModel } from 'umi';
 const { Option } = Select;
 
-interface IVendorProductImportByVendor {
+interface IImportVendorProductsByVendor {
   isOpen: boolean;
   onClose: () => void;
   onSave: (value: any) => void;
 }
 
-const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ isOpen, onClose, onSave }) => {
+const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({ isOpen, onClose, onSave }) => {
+  const { initialState } = useModel('@@initialState');
   
   return (
     <OModal
@@ -32,7 +33,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ i
           key: 'submit',
           type: 'primary',
           btnLabel: 'Continue',
-          onClick: () => onSave(modalType.ImportVendorProductSummary),
+          onClick: () => onSave(modalType.ImportVendorProductsSummary),
         },
       ]}
     >
@@ -49,7 +50,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ i
           and upload the data for each vendor.
         </p>
         <p>
-          <strong>Vendor SKUs, are <i>not</i> case sensitive.</strong> For example, <i>'sku123'</i>{' '}
+          <b>Vendor SKUs, are <i>not</i> case sensitive.</b> For example, <i>'sku123'</i>{' '}
           <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
           Master SKU's.
         </p>
@@ -60,9 +61,12 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ i
               <OInput
                 type="select"
                 name="vendor"
-                onChange={() => {}}
-                placeholder="Select..."
-                // options={InitialState?.}
+                // onChange={() => {}}
+                // placeholder="Select..."
+                options={initialState?.initialData?.vendors.map((_item) => ({
+                  value: _item.id,
+                  text: _item.name,
+                }))}
               />
             </Card>
           </Col>
@@ -74,7 +78,7 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ i
           </Col>
         </Row>
         <Row>
-          <Col span={24} style={{ textAlign: 'right', marginTop: '1rem' }}>
+          <Col style={{ marginTop: '1rem' }}>
             <label>Update existing SKUs if changes found in the Excel file?</label>&nbsp;&nbsp;
             <Select placeholder="Yes - Update existing SKUs and import new.">
               <Option value="1">Yes - Update existing SKUs and import new.</Option>
@@ -87,4 +91,4 @@ const VendorProductImportByVendor: React.FC<IVendorProductImportByVendor> = ({ i
   );
 };
 
-export default VendorProductImportByVendor;
+export default ImportVendorProductsByVendor;

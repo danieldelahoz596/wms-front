@@ -62,34 +62,34 @@ const OrderItems: FC = () => {
                 <Col span={4}>
                   <Row style={{ marginTop: '0.2rem' }}>
                     <Col span={12}>
-                      <strong style={{ color: '#5F5FFF' }}>Quantity:</strong>
+                      <b style={{ color: '#5F5FFF' }}>Quantity:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <strong style={{ color: '#5F5FFF' }}>X{item.unitQty}</strong>
+                      <b style={{ color: '#5F5FFF' }}>X{item.unitQty}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem' }}>
                     <Col span={12}>
-                      <strong style={{ color: '#626262' }}>Unit Price:</strong>
+                      <b style={{ color: '#626262' }}>Unit Price:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <strong style={{ color: '#626262' }}>${item.unitAmount}</strong>
+                      <b style={{ color: '#626262' }}>${item.unitAmount}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem' }}>
                     <Col span={12}>
-                      <strong style={{ color: '#626262' }}>Total Discount:</strong>
+                      <b style={{ color: '#626262' }}>Total Discount:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <strong style={{ color: '#626262' }}>-${item.discount}</strong>
+                      <b style={{ color: '#626262' }}>-${item.discount}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem', padding: '0.4rem', background: '#5F5FFF' }}>
                     <Col span={12}>
-                      <strong style={{ color: '#fff' }}>Total:</strong>
+                      <b style={{ color: '#fff' }}>Total:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <strong style={{ color: '#fff' }}>${subTotal}</strong>
+                      <b style={{ color: '#fff' }}>${subTotal}</b>
                     </Col>
                   </Row>
                 </Col>

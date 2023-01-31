@@ -14,12 +14,12 @@ export default function () {
             <p>When creating or editing products in Extensiv Order Manager, you can choose between two methods: manual creation in the UI or import via spreadsheet. To create a core product manually, follow the steps outlined below:</p>
             <ol>
               <li>
-                <p>Navigate to the <strong>Products</strong> module, & click the <strong>New Product</strong> button.</p>
+                <p>Navigate to the <b>Products</b> module, & click the <b>New Product</b> button.</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-01-11%2Bat%2B1.38.20%2BPM.png" style={{ width: 1000 }}/>
                 <br/><br/>
               </li>
               <li>
-                <p>Select <strong>Core Product</strong></p>
+                <p>Select <b>Core Product</b></p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-01-11%2Bat%2B1.45.57%2BPM.png" style={{ width: 300 }}/>
               </li>
             </ol>
@@ -103,7 +103,7 @@ export default function () {
             <h2>Vendor Products</h2>
             <p>Adding vendor SKUs in Extensiv Order Manager is necessary especially because it will serve as the foundation for your profitability within analytics, although this is not the only way to calculate profitability. Your COGS within Extensiv Order Manager is calculated by either your vendor products or the UI (refer to images). The one thing you cannot do in Extensiv Order Manager without having vendor SKUs is create purchase orders</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-01-13%2Bat%2B8.00.32%2BPM.png" style={{ width: 500 }}/>
-            <p>Add your vendor SKUs to your products. Before you can do so, you will need to have inputted vendors in the <strong>Settings</strong> Tab. Click <strong>New Vendor Product.</strong></p>
+            <p>Add your vendor SKUs to your products. Before you can do so, you will need to have inputted vendors in the <b>Settings</b> Tab. Click <b>New Vendor Product.</b></p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-01-13%2Bat%2B8.01.11%2BPM.png" style={{ width: 600 }}/>
             <table className='helpTable'>
               <thead>
@@ -136,7 +136,7 @@ export default function () {
                 </tr>
                 <tr>
                   <th>Auto-P.O. Rounding</th>
-                  <th>How Extensiv Order Manager should round the number of units for order in an Auto PO calculation. <strong>Round Up</strong> will round up to the next Unit of Measure quantity exactly, Round Properly will round to the nearest Unit of Measure quantity, whether that is up or down, and Exact will not round at all.</th>
+                  <th>How Extensiv Order Manager should round the number of units for order in an Auto PO calculation. <b>Round Up</b> will round up to the next Unit of Measure quantity exactly, Round Properly will round to the nearest Unit of Measure quantity, whether that is up or down, and Exact will not round at all.</th>
                   <th>Say you have a product that can be ordered in Cases of 12 units, but Auto PO generates with a requested quantity of 50
                     <p>Round Up: 5 Cases (60 units)</p>
                     <p>Round Properly: 4 Cases (48 units)</p>
@@ -170,12 +170,12 @@ export default function () {
                 </tr>
               </tbody>
             </table>
-            <p>If you order the same product from more than one vendor, make sure to set up multiple Vendor Products and indicate one as the Default Vendor Product by selecting it and clicking the <strong>Default</strong> button. If you only have one Vendor Product for a Master SKU, it will automatically be set as the Default by Extensiv Order Manager.</p>
+            <p>If you order the same product from more than one vendor, make sure to set up multiple Vendor Products and indicate one as the Default Vendor Product by selecting it and clicking the <b>Default</b> button. If you only have one Vendor Product for a Master SKU, it will automatically be set as the Default by Extensiv Order Manager.</p>
             <Alert message="NOTE: Extensiv Order Manager will only generate automatic Purchase Orders for the Default Vendor Product." type="info" />
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-01-13%2Bat%2B8.02.48%2BPM.png" style={{ width: 500 }}/>
 
             <h2>Fields</h2>
-            <p>This feature allows you to add custom fields that are not in the Extensiv Order Manager Platform. Some examples of these could be "Fragile", "Wholesale Cost", etc. To add a new Custom field, go to <strong>Configure Field Types.</strong></p>
+            <p>This feature allows you to add custom fields that are not in the Extensiv Order Manager Platform. Some examples of these could be "Fragile", "Wholesale Cost", etc. To add a new Custom field, go to <b>Configure Field Types.</b></p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/PIC4332.png" style={{ width: 500 }}/>
             <p>Then select New Field Type to enter a new custom field. You may also select the checkbox to indicate if you want to field to be required.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/PIC6521.png" style={{ width: 500 }}/>
@@ -183,14 +183,14 @@ export default function () {
 
             {/* Bundles/Kits */}
             <h1>Bundles/Kits</h1>
-            <p>To create a bundle/kit, click on the <strong>“Bundle / Kit”</strong> button.</p>
+            <p>To create a bundle/kit, click on the <b>“Bundle / Kit”</b> button.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product12.png" style={{ width: 300 }}/>
 
             <p>Next, a new pop-up window will show a field where you can search for the Master SKUs that you would like to bundle together.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product14.PNG" style={{ width: 600 }}/>
-            <p>You can search by the Master SKU or product name and click on it to begin creating your bundle. Enter the required products and when ready, click <strong>Continue.</strong></p>
+            <p>You can search by the Master SKU or product name and click on it to begin creating your bundle. Enter the required products and when ready, click <b>Continue.</b></p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product15.PNG" style={{ width: 600 }}/>
-            <p>A new window will appear asking for the quantities per SKU that will make up the bundle/kit. Click <strong>Continue</strong> when done.</p>
+            <p>A new window will appear asking for the quantities per SKU that will make up the bundle/kit. Click <b>Continue</b> when done.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product16.PNG" style={{ width: 400 }}/>
             <p>As you saw when you created a new core product through the UI, you will see the same window to create the new Bundle/Kit.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product17.png" style={{ width: 600 }}/>
@@ -200,14 +200,14 @@ export default function () {
               <li>Name</li>
               <li>Brand</li>
             </ul>
-            <p>For information on Gallery, Listing SKUs, Vendor Products, or Customs, please refer to sections above under <strong>Core Products.</strong></p>
-            <p>The one tab we did not go over is the “Bundled Items” tab (green box on image above). When you click on this tab, you will see the products that make up this bundle/kit. You can also add to the bundle by clicking on <strong>Add Core Product</strong>, which will allow you to search for another Master SKU or product name to add to this bundle/kit along with the quantity.</p>
+            <p>For information on Gallery, Listing SKUs, Vendor Products, or Customs, please refer to sections above under <b>Core Products.</b></p>
+            <p>The one tab we did not go over is the “Bundled Items” tab (green box on image above). When you click on this tab, you will see the products that make up this bundle/kit. You can also add to the bundle by clicking on <b>Add Core Product</b>, which will allow you to search for another Master SKU or product name to add to this bundle/kit along with the quantity.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product18.png" style={{ width: 600 }}/>
 
 
             {/* Variations */}
             <h1>Variations</h1>
-            <p>Creating variations in Extensiv Order Manager is very straight forward. To get started, click on the <strong>“Product Variations”</strong> button.</p>
+            <p>Creating variations in Extensiv Order Manager is very straight forward. To get started, click on the <b>“Product Variations”</b> button.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product19%2B_1_.png" style={{ width: 300 }}/>
             <p>Once you do, you will see a new pop-up window where you can create the “Virtual SKU” or “Parent SKU” of the variation. You must also add the name for the variation grouping along with the brand. So, for a quick recap, these fields are required:</p>
             <ul>
@@ -223,7 +223,7 @@ export default function () {
             <p>If you must edit an existing attribute group, click on the gear icon, write over the existing name and click on the wrench icon to configure the attributes that are associated with this attribute group.</p>
             <p><i>Please be careful: Once you create an attribute, it cannot be deleted. If you decide not to use it, simply rename it until a time later on when you’re ready to use it.</i></p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/variation3.PNG" style={{ width: 600 }}/>
-            <p>Once you are ready, close out from these windows and go back to the <strong>New Virtual Product</strong> window. From here, you can now create the child SKUs that you will associate to the parent SKU and assign the necessary attributes along with the weights and dimensions.</p>
+            <p>Once you are ready, close out from these windows and go back to the <b>New Virtual Product</b> window. From here, you can now create the child SKUs that you will associate to the parent SKU and assign the necessary attributes along with the weights and dimensions.</p>
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/variation5.PNG" style={{ width: 600 }}/>
             <p>Once you are done, click Save, and you will have created your variation in Extensiv Order Manager.</p>
           </Card>

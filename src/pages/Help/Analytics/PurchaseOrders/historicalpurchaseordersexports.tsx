@@ -9,13 +9,13 @@ export default function () {
         <Col span={24}>
           <Card>
           <h2>Overview</h2>
-            <p>This feature is a CSV data export tool meant for large exports of <strong>historical data</strong>. Historical data exports are not the same as grid exports which are customizable exports for <strong>live data</strong> that Extensiv Order Manager already offers in the Orders Module.</p>
+            <p>This feature is a CSV data export tool meant for large exports of <b>historical data</b>. Historical data exports are not the same as grid exports which are customizable exports for <b>live data</b> that Extensiv Order Manager already offers in the Orders Module.</p>
             
             <h2>Limitations of historical exports:</h2>
             <ul>
               <li>Not real-time data - the data available for exports can be delayed for up to 24 hours.</li>
               <li>Each generated CSV file is available for download for 24 hours. After that period, the entry from the export grid is deleted (from the bottom half of the screen). You can always regenerate the same request later by using the filters to submit your previous request. The link to the file also expires after 24 hours.</li>
-              <li>The columns that are exported are <strong>not</strong> customizable. Instead, the export will include ALL columns available (see the list below for reference). You can edit your export once downloaded to delete/hide/rearrange columns you do not want.</li>
+              <li>The columns that are exported are <b>not</b> customizable. Instead, the export will include ALL columns available (see the list below for reference). You can edit your export once downloaded to delete/hide/rearrange columns you do not want.</li>
               <li>The export does not include the Total Cost column found in the Items tab.</li>
               <li>Parameters/filters to export by are limited to the destination warehouse, milestones, status, vendor, as well as created, received, and delivered date ranges.</li>
               <li>Each row represents a purchase order item.</li>

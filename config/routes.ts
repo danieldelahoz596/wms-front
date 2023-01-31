@@ -143,6 +143,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/help/products/general',
+        component: './Help/Products/products',
+      },
+      {
+        hideInMenu: true,
         path: '/help/products/manageproducts',
         component: './Help/Products/manageproducts',
       },
@@ -165,11 +170,6 @@ export default [
         hideInMenu: true,
         path: '/help/products/searchproducts',
         component: './Help/Products/searchproducts',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/products/adjustingmasterskus',
-        component: './Help/Products/adjustingmasterskus',
       },
       {
         hideInMenu: true,
@@ -200,6 +200,11 @@ export default [
         hideInMenu: true,
         path: '/help/orders/cancelorders',
         component: './Help/Orders/cancelorders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/general',
+        component: './Help/Orders/orders',
       },
       {
         hideInMenu: true,

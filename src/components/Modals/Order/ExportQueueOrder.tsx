@@ -36,7 +36,7 @@ const ExportQueueOrderModal: React.FC<IExportQueueOrderModal> = ({ isOpen, onClo
           description={
             <p>
               The selected orders will be placed into the queue and exported automatically.{' '}
-              <strong>All previous orders in the queue will be removed.</strong>
+              <b>All previous orders in the queue will be removed.</b>
             </p>
           }
           type="info"

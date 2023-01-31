@@ -14,7 +14,7 @@ export default function () {
             <br/><br/>
             {/* Export Products */}
             <h1>Export Products</h1>
-            <p>Select this option and click the <strong>Export Products</strong> button. This will generate a spreadsheet with ALL product information, including inactive products.</p>
+            <p>Select this option and click the <b>Export Products</b> button. This will generate a spreadsheet with ALL product information, including inactive products.</p>
 
             {/* Export Vendor Products */}
             <h1>Export Vendor Products</h1>

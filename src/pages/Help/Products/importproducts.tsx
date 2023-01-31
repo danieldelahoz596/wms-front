@@ -14,46 +14,46 @@ export default function () {
             
             {/* Master SKU */}
             <h1>Master SKU</h1>
-            <p>You can build your product catalog in Extensiv Order Manager using the <strong>Import Products spreadsheet</strong> to import all your product information and create the Extensiv Order Manager <strong>MASTER SKU</strong>.</p>
+            <p>You can build your product catalog in Extensiv Order Manager using the <b>Import Products spreadsheet</b> to import all your product information and create the Extensiv Order Manager <b>MASTER SKU</b>.</p>
             <p>Here are some helpful tips to help you fill in the Import Products spreadsheet. Please take your time to review and plan how you will build your Product catalog because once products are created in Extensiv Order Manager they cannot be deleted, they can only be edited or deactivated.</p>
             
             <h2>Building Core Products and Variations using the Import Product Spreadsheet:</h2>
             <ol>
               <li>
-                <p>Download the <strong>“Import Products”</strong> spreadsheet from the dropdown <strong>Import/Export</strong> button in the <strong>Products Module</strong>.</p>
+                <p>Download the <b>“Import Products”</b> spreadsheet from the dropdown <b>Import/Export</b> button in the <b>Products Module</b>.</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product.png" style={{ width: 1000 }} />
                 <br /><br />
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_1_.png" style={{ width: 600 }} />
                 <br /><br />
               </li>
               <li>
-                <p>Click on the <strong>“Core Products”</strong> sheet in the Excel spreadsheet to create single products</p>
+                <p>Click on the <b>“Core Products”</b> sheet in the Excel spreadsheet to create single products</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_2_.png" style={{ width: 300 }} />
                 <br /><br />
               </li>
               <li>
-                <p>In this template, <strong>these are the only 4 required fields, everything else is optional</strong>:</p>
+                <p>In this template, <b>these are the only 4 required fields, everything else is optional</b>:</p>
                 <ul>
                   <li>
-                    <p><strong>Column A: Master SKU</strong> - is your unique SKU in Extensiv Order Manager and it is tied to everything. If you have multiple listings for the same product only make one “Master SKU" for this product and you can connect multiple listings via the listing SKU spreadsheet.</p>
-                    <p><strong>NOTE:</strong> The same Master SKU cannot be used twice, every Master SKU must be unique</p>
+                    <p><b>Column A: Master SKU</b> - is your unique SKU in Extensiv Order Manager and it is tied to everything. If you have multiple listings for the same product only make one “Master SKU" for this product and you can connect multiple listings via the listing SKU spreadsheet.</p>
+                    <p><b>NOTE:</b> The same Master SKU cannot be used twice, every Master SKU must be unique</p>
                   </li>
                   <li>
-                    <p><strong>Column C: Name</strong> - the name of the product.</p>
+                    <p><b>Column C: Name</b> - the name of the product.</p>
                   </li>
                   <li>
-                    <p><strong>Column H: Brand</strong> - the brand the product is associated with.</p>
+                    <p><b>Column H: Brand</b> - the brand the product is associated with.</p>
                   </li>
                   <li>
-                    <p><strong>Column U: Active</strong> - is this an active product? Please fill out with either a TRUE or FALSE (False will deactivate the product)</p>
-                    <p><strong>NOTE:</strong> If you plan on building out parent-child relationships (<strong>Variations</strong>) <strong>TWO MORE fields are REQUIRED</strong>. Variations are comprised of one parent SKU with multiple child SKUs.</p>
+                    <p><b>Column U: Active</b> - is this an active product? Please fill out with either a TRUE or FALSE (False will deactivate the product)</p>
+                    <p><b>NOTE:</b> If you plan on building out parent-child relationships (<b>Variations</b>) <b>TWO MORE fields are REQUIRED</b>. Variations are comprised of one parent SKU with multiple child SKUs.</p>
                   </li>
                   <li>
-                    <p><strong>Column B: Virtual SKU</strong> - this is your parent SKU. So if your master SKUs are “Red-Shirt”, “Green-Shirt”, “Blue-Shirt” in column A, then the virtual SKU (parent SKU) for all 3 rows can be “Shirts” so you can encompass them under one parent.</p>
-                    <p><strong>PLEASE NOTE:</strong> YOUR VIRTUAL SKUS AND MASTER SKUS CANNOT BE THE SAME</p>
+                    <p><b>Column B: Virtual SKU</b> - this is your parent SKU. So if your master SKUs are “Red-Shirt”, “Green-Shirt”, “Blue-Shirt” in column A, then the virtual SKU (parent SKU) for all 3 rows can be “Shirts” so you can encompass them under one parent.</p>
+                    <p><b>PLEASE NOTE:</b> YOUR VIRTUAL SKUS AND MASTER SKUS CANNOT BE THE SAME</p>
                   </li>
                   <li>
-                    <p><strong>Column E: The attributes</strong> - these are the specific characteristic that make it a variation (i.e color, size, etc.) You can choose to call the attribute groups whatever you'd like and in the {`{}`} you will indicate the specific options you would like to see available for this attribute group. Example - Color {`{Azure Blue}`}</p>
+                    <p><b>Column E: The attributes</b> - these are the specific characteristic that make it a variation (i.e color, size, etc.) You can choose to call the attribute groups whatever you'd like and in the {`{}`} you will indicate the specific options you would like to see available for this attribute group. Example - Color {`{Azure Blue}`}</p>
                   </li>
                 </ul>
               </li>
@@ -64,28 +64,28 @@ export default function () {
             <h1>Build Product bundles/kits:</h1>
             <ol>
               <li>
-                <p>Using the <strong>“Import Products”</strong> spreadsheet, select the second sheet <strong>“Bundles & Kits”</strong>.</p>
+                <p>Using the <b>“Import Products”</b> spreadsheet, select the second sheet <b>“Bundles & Kits”</b>.</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_3_.png" style={{ width: 300 }} />
                 <br /><br />
               </li>
               <li>
-                <p>The <strong>required fields</strong> for creating Bundles or Kits are:</p>
+                <p>The <b>required fields</b> for creating Bundles or Kits are:</p>
                 <ul>
                   <li>
-                    <p><strong>Column A: Master SKU,</strong> the unique SKU in Extensiv Order Manager. If you have multiple listings for the same product only make one master SKU for this product and the listings will be connected via the listing SKU spreadsheet</p>
-                    <p><strong>NOTE:</strong> You cannot use the same master SKU twice, each Master SKU must be unique.</p>
+                    <p><b>Column A: Master SKU,</b> the unique SKU in Extensiv Order Manager. If you have multiple listings for the same product only make one master SKU for this product and the listings will be connected via the listing SKU spreadsheet</p>
+                    <p><b>NOTE:</b> You cannot use the same master SKU twice, each Master SKU must be unique.</p>
                   </li>
                   <li>
-                    <p><strong>Column B: Name</strong> - the name of the product.</p>
+                    <p><b>Column B: Name</b> - the name of the product.</p>
                   </li>
                   <li>
-                    <p><strong>Column D: Bundled Item Master SKU & Quantity</strong> - what SKU(s) from the core product sheet make up the bundle/kit and how many of each. Please follow format: <strong>SKU-123 {`{10}`}</strong></p>
+                    <p><b>Column D: Bundled Item Master SKU & Quantity</b> - what SKU(s) from the core product sheet make up the bundle/kit and how many of each. Please follow format: <b>SKU-123 {`{10}`}</b></p>
                   </li>
                   <li>
-                    <p><strong>Column G: Brand</strong> - the brand the product is associated with.</p>
+                    <p><b>Column G: Brand</b> - the brand the product is associated with.</p>
                   </li>
                   <li>
-                    <p><strong>Column T: Active</strong> - is this an active product? Please fill out with either <strong>TRUE</strong> or <strong>FALSE</strong>.</p>
+                    <p><b>Column T: Active</b> - is this an active product? Please fill out with either <b>TRUE</b> or <b>FALSE</b>.</p>
                   </li>
                 </ul>
               </li>
@@ -272,10 +272,11 @@ export default function () {
               type="info"
             />
             <br />
-            {/* Vendor SKU */}
-            <h1>Vendor SKU</h1>
+
+            {/* Vendor Product */}
+            <h1>Vendor Products</h1>
             <h2>Vendor Product Import</h2>
-            <p>First download the <strong>“Vendor Product” spreadsheet</strong> from the dropdown <strong>Import/Export</strong> button in the <strong>Products</strong> Module.</p>
+            <p>First download the <b>“Vendor Product” spreadsheet</b> from the dropdown <b>Import/Export</b> button in the <b>Products</b> Module.</p>
             <br />
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_6_.png" style={{ width: 800 }} />
             <br /><br />
@@ -283,7 +284,7 @@ export default function () {
             <br /><br />
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_7_.png" style={{ width: 400 }} />
             <br /><br />
-            <p>The window that pops up will allow you to download the required Excel template to import the Vendors. Click the link to <strong>Download the Excel Template</strong>.</p>
+            <p>The window that pops up will allow you to download the required Excel template to import the Vendors. Click the link to <b>Download the Excel Template</b>.</p>
             <i>Import By Vendor</i>
             <br /><br />
             <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_8_.png" style={{ width: 600 }} />
@@ -295,44 +296,44 @@ export default function () {
             <h2>ALL FIELDS ARE REQUIRED TO BE FILLED OUT EXCEPT COLUMN H & K - YOUR FILE WILL ERROR IF THERE ARE BLANKS. YOU CANNOT DELETE COLUMNS OR ADD COLUMNS, DO NOT CHANGE THE INTEGRITY OF THE FILE</h2>
             <ul>
               <li>
-                <p><strong>Column A: Vendor Name</strong> - You must select which vendor you are adding this cost for.</p>
+                <p><b>Column A: Vendor Name</b> - You must select which vendor you are adding this cost for.</p>
               </li>
               <li>
-                <p><strong>Column B: Master SKU</strong> - The Master SKU in Extensiv Order Manager you are adding a cost for.</p>
+                <p><b>Column B: Master SKU</b> - The Master SKU in Extensiv Order Manager you are adding a cost for.</p>
               </li>
               <li>
-                <p><strong>Column C: Vendor SKU</strong> - This is the SKU your vendor recognizes the product as. It is the SKU included in the Purchase Orders Extensiv Order Manager creates when Auto PO Generations is turned on.</p>
+                <p><b>Column C: Vendor SKU</b> - This is the SKU your vendor recognizes the product as. It is the SKU included in the Purchase Orders Extensiv Order Manager creates when Auto PO Generations is turned on.</p>
               </li>
             </ul>
             <br />
-            <p><strong>Vendor SKUs must be different for each product if they come from the same vendor </strong> - if the vendor SKU is the same but purchased from different vendors then you can add it multiple times for each vendor</p>
+            <p><b>Vendor SKUs must be different for each product if they come from the same vendor </b> - if the vendor SKU is the same but purchased from different vendors then you can add it multiple times for each vendor</p>
             <ul>
               <li>
-                <p><strong>Column D: Active</strong> - Set this to “TRUE” if you want Extensiv Order Manager to calculate purchase orders for this product, “False” if you do not want to.</p>
+                <p><b>Column D: Active</b> - Set this to “TRUE” if you want Extensiv Order Manager to calculate purchase orders for this product, “False” if you do not want to.</p>
               </li>
               <li>
-                <p><strong>Column E: Minimum Order Qty</strong> - the minimum amount you must order from the vendor. the value must be greater than or equal to 1- cannot be 0.</p>
+                <p><b>Column E: Minimum Order Qty</b> - the minimum amount you must order from the vendor. the value must be greater than or equal to 1- cannot be 0.</p>
               </li>
               <li>
-                <p><strong>Column F: Lead Time</strong> - this is the time it takes for the product to get from the vendor to you. This is in calendar days, the value must greater than or equal to 1.</p>
+                <p><b>Column F: Lead Time</b> - this is the time it takes for the product to get from the vendor to you. This is in calendar days, the value must greater than or equal to 1.</p>
               </li>
               <li>
-                <p><strong>Column G: Pricing Tiers</strong> - Please be very clear with the format. You can leave it as one group of parentheses if you are doing one large pricing tier. EXAMPLE: (1-10000|5.00) The price goes after the | If you do not have pricing tiers you can select an arbitrary number that you rarely order the quantity for to serve as the max. For example: 1-10000 (this is defining the first 10,000 orders are the same cost per unit, 10,000 is serving as the max). You can make the number as high as you want so you do not have a cap. If you do have pricing tiers then you can just enter them in this format: (1-100|12.00)(101-200|10.00)</p>
-                <p><strong>NOTE:</strong> Pricing tiers must start at 1.</p>
+                <p><b>Column G: Pricing Tiers</b> - Please be very clear with the format. You can leave it as one group of parentheses if you are doing one large pricing tier. EXAMPLE: (1-10000|5.00) The price goes after the | If you do not have pricing tiers you can select an arbitrary number that you rarely order the quantity for to serve as the max. For example: 1-10000 (this is defining the first 10,000 orders are the same cost per unit, 10,000 is serving as the max). You can make the number as high as you want so you do not have a cap. If you do have pricing tiers then you can just enter them in this format: (1-100|12.00)(101-200|10.00)</p>
+                <p><b>NOTE:</b> Pricing tiers must start at 1.</p>
               </li>
               <li>
-                <p><strong>Column H: Units of Measure</strong> - This is an optional field, you can leave it blank. If you choose to use it you can just write the name of the measure and how many units go into it. The quantity of units goes into the {`{ }`}.</p>
+                <p><b>Column H: Units of Measure</b> - This is an optional field, you can leave it blank. If you choose to use it you can just write the name of the measure and how many units go into it. The quantity of units goes into the {`{ }`}.</p>
               </li>
               <li>
-                <p><strong>Column I: Is Default</strong> - this applies if you are ordering the Master SKU from multiple vendors, you will mark TRUE for the vendor you want to serve as the default when ordering the product. You can leave them all as FALSE if you do not want to specify a default vendor or TRUE if it is just for one.</p>
+                <p><b>Column I: Is Default</b> - this applies if you are ordering the Master SKU from multiple vendors, you will mark TRUE for the vendor you want to serve as the default when ordering the product. You can leave them all as FALSE if you do not want to specify a default vendor or TRUE if it is just for one.</p>
               </li>
               <li>
-                <p><strong>Column J: Auto-P.O. Rounding</strong> - It is REQUIRED that you choose from one of the three statements below:</p>
+                <p><b>Column J: Auto-P.O. Rounding</b> - It is REQUIRED that you choose from one of the three statements below:</p>
                 <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/pic2644473.jpg" style={{ width: 400 }} />
                 <br /><br />
               </li>
               <li>
-                <p><strong>Column K: Packaging - This is an optional field</strong>. This field is for vendors that need special instructions about packaging this product.</p>
+                <p><b>Column K: Packaging - This is an optional field</b>. This field is for vendors that need special instructions about packaging this product.</p>
               </li>
             </ul>
             <br />
@@ -350,9 +351,27 @@ export default function () {
             <ul>
               <li><p>You cannot create nested bundles, meaning a bundle/kit of a bundle/kit.</p></li>
               <li>
-                <p>After entering your product information into the excel template, save the document and return to Extensiv Order Manager. Upload your saved document via the <strong>Select</strong> button. Choose whether you would like to update products already synced with Extensiv Order Manager. Press <strong>continue</strong> and wait for the upload to complete. When the file is finished uploading, Extensiv Order Manager will generate a short report summarizing your uploaded products.</p>
+                <p>After entering your product information into the excel template, save the document and return to Extensiv Order Manager. Upload your saved document via the <b>Select</b> button. Choose whether you would like to update products already synced with Extensiv Order Manager. Press <b>continue</b> and wait for the upload to complete. When the file is finished uploading, Extensiv Order Manager will generate a short report summarizing your uploaded products.</p>
               </li>
             </ul>
+
+            <h1>3. Import SKU Adjustments</h1>
+            <ol>
+              <li>
+                <p>To adjust Master SKUs in Bulk via spreadsheet, click on the “Import/Export” button in the top menu bar and select “Import SKU Adjustments” from the dropdown menu.</p>
+                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502492/products__1_.png" style={{ width: 800 }}/>
+                <br/><br/>
+              </li>
+              <li>
+                <p>A new window will open where you can download an excel template for the SKU Adjustment Import:</p>
+                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502493/products__2_.png" style={{ width: 600 }}/>
+                <br/><br/>
+              </li>
+              <li>
+                <p>Fill in the appropriate columns and import it back into Extensiv Order Manager. This will update all the associated Master SKUs in Extensiv Order Manager:</p>
+                <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502494/products__3_.png" style={{ width: 300 }}/>
+              </li>
+            </ol>
           </Card>
         </Col>
       </Row>

@@ -5,13 +5,13 @@ import { UploadOutlined } from '@ant-design/icons';
 import httpClient from '@/utils/http-client';
 const { Option } = Select;
 
-interface IImportProduct {
+interface IImportProducts {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) => {
+const ImportProducts: React.FC<IImportProducts> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
 
   const handleDownloadTemplate = () => {
@@ -65,7 +65,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
         </a>
         <p>
           Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are 
-          <i><strong> not</strong></i> case sensitive. For example, <i>'sku123' </i>
+          <i><b> not</b></i> case sensitive. For example, <i>'sku123' </i>
           is regarded the same as <i>'SKU123'</i> by the system.
         </p>
         <p>
@@ -74,14 +74,14 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
           and log them in the <b>Import Summary</b> that is generated at the end, which you can use
           to correct duplicate values and re-submit.
         </p>
-        <Row >
-          <Col offset={16} span={8} style={{ textAlign: 'right' }}>
+        <Row>
+          <Col>
             <label>Products File:</label>&nbsp;&nbsp;
             <Upload {...fileUploadProps}>
               <Button icon={<UploadOutlined />}>Select...</Button>
             </Upload>
           </Col>
-          <Col span={24} style={{ textAlign: 'right', marginTop: '1rem' }}>
+          <Col style={{ marginTop: '1rem' }}>
             <label>Update existing products if changes found in the Excel file?</label>&nbsp;&nbsp;
             <Select placeholder="Yes - Update existing products and import new" style={{ textIndent: '0.5rem' }}>
               <Option value="1">Yes - Update existing products and import new.</Option>
@@ -94,4 +94,4 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
   );
 };
 
-export default ImportProduct;
+export default ImportProducts;

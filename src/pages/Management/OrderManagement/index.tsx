@@ -490,7 +490,7 @@ const OrderManagement: React.FC = () => {
       </div>
 
       <ImportExportSummaryModal
-        title="EXTERNAL SHIPMENT IMPORT"
+        title="External Shipment Import"
         info="TEST Shipment Import Report"
         isOpen={modalOpen === modalType.ImportExportSummary}
         onSave={() => setModal(modalType.Close)}
