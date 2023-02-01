@@ -26,11 +26,15 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
     },
     {
       type: 'text',
+      label: ' ',
       name: 'address2',
+      colon: false,
     },
     {
       type: 'text',
+      label: ' ',
       name: 'address3',
+      colon: false,
     },
     {
       type: 'text',
@@ -114,6 +118,7 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
               label={item.label}
               name={item.name}
               style={{ justifyContent: 'flex-end' }}
+              colon={item.colon}
             >
               <OInput placeholder={item.placeholder} />
             </Form.Item>
