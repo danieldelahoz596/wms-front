@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import OrderItems from '@/components/Order/EditOrder/OrderItems';
-import ManageCustomFields from '@/components/Order/ManageCustomFields/ManageCustomFields';
+import ManageCustomFields from '@/components/Order/EditOrder/ManageCustomFields';
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;
