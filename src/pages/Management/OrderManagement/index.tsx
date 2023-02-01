@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Card, Row, Col, Dropdown, Button, Badge } from 'antd';
+import { Card, Row, Col, Dropdown, Button, Badge, Modal } from 'antd';
 import React, { useEffect, useState, useMemo } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
 
@@ -16,6 +16,7 @@ import {
   CheckCircleOutlined,
   CloseOutlined,
   DownOutlined,
+  ExclamationCircleFilled,
   FieldTimeOutlined,
   FileFilled,
   FileOutlined,
@@ -57,6 +58,8 @@ import { defaultShowColumns } from '@/data/orderData';
 import SplitOrder from '@/components/Modals/Order/SplitOrder';
 import { uuidv4 } from '@antv/xflow-core';
 import DuplicateOrderModal from '@/components/Modals/Order/DuplicateOrder';
+
+const { confirm } = Modal;
 
 const defaultOrderTableColumns = [
   {
@@ -111,12 +114,28 @@ const defaultOrderTableColumns = [
   },
 ];
 
+const showConfirm = () => {
+  confirm({
+    title: 'Do you Want to Assign these items?',
+    icon: <ExclamationCircleFilled />,
+    content: 'Some descriptions',
+    onOk() {
+      console.log('OK');
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+};
+
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
+  const { userList, getUsers } = useModel('user');
   const { customFields } = useModel('customOrderFields');
-  const [modalOpen, setModal] = useState('');
   const { selectedOrderStatus } = useModel('orderStatus');
+  const { initialState } = useModel('@@initialState');
+  const [modalOpen, setModal] = useState('');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
 
@@ -124,6 +143,10 @@ const OrderManagement: React.FC = () => {
     setEditableOrder(item);
     setModal(modalType.EditOrder);
   };
+
+  useEffect(() => {
+    getUsers({ permission: 'orders' });
+  }, [getUsers]);
 
   const handleSelectedRows = (_selectedRows = []) => {
     setSelectedRows(_selectedRows);
@@ -190,7 +213,7 @@ const OrderManagement: React.FC = () => {
           menu={{
             items: [
               {
-                key: '1',
+                key: 'pick_list',
                 label: (
                   <span>
                     <FileOutlined /> Pick List(s)
@@ -198,7 +221,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '2',
+                key: 'global_picK_list',
                 label: (
                   <span>
                     <FileOutlined /> Global Pick List
@@ -206,7 +229,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '3',
+                key: 'packing_slip',
                 label: (
                   <span>
                     <FileTextOutlined /> Packing Slip(s)
@@ -214,7 +237,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '4',
+                key: 'item_label',
                 label: (
                   <span>
                     {' '}
@@ -223,7 +246,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '5',
+                key: 'item_label_roll',
                 label: (
                   <span>
                     <FileOutlined /> Item Label(s) Roll
@@ -231,7 +254,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '6',
+                key: 'label',
                 label: (
                   <span>
                     <FileOutlined /> Label(s)
@@ -239,7 +262,7 @@ const OrderManagement: React.FC = () => {
                 ),
               },
               {
-                key: '7',
+                key: 'custom_form',
                 label: (
                   <span>
                     <FileOutlined /> Custom Form(s)
@@ -278,7 +301,7 @@ const OrderManagement: React.FC = () => {
           menu={{
             items: [
               {
-                key: '1',
+                key: 'hold_until',
                 label: (
                   <span>
                     <FieldTimeOutlined /> Hold Until..
@@ -288,7 +311,7 @@ const OrderManagement: React.FC = () => {
               // In Awaiting Shipment or Pending Fulfillment
               [3, 4].includes(selectedOrderStatus?.status.id) && selectedRows.length > 0
                 ? {
-                    key: '2',
+                    key: 'cancel_order',
                     label: (
                       <span onClick={() => setModal(modalType.CancelOrder)}>
                         <StopOutlined /> Cancel Order
@@ -297,31 +320,41 @@ const OrderManagement: React.FC = () => {
                   }
                 : null,
               {
-                key: '3',
+                key: 'assign_to',
                 label: (
                   <span>
                     <UserOutlined /> Assign To
                   </span>
                 ),
+                children:
+                  userList.length > 1 &&
+                  userList
+                    .filter((user) => user.id !== initialState?.currentUser?.user.id)
+                    .map((user) => ({
+                      key: user.id,
+                      label: <span onClick={showConfirm}>{user.full_name}</span>,
+                    })),
+                disabled: selectedRows.length < 1,
               },
-              selectedRows.length === 1 && {
-                key: '4',
+              {
+                key: 'split_order',
                 label: (
                   <span onClick={() => setModal(modalType.SplitOrder)}>
                     <MinusCircleOutlined /> SplitOrder{' '}
                   </span>
                 ),
+                disabled: selectedRows.length !== 1,
               },
               {
-                key: '5',
+                key: 'mark_shipped',
                 label: (
                   <span>
-                    <CheckCircleOutlined /> Mark 'Shipped'
+                    <CheckCircleOutlined /> ${`Mark 'Shipped'`}
                   </span>
                 ),
               },
               {
-                key: '6',
+                key: 'duplicate_order',
                 label: (
                   <span onClick={() => setModal(modalType.DuplicateOrder)}>
                     <PlusCircleOutlined /> Duplicate Order
