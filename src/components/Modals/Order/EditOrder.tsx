@@ -4,9 +4,6 @@ import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import OrderItems from '@/components/Order/EditOrder/OrderItems';
 import ManageCustomFields from '@/components/Order/ManageCustomFields/ManageCustomFields';
-
-const { TabPane } = Tabs;
-
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +12,39 @@ interface IEditOrderModal {
 
 const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) => {
   const { editableOrder, saveEditableOrder } = useModel('order');
+
+  const tabItems = [
+    {
+      label: 'Basic Info',
+      key: 1,
+      children: <>Basic Info</>,
+    },
+    {
+      label: 'Order Items',
+      key: 2,
+      children: <OrderItems />,
+    },
+    {
+      label: 'Fields',
+      key: 3,
+      children: <ManageCustomFields />,
+    },
+    {
+      label: 'Communication',
+      key: 4,
+      children: <>Communication</>,
+    },
+    {
+      label: 'Channel Fields',
+      key: 5,
+      children: <>Channel Fields</>,
+    },
+    {
+      label: 'History',
+      key: 6,
+      children: <>History</>,
+    },
+  ];
 
   const handleSave = () => {
     // saveEditableOrder();
@@ -42,26 +72,7 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
         },
       ]}
     >
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="Basic Info" key="1">
-          Basic Info
-        </TabPane>
-        <TabPane tab="Order Items" key="3">
-          <OrderItems />
-        </TabPane>
-        <TabPane tab="Fields" key="4">
-          <ManageCustomFields />
-        </TabPane>
-        <TabPane tab="Communication" key="5">
-          Communication
-        </TabPane>
-        <TabPane tab="Channel Fields" key="6">
-          Channel Fields
-        </TabPane>
-        <TabPane tab="History" key="7">
-          History
-        </TabPane>
-      </Tabs>
+      <Tabs defaultActiveKey="1" items={tabItems} />
     </OModal>
   );
 };
