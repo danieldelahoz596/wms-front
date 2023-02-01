@@ -17,7 +17,7 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
     [
       {
         type: 'date',
-        name: 'orderDate',
+        name: 'order_date',
         label: 'Order Date',
       },
       {

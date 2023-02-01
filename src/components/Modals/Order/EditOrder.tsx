@@ -54,7 +54,7 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
 
   return (
     <OModal
-      title={editableOrder?.orderNumber}
+      title={editableOrder?.order_number}
       width={1200}
       isOpen={isOpen}
       handleCancel={onClose}

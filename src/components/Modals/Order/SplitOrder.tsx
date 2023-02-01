@@ -15,7 +15,7 @@ const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
 
   const handleSave = () => {
     form.validateFields().then((value) => {
-      onSave({ ...editableOrder, orderNumber: value.order_number });
+      onSave({ ...editableOrder, order_number: value.order_number });
     });
   };
 
@@ -25,7 +25,7 @@ const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={`Split Order ${editableOrder?.orderNumber}`}
+      title={`Split Order ${editableOrder?.order_number}`}
       width={1200}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -58,7 +58,7 @@ const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
         <Form.Item label="Order Number" labelCol={{ span: 4 }}>
           <Input.Group compact>
             <Form.Item
-              label={editableOrder?.orderNumber}
+              label={editableOrder?.order_number}
               labelCol={{ span: 24 }}
               style={{ width: '50%' }}
               colon={false}

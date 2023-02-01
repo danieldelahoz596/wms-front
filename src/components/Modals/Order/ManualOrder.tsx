@@ -23,9 +23,9 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
       name: editableOrder ? editableOrder.recipient : '',
     });
     orderdetailsForm.setFieldsValue({
-      order: editableOrder ? editableOrder.orderNumber : '',
-      orderDate: editableOrder ? editableOrder.orderDate : '',
-      paidOn: editableOrder ? editableOrder.datePaid : '',
+      order: editableOrder ? editableOrder.order_number : '',
+      order_date: editableOrder ? editableOrder.order_date : '',
+      paidOn: editableOrder ? editableOrder.order_paid : '',
     });
   }, [isOpen]);
 

@@ -36,7 +36,7 @@ const OrderItems: FC = () => {
                   <div>
                     <div>
                       <img src={order.sales_channel?.icon} />
-                      {order.sales_channel?.name} :: {order.orderNumber}
+                      {order.sales_channel?.name} :: {order.order_number}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                       <div

@@ -14,7 +14,7 @@ const DuplicateOrder: React.FC<IDuplicateOrder> = ({ isOpen, onClose, onSave }) 
 
   return (
     <OModal
-      title={`Duplicate Order ${editableOrder?.orderNumber}`}
+      title={`Duplicate Order ${editableOrder?.order_number}`}
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -34,7 +34,7 @@ const DuplicateOrder: React.FC<IDuplicateOrder> = ({ isOpen, onClose, onSave }) 
       ]}
     >
       <Card title="Order Number">
-        <Input defaultValue={editableOrder?.orderNumber} disabled />
+        <Input defaultValue={editableOrder?.order_number} disabled />
       </Card>
       <Card title="Fulfillment Type">
         <Input defaultValue="Direct Fulfillment" disabled />

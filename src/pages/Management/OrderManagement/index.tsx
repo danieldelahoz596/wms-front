@@ -64,8 +64,8 @@ const { confirm } = Modal;
 const defaultOrderTableColumns = [
   {
     title: 'Order Number',
-    dataIndex: 'orderNumber',
-    key: 'orderNumber',
+    dataIndex: 'order_number',
+    key: 'order_number',
   },
   {
     title: 'Labels',
@@ -79,13 +79,13 @@ const defaultOrderTableColumns = [
   },
   {
     title: 'Order Date',
-    dataIndex: 'orderDate',
-    key: 'orderDate',
+    dataIndex: 'order_date',
+    key: 'order_date',
   },
   {
     title: 'Date Paid',
-    dataIndex: 'datePaid',
-    key: 'datePaid',
+    dataIndex: 'order_paid',
+    key: 'order_paid',
   },
   {
     title: 'Age',
@@ -498,11 +498,16 @@ const OrderManagement: React.FC = () => {
         </span>
       ),
       orderTotal: `$${item.orderTotal}`,
-      orderNumber: (
-        <div onClick={() => handleProductEdit(item)}>
+      order_number: (
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleProductEdit(item);
+          }}
+        >
           <FileOutlined />{' '}
           <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
-            {item.orderNumber}
+            {item.order_number}
           </span>
         </div>
       ),
@@ -515,8 +520,8 @@ const OrderManagement: React.FC = () => {
           />
         </div>
       ),
-      orderDate: moment(item.orderDate).format('Y-M-D'),
-      datePaid: moment(item.datePaid).format('Y-M-D'),
+      order_date: moment(item.order_date).format('Y-M-D'),
+      order_paid: moment(item.order_paid).format('Y-M-D'),
       age: (
         <span
           style={{
@@ -529,7 +534,7 @@ const OrderManagement: React.FC = () => {
       recipient: (
         <div>
           <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
-          {item.recipient}
+          {item.recipient.name}
         </div>
       ),
     };
