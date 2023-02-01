@@ -1,7 +1,9 @@
 import LaunchIcon from '@/utils/icons/launch';
 import {
   ArrowDownOutlined,
+  EllipsisOutlined,
   InfoOutlined,
+  MenuOutlined,
   QuestionCircleFilled,
   ScissorOutlined,
   SmallDashOutlined,
@@ -9,6 +11,8 @@ import {
 import { Card, Row, Col, Space, Table, Dropdown, Button } from 'antd';
 import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
+import ExportModal from '@/components/Modals/Analytic/ExportModal';
+import { useState } from 'react';
 
 const TColumns = [
   {
@@ -135,9 +139,10 @@ const futureSoldData = [
 ];
 
 const LandingPage: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div style={{ margin: 10 }}>
-      <Row gutter={16} style={{ width: '100%' }}>
+      <Row gutter={16} style={{ width: '100%' }} align="middle">
         <Col span={4}>
           <Card>
             <div style={{ fontSize: 30, textAlign: 'center' }}>24</div>
@@ -190,7 +195,8 @@ const LandingPage: React.FC = () => {
         </Col>
         <Col span={4}>
           <Dropdown menu={{ items: dropDownMenu }} placement="bottomRight">
-            <Button
+            <EllipsisOutlined rotate={90} style={{ fontSize: 100, color: 'gray' }} />
+            {/* <Button
               icon={
                 <SmallDashOutlined
                   rotate={90}
@@ -198,7 +204,7 @@ const LandingPage: React.FC = () => {
                 />
               }
               style={{ height: 110 }}
-            />
+            /> */}
           </Dropdown>
         </Col>
         <Col span={20}>
@@ -208,8 +214,10 @@ const LandingPage: React.FC = () => {
             </Col>
             <Col>
               <Space size={10} align="center">
-                <QuestionCircleFilled style={{ fontSize: 20 }}/>
-                <LaunchIcon style={{ width: 20, paddingTop: 5 }} />
+                <QuestionCircleFilled style={{ fontSize: 20 }} />
+                <span onClick={() => setShowModal(true)}>
+                  <LaunchIcon style={{ width: 20, paddingTop: 5 }} />
+                </span>
               </Space>
             </Col>
           </Row>
@@ -222,52 +230,96 @@ const LandingPage: React.FC = () => {
         </Col>
         <Col span={20} style={{ marginTop: 10 }}>
           <h2>Inventory Movement Forensics</h2>
-          <Row>
-            <Col span={12}>
-              <Pie
-                data={pastSoldData}
-                angleField="value"
-                colorField="type"
-                color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
-                interactions={[
-                  {
-                    type: 'element-selected',
-                  },
-                  {
-                    type: 'element-active',
-                  },
-                ]}
-                legend={{
-                  marker: { symbol: 'square' },
-                }}
-                label={false}
-                height={150}
-              />
-            </Col>
-            <Col span={12}>
-              <Pie
-                data={futureSoldData}
-                angleField="value"
-                colorField="type"
-                color={['#AAFF00', '#55FF00', '#00FF00']}
-                interactions={[
-                  {
-                    type: 'element-selected',
-                  },
-                  {
-                    type: 'element-active',
-                  },
-                ]}
-                legend={{
-                  marker: { symbol: 'square' },
-                }}
-                label={false}
-                height={150}
-              />
-            </Col>
-          </Row>
+          <Card>
+            <Row>
+              <Col span={12}>
+                <Dropdown.Button
+                  menu={{
+                    items: [
+                      {
+                        type: 'group',
+                        label: 'Print Chart',
+                      },
+                      {
+                        type: 'divider',
+                      },
+                      {
+                        key: 'download_png',
+                        label: 'Download PNG image',
+                      },
+                      {
+                        key: 'download_jpeg',
+                        label: 'Download JPEG image',
+                      },
+                      {
+                        key: 'download_pdf',
+                        label: 'Download PDF document',
+                        disabled: true,
+                      },
+                      {
+                        key: 'download_svg',
+                        label: 'Download SVG Vector image',
+                        disabled: true,
+                      },
+                    ],
+                  }}
+                  placement="bottom"
+                  icon={<MenuOutlined />}
+                />
+                <Pie
+                  data={pastSoldData}
+                  angleField="value"
+                  colorField="type"
+                  color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
+                  interactions={[
+                    {
+                      type: 'element-selected',
+                    },
+                    {
+                      type: 'element-active',
+                    },
+                  ]}
+                  legend={{
+                    marker: { symbol: 'square' },
+                    offsetX: -20,
+                  }}
+                  label={false}
+                  height={250}
+                />
+              </Col>
+              <Col span={12}>
+                <Pie
+                  data={futureSoldData}
+                  angleField="value"
+                  colorField="type"
+                  color={['#AAFF00', '#55FF00', '#00FF00']}
+                  interactions={[
+                    {
+                      type: 'element-selected',
+                    },
+                    {
+                      type: 'element-active',
+                    },
+                  ]}
+                  legend={{
+                    marker: { symbol: 'square' },
+                    offsetX: -20,
+                  }}
+                  label={false}
+                  height={250}
+                />
+              </Col>
+            </Row>
+          </Card>
         </Col>
       </Row>
+
+      <ExportModal
+        isOpen={showModal}
+        title="Export Opportunities Found by Skubana"
+        onClose={() => setShowModal(false)}
+        onSave={() => setShowModal(false)}
+      />
     </div>
   );
 };

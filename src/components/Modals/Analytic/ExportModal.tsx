@@ -5,9 +5,10 @@ interface IExportModal {
   isOpen: boolean;
   title: string;
   onClose: () => void;
+  onSave: () => void;
 }
 
-const ExportModal: React.FC<IExportModal> = ({ isOpen, title, onClose }) => {
+const ExportModal: React.FC<IExportModal> = ({ isOpen, title, onClose, onSave }) => {
   return (
     <OModal
       title={title}
@@ -20,6 +21,12 @@ const ExportModal: React.FC<IExportModal> = ({ isOpen, title, onClose }) => {
           type: 'default',
           btnLabel: 'Close',
           onClick: onClose,
+        },
+        {
+          key: 'export',
+          type: 'default',
+          btnLabel: 'Export',
+          onClick: onSave,
         },
       ]}
     >
