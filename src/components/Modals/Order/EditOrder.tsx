@@ -4,6 +4,7 @@ import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import OrderItems from '@/components/Order/EditOrder/OrderItems';
 import ManageCustomFields from '@/components/Order/EditOrder/ManageCustomFields';
+import BasicInfo from '@/components/Order/EditOrder/BasicInfo';
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;
@@ -17,7 +18,7 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
     {
       label: 'Basic Info',
       key: 1,
-      children: <>Basic Info</>,
+      children: <BasicInfo />,
     },
     {
       label: 'Order Items',

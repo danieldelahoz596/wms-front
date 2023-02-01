@@ -7,7 +7,6 @@ import { useState, useMemo } from 'react';
 const ManageCustomFields: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { fieldTypes, customFields, setCustomFields } = useModel('customOrderFields');
-  console.log('customFields: ', customFields);
 
   const TColumns = [
     {
