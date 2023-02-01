@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Form, Input, Select, Card, InputNumber, Checkbox } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
@@ -18,6 +18,21 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { initialState } = useModel('@@initialState');
   const { brands } = useModel('brand');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      master_sku: editableProduct?.master_sku,
+      name: editableProduct?.name,
+      buyer: editableProduct?.buyer,
+      brand: editableProduct?.brand,
+      categories: editableProduct?.categories,
+      labels: editableProduct?.labels,
+      description: editableProduct?.description,
+      width: editableProduct?.width,
+      height: editableProduct?.height,
+      length: editableProduct?.length,
+    });
+  }, [editableProduct, form]);
 
   return (
     <>
@@ -59,7 +74,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-      <Form form={form}  >
+      <Form form={form}>
         {!editableProduct && (
           <>
             <Form.Item
@@ -79,11 +94,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </>
         )}
         <Row>
-          <Form.Item 
-            label="Buy | Brand *" 
-            name="buyer" 
-            style={{ width: 'calc(50% + 30px)' }}
-          >
+          <Form.Item label="Buy | Brand *" name="buyer" style={{ width: 'calc(50% + 30px)' }}>
             <Select
               options={[
                 {
@@ -105,21 +116,27 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               }))}
             />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => setCurrentModal(modalType.Edit)}
+          />
         </Row>
         <Row>
           <Form.Item label="Categories" name="categories" style={{ width: 'calc(100% - 74px)' }}>
             <Select
-            placeholder="Select..."
-            options={initialState?.initialData?.categories.map((brand) => ({
-              value: brand.id,
-              label: brand.name,
-            }))}
-          />
+              placeholder="Select..."
+              options={initialState?.initialData?.categories.map((brand) => ({
+                value: brand.id,
+                label: brand.name,
+              }))}
+            />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => setCurrentModal(modalType.Edit)}
+          />
         </Row>
         <Row>
           <Form.Item label="Labels" name="labels" style={{ width: 'calc(100% - 74px)' }}>
@@ -131,10 +148,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               }))}
             />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)}/>
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)}/>
+          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => setCurrentModal(modalType.Edit)}
+          />
         </Row>
-        
+
         <Form.Item label="Description" name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
@@ -146,7 +166,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         >
           <Input />
         </Form.Item>
-        <br/>
+        <br />
         <Card title="Measurements">
           <Row>
             <Col span={8}>
@@ -183,12 +203,12 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                 label="H/W/L"
                 labelCol={{ span: 4, offset: 1 }}
                 labelAlign="left"
-                // className="custom-form-item"
+                className="custom-form-item"
               >
                 <Input.Group compact>
                   <Form.Item
                     label="x"
-                    name="x"
+                    name="height"
                     style={{ width: '33%', margin: 0 }}
                     colon={false}
                     labelCol={{ offset: 1 }}
@@ -197,7 +217,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                   </Form.Item>
                   <Form.Item
                     label="y"
-                    name="y"
+                    name="width"
                     style={{ width: '33%', margin: 0 }}
                     colon={false}
                     labelCol={{ offset: 1 }}
@@ -206,7 +226,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                   </Form.Item>
                   <Form.Item
                     label="z"
-                    name="z"
+                    name="length"
                     style={{ width: '33%', margin: 0 }}
                     colon={false}
                     labelCol={{ offset: 1 }}

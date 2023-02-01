@@ -169,8 +169,14 @@ const ProductManagement: React.FC = () => {
     },
     {
       title: 'H/W/L',
-      dataIndex: 'h/w/l',
       key: 'h/w/l',
+      render: (value, record) => {
+        return (
+          <>
+            {record.width}/{record.height}/{record.length}
+          </>
+        );
+      },
     },
     {
       title: 'Action',
@@ -670,7 +676,6 @@ const ProductManagement: React.FC = () => {
         onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
-     
 
       <ShowProductFieldsModal
         isOpen={modalOpen == modalType.ShowProductFields}
