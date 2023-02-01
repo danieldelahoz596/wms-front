@@ -42,11 +42,7 @@ const Rcolumns = [
   },
 ];
 
-interface ITansferDetails {
-  showDetails: boolean;
-}
-
-const TransferDetails: React.FC<ITansferDetails> = ({ showDetails }) => {
+const TransferDetails: React.FC = () => {
   const [recieveDataSource] = useState(recieveData);
 
   return (
@@ -54,11 +50,9 @@ const TransferDetails: React.FC<ITansferDetails> = ({ showDetails }) => {
       <Card>
         <h3>Stock Transfer Order Details</h3>
       </Card>
-      {showDetails && (
-        <Card>
-          <OTable columns={Rcolumns} rows={recieveDataSource} />
-        </Card>
-      )}
+      <Card>
+        <OTable columns={Rcolumns} rows={recieveDataSource} />
+      </Card>
     </>
   );
 };

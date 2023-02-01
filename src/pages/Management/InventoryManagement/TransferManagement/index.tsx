@@ -92,8 +92,6 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
   const [historyDataSource, sethistoryDataSource] = useState(historyData);
   const [selectedTranster, setSelectedTranster] = useState(null);
 
-  const [openReceive, setopenReceive] = useState<boolean>(false);
-
   const {
     isDragging: isRightDragging,
     position: RightW,
@@ -107,10 +105,6 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
 
   const showHistory = () => {
     setCurrentModal(modalType.History);
-  };
-
-  const showReceive = () => {
-    setopenReceive(true);
   };
 
   return (
@@ -177,7 +171,6 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
                 <Col>
                   <Button
                     type="primary"
-                    onClick={showReceive}
                     disabled={!(selectedTranster?.status === 'pending_receiving')}
                   >
                     Receive
@@ -219,7 +212,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
         style={{ width: RightW }}
       >
         <div className="w-full">
-          <TransferDetails showDetails={openReceive} />
+          <TransferDetails />
         </div>
       </div>
 
