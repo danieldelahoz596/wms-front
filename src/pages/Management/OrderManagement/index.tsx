@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { Card, Row, Col, Dropdown, Button, Badge } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
 
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
@@ -58,9 +58,63 @@ import SplitOrder from '@/components/Modals/Order/SplitOrder';
 import { uuidv4 } from '@antv/xflow-core';
 import DuplicateOrderModal from '@/components/Modals/Order/DuplicateOrder';
 
+const defaultOrderTableColumns = [
+  {
+    title: 'Order Number',
+    dataIndex: 'orderNumber',
+    key: 'orderNumber',
+  },
+  {
+    title: 'Labels',
+    dataIndex: 'labels',
+    key: 'labels',
+  },
+  {
+    title: 'Notes',
+    dataIndex: 'notes',
+    key: 'notes',
+  },
+  {
+    title: 'Order Date',
+    dataIndex: 'orderDate',
+    key: 'orderDate',
+  },
+  {
+    title: 'Date Paid',
+    dataIndex: 'datePaid',
+    key: 'datePaid',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Recipient',
+    dataIndex: 'recipient',
+    key: 'recipient',
+  },
+  {
+    title: 'Order Total',
+    dataIndex: 'orderTotal',
+    key: 'orderTotal',
+  },
+  {
+    title: 'Items',
+    dataIndex: 'items',
+    key: 'items',
+  },
+  {
+    title: 'Item Names',
+    dataIndex: 'itemNames',
+    key: 'itemNames',
+  },
+];
+
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
+  const { customFields } = useModel('customOrderFields');
   const [modalOpen, setModal] = useState('');
   const { selectedOrderStatus } = useModel('orderStatus');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
@@ -383,58 +437,21 @@ const OrderManagement: React.FC = () => {
   ];
 
   //order list table columns
-  const orderTableColumns = [
-    {
-      title: 'Order Number',
-      dataIndex: 'orderNumber',
-      key: 'orderNumber',
-    },
-    {
-      title: 'Labels',
-      dataIndex: 'labels',
-      key: 'labels',
-    },
-    {
-      title: 'Notes',
-      dataIndex: 'notes',
-      key: 'notes',
-    },
-    {
-      title: 'Order Date',
-      dataIndex: 'orderDate',
-      key: 'orderDate',
-    },
-    {
-      title: 'Date Paid',
-      dataIndex: 'datePaid',
-      key: 'datePaid',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Recipient',
-      dataIndex: 'recipient',
-      key: 'recipient',
-    },
-    {
-      title: 'Order Total',
-      dataIndex: 'orderTotal',
-      key: 'orderTotal',
-    },
-    {
-      title: 'Items',
-      dataIndex: 'items',
-      key: 'items',
-    },
-    {
-      title: 'Item Names',
-      dataIndex: 'itemNames',
-      key: 'itemNames',
-    },
-  ];
+  const orderTableColumns = useMemo(() => {
+    const staticColumns = defaultOrderTableColumns.filter((item) =>
+      showColumns.includes(item.title),
+    );
+
+    const customColumns = customFields
+      .filter((customField) => customField.show_on_grid)
+      .map((customField) => ({
+        title: customField.name,
+        key: customField.name,
+        render: () => <>{customField.value}</>,
+      }));
+
+    return [...staticColumns, ...customColumns];
+  }, [showColumns, customFields]);
 
   // prepare order list table rows
   const orderTableRows = orderList.map((item) => {
@@ -539,7 +556,7 @@ const OrderManagement: React.FC = () => {
                 <Col span={24} style={{ position: 'relative' }}>
                   <OTable
                     type="checkbox"
-                    columns={orderTableColumns.filter((item) => showColumns.includes(item.title))}
+                    columns={orderTableColumns}
                     rows={orderTableRows}
                     selectedRows={selectedRows}
                     setSelectedRows={handleSelectedRows}

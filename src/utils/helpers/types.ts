@@ -44,6 +44,7 @@ export enum modalType {
   SelectOrderColumns = 'SelectOrderColumns',
   SplitOrder = 'SplitOrder',
   DuplicateOrder = 'DuplicateOrder',
+  NewFieldType = 'NewFieldType',
 
   ImportOrder = 'ImportOrder',
   OrderImportSettings = 'OrderImportSettings',

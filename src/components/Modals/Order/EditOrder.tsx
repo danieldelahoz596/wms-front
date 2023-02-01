@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import OrderItems from '@/components/Order/EditOrder/OrderItems';
+import ManageCustomFields from '@/components/Order/ManageCustomFields/ManageCustomFields';
 
 const { TabPane } = Tabs;
 
@@ -16,7 +17,7 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
   const { editableOrder, saveEditableOrder } = useModel('order');
 
   const handleSave = () => {
-    saveEditableOrder();
+    // saveEditableOrder();
     onSave();
   };
 
@@ -48,13 +49,16 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
         <TabPane tab="Order Items" key="3">
           <OrderItems />
         </TabPane>
-        <TabPane tab="Communication" key="4">
+        <TabPane tab="Fields" key="4">
+          <ManageCustomFields />
+        </TabPane>
+        <TabPane tab="Communication" key="5">
           Communication
         </TabPane>
-        <TabPane tab="Channel Fields" key="5">
+        <TabPane tab="Channel Fields" key="6">
           Channel Fields
         </TabPane>
-        <TabPane tab="History" key="6">
+        <TabPane tab="History" key="7">
           History
         </TabPane>
       </Tabs>
