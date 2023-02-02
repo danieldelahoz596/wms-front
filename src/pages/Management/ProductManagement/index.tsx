@@ -50,6 +50,7 @@ import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
+import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -275,7 +276,7 @@ const ProductManagement: React.FC = () => {
     {
       key: '10',
       label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+        <span onClick={() => setModal(modalType.CustomBundleKitExport)}>
           <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
           Custom Bundle/Kit Export
         </span>
@@ -706,6 +707,12 @@ const ProductManagement: React.FC = () => {
       <ImportSKUAdjustment
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
         onSave={() => {}}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <CustomBundleKitExport
+        isOpen={modalOpen === modalType.CustomBundleKitExport}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
