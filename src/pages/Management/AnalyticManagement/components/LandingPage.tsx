@@ -6,9 +6,8 @@ import {
   MenuOutlined,
   QuestionCircleFilled,
   ScissorOutlined,
-  SmallDashOutlined,
 } from '@ant-design/icons';
-import { Card, Row, Col, Space, Table, Dropdown, Button } from 'antd';
+import { Card, Row, Col, Space, Table, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
 import ExportModal from '@/components/Modals/Analytic/ExportModal';
@@ -140,6 +139,9 @@ const futureSoldData = [
 
 const LandingPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [pastSolidChartInstance, setPastSolidChartInstance] = useState(null);
+  const [futureSolidChartInstance, setFutureSolidChartInstance] = useState(null);
+
   return (
     <div style={{ margin: 10 }}>
       <Row gutter={16} style={{ width: '100%' }} align="middle">
@@ -231,41 +233,69 @@ const LandingPage: React.FC = () => {
         <Col span={20} style={{ marginTop: 10 }}>
           <h2>Inventory Movement Forensics</h2>
           <Card>
-            <Row>
+            <Row gutter={10}>
               <Col span={12}>
-                <Dropdown.Button
-                  menu={{
-                    items: [
-                      {
-                        type: 'group',
-                        label: 'Print Chart',
-                      },
-                      {
-                        type: 'divider',
-                      },
-                      {
-                        key: 'download_png',
-                        label: 'Download PNG image',
-                      },
-                      {
-                        key: 'download_jpeg',
-                        label: 'Download JPEG image',
-                      },
-                      {
-                        key: 'download_pdf',
-                        label: 'Download PDF document',
-                        disabled: true,
-                      },
-                      {
-                        key: 'download_svg',
-                        label: 'Download SVG Vector image',
-                        disabled: true,
-                      },
-                    ],
-                  }}
-                  placement="bottom"
-                  icon={<MenuOutlined />}
-                />
+                <Row justify="end">
+                  <Col>
+                    <Dropdown.Button
+                      menu={{
+                        items: [
+                          {
+                            type: 'group',
+                            label: 'Print Chart',
+                          },
+                          {
+                            type: 'divider',
+                          },
+                          {
+                            key: 'download_png',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  pastSolidChartInstance.downloadImage(
+                                    'past-solid-chart',
+                                    'image/png',
+                                  )
+                                }
+                              >
+                                Download PNG image
+                              </span>
+                            ),
+                            disabled: !pastSolidChartInstance,
+                          },
+                          {
+                            key: 'download_jpeg',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  pastSolidChartInstance.downloadImage(
+                                    'past-solid-chart',
+                                    'image/jpeg',
+                                  )
+                                }
+                              >
+                                Download JPEG image
+                              </span>
+                            ),
+                            disabled: !pastSolidChartInstance,
+                          },
+                          {
+                            key: 'download_pdf',
+                            label: 'Download PDF document',
+                            disabled: true,
+                          },
+                          {
+                            key: 'download_svg',
+                            label: 'Download SVG Vector image',
+                            disabled: true,
+                          },
+                        ],
+                      }}
+                      placement="bottomRight"
+                      icon={<MenuOutlined />}
+                    />
+                  </Col>
+                </Row>
                 <Pie
                   data={pastSoldData}
                   angleField="value"
@@ -285,9 +315,71 @@ const LandingPage: React.FC = () => {
                   }}
                   label={false}
                   height={250}
+                  onReady={(chartInstance) => setPastSolidChartInstance(chartInstance)}
                 />
               </Col>
               <Col span={12}>
+                <Row justify="end">
+                  <Col>
+                    <Dropdown.Button
+                      menu={{
+                        items: [
+                          {
+                            type: 'group',
+                            label: 'Print Chart',
+                          },
+                          {
+                            type: 'divider',
+                          },
+                          {
+                            key: 'download_png',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  futureSolidChartInstance.downloadImage(
+                                    'future-solid-chart',
+                                    'image/png',
+                                  )
+                                }
+                              >
+                                Download PNG image
+                              </span>
+                            ),
+                            disabled: !futureSolidChartInstance,
+                          },
+                          {
+                            key: 'download_jpeg',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  futureSolidChartInstance.downloadImage(
+                                    'future-solid-chart',
+                                    'image/jpeg',
+                                  )
+                                }
+                              >
+                                Download JPEG image
+                              </span>
+                            ),
+                            disabled: !futureSolidChartInstance,
+                          },
+                          {
+                            key: 'download_pdf',
+                            label: 'Download PDF document',
+                            disabled: true,
+                          },
+                          {
+                            key: 'download_svg',
+                            label: 'Download SVG Vector image',
+                            disabled: true,
+                          },
+                        ],
+                      }}
+                      placement="bottomRight"
+                      icon={<MenuOutlined />}
+                    />
+                  </Col>
+                </Row>
                 <Pie
                   data={futureSoldData}
                   angleField="value"
@@ -307,6 +399,7 @@ const LandingPage: React.FC = () => {
                   }}
                   label={false}
                   height={250}
+                  onReady={(chartInstance) => setFutureSolidChartInstance(chartInstance)}
                 />
               </Col>
             </Row>
