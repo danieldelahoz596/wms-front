@@ -31,7 +31,7 @@ import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorPro
 import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
-import { PageContainer } from '@ant-design/pro-components';
+import { getPageTitle, PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
@@ -64,6 +64,7 @@ const ProductManagement: React.FC = () => {
     setEditableProduct,
     handleUpdateProduct,
   } = useModel('product');
+  const { fieldTypes } = useModel('customProductFields');
 
   const handleProductSelectedRows = (_selectedRows = []) => {
     const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
@@ -201,7 +202,15 @@ const ProductManagement: React.FC = () => {
           </>
         ) : null,
     },
-  ];
+  ].concat(
+    fieldTypes
+      .filter((type) => type.show_on_grid && type.active)
+      .map((type) => ({
+        title: type.name,
+        key: type.name,
+        render: () => <>{type.description}</>,
+      })),
+  );
 
   const importExportMenuOptions: MenuProps['items'] = [
     {
