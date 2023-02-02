@@ -12,6 +12,7 @@ import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
 import ExportModal from '@/components/Modals/Analytic/ExportModal';
 import { useState } from 'react';
+import tableExport from 'antd-table-export';
 
 const TColumns = [
   {
@@ -411,7 +412,11 @@ const LandingPage: React.FC = () => {
         isOpen={showModal}
         title="Export Opportunities Found by Skubana"
         onClose={() => setShowModal(false)}
-        onSave={() => setShowModal(false)}
+        onSave={() => {
+          setShowModal(false);
+          const exportInstance = new tableExport(dataSource, TColumns);
+          exportInstance.download('Opportunities Found By Skubana', 'xlsx');
+        }}
       />
     </div>
   );
