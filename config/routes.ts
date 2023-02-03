@@ -124,6 +124,11 @@ export default [
         path: '/analytics/accounting/salessummary',
         component: './Management/AnalyticManagement',
       },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/inventoryvalue',
+        component: './Management/AnalyticManagement',
+      },
     ],
   },
   {
