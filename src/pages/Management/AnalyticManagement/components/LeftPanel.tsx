@@ -13,6 +13,11 @@ import ShippingIcon from '@/utils/icons/shipping';
 import { UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd/es/menu';
 import { useEffect } from 'react';
+import BoxIcon from '@/utils/icons/box';
+import LeafIcon from '@/utils/icons/leaf';
+import ArrowCircleUpIcon from '@/utils/icons/arrowCircleUp';
+import ArrowCircleDownIcon from '@/utils/icons/arrowCircleDown';
+import GraphLineUpIcon from '@/utils/icons/graphLineUp';
 
 const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5', 'main6'];
 
@@ -55,63 +60,78 @@ const LeftPanel: React.FC = () => {
         items={[
           {
             key: 'main1',
-            icon: <ProductsIcon />,
+            icon: <ProductsIcon style={{ fontSize: 16 }} />,
             label: 'Products',
             children: [
               {
                 key: 'sub11',
-                icon: <UserOutlined />,
+                icon: <LeafIcon style={{ fontSize: 16 }} />,
+                label: 'Test',
+              },
+              {
+                key: 'sub12',
+                icon: <ArrowCircleUpIcon style={{ fontSize: 16 }} />,
+                label: 'Test',
+              },
+              {
+                key: 'sub13',
+                icon: <ArrowCircleDownIcon style={{ fontSize: 16 }} />,
+                label: 'Test' /*  */,
+              },
+              {
+                key: 'sub14',
+                icon: <GraphLineUpIcon style={{ fontSize: 16 }} />,
                 label: 'Test',
               },
             ],
           },
           {
             key: 'main2',
-            icon: <InventoryIcon />,
+            icon: <InventoryIcon style={{ fontSize: 16 }} />,
             label: 'Inventory',
             children: [
               {
                 key: 'sub21',
-                icon: <UserOutlined />,
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: 'Test',
               },
             ],
           },
           {
             key: 'main3',
-            icon: <OrdersIcon />,
+            icon: <OrdersIcon style={{ fontSize: 16 }} />,
             label: 'Orders',
             children: [
               {
                 key: 'sub31',
-                icon: <SalesIcon />,
+                icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: 'Sales Overview',
               },
               {
                 key: 'sub32',
-                icon: <BiggestTicketsIcon />,
+                icon: <BiggestTicketsIcon style={{ fontSize: 16 }} />,
                 label: 'Biggest Tickets',
               },
               {
                 key: 'sub33',
-                icon: <ShippingIcon />,
+                icon: <ShippingIcon style={{ fontSize: 16 }} />,
                 label: 'Shipments',
               },
               {
                 key: 'sub34',
-                icon: <SalesIcon />,
+                icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: <Link to="/analytics/orders/historicalexports">Historical Exports</Link>,
               },
             ],
           },
           {
             key: 'main4',
-            icon: <OrdersIcon />,
+            icon: <OrdersIcon style={{ fontSize: 16 }} />,
             label: 'Purchase Orders',
             children: [
               {
                 key: 'sub41',
-                icon: <SalesIcon />,
+                icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: (
                   <Link to="/analytics/purchaseorders/historicalexports">Historical Exports</Link>
                 ),
@@ -120,24 +140,24 @@ const LeftPanel: React.FC = () => {
           },
           {
             key: 'main5',
-            icon: <CustomersIcon />,
+            icon: <CustomersIcon style={{ fontSize: 16 }} />,
             label: 'Customers',
             children: [
               {
                 key: 'sub51',
-                icon: <UserOutlined />,
+                icon: <BoxIcon style={{ fontSize: 16 }} />,
                 label: 'Test',
               },
             ],
           },
           {
             key: 'main6',
-            icon: <AccountingIcon />,
+            icon: <AccountingIcon style={{ fontSize: 16 }} />,
             label: 'Accounting',
             children: [
               {
                 key: 'sub61',
-                icon: <UserOutlined />,
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: 'Test',
               },
             ],
