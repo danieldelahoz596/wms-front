@@ -76,6 +76,11 @@ export default [
     routes: [
       {
         hideInMenu: true,
+        path: '/analytics/products/topsellers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/products/skuprofitability',
         component: './Management/AnalyticManagement',
       },

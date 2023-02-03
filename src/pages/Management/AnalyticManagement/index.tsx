@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage';
 import HistoricalOrdersExports from './Orders/HistoricalOrdersExports';
 import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchaseOrdersExports';
 import SKUProfitability from './Products/SKUProfitability';
+import TopSellers from './Products/TopSellers';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -25,6 +26,8 @@ const AnalyticManagement: React.FC = () => {
 
   const mainContent = useMemo(() => {
     switch (location.pathname) {
+      case '/analytics/products/topsellers':
+        return <TopSellers />;
       case '/analytics/products/skuprofitability':
         return <SKUProfitability />;
       case '/analytics/orders/historicalexports':

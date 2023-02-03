@@ -56,7 +56,7 @@ const LeftPanel: React.FC = () => {
               {
                 key: 'topsellers',
                 icon: <ArrowCircleUpIcon style={{ fontSize: 16 }} />,
-                label: 'Top Sellers',
+                label: <Link to="/analytics/products/topsellers">Top Sellers</Link>,
               },
               {
                 key: 'worstsellers',
