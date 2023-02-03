@@ -164,6 +164,11 @@ const LeftPanel: React.FC = () => {
                 icon: <ShippingIcon style={{ fontSize: 16 }} />,
                 label: <Link to="/analytics/accounting/shipmentsummary">Shipment Summary</Link>,
               },
+              {
+                key: '/analytics/accounting/cogsbysku',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/accounting/cogsbysku">Cogs By SKU</Link>,
+              },
             ],
           },
         ]}

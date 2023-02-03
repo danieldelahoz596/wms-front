@@ -114,6 +114,11 @@ export default [
         path: '/analytics/accounting/shipmentsummary',
         component: './Management/AnalyticManagement',
       },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/cogsbysku',
+        component: './Management/AnalyticManagement',
+      },
     ],
   },
   {
