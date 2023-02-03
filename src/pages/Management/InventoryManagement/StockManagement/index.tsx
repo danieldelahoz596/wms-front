@@ -25,6 +25,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OSelect } from '@/components/Globals/OSelect';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import { useModel } from '@umijs/max';
+import VectorIcon from '@/utils/icons/vector';
 
 const { Search } = Input;
 interface IStockManagement {
@@ -61,16 +62,16 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         render: (text: any) => (
           <>
             {text === productType.CoreProduct ? (
-              <CoreProductsIcon />
+              <CoreProductsIcon style={{ fontSize: 24 }} />
             ) : text === productType.BundleOrKit ? (
-              <BundleIcon />
+              <BundleIcon style={{ fontSize: 24 }} />
             ) : text === productType.Variations ? (
-              <VariationIcon />
+              <VariationIcon style={{ fontSize: 24 }} />
             ) : (
               <span style={{ position: 'relative' }}>
-                <CoreProductsIcon />
-                <div style={{ position: 'absolute', top: '-3px', left: '10px', color: 'blue' }}>
-                  <DownOutlined />
+                <CoreProductsIcon style={{ fontSize: 24 }} />
+                <div style={{ position: 'absolute', top: 3, left: 12 }}>
+                  <VectorIcon style={{ fontSize: 14 }} />
                 </div>
               </span>
             )}

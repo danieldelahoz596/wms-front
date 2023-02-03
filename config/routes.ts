@@ -76,12 +76,57 @@ export default [
     routes: [
       {
         hideInMenu: true,
+        path: '/analytics/products/topsellers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/products/worstsellers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/products/yoygrowth',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/products/skuprofitability',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/products/trendingprofitability',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
       {
         hideInMenu: true,
         path: '/analytics/purchaseorders/historicalexports',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/shipmentsummary',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/cogsbysku',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/salessummary',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/inventoryvalue',
         component: './Management/AnalyticManagement',
       },
     ],

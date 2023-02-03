@@ -1,18 +1,25 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Layout } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
-import HistoricalOrdersExports from './Orders/HistoricalExports';
-import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalExports';
-import React, { useState } from 'react';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
+import { useLocation } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
+import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import LeftPanel from './components/LeftPanel';
 import LandingPage from './components/LandingPage';
-
-const { Content } = Layout;
+import HistoricalOrdersExports from './Orders/HistoricalOrdersExports';
+import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchaseOrdersExports';
+import SKUProfitability from './Products/SKUProfitability';
+import TopSellers from './Products/TopSellers';
+import WorstSellers from './Products/WorstSellers';
+import YOYGrowth from './Products/YOYGrowth';
+import TrendingProfitability from './Products/TrendingProfitability';
+import ShipmentSummary from './Accounting/ShipmentSummary';
+import CogsBySKU from './Accounting/CogsBySKU';
+import SalesSummary from './Accounting/SalesSummary';
+import InventoryValue from './Accounting/InventoryValue';
 
 const AnalyticManagement: React.FC = () => {
-  const [selectedKey, setSelectedKey] = useState(null);
+  const location = useLocation();
 
   const {
     isDragging: isLeftDragging,
@@ -24,17 +31,34 @@ const AnalyticManagement: React.FC = () => {
     min: 100,
   });
 
-  const mainContent = useMemo(
-    () =>
-      selectedKey === 'sub34' ? (
-        <HistoricalOrdersExports />
-      ) : selectedKey === 'sub41' ? (
-        <HistoricalPurchaseOrdersExports />
-      ) : (
-        <LandingPage />
-      ),
-    [selectedKey],
-  );
+  const mainContent = useMemo(() => {
+    switch (location.pathname) {
+      case '/analytics/products/topsellers':
+        return <TopSellers />;
+      case '/analytics/products/worstsellers':
+        return <WorstSellers />;
+      case '/analytics/products/yoygrowth':
+        return <YOYGrowth />;
+      case '/analytics/products/skuprofitability':
+        return <SKUProfitability />;
+      case '/analytics/products/trendingprofitability':
+        return <TrendingProfitability />;
+      case '/analytics/orders/historicalexports':
+        return <HistoricalOrdersExports />;
+      case '/analytics/purchaseorders/historicalexports':
+        return <HistoricalPurchaseOrdersExports />;
+      case '/analytics/accounting/shipmentsummary':
+        return <ShipmentSummary />;
+      case '/analytics/accounting/cogsbysku':
+        return <CogsBySKU />;
+      case '/analytics/accounting/salessummary':
+        return <SalesSummary />;
+      case '/analytics/accounting/inventoryvalue':
+        return <InventoryValue />;
+      default:
+        return <LandingPage />;
+    }
+  }, [location.pathname]);
 
   return (
     <PageContainer
@@ -49,17 +73,15 @@ const AnalyticManagement: React.FC = () => {
             style={{ width: LeftW }}
           >
             <div className="w-full">
-              <LeftPanel selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
+              <LeftPanel />
             </div>
           </div>
 
           <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
 
-          <div className="w-full flex flex-column h-screen">
+          <div className="w-full flex flex-column">
             <div className="horizon-content">
-              <Layout className="site-layout">
-                <Content className="site-layout-background">{mainContent}</Content>
-              </Layout>
+              <Layout className="site-layout">{mainContent}</Layout>
             </div>
           </div>
         </div>

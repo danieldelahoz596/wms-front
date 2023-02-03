@@ -230,7 +230,7 @@ const LandingPage: React.FC = () => {
               <Space size={10} align="center">
                 <QuestionCircleFilled style={{ fontSize: 20 }} />
                 <span onClick={() => setShowModal(true)}>
-                  <LaunchIcon style={{ width: 20, paddingTop: 5 }} />
+                  <LaunchIcon style={{ fontSize: 20 }} />
                 </span>
               </Space>
             </Col>
@@ -254,45 +254,29 @@ const LandingPage: React.FC = () => {
                         items: [
                           {
                             key: 'print_chart',
-                            label: (
-                              <span onClick={() => handlePastSolidChartPrint()}>Print Chart</span>
-                            ),
+                            label: 'Print Chart',
                             disabled: !pastSolidChartInstance,
+                            onClick: () => handlePastSolidChartPrint(),
                           },
                           {
                             type: 'divider',
                           },
                           {
                             key: 'download_png',
-                            label: (
-                              <span
-                                onClick={() =>
-                                  pastSolidChartInstance.downloadImage(
-                                    'past-solid-chart',
-                                    'image/png',
-                                  )
-                                }
-                              >
-                                Download PNG image
-                              </span>
-                            ),
+                            label: 'Download PNG image',
                             disabled: !pastSolidChartInstance,
+                            onClick: () =>
+                              pastSolidChartInstance.downloadImage('past-solid-chart', 'image/png'),
                           },
                           {
                             key: 'download_jpeg',
-                            label: (
-                              <span
-                                onClick={() =>
-                                  pastSolidChartInstance.downloadImage(
-                                    'past-solid-chart',
-                                    'image/jpeg',
-                                  )
-                                }
-                              >
-                                Download JPEG image
-                              </span>
-                            ),
+                            label: 'Download JPEG image',
                             disabled: !pastSolidChartInstance,
+                            onClick: () =>
+                              pastSolidChartInstance.downloadImage(
+                                'past-solid-chart',
+                                'image/jpeg',
+                              ),
                           },
                           {
                             key: 'download_pdf',
@@ -343,45 +327,32 @@ const LandingPage: React.FC = () => {
                         items: [
                           {
                             key: 'print_chart',
-                            label: (
-                              <span onClick={() => handleFutureSolidChartPrint()}>Print Chart</span>
-                            ),
+                            label: 'Print Chart',
                             disabled: !futureSolidChartInstance,
+                            onClick: () => handleFutureSolidChartPrint(),
                           },
                           {
                             type: 'divider',
                           },
                           {
                             key: 'download_png',
-                            label: (
-                              <span
-                                onClick={() =>
-                                  futureSolidChartInstance.downloadImage(
-                                    'future-solid-chart',
-                                    'image/png',
-                                  )
-                                }
-                              >
-                                Download PNG image
-                              </span>
-                            ),
+                            label: 'Download PNG image',
                             disabled: !futureSolidChartInstance,
+                            onClick: () =>
+                              futureSolidChartInstance.downloadImage(
+                                'future-solid-chart',
+                                'image/png',
+                              ),
                           },
                           {
                             key: 'download_jpeg',
-                            label: (
-                              <span
-                                onClick={() =>
-                                  futureSolidChartInstance.downloadImage(
-                                    'future-solid-chart',
-                                    'image/jpeg',
-                                  )
-                                }
-                              >
-                                Download JPEG image
-                              </span>
-                            ),
+                            label: 'Download JPEG image',
                             disabled: !futureSolidChartInstance,
+                            onClick: () =>
+                              futureSolidChartInstance.downloadImage(
+                                'future-solid-chart',
+                                'image/jpeg',
+                              ),
                           },
                           {
                             key: 'download_pdf',
