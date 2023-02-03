@@ -5,6 +5,7 @@ import type { TabsProps } from 'antd';
 import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
 import GalleryTab from '@/components/Tabs/Product/Gallery';
 import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
+import ProductCustomFields from '@/components/Tabs/Product/ProductCustomFields';
 
 interface ICoreProduct {
   isOpen: boolean;
@@ -30,6 +31,11 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
       key: 'tab-3',
       label: 'Vendor Products',
       children: <VendorProductTab />,
+    },
+    {
+      key: 'tab-4',
+      label: 'Fields',
+      children: <ProductCustomFields />,
     },
   ];
 

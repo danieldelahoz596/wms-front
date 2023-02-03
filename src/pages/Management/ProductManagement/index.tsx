@@ -18,7 +18,7 @@ import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorPro
 import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
-import { PageContainer } from '@ant-design/pro-components';
+import { getPageTitle, PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
@@ -37,6 +37,7 @@ import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
+import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -50,6 +51,7 @@ const ProductManagement: React.FC = () => {
     setEditableProduct,
     handleUpdateProduct,
   } = useModel('product');
+  const { fieldTypes } = useModel('customProductFields');
 
   const handleProductSelectedRows = (_selectedRows = []) => {
     const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
@@ -187,7 +189,15 @@ const ProductManagement: React.FC = () => {
           </>
         ) : null,
     },
-  ];
+  ].concat(
+    fieldTypes
+      .filter((type) => type.show_on_grid && type.active)
+      .map((type) => ({
+        title: type.name,
+        key: type.name,
+        render: () => <>{type.description}</>,
+      })),
+  );
 
   const importExportMenuItems: MenuProps['items'] = [
     {
@@ -232,9 +242,13 @@ const ProductManagement: React.FC = () => {
       icon: <VerticalAlignBottomOutlined />,
     },
     {
-      key: '8',
-      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Bundle/Kit Export</span>),
-      icon: <VerticalAlignBottomOutlined />,
+      key: '10',
+      label: (
+        <span onClick={() => setModal(modalType.CustomBundleKitExport)}>
+          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
+          Custom Bundle/Kit Export
+        </span>
+      ),
     },
   ];
 
@@ -644,6 +658,12 @@ const ProductManagement: React.FC = () => {
       <ImportSKUAdjustment
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
         onSave={() => {}}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <CustomBundleKitExport
+        isOpen={modalOpen === modalType.CustomBundleKitExport}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>

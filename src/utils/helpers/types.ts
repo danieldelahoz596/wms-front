@@ -35,6 +35,7 @@ export enum modalType {
   NewVirtualProduct = 'NewVirtualProduct',
   SelectCoreProduct = 'SelectCoreProduct',
   SelectQuantityOfSKU = 'SelectQuantityOfSKU',
+  CustomBundleKitExport = 'CustomBundleKitExport',
 
   // order
   ManualOrder = 'Manual Order',

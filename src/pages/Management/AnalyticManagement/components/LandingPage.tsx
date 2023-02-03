@@ -6,13 +6,14 @@ import {
   MenuOutlined,
   QuestionCircleFilled,
   ScissorOutlined,
-  SmallDashOutlined,
 } from '@ant-design/icons';
-import { Card, Row, Col, Space, Table, Dropdown, Button } from 'antd';
+import { Card, Row, Col, Space, Table, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
 import ExportModal from '@/components/Modals/Analytic/ExportModal';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import tableExport from 'antd-table-export';
+import { useReactToPrint } from 'react-to-print';
 
 const TColumns = [
   {
@@ -140,6 +141,19 @@ const futureSoldData = [
 
 const LandingPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [pastSolidChartInstance, setPastSolidChartInstance] = useState(null);
+  const [futureSolidChartInstance, setFutureSolidChartInstance] = useState(null);
+  const pastSolidChartRef = useRef(null);
+  const futureSolidChartRef = useRef(null);
+
+  const handlePastSolidChartPrint = useReactToPrint({
+    content: () => pastSolidChartRef.current,
+  });
+
+  const handleFutureSolidChartPrint = useReactToPrint({
+    content: () => futureSolidChartRef.current,
+  });
+
   return (
     <div style={{ margin: 10 }}>
       <Row gutter={16} style={{ width: '100%' }} align="middle">
@@ -231,83 +245,184 @@ const LandingPage: React.FC = () => {
         <Col span={20} style={{ marginTop: 10 }}>
           <h2>Inventory Movement Forensics</h2>
           <Card>
-            <Row>
+            <Row gutter={10}>
               <Col span={12}>
-                <Dropdown.Button
-                  menu={{
-                    items: [
+                <Row justify="end">
+                  <Col>
+                    <Dropdown.Button
+                      menu={{
+                        items: [
+                          {
+                            key: 'print_chart',
+                            label: (
+                              <span onClick={() => handlePastSolidChartPrint()}>Print Chart</span>
+                            ),
+                            disabled: !pastSolidChartInstance,
+                          },
+                          {
+                            type: 'divider',
+                          },
+                          {
+                            key: 'download_png',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  pastSolidChartInstance.downloadImage(
+                                    'past-solid-chart',
+                                    'image/png',
+                                  )
+                                }
+                              >
+                                Download PNG image
+                              </span>
+                            ),
+                            disabled: !pastSolidChartInstance,
+                          },
+                          {
+                            key: 'download_jpeg',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  pastSolidChartInstance.downloadImage(
+                                    'past-solid-chart',
+                                    'image/jpeg',
+                                  )
+                                }
+                              >
+                                Download JPEG image
+                              </span>
+                            ),
+                            disabled: !pastSolidChartInstance,
+                          },
+                          {
+                            key: 'download_pdf',
+                            label: 'Download PDF document',
+                            disabled: true,
+                          },
+                          {
+                            key: 'download_svg',
+                            label: 'Download SVG Vector image',
+                            disabled: true,
+                          },
+                        ],
+                      }}
+                      placement="bottomRight"
+                      icon={<MenuOutlined />}
+                    />
+                  </Col>
+                </Row>
+                <div ref={pastSolidChartRef}>
+                  <Pie
+                    data={pastSoldData}
+                    angleField="value"
+                    colorField="type"
+                    color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
+                    interactions={[
                       {
-                        type: 'group',
-                        label: 'Print Chart',
+                        type: 'element-selected',
                       },
                       {
-                        type: 'divider',
+                        type: 'element-active',
                       },
-                      {
-                        key: 'download_png',
-                        label: 'Download PNG image',
-                      },
-                      {
-                        key: 'download_jpeg',
-                        label: 'Download JPEG image',
-                      },
-                      {
-                        key: 'download_pdf',
-                        label: 'Download PDF document',
-                        disabled: true,
-                      },
-                      {
-                        key: 'download_svg',
-                        label: 'Download SVG Vector image',
-                        disabled: true,
-                      },
-                    ],
-                  }}
-                  placement="bottom"
-                  icon={<MenuOutlined />}
-                />
-                <Pie
-                  data={pastSoldData}
-                  angleField="value"
-                  colorField="type"
-                  color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
-                  interactions={[
-                    {
-                      type: 'element-selected',
-                    },
-                    {
-                      type: 'element-active',
-                    },
-                  ]}
-                  legend={{
-                    marker: { symbol: 'square' },
-                    offsetX: -20,
-                  }}
-                  label={false}
-                  height={250}
-                />
+                    ]}
+                    legend={{
+                      marker: { symbol: 'square' },
+                      offsetX: -20,
+                    }}
+                    label={false}
+                    height={250}
+                    onReady={(chartInstance) => setPastSolidChartInstance(chartInstance)}
+                  />
+                </div>
               </Col>
               <Col span={12}>
-                <Pie
-                  data={futureSoldData}
-                  angleField="value"
-                  colorField="type"
-                  color={['#AAFF00', '#55FF00', '#00FF00']}
-                  interactions={[
-                    {
-                      type: 'element-selected',
-                    },
-                    {
-                      type: 'element-active',
-                    },
-                  ]}
-                  legend={{
-                    marker: { symbol: 'square' },
-                    offsetX: -20,
-                  }}
-                  label={false}
-                  height={250}
-                />
+                <Row justify="end">
+                  <Col>
+                    <Dropdown.Button
+                      menu={{
+                        items: [
+                          {
+                            key: 'print_chart',
+                            label: (
+                              <span onClick={() => handleFutureSolidChartPrint()}>Print Chart</span>
+                            ),
+                            disabled: !futureSolidChartInstance,
+                          },
+                          {
+                            type: 'divider',
+                          },
+                          {
+                            key: 'download_png',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  futureSolidChartInstance.downloadImage(
+                                    'future-solid-chart',
+                                    'image/png',
+                                  )
+                                }
+                              >
+                                Download PNG image
+                              </span>
+                            ),
+                            disabled: !futureSolidChartInstance,
+                          },
+                          {
+                            key: 'download_jpeg',
+                            label: (
+                              <span
+                                onClick={() =>
+                                  futureSolidChartInstance.downloadImage(
+                                    'future-solid-chart',
+                                    'image/jpeg',
+                                  )
+                                }
+                              >
+                                Download JPEG image
+                              </span>
+                            ),
+                            disabled: !futureSolidChartInstance,
+                          },
+                          {
+                            key: 'download_pdf',
+                            label: 'Download PDF document',
+                            disabled: true,
+                          },
+                          {
+                            key: 'download_svg',
+                            label: 'Download SVG Vector image',
+                            disabled: true,
+                          },
+                        ],
+                      }}
+                      placement="bottomRight"
+                      icon={<MenuOutlined />}
+                    />
+                  </Col>
+                </Row>
+                <div ref={futureSolidChartRef}>
+                  <Pie
+                    data={futureSoldData}
+                    angleField="value"
+                    colorField="type"
+                    color={['#AAFF00', '#55FF00', '#00FF00']}
+                    interactions={[
+                      {
+                        type: 'element-selected',
+                      },
+                      {
+                        type: 'element-active',
+                      },
+                    ]}
+                    legend={{
+                      marker: { symbol: 'square' },
+                      offsetX: -20,
+                    }}
+                    label={false}
+                    height={250}
+                    onReady={(chartInstance) => setFutureSolidChartInstance(chartInstance)}
+                  />
+                </div>
               </Col>
             </Row>
           </Card>
@@ -318,7 +433,11 @@ const LandingPage: React.FC = () => {
         isOpen={showModal}
         title="Export Opportunities Found by Skubana"
         onClose={() => setShowModal(false)}
-        onSave={() => setShowModal(false)}
+        onSave={() => {
+          setShowModal(false);
+          const exportInstance = new tableExport(dataSource, TColumns);
+          exportInstance.download('Opportunities Found By Skubana', 'xlsx');
+        }}
       />
     </div>
   );

@@ -21,9 +21,10 @@ import ShieldDeniedIcon from '@/utils/icons/shieldDenied';
 import SettingIcon from '@/utils/icons/setting';
 import StockDetails from './components/RightPanel';
 import { OInput } from '@/components/Globals/OInput';
-import { useModel } from 'umi';
 import { OButton } from '@/components/Globals/OButton';
 import { OSelect } from '@/components/Globals/OSelect';
+import SelectDropdown from '@/components/Globals/selectDropdown';
+import { useModel } from '@umijs/max';
 
 const { Search } = Input;
 interface IStockManagement {
@@ -34,6 +35,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   
   const { initialState } = useModel('@@initialState');
 
+  const { warehouseList } = useModel('warehouse');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
@@ -198,6 +200,14 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
           </Col>
           <Col span={16}>
             <Space size={5} align="center">
+              <SelectDropdown
+                options={warehouseList.map((warehouse) => ({
+                  value: warehouse.id,
+                  label: warehouse.name,
+                }))}
+                size="small"
+                style={{ width: '250px' }}
+              />
               <OInput
                 type="select"
                 name="warehouse"
