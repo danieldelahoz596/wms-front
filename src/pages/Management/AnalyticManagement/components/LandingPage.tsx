@@ -230,7 +230,7 @@ const LandingPage: React.FC = () => {
               <Space size={10} align="center">
                 <QuestionCircleFilled style={{ fontSize: 20 }} />
                 <span onClick={() => setShowModal(true)}>
-                  <LaunchIcon style={{ width: 20, paddingTop: 5 }} />
+                  <LaunchIcon style={{ fontSize: 20 }} />
                 </span>
               </Space>
             </Col>

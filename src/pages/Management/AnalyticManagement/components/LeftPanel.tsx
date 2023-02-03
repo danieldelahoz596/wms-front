@@ -12,32 +12,24 @@ import SalesIcon from '@/utils/icons/sales';
 import ShippingIcon from '@/utils/icons/shipping';
 import { UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd/es/menu';
-import { useEffect } from 'react';
 import BoxIcon from '@/utils/icons/box';
 import LeafIcon from '@/utils/icons/leaf';
 import ArrowCircleUpIcon from '@/utils/icons/arrowCircleUp';
 import ArrowCircleDownIcon from '@/utils/icons/arrowCircleDown';
 import GraphLineUpIcon from '@/utils/icons/graphLineUp';
 
-const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5', 'main6'];
+const rootSubmenuKeys = [
+  'products',
+  'inventory',
+  'orders',
+  'purchaseorders',
+  'customers',
+  'accounting',
+];
 
 const LeftPanel: React.FC = () => {
   const location = useLocation();
-  const [openKeys, setOpenKeys] = useState([]);
-  const [selectedKey, setSelectedKey] = useState(null);
-
-  useEffect(() => {
-    switch (location.pathname) {
-      case '/analytics/orders/historicalexports':
-        setOpenKeys(['main3']);
-        setSelectedKey('sub34');
-        break;
-      case '/analytics/purchaseorders/historicalexports':
-        setOpenKeys(['main4']);
-        setSelectedKey('sub41');
-        break;
-    }
-  }, [location.pathname]);
+  const [openKeys, setOpenKeys] = useState([location.pathname.split('/')[2]]);
 
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
@@ -52,41 +44,49 @@ const LeftPanel: React.FC = () => {
     <Sider width="100%" trigger={null}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['main3', selectedKey]}
+        defaultSelectedKeys={[location.pathname]}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
-        onSelect={({ key }) => setSelectedKey(key)}
-        selectedKeys={[selectedKey]}
         items={[
           {
-            key: 'main1',
+            key: 'products',
             icon: <ProductsIcon style={{ fontSize: 16 }} />,
             label: 'Products',
             children: [
               {
-                key: 'sub11',
-                icon: <LeafIcon style={{ fontSize: 16 }} />,
-                label: 'Test',
-              },
-              {
-                key: 'sub12',
+                key: 'topsellers',
                 icon: <ArrowCircleUpIcon style={{ fontSize: 16 }} />,
-                label: 'Test',
+                label: 'Top Sellers',
               },
               {
-                key: 'sub13',
+                key: 'worstsellers',
                 icon: <ArrowCircleDownIcon style={{ fontSize: 16 }} />,
-                label: 'Test' /*  */,
+                label: 'Worst Sellers' /*  */,
               },
               {
-                key: 'sub14',
+                key: 'yoygrowth',
                 icon: <GraphLineUpIcon style={{ fontSize: 16 }} />,
-                label: 'Test',
+                label: 'Y-O-Y Growth',
+              },
+              {
+                key: '/analytics/products/skuprofitability',
+                icon: <BoxIcon style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/products/skuprofitability">SKU Profitability</Link>,
+              },
+              {
+                key: 'listingprofitability',
+                icon: <LeafIcon style={{ fontSize: 16 }} />,
+                label: 'Listing Profitability',
+              },
+              {
+                key: 'trendingprofitability',
+                icon: <SalesIcon style={{ fontSize: 16 }} />,
+                label: 'Trending Profitability',
               },
             ],
           },
           {
-            key: 'main2',
+            key: 'inventory',
             icon: <InventoryIcon style={{ fontSize: 16 }} />,
             label: 'Inventory',
             children: [
@@ -98,39 +98,39 @@ const LeftPanel: React.FC = () => {
             ],
           },
           {
-            key: 'main3',
+            key: 'orders',
             icon: <OrdersIcon style={{ fontSize: 16 }} />,
             label: 'Orders',
             children: [
               {
-                key: 'sub31',
+                key: 'salesoverview',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: 'Sales Overview',
               },
               {
-                key: 'sub32',
+                key: 'biggesttickets',
                 icon: <BiggestTicketsIcon style={{ fontSize: 16 }} />,
                 label: 'Biggest Tickets',
               },
               {
-                key: 'sub33',
+                key: 'shipments',
                 icon: <ShippingIcon style={{ fontSize: 16 }} />,
                 label: 'Shipments',
               },
               {
-                key: 'sub34',
+                key: '/analytics/orders/historicalexports',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: <Link to="/analytics/orders/historicalexports">Historical Exports</Link>,
               },
             ],
           },
           {
-            key: 'main4',
+            key: 'purchaseorders',
             icon: <OrdersIcon style={{ fontSize: 16 }} />,
             label: 'Purchase Orders',
             children: [
               {
-                key: 'sub41',
+                key: '/analytics/purchaseorders/historicalexports',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
                 label: (
                   <Link to="/analytics/purchaseorders/historicalexports">Historical Exports</Link>
@@ -139,7 +139,7 @@ const LeftPanel: React.FC = () => {
             ],
           },
           {
-            key: 'main5',
+            key: 'customers',
             icon: <CustomersIcon style={{ fontSize: 16 }} />,
             label: 'Customers',
             children: [
@@ -151,7 +151,7 @@ const LeftPanel: React.FC = () => {
             ],
           },
           {
-            key: 'main6',
+            key: 'accounting',
             icon: <AccountingIcon style={{ fontSize: 16 }} />,
             label: 'Accounting',
             children: [

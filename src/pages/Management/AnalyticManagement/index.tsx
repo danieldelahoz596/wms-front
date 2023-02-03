@@ -8,8 +8,7 @@ import LeftPanel from './components/LeftPanel';
 import LandingPage from './components/LandingPage';
 import HistoricalOrdersExports from './Orders/HistoricalOrdersExports';
 import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchaseOrdersExports';
-
-const { Content } = Layout;
+import SKUProfitability from './Products/SKUProfitability';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -26,6 +25,8 @@ const AnalyticManagement: React.FC = () => {
 
   const mainContent = useMemo(() => {
     switch (location.pathname) {
+      case '/analytics/products/skuprofitability':
+        return <SKUProfitability />;
       case '/analytics/orders/historicalexports':
         return <HistoricalOrdersExports />;
       case '/analytics/purchaseorders/historicalexports':
@@ -56,9 +57,7 @@ const AnalyticManagement: React.FC = () => {
 
           <div className="w-full flex flex-column h-screen">
             <div className="horizon-content">
-              <Layout className="site-layout">
-                <Content className="site-layout-background">{mainContent}</Content>
-              </Layout>
+              <Layout className="site-layout"> {mainContent}</Layout>
             </div>
           </div>
         </div>
