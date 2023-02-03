@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from '@umijs/max';
+import { Link, useLocation } from '@umijs/max';
 import Sider from 'antd/es/layout/Sider';
 import { Menu } from 'antd';
 import AccountingIcon from '@/utils/icons/accounting';
@@ -12,16 +12,27 @@ import SalesIcon from '@/utils/icons/sales';
 import ShippingIcon from '@/utils/icons/shipping';
 import { UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd/es/menu';
+import { useEffect } from 'react';
 
-interface ILeftPanel {
-  selectedKey: string;
-  setSelectedKey: (key: string) => void;
-}
+const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5', 'main6'];
 
-const LeftPanel: React.FC<ILeftPanel> = ({ selectedKey, setSelectedKey }) => {
-  const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
+const LeftPanel: React.FC = () => {
+  const location = useLocation();
+  const [openKeys, setOpenKeys] = useState([]);
+  const [selectedKey, setSelectedKey] = useState(null);
 
-  const [openKeys, setOpenKeys] = useState(['main3']);
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/analytics/orders/historicalexports':
+        setOpenKeys(['main3']);
+        setSelectedKey('sub34');
+        break;
+      case '/analytics/purchaseorders/historicalexports':
+        setOpenKeys(['main4']);
+        setSelectedKey('sub41');
+        break;
+    }
+  }, [location.pathname]);
 
   const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
@@ -32,10 +43,6 @@ const LeftPanel: React.FC<ILeftPanel> = ({ selectedKey, setSelectedKey }) => {
     }
   };
 
-  const handleSelect = ({ key }) => {
-    setSelectedKey(key);
-  };
-
   return (
     <Sider width="100%" trigger={null}>
       <Menu
@@ -43,7 +50,8 @@ const LeftPanel: React.FC<ILeftPanel> = ({ selectedKey, setSelectedKey }) => {
         defaultSelectedKeys={['main3', selectedKey]}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
-        onSelect={handleSelect}
+        onSelect={({ key }) => setSelectedKey(key)}
+        selectedKeys={[selectedKey]}
         items={[
           {
             key: 'main1',
@@ -111,24 +119,24 @@ const LeftPanel: React.FC<ILeftPanel> = ({ selectedKey, setSelectedKey }) => {
             ],
           },
           {
-            key: 'main41',
+            key: 'main5',
             icon: <CustomersIcon />,
             label: 'Customers',
             children: [
               {
-                key: 'sub410',
+                key: 'sub51',
                 icon: <UserOutlined />,
                 label: 'Test',
               },
             ],
           },
           {
-            key: 'main5',
+            key: 'main6',
             icon: <AccountingIcon />,
             label: 'Accounting',
             children: [
               {
-                key: 'sub51',
+                key: 'sub61',
                 icon: <UserOutlined />,
                 label: 'Test',
               },

@@ -1,18 +1,18 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Layout } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
-import HistoricalOrdersExports from './Orders/HistoricalExports';
-import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalExports';
-import React, { useState } from 'react';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
+import { useLocation } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
+import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import LeftPanel from './components/LeftPanel';
 import LandingPage from './components/LandingPage';
+import HistoricalOrdersExports from './Orders/HistoricalExports';
+import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalExports';
 
 const { Content } = Layout;
 
 const AnalyticManagement: React.FC = () => {
-  const [selectedKey, setSelectedKey] = useState(null);
+  const location = useLocation();
 
   const {
     isDragging: isLeftDragging,
@@ -24,17 +24,16 @@ const AnalyticManagement: React.FC = () => {
     min: 100,
   });
 
-  const mainContent = useMemo(
-    () =>
-      selectedKey === 'sub34' ? (
-        <HistoricalOrdersExports />
-      ) : selectedKey === 'sub41' ? (
-        <HistoricalPurchaseOrdersExports />
-      ) : (
-        <LandingPage />
-      ),
-    [selectedKey],
-  );
+  const mainContent = useMemo(() => {
+    switch (location.pathname) {
+      case '/analytics/orders/historicalexports':
+        return <HistoricalOrdersExports />;
+      case '/analytics/purchaseorders/historicalexports':
+        return <HistoricalPurchaseOrdersExports />;
+      default:
+        return <LandingPage />;
+    }
+  }, [location.pathname]);
 
   return (
     <PageContainer
@@ -49,7 +48,7 @@ const AnalyticManagement: React.FC = () => {
             style={{ width: LeftW }}
           >
             <div className="w-full">
-              <LeftPanel selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
+              <LeftPanel />
             </div>
           </div>
 
