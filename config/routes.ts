@@ -96,6 +96,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/products/trendingprofitability',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },

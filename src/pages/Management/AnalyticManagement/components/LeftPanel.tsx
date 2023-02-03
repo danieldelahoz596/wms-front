@@ -74,14 +74,18 @@ const LeftPanel: React.FC = () => {
                 label: <Link to="/analytics/products/skuprofitability">SKU Profitability</Link>,
               },
               {
-                key: 'listingprofitability',
+                key: '/analytics/products/listingprofitability',
                 icon: <LeafIcon style={{ fontSize: 16 }} />,
-                label: 'Listing Profitability',
+                label: (
+                  <Link to="/analytics/products/trendingprofitability">Listing Profitability</Link>
+                ),
               },
               {
-                key: 'trendingprofitability',
+                key: '/analytics/products/trendingprofitability',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
-                label: 'Trending Profitability',
+                label: (
+                  <Link to="/analytics/products/trendingprofitability">Trending Profitability</Link>
+                ),
               },
             ],
           },

@@ -12,6 +12,7 @@ import SKUProfitability from './Products/SKUProfitability';
 import TopSellers from './Products/TopSellers';
 import WorstSellers from './Products/WorstSellers';
 import YOYGrowth from './Products/YOYGrowth';
+import TrendingProfitability from './Products/TrendingProfitability';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -36,6 +37,8 @@ const AnalyticManagement: React.FC = () => {
         return <YOYGrowth />;
       case '/analytics/products/skuprofitability':
         return <SKUProfitability />;
+      case '/analytics/products/trendingprofitability':
+        return <TrendingProfitability />;
       case '/analytics/orders/historicalexports':
         return <HistoricalOrdersExports />;
       case '/analytics/purchaseorders/historicalexports':
