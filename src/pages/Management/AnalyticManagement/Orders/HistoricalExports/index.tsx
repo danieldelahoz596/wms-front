@@ -5,6 +5,9 @@ import { useModel } from '@umijs/max';
 import moment from 'moment';
 import { uuid } from '@antv/x6/lib/util/string/uuid';
 import httpClient from '@/utils/http-client';
+import { OButton } from '@/components/Globals/OButton';
+import { OSelect } from '@/components/Globals/OSelect';
+import { OInput } from '@/components/Globals/OInput';
 
 const HistoricalOrdersExports: React.FC = () => {
   const { initialState } = useModel('@@initialState');
@@ -115,6 +118,7 @@ const HistoricalOrdersExports: React.FC = () => {
                       label: _item.name,
                       value: _item.id,
                     }))}
+                    size="small"
                   />
                 </Form.Item>
               </Col>
@@ -124,6 +128,7 @@ const HistoricalOrdersExports: React.FC = () => {
                     mode="multiple"
                     allowClear
                     placeholder="Please select"
+                    size="small"
                     options={initialState?.initialData.order_statuses.map((_item) => ({
                       label: _item.name,
                       value: _item.id,
@@ -139,12 +144,12 @@ const HistoricalOrdersExports: React.FC = () => {
                   label="Shipped Date From"
                   labelCol={{ span: 9 }}
                 >
-                  <DatePicker />
+                  <DatePicker size='small'/>
                 </Form.Item>
               </Col>
               <Col span={3}>
                 <Form.Item name="shipped_date_to" label="To">
-                  <DatePicker />
+                  <DatePicker size='small'/>
                 </Form.Item>
               </Col>
               <Col span={4}>
@@ -154,7 +159,7 @@ const HistoricalOrdersExports: React.FC = () => {
                   initialValue={moment().subtract(1, 'year').startOf('year')}
                   labelCol={{ span: 9 }}
                 >
-                  <DatePicker />
+                  <DatePicker size='small'/>
                 </Form.Item>
               </Col>
               <Col span={3}>
@@ -163,14 +168,12 @@ const HistoricalOrdersExports: React.FC = () => {
                   label="To"
                   initialValue={moment().subtract(1, 'year').endOf('year')}
                 >
-                  <DatePicker />
+                  <DatePicker size='small'/>
                 </Form.Item>
               </Col>
               <Col span={3}>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit">
-                    Generate Export
-                  </Button>
+                  <OButton btnText="Generate Export" onClick={handleSubmit}/>
                 </Form.Item>
               </Col>
             </Row>

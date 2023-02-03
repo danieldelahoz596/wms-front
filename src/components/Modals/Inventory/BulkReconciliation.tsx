@@ -40,7 +40,7 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({ isOpen,
          By confirming to bulk reconcile your inventory, all inventory across all your active warehouses will reflect in the queue with default costs. Please confer with your account manager before making this change.
         </p>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-        <OInput style={{ marginRight: '10px' }} type="checkbox" /> Yes, I understand
+        <OInput className="mr-10" type="checkbox" /> Yes, I understand
         </div>
         <span>Default Vendor</span> 
         <div style={{ display: 'flex', alignItems: 'center', width: '40%', marginTop: '10px' }}>

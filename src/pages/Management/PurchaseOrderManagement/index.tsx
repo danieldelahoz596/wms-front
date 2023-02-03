@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Card, Row, Col, Form } from 'antd';
+import { Card, Row, Col, Form, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import SidePanel from './components/SidePanel/sidePanel';
@@ -87,13 +87,10 @@ const CustomerManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'primary',
       onClick: () => console.log('Vendor'),
       btnText: 'Print',
-      hidden: false,
     },
     {
-      type: 'primary',
       onClick: () => console.log('Authorized'),
       btnText: 'Authorize',
       hidden:
@@ -101,28 +98,21 @@ const CustomerManagement: React.FC = () => {
         !selectedPOStatus?.selectedWarehouse,
     },
     {
-      type: 'primary',
       onClick: () => console.log('Canceled'),
       btnText: 'Cancel',
-      hidden: false,
     },
     {
-      type: 'primary',
       onClick: handleNewPOModalOpen,
       btnText: 'New P.O.',
-      hidden: false,
     },
     {
-      type: 'primary',
-      onClick: () => console.log('RESTORE P.O.'),
-      btnText: 'RESTORE P.O.',
+      onClick: () => console.log('Restore P.O.'),
+      btnText: 'Restore P.O.',
       hidden: selectedPOStatus?.key !== '10' || !selectedPOStatus?.selectedWarehouse,
     },
     {
-      type: 'primary',
       onClick: () => console.log('Import/Export'),
       btnText: 'Import/Export',
-      hidden: false,
     },
   ];
 
@@ -164,28 +154,19 @@ const CustomerManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
             <Card size="small" className="horizon-card">
-              <Row>
-                <p>PURCHASE ORDERS :: AWAITING AUTHORIZATION</p>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  {actionButtons.map((btn, index) => (
-                    <OButton key={index} {...btn} />
-                  ))}
-                </Col>
-              </Row>
-              <br />
-              <Row>
-                <Col span={24}>
-                  <OTable
-                    columns={Table1DemoColumns}
-                    rows={poListTableRows}
-                    type={'radio'}
-                    selectedRows={selectedRows}
-                    setSelectedRows={setSelectedRows}
-                  />
-                </Col>
-              </Row>
+              <p>Purchase Orders :: Awaiting Authorization</p>
+              <Space size={5} style={{ marginBottom: 10 }}>
+                {actionButtons.map((btn, index) => (
+                  <OButton key={index} {...btn} />
+                ))}
+              </Space>
+              <OTable
+                columns={Table1DemoColumns}
+                rows={poListTableRows}
+                type={'radio'}
+                selectedRows={selectedRows}
+                setSelectedRows={setSelectedRows}
+              />
             </Card>
           </div>
           <SampleSplitter

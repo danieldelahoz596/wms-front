@@ -3,7 +3,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Col, Row } from 'antd';
+import { Space } from 'antd';
 
 interface INewProduct {
   isOpen: boolean;
@@ -40,14 +40,16 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
     >
       <div style={{ textAlign: 'center' }}>
         <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
-        {buttons.map((btn, index) => (
-          <OButton
-            type={btn.type}
-            btnText={btn.btnText}
-            onClick={btn.onClick}
-            style={{ width: '100%', marginBottom: 5 }}
-          />
-        ))}
+        <Space direction='vertical' size='small' style={{ display: 'flex' }}>
+          {buttons.map((btn, index) => (
+            <OButton
+              type={btn.type}
+              btnText={btn.btnText}
+              onClick={btn.onClick}
+              style={{ width: '100%' }}
+            />
+          ))}  
+        </Space>
         <br/>
         <a href="#" className='help-link'>
           <span>What's the difference</span> <QuestionCircleOutlined />

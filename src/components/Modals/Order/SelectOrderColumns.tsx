@@ -92,7 +92,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
               />
             </Col>
             <Col span={12}>
-              <Row align="middle" style={{ marginTop: 2 }}>
+              <Row align="middle" className='mt-10'>
                 <Col span={4}>
                   <a
                     style={{ fontWeight: 500, textTransform: 'uppercase' }}
@@ -139,7 +139,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
                 dataSource={filterColumns.map((column, index) => ({ name: column, key: index }))}
                 pagination={{ hideOnSinglePage: true, pageSize: 42 }}
                 scroll={{ y: 400 }}
-                style={{ marginTop: 2 }}
+                className='mt-10'
                 showHeader={false}
               />
             </Col>

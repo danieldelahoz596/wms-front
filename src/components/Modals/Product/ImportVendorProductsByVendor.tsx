@@ -16,10 +16,10 @@ interface IImportVendorProductsByVendor {
 
 const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({ isOpen, onClose, onSave }) => {
   const { initialState } = useModel('@@initialState');
-  const [ vendor, setVonder] = useState(null);
+  const [ vendor, setVendor] = useState(null);
 
   const handleChangeVendor = (_name: string, value: any) => {
-    setVonder(value);
+    setVendor(value);
   }
   return (
     <OModal
@@ -83,7 +83,7 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
           </Col>
         </Row>
         <Row>
-          <Col style={{ marginTop: '1rem' }}>
+          <Col className='mt-10'>
             <label>Update existing SKUs if changes found in the Excel file?</label>&nbsp;&nbsp;
             <Select placeholder="Yes - Update existing SKUs and import new.">
               <Option value="1">Yes - Update existing SKUs and import new.</Option>

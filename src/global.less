@@ -28,9 +28,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// ul, ol {
-//   list-style: none;
-// }
+// Commons spacing utilites
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.mb-5 {
+  margin-bottom: 5px;
+}
+.mt-5 {
+  margin-top: 5px;
+}
+.mr-5 {
+  margin-right: 5px;
+}
+.ml-5 {
+  margin-left: 5px;
+}
 
 @media (max-width: @screen-xs) {
   .ant-table {
@@ -194,9 +216,16 @@ header.ant-layout-header {
   }
 }
 
-.ant-card .ant-card-head-title {
-  text-transform: uppercase;
+.ant-card {
+  .ant-card-head-title {
+    text-transform: uppercase;
+  }
+
+  .ant-card-body {
+    padding: 12px;
+  }
 }
+
 
 .OModal {
   .ant-card {

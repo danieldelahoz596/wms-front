@@ -45,13 +45,13 @@ const CancelItemModal: React.FC<ICancelItemModal> = ({
       <>
         <Row>
           <Card style={{ minWidth: '100%', background: '#00ffff', border: '1px ridge' }}>
-              <h4>Canceling this item will mark it as an error. Please note that canceled items do not count againist a vendor's score card.</h4>
+            <h4>Canceling this item will mark it as an error. Please note that canceled items do not count againist a vendor's score card.</h4>
           </Card>
         </Row>
         <Row>
-            <Col span={12} offset={12} style={{ marginTop: '2%' }}>
-                <h4>Are you sure want to proceed?</h4>
-            </Col>
+          <Col span={12} offset={12} className='mt-10'>
+            <h4>Are you sure want to proceed?</h4>
+          </Col>
         </Row>
       </>
     </OModal>

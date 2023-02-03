@@ -48,7 +48,7 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
           type="info"
           // style={{ backgroundColor: '#DEE0FF', borderColor: '#8C93FF' }}
         />
-        <Row style={{ marginTop: '1rem' }}>
+        <Row className="mt-10">
           <Col offset={6} span={18}>
             <Form>
               <Form.Item name={'reason'} label="Select Reason">

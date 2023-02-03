@@ -23,7 +23,7 @@ const InventoryManagement: React.FC = () => {
       <>
         <Button
           type="primary"
-          style={{ marginRight: '10px' }}
+          className='mr-10'
           onClick={() => changeManagementTab('stock')}
         >
           STOCK

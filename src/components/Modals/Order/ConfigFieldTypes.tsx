@@ -115,7 +115,7 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
         </Col>
       </Row>
 
-      <div style={{ marginTop: 10 }}>
+      <div className="mt-10">
         <EditableTable
           columns={TColumns}
           dataSource={fieldTypes

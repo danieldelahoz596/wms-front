@@ -104,7 +104,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
       ]}
     >
       <>
-        <Row style={{ marginBottom: '1rem' }}>
+        <Row className='mb-10'>
           <Col span={12}>
             <Form>
               <Form.Item name={'fileFormat'} label="Add Optional Field">

@@ -12,7 +12,7 @@ const SidePanel: React.FC = () => {
       <Row justify="space-between" align="middle" >
         <Col flex='auto'>
           <div style={{ marginLeft: '5px' }}>
-            <h2>{searchType ? 'SEARCH PRODUCTS...' : 'FILTER BY'}</h2>
+            <h2>{searchType ? 'Search Products...' : 'Filter By'}</h2>
           </div>
         </Col>
         <Col>

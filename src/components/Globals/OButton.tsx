@@ -8,17 +8,19 @@ export interface IOButton {
   disabled?: boolean;
   hidden?: boolean;
   size?: any;
+  className?: string;
   bordered?: boolean;
 }
 
 export const OButton: React.FC<IOButton> = ({
-  type,
+  type="primary",
   onClick,
   style,
   btnText,
-  disabled = false,
+  disabled=false,
   hidden,
-  size,
+  size="small",
+  className,
   bordered,
 }) => {
   return hidden ? null : typeof btnText === 'string' ? (
@@ -27,13 +29,12 @@ export const OButton: React.FC<IOButton> = ({
       size={size}
       onClick={onClick}
       style={{
-        marginRight: '5px',
-        marginTop: '5px',
         border: bordered ? '1px solid #AFB4FF' : '',
         color: '#5F5FFF !important',
         ...style,
       }}
       disabled={disabled}
+      className={className}
     >
       {btnText}
     </Button>

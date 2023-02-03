@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Card, Row, Col, Dropdown, Button, Badge, Modal } from 'antd';
+import { Card, Row, Col, Dropdown, Button, Badge, Modal, Space } from 'antd';
 import React, { useEffect, useState, useMemo } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
 
@@ -189,98 +189,73 @@ const OrderManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'primary',
       onClick: () => setModal(modalType.ExportQueueOrder),
       btnText: 'Queue',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'primary',
       onClick: () => console.log('Ship'),
       btnText: 'Ship',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     // {
-    //   type: 'primary',
     //   onClick: () => console.log('Canceled'),
     //   btnText: 'Cancel',
     //   hidden: ![3, 6, 7].includes(selectedOrderStatus?.status.id),
     // },
     {
-      type: 'primary',
       btnText: (
         <Dropdown
           menu={{
             items: [
               {
                 key: 'pick_list',
-                label: (
-                  <span>
-                    <FileOutlined /> Pick List(s)
-                  </span>
-                ),
+                label: (<span> Pick List(s)</span>),
+                icon: <FileOutlined />,
               },
               {
                 key: 'global_picK_list',
-                label: (
-                  <span>
-                    <FileOutlined /> Global Pick List
-                  </span>
-                ),
+                label: (<span> Global Pick List</span>),
+                icon: <FileOutlined />,
               },
               {
                 key: 'packing_slip',
-                label: (
-                  <span>
-                    <FileTextOutlined /> Packing Slip(s)
-                  </span>
-                ),
+                label: (<span>Packing Slip(s)</span>),
+                icon: <FileTextOutlined />
               },
               {
                 key: 'item_label',
-                label: (
-                  <span>
-                    {' '}
-                    <FileOutlined /> Item Label(s)
-                  </span>
-                ),
+                label: (<span>Item Label(s)</span>),
+                icon: <FileOutlined />,
               },
               {
                 key: 'item_label_roll',
-                label: (
-                  <span>
-                    <FileOutlined /> Item Label(s) Roll
-                  </span>
-                ),
+                label: (<span>Item Label(s) Roll</span>),
+                icon: <FileOutlined />,
               },
               {
                 key: 'label',
-                label: (
-                  <span>
-                    <FileOutlined /> Label(s)
-                  </span>
-                ),
+                label: (<span>Label(s)</span>),
+                icon: <FileOutlined />,
               },
               {
                 key: 'custom_form',
-                label: (
-                  <span>
-                    <FileOutlined /> Custom Form(s)
-                  </span>
-                ),
+                label: (<span>Custom Form(s)</span>),
+                icon: <FileOutlined />,
               },
             ],
           }}
         >
-          <Button type="primary" style={{ marginRight: '5px' }}>
-            Print <DownOutlined />
+          <Button type="primary" size='small'>
+            <Space>
+              Print <DownOutlined />
+            </Space>
           </Button>
         </Dropdown>
       ),
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'primary',
       onClick: () => console.log('Label'),
       btnText: (
         <Dropdown
@@ -288,99 +263,80 @@ const OrderManagement: React.FC = () => {
             items: [],
           }}
         >
-          <Button type="primary" style={{ marginRight: '5px', marginTop: '5px' }}>
-            Label <DownOutlined />
+          <Button type="primary" size='small'>
+            <Space>
+              Label <DownOutlined />
+            </Space>
           </Button>
         </Dropdown>
       ),
     },
     {
-      type: 'primary',
       btnText: (
         <Dropdown
           menu={{
             items: [
               {
                 key: 'hold_until',
-                label: (
-                  <span>
-                    <FieldTimeOutlined /> Hold Until..
-                  </span>
-                ),
+                label: (<span>Hold Until..</span>),
+                icon: <FieldTimeOutlined />,
               },
               // In Awaiting Shipment or Pending Fulfillment
-              [3, 4].includes(selectedOrderStatus?.status.id) && selectedRows.length > 0
-                ? {
-                    key: 'cancel_order',
-                    label: (
-                      <span onClick={() => setModal(modalType.CancelOrder)}>
-                        <StopOutlined /> Cancel Order
-                      </span>
-                    ),
-                  }
-                : null,
+              [3, 4].includes(selectedOrderStatus?.status.id) ? 
+              {
+                key: 'cancel_order',
+                label: (<span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>),
+                icon: <StopOutlined />,
+                disabled: selectedRows.length == 0,
+              } : null,
               {
                 key: 'assign_to',
-                label: (
-                  <span>
-                    <UserOutlined /> Assign To
-                  </span>
-                ),
+                label: (<span>Assign To</span>),
+                icon: <UserOutlined />,
                 children:
                   userList.length > 1 &&
                   userList
                     .filter((user) => user.id !== initialState?.currentUser?.user.id)
                     .map((user) => ({
                       key: user.id,
-                      label: <span onClick={showConfirm}>{user.full_name}</span>,
+                      label: <span onClick={showConfirm}>{user.username}</span>,
                     })),
-                disabled: selectedRows.length < 1,
+                disabled: selectedRows.length == 0,
               },
               {
                 key: 'split_order',
-                label: (
-                  <span onClick={() => setModal(modalType.SplitOrder)}>
-                    <MinusCircleOutlined /> SplitOrder{' '}
-                  </span>
-                ),
+                label: (<span onClick={() => setModal(modalType.SplitOrder)}>SplitOrder</span>),
+                icon: <MinusCircleOutlined />,
                 disabled: selectedRows.length !== 1,
               },
               {
                 key: 'mark_shipped',
-                label: (
-                  <span>
-                    <CheckCircleOutlined /> ${`Mark 'Shipped'`}
-                  </span>
-                ),
+                label: (<span>Mark 'Shipped'</span>),
+                icon: <CheckCircleOutlined />,
               },
               {
                 key: 'duplicate_order',
-                label: (
-                  <span onClick={() => setModal(modalType.DuplicateOrder)}>
-                    <PlusCircleOutlined /> Duplicate Order
-                  </span>
-                ),
+                label: (<span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>),
+                icon: <PlusCircleOutlined />,
               },
               // {
               //   key: '7',
-              //   label: (
-              //     <span>
-              //       <RedoOutlined /> Restore
-              //     </span>
-              //   ),
+              //   label: (<span> Restore</span>),
+              //   icon: <RedoOutlined />
               // },
             ],
           }}
         >
-          <Button type="primary" style={{ marginRight: '5px' }}>
-            Edit <DownOutlined />
+          <Button type="primary" size='small'>
+            <Space>
+              Edit <DownOutlined />
+            </Space>
           </Button>
         </Dropdown>
       ),
       hidden: [7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'primary',
       onClick: () => setModal(modalType.RestoreOrder),
       btnText: 'Restore',
       hidden:
@@ -388,81 +344,61 @@ const OrderManagement: React.FC = () => {
         ([6, 7].includes(selectedOrderStatus?.status.id) && selectedRows.length < 1),
     },
     {
-      type: 'primary',
       onClick: () => console.log('Merge'),
       btnText: 'Merge',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      type: 'primary',
       btnText: (
         <Dropdown
-          menu={{
-            items: [
+          menu={{ items: [
               {
                 key: '3',
-                label: (
-                  <span
-                    onClick={() => {
-                      setModal(modalType.ManualOrder);
-                    }}
-                  >
-                    <GlobalOutlined /> Manual Orders
-                  </span>
-                ),
+                label: (<span onClick={() => {setModal(modalType.ManualOrder)}}>Manual Orders</span>),
+                icon: <GlobalOutlined />
               },
             ],
           }}
         >
-          <Button type="primary" style={{ marginRight: '5px' }}>
-            New Order <DownOutlined />
+          <Button type="primary" size='small'>
+            <Space>
+              New Order <DownOutlined />
+            </Space>
           </Button>
         </Dropdown>
       ),
     },
     {
-      type: 'primary',
       onClick: () => console.log('Import/Export'),
       btnText: (
         <Dropdown
-          menu={{
-            items: [
+          menu={{ items: [
               {
                 key: '1',
-                label: (
-                  <span onClick={() => setModal(modalType.ImportOrder)}>
-                    <VerticalAlignTopOutlined /> Import Orders
-                  </span>
-                ),
+                label: (<span onClick={() => setModal(modalType.ImportOrder)}>Import Orders</span>),
+                icon: <VerticalAlignTopOutlined />,
               },
               {
                 key: '2',
-                label: (
-                  <span onClick={() => setModal(modalType.ImportOrderShipments)}>
-                    <VerticalAlignTopOutlined /> Import Shipments
-                  </span>
-                ),
+                label: (<span onClick={() => setModal(modalType.ImportOrderShipments)}>Import Shipments</span>),
+                icon: <VerticalAlignTopOutlined />,
               },
-              selectedRows.length > 0
-                ? {
-                    type: 'divider',
-                  }
-                : null,
-              selectedRows.length > 0
-                ? {
-                    key: '4',
-                    label: (
-                      <span onClick={() => setModal(modalType.ExportOrder)}>
-                        <VerticalAlignBottomOutlined /> Export Selected Orders
-                      </span>
-                    ),
-                  }
-                : null,
+              { 
+                type: 'divider',
+              },
+              {
+                key: '4',
+                label: (<span onClick={() => setModal(modalType.ExportOrder)}>Export Selected Orders</span>),
+                icon: <VerticalAlignBottomOutlined />,
+                disabled: selectedRows.length == 0
+              },
             ],
           }}
         >
-          <Button type="primary" style={{ marginRight: '5px' }}>
-            Import/Export <DownOutlined />
+          <Button type="primary" size='small'>
+            <Space >
+              Import/Export <DownOutlined />
+            </Space>
           </Button>
         </Dropdown>
       ),
@@ -515,9 +451,7 @@ const OrderManagement: React.FC = () => {
         <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
           <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
           <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-          <MessageOutlined
-            style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
-          />
+          <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}/>
         </div>
       ),
       order_date: moment(item.order_date).format('Y-M-D'),
@@ -565,31 +499,28 @@ const OrderManagement: React.FC = () => {
                       color: '#A2A2A2',
                     }}
                   >
-                    ORDERS :: {selectedOrderStatus?.status.name}{' '}
+                    Orders :: {selectedOrderStatus?.status.name}{' '}
                   </p>
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
-                  {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && (
+                  {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
                     <Button type="primary" style={{ paddingTop: '0', paddingBottom: '0' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span>
                           {' '}
-                          <DownOutlined /> {selectedOrderStatus?.filter.name} QUEUE
+                          <DownOutlined /> {selectedOrderStatus?.status.name} Queue
                         </span>{' '}
                         <Badge count={3} color="#5F5FFF" />
                       </div>
                     </Button>
-                  )}
+                  {/* )} */}
                 </Col>
               </Row>
-              <Row>
-                <Col span={24}>
-                  {actionButtons.map((btn, index) => (
-                    <OButton key={index} {...btn} />
-                  ))}
-                </Col>
-              </Row>
-              <br />
+              <Space size={5} style={{ marginBottom: 10 }}>
+                {actionButtons.map((btn, index) => (
+                  <OButton key={index} {...btn} />
+                ))}
+              </Space>
               <Row>
                 <Col span={24} style={{ position: 'relative' }}>
                   <OTable

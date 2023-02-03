@@ -58,7 +58,7 @@ const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSa
           <Row>
             <Col flex="1 1 200px">{inputField}</Col>
             <Col flex="0 1 70px">
-              <Row justify="space-between" style={{ marginLeft: '5px' }}>
+              <Row justify="space-between" className='ml-5'>
                 <>
                   <Button
                     style={{
@@ -94,7 +94,7 @@ const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSa
         <Row>
           <Col flex="1 1 200px">{inputField}</Col>
           <Col flex="0 1 70px">
-            <Row justify="space-between" style={{ marginLeft: '5px' }}>
+            <Row justify="space-between" className='ml-10'>
               <>
                 <Button
                   style={{
@@ -129,7 +129,7 @@ const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSa
         <Row>
           <Col flex="1 1 200px">{inputField}</Col>
           <Col flex="0 1 70px">
-            <Row justify="space-between" style={{ marginLeft: '5px' }}>
+            <Row justify="space-between" className='ml-10'>
               <>
                 <Button
                   style={{

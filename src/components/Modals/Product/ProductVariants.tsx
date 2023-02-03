@@ -129,7 +129,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
         <Row justify="start">
           <h2>Create your Core product variations below by clicking on the + symbol</h2>
         </Row>
-        <Row style={{ marginTop: '10px' }} justify="space-between">
+        <Row className='mt-10' justify="space-between">
           <Col span={8}>
             <Row>
               <Col span={4}>

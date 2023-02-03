@@ -1,18 +1,5 @@
-import { DownOutlined, RetweetOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import {
-  Button,
-  message,
-  Card,
-  Row,
-  Col,
-  Dropdown,
-  Popconfirm,
-  Form,
-  Select,
-  Table,
-  Switch,
-  Space,
-} from 'antd';
+import { DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
+import { Button, message, Card, Row, Col, Dropdown, Popconfirm, Form, Select, Table, Switch, Space } from 'antd';
 import React, { useState } from 'react';
 import { modalType, productType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
@@ -202,84 +189,52 @@ const ProductManagement: React.FC = () => {
     },
   ];
 
-  const importExportMenuOptions: MenuProps['items'] = [
+  const importExportMenuItems: MenuProps['items'] = [
     {
       key: '1',
-      label: (
-        <span onClick={() => setModal(modalType.Import)}>
-          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
-          Import Products
-        </span>
-      ),
+      label: (<span onClick={() => setModal(modalType.Import)}> Import Products </span>),
+      icon: <VerticalAlignTopOutlined />,
+    },
+    {
+      key: '2',
+      label: (<span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>),
+      icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '3',
-      label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
-          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
-          Import Vendor Products
-        </span>
-      ),
+      label: (<span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>),
+      icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '4',
-      label: (
-        <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>
-          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
-          Import SKU Adjustments
-        </span>
-      ),
+      label: (<span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Custom Fields</span>),
+      icon: <VerticalAlignTopOutlined />,
+    },
+    {
+      type: 'divider',
     },
     {
       key: '5',
-      label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
-          <VerticalAlignTopOutlined style={{ marginRight: '10px' }} />
-          Import Custom Fields
-        </span>
-      ),
-    },
-    {
-      type: 'divider',
+      label: (<span onClick={() => setModal(modalType.Export)}>Export Products</span>),
+      icon: <VerticalAlignBottomOutlined />,
     },
     {
       key: '6',
-      label: (
-        <span onClick={() => setModal(modalType.Export)}>
-          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
-          Export Products
-        </span>
-      ),
-    },
-    {
-      key: '8',
-      label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
-          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
-          Export Vendor Products
-        </span>
-      ),
+      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>),
+      icon: <VerticalAlignBottomOutlined />,
     },
     {
       type: 'divider',
     },
     {
-      key: '9',
-      label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
-          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
-          Custom Product Export
-        </span>
-      ),
+      key: '7',
+      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>),
+      icon: <VerticalAlignBottomOutlined />,
     },
     {
-      key: '10',
-      label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
-          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
-          Custom Bundle/Kit Export
-        </span>
-      ),
+      key: '8',
+      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Bundle/Kit Export</span>),
+      icon: <VerticalAlignBottomOutlined />,
     },
   ];
 
@@ -320,102 +275,85 @@ const ProductManagement: React.FC = () => {
                 </div>
               </Row>
               <Card style={{ width: '100%' }}>
-                <Row>
-                  <Col span={24}>
-                    <Space size={4}>
-                      <Button
-                        type="primary"
-                        onClick={() => setModal(modalType.AdjustMasterSKU)}
-                        disabled={!editableProduct}
-                      >
-                        Adjust Sku
-                      </Button>
-                      <Popconfirm
-                        title="Sure to convert to bundle/kit"
-                        onConfirm={() => {
-                          handleUpdateProduct({
-                            ...editableProduct,
-                            type: productType.BundleOrKit,
-                          });
-                          setEditableProduct(null);
-                          setSelectedProducts([]);
-                        }}
-                      >
-                        <Button
-                          type="primary"
-                          disabled={!(editableProduct?.type === productType.CoreProduct)}
-                        >
-                          Convert To Bundle/Kit
-                        </Button>
-                      </Popconfirm>
-                      <Popconfirm
-                        title="Sure to convert to Core"
-                        onConfirm={() => {
-                          handleUpdateProduct({
-                            ...editableProduct,
-                            type: productType.CoreProduct,
-                          });
-                          setEditableProduct(null);
-                          setSelectedProducts([]);
-                        }}
-                      >
-                        <Button
-                          type="primary"
-                          disabled={!(editableProduct?.type === productType.Variations)}
-                        >
-                          Convert To Core
-                        </Button>
-                      </Popconfirm>
-                      <Popconfirm
-                        title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
-                        onConfirm={() => {
-                          setSelectedProducts([]);
-                          const selectedKeys = selectedProducts.map((_item) => _item.id);
-                          setProductList(
-                            productList.map((_product) =>
-                              selectedKeys.includes(_product.id)
-                                ? { ..._product, status: !showActivate }
-                                : _product,
-                            ),
-                          );
-                        }}
-                      >
-                        <Button type="primary" disabled={selectedProducts.length === 0}>
-                          {showActivate ? 'Deactivate' : 'Activate'}
-                        </Button>
-                      </Popconfirm>
-                      <Button
-                        type="primary"
-                        onClick={() => console.log('History')}
-                        disabled={selectedProducts.length === 0}
-                      >
-                        History
-                      </Button>
-                      <Button type="primary" onClick={() => setModal(modalType.Variation)}>
-                        New Product
-                      </Button>
-                      <Dropdown menu={{ items: importExportMenuOptions }}>
-                        <Button type="primary">
-                          Import/Export <DownOutlined />
-                        </Button>
-                      </Dropdown>
-                    </Space>
-                  </Col>
-                </Row>
-                <br />
-                <Row>
-                  <Col span={24}>
-                    <OTable
-                      type="checkbox"
-                      columns={Tcolumns}
-                      rows={productList
-                        .filter((_item) => _item.status == showActivate)
-                        .map((_item) => ({ ..._item, key: _item.id }))}
-                      selectedRows={selectedProducts.map((_item) => _item.id)}
-                      setSelectedRows={handleProductSelectedRows}
-                    />
-                  </Col>
-                </Row>
+                <Space size={5}>
+                  <OButton 
+                    btnText="Adjust Sku"
+                    onClick={() => setModal(modalType.AdjustMasterSKU)}
+                    disabled={!editableProduct} />
+                  <Popconfirm
+                    title="Sure to convert to bundle/kit?"
+                    onConfirm={() => {
+                      handleUpdateProduct({
+                        ...editableProduct,
+                        type: productType.BundleOrKit,
+                      });
+                      setEditableProduct(null);
+                      setSelectedProducts([]);
+                    }}
+                  >
+                    <OButton
+                      btnText="Convert To Bundle/Kit"
+                      disabled={!(editableProduct?.type === productType.CoreProduct)} />
+                  </Popconfirm>
+                  <Popconfirm
+                    title="Sure to convert to Core?"
+                    onConfirm={() => {
+                      handleUpdateProduct({
+                        ...editableProduct,
+                        type: productType.CoreProduct,
+                      });
+                      setEditableProduct(null);
+                      setSelectedProducts([]);
+                    }}
+                  >
+                    <OButton
+                      btnText="Convert To Core"
+                      disabled={!(editableProduct?.type === productType.Variations)} />
+                  </Popconfirm>
+                  <Popconfirm
+                    title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
+                    onConfirm={() => {
+                      setSelectedProducts([]);
+                      const selectedKeys = selectedProducts.map((_item) => _item.id);
+                      setProductList(
+                        productList.map((_product) =>
+                          selectedKeys.includes(_product.id)
+                            ? { ..._product, status: !showActivate }
+                            : _product,
+                        ),
+                      );
+                    }}
+                  >
+                    <OButton 
+                      btnText={showActivate ? 'Deactivate' : 'Activate'} 
+                      disabled={selectedProducts.length === 0} />
+                  </Popconfirm>
+                  <OButton
+                    type="primary"
+                    onClick={() => console.log('History')}
+                    disabled={selectedProducts.length === 0} btnText="History" />
+                  <OButton 
+                    btnText={'New Product'} 
+                    onClick={() => setModal(modalType.Variation)} /> 
+                  <Dropdown menu={{ items: importExportMenuItems }}>
+                    <Button type="primary" size='small'>
+                      <Space>
+                        Import/Export <DownOutlined />
+                      </Space>
+                    </Button>
+                  </Dropdown>
+                </Space>
+                
+                <OTable
+                  type="checkbox"
+                  columns={Tcolumns}
+                  rows={productList
+                    .filter((_item) => _item.status == showActivate)
+                    .map((_item) => ({ ..._item, key: _item.id }))}
+                  selectedRows={selectedProducts.map((_item) => _item.id)}
+                  setSelectedRows={handleProductSelectedRows}
+                  style={{ marginTop: 10 }}
+                />
               </Card>
             </div>
           </div>

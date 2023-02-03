@@ -15,6 +15,8 @@ export interface IOSelect {
   value?: any;
   style?: any;
   hidden?: boolean;
+  showPlaceholder?: boolean;
+  className?: string;
 }
 
 export const OSelect: React.FC<IOSelect> = ({
@@ -26,7 +28,9 @@ export const OSelect: React.FC<IOSelect> = ({
   defaultValue,
   value,
   style,
+  showPlaceholder = true, 
   hidden = false,
+  className,
 }) => {
   return hidden ? (
     <></>
@@ -37,9 +41,11 @@ export const OSelect: React.FC<IOSelect> = ({
       allowClear={allowClear}
       defaultValue={defaultValue ?? '0'}
       value={value ?? '0'}
+      size="small"
       style={{ width: '100%', ...style }}
+      className={className}
     >
-      <Select.Option value="0">Select...</Select.Option>
+      { showPlaceholder && <Select.Option value="0">Select...</Select.Option> }
       {options?.map((option, index) => (
         <Select.Option key={`option-${index}`} value={option.value}>
           {option.text}

@@ -1,4 +1,4 @@
-import { Button, Input, Card, Row, Col, Select, Checkbox, Table } from 'antd';
+import { Button, Input, Card, Row, Col, Select, Checkbox, Table, Space } from 'antd';
 import React, { useState } from 'react';
 import { data, historyData } from './components/structure';
 import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
@@ -7,6 +7,8 @@ import { modalType } from '@/utils/helpers/types';
 import { useResizable } from 'react-resizable-layout';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import TransferDetails from './components/RightPanel';
+import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
 const { Search } = Input;
 
 const Tcolumns = [
@@ -110,101 +112,63 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
   return (
     <>
       <div className="w-full flex flex-column h-screen">
-        <div className="horizon-content">
-          <div style={{ width: '100%' }}>
-            <Row justify="space-between" style={{ width: '100%' }}>
-              <Col span={12} style={{ paddingLeft: 10 }}>
-                {tabButtons}
-              </Col>
-              <Col span={12}>
-                <Row style={{ marginBottom: '10px' }} gutter={10}>
-                  <Col>
-                    <Checkbox value="external_fba">External FBA</Checkbox>
-                  </Col>
-                  <Col>
-                    <Select
-                      options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
-                      defaultValue="source_warehouse"
-                      size="small"
-                      style={{ width: '200px' }}
-                    />
-                  </Col>
-                  <Col>
-                    <Select
-                      options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
-                      defaultValue="dest_warehouse"
-                      size="small"
-                      style={{ width: '100px' }}
-                    />
-                  </Col>
-                  <Col>
-                    <Select
-                      options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
-                      defaultValue="sto_statuses"
-                      size="small"
-                      style={{ width: '100px' }}
-                    />
-                  </Col>
-                  <Col>
-                    <Select
-                      options={[{ value: 'fba_statuses', label: '9 FBA Statuses' }]}
-                      defaultValue="fba_statuses"
-                      size="small"
-                      style={{ width: '100px' }}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <Card style={{ marginTop: 10, borderRadius: 10, marginLeft: 10, width: '100%' }}>
-              <Row gutter={10} align="middle">
-                <Col>
-                  <div style={{ width: 300, display: 'inline-block' }}>
-                    <Search
-                      placeholder="Enter Order#, SKU or product name..."
-                      onSearch={() => console.log('Inactive')}
-                      enterButton
-                      size="small"
-                    />
-                  </div>
-                </Col>
-                <Col>
-                  <Button
-                    type="primary"
-                    disabled={!(selectedTranster?.status === 'pending_receiving')}
-                  >
-                    Receive
-                  </Button>
-                </Col>
-                <Col>
-                  <Button type="primary" onClick={showHistory}>
-                    History
-                  </Button>
-                </Col>
-              </Row>
-
-              <Table
-                columns={Tcolumns}
-                dataSource={dataSource}
-                style={{ marginTop: 15 }}
-                onRow={(record) => {
-                  return {
-                    onClick: () => {
-                      if (record.key === selectedTranster?.key) setSelectedTranster(null);
-                      else setSelectedTranster(record);
-                    }, // click row
-                  };
-                }}
-                rowSelection={{
-                  selectedRowKeys: selectedTranster ? [selectedTranster.key] : [],
-                  hideSelectAll: true,
-                  columnWidth: 0, // Set the width to 0
-                  renderCell: () => '', // Render nothing inside
-                }}
+        <Row style={{ marginBottom: 10 }}>
+          <Col span={8} style={{ paddingLeft: 10 }}>
+            {tabButtons}
+          </Col>
+          <Col span={16}>
+            <Space size={5}>
+              <Select
+                options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
+                defaultValue="source_warehouse"
+                size="small"
+                style={{ width: '200px' }}
               />
-            </Card>
-          </div>
-        </div>
+              <Select
+                options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
+                defaultValue="dest_warehouse"
+                size="small"
+                style={{ width: '100px' }}
+              />
+              <Select
+                options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
+                defaultValue="sto_statuses"
+                size="small"
+                style={{ width: '100px' }}
+              />
+            </Space>
+          </Col>
+        </Row>
+
+        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
+          <Space size={5}>
+            <Search
+              placeholder="Enter Order#, SKU or product name..."
+              onSearch={() => console.log('Search in Transfers tab on the orders module')}
+              enterButton
+              size="small"
+              style={{ width: 300 }}
+            />
+            <OButton 
+              btnText="Receive"
+              disabled={!(selectedTranster?.status === 'pending_receiving')}
+            />
+            <OButton
+              btnText="History"            
+              disabled={!selectedTranster}
+              onClick={showHistory}
+            />
+          </Space>
+
+          <OTable 
+            type='radio'
+            columns={Tcolumns} 
+            rows={dataSource} 
+            selectedRows={selectedTranster}
+            setSelectedRows={setSelectedTranster}
+            style={{ marginTop: 15 }}
+          />
+        </Card>
       </div>
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
       <div

@@ -90,7 +90,7 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
           btnText={'Configure Settings'}
           bordered={true}
           onClick={onConfigureSettings}
-          style={{ marginLeft: '10px' }}
+          className='ml-10'
         />
       </Row>
       <div >

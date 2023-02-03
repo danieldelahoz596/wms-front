@@ -3,7 +3,7 @@ import { Button, Input, Card, Row, Col, Dropdown, Select, Space } from 'antd';
 import { data, stock_history, stock_allocation } from './components/structure';
 import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
 import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconciliation';
@@ -20,6 +20,10 @@ import ShieldCheckIcon from '@/utils/icons/shieldCheck';
 import ShieldDeniedIcon from '@/utils/icons/shieldDenied';
 import SettingIcon from '@/utils/icons/setting';
 import StockDetails from './components/RightPanel';
+import { OInput } from '@/components/Globals/OInput';
+import { useModel } from 'umi';
+import { OButton } from '@/components/Globals/OButton';
+import { OSelect } from '@/components/Globals/OSelect';
 
 const { Search } = Input;
 interface IStockManagement {
@@ -27,10 +31,23 @@ interface IStockManagement {
 }
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
+  
+  const { initialState } = useModel('@@initialState');
+
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
   const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
+
+  const [ warehouse, setWarehouse] = useState(null);
+  const [ status, setStatus] = useState('all');
+
+  const handleChangeWarehouse = (_name: string, value: any) => {
+    setWarehouse(value);
+  }
+  const handleChangeStatus = (_name: string, value: any) => {
+    setStatus(value);
+  }
 
   const Tcolumns = useMemo(
     () => [
@@ -175,192 +192,164 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   return (
     <>
       <div className="w-full flex flex-column h-screen">
-        <div className="horizon-content">
-          <Row style={{ width: '100%' }}>
-            <Col span={24}>
-              <Row justify="space-between">
-                <Col span={12} style={{ paddingLeft: 10 }}>
-                  {tabButtons}
-                </Col>
-                <Col span={12}>
-                  <Row style={{ width: '100%', marginBottom: '10px' }} justify="end" gutter={10}>
-                    <Col>
-                      <Select
-                        options={[{ value: 'warehouse', label: 'Shwoing 2 Warehouses' }]}
-                        defaultValue="warehouse"
-                        size="small"
-                        style={{ width: '200px' }}
-                      />
-                    </Col>
-                    <Col>
-                      <Select
-                        options={[{ value: 'status', label: '5 Statuses' }]}
-                        defaultValue="status"
-                        size="small"
-                        style={{ width: '100px' }}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+        <Row style={{ marginBottom: 10 }}>
+          <Col span={8} style={{ paddingLeft: 10 }}>
+            {tabButtons}
+          </Col>
+          <Col span={16}>
+            <Space size={5} align="center">
+              <OInput
+                type="select"
+                name="warehouse"
+                onChange={handleChangeWarehouse}
+                value={warehouse}
+                options={initialState?.initialData?.warehouses.map((_item) => ({
+                  value: _item.id,
+                  text: _item.name,
+                }))}
+                style={{ width: '200px' }}
+              />
 
-              <Card>
-                <Space size={10} align="center">
-                  <div style={{ width: 300, display: 'inline-block' }}>
-                    <Search
-                      placeholder="Enter SKU or product name..."
-                      onSearch={() => console.log('Inactive')}
-                      enterButton
-                      size="small"
-                    />
-                  </div>
-                  <Dropdown
-                    menu={{
-                      items: [
-                        {
-                          key: '1',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.StockHistory)}>
-                              History
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '2',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Deactivate
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '3',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Draw Rank
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '4',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Location
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '5',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Transfer
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '6',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Adjust
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '7',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Remove
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '8',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Add</span>
-                          ),
-                        },
-                      ],
-                    }}
-                  >
-                    <Button type="primary">
-                      Bulk Edit <DownOutlined />
-                    </Button>
-                  </Dropdown>
-                  <Dropdown
-                    menu={{
-                      items: [
-                        {
-                          key: '1',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.StockHistory)}>
-                              Import Inventory
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '2',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Import Stock Minimums
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '3',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Import Reorder Rules
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '4',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Export Inventory
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '5',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
-                              Export Stock Details
-                            </span>
-                          ),
-                        },
-                        {
-                          key: '6',
-                          label: (
-                            <span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>
-                              Export Stock Edit History
-                            </span>
-                          ),
-                        },
-                      ],
-                    }}
-                  >
-                    <Button type="primary">
-                      Import/Export <DownOutlined />
-                    </Button>
-                  </Dropdown>
-                  <Button
-                    onClick={() => setCurrentModal(modalType.BulkReconciliation)}
-                    type="primary"
-                  >
-                    Bulk Reconciliation
-                  </Button>
+              <OInput
+                type="select"
+                name="status"
+                showPlaceholder={false}
+                options={[
+                  { value: 'all', text: '5 Statuses' },
+                  { value: 'onHand', text: 'On Hand' },
+                  { value: 'locked', text: 'Locked' },
+                  { value: 'allocated', text: 'Allocated' },
+                  { value: 'inTransite', text: 'In Transit' },
+                  { value: 'avaiableQuantities', text: 'Available quantities' },
+                ]}
+                value={status}
+                onChange={handleChangeStatus}
+                style={{ width: '200px' }}
+              />
+            </Space>
+          </Col>
+        </Row>
+
+        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
+          <Space size={5}>
+            <Search
+              placeholder="Enter SKU or product name..."
+              onSearch={() => console.log('Inactive')}
+              enterButton
+              size="small"
+              style={{ width: 200 }}
+            />
+
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: '1',
+                    label: (<span onClick={() => setCurrentModal(modalType.StockHistory)}>History</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '2',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Deactivate</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '3',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Draw Rank</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '4',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Location</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '5',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Transfer</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '6',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Adjust</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '7',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Remove</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '8',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Add</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                ],
+              }}
+            >
+              <Button type="primary" size='small'>
+                <Space>
+                  Bulk Edit <DownOutlined />
                 </Space>
-              </Card>
+              </Button>
+            </Dropdown>
 
-              <Card>
-                <OTable columns={Tcolumns} rows={dataSource} />
-              </Card>
-            </Col>
-          </Row>
-        </div>
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: '1',
+                    label: (<span onClick={() => setCurrentModal(modalType.StockHistory)}>Import Inventory</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '2',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Import Stock Minimums</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '3',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Import Reorder Rules</span>),
+                    icon: <VerticalAlignTopOutlined />,
+                  },
+                  {
+                    key: '4',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Export Inventory</span>),
+                    icon: <VerticalAlignBottomOutlined />,
+                  },
+                  {
+                    key: '5',
+                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Export Stock Details</span>),
+                    icon: <VerticalAlignBottomOutlined />,
+                  },
+                  {
+                    key: '6',
+                    label: (<span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>Export Stock Edit History</span>),
+                    icon: <VerticalAlignBottomOutlined />,
+                  },
+                ],
+              }}
+            >
+              <Button type="primary" size='small'>
+                <Space>
+                  Import/Export <DownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+
+            <OButton 
+              btnText="Bulk Reconciliation"
+              onClick={() => setCurrentModal(modalType.BulkReconciliation)} />
+          </Space>
+
+          <OTable 
+            columns={Tcolumns} 
+            rows={dataSource}
+            style={{ marginTop: 15 }} />
+        </Card>
       </div>
+
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
+      
       <div
         className={cn('shrink-0 contents', isRightDragging && 'dragging')}
         style={{ width: RightW }}

@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Row, Col } from 'antd';
+import { Button, Card, Row, Col, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { sampleImages } from '@/utils/helpers/base';
@@ -14,6 +14,7 @@ import SearchCustomer from './components/SidePanel/SearchCustomer';
 import EditHistoryModal from '@/components/Modals/Customer/EditHistoryModal';
 import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomerModal';
 import Bottom from './components/Bottom/Index';
+import { OButton } from '@/components/Globals/OButton';
 
 const CustomerManagement: React.FC = () => {
   const {
@@ -136,48 +137,26 @@ const CustomerManagement: React.FC = () => {
           <div className="horizon-content">
             <Row style={{ width: '100%' }}>
               <Col span={24}>
-                <Card
-                  size="small"
-                  title={
-                    <span
-                      style={{
-                        fontSize: '1rem',
-                        textTransform: 'uppercase',
-                        fontWeight: '700',
-                        color: '#A2A2A2',
-                      }}
-                    >
-                      Customers
-                    </span>
-                  }
-                >
-                  <Row>
-                    <Col span={24} className="panel-top-action">
-                      <Button type="primary" onClick={() => setModal(modalType.Merge)}>
-                        Merge
-                      </Button>
-                      {selectedCustomer && (
-                        <Button type="primary" onClick={() => setModal(modalType.History)}>
-                          History
-                        </Button>
-                      )}
-                      <Button type="primary" onClick={() => setModal(modalType.New)}>
-                        New Customer
-                      </Button>
-                    </Col>
-                  </Row>
-                  <br />
-                  <Row>
-                    <Col span={24}>
-                      <OTable
-                        columns={Tcolumns}
-                        rows={prepareCustomersTableData}
-                        type="radio"
-                        selectedRows={selectedRows}
-                        setSelectedRows={setSelectedRows}
-                      />
-                    </Col>
-                  </Row>
+                <Card size="small" title="Customers">
+                  <Space size={5} className="mb-10">
+                    <OButton 
+                      btnText="Merge"
+                      onClick={() => setModal(modalType.Merge)}  />
+                    <OButton 
+                      btnText="History" 
+                      disabled={!selectedCustomer}
+                      onClick={() => setModal(modalType.History)} />
+                    <OButton 
+                      btnText="New Customers" 
+                      onClick={() => setModal(modalType.New)} />
+                  </Space>
+                  <OTable
+                    columns={Tcolumns}
+                    rows={prepareCustomersTableData}
+                    type="radio"
+                    selectedRows={selectedRows}
+                    setSelectedRows={setSelectedRows}
+                  />
                 </Card>
               </Col>
             </Row>

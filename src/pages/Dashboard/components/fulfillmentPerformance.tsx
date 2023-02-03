@@ -15,7 +15,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
     <>
       <div style={{ fontSize: 25 }}>Fulfillment Performance</div>
       {!!data ? (
-        <Row gutter={[30, 30]} style={{ marginTop: 10 }}>
+        <Row gutter={[30, 30]} className='mt-10'>
           <Col span={12}>
             <div
               style={{
@@ -35,11 +35,11 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <WarningOutlined style={{ marginRight: 10 }}/>
-                  UNRESOLVED
+                  <WarningOutlined className='mr-10'/>
+                  Unresolved
                 </Col>
               </Row>
-              <Row style={{ marginLeft: 10, marginRight: 10 }}>
+              <Row className='ml-10'>
                 <Col span={24}>
                   <Row justify="space-between">
                     <Col>Missing Product Info:</Col>

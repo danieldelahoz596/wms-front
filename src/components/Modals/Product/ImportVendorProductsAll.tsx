@@ -57,7 +57,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
               <Button icon={<UploadOutlined />}>Select...</Button>
             </Upload>
           </Col>
-          <Col style={{ marginTop: '1rem' }}>
+          <Col className='mt-10'>
             <label>Update existing SKUs if changes found in the Excel file?</label>&nbsp;&nbsp;
             <Select placeholder="Yes - Update existing SKUs and import new.">
               <Option value="1">Yes - Update existing SKUs and import new.</Option>

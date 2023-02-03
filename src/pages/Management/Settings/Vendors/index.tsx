@@ -89,46 +89,37 @@ export default function () {
       <div className="w-full flex flex-column h-screen">
         <div className="horizon-content">
           <Card style={{ width: '100%' }}>
-            <Row gutter={5}>
-              <Col span={8}>
-                <Input.Group compact>
-                  <Input.Search 
-                    allowClear 
-                    placeholder="Search vendors by name..."
-                    onSearch={(value) => handleSearch(value)}
-                    enterButton={
-                      <Button style={{ padding: '6px 9px' }}>
-                        <SearchOutlined />
-                      </Button>
-                    }
-                    value={searchText}
-                    onChange={(event) => setSearchText(event.target.value)}
-                  />
-                </Input.Group>
-              </Col>
-              <Col span={16}>
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    setModal(modalType.New);
-                  }}
-                  style={{ marginRight: '5px' }}
-                >
-                  New Vendor
-                </Button>
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    setShowInactive((prev) => !prev);
-                    setSelectedVendor(null);
-                    setVendorList([]);
-                  }}
-                  style={{ marginRight: '5px' }}
-                >
-                  {showInactive ? 'Show Active' : 'Show Inactive'}
-                </Button>
-              </Col>
+            <Row>
+              <Search 
+                placeholder="Search vendors by name..." 
+                allowClear 
+                // value={searchText}
+                onSearch={(value) => handleSearch(value)}
+                onChange={(event) => setSearchText(event.target.value)}
+                size="small"
+                style={{ width: 200, marginRight: 5 }} 
+              />
+              <Button
+                type="primary"
+                onClick={() => { setModal(modalType.New); }}
+                size="small"
+                style={{ marginRight: 5 }}
+              >
+                New Vendor
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  setShowInactive((prev) => !prev);
+                  setSelectedVendor(null);
+                  setVendorList([]);
+                }}
+                size="small"
+              >
+                {showInactive ? 'Show Active' : 'Show Inactive'}
+              </Button>
             </Row>
+                
             <br />
             <Row>
               <Col span={24}>

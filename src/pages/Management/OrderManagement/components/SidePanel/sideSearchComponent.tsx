@@ -65,9 +65,7 @@ const SideSearch: React.FC = () => {
   return (
     <Form
       layout="vertical"
-      style={{
-        margin: '0% 5% 0% 5%',
-      }}
+      style={{ margin: '0% 5% 0% 5%' }}
     >
       {formInputs?.map((inputItem, index) => (
         <Form.Item key={index} label={inputItem.label}>

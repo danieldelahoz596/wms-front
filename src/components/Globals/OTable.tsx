@@ -18,6 +18,7 @@ interface IOTable {
   onSelect?: (record: any) => void;
   scrollx?: false;
   scrolly?: false;
+  style?: any;
   bordered?: boolean;
 }
 
@@ -31,6 +32,7 @@ export const OTable: React.FC<IOTable> = ({
   onSelect,
   scrollx,
   scrolly,
+  style,
   bordered = true,
 }) => {
   const selectRow = (record: any) => {
@@ -93,6 +95,7 @@ export const OTable: React.FC<IOTable> = ({
             }
           : false
       }
+      style={style}
     />
   );
 };
