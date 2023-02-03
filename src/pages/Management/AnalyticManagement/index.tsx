@@ -15,6 +15,7 @@ import YOYGrowth from './Products/YOYGrowth';
 import TrendingProfitability from './Products/TrendingProfitability';
 import ShipmentSummary from './Accounting/ShipmentSummary';
 import CogsBySKU from './Accounting/CogsBySKU';
+import SalesSummary from './Accounting/SalesSummary';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -49,6 +50,8 @@ const AnalyticManagement: React.FC = () => {
         return <ShipmentSummary />;
       case '/analytics/accounting/cogsbysku':
         return <CogsBySKU />;
+      case '/analytics/accounting/salessummary':
+        return <SalesSummary />;
       default:
         return <LandingPage />;
     }

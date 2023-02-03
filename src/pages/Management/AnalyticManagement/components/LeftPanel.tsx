@@ -169,6 +169,11 @@ const LeftPanel: React.FC = () => {
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: <Link to="/analytics/accounting/cogsbysku">Cogs By SKU</Link>,
               },
+              {
+                key: '/analytics/accounting/salessummary',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/accounting/salessummary">Sales Summary</Link>,
+              },
             ],
           },
         ]}
