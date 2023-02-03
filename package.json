@@ -64,7 +64,8 @@
     "react-drag-drop-container-typescript": "^1.4.1",
     "react-helmet-async": "^1.3.0",
     "react-resizable-layout": "^0.4.0",
-    "react-sortable-hoc": "^2.0.0"
+    "react-sortable-hoc": "^2.0.0",
+    "react-to-print": "^2.14.11"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",

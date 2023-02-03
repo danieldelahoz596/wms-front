@@ -11,8 +11,9 @@ import { Card, Row, Col, Space, Table, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
 import ExportModal from '@/components/Modals/Analytic/ExportModal';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import tableExport from 'antd-table-export';
+import { useReactToPrint } from 'react-to-print';
 
 const TColumns = [
   {
@@ -142,6 +143,16 @@ const LandingPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [pastSolidChartInstance, setPastSolidChartInstance] = useState(null);
   const [futureSolidChartInstance, setFutureSolidChartInstance] = useState(null);
+  const pastSolidChartRef = useRef(null);
+  const futureSolidChartRef = useRef(null);
+
+  const handlePastSolidChartPrint = useReactToPrint({
+    content: () => pastSolidChartRef.current,
+  });
+
+  const handleFutureSolidChartPrint = useReactToPrint({
+    content: () => futureSolidChartRef.current,
+  });
 
   return (
     <div style={{ margin: 10 }}>
@@ -242,8 +253,11 @@ const LandingPage: React.FC = () => {
                       menu={{
                         items: [
                           {
-                            type: 'group',
-                            label: 'Print Chart',
+                            key: 'print_chart',
+                            label: (
+                              <span onClick={() => handlePastSolidChartPrint()}>Print Chart</span>
+                            ),
+                            disabled: !pastSolidChartInstance,
                           },
                           {
                             type: 'divider',
@@ -297,27 +311,29 @@ const LandingPage: React.FC = () => {
                     />
                   </Col>
                 </Row>
-                <Pie
-                  data={pastSoldData}
-                  angleField="value"
-                  colorField="type"
-                  color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
-                  interactions={[
-                    {
-                      type: 'element-selected',
-                    },
-                    {
-                      type: 'element-active',
-                    },
-                  ]}
-                  legend={{
-                    marker: { symbol: 'square' },
-                    offsetX: -20,
-                  }}
-                  label={false}
-                  height={250}
-                  onReady={(chartInstance) => setPastSolidChartInstance(chartInstance)}
-                />
+                <div ref={pastSolidChartRef}>
+                  <Pie
+                    data={pastSoldData}
+                    angleField="value"
+                    colorField="type"
+                    color={['#AAFF00', '#66FF00', '#33FF00', '#00FF00']}
+                    interactions={[
+                      {
+                        type: 'element-selected',
+                      },
+                      {
+                        type: 'element-active',
+                      },
+                    ]}
+                    legend={{
+                      marker: { symbol: 'square' },
+                      offsetX: -20,
+                    }}
+                    label={false}
+                    height={250}
+                    onReady={(chartInstance) => setPastSolidChartInstance(chartInstance)}
+                  />
+                </div>
               </Col>
               <Col span={12}>
                 <Row justify="end">
@@ -326,8 +342,11 @@ const LandingPage: React.FC = () => {
                       menu={{
                         items: [
                           {
-                            type: 'group',
-                            label: 'Print Chart',
+                            key: 'print_chart',
+                            label: (
+                              <span onClick={() => handleFutureSolidChartPrint()}>Print Chart</span>
+                            ),
+                            disabled: !futureSolidChartInstance,
                           },
                           {
                             type: 'divider',
@@ -381,27 +400,29 @@ const LandingPage: React.FC = () => {
                     />
                   </Col>
                 </Row>
-                <Pie
-                  data={futureSoldData}
-                  angleField="value"
-                  colorField="type"
-                  color={['#AAFF00', '#55FF00', '#00FF00']}
-                  interactions={[
-                    {
-                      type: 'element-selected',
-                    },
-                    {
-                      type: 'element-active',
-                    },
-                  ]}
-                  legend={{
-                    marker: { symbol: 'square' },
-                    offsetX: -20,
-                  }}
-                  label={false}
-                  height={250}
-                  onReady={(chartInstance) => setFutureSolidChartInstance(chartInstance)}
-                />
+                <div ref={futureSolidChartRef}>
+                  <Pie
+                    data={futureSoldData}
+                    angleField="value"
+                    colorField="type"
+                    color={['#AAFF00', '#55FF00', '#00FF00']}
+                    interactions={[
+                      {
+                        type: 'element-selected',
+                      },
+                      {
+                        type: 'element-active',
+                      },
+                    ]}
+                    legend={{
+                      marker: { symbol: 'square' },
+                      offsetX: -20,
+                    }}
+                    label={false}
+                    height={250}
+                    onReady={(chartInstance) => setFutureSolidChartInstance(chartInstance)}
+                  />
+                </div>
               </Col>
             </Row>
           </Card>
