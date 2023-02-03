@@ -1,4 +1,4 @@
-import { Button, Input, Card, Row, Col, Popconfirm } from 'antd';
+import { Button, Input, Card, Row, Col, Popconfirm, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
@@ -14,6 +14,8 @@ import TrainIcon from '@/utils/icons/train';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import ShippingIcon from '@/utils/icons/shipping';
 import qs from 'qs';
+import React from 'react';
+import { OButton } from '../../../../components/Globals/OButton';
 
 const { Search } = Input;
 
@@ -87,84 +89,67 @@ export default function () {
   return (
     <>
       <div className="w-full flex flex-column h-screen">
-        <div className="horizon-content">
-          <Card style={{ width: '100%' }}>
-            <Row>
-              <Search 
-                placeholder="Search vendors by name..." 
-                allowClear 
-                // value={searchText}
-                onSearch={(value) => handleSearch(value)}
-                onChange={(event) => setSearchText(event.target.value)}
-                size="small"
-                style={{ width: 200, marginRight: 5 }} 
-              />
-              <Button
-                type="primary"
-                onClick={() => { setModal(modalType.New); }}
-                size="small"
-                style={{ marginRight: 5 }}
-              >
-                New Vendor
-              </Button>
-              <Button
-                type="primary"
-                onClick={() => {
-                  setShowInactive((prev) => !prev);
-                  setSelectedVendor(null);
-                  setVendorList([]);
-                }}
-                size="small"
-              >
-                {showInactive ? 'Show Active' : 'Show Inactive'}
-              </Button>
-            </Row>
-                
-            <br />
-            <Row>
-              <Col span={24}>
-                <OTable
-                  type="radio"
-                  columns={[
-                    {
-                      title: 'Vendor',
-                      dataIndex: 'name',
-                      key: 'name',
-                    },
-                    {
-                      title: 'Services',
-                      dataIndex: 'services',
-                      key: 'services',
-                    },
-                    {
-                      title: 'Status',
-                      dataIndex: 'status',
-                      key: 'status',
-                    },
-                    {
-                      title: "Open P.O.'s",
-                      dataIndex: 'openPos',
-                      key: 'openPos',
-                    },
-                    {
-                      title: 'Pending Units',
-                      dataIndex: 'pendingUnits',
-                      key: 'pendingUnits',
-                    },
-                    {
-                      title: 'Pending Value',
-                      dataIndex: 'pendingValue',
-                      key: 'pendingValue',
-                    },
-                  ]}
-                  rows={vendorListRows}
-                  selectedRows={selectedRows}
-                  setSelectedRows={handleSelectedRows}
-                />
-              </Col>
-            </Row>
-          </Card>
-        </div>
+        <Card style={{ width: '100%' }}>
+          <Space size={3} className="mb-10">
+            <Search 
+              placeholder="Search vendors by name..." 
+              allowClear 
+              onSearch={(value) => handleSearch(value)}
+              onChange={(event) => setSearchText(event.target.value)}
+              size="small"
+              style={{ width: 200 }} 
+            />
+            <OButton
+              btnText="New Vendor"
+              onClick={() => { setModal(modalType.New); }} />
+            <OButton
+              btnText={showInactive ? 'Show Active' : 'Show Inactive'}
+              onClick={() => {
+                setShowInactive((prev) => !prev);
+                setSelectedVendor(null);
+                setVendorList([]);
+              }}
+            />
+          </Space>
+          <OTable
+            type="radio"
+            columns={[
+              {
+                title: 'Vendor',
+                dataIndex: 'name',
+                key: 'name',
+              },
+              {
+                title: 'Services',
+                dataIndex: 'services',
+                key: 'services',
+              },
+              {
+                title: 'Status',
+                dataIndex: 'status',
+                key: 'status',
+              },
+              {
+                title: "Open P.O.'s",
+                dataIndex: 'openPos',
+                key: 'openPos',
+              },
+              {
+                title: 'Pending Units',
+                dataIndex: 'pendingUnits',
+                key: 'pendingUnits',
+              },
+              {
+                title: 'Pending Value',
+                dataIndex: 'pendingValue',
+                key: 'pendingValue',
+              },
+            ]}
+            rows={vendorListRows}
+            selectedRows={selectedRows}
+            setSelectedRows={handleSelectedRows}
+          />
+        </Card>
       </div>
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />

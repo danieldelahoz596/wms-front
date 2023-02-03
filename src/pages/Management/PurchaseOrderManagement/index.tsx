@@ -155,7 +155,7 @@ const CustomerManagement: React.FC = () => {
           <div className="horizon-content">
             <Card size="small" className="horizon-card">
               <p>Purchase Orders :: Awaiting Authorization</p>
-              <Space size={5} style={{ marginBottom: 10 }}>
+              <Space size={3} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
                   <OButton key={index} {...btn} />
                 ))}

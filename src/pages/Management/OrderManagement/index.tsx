@@ -516,7 +516,7 @@ const OrderManagement: React.FC = () => {
                   {/* )} */}
                 </Col>
               </Row>
-              <Space size={5} style={{ marginBottom: 10 }}>
+              <Space size={3} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
                   <OButton key={index} {...btn} />
                 ))}

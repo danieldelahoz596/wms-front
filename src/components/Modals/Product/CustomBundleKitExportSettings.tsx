@@ -61,35 +61,30 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
       ]}
     >
       <>
-        <Card
-          title={
-            <OButton
-              type="primary"
-              btnText={'New Settings'}
-              onClick={() => {
-                setEditableBundleKitExportSetting(null);
-                setShowModal(true);
-              }}
-            />
-          }
-        >
-          <OTable
-            pagination={false}
-            columns={[
-              {
-                key: 'setting',
-                dataIndex: 'setting',
-                title: 'Settings',
-              },
-              {
-                key: 'actions',
-                dataIndex: 'actions',
-                title: '',
-              },
-            ]}
-            rows={settings}
-          />
-        </Card>
+        <OButton
+          btnText={'New Settings'}
+          onClick={() => {
+            setEditableBundleKitExportSetting(null);
+            setShowModal(true);
+          }}
+        />
+        <OTable
+          pagination={false}
+          columns={[
+            {
+              key: 'setting',
+              dataIndex: 'setting',
+              title: 'Settings',
+            },
+            {
+              key: 'actions',
+              dataIndex: 'actions',
+              title: '',
+            },
+          ]}
+          rows={settings}
+          className="mt-10"
+        />
 
         <AddExportSettingsModal
           isOpen={showModal}

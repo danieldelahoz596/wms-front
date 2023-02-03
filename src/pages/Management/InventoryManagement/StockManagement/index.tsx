@@ -241,7 +241,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         </Row>
 
         <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
-          <Space size={5}>
+          <Space size={3}>
             <Search
               placeholder="Enter SKU or product name..."
               onSearch={() => console.log('Inactive')}

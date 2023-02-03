@@ -1,3 +1,4 @@
+import { OButton } from '@/components/Globals/OButton';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import ShippingIcon from '@/utils/icons/shipping';
@@ -34,35 +35,25 @@ const VendorDetails = ({ setModal }) => {
   return vendorDetails ? (
     <>
       <Card title={'Vendor Details'}>
-        <Row>
-          <Col span={24}>
-            <Button type="primary" onClick={handleEditVendor} style={{ margin: '5px' }}>
-              EDIT
-            </Button>
-            <Button
-              type="primary" 
-              onClick={() => {
-                getVendorHistory(vendorDetails.id);
-                setModal(modalType.History);
-              }}
-              style={{ margin: '5px' }}
-            >
-              HISTORY
-            </Button>
-            <Popconfirm
-              title="Sure to deactivate?"
-              onConfirm={() => {
-                updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
-              }}
-            >
-              <Button type="primary" style={{ margin: '5px' }}>
-                {selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'}
-              </Button>
-            </Popconfirm>
-          </Col>
-        </Row>
-        <br />
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+        <Space size={3} wrap>
+          <OButton btnText="Edit" onClick={handleEditVendor} />
+          <OButton 
+            btnText="History" 
+            onClick={() => {
+              getVendorHistory(vendorDetails.id);
+              setModal(modalType.History);
+            }}
+          />
+          <Popconfirm
+            title="Sure to deactivate?"
+            onConfirm={() => {
+              updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+            }}
+          >
+            <OButton btnText={selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'} /> 
+          </Popconfirm>
+        </Space>
+        <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           <Card title="Basic Info" size="small">
             <Descriptions>
               <Descriptions.Item label="Name">{vendorDetails.name}</Descriptions.Item>

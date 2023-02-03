@@ -1,6 +1,7 @@
 import httpClient from '@/utils/http-client';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Form, Button, Input, Row, message } from 'antd';
+import React from 'react';
 
 const MyInformation: React.FC = () => {
   const [form] = Form.useForm();

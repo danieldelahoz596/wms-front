@@ -1,6 +1,9 @@
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
+import { OSelect } from '@/components/Globals/OSelect';
 import { useModel } from '@umijs/max';
-import { Button, Col, Row, Select, Form } from 'antd';
+import { Button, Col, Row, Select, Form, Space } from 'antd';
+import React from 'react';
 import { useState } from 'react';
 import CustomBundleKitExportSettings from './CustomBundleKitExportSettings';
 
@@ -17,7 +20,7 @@ const CustomBundleKitExport: React.FC<ICustomBundleKitExport> = ({ isOpen, onClo
   return (
     <OModal
       title={'Custom Bundle/Kit Export'}
-      width={600}
+      width={500}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -46,28 +49,19 @@ const CustomBundleKitExport: React.FC<ICustomBundleKitExport> = ({ isOpen, onClo
           clik on the 'Configure Settings' button to set up which product data to export, the
           arrangement of columns and the file format.`}
         </p>
-        <Row align="middle" gutter={20} style={{ marginTop: 30 }}>
-          <Col offset={4} span={10}>
-            <Form>
-              <Form.Item label="Export Settings" style={{ marginBottom: 0 }}>
-                <Select
-                  defaultValue="Select..."
-                  style={{ width: '100%' }}
-                  size="small"
-                  options={customBundleKitExportSettings.map((item) => ({
-                    value: item.id,
-                    label: item.settingName,
-                  }))}
-                />
-              </Form.Item>
-            </Form>
-          </Col>
-          <Col span={10}>
-            <Button style={{ width: '100%' }} onClick={() => setShowModal(true)}>
-              Configure Settings
-            </Button>
-          </Col>
-        </Row>
+        <Space size={5}>
+          <label>Export Settings: </label>
+          <OSelect 
+            name="export_settings"
+            style={{ width: 200 }}
+            options={customBundleKitExportSettings.map((item) => ({
+              value: item.id,
+              text: item.settingName,
+            }))}
+            onChange={() => {}}
+          />
+          <OButton onClick={() => setShowModal(true)} btnText="Configure Settings" />
+        </Space>
 
         <CustomBundleKitExportSettings isOpen={showModal} onClose={() => setShowModal(false)} />
       </>

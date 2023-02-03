@@ -289,7 +289,7 @@ const ProductManagement: React.FC = () => {
                 </div>
               </Row>
               <Card style={{ width: '100%' }}>
-                <Space size={5}>
+                <Space size={3}>
                   <OButton 
                     btnText="Adjust Sku"
                     onClick={() => setModal(modalType.AdjustMasterSKU)}

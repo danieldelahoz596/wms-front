@@ -68,7 +68,7 @@ const TColumns = [
 export default function () {
   return (
     <Card style={{ width: '100%' }}>
-      <Space size={5}>
+      <Space size={3}>
         <Button>
           <FormattedMessage id="component.button.new-template" />
         </Button>
