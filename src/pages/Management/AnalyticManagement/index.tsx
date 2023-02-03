@@ -13,6 +13,7 @@ import TopSellers from './Products/TopSellers';
 import WorstSellers from './Products/WorstSellers';
 import YOYGrowth from './Products/YOYGrowth';
 import TrendingProfitability from './Products/TrendingProfitability';
+import ShipmentSummary from './Accounting/ShipmentSummary';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -43,6 +44,8 @@ const AnalyticManagement: React.FC = () => {
         return <HistoricalOrdersExports />;
       case '/analytics/purchaseorders/historicalexports':
         return <HistoricalPurchaseOrdersExports />;
+      case '/analytics/accounting/shipmentsummary':
+        return <ShipmentSummary />;
       default:
         return <LandingPage />;
     }

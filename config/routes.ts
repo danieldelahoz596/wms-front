@@ -109,6 +109,11 @@ export default [
         path: '/analytics/purchaseorders/historicalexports',
         component: './Management/AnalyticManagement',
       },
+      {
+        hideInMenu: true,
+        path: '/analytics/accounting/shipmentsummary',
+        component: './Management/AnalyticManagement',
+      },
     ],
   },
   {

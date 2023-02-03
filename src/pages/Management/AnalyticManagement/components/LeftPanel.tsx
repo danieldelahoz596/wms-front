@@ -160,9 +160,9 @@ const LeftPanel: React.FC = () => {
             label: 'Accounting',
             children: [
               {
-                key: 'sub61',
-                icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: 'Test',
+                key: '/analytics/accounting/shipmentsummary',
+                icon: <ShippingIcon style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/accounting/shipmentsummary">Shipment Summary</Link>,
               },
             ],
           },
