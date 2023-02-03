@@ -11,6 +11,7 @@ import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchase
 import SKUProfitability from './Products/SKUProfitability';
 import TopSellers from './Products/TopSellers';
 import WorstSellers from './Products/WorstSellers';
+import YOYGrowth from './Products/YOYGrowth';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -31,6 +32,8 @@ const AnalyticManagement: React.FC = () => {
         return <TopSellers />;
       case '/analytics/products/worstsellers':
         return <WorstSellers />;
+      case '/analytics/products/yoygrowth':
+        return <YOYGrowth />;
       case '/analytics/products/skuprofitability':
         return <SKUProfitability />;
       case '/analytics/orders/historicalexports':
@@ -61,9 +64,9 @@ const AnalyticManagement: React.FC = () => {
 
           <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
 
-          <div className="w-full flex flex-column h-screen">
+          <div className="w-full flex flex-column">
             <div className="horizon-content">
-              <Layout className="site-layout"> {mainContent}</Layout>
+              <Layout className="site-layout">{mainContent}</Layout>
             </div>
           </div>
         </div>

@@ -64,9 +64,9 @@ const LeftPanel: React.FC = () => {
                 label: <Link to="/analytics/products/worstsellers">Worst Sellers</Link>,
               },
               {
-                key: 'yoygrowth',
+                key: '/analytics/products/yoygrowth',
                 icon: <GraphLineUpIcon style={{ fontSize: 16 }} />,
-                label: 'Y-O-Y Growth',
+                label: <Link to="/analytics/products/yoygrowth">Y-O-Y Growth</Link>,
               },
               {
                 key: '/analytics/products/skuprofitability',

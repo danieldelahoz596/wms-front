@@ -86,6 +86,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/products/yoygrowth',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/products/skuprofitability',
         component: './Management/AnalyticManagement',
       },
