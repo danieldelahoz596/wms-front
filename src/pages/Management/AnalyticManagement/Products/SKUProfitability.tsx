@@ -130,7 +130,7 @@ const SKUProfitability: React.FC = () => {
 
       <ExportModal
         isOpen={showModal}
-        title="Export Opportunities Found by Skubana"
+        title="SKU Profitability"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

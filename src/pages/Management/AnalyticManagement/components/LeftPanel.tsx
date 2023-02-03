@@ -54,14 +54,14 @@ const LeftPanel: React.FC = () => {
             label: 'Products',
             children: [
               {
-                key: 'topsellers',
+                key: '/analytics/products/topsellers',
                 icon: <ArrowCircleUpIcon style={{ fontSize: 16 }} />,
                 label: <Link to="/analytics/products/topsellers">Top Sellers</Link>,
               },
               {
-                key: 'worstsellers',
+                key: '/analytics/products/worstsellers',
                 icon: <ArrowCircleDownIcon style={{ fontSize: 16 }} />,
-                label: 'Worst Sellers' /*  */,
+                label: <Link to="/analytics/products/worstsellers">Worst Sellers</Link>,
               },
               {
                 key: 'yoygrowth',

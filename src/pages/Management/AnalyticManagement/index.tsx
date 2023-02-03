@@ -10,6 +10,7 @@ import HistoricalOrdersExports from './Orders/HistoricalOrdersExports';
 import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchaseOrdersExports';
 import SKUProfitability from './Products/SKUProfitability';
 import TopSellers from './Products/TopSellers';
+import WorstSellers from './Products/WorstSellers';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -28,6 +29,8 @@ const AnalyticManagement: React.FC = () => {
     switch (location.pathname) {
       case '/analytics/products/topsellers':
         return <TopSellers />;
+      case '/analytics/products/worstsellers':
+        return <WorstSellers />;
       case '/analytics/products/skuprofitability':
         return <SKUProfitability />;
       case '/analytics/orders/historicalexports':

@@ -6,7 +6,7 @@ import ExportModal from '@/components/Modals/Analytic/ExportModal';
 import tableExport from 'antd-table-export';
 import ShippingIcon from '@/utils/icons/shipping';
 
-const TopSellers: React.FC = () => {
+const WorstSellers: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const TColumns = [
@@ -39,28 +39,28 @@ const TopSellers: React.FC = () => {
       id: 1,
       product: 'blue shirt',
       master_sku: 'shirt3',
-      units_sold: 804,
+      units_sold: 0,
     },
     {
       key: 2,
       id: 2,
       product: '10820',
       master_sku: '10820',
-      units_sold: 100,
+      units_sold: 10,
     },
     {
       key: 3,
       id: 3,
       product: 'shirt1',
       master_sku: 'shirt1',
-      units_sold: 73,
+      units_sold: 15,
     },
     {
       key: 4,
       id: 4,
       product: 'shirt2',
       master_sku: 'shirt2',
-      units_sold: 59,
+      units_sold: 20,
     },
   ];
 
@@ -69,7 +69,7 @@ const TopSellers: React.FC = () => {
       <div style={{ margin: '10px' }}>
         <Row justify="space-between" style={{ marginTop: 10 }}>
           <Col>
-            <h2>Top Sellers</h2>
+            <h2>Worst Sellers</h2>
           </Col>
           <Col>
             <Space size={10} align="center">
@@ -125,16 +125,16 @@ const TopSellers: React.FC = () => {
 
       <ExportModal
         isOpen={showModal}
-        title="Top Sellers"
+        title="Worst Sellers"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);
           const exportInstance = new tableExport(dataSource, TColumns);
-          exportInstance.download('Top Sellers', 'xlsx');
+          exportInstance.download('Worst Sellers', 'xlsx');
         }}
       />
     </>
   );
 };
 
-export default TopSellers;
+export default WorstSellers;

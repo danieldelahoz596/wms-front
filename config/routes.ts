@@ -81,6 +81,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/products/worstsellers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/products/skuprofitability',
         component: './Management/AnalyticManagement',
       },
