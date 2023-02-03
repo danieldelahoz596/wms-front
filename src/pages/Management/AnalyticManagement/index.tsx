@@ -6,8 +6,8 @@ import { useResizable } from 'react-resizable-layout';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import LeftPanel from './components/LeftPanel';
 import LandingPage from './components/LandingPage';
-import HistoricalOrdersExports from './Orders/HistoricalExports';
-import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalExports';
+import HistoricalOrdersExports from './Orders/HistoricalOrdersExports';
+import HistoricalPurchaseOrdersExports from './PurchaseOrders/HistoricalPurchaseOrdersExports';
 
 const { Content } = Layout;
 
