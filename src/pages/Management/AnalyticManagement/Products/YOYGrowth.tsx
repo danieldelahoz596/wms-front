@@ -690,7 +690,11 @@ const YOYGrowth: React.FC = () => {
           <Form>
             <Space size={10}>
               <Form.Item label="Product" style={{ margin: 0 }}>
-                <Select defaultValue="Essential Dash Stiched Quilt & Sham" style={{ width: 300 }} />
+                <Select
+                  defaultValue="Essential Dash Stiched Quilt & Sham"
+                  style={{ width: 300 }}
+                  size="small"
+                />
               </Form.Item>
               <Form.Item label="Sales Channels" style={{ margin: 0 }}>
                 <Select defaultValue="46 Selected" style={{ width: 200 }} size="small" />
@@ -718,45 +722,32 @@ const YOYGrowth: React.FC = () => {
                       items: [
                         {
                           key: 'print_chart',
-                          label: (
-                            <span onClick={() => handleQuantitySolidChartPrint()}>Print Chart</span>
-                          ),
+                          label: 'Print Chart',
                           disabled: !quantitySolidChartInstance,
+                          onClick: () => handleQuantitySolidChartPrint(),
                         },
                         {
                           type: 'divider',
                         },
                         {
                           key: 'download_png',
-                          label: (
-                            <span
-                              onClick={() =>
-                                quantitySolidChartInstance.downloadImage(
-                                  'quantity-sold-chart',
-                                  'image/png',
-                                )
-                              }
-                            >
-                              Download PNG image
-                            </span>
-                          ),
+                          label: 'Download PNG image',
                           disabled: !quantitySolidChartInstance,
+                          onClick: () =>
+                            quantitySolidChartInstance.downloadImage(
+                              'quantity-sold-chart',
+                              'image/png',
+                            ),
                         },
                         {
                           key: 'download_jpeg',
-                          label: (
-                            <span
-                              onClick={() =>
-                                quantitySolidChartInstance.downloadImage(
-                                  'quantity-sold-chart',
-                                  'image/jpeg',
-                                )
-                              }
-                            >
-                              Download JPEG image
-                            </span>
-                          ),
+                          label: 'Download JPEG image',
                           disabled: !quantitySolidChartInstance,
+                          onClick: () =>
+                            quantitySolidChartInstance.downloadImage(
+                              'quantity-sold-chart',
+                              'image/jpeg',
+                            ),
                         },
                         {
                           key: 'download_pdf',
@@ -848,45 +839,32 @@ const YOYGrowth: React.FC = () => {
                       items: [
                         {
                           key: 'print_chart',
-                          label: (
-                            <span onClick={() => handleSalesAmountChartPrint()}>Print Chart</span>
-                          ),
+                          label: 'Print Chart',
                           disabled: !salesAmountChartInstance,
+                          onClick: () => handleSalesAmountChartPrint(),
                         },
                         {
                           type: 'divider',
                         },
                         {
                           key: 'download_png',
-                          label: (
-                            <span
-                              onClick={() =>
-                                salesAmountChartInstance.downloadImage(
-                                  'sales-amount-chart',
-                                  'image/png',
-                                )
-                              }
-                            >
-                              Download PNG image
-                            </span>
-                          ),
+                          label: 'Download PNG image',
                           disabled: !salesAmountChartInstance,
+                          onClick: () =>
+                            salesAmountChartInstance.downloadImage(
+                              'sales-amount-chart',
+                              'image/png',
+                            ),
                         },
                         {
                           key: 'download_jpeg',
-                          label: (
-                            <span
-                              onClick={() =>
-                                salesAmountChartInstance.downloadImage(
-                                  'sales-amount-chart',
-                                  'image/jpeg',
-                                )
-                              }
-                            >
-                              Download JPEG image
-                            </span>
-                          ),
+                          label: 'Download JPEG image',
                           disabled: !salesAmountChartInstance,
+                          onClick: () =>
+                            salesAmountChartInstance.downloadImage(
+                              'sales-amount-chart',
+                              'image/jpeg',
+                            ),
                         },
                         {
                           key: 'download_pdf',
