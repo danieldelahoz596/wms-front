@@ -95,6 +95,15 @@ const LeftPanel: React.FC = () => {
             label: 'Inventory',
             children: [
               {
+                key: '/analytics/inventory/replenishmentalerts',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: (
+                  <Link to="/analytics/inventory/replenishmentalerts">
+                    Inventory Replenishment Alerts
+                  </Link>
+                ),
+              },
+              {
                 key: 'sub21',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: 'Test',

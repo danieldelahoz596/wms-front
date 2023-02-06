@@ -17,6 +17,7 @@ import ShipmentSummary from './Accounting/ShipmentSummary';
 import CogsBySKU from './Accounting/CogsBySKU';
 import SalesSummary from './Accounting/SalesSummary';
 import InventoryValue from './Accounting/InventoryValue';
+import ReplenishmentAlerts from './Inventory/ReplenishmentAlerts';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const AnalyticManagement: React.FC = () => {
 
   const mainContent = useMemo(() => {
     switch (location.pathname) {
+      // product
       case '/analytics/products/topsellers':
         return <TopSellers />;
       case '/analytics/products/worstsellers':
@@ -43,10 +45,20 @@ const AnalyticManagement: React.FC = () => {
         return <SKUProfitability />;
       case '/analytics/products/trendingprofitability':
         return <TrendingProfitability />;
+
+      // inventory
+      case '/analytics/inventory/replenishmentalerts':
+        return <ReplenishmentAlerts />;
+
+      // orders
       case '/analytics/orders/historicalexports':
         return <HistoricalOrdersExports />;
+
+      // purchaseorders
       case '/analytics/purchaseorders/historicalexports':
         return <HistoricalPurchaseOrdersExports />;
+
+      // accounting
       case '/analytics/accounting/shipmentsummary':
         return <ShipmentSummary />;
       case '/analytics/accounting/cogsbysku':
