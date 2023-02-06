@@ -106,6 +106,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/inventory/criticalinventorylevels',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },

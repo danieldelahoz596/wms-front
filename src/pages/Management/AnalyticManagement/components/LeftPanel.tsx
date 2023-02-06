@@ -104,6 +104,15 @@ const LeftPanel: React.FC = () => {
                 ),
               },
               {
+                key: '/analytics/inventory/criticalinventorylevels',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: (
+                  <Link to="/analytics/inventory/criticalinventorylevels">
+                    Inventory Replenishment Alerts
+                  </Link>
+                ),
+              },
+              {
                 key: 'sub21',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: 'Test',
