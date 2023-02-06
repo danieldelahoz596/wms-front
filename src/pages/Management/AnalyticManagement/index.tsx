@@ -19,6 +19,7 @@ import SalesSummary from './Accounting/SalesSummary';
 import InventoryValue from './Accounting/InventoryValue';
 import ReplenishmentAlerts from './Inventory/ReplenishmentAlerts';
 import CriticalInventoryLevels from './Inventory/CriticalInventoryLevels';
+import InventoryAging from './Inventory/inventoryaging';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -52,6 +53,8 @@ const AnalyticManagement: React.FC = () => {
         return <ReplenishmentAlerts />;
       case '/analytics/inventory/criticalinventorylevels':
         return <CriticalInventoryLevels />;
+      case '/analytics/inventory/inventoryaging':
+        return <InventoryAging />;
 
       // orders
       case '/analytics/orders/historicalexports':

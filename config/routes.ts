@@ -111,6 +111,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/inventory/inventoryaging',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
