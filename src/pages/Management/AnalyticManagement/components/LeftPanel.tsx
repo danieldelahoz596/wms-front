@@ -104,6 +104,13 @@ const LeftPanel: React.FC = () => {
                 ),
               },
               {
+                key: '/analytics/inventory/snapshotinventory',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: (
+                  <Link to="/analytics/inventory/snapshotinventory">Snapshot Inventory Value</Link>
+                ),
+              },
+              {
                 key: '/analytics/inventory/criticalinventorylevels',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
                 label: (
