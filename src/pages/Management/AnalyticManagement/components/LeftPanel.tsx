@@ -180,9 +180,30 @@ const LeftPanel: React.FC = () => {
             label: 'Customers',
             children: [
               {
-                key: 'sub51',
-                icon: <BoxIcon style={{ fontSize: 16 }} />,
-                label: 'Test',
+                key: '/analytics/customers/lifetimevalue',
+                icon: <SalesIcon style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/customers/lifetimevalue">Lifetime Value</Link>,
+              },
+              {
+                key: '/analytics/customers/biggestspenders',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: <Link to="/analytics/customers/biggestspenders">Biggest Spenders</Link>,
+              },
+              {
+                key: '/analytics/customers/mostfrequentcustomers',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: (
+                  <Link to="/analytics/customers/mostfrequentcustomers">
+                    Most Frequent Customers
+                  </Link>
+                ),
+              },
+              {
+                key: '/analytics/customers/mostrecentcustomers',
+                icon: <UserOutlined style={{ fontSize: 16 }} />,
+                label: (
+                  <Link to="/analytics/customers/mostrecentcustomers">Most Recent Customers</Link>
+                ),
               },
             ],
           },

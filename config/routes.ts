@@ -151,6 +151,26 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/customers/lifetimevalue',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/biggestspenders',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/mostfrequentcustomers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/mostrecentcustomers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/accounting/shipmentsummary',
         component: './Management/AnalyticManagement',
       },

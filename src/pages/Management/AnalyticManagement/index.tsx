@@ -25,6 +25,7 @@ import TrendingInventory from './Inventory/TrendingInventory';
 import BiggestTickets from './Orders/BiggestTickets';
 import Shipments from './Orders/Shipments';
 import SalesOverview from './Orders/SalesOverview';
+import LifetimeValue from './Customers/LifetimeValue';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -78,6 +79,16 @@ const AnalyticManagement: React.FC = () => {
       // purchaseorders
       case '/analytics/purchaseorders/historicalexports':
         return <HistoricalPurchaseOrdersExports />;
+
+      // customers
+      case '/analytics/customers/lifetimevalue':
+        return <LifetimeValue />;
+      case '/analytics/customers/biggestspenders':
+        return <LifetimeValue />;
+      case '/analytics/customers/mostfrequentcustomers':
+        return <LifetimeValue />;
+      case '/analytics/customers/mostrecentcustomers':
+        return <LifetimeValue />;
 
       // accounting
       case '/analytics/accounting/shipmentsummary':
