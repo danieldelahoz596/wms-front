@@ -23,6 +23,7 @@ import InventoryAging from './Inventory/inventoryaging';
 import SnapshotInventory from './Inventory/SnapshotInventory';
 import TrendingInventory from './Inventory/TrendingInventory';
 import BiggestTickets from './Orders/BiggestTickets';
+import Shipments from './Orders/Shipments';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -64,10 +65,12 @@ const AnalyticManagement: React.FC = () => {
         return <InventoryAging />;
 
       // orders
-      case '/analytics/orders/historicalexports':
-        return <HistoricalOrdersExports />;
       case '/analytics/orders/biggesttickets':
         return <BiggestTickets />;
+      case '/analytics/orders/shipments':
+        return <Shipments />;
+      case '/analytics/orders/historicalexports':
+        return <HistoricalOrdersExports />;
 
       // purchaseorders
       case '/analytics/purchaseorders/historicalexports':

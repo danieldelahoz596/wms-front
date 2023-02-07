@@ -149,9 +149,9 @@ const LeftPanel: React.FC = () => {
                 label: <Link to="/analytics/orders/biggesttickets">Biggest Tickets</Link>,
               },
               {
-                key: 'shipments',
+                key: '/analytics/orders/shipments',
                 icon: <ShippingIcon style={{ fontSize: 16 }} />,
-                label: 'Shipments',
+                label: <Link to="/analytics/orders/shipments">Shipments</Link>,
               },
               {
                 key: '/analytics/orders/historicalexports',

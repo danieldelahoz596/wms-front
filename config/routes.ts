@@ -131,6 +131,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/orders/shipments',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
