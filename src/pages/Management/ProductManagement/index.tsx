@@ -1,62 +1,42 @@
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DownOutlined,
-  RetweetOutlined,
-  VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
-} from '@ant-design/icons';
-import {
-  Button,
-  message,
-  Card,
-  Row,
-  Col,
-  Dropdown,
-  Popconfirm,
-  Form,
-  Select,
-  Table,
-  Switch,
-  Space,
-} from 'antd';
-import React, { useState, useMemo } from 'react';
-import { modalType, productType } from '@/utils/helpers/types';
-import { OTable } from '@/components/Globals/OTable';
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import { modalType, productType } from '@/utils/helpers/types';
+import { CheckOutlined, CloseOutlined, DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
+import { Button, Card, Col, Dropdown, Form, message, Popconfirm, Row, Select, Space, Switch, Table } from 'antd';
+import React, { useMemo, useState } from 'react';
 
+import { OInput } from '@/components/Globals/OInput';
+import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
+import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
-import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
-import NewProductModal from '@/components/Modals/Product/NewProduct';
 import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
+import ImportCustomFieldsModal from '@/components/Modals/Product/ImportCustomFields';
+import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
+import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
-import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
+import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
-import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
-import { PageContainer } from '@ant-design/pro-components';
-import { OInput } from '@/components/Globals/OInput';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-import { useModel } from '@umijs/max';
-import SidePanel from './components/SidePanel/sidePanel';
-import styles from './index.less';
-import CoreProductsIcon from '@/utils/icons/coreProduct';
-import BundleIcon from '@/utils/icons/bundle';
-import VariationIcon from '@/utils/icons/variation';
-import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
-import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
-import VectorIcon from '@/utils/icons/vector';
-import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
-import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
+import NewProductModal from '@/components/Modals/Product/NewProduct';
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
+import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
-import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
-import ImportCustomFieldsModal from '@/components/Modals/Product/ImportCustomFields';
+import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
+import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import BundleIcon from '@/utils/icons/bundle';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
+import VariationIcon from '@/utils/icons/variation';
+import VectorIcon from '@/utils/icons/vector';
+import { PageContainer } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
+import { useResizable } from 'react-resizable-layout';
+import SidePanel from './components/SidePanel/sidePanel';
+import styles from './index.less';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
