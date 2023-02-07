@@ -1,4 +1,6 @@
 import {
+  CheckOutlined,
+  CloseOutlined,
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
@@ -45,7 +47,6 @@ import styles from './index.less';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import BundleIcon from '@/utils/icons/bundle';
 import VariationIcon from '@/utils/icons/variation';
-import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductFields';
 import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
 import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 import VectorIcon from '@/utils/icons/vector';
@@ -70,6 +71,7 @@ const ProductManagement: React.FC = () => {
     handleUpdateProduct,
   } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
+  const [showProductDetailType, setShowProductDetailType] = useState(null);
 
   const handleProductSelectedRows = (_selectedRows = []) => {
     const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
@@ -217,6 +219,41 @@ const ProductManagement: React.FC = () => {
         ),
       },
     ]);
+
+  const TProductDetailColumns = [
+    {
+      key: 'name',
+      dataIndex: 'name',
+      title: 'Name',
+    },
+    {
+      key: 'value',
+      dataIndex: 'value',
+      title: 'Value',
+    },
+    {
+      key: 'show_on_grid',
+      dataIndex: 'show_on_grid',
+      title: 'Show On Grid',
+      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
+    },
+    {
+      key: 'required',
+      dataIndex: 'required',
+      title: 'Required',
+      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
+    },
+  ];
+
+  const productDetailRows = useMemo(
+    () =>
+      selectedProducts[0]?.custom_fields.map((customField) => ({
+        key: customField.field_id,
+        value: customField.value,
+        ...fieldTypes.find((item) => item.id === customField.field_id),
+      })),
+    [selectedProducts, fieldTypes],
+  );
 
   const productTableRows = useMemo(
     () =>
@@ -478,7 +515,8 @@ const ProductManagement: React.FC = () => {
                         <OButton
                           type="primary"
                           btnText={'Fields'}
-                          onClick={() => setModal(modalType.ShowProductFields)}
+                          // onClick={() => setModal(modalType.ShowProductFields)}
+                          onClick={() => setShowProductDetailType('fields')}
                           disabled={selectedProducts.length === 0}
                         />
                         <OButton
@@ -496,49 +534,57 @@ const ProductManagement: React.FC = () => {
                       </div>
                     }
                   >
-                    <Table
-                      columns={[
-                        {
-                          key: 'pushInventory',
-                          dataIndex: 'pushInventory',
-                          title: 'Push Inventory',
-                          render: (pushInventory, record) => {
-                            return (
-                              <>
-                                <Switch
-                                  size="small"
-                                  className={pushInventory ? styles.checked : styles.unchecked}
-                                  onClick={() => {
-                                    const item = productList.find(
-                                      (_item) => _item.id === record.id,
-                                    );
-                                    handleUpdateProduct({
-                                      ...item,
-                                      push_inventory: !pushInventory,
-                                    });
-                                    setSelectedProducts(
-                                      selectedProducts.map((_item) =>
-                                        _item.id === record.id
-                                          ? { ..._item, push_inventory: !pushInventory }
-                                          : _item,
-                                      ),
-                                    );
-                                  }}
-                                  checked={!pushInventory}
-                                />
-                                {pushInventory ? 'YES' : 'NO'}
-                              </>
-                            );
+                    {showProductDetailType === 'fields' ? (
+                      <Table
+                        columns={TProductDetailColumns}
+                        dataSource={productDetailRows}
+                        pagination={{ hideOnSinglePage: true }}
+                      />
+                    ) : (
+                      <Table
+                        columns={[
+                          {
+                            key: 'pushInventory',
+                            dataIndex: 'pushInventory',
+                            title: 'Push Inventory',
+                            render: (pushInventory, record) => {
+                              return (
+                                <>
+                                  <Switch
+                                    size="small"
+                                    className={pushInventory ? styles.checked : styles.unchecked}
+                                    onClick={() => {
+                                      const item = productList.find(
+                                        (_item) => _item.id === record.id,
+                                      );
+                                      handleUpdateProduct({
+                                        ...item,
+                                        push_inventory: !pushInventory,
+                                      });
+                                      setSelectedProducts(
+                                        selectedProducts.map((_item) =>
+                                          _item.id === record.id
+                                            ? { ..._item, push_inventory: !pushInventory }
+                                            : _item,
+                                        ),
+                                      );
+                                    }}
+                                    checked={!pushInventory}
+                                  />
+                                  {pushInventory ? 'YES' : 'NO'}
+                                </>
+                              );
+                            },
                           },
-                        },
-                      ]}
-                      dataSource={selectedProducts.map((_item) => ({
-                        key: _item.id,
-                        id: _item.id,
-                        pushInventory: _item.push_inventory,
-                      }))}
-                      scroll={{ y: 150 }}
-                    />
+                        ]}
+                        dataSource={selectedProducts.map((_item) => ({
+                          key: _item.id,
+                          id: _item.id,
+                          pushInventory: _item.push_inventory,
+                        }))}
+                        scroll={{ y: 150 }}
+                      />
+                    )}
                   </Card>
                 </Col>
               </Row>
@@ -681,11 +727,6 @@ const ProductManagement: React.FC = () => {
           setSelectedProducts([]);
           setEditableProduct(null);
         }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ShowProductFieldsModal
-        isOpen={modalOpen == modalType.ShowProductFields}
         onClose={() => setModal(modalType.Close)}
       />
 

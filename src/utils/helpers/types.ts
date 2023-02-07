@@ -28,7 +28,6 @@ export enum modalType {
   AttributeGroup = 'AttributeGroup',
   AddCoreProduct = 'AddCoreProduct',
   ConfigAttributeGroups = 'ConfigAttributeGroups',
-  ShowProductFields = 'ShowProductFields',
   ShowGallery = 'ShowGallery',
   ShowVendorProduct = 'ShowVendorProduct',
   AdjustMasterSKU = 'AdjustMasterSKU',
