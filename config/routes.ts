@@ -126,6 +126,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/orders/biggesttickets',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },

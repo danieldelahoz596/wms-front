@@ -22,6 +22,7 @@ import CriticalInventoryLevels from './Inventory/CriticalInventoryLevels';
 import InventoryAging from './Inventory/inventoryaging';
 import SnapshotInventory from './Inventory/SnapshotInventory';
 import TrendingInventory from './Inventory/TrendingInventory';
+import BiggestTickets from './Orders/BiggestTickets';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -65,6 +66,8 @@ const AnalyticManagement: React.FC = () => {
       // orders
       case '/analytics/orders/historicalexports':
         return <HistoricalOrdersExports />;
+      case '/analytics/orders/biggesttickets':
+        return <BiggestTickets />;
 
       // purchaseorders
       case '/analytics/purchaseorders/historicalexports':
