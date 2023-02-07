@@ -631,7 +631,7 @@ const Shipments: React.FC = () => {
   const [shipmentByCarrierChartInstance, setShipmentByCarrierChartInstance] = useState(null);
   const shipmentByCarrierChartRef = useRef(null);
 
-  const handleQuantitySolidChartPrint = useReactToPrint({
+  const handleShipmentByCarrierChartPrint = useReactToPrint({
     content: () => shipmentByCarrierChartRef.current,
   });
 
@@ -689,7 +689,7 @@ const Shipments: React.FC = () => {
                           key: 'print_chart',
                           label: 'Print Chart',
                           disabled: !shipmentByCarrierChartInstance,
-                          onClick: () => handleQuantitySolidChartPrint(),
+                          onClick: () => handleShipmentByCarrierChartPrint(),
                         },
                         {
                           type: 'divider',
