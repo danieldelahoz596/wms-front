@@ -1,20 +1,57 @@
-import React from 'react';
-import { Descriptions } from 'antd';
+import { useMemo } from 'react';
+import { Table } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 interface IShowProductFieldsModal {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const TColumns = [
+  {
+    key: 'name',
+    dataIndex: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'value',
+    dataIndex: 'value',
+    title: 'Value',
+  },
+  {
+    key: 'show_on_grid',
+    dataIndex: 'show_on_grid',
+    title: 'Show On Grid',
+    render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
+  },
+  {
+    key: 'required',
+    dataIndex: 'required',
+    title: 'Required',
+    render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
+  },
+];
+
 const ShowProductFieldsModal: React.FC<IShowProductFieldsModal> = ({ isOpen, onClose }) => {
   const { selectedProducts } = useModel('product');
+  const { fieldTypes } = useModel('customProductFields');
+
+  const dataSource = useMemo(
+    () =>
+      selectedProducts[0]?.custom_fields.map((customField) => ({
+        key: customField.field_id,
+        value: customField.value,
+        ...fieldTypes.find((item) => item.id === customField.field_id),
+      })),
+    [selectedProducts, fieldTypes],
+  );
 
   return (
     <OModal
       title="Core Product Details"
-      width={1000}
+      width={800}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -26,29 +63,7 @@ const ShowProductFieldsModal: React.FC<IShowProductFieldsModal> = ({ isOpen, onC
         },
       ]}
     >
-      <Descriptions title={selectedProducts[0]?.name} column={24}>
-        <Descriptions.Item label="Type" span={12}>
-          {selectedProducts[0]?.type}
-        </Descriptions.Item>
-        <Descriptions.Item label="Master SKU" span={12}>
-          {selectedProducts[0]?.master_sku}
-        </Descriptions.Item>
-        <Descriptions.Item label="Brand" span={8}>
-          {selectedProducts[0]?.brand}
-        </Descriptions.Item>
-        <Descriptions.Item label="Categories" span={8}>
-          {selectedProducts[0]?.categories}
-        </Descriptions.Item>
-        <Descriptions.Item label="Label" span={8}>
-          {selectedProducts[0]?.label}
-        </Descriptions.Item>
-        <Descriptions.Item label="Channel" span={24}>
-          {selectedProducts[0]?.channel}
-        </Descriptions.Item>
-        <Descriptions.Item label="Description" span={24}>
-          {selectedProducts[0]?.description}
-        </Descriptions.Item>
-      </Descriptions>
+      <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} />
     </OModal>
   );
 };

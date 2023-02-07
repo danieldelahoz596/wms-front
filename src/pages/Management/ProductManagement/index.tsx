@@ -1,6 +1,24 @@
-import { DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import { Button, message, Card, Row, Col, Dropdown, Popconfirm, Form, Select, Table, Switch, Space } from 'antd';
-import React, { useState } from 'react';
+import {
+  DownOutlined,
+  RetweetOutlined,
+  VerticalAlignBottomOutlined,
+  VerticalAlignTopOutlined,
+} from '@ant-design/icons';
+import {
+  Button,
+  message,
+  Card,
+  Row,
+  Col,
+  Dropdown,
+  Popconfirm,
+  Form,
+  Select,
+  Table,
+  Switch,
+  Space,
+} from 'antd';
+import React, { useState, useMemo } from 'react';
 import { modalType, productType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
 import { OButton } from '@/components/Globals/OButton';
@@ -9,7 +27,6 @@ import type { MenuProps } from 'antd';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
 import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
-import ExportProductModal from '@/components/Modals/Product/ExportProduct';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
 import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
@@ -18,7 +35,7 @@ import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorPro
 import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
-import { getPageTitle, PageContainer } from '@ant-design/pro-components';
+import { PageContainer } from '@ant-design/pro-components';
 import { OInput } from '@/components/Globals/OInput';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
@@ -86,7 +103,7 @@ const ProductManagement: React.FC = () => {
     reverse: true,
   });
 
-  const Tcolumns = [
+  const TColumns = [
     {
       title: 'Type',
       dataIndex: 'type',
@@ -167,12 +184,22 @@ const ProductManagement: React.FC = () => {
         );
       },
     },
-    {
-      title: 'Action',
-      dataIndex: '',
-      render: (_, record) =>
-        productList.length >= 1 ? (
-          <>
+  ]
+    .concat(
+      fieldTypes
+        .filter((type) => type.show_on_grid && type.active)
+        .map((type) => ({
+          title: type.name,
+          key: type.id,
+          dataIndex: type.id,
+        })),
+    )
+    .concat([
+      {
+        key: 'action',
+        title: 'Action',
+        render: (_, record) => (
+          <Space size={10}>
             <a
               onClick={(event) => {
                 event.stopPropagation();
@@ -181,43 +208,52 @@ const ProductManagement: React.FC = () => {
               }}
             >
               Edit
-            </a>{' '}
-            &nbsp;&nbsp;
+            </a>
             <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
               <a>Delete</a>
             </Popconfirm>
-          </>
-        ) : null,
-    },
-  ].concat(
-    fieldTypes
-      .filter((type) => type.show_on_grid && type.active)
-      .map((type) => ({
-        title: type.name,
-        key: type.name,
-        render: () => <>{type.description}</>,
-      })),
+          </Space>
+        ),
+      },
+    ]);
+
+  const productTableRows = useMemo(
+    () =>
+      productList
+        .filter((_item) => _item.status == showActivate)
+        .map((_item) => {
+          const row = { ..._item, key: _item.id };
+          _item.custom_fields.forEach((item) => (row[item.field_id] = item.value));
+          return row;
+        }),
+    [productList, showActivate],
   );
 
   const importExportMenuItems: MenuProps['items'] = [
     {
       key: '1',
-      label: (<span onClick={() => setModal(modalType.Import)}> Import Products </span>),
+      label: <span onClick={() => setModal(modalType.Import)}> Import Products </span>,
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '2',
-      label: (<span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>),
+      label: (
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '3',
-      label: (<span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>),
+      label: (
+        <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '4',
-      label: (<span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Custom Fields</span>),
+      label: (
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Custom Fields</span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
@@ -225,12 +261,14 @@ const ProductManagement: React.FC = () => {
     },
     {
       key: '5',
-      label: (<span onClick={() => setModal(modalType.Export)}>Export Products</span>),
+      label: <span onClick={() => setModal(modalType.Export)}>Export Products</span>,
       icon: <VerticalAlignBottomOutlined />,
     },
     {
       key: '6',
-      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>),
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
     },
     {
@@ -238,7 +276,9 @@ const ProductManagement: React.FC = () => {
     },
     {
       key: '7',
-      label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>),
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
     },
     {
@@ -290,10 +330,11 @@ const ProductManagement: React.FC = () => {
               </Row>
               <Card style={{ width: '100%' }}>
                 <Space size={3}>
-                  <OButton 
+                  <OButton
                     btnText="Adjust Sku"
                     onClick={() => setModal(modalType.AdjustMasterSKU)}
-                    disabled={!editableProduct} />
+                    disabled={!editableProduct}
+                  />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
                     onConfirm={() => {
@@ -307,7 +348,8 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Bundle/Kit"
-                      disabled={!(editableProduct?.type === productType.CoreProduct)} />
+                      disabled={!(editableProduct?.type === productType.CoreProduct)}
+                    />
                   </Popconfirm>
                   <Popconfirm
                     title="Sure to convert to Core?"
@@ -322,7 +364,8 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Core"
-                      disabled={!(editableProduct?.type === productType.Variations)} />
+                      disabled={!(editableProduct?.type === productType.Variations)}
+                    />
                   </Popconfirm>
                   <Popconfirm
                     title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
@@ -338,32 +381,31 @@ const ProductManagement: React.FC = () => {
                       );
                     }}
                   >
-                    <OButton 
-                      btnText={showActivate ? 'Deactivate' : 'Activate'} 
-                      disabled={selectedProducts.length === 0} />
+                    <OButton
+                      btnText={showActivate ? 'Deactivate' : 'Activate'}
+                      disabled={selectedProducts.length === 0}
+                    />
                   </Popconfirm>
                   <OButton
                     type="primary"
                     onClick={() => console.log('History')}
-                    disabled={selectedProducts.length === 0} btnText="History" />
-                  <OButton 
-                    btnText={'New Product'} 
-                    onClick={() => setModal(modalType.Variation)} /> 
+                    disabled={selectedProducts.length === 0}
+                    btnText="History"
+                  />
+                  <OButton btnText={'New Product'} onClick={() => setModal(modalType.Variation)} />
                   <Dropdown menu={{ items: importExportMenuItems }}>
-                    <Button type="primary" size='small'>
+                    <Button type="primary" size="small">
                       <Space>
                         Import/Export <DownOutlined />
                       </Space>
                     </Button>
                   </Dropdown>
                 </Space>
-                
+
                 <OTable
                   type="checkbox"
-                  columns={Tcolumns}
-                  rows={productList
-                    .filter((_item) => _item.status == showActivate)
-                    .map((_item) => ({ ..._item, key: _item.id }))}
+                  columns={TColumns}
+                  rows={productTableRows}
                   selectedRows={selectedProducts.map((_item) => _item.id)}
                   setSelectedRows={handleProductSelectedRows}
                   style={{ marginTop: 10 }}

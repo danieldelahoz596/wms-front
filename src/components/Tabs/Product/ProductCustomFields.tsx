@@ -5,42 +5,57 @@ import { useModel } from '@umijs/max';
 import { Row, Col, Select, Button } from 'antd';
 import { useState, useMemo } from 'react';
 
-const ProductCustomFields: React.FC = () => {
+interface IProductCustomFields {
+  customFields: any[];
+  setCustomFields: (value: any) => void;
+}
+
+const TColumns = [
+  {
+    key: 'name',
+    dataIndex: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'value',
+    dataIndex: 'value',
+    title: 'Value',
+    align: 'center',
+    editable: true,
+  },
+  {
+    key: 'show_on_grid',
+    title: 'Show On Grid',
+    dataIndex: 'show_on_grid',
+    align: 'right',
+    render: (show_on_grid) => (show_on_grid ? <CheckOutlined /> : <CloseOutlined />),
+  },
+  {
+    key: 'required',
+    title: 'Required',
+    dataIndex: 'required',
+    align: 'right',
+    render: (required) => (required ? <CheckOutlined /> : <CloseOutlined />),
+  },
+];
+
+const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, setCustomFields }) => {
+  const { fieldTypes } = useModel('customProductFields');
   const [showModal, setShowModal] = useState(false);
-  const { fieldTypes, customFields, setCustomFields } = useModel('customProductFields');
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  const TColumns = [
-    {
-      key: 'name',
-      dataIndex: 'name',
-      title: 'Name',
-    },
-    {
-      key: 'value',
-      dataIndex: 'value',
-      title: 'Value',
-      align: 'center',
-      editable: true,
-    },
-    {
-      key: 'show_on_grid',
-      title: 'Show On Grid',
-      dataIndex: 'show_on_grid',
-      align: 'right',
-      render: (show_on_grid) => (show_on_grid ? <CheckOutlined /> : <CloseOutlined />),
-    },
-    {
-      key: 'required',
-      title: 'Required',
-      dataIndex: 'required',
-      align: 'right',
-      render: (required) => (required ? <CheckOutlined /> : <CloseOutlined />),
-    },
-  ];
+  const dataSource = useMemo(
+    () =>
+      customFields.map((customField) => ({
+        key: customField.field_id,
+        ...fieldTypes.find((item) => item.id === customField.field_id),
+        value: customField.value,
+      })),
+    [customFields, fieldTypes],
+  );
 
   const FieldSelectOptions = useMemo(() => {
-    const ids = customFields.map((field) => field.id);
+    const ids = customFields.map((field) => field.field_id);
     return fieldTypes
       .filter((type) => !ids.includes(type.id) && type.active)
       .map((field) => ({ label: field.name, value: field.id }));
@@ -62,19 +77,15 @@ const ProductCustomFields: React.FC = () => {
             size="small"
             options={FieldSelectOptions}
             filterOption={(input, option) => (option?.label ?? '').includes(input)}
-            onSelect={(value) => {
-              const addedFieldType = fieldTypes.find((fieldType) => fieldType.id === value);
-              setCustomFields([
-                ...customFields,
-                { ...addedFieldType, value: 'Any value you want', key: addedFieldType.id },
-              ]);
+            onSelect={(id) => {
+              setCustomFields([...customFields, { field_id: id, value: 'Any value you want' }]);
             }}
           />
         </Col>
         <Col span={10}>
           <Button
             onClick={() => {
-              setCustomFields(customFields.filter((field) => field.id !== selectedItemId));
+              setCustomFields(customFields.filter((field) => field.field_id !== selectedItemId));
               setSelectedItemId(null);
             }}
             disabled={!selectedItemId}
@@ -91,7 +102,7 @@ const ProductCustomFields: React.FC = () => {
 
       <EditableTable
         columns={TColumns}
-        dataSource={customFields}
+        dataSource={dataSource}
         props={{
           style: { marginTop: 10, height: 400 },
           onRow: (record) => {
@@ -106,7 +117,9 @@ const ProductCustomFields: React.FC = () => {
         }}
         handleSave={(index, name, value) => {
           setCustomFields(
-            customFields.map((field) => (field.id === index ? { ...field, [name]: value } : field)),
+            customFields.map((field) =>
+              field.field_id === index ? { ...field, [name]: value } : field,
+            ),
           );
         }}
       />

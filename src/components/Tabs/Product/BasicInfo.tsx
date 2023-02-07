@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Row, Col, Form, Input, Select, Card, InputNumber, Checkbox } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
@@ -7,7 +7,6 @@ import CoreProductsIcon from '@/utils/icons/coreProduct';
 import AddBrandModal from '@/components/Modals/Product/AddBrand';
 import { modalType } from '@/utils/helpers/types';
 import EditBrandModal from '@/components/Modals/Product/EditBrand';
-import { OSelect } from '@/components/Globals/OSelect';
 
 interface IBasicInfo {
   form: any;
@@ -18,21 +17,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { initialState } = useModel('@@initialState');
   const { brands } = useModel('brand');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      master_sku: editableProduct?.master_sku,
-      name: editableProduct?.name,
-      buyer: editableProduct?.buyer,
-      brand: editableProduct?.brand,
-      categories: editableProduct?.categories,
-      labels: editableProduct?.labels,
-      description: editableProduct?.description,
-      width: editableProduct?.width,
-      height: editableProduct?.height,
-      length: editableProduct?.length,
-    });
-  }, [editableProduct, form]);
 
   return (
     <>
