@@ -55,6 +55,7 @@ import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
 import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
+import ImportCustomFieldsModal from '@/components/Modals/Product/ImportCustomFields';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -252,7 +253,7 @@ const ProductManagement: React.FC = () => {
     {
       key: '4',
       label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Custom Fields</span>
+        <span onClick={() => setModal(modalType.ImportCustomFields)}>Import Custom Fields</span>
       ),
       icon: <VerticalAlignTopOutlined />,
     },
@@ -621,29 +622,6 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      {/* <ExportProductModal
-        isOpen={modalOpen == modalType.Export}
-        onSave={() => setModal(modalType.Export)}
-        onClose={() => setModal(modalType.Close)}
-      /> */}
-
-      {/* Export Vendor Products */}
-      <ExportVendorProductsModal
-        isOpen={modalOpen == modalType.ExportVendorProducts}
-        onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <NewProductModal
-        isOpen={modalOpen == modalType.Variation}
-        handleClick={(value) => {
-          setModal(value);
-          setSelectedProducts([]);
-          setEditableProduct(null);
-        }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
       {/* Import Vendor Products */}
       <ImportVendorProductsModal
         isOpen={modalOpen == modalType.ImportVendorProducts}
@@ -671,6 +649,41 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
+      <ImportSKUAdjustment
+        isOpen={modalOpen == modalType.ImportSKUAdjustment}
+        onSave={() => {}}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ImportCustomFieldsModal
+        isOpen={modalOpen == modalType.ImportCustomFields}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      {/* <ExportProductModal
+        isOpen={modalOpen == modalType.Export}
+        onSave={() => setModal(modalType.Export)}
+        onClose={() => setModal(modalType.Close)}
+      /> */}
+
+      {/* Export Vendor Products */}
+      <ExportVendorProductsModal
+        isOpen={modalOpen == modalType.ExportVendorProducts}
+        onSave={() => {}}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <NewProductModal
+        isOpen={modalOpen == modalType.Variation}
+        handleClick={(value) => {
+          setModal(value);
+          setSelectedProducts([]);
+          setEditableProduct(null);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
       <ShowProductFieldsModal
         isOpen={modalOpen == modalType.ShowProductFields}
         onClose={() => setModal(modalType.Close)}
@@ -694,12 +707,6 @@ const ProductManagement: React.FC = () => {
           setSelectedProducts([]);
           setModal(modalType.Close);
         }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ImportSKUAdjustment
-        isOpen={modalOpen == modalType.ImportSKUAdjustment}
-        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 
