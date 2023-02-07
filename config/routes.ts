@@ -111,6 +111,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/inventory/trendinginventory',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/inventory/criticalinventorylevels',
         component: './Management/AnalyticManagement',
       },
