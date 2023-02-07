@@ -139,9 +139,9 @@ const LeftPanel: React.FC = () => {
             label: 'Orders',
             children: [
               {
-                key: 'salesoverview',
+                key: '/analytics/orders/salesoverview',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
-                label: 'Sales Overview',
+                label: <Link to="/analytics/orders/salesoverview">Sales Overview</Link>,
               },
               {
                 key: '/analytics/orders/biggesttickets',

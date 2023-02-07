@@ -24,6 +24,7 @@ import SnapshotInventory from './Inventory/SnapshotInventory';
 import TrendingInventory from './Inventory/TrendingInventory';
 import BiggestTickets from './Orders/BiggestTickets';
 import Shipments from './Orders/Shipments';
+import SalesOverview from './Orders/SalesOverview';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -65,6 +66,8 @@ const AnalyticManagement: React.FC = () => {
         return <InventoryAging />;
 
       // orders
+      case '/analytics/orders/salesoverview':
+        return <SalesOverview />;
       case '/analytics/orders/biggesttickets':
         return <BiggestTickets />;
       case '/analytics/orders/shipments':
