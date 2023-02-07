@@ -29,7 +29,7 @@ const BiggestTickets: React.FC = () => {
       dataIndex: 'order_total',
       title: 'Order Total',
       align: 'right',
-      render: (value) => <>{`$${value}`}</>,
+      render: (value) => <>{`$${Number(value).toFixed(2)}`}</>,
     },
   ];
 
