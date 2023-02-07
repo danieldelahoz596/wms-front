@@ -6,7 +6,7 @@ import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface IBasicInfo {
   form: any;
@@ -17,21 +17,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { initialState } = useModel('@@initialState');
   const { brands } = useModel('brand');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      master_sku: editableProduct?.master_sku,
-      name: editableProduct?.name,
-      buyer: editableProduct?.buyer,
-      brand: editableProduct?.brand,
-      categories: editableProduct?.categories,
-      labels: editableProduct?.labels,
-      description: editableProduct?.description,
-      width: editableProduct?.width,
-      height: editableProduct?.height,
-      length: editableProduct?.length,
-    });
-  }, [editableProduct, form]);
 
   return (
     <>

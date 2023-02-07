@@ -101,12 +101,72 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/analytics/inventory/replenishmentalerts',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/inventory/snapshotinventory',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/inventory/trendinginventory',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/inventory/criticalinventorylevels',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/inventory/inventoryaging',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/orders/salesoverview',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/orders/biggesttickets',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/orders/shipments',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
         path: '/analytics/orders/historicalexports',
         component: './Management/AnalyticManagement',
       },
       {
         hideInMenu: true,
         path: '/analytics/purchaseorders/historicalexports',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/lifetimevalue',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/biggestspenders',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/mostfrequentcustomers',
+        component: './Management/AnalyticManagement',
+      },
+      {
+        hideInMenu: true,
+        path: '/analytics/customers/mostrecentcustomers',
         component: './Management/AnalyticManagement',
       },
       {

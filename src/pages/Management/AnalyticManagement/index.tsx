@@ -17,6 +17,18 @@ import ShipmentSummary from './Accounting/ShipmentSummary';
 import CogsBySKU from './Accounting/CogsBySKU';
 import SalesSummary from './Accounting/SalesSummary';
 import InventoryValue from './Accounting/InventoryValue';
+import ReplenishmentAlerts from './Inventory/ReplenishmentAlerts';
+import CriticalInventoryLevels from './Inventory/CriticalInventoryLevels';
+import InventoryAging from './Inventory/inventoryaging';
+import SnapshotInventory from './Inventory/SnapshotInventory';
+import TrendingInventory from './Inventory/TrendingInventory';
+import BiggestTickets from './Orders/BiggestTickets';
+import Shipments from './Orders/Shipments';
+import SalesOverview from './Orders/SalesOverview';
+import LifetimeValue from './Customers/LifetimeValue';
+import BiggestSpenders from './Customers/BiggestSpenders';
+import MostFrequentCustomers from './Customers/MostFrequentCustomers';
+import MostRecentCustomers from './Customers/MostRecentCustomers';
 
 const AnalyticManagement: React.FC = () => {
   const location = useLocation();
@@ -33,6 +45,7 @@ const AnalyticManagement: React.FC = () => {
 
   const mainContent = useMemo(() => {
     switch (location.pathname) {
+      // product
       case '/analytics/products/topsellers':
         return <TopSellers />;
       case '/analytics/products/worstsellers':
@@ -43,10 +56,44 @@ const AnalyticManagement: React.FC = () => {
         return <SKUProfitability />;
       case '/analytics/products/trendingprofitability':
         return <TrendingProfitability />;
+
+      // inventory
+      case '/analytics/inventory/replenishmentalerts':
+        return <ReplenishmentAlerts />;
+      case '/analytics/inventory/snapshotinventory':
+        return <SnapshotInventory />;
+      case '/analytics/inventory/trendinginventory':
+        return <TrendingInventory />;
+      case '/analytics/inventory/criticalinventorylevels':
+        return <CriticalInventoryLevels />;
+      case '/analytics/inventory/inventoryaging':
+        return <InventoryAging />;
+
+      // orders
+      case '/analytics/orders/salesoverview':
+        return <SalesOverview />;
+      case '/analytics/orders/biggesttickets':
+        return <BiggestTickets />;
+      case '/analytics/orders/shipments':
+        return <Shipments />;
       case '/analytics/orders/historicalexports':
         return <HistoricalOrdersExports />;
+
+      // purchaseorders
       case '/analytics/purchaseorders/historicalexports':
         return <HistoricalPurchaseOrdersExports />;
+
+      // customers
+      case '/analytics/customers/lifetimevalue':
+        return <LifetimeValue />;
+      case '/analytics/customers/biggestspenders':
+        return <BiggestSpenders />;
+      case '/analytics/customers/mostfrequentcustomers':
+        return <MostFrequentCustomers />;
+      case '/analytics/customers/mostrecentcustomers':
+        return <MostRecentCustomers />;
+
+      // accounting
       case '/analytics/accounting/shipmentsummary':
         return <ShipmentSummary />;
       case '/analytics/accounting/cogsbysku':

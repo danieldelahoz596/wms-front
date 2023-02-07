@@ -5,6 +5,7 @@ import { useModel } from '@umijs/max';
 
 const SearchByProductPanel: React.FC = () => {
   const { initialState } = useModel('@@initialState');
+  const { fieldTypes } = useModel('customProductFields');
   const { initialData } = initialState;
 
   const formInputs = [
@@ -39,6 +40,16 @@ const SearchByProductPanel: React.FC = () => {
     },
     {
       type: 'select',
+      label: 'Cutom Field Name',
+      placeholder: 'Select...',
+      name: 'custom_field_name',
+      options: fieldTypes.map((item) => ({
+        value: item.id,
+        text: item.name,
+      })),
+    },
+    {
+      type: 'select',
       label: 'Brand',
       placeholder: 'Select...',
       name: 'brand',
@@ -69,28 +80,34 @@ const SearchByProductPanel: React.FC = () => {
     },
   ];
 
-  return <Form
-    layout="vertical"
-    style={{
-      margin: '0% 5% 0% 5%',
-    }}
-  >
-    {formInputs?.map((inputItem, index) => {
-      return index !== 2 ? <Form.Item key={index} label={inputItem.label}>
-        <OInput {...inputItem} />
-      </Form.Item> : <Form.Item>
-        <Checkbox>Include related bundles</Checkbox>
-      </Form.Item>
-    })}
-    <Row justify="space-between">
-      <Col>
-        <Button type='primary'>Clear</Button>
-      </Col>
-      <Col>
-        <Button type='primary'>Search</Button>
-      </Col>
-    </Row>
-  </Form>
-}
+  return (
+    <Form
+      layout="vertical"
+      style={{
+        margin: '0% 5% 0% 5%',
+      }}
+    >
+      {formInputs?.map((inputItem, index) => {
+        return index !== 2 ? (
+          <Form.Item key={index} label={inputItem.label}>
+            <OInput {...inputItem} />
+          </Form.Item>
+        ) : (
+          <Form.Item>
+            <Checkbox>Include related bundles</Checkbox>
+          </Form.Item>
+        );
+      })}
+      <Row justify="space-between">
+        <Col>
+          <Button type="primary">Clear</Button>
+        </Col>
+        <Col>
+          <Button type="primary">Search</Button>
+        </Col>
+      </Row>
+    </Form>
+  );
+};
 
 export default SearchByProductPanel;
