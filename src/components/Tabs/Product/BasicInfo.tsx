@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Row, Col, Form, Input, Select, Card, InputNumber, Checkbox } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
+import AddBrandModal from '@/components/Modals/Product/AddBrand';
+import EditBrandModal from '@/components/Modals/Product/EditBrand';
+import { modalType } from '@/utils/helpers/types';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import CoreProductsIcon from '@/utils/icons/coreProduct';
-import AddBrandModal from '@/components/Modals/Product/AddBrand';
-import { modalType } from '@/utils/helpers/types';
-import EditBrandModal from '@/components/Modals/Product/EditBrand';
-import { OSelect } from '@/components/Globals/OSelect';
+import { Card, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
+import { useEffect, useState } from 'react';
 
 interface IBasicInfo {
   form: any;

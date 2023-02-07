@@ -1,43 +1,42 @@
-import { DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import { Button, message, Card, Row, Col, Dropdown, Popconfirm, Form, Select, Table, Switch, Space } from 'antd';
-import React, { useState } from 'react';
-import { modalType, productType } from '@/utils/helpers/types';
-import { OTable } from '@/components/Globals/OTable';
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import { modalType, productType } from '@/utils/helpers/types';
+import { DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
+import { Button, Card, Col, Dropdown, Form, message, Popconfirm, Row, Select, Space, Switch, Table } from 'antd';
+import React, { useState } from 'react';
 
+import { OInput } from '@/components/Globals/OInput';
+import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
-import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
-import ExportProductModal from '@/components/Modals/Product/ExportProduct';
-import NewProductModal from '@/components/Modals/Product/NewProduct';
+import ExportCustomBundleKit from '@/components/Modals/Product/ExportCustomBundleKit';
 import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
+import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
+import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
-import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
+import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
-import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
-import { getPageTitle, PageContainer } from '@ant-design/pro-components';
-import { OInput } from '@/components/Globals/OInput';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-import { useModel } from '@umijs/max';
-import SidePanel from './components/SidePanel/sidePanel';
-import styles from './index.less';
-import CoreProductsIcon from '@/utils/icons/coreProduct';
-import BundleIcon from '@/utils/icons/bundle';
-import VariationIcon from '@/utils/icons/variation';
-import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductFields';
-import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
-import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
-import VectorIcon from '@/utils/icons/vector';
-import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
-import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
+import NewProductModal from '@/components/Modals/Product/NewProduct';
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
+import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
-import CustomBundleKitExport from '@/components/Modals/Product/CustomBundleKitExport';
+import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
+import ShowProductFieldsModal from '@/components/Modals/Product/ShowProductFields';
+import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import BundleIcon from '@/utils/icons/bundle';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
+import VariationIcon from '@/utils/icons/variation';
+import VectorIcon from '@/utils/icons/vector';
+import { PageContainer } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
+import { useResizable } from 'react-resizable-layout';
+import SidePanel from './components/SidePanel/sidePanel';
+import styles from './index.less';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -167,28 +166,6 @@ const ProductManagement: React.FC = () => {
         );
       },
     },
-    {
-      title: 'Action',
-      dataIndex: '',
-      render: (_, record) =>
-        productList.length >= 1 ? (
-          <>
-            <a
-              onClick={(event) => {
-                event.stopPropagation();
-                setEditableProduct(productList.find((_item) => _item.id === record.id));
-                setModal(modalType.Edit);
-              }}
-            >
-              Edit
-            </a>{' '}
-            &nbsp;&nbsp;
-            <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
-              <a>Delete</a>
-            </Popconfirm>
-          </>
-        ) : null,
-    },
   ].concat(
     fieldTypes
       .filter((type) => type.show_on_grid && type.active)
@@ -240,15 +217,12 @@ const ProductManagement: React.FC = () => {
       key: '7',
       label: (<span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>),
       icon: <VerticalAlignBottomOutlined />,
+      disabled: true
     },
     {
-      key: '10',
-      label: (
-        <span onClick={() => setModal(modalType.CustomBundleKitExport)}>
-          <VerticalAlignTopOutlined rotate={180} style={{ marginRight: '10px' }} />
-          Custom Bundle/Kit Export
-        </span>
-      ),
+      key: '8',
+      label: (<span onClick={() => setModal(modalType.ExportCustomBundleKit)}>Custom Bundle/Kit Export</span>),
+      icon: <VerticalAlignBottomOutlined />
     },
   ];
 
@@ -289,11 +263,11 @@ const ProductManagement: React.FC = () => {
                 </div>
               </Row>
               <Card style={{ width: '100%' }}>
-                <Space size={3}>
+                <Space size={4}>
                   <OButton 
                     btnText="Adjust Sku"
                     onClick={() => setModal(modalType.AdjustMasterSKU)}
-                    disabled={!editableProduct} />
+                    disabled={!(selectedProducts.length == 1)} />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
                     onConfirm={() => {
@@ -307,7 +281,7 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Bundle/Kit"
-                      disabled={!(editableProduct?.type === productType.CoreProduct)} />
+                      disabled={!(selectedProducts.length == 1) || !(editableProduct?.type === productType.CoreProduct)} />
                   </Popconfirm>
                   <Popconfirm
                     title="Sure to convert to Core?"
@@ -322,7 +296,7 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Core"
-                      disabled={!(editableProduct?.type === productType.Variations)} />
+                      disabled={!(selectedProducts.length == 1) || !(editableProduct?.type === productType.Variations)} />
                   </Popconfirm>
                   <Popconfirm
                     title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
@@ -386,10 +360,10 @@ const ProductManagement: React.FC = () => {
                   <Card
                     title="Performance"
                     extra={
-                      <div>
+                      <Space size={4}>
                         <OButton type="primary" btnText={'Year-Over-Year'} />
                         <OButton type="primary" btnText={'Recent Orders'} />
-                      </div>
+                      </Space>
                     }
                   >
                     <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
@@ -431,26 +405,20 @@ const ProductManagement: React.FC = () => {
                   <Card
                     title="Product Details"
                     extra={
-                      <div style={{ display: selectedProducts.length > 1 ? 'none' : 'inline' }}>
+                      <Space size={4} style={{ display: selectedProducts.length > 1 ? 'none' : '' }}>
                         <OButton
-                          type="primary"
                           btnText={'Fields'}
                           onClick={() => setModal(modalType.ShowProductFields)}
-                          disabled={selectedProducts.length === 0}
-                        />
+                          disabled={selectedProducts.length === 0} />
                         <OButton
-                          type="primary"
                           btnText={'Vendor Products'}
                           onClick={() => setModal(modalType.ShowVendorProduct)}
-                          disabled={selectedProducts.length === 0}
-                        />
+                          disabled={selectedProducts.length === 0} />
                         <OButton
-                          type="primary"
                           btnText={'Gallery'}
                           onClick={() => setModal(modalType.ShowGallery)}
-                          disabled={selectedProducts.length === 0}
-                        />
-                      </div>
+                          disabled={selectedProducts.length === 0} />
+                      </Space>
                     }
                   >
                     <Table
@@ -661,8 +629,8 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <CustomBundleKitExport
-        isOpen={modalOpen === modalType.CustomBundleKitExport}
+      <ExportCustomBundleKit
+        isOpen={modalOpen === modalType.ExportCustomBundleKit}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />

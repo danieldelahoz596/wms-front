@@ -115,7 +115,7 @@ export default function ({ isOpen, onSave, onClose }) {
             name={'country'}
             initialValue={selectedWarehouse?.return_location?.country}
           >
-            <Select placeholder="Select..">
+            <Select placeholder="Select...">
               <Select.Option value="usa">United States of America</Select.Option>
             </Select>
           </Form.Item>

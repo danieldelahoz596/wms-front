@@ -44,7 +44,7 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({ isOpen,
         </div>
         <span>Default Vendor</span> 
         <div style={{ display: 'flex', alignItems: 'center', width: '40%', marginTop: '10px' }}>
-          <OInput type="select" placeholder="Select.." options={[{ value: '', text: 'Select ...'},{ value: 'test', text: 'test'},]} style={{ flex: 1 }} />
+          <OInput type="select" placeholder="Select..." options={[{ value: '', text: 'Select ...'},{ value: 'test', text: 'test'},]} style={{ flex: 1 }} />
         </div>
       </>
     </OModal>

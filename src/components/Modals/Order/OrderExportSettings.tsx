@@ -1,51 +1,51 @@
-import React from 'react';
-import { Card } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Popconfirm, Space } from 'antd';
+import React, { useState } from 'react';
+import AddExportSettingsModal from './AddExportSettings';
 
 interface IOrderExportSettingsModal {
   isOpen: boolean;
   onClose: () => void;
-  onAddOrderExportSettings: () => void;
+  // onAddOrderExportSettings: () => void;
 }
 
-const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
-  isOpen,
-  onClose,
-  onAddOrderExportSettings,
-}) => {
-  const { orderExportSettings, removeOrderExportSettings, setEditableExportSetting } =
-    useModel('orderExportSettings');
+const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen, onClose }) => {
+  const [showModal, setShowModal] = useState(false);
+  const { orderExportSettings, removeOrderExportSettings, setEditableExportSetting } = useModel('orderExportSettings');
 
   const handleEdit = (_item) => {
     console.log(_item);
     setEditableExportSetting(_item);
-    onAddOrderExportSettings();
+    setShowModal(true);
   };
 
   const settings = orderExportSettings.map((_item, _index) => ({
-    setting: _item.settingName,
+    setting: _item.settingName.toUpperCase(),
     actions: (
-      <div style={{ display: 'flex', gap: '0.2rem' }}>
-        <ToolOutlined
-          onClick={() => handleEdit(_item)}
-          style={{ color: 'blue', cursor: 'pointer', marginRight: '0.5rem' }}
-        />
-        <CloseOutlined
-          onClick={() => removeOrderExportSettings(_index)}
-          style={{ color: 'blue', cursor: 'pointer' }}
-        />
+      <div style={{ textAlign: 'center' }}>
+        <Space>
+          <ToolOutlined
+            onClick={() => handleEdit(_item)}
+            style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }}
+          />
+          <Popconfirm 
+            title={'Sure to remove?'}
+            onConfirm={() => {removeOrderExportSettings(_index);}}>
+            <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+          </Popconfirm>
+        </Space>
       </div>
     ),
   }));
 
   return (
     <OModal
-      title="Order export settings"
-      width={600}
+      title="Order Export Settings"
+      width={400}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -58,35 +58,36 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({
       ]}
     >
       <>
-        <Card
-          title={
-            <OButton
-              type="primary"
-              btnText={'New Settings'}
-              onClick={() => {
-                setEditableExportSetting(null);
-                onAddOrderExportSettings();
-              }}
-            />
-          }
-        >
-          <OTable
-            pagination={false}
-            columns={[
-              {
-                key: 'setting',
-                dataIndex: 'setting',
-                title: 'Settings',
-              },
-              {
-                key: 'actions',
-                dataIndex: 'actions',
-                title: '',
-              },
-            ]}
-            rows={settings}
-          />
-        </Card>
+        <OButton
+          btnText={'New Settings'}
+          onClick={() => {
+            setEditableExportSetting(null);
+            setShowModal(true);
+          }}
+        />
+        <OTable
+          pagination={false}
+          columns={[
+            {
+              key: 'setting',
+              dataIndex: 'setting',
+              title: 'Settings',
+            },
+            {
+              key: 'actions',
+              dataIndex: 'actions',
+              title: '',
+            },
+          ]}
+          rows={settings}
+          style={{ marginTop: 10 }}
+        />
+
+        <AddExportSettingsModal
+          isOpen={showModal}
+          onSave={() => setShowModal(false)}
+          onClose={() => setShowModal(false)}
+        />
       </>
     </OModal>
   );

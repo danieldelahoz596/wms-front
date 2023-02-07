@@ -73,7 +73,7 @@ const ImportVendorProductsSummary: React.FC<IImportVendorProductsSummary> = ({ t
   return (
     <OModal
       title={title}
-      width={600}
+      width={550}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

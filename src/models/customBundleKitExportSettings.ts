@@ -5,21 +5,54 @@ export default () => {
   const [customBundleKitExportSettings, setCustomBundleKitExportSettings] = useState<any[]>([
     {
       id: 1,
-      settingName: 'Default Export',
+      settingName: 'Bundle / Kit',
       fileFormat: 'csv',
-      date: null,
-      delimit_value: '',
-      multi_sku: 'multiline',
-      wrapDoubleQuote: false,
-      includeColumnHeader: false,
-      exportFields: [],
-    },
-    {
-      id: 2,
-      settingName: 'Customers_Phone_Numbers',
-      fileFormat: 'csv',
-      multi_sku: 'delimit',
-      exportFields: [],
+      dateFormat: 'MM/dd/yyyy',
+      wrapDoubleQuote: true,
+      onlyExportActive: true,
+      includeColumnHeader: true,
+      exportFields: [
+        {
+          key: 22,
+          field: 'Bundle Active',
+          name: 'ACTIVE',
+        },
+        {
+          key: 1,
+          field: 'Bundle Master SKU',
+          name: 'BUNDLE MASTER SKU',
+        },
+        {
+          key: 6,
+          field: 'Bundle UPC',
+          name: 'BUNDLE UPC',
+        },
+        {
+          key: 2,
+          field: 'Bundle Name',
+          name: 'BUNDLE NAME',
+        },
+        {
+          key: 23,
+          field: 'Bundle Vendor Cost',
+          name: 'BUNDLE COST',
+        },
+        {
+          key: 4,
+          field: 'Component Name (Core SKU Name)',
+          name: 'CORE SKU NAME',
+        },
+        {
+          key: 5,
+          field: 'Component Qty',
+          name: 'COMPONENT QTY',
+        },
+        {
+          key: 3,
+          field: 'Component SKU (Core SKU)',
+          name: 'CORE SKU',
+        },
+      ],
     },
   ]);
   const [editableCustomBundleKitExportSetting, setEditableBundleKitExportSetting] = useState(null);

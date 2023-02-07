@@ -2,7 +2,7 @@ import { useModel } from '@umijs/max';
 import { Button, Card, Col, Form, Input, Row, Space } from 'antd';
 import { useEffect } from 'react';
 
-export default function Index() {
+export default function index() {
   const { selectedCustomer, handleUpdateCustomer, handleDeleteCustomer } = useModel('customer');
 
   const [form] = Form.useForm();

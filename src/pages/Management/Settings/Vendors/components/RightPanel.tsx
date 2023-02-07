@@ -35,7 +35,7 @@ const VendorDetails = ({ setModal }) => {
   return vendorDetails ? (
     <>
       <Card title={'Vendor Details'}>
-        <Space size={3} wrap>
+        <Space size={4} wrap>
           <OButton btnText="Edit" onClick={handleEditVendor} />
           <OButton 
             btnText="History" 

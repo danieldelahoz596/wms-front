@@ -1,4 +1,4 @@
-import { Card, Row, Col } from 'antd';
+import { Card, Col, Row } from 'antd';
 
 export default function () {
 
@@ -15,11 +15,6 @@ export default function () {
             {/* Export Products */}
             <h1>Export Products</h1>
             <p>Select this option and click the <b>Export Products</b> button. This will generate a spreadsheet with ALL product information, including inactive products.</p>
-
-            {/* Export Vendor Products */}
-            <h1>Export Vendor Products</h1>
-            <p>Select this option and then choose between exporting your Vendor Products by Vendor or for all Vendors at once.</p>
-            <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/Screen%2BShot%2B2021-12-07%2Bat%2B11.13.47%2BAM.png" style={{ width: 500 }}/>
           </Card>
         </Col>
       </Row>

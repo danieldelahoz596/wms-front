@@ -108,7 +108,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
           <Col span={12}>
             <Form>
               <Form.Item name={'fileFormat'} label="Add Optional Field">
-                <OInput type="select" placeholder="Select.." options={[]} />
+                <OInput type="select" placeholder="Select..." options={[]} />
               </Form.Item>
             </Form>
           </Col>
@@ -128,7 +128,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
             <Card title="Shipping Carrier Mappings" style={{ padding: '0.5rem' }}>
               <Form>
                 <Form.Item name={'fileFormat'} label="Add Optional Field">
-                  <OInput type="select" placeholder="Select.." options={[]} />
+                  <OInput type="select" placeholder="Select..." options={[]} />
                 </Form.Item>
               </Form>
               <OTable

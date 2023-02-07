@@ -1,7 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
+import { Button, Upload } from 'antd';
 
 interface IImportSKUAdjustment {
   isOpen: boolean;
@@ -15,7 +15,7 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
   return (
     <OModal
       title={'SKU Adjustment Import'}
-      width={600}
+      width={550}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -34,12 +34,10 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
       ]}
     >
       <>
-        <p>
-          All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
-        </p>
+        <p>All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
         <a
-          // onClick={handleDownloadTemplate}
           className="download-link"
+          href={`${BACKEND_URL}/template/template_for_sku_adjustment_import.xlsx`}
         >
           <u>Download the Excel Template for the Sku Adjustment Import</u>
         </a>
@@ -52,15 +50,12 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
           of that SKU and long them in the <b>Import Summary</b> that is generated at the end, which
           you can use to correct any errors and re-submit
         </p>
-        <br />
-        <Row>
-          <Col>
-            SKU Adjustment File: &nbsp;
-            <Upload {...fileUploadProps}>
-              <Button icon={<UploadOutlined />}>Select...</Button>
-            </Upload>
-          </Col>
-        </Row>
+        <div style={{ textAlign: 'right', marginTop: 20 }}>
+          <span>SKU Adjustment File: &nbsp;</span>
+          <Upload {...fileUploadProps}>
+            <Button icon={<UploadOutlined />}>Select...</Button>
+          </Upload>
+        </div>
       </>
     </OModal>
   );

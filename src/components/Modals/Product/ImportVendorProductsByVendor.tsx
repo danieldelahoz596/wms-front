@@ -1,26 +1,20 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Card, Col, Drawer, Input, Row, Select, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
-import { UploadOutlined } from '@ant-design/icons';
-import { OInput } from '@/components/Globals/OInput';
 import { modalType } from '@/utils/helpers/types';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Row, Select, Upload } from 'antd';
 import { useModel } from 'umi';
-import { useState } from 'react';
 const { Option } = Select;
 
 interface IImportVendorProductsByVendor {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: any) => void;
+  onSave: (value: any)=> void;
 }
 
 const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({ isOpen, onClose, onSave }) => {
   const { initialState } = useModel('@@initialState');
-  const [ vendor, setVendor] = useState(null);
 
-  const handleChangeVendor = (_name: string, value: any) => {
-    setVendor(value);
-  }
   return (
     <OModal
       title={'Vendor Product Import By Vendor'}
@@ -45,8 +39,8 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
       <>
         <p>Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.</p>
         <a
-          // onClick={handleDownloadTemplate}
           className="download-link"
+          href={`${BACKEND_URL}/template/template_for_vendor_product_import_by_vendor.xlsx`}
         >
           <u>Download the Excel Template for Vendor Product Import By Vendor</u>
         </a>
@@ -55,7 +49,7 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
           and upload the data for each vendor.
         </p>
         <p>
-          <b>Vendor SKUs, are <i>not</i> case sensitive.</b> For example, <i>'sku123'</i>{' '}
+          <b>Vendor SKUs, are <i>not</i> case sensitive.</b> For example, <i>'sku123' </i>
           <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
           Master SKU's.
         </p>
@@ -63,15 +57,13 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
         <Row style={{ display: 'flex', alignItems: 'center' }}>
           <Col span={12}>
             <Card title="Vendor">
-              <OInput
-                type="select"
-                name="vendor"
-                value={vendor}
-                onChange={handleChangeVendor}
+              <Select
+                placeholder="Select..."
                 options={initialState?.initialData?.vendors.map((_item) => ({
                   value: _item.id,
-                  text: _item.name,
+                  label: _item.name,
                 }))}
+                style={{ width: '100%', marginBottom: 5 }}
               />
             </Card>
           </Col>
@@ -82,15 +74,17 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
             </Upload>
           </Col>
         </Row>
-        <Row>
-          <Col className='mt-10'>
-            <label>Update existing SKUs if changes found in the Excel file?</label>&nbsp;&nbsp;
-            <Select placeholder="Yes - Update existing SKUs and import new.">
-              <Option value="1">Yes - Update existing SKUs and import new.</Option>
-              <Option value="2">No - Ignore exisiting SKUs only import new.</Option>
-            </Select>
-          </Col>
-        </Row>
+        <div style={{ textAlign: 'right' }}>
+          <span>Update existing SKUs if changes found in the Excel file? &nbsp;</span>
+          <Select 
+            placeholder="Yes - Update existing SKUs and import new" 
+            defaultValue='update'
+            style={{ marginTop: 10, width: 250, textAlign: 'left' }}
+          >
+            <Option value="update">Yes - Update existing SKUs and import new.</Option>
+            <Option value="ignore">No - Ignore exisiting SKUs only import new.</Option>
+          </Select>
+        </div>
       </>
     </OModal>
   );

@@ -1,21 +1,19 @@
-import { Button, Input, Card, Row, Col, Popconfirm, Space } from 'antd';
-import { useEffect, useState } from 'react';
-import { modalType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
-import { useModel } from '@umijs/max';
+import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistoryModal';
 import EditVendorModal from '@/components/Modals/Settings/Vendor/EditVendorModal';
 import NewVendorModal from '@/components/Modals/Settings/Vendor/NewVendorModal';
-import { CarOutlined, SearchOutlined } from '@ant-design/icons';
-import RightPanel from './components/RightPanel';
-import { useResizable } from 'react-resizable-layout';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistoryModal';
-import TrainIcon from '@/utils/icons/train';
+import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import ShippingIcon from '@/utils/icons/shipping';
+import TrainIcon from '@/utils/icons/train';
+import { useModel } from '@umijs/max';
+import { Card, Input, Space } from 'antd';
 import qs from 'qs';
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useResizable } from 'react-resizable-layout';
 import { OButton } from '../../../../components/Globals/OButton';
+import RightPanel from './components/RightPanel';
 
 const { Search } = Input;
 
@@ -90,7 +88,7 @@ export default function () {
     <>
       <div className="w-full flex flex-column h-screen">
         <Card style={{ width: '100%' }}>
-          <Space size={3} className="mb-10">
+          <Space size={4} className="mb-10">
             <Search 
               placeholder="Search vendors by name..." 
               allowClear 

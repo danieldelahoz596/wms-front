@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Card } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Popconfirm, Space } from 'antd';
+import React, { useState } from 'react';
 import AddExportSettingsModal from './AddExportSettings';
 
 interface ICustomBundleKitExportSettings {
@@ -12,10 +12,7 @@ interface ICustomBundleKitExportSettings {
   onClose: () => void;
 }
 
-const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = ({
-  isOpen,
-  onClose,
-}) => {
+const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = ({ isOpen, onClose }) => {
   const {
     customBundleKitExportSettings,
     removeCustomBundleKitExportSettings,
@@ -30,17 +27,20 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
   };
 
   const settings = customBundleKitExportSettings.map((_item, _index) => ({
-    setting: _item.settingName,
+    setting: _item.settingName.toUpperCase(),
     actions: (
-      <div style={{ display: 'flex', gap: '0.2rem' }}>
-        <ToolOutlined
-          onClick={() => handleEdit(_item)}
-          style={{ color: 'blue', cursor: 'pointer', marginRight: '0.5rem' }}
-        />
-        <CloseOutlined
-          onClick={() => removeCustomBundleKitExportSettings(_index)}
-          style={{ color: 'blue', cursor: 'pointer' }}
-        />
+      <div style={{ textAlign: 'center' }}>
+        <Space>
+          <ToolOutlined
+            onClick={() => handleEdit(_item)}
+            style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }}
+          />
+          <Popconfirm 
+            title={'Sure to remove?'}
+            onConfirm={() => {removeCustomBundleKitExportSettings(_index);}}>
+            <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+          </Popconfirm>
+        </Space>
       </div>
     ),
   }));
@@ -48,7 +48,7 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
   return (
     <OModal
       title="Custom Bundle/Kit Export Settings"
-      width={600}
+      width={400}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -83,7 +83,7 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
             },
           ]}
           rows={settings}
-          className="mt-10"
+          style={{ marginTop: 10 }}
         />
 
         <AddExportSettingsModal

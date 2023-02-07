@@ -53,7 +53,7 @@ export default function () {
     <>
       {contextHolder}
       <Card style={{ width: '100%' }}>
-        <Space size={3}>
+        <Space size={4}>
           <Button
             onClick={() => {
               setSelectedUser(null);

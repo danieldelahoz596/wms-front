@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { Card, Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select } from 'antd';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Card, Checkbox, Col, Form, Input, Row, Select, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
 interface IAddExportSettingsModal {
   isOpen: boolean;
   onSave: () => void;
@@ -13,8 +13,6 @@ interface IAddExportSettingsModal {
 const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const [selectedExportFields, setSelectedExportFields] = useState([]);
-  const [multiSku, setMultiSku] = useState(null);
-  const [includeColumnHeader, setIncludeColumnHeader] = useState(false);
 
   const {
     editableCustomBundleKitExportSetting,
@@ -24,126 +22,34 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   } = useModel('customBundleKitExportSettings');
 
   const exportFields = [
-    {
-      key: 1,
-      field: 'Bundle Description',
-      name: '',
-    },
-    {
-      key: 2,
-      field: 'Bundle UPC',
-      name: '',
-    },
-    {
-      key: 3,
-      field: 'Bundle Image',
-      name: '',
-    },
-    {
-      key: 4,
-      field: 'Bundle Brand',
-      name: '',
-    },
-    {
-      key: 5,
-      field: 'Bundle Category',
-      name: '',
-    },
-    {
-      key: 6,
-      field: 'Bundle Category',
-      name: '',
-    },
-    {
-      key: 7,
-      field: 'Bundle Label',
-      name: '',
-    },
-    {
-      key: 8,
-      field: 'BUndle M.A.P',
-      name: '',
-    },
-    {
-      key: 9,
-      field: 'Bundle Shipping Cost',
-      name: '',
-    },
-    {
-      key: 10,
-      field: 'Bundle Pounds',
-      name: '',
-    },
-    {
-      key: 11,
-      field: 'Bundle Ounces',
-      name: '',
-    },
-    {
-      key: 12,
-      field: 'Bundle Height(in)',
-      name: '',
-    },
-    {
-      key: 13,
-      field: 'Bundle Width(in)',
-      name: '',
-    },
-    {
-      key: 14,
-      field: 'Bundle Length(in)',
-      name: '',
-    },
-    {
-      key: 15,
-      field: 'Bundle Allow Backorders',
-      name: '',
-    },
-    {
-      key: 16,
-      field: 'Bundle Hazmat',
-      name: '',
-    },
-    {
-      key: 17,
-      field: 'BUndle Ships in own box',
-      name: '',
-    },
-    {
-      key: 18,
-      field: 'Bundle Active',
-      name: '',
-    },
-    {
-      key: 19,
-      field: 'Bundle Vendor Cost',
-      name: '',
-    },
-    {
-      key: 20,
-      field: 'Bundle Width Barcode',
-      name: '',
-    },
-    {
-      key: 21,
-      field: 'Bundle Buyer (E-mail)',
-      name: '',
-    },
-    {
-      key: 22,
-      field: 'Bundle MPN',
-      name: '',
-    },
-    {
-      key: 23,
-      field: 'Bundle Gift Card',
-      name: '',
-    },
-    {
-      key: 24,
-      field: 'Bundle Digital',
-      name: '',
-    },
+    { key: 1, field: 'Bundle Master SKU' },
+    { key: 2, field: 'Bundle Name' },
+    { key: 3, field: 'Component SKU (Core SKU)' },
+    { key: 4, field: 'Component Name (Core SKU Name)' },
+    { key: 5, field: 'Component Qty' },
+    { key: 6, field: 'Bundle UPC' },
+    { key: 7, field: 'Bundle Image' },
+    { key: 8, field: 'Bundle Brand' },
+    { key: 9, field: 'Bundle Category' },
+    { key: 10, field: 'Bundle Category' },
+    { key: 11, field: 'Bundle Label' },
+    { key: 12, field: 'BUndle M.A.P' },
+    { key: 13, field: 'Bundle Shipping Cost' },
+    { key: 14, field: 'Bundle Pounds' },
+    { key: 15, field: 'Bundle Ounces' },
+    { key: 16, field: 'Bundle Height(in)' },
+    { key: 17, field: 'Bundle Width(in)' },
+    { key: 18, field: 'Bundle Length(in)' },
+    { key: 19, field: 'Bundle Allow Backorders' },
+    { key: 20, field: 'Bundle Hazmat' },
+    { key: 21, field: 'BUndle Ships in own box' },
+    { key: 22, field: 'Bundle Active' },
+    { key: 23, field: 'Bundle Vendor Cost' },
+    { key: 24, field: 'Bundle Width Barcode' },
+    { key: 25, field: 'Bundle Buyer (E-mail)' },
+    { key: 26, field: 'Bundle MPN' },
+    { key: 27, field: 'Bundle Gift Card' },
+    { key: 28, field: 'Bundle Digital' },
   ];
 
   const exportFieldsColumns = [
@@ -193,9 +99,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     values = {
       ...values,
       id: editableCustomBundleKitExportSetting?.id,
-      exportFields: selectedExportFields,
-      multi_sku: multiSku,
-      includeColumnHeader: includeColumnHeader,
+      exportFields: selectedExportFields,      
     };
 
     if (editableCustomBundleKitExportSetting) {
@@ -206,16 +110,14 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
     setEditableBundleKitExportSetting(null);
     form.resetFields();
-    setMultiSku(null);
-    setIncludeColumnHeader(false);
+    setSelectedExportFields(null);
     onSave();
   };
 
   const handleClose = () => {
     setEditableBundleKitExportSetting(null);
     form.resetFields();
-    setMultiSku(null);
-    setIncludeColumnHeader(false);
+    setSelectedExportFields(null);
     onClose();
   };
 
@@ -224,13 +126,13 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     dataField: item.field.toUpperCase(),
     columnName: (
       <Input
-        defaultValue={item.name}
+        defaultValue={item.field.toUpperCase()}
         onChange={(e) => handleColumnNameChange(item, e.target.value)}
       />
     ),
     remove: (
       <span onClick={() => handleRemoveField(item.key)}>
-        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer', textAlign: 'center', width: 20 }} />
       </span>
     ),
   }));
@@ -238,8 +140,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   useEffect(() => {
     if (editableCustomBundleKitExportSetting) {
       form.setFieldsValue(editableCustomBundleKitExportSetting);
-      setMultiSku(editableCustomBundleKitExportSetting.multi_sku);
-      setIncludeColumnHeader(editableCustomBundleKitExportSetting.includeColumnHeader);
     }
 
     if (editableCustomBundleKitExportSetting?.exportFields) {
@@ -249,8 +149,8 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
   return (
     <OModal
-      title="New export settings"
-      width={900}
+      title={editableCustomBundleKitExportSetting ? "Edit Export Settings" : "New Export Settings"}
+      width={700}
       isOpen={isOpen}
       handleCancel={handleClose}
       buttons={[
@@ -268,18 +168,20 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         },
       ]}
     >
-      <Form form={form} initialValues={editableCustomBundleKitExportSetting}>
+      <Form 
+        form={form} 
+        initialValues={editableCustomBundleKitExportSetting}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}>
         <Row>
-          <Col span={10}>
-            <div style={{ padding: '0.5rem', marginBottom: '1rem' }}>
-              <Form.Item name="settingName" label="Settings Name">
-                <Input />
-              </Form.Item>
-            </div>
+          <Col span={11} style={{ padding: 5, paddingTop: 7 }}>
+            <Form.Item name="settingName" label="Settings Name" labelCol={{ span: 24 }} wrapperCol={{ span: 23 }}>
+              <Input />
+            </Form.Item>
             <Card title="File Configuration">
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
-                  placeholder="Select.."
+                  placeholder="Select..."
                   options={[
                     { value: 'csv', label: 'CSV' },
                     { value: 'excel', label: 'EXCEL' },
@@ -287,71 +189,57 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                   ]}
                 />
               </Form.Item>
-
-              <Form.Item name={'dateFormat'} label="Date Format ">
+              <Form.Item name='dateFormat' label="Date Format">
                 <Select
-                  placeholder="MM/dd/yyyy"
+                  placeholder="Select..."
                   options={[
                     { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
                     { value: 'yyyy-MM-dd', label: 'yyyy-MM-dd' },
                   ]}
                 />
               </Form.Item>
-
-              <Form.Item label="Multi SKUs" name={'multi_sku'} style={{ display: 'flex' }}>
-                <Input.Group style={{ display: 'flex' }}>
-                  <Radio.Group
-                    style={{ display: 'flex' }}
-                    name={'multi_sku'}
-                    value={multiSku}
-                    onChange={(e) => setMultiSku(e.target.value)}
-                  >
-                    <Radio value={'multiline'}>Multiline</Radio>
-                    <Radio value={'delimit'}>Delimit</Radio>
-                  </Radio.Group>
-                  <Form.Item name="delimit_value" style={{ display: 'flex' }}>
-                    <Input />
-                  </Form.Item>
-                </Input.Group>
-              </Form.Item>
             </Card>
             <Form.Item
-              labelCol={{ span: '22' }}
-              valuePropName="checked"
+              labelCol={{ span: 21 }}
               name="wrapDoubleQuote"
+              valuePropName="checked"
               label="Wrap values in double quotes when exporting CSV/text files?"
-              style={{ padding: '0.5rem', marginBottom: '1rem' }}
-            >
+              colon={false}>
+              <Checkbox />
+            </Form.Item>
+            <Form.Item 
+              labelCol={{ span: 21 }} 
+              name="onlyExportActive"
+              valuePropName="checked" 
+              label="Only export active bundles/kits"
+              colon={false}>
               <Checkbox />
             </Form.Item>
           </Col>
 
-          <Col offset={1} span={13}>
+          <Col span={13}>
             <Card
               title={
-                <Form.Item name="includeColumnHeader" initialValue={includeColumnHeader}>
-                  <span>
-                    Export Fields{' '}
-                    <span style={{ color: 'blue', textTransform: 'capitalize' }}>
-                      ( Include column headers?{' '}
-                    </span>
+                <Space size={5} align={'start'}>
+                  <span>Export Fields</span>  
+                  <span style={{ color: 'blue', textTransform: 'capitalize' }}>
+                    (Include column headers?
                   </span>
-                  <Checkbox
-                    checked={includeColumnHeader}
-                    onChange={(e) => setIncludeColumnHeader(e.target.checked)}
-                  />
-                  <span style={{ color: 'blue' }}> )</span>
-                </Form.Item>
+                  <Form.Item name="includeColumnHeader" valuePropName="checked" style={{ marginTop: -6 }}>
+                    <Checkbox/>
+                  </Form.Item>
+                  <span style={{ color: 'blue' }}>)</span>
+                </Space>
               }
             >
               <Form.Item
                 name={'exportFields'}
                 label="Add Field"
-                labelCol={{ offset: 2 }}
-                labelAlign="right"
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 15 }}
               >
                 <Select
-                  placeholder="Select.."
+                  placeholder="Select..."
                   onChange={(_val) => handleAddField(_val)}
                   options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />
@@ -359,8 +247,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               <OTable
                 pagination={false}
                 columns={exportFieldsColumns}
-                rows={preparedImportFieldsRows}
-              />
+                rows={preparedImportFieldsRows} />
             </Card>
           </Col>
         </Row>

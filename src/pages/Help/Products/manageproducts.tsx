@@ -52,7 +52,6 @@ export default function () {
             />
             <br/>
             <p>After you’ve imported all your products into Extensiv Order Manager, you can go back and edit your Master SKUs at any time.</p>
-            <br/>
             <p>You can change the Master SKU for a specific product directly through the UI or in bulk through a spreadsheet.</p>
             <Divider />
             <h1>Adjusting a Master SKU in the Products Module</h1>

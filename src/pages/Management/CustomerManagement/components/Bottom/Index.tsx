@@ -3,7 +3,7 @@ import { FormOutlined, GlobalOutlined, MessageOutlined } from '@ant-design/icons
 import { useModel } from '@umijs/max';
 import { Card } from 'antd';
 
-export default function Index() {
+export default function index() {
   const { selectedCustomer } = useModel('customer');
 
   const TOrdercolumns = [

@@ -117,7 +117,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
             {tabButtons}
           </Col>
           <Col span={16}>
-            <Space size={3}>
+            <Space size={4}>
               <Select
                 options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
                 defaultValue="source_warehouse"
@@ -141,7 +141,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
         </Row>
 
         <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
-          <Space size={3}>
+          <Space size={4}>
             <Search
               placeholder="Enter Order#, SKU or product name..."
               onSearch={() => console.log('Search in Transfers tab on the orders module')}

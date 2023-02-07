@@ -116,7 +116,7 @@ export default function ({ isOpen, onSave, onClose }) {
             </Input.Group>
           </Form.Item>
           <Form.Item label="Country" name={'country'} initialValue={selectedWarehouse?.country}>
-            <Select placeholder="Select..">
+            <Select placeholder="Select...">
               <Select.Option value="usa">United States of America</Select.Option>
             </Select>
           </Form.Item>
@@ -137,7 +137,7 @@ export default function ({ isOpen, onSave, onClose }) {
             <Input />
           </Form.Item>
           <Form.Item label="Timezone" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
-            <Select placeholder="Select..">
+            <Select placeholder="Select...">
               <Select.Option value={'est'}>EST</Select.Option>
             </Select>
           </Form.Item>

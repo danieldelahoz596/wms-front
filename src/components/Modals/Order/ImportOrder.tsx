@@ -94,7 +94,7 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
                 <span>Import Settings:</span>
                 <OInput
                   type="select"
-                  placeholder="Select.."
+                  placeholder="Select..."
                   options={[
                     { value: '0', text: 'Select ...' },
                     ...orderImportSettings.map((_item, _index) => ({

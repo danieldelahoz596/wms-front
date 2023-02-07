@@ -1,5 +1,5 @@
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { modalType } from '@/utils/helpers/types';
 import { Col, Row } from 'antd';
 
@@ -32,7 +32,7 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
           products.
         </p>
 
-        <Row gutter={16}>
+        <Row gutter={10}>
           <Col span={12}>
             <OButton
               type="primary"
@@ -43,7 +43,7 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
             <p>Import vendor products using an individual file for each vendor.</p>
           </Col>
           <Col span={12}>
-           <OButton
+            <OButton
               type="primary"
               btnText={'Import All At Once'}
               onClick={() => onClick(modalType.ImportVendorProductsAll)}

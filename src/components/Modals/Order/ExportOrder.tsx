@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { OModal } from '@/components/Globals/OModal';
-import { OInput } from '@/components/Globals/OInput';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { OModal } from '@/components/Globals/OModal';
 import { modalType } from '@/utils/helpers/types';
-import { Col, Row } from 'antd';
+import { useModel } from '@umijs/max';
+import { Select, Space } from 'antd';
+import React, { useState } from 'react';
+import OrderExportSettingsModal from './OrderExportSettings';
 
 interface IExportOrder {
   isOpen: boolean;
@@ -17,6 +17,7 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
   isOpen, onClose, onSave,
   handleConfigureSettings,
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const { orderExportSettings } = useModel('orderExportSettings');
   const [selectedSettings, setSelectedSettings] = useState();
 
@@ -31,17 +32,17 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
     }
   };
 
-  const onConfigureSettings = () => {
-    if (selectedSettings) {
-      handleConfigureSettings(modalType.OrderExportSettings);
-    } else {
-      handleConfigureSettings(modalType.AddOrderExportSettings);
-    }
-  };
+  // const onConfigureSettings = () => {
+  //   if (selectedSettings) {
+  //     handleConfigureSettings(modalType.OrderExportSettings);
+  //   } else {
+  //     handleConfigureSettings(modalType.AddOrderExportSettings);
+  //   }
+  // };
 
   return (
     <OModal
-      title="Export selected orders"
+      title="Export Selected Orders"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -61,43 +62,34 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
       ]}
     >
       <>
-      
+        <p>Skubana allows you to export any of the available order information in CSV, Excel, or plain text format.</p>
+        <p>
+          {`To export the selected orders, select one of your pre-configured export settings and click
+          the 'Export Orders' button. If you haven't created any export settings yet, click on the
+          'Configure Settings' button to set up which order data to export, the arrangement of
+          columns and the file format.`}
+        </p>
+        <div style={{ textAlign: 'right', marginTop: 40 }}>
+          <Space size={5}>
+            <label>Export Settings: </label>          
+            <Select
+              placeholder="Select..."
+              size='small'
+              style={{ width: 200, textAlign: 'left' }}
+              options={orderExportSettings.map((_item) => ({
+                value: _item.id,
+                label: _item.settingName,
+              }))} 
+            />
+            <OButton btnText='Configure Settings' onClick={() => setShowModal(true)}/>
+          </Space>
+        </div>
+
+        <OrderExportSettingsModal isOpen={showModal} onClose={() => setShowModal(false)} />
       </>
-      <p>Skubana allows you to export any of the available order information in CSV, Excel, or plain text format.
-      </p>
-      <p>
-        To export the selected orders, select one of your pre-configured export settings and click
-        the 'Export Orders' button. If you haven't created any export settings yet, click on the
-        "Configure Settings" button to set up which order data to export, the arrangement of
-        columns and the file format.
-      </p>
-      <Row style={{ alignItems: 'center', padding: '1rem' }}>
-        <span>Export Settings:</span>
-        <OInput
-          type="select"
-          placeholder="Select.."
-          options={[
-            ...orderExportSettings.map((_item, _index) => ({
-              value: `${_index + 1}`,
-              text: _item.settingName,
-            })),
-          ]}
-          style={{ flex: 1 }}
-          onChange={(_name, _value) => handleSettingsSelect(_value)}
-        />
-        <OButton
-          type="primary"
-          btnText={'Configure Settings'}
-          bordered={true}
-          onClick={onConfigureSettings}
-          className='ml-10'
-        />
-      </Row>
-      <div >
-        
-        
-      </div>
     </OModal>
+
+  
   );
 };
 

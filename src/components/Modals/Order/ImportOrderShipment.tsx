@@ -79,7 +79,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
                   onClick={onConfigure}
                 />
                 <span>Import Settings:</span>
-                <OInput type="select" placeholder="Select.." options={[]} style={{ flex: 1 }} />
+                <OInput type="select" placeholder="Select..." options={[]} style={{ flex: 1 }} />
                 <Button type="primary" style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}>
                   <VerticalAlignBottomOutlined size={16} />
                 </Button>
@@ -103,7 +103,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
 
               <Form.Item>
                 <label>Update existing shipments if changes found in the Excel file?</label>
-                <OInput type="select" options={updateShipmentOptions} placeholder="Select.." />
+                <OInput type="select" options={updateShipmentOptions} placeholder="Select..." />
               </Form.Item>
             </Form>
           </Col>

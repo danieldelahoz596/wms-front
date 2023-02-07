@@ -1,4 +1,4 @@
-import { Card, Row, Col, Alert } from 'antd';
+import { Alert, Card, Col, Row } from 'antd';
 
 export default function () {
 

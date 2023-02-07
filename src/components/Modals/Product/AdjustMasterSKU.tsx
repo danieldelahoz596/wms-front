@@ -20,7 +20,7 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
   };
   return (
     <OModal
-      title={'New Core Product'}
+      title={'Adjust Master SKU'}
       width={350}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -46,7 +46,7 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
           type="info"
         />
         <Form form={form}>
-          <Form.Item label="Current Master SKU" labelCol={{ span: 11 }}>{editableProduct?.master_sku}</Form.Item>
+          <Form.Item label="Current Master SKU" labelCol={{ span: 10 }}>{editableProduct?.master_sku}</Form.Item>
           <Form.Item
             label="New Master SKU"
             name="master_sku"

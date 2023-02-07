@@ -1,20 +1,20 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Row, Col, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import type { UploadFile } from 'antd/es/upload/interface';
+import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomerModal';
+import EditHistoryModal from '@/components/Modals/Customer/EditHistoryModal';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { sampleImages } from '@/utils/helpers/base';
 import { modalType } from '@/utils/helpers/types';
-import { DragDropContainer } from 'react-drag-drop-container-typescript';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-import { OTable } from '@/components/Globals/OTable';
+import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import RightPanel from './components/RightPanel/Index';
+import { Card, Col, Row, Space } from 'antd';
+import type { UploadFile } from 'antd/es/upload/interface';
+import React, { useEffect, useState } from 'react';
+import { DragDropContainer } from 'react-drag-drop-container-typescript';
+import { useResizable } from 'react-resizable-layout';
+import Bottom from './components/Bottom/index';
+import RightPanel from './components/RightPanel/index';
 import SearchCustomer from './components/SidePanel/SearchCustomer';
-import EditHistoryModal from '@/components/Modals/Customer/EditHistoryModal';
-import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomerModal';
-import Bottom from './components/Bottom/Index';
-import { OButton } from '@/components/Globals/OButton';
 
 const CustomerManagement: React.FC = () => {
   const {
@@ -138,7 +138,7 @@ const CustomerManagement: React.FC = () => {
             <Row style={{ width: '100%' }}>
               <Col span={24}>
                 <Card size="small" title="Customers">
-                  <Space size={3} className="mb-10">
+                  <Space size={4} className="mb-10">
                     <OButton 
                       btnText="Merge"
                       onClick={() => setModal(modalType.Merge)}  />

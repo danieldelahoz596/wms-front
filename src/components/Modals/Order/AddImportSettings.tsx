@@ -265,7 +265,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
                 <OInput
                   name="add_field"
                   type="select"
-                  placeholder="Select.."
+                  placeholder="Select..."
                   options={optionalFields.map((item) => ({ value: item.key, text: item.field }))}
                   onChange={handleAddField}
                 />

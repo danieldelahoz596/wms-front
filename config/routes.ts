@@ -188,6 +188,36 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/help/orders/general',
+        component: './Help/Orders/orders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/cancelorders',
+        component: './Help/Orders/cancelorders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/exportorders',
+        component: './Help/Orders/exportorders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/search',
+        component: './Help/Customers/searchcustomers',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/customersmodule',
+        component: './Help/Customers/customersmodule',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/customers/exportcustomerphonenumbers',
+        component: './Help/Customers/exportcustomerphonenumbers',
+      },
+      {
+        hideInMenu: true,
         path: '/help/products/general',
         component: './Help/Products/products',
       },
@@ -233,6 +263,16 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/help/products/exportvendorproducts',
+        component: './Help/Products/exportvendorproducts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/products/exportcustombundlekit',
+        component: './Help/Products/exportcustombundlekit',
+      },
+      {
+        hideInMenu: true,
         path: '/help/products/searchproducts',
         component: './Help/Products/searchproducts',
       },
@@ -248,33 +288,98 @@ export default [
       },
       {
         hideInMenu: true,
-        path: '/help/customers/search',
-        component: './Help/Customers/searchcustomers',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/customers/customersmodule',
-        component: './Help/Customers/customersmodule',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/customers/exportcustomerphonenumbers',
-        component: './Help/Customers/exportcustomerphonenumbers',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/orders/cancelorders',
-        component: './Help/Orders/cancelorders',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/orders/general',
-        component: './Help/Orders/orders',
-      },
-      {
-        hideInMenu: true,
         path: '/help/analytics/orders/historicalsexports',
         component: './Help/Analytics/Orders/historicalordersexports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/orders/salesoverview',
+        component: './Help/Analytics/Orders/salesoverview',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/orders/biggesttickets',
+        component: './Help/Analytics/Orders/biggesttickets',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/orders/shipments',
+        component: './Help/Analytics/Orders/shipments',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/general/theanalyticsmodules',
+        component: './Help/Analytics/General/theanalyticsmodules',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/general/analyticsreports',
+        component: './Help/Analytics/General/analyticsreports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/general/printingchartsfromanalytics',
+        component: './Help/Analytics/General/printingchartsfromanalytics',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/general/exportingreports',
+        component: './Help/Analytics/General/exportingreports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/products/analyticsskuprofitability',
+        component: './Help/Analytics/Products/analyticsskuprofitability',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/products/yoygrowth',
+        component: './Help/Analytics/Products/yoygrowth',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/products/analyticslistingprofitability',
+        component: './Help/Analytics/Products/analyticslistingprofitability',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/products/topsellersandworstsellersreports',
+        component: './Help/Analytics/Products/topsellersandworstsellersreports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/products/analyticstrendingprofitability',
+        component: './Help/Analytics/Products/analyticstrendingprofitability',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/dashboard/opportunitiesfoundbyextensivordermanager',
+        component: './Help/Analytics/Dashboard/opportunitiesfoundbyextensivordermanager',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/inventory/analyticsinventoryreplenishmentalerts',
+        component: './Help/Analytics/Inventory/analyticsinventoryreplenishmentalerts',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/inventory/analyticssnapshotinventoryvalue',
+        component: './Help/Analytics/Inventory/analyticssnapshotinventoryvalue',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/inventory/analyticstrendinginventoryvalue',
+        component: './Help/Analytics/Inventory/analyticstrendinginventoryvalue',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/inventory/analyticscriticalinventorylevels',
+        component: './Help/Analytics/Inventory/analyticscriticalinventorylevels',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/analytics/inventory/analyticsinventoryaging',
+        component: './Help/Analytics/Inventory/analyticsinventoryaging',
       },
       {
         hideInMenu: true,

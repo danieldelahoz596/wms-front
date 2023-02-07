@@ -1,24 +1,10 @@
 import Footer from '@/components/Footer';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import httpClient from '@/utils/http-client';
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  MobileOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCaptcha,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
 import { FormattedMessage, history, useModel } from '@umijs/max';
-import { Alert, message, Tabs } from 'antd';
+import { Alert, message } from 'antd';
 import React, { useState } from 'react';
-import { flushSync } from 'react-dom';
 import styles from './index.less';
 
 const LoginMessage: React.FC<{
@@ -75,7 +61,7 @@ const Login: React.FC = () => {
 
         // Redirect user to dashboard
         const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
+        history.push(urlParams.get('redirect') || '/dashboard');
       }
       // 如果失败去设置用户错误信息
       setUserLoginState(userData);

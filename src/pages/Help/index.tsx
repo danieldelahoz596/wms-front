@@ -1,53 +1,84 @@
-import { Layout, Menu } from 'antd';
+import { SampleSplitter } from '@/utils/components/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
+import { Layout, Menu } from 'antd';
 import { useResizable } from 'react-resizable-layout';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 
-import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import ProductsIcon from '@/utils/icons/products';
+import AccountingIcon from '@/utils/icons/accounting';
+import BiggestTicketsIcon from '@/utils/icons/biggestTickets';
+import CustomersIcon from '@/utils/icons/customers';
 import InventoryIcon from '@/utils/icons/inventory';
 import OrdersIcon from '@/utils/icons/orders';
-import BiggestTicketsIcon from '@/utils/icons/biggestTickets';
-import ShippingIcon from '@/utils/icons/shipping';
+import ProductsIcon from '@/utils/icons/products';
 import SalesIcon from '@/utils/icons/sales';
-import CustomersIcon from '@/utils/icons/customers';
-import AccountingIcon from '@/utils/icons/accounting';
+import ShippingIcon from '@/utils/icons/shipping';
+import { BellOutlined, UserOutlined } from '@ant-design/icons';
 
 import { Link } from '@umijs/max';
 import type { MenuProps } from 'antd';
 import React, { useState } from 'react';
 
-import SkuAlerts from './Dashboard/skualerts';
+// Dashboard
 import Dashboard from './Dashboard/dashboard';
-import Myprofile from './Settings/myprofile';
-import Companyinfo from './Settings/companyinfo';
-import Useradministration from './Settings/useradministration';
-import Historicalordersexports from './Analytics/Orders/historicalordersexports';
-import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
+import SkuAlerts from './Dashboard/skualerts';
 
-// Products
-import Products from './Products/products';
-import Manageproducts from './Products/manageproducts';
-import CreateCoreProduct from './Products/createcoreproduct';
-import CreateBundleKit from './Products/createbundlekit';
-import CreateProductVariations from './Products/createproductvariations';
-import Importproducts from './Products/importproducts';
-import ImportVendorProducts from './Products/importvendorproducts';
-import ImportSkuAdjustments from './Products/importskuadjustments';
-
-
-
-import Exportproducts from './Products/exportproducts';
-import Searchproducts from './Products/searchproducts';
-import Customproductfields from './Products/customproductfields';
-
-// Customers
-import Searchcustomers from './Customers/searchcustomers';
-import Customersmodule from './Customers/customersmodule';
-import Exportcustomerphonenumbers from './Customers/exportcustomerphonenumbers';
+// Orders
 import Cancelorders from './Orders/cancelorders';
+import Exportorders from './Orders/exportorders';
 import Orders from './Orders/orders';
 
+// Inventory
+
+// Purchase Order
+
+// Shipments
+
+// Customers
+import Customersmodule from './Customers/customersmodule';
+import Exportcustomerphonenumbers from './Customers/exportcustomerphonenumbers';
+import Searchcustomers from './Customers/searchcustomers';
+
+// Products
+import CreateBundleKit from './Products/createbundlekit';
+import CreateCoreProduct from './Products/createcoreproduct';
+import CreateProductVariations from './Products/createproductvariations';
+import Customproductfields from './Products/customproductfields';
+import Exportcustombundlekit from './Products/exportcustombundlekit';
+import Exportproducts from './Products/exportproducts';
+import Exportvendorproducts from './Products/exportvendorproducts';
+import Importproducts from './Products/importproducts';
+import ImportSkuAdjustments from './Products/importskuadjustments';
+import ImportVendorProducts from './Products/importvendorproducts';
+import Manageproducts from './Products/manageproducts';
+import Products from './Products/products';
+import Searchproducts from './Products/searchproducts';
+
+// Analytics
+import Analyticsreports from './Analytics/General/analyticsreports';
+import Exportingreports from './Analytics/General/exportingreports';
+import Printingchartsfromanalytics from './Analytics/General/printingchartsfromanalytics';
+import Theanalyticsmodules from './Analytics/General/theanalyticsmodules';
+import Biggesttickets from './Analytics/Orders/biggesttickets';
+import Historicalordersexports from './Analytics/Orders/historicalordersexports';
+import Salesoverview from './Analytics/Orders/salesoverview';
+import Shipments from './Analytics/Orders/shipments';
+import Analyticslistingprofitability from './Analytics/Products/analyticslistingprofitability';
+import Analyticsskuprofitability from './Analytics/Products/analyticsskuprofitability';
+import Yoygrowth from './Analytics/Products/yoygrowth';
+import Topsellersandworstsellersreports from './Analytics/Products/topsellersandworstsellersreports';
+import Analyticstrendingprofitability from './Analytics/Products/analyticstrendingprofitability';
+import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
+import Opportunitiesfoundbyextensivordermanager from './Analytics/Dashboard/opportunitiesfoundbyextensivordermanager';
+import Analyticsinventoryreplenishmentalerts from './Analytics/Inventory/analyticsinventoryreplenishmentalerts';
+import Analyticssnapshotinventoryvalue from './Analytics/Inventory/analyticssnapshotinventoryvalue';
+import Analyticstrendinginventoryvalue from './Analytics/Inventory/analyticstrendinginventoryvalue';
+import Analyticscriticalinventorylevels from './Analytics/Inventory/analyticscriticalinventorylevels';
+import Analyticsinventoryaging from './Analytics/Inventory/analyticsinventoryaging';
+
+
+// Settings
+import Companyinfo from './Settings/companyinfo';
+import Myprofile from './Settings/myprofile';
+import Useradministration from './Settings/useradministration';
 
 
 const { Sider, Content } = Layout;
@@ -84,6 +115,12 @@ const Help: React.FC = () => {
   let renderableContent = null;
   if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
   else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
+  else if (selectKey === 'orders_cancelorders') renderableContent = <Cancelorders />;
+  else if (selectKey === 'orders_general') renderableContent = <Orders />;
+  else if (selectKey === 'orders_exportorders') renderableContent = <Exportorders />;
+  else if (selectKey === 'customers_searchcustomers') renderableContent = <Searchcustomers />
+  else if (selectKey === 'customers_customersmodule') renderableContent = <Customersmodule />
+  else if (selectKey === 'customers_exportcustomerphonenumbers') renderableContent = <Exportcustomerphonenumbers />
   else if (selectKey === 'products_general') renderableContent = <Products />;
   else if (selectKey === 'products_manageproducts') renderableContent = <Manageproducts />
   else if (selectKey === 'products_create_coreproduct') renderableContent = <CreateCoreProduct />
@@ -93,19 +130,34 @@ const Help: React.FC = () => {
   else if (selectKey === 'products_importvendorproducts') renderableContent = <ImportVendorProducts />
   else if (selectKey === 'products_importskuadjustments') renderableContent = <ImportSkuAdjustments />
   else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
+  else if (selectKey === 'products_exportvendorproducts') renderableContent = <Exportvendorproducts />
+  else if (selectKey === 'products_exportcustombundlekit') renderableContent = <Exportcustombundlekit />
   else if (selectKey === 'products_searchproducts') renderableContent = <Searchproducts />
   else if (selectKey === 'products_customproductfields') renderableContent = <Customproductfields />
-  else if (selectKey === 'customers_searchcustomers') renderableContent = <Searchcustomers />
-  else if (selectKey === 'customers_customersmodule') renderableContent = <Customersmodule />
-  else if (selectKey === 'customers_exportcustomerphonenumbers') renderableContent = <Exportcustomerphonenumbers />
   else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
+  else if (selectKey === 'analytics_orders_salesoverview') renderableContent = <Salesoverview />
+  else if (selectKey === 'analytics_orders_biggesttickets') renderableContent = <Biggesttickets />
+  else if (selectKey === 'analytics_orders_shipments') renderableContent = <Shipments />
+  else if (selectKey === 'analytics_general_theanalyticsmodules') renderableContent = <Theanalyticsmodules />
+  else if (selectKey === 'analytics_general_analyticsreports') renderableContent = <Analyticsreports />
+  else if (selectKey === 'analytics_general_printingchartsfromanalytics') renderableContent = <Printingchartsfromanalytics />
+  else if (selectKey === 'analytics_general_exportingreports') renderableContent = <Exportingreports />
+  else if (selectKey === 'analytics_products_analyticsskuprofitability') renderableContent = <Analyticsskuprofitability />
+  else if (selectKey === 'analytics_products_yoygrowth') renderableContent = <Yoygrowth />
+  else if (selectKey === 'analytics_products_analyticslistingprofitability') renderableContent = <Analyticslistingprofitability />
+  else if (selectKey === 'analytics_products_topsellersandworstsellersreports') renderableContent = <Topsellersandworstsellersreports />
+  else if (selectKey === 'analytics_products_analyticstrendingprofitability') renderableContent = <Analyticstrendingprofitability />
+  else if (selectKey === 'analytics_dashboard_opportunitiesfoundbyextensivordermanagery') renderableContent = <Opportunitiesfoundbyextensivordermanager />
+  else if (selectKey === 'analytics_inventory_analyticsinventoryreplenishmentalerts') renderableContent = <Analyticsinventoryreplenishmentalerts />
+  else if (selectKey === 'analytics_inventory_analyticssnapshotinventoryvalue') renderableContent = <Analyticssnapshotinventoryvalue />
+  else if (selectKey === 'analytics_inventory_analyticstrendinginventoryvalue') renderableContent = <Analyticstrendinginventoryvalue />
+  else if (selectKey === 'analytics_inventory_analyticscriticalinventorylevels') renderableContent = <Analyticscriticalinventorylevels />
+  else if (selectKey === 'analytics_inventory_analyticsinventoryaging') renderableContent = <Analyticsinventoryaging />
   else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
   else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
   else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
   else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
-  else if (selectKey === 'orders_cancelorders') renderableContent = <Cancelorders />;
-  else if (selectKey === 'orders_general') renderableContent = <Orders />;
-
+  
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
@@ -369,7 +421,7 @@ const Help: React.FC = () => {
                     ]
                   },
                   {
-                    key: '',
+                    key: 'products_import',
                     icon: <AccountingIcon />,
                     label: 'How to Import',
                     children: [
@@ -397,11 +449,32 @@ const Help: React.FC = () => {
                     ]
                   },
                   {
-                    key: 'products_exportproducts',
+                    key: 'products_export',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/exportproducts">How to Export Products</Link>
-                    ),
+                    label: 'How to Export',
+                    children: [
+                      {
+                        key: 'products_exportproducts',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/exportproducts">Export Products</Link>
+                        ),
+                      },
+                      {
+                        key: 'products_exportvendorproducts',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/exportvendorproducts">Export Vendor Products</Link>
+                        ),
+                      },
+                      {
+                        key: 'products_exportcustombundlekit',
+                        icon: <AccountingIcon />,
+                        label: (
+                          <Link to="/help/products/exportcustombundlekit">Export Custom Bundle/Kit</Link>
+                        ),
+                      },
+                    ]
                   },
                   {
                     key: 'products_searchproducts',
@@ -426,6 +499,41 @@ const Help: React.FC = () => {
                 children: [
                   {
                     key: 'sub83',
+                    icon: <SalesIcon />,
+                    label: 'General',
+                    children: [
+                      {
+                        key: 'analytics_general_theanalyticsmodules',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/general/theanalyticsmodules">The Analytics Module's Landing Page</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_general_analyticsreports',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/general/analyticsreports">Analytics Reports</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_general_printingchartsfromanalytics',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/general/printingchartsfromanalytics">Printing Charts from Analytics</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_general_exportingreports',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/general/exportingreports">Exporting Reports</Link>
+                        ),
+                      },
+                    ],
+                  },
+                  {
+                    key: 'sub84',
                     icon: <OrdersIcon />,
                     label: 'Orders',
                     children: [
@@ -436,10 +544,31 @@ const Help: React.FC = () => {
                           <Link to="/help/analytics/orders/historicalsexports">Historical Exports</Link>
                         ),
                       },
+                      {
+                        key: 'analytics_orders_salesoverview',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/orders/salesoverview">Sales Overview</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_orders_biggesttickets',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/orders/biggesttickets">Biggest Tickets</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_orders_shipments',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/orders/shipments">Shipments</Link>
+                        ),
+                      },
                     ],
                   },
                   {
-                    key: 'sub83',
+                    key: 'sub85',
                     icon: <OrdersIcon />,
                     label: 'Purchase Orders',
                     children: [
@@ -448,6 +577,104 @@ const Help: React.FC = () => {
                         icon: <SalesIcon />,
                         label: (
                           <Link to="/help/analytics/purchaseorders/historicalexports">Historical Exports</Link>
+                        ),
+                      },
+                    ],
+                  },
+                  {
+                    key: 'sub86',
+                    icon: <OrdersIcon />,
+                    label: 'Products',
+                    children: [
+                      {
+                        key: 'analytics_products_analyticsskuprofitability',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/products/analyticsskuprofitability">Analytics - SKU Profitability</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_products_yoygrowth',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/products/yoygrowth">Y-O-Y Growth</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_products_analyticslistingprofitability',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/products/analyticslistingprofitability">Analytics - Listing Profitability</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_products_topsellersandworstsellersreports',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/products/topsellersandworstsellersreports">Top Sellers & Worst Sellers Reports</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_products_analyticstrendingprofitability',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/products/analyticstrendingprofitability">Analytics - Trending Profitability</Link>
+                        ),
+                      },
+                    ],
+                  },
+                  {
+                    key: 'sub87',
+                    icon: <OrdersIcon />,
+                    label: 'Dashboard',
+                    children: [
+                      {
+                        key: 'analytics_dashboard_opportunitiesfoundbyextensivordermanagery',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/dashboard/opportunitiesfoundbyextensivordermanager">Opportunities Found by Extensiv Order Manager</Link>
+                        ),
+                      },
+                    ],
+                  },
+                  {
+                    key: 'sub88',
+                    icon: <OrdersIcon />,
+                    label: 'Inventory',
+                    children: [
+                      {
+                        key: 'analytics_inventory_analyticsinventoryreplenishmentalerts',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/inventory/analyticsinventoryreplenishmentalerts">Analytics - Inventory Replenishment Alerts</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_inventory_analyticssnapshotinventoryvalue',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/inventory/analyticssnapshotinventoryvalue">Analytics - Snapshot Inventory Value</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_inventory_analyticstrendinginventoryvalue',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/inventory/analyticstrendinginventoryvalue">Analytics - Trending Inventory Value</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_inventory_analyticscriticalinventorylevels',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/inventory/analyticscriticalinventorylevels">Analytics - Critical Inventory Levels</Link>
+                        ),
+                      },
+                      {
+                        key: 'analytics_inventory_analyticsinventoryaging',
+                        icon: <SalesIcon />,
+                        label: (
+                          <Link to="/help/analytics/inventory/analyticsinventoryaging">Analytics - Inventory Aging</Link>
                         ),
                       },
                     ],
