@@ -52,7 +52,7 @@ import VectorIcon from '@/utils/icons/vector';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import SidePanel from './components/SidePanel/sidePanel';
+import SidePanel from './components/LeftPanel/sidePanel';
 import styles from './index.less';
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 
