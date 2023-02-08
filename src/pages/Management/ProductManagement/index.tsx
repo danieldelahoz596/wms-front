@@ -6,17 +6,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import {
-  Button,
-  Card,
-  Dropdown,
-  Popconfirm,
-  Row,
-  Select,
-  Space,
-  Table,
-  message,
-} from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';

@@ -1,53 +1,59 @@
 import { OButton } from '@/components/Globals/OButton';
 import ConfigureFieldTypes from '@/components/Modals/Order/ConfigFieldTypes';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Button, Checkbox, Col, Row, Select } from 'antd';
-import { useMemo, useState } from 'react';
+import { Button, Col, Row, Select } from 'antd';
+import { useEffect, useMemo, useState } from 'react';
 
-const ManageCustomFields: React.FC = () => {
+const TColumns = [
+  {
+    key: 'name',
+    dataIndex: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'value',
+    dataIndex: 'value',
+    title: 'Value',
+    align: 'center',
+    editable: true,
+  },
+  {
+    key: 'show_on_grid',
+    title: 'Show On Grid',
+    dataIndex: 'show_on_grid',
+    align: 'right',
+    render: (show_on_grid) => (show_on_grid ? <CheckOutlined /> : <CloseOutlined />),
+  },
+];
+
+const OrderCustomFields: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const { editableOrder } = useModel('order');
   const { fieldTypes, customFields, setCustomFields } = useModel('customOrderFields');
 
-  const TColumns = [
-    {
-      key: 'name',
-      dataIndex: 'name',
-      title: 'Name',
-    },
-    {
-      key: 'value',
-      dataIndex: 'value',
-      title: 'Value',
-      align: 'center',
-      editable: true,
-    },
-    {
-      key: 'show_on_grid',
-      title: 'Show On Grid',
-      dataIndex: 'show_on_grid',
-      align: 'right',
-      render: (show_on_grid, record) => (
-        <Checkbox
-          checked={show_on_grid}
-          onClick={() => {
-            setCustomFields(
-              customFields.map((field) =>
-                field.id === record.id ? { ...field, show_on_grid: !field.show_on_grid } : field,
-              ),
-            );
-          }}
-        />
-      ),
-    },
-  ];
+  useEffect(() => {
+    if (!editableOrder) setCustomFields([]);
+    else setCustomFields(editableOrder.custom_fields);
+  }, [editableOrder, fieldTypes, setCustomFields]);
 
   const FieldSelectOptions = useMemo(() => {
-    const ids = customFields.map((field) => field.id);
+    const ids = customFields.map((field) => field.field_id);
     return fieldTypes
       .filter((type) => !ids.includes(type.id) && type.active)
       .map((field) => ({ label: field.name, value: field.id }));
   }, [fieldTypes, customFields]);
+
+  const customFieldsTableRows = useMemo(
+    () =>
+      customFields.map((field) => ({
+        key: field.field_id,
+        value: field.value,
+        ...fieldTypes.find((item) => item.id === field.field_id),
+      })),
+    [customFields, fieldTypes],
+  );
 
   return (
     <>
@@ -69,7 +75,10 @@ const ManageCustomFields: React.FC = () => {
               const addedFieldType = fieldTypes.find((fieldType) => fieldType.id === value);
               setCustomFields([
                 ...customFields,
-                { ...addedFieldType, value: 'Any value you want', key: addedFieldType.id },
+                {
+                  field_id: addedFieldType.id,
+                  value: 'Any value you want',
+                },
               ]);
             }}
           />
@@ -86,13 +95,15 @@ const ManageCustomFields: React.FC = () => {
 
       <EditableTable
         columns={TColumns}
-        dataSource={customFields}
+        dataSource={customFieldsTableRows}
         props={{
           style: { marginTop: 10, height: 400 },
         }}
         handleSave={(index, name, value) => {
           setCustomFields(
-            customFields.map((field) => (field.id === index ? { ...field, [name]: value } : field)),
+            customFields.map((field) =>
+              field.field_id === index ? { ...field, [name]: value } : field,
+            ),
           );
         }}
       />
@@ -106,4 +117,4 @@ const ManageCustomFields: React.FC = () => {
   );
 };
 
-export default ManageCustomFields;
+export default OrderCustomFields;

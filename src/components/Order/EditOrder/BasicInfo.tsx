@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 const BasicInfo: React.FC = () => {
   const { editableOrder } = useModel('order');
   const [form] = Form.useForm();
-  console.log('editableOrder: ', editableOrder);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -29,7 +28,7 @@ const BasicInfo: React.FC = () => {
               <Input />
             </Form.Item>
             <Form.Item label="Labels" name="labels" labelCol={{ span: 6 }}>
-              <Select size="small"/>
+              <Select size="small" />
             </Form.Item>
             <Form.Item label="Order Date" name="order_date" labelCol={{ span: 6 }}>
               <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />

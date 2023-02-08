@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { Badge, Button, Card, Col, Dropdown, Modal, Row, Space } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
 
 import type { IOButton } from '@/components/Globals/OButton';
@@ -131,7 +131,7 @@ const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
   const { userList, getUsers } = useModel('user');
-  const { customFields } = useModel('customOrderFields');
+  const { fieldTypes } = useModel('customOrderFields');
   const { selectedOrderStatus } = useModel('orderStatus');
   const { initialState } = useModel('@@initialState');
   const { getShipmentImportExportSummary } = useModel('exportSummary');
@@ -139,21 +139,27 @@ const OrderManagement: React.FC = () => {
   const [showChooseColumn, setShowChooseColumn] = useState(true);
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
 
-  const handleProductEdit = (item: any) => {
-    setEditableOrder(item);
-    setModal(modalType.EditOrder);
-  };
-
   useEffect(() => {
     getUsers({ permission: 'orders' });
   }, [getUsers]);
 
-  const handleSelectedRows = (_selectedRows = []) => {
-    setSelectedRows(_selectedRows);
-    const _selectedOrders = orderList.filter((item) => _selectedRows.includes(item.id));
-    setSelectedOrders(_selectedOrders);
-    setEditableOrder(_selectedOrders[0]);
-  };
+  const handleProductEdit = useCallback(
+    (item: any) => {
+      setEditableOrder(item);
+      setModal(modalType.EditOrder);
+    },
+    [setEditableOrder, setModal],
+  );
+
+  const handleSelectedRows = useCallback(
+    (_selectedRows = []) => {
+      setSelectedRows(_selectedRows);
+      const _selectedOrders = orderList.filter((item) => _selectedRows.includes(item.id));
+      setSelectedOrders(_selectedOrders);
+      setEditableOrder(_selectedOrders[0]);
+    },
+    [orderList, setSelectedRows, setSelectedOrders, setEditableOrder],
+  );
 
   const {
     isDragging: isBottomDragging,
@@ -434,70 +440,76 @@ const OrderManagement: React.FC = () => {
       showColumns.includes(item.title),
     );
 
-    const customColumns = customFields
-      .filter((customField) => customField.show_on_grid)
-      .map((customField) => ({
-        title: customField.name,
-        key: customField.name,
-        render: () => <>{customField.value}</>,
+    const customColumns = fieldTypes
+      .filter((field) => field.show_on_grid && field.active)
+      .map((field) => ({
+        key: field.name,
+        dataIndex: field.id,
+        title: field.name,
       }));
 
     return [...staticColumns, ...customColumns];
-  }, [showColumns, customFields]);
+  }, [showColumns, fieldTypes]);
 
   // prepare order list table rows
-  const orderTableRows = orderList.map((item) => {
-    return {
-      ...item,
-      key: item.id,
-      channel: (
-        <span>
-          <img src={item.sales_channel.icon} />
-          <span>{item.sales_channel.name}</span>
-        </span>
-      ),
-      orderTotal: `$${item.orderTotal}`,
-      order_number: (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-            handleProductEdit(item);
-          }}
-        >
-          <FileOutlined />{' '}
-          <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
-            {item.order_number}
-          </span>
-        </div>
-      ),
-      notes: (
-        <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
-          <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-          <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-          <MessageOutlined
-            style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
-          />
-        </div>
-      ),
-      order_date: moment(item.order_date).format('Y-M-D'),
-      order_paid: moment(item.order_paid).format('Y-M-D'),
-      age: (
-        <span
-          style={{
-            color: item.age?.search('d') < 0 ? 'green' : 'red',
-          }}
-        >
-          {item.age}
-        </span>
-      ),
-      recipient: (
-        <div>
-          <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
-          {item.recipient.name}
-        </div>
-      ),
-    };
-  });
+  const orderTableRows = useMemo(
+    () =>
+      orderList.map((item) => {
+        item.custom_fields.forEach((field) => (item[field.field_id] = field.value));
+
+        return {
+          ...item,
+          key: item.id,
+          channel: (
+            <span>
+              <img src={item.sales_channel.icon} />
+              <span>{item.sales_channel.name}</span>
+            </span>
+          ),
+          orderTotal: `$${item.orderTotal}`,
+          order_number: (
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                handleProductEdit(item);
+              }}
+            >
+              <FileOutlined />{' '}
+              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
+                {item.order_number}
+              </span>
+            </div>
+          ),
+          notes: (
+            <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
+              <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+              <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+              <MessageOutlined
+                style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
+              />
+            </div>
+          ),
+          order_date: moment(item.order_date).format('Y-M-D'),
+          order_paid: moment(item.order_paid).format('Y-M-D'),
+          age: (
+            <span
+              style={{
+                color: item.age?.search('d') < 0 ? 'green' : 'red',
+              }}
+            >
+              {item.age}
+            </span>
+          ),
+          recipient: (
+            <div>
+              <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
+              {item.recipient.name}
+            </div>
+          ),
+        };
+      }),
+    [orderList, handleProductEdit],
+  );
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
