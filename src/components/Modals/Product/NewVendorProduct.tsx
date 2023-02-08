@@ -11,23 +11,15 @@ import { useModel } from 'umi';
 interface INewVendorProduct {
   isOpen: boolean;
   onClose: () => void;
-  onSave: () => void;
-  vendorProductList: any[];
-  setVendorProductList: (newVendorProduct: any) => void;
-  selectedItemKey: string;
-  setSelectedItemkey: (key: any) => void;
-  type: string;
+  onSave: (item: any) => void;
+  initialVendorProduct: any;
 }
 
 const NewVendorProduct: React.FC<INewVendorProduct> = ({
   isOpen,
   onClose,
   onSave,
-  vendorProductList,
-  setVendorProductList,
-  selectedItemKey,
-  setSelectedItemkey,
-  type,
+  initialVendorProduct,
 }) => {
   const { initialState } = useModel('@@initialState');
 
@@ -38,6 +30,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
     leadTime: 0,
     autoPoRounding: '',
     packaging: '',
+    active: true,
   });
   const [pricingTiers, setPricingTigers] = useState({
     from: '',
@@ -92,21 +85,21 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   };
 
   const handleSave = () => {
-    if (type === 'add')
-      setVendorProductList([...vendorProductList, { ...newVendorProduct, key: uuidv4() }]);
-    else if (type === 'edit') {
-      setVendorProductList(
-        vendorProductList.map((_item) =>
-          _item.key === selectedItemKey ? newVendorProduct : _item,
-        ),
-      );
-      setSelectedItemkey(null);
-    }
-    onSave();
+    onSave({
+      ...newVendorProduct,
+      pricingTiers: pricingTiersDataRows,
+      unitsOfMeasure: unitMeasureDataRows,
+    });
   };
 
   useEffect(() => {
-    if (type === 'add')
+    setPricingTigers({
+      from: '',
+      to: '',
+      cost: 0,
+    });
+
+    if (!initialVendorProduct) {
       setNewVendorProduct({
         vendor: '',
         vendorSku: '',
@@ -114,10 +107,14 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
         leadTime: 0,
         autoPoRounding: '',
         packaging: '',
+        active: true,
       });
-    else if (type === 'edit') {
-      const selecetedItem = vendorProductList.find((_item) => _item.key === selectedItemKey);
-      setNewVendorProduct({ ...selecetedItem });
+      setPricingTiersDataRows([]);
+      setUnitMeasureDataRows([]);
+    } else {
+      setNewVendorProduct(initialVendorProduct);
+      setPricingTiersDataRows(initialVendorProduct.pricingTiers);
+      setUnitMeasureDataRows(initialVendorProduct.unitsOfMeasure);
     }
   }, [isOpen]);
 
@@ -289,18 +286,10 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       ),
     },
   ];
-  // rows: [
-  //   {
-  //     key: uuidv4(),
-  //     name: 'carton',
-  //     unitQty: '100',
-  //     action: <CloseOutlined style={{ color: 'blue' }} />,
-  //   },
-  // ],
 
   return (
     <OModal
-      title={selectedItemKey ? 'Edit Vendor Product' : 'New Vendor Product'}
+      title={!!initialVendorProduct ? 'Edit Vendor Product' : 'New Vendor Product'}
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}
