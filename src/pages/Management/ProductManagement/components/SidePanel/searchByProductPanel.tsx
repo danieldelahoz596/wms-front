@@ -100,10 +100,10 @@ const SearchByProductPanel: React.FC = () => {
       })}
       <Row justify="space-between">
         <Col>
-          <Button type="primary">Clear</Button>
+          <Button>Clear</Button>
         </Col>
         <Col>
-          <Button type="primary">Search</Button>
+          <Button>Search</Button>
         </Col>
       </Row>
     </Form>

@@ -195,7 +195,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
               </Col>
               <Col span={4}>
                 <Form.Item>
-                  <Button type="primary">Generate Export</Button>
+                  <Button>Generate Export</Button>
                 </Form.Item>
               </Col>
             </Row>

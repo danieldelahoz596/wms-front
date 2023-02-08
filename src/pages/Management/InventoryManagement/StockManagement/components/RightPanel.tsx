@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType } from '@/utils/helpers/types';
-import { Button, Card, Row, Col, Descriptions, Dropdown, Collapse } from 'antd';
-import { stock_data } from './structure';
 import {
   DownOutlined,
   QuestionCircleTwoTone,
   SnippetsTwoTone,
-  ToolTwoTone,
+  ToolTwoTone
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Button, Card, Col, Collapse, Descriptions, Dropdown, Row, Space } from 'antd';
+import { useState } from 'react';
+import { stock_data } from './structure';
 
 const StockDetails = () => {
   const [modal, setModal] = useState('');
@@ -49,7 +50,7 @@ const StockDetails = () => {
   return (
     <Row style={{ width: '100%' }}>
       <Col span={24}>
-        <div style={{ fontSize: '20px', marginLeft: '10px' }}>Stock Details</div>
+        <h2 style={{ marginLeft: '10px' }}>Stock Details</h2>
       </Col>
       <Col span={24}>
         <Collapse>
@@ -203,10 +204,8 @@ const StockDetails = () => {
                         selectedRows={selectedLocation}
                         setSelectedRows={setSelectedLocation}
                       />
-                      <Row gutter={[20, 10]} justify="space-between">
-                        <Button type="dashed" style={{ marginRight: '4px' }}>
-                          New Stock
-                        </Button>
+                      <Space size={4}>
+                        <OButton btnText={'New Stock'}/>
                         <Dropdown
                           disabled={selectedLocation.length === 0}
                           menu={{
@@ -276,15 +275,15 @@ const StockDetails = () => {
                             ],
                           }}
                         >
-                          <Button type="dashed" style={{ marginRight: '4px' }}>
-                            Edit <DownOutlined />
+                          <Button size="small">
+                            <Space>
+                              Edit <DownOutlined />
+                            </Space>
                           </Button>
                         </Dropdown>
-                        <Button type="dashed" style={{ marginRight: '4px' }}>
-                          Inv. Val. Hist.
-                        </Button>
-                        <Button type="dashed">Show Inactive</Button>
-                      </Row>
+                        <OButton btnText={'Inv. Val. Hist.'} />
+                        <OButton btnText={'Show Inactive'} />
+                      </Space>
                     </Card>
                   </Col>
                 </Row>

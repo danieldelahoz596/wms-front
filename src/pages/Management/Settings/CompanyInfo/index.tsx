@@ -259,7 +259,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button type="primary" htmlType="submit">
+              <Button htmlType="submit">
                 Update
               </Button>
             </Row>
@@ -304,7 +304,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button type="primary" htmlType="submit">
+              <Button htmlType="submit">
                 Update
               </Button>
             </Row>
@@ -347,7 +347,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button type="primary" htmlType="submit">
+              <Button htmlType="submit">
                 Update
               </Button>
             </Row>
@@ -390,7 +390,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button type="primary" htmlType="submit">
+              <Button htmlType="submit">
                 Update
               </Button>
             </Row>

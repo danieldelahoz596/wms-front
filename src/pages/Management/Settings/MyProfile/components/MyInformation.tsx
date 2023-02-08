@@ -78,7 +78,7 @@ const MyInformation: React.FC = () => {
           </Form.Item>
 
           <Row justify="end">
-            <Button type="primary" onClick={handleUpdate}>
+            <Button onClick={handleUpdate}>
               <FormattedMessage id="app.settings.basic.update" />
             </Button>
           </Row>

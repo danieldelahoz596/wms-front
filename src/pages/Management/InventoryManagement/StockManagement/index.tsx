@@ -203,25 +203,13 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
           <Col span={16}>
             <Space size={5} align="center">
               <SelectDropdown
-                options={warehouseList.map((warehouse) => ({
+                options={initialState?.initialData?.warehouses.map((warehouse) => ({
                   value: warehouse.id,
                   label: warehouse.name,
                 }))}
                 size="small"
                 style={{ width: '250px' }}
               />
-              <OInput
-                type="select"
-                name="warehouse"
-                onChange={handleChangeWarehouse}
-                value={warehouse}
-                options={initialState?.initialData?.warehouses.map((_item) => ({
-                  value: _item.id,
-                  text: _item.name,
-                }))}
-                style={{ width: '200px' }}
-              />
-
               <OInput
                 type="select"
                 name="status"
@@ -312,7 +300,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 ],
               }}
             >
-              <Button type="primary" size="small">
+              <Button size="small">
                 <Space>
                   Bulk Edit <DownOutlined />
                 </Space>
@@ -350,6 +338,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
+                    type: 'divider',
+                  },
+                  {
                     key: '4',
                     label: (
                       <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
@@ -379,7 +370,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 ],
               }}
             >
-              <Button type="primary" size="small">
+              <Button size="small">
                 <Space>
                   Import/Export <DownOutlined />
                 </Space>

@@ -338,7 +338,7 @@ const ProductManagement: React.FC = () => {
                     }}
                     value={showActivate ? 'active' : 'inactive'}
                   />
-                  <Button icon={<RetweetOutlined />} type="primary" />
+                  <Button icon={<RetweetOutlined />} />
                 </div>
               </Row>
               <Card style={{ width: '100%' }}>
@@ -412,7 +412,7 @@ const ProductManagement: React.FC = () => {
                   />
                   <OButton btnText={'New Product'} onClick={() => setModal(modalType.Variation)} />
                   <Dropdown menu={{ items: importExportMenuItems }}>
-                    <Button type="primary" size="small">
+                    <Button size="small">
                       <Space>
                         Import/Export <DownOutlined />
                       </Space>

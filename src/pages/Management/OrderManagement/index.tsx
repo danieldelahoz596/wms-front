@@ -22,7 +22,8 @@ import {
   GlobalOutlined,
   MessageOutlined,
   MinusCircleOutlined,
-  PlusCircleOutlined, RetweetOutlined,
+  PlusCircleOutlined,
+  RetweetOutlined,
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
@@ -244,7 +245,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="primary" size="small">
+          <Button size="small">
             <Space>
               Print <DownOutlined />
             </Space>
@@ -261,7 +262,7 @@ const OrderManagement: React.FC = () => {
             items: [],
           }}
         >
-          <Button type="primary" size="small">
+          <Button size="small">
             <Space>
               Label <DownOutlined />
             </Space>
@@ -330,7 +331,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="primary" size="small">
+          <Button size="small">
             <Space>
               Edit <DownOutlined />
             </Space>
@@ -372,7 +373,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="primary" size="small">
+          <Button size="small">
             <Space>
               New Order <DownOutlined />
             </Space>
@@ -416,7 +417,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="primary" size="small">
+          <Button size="small">
             <Space>
               Import/Export <DownOutlined />
             </Space>
@@ -527,7 +528,7 @@ const OrderManagement: React.FC = () => {
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
                   {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
-                  <Button type="primary" style={{ paddingTop: '0', paddingBottom: '0' }}>
+                  <Button style={{ paddingTop: '0', paddingBottom: '0' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <span>
                         {' '}
@@ -558,16 +559,18 @@ const OrderManagement: React.FC = () => {
                     style={{ position: 'absolute', bottom: 20 }}
                     hidden={!showChooseColumn}
                   >
-                    <Button type="primary" icon={<RetweetOutlined style={{ color: 'gray' }} />} />
-                    <Button
-                      type="primary"
-                      icon={<BorderHorizontalOutlined style={{ color: 'gray' }} />}
+                    <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
+                    <OButton
+                      icon={<BorderHorizontalOutlined />}
+                      btnText={''}
                       onClick={() => setModal(modalType.SelectOrderColumns)}
+                      style={{ color: 'gray' }}
                     />
-                    <Button
-                      type="primary"
-                      icon={<CloseOutlined style={{ color: 'gray' }} />}
+                    <OButton
+                      icon={<CloseOutlined />}
+                      btnText={''}
                       onClick={() => setShowChooseColumn(false)}
+                      style={{ color: 'gray' }}
                     />
                   </div>
                 </Col>

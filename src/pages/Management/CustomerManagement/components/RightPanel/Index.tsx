@@ -51,7 +51,7 @@ export default function index() {
                 <Input />
               </Form.Item>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button htmlType="submit">
                   Update
                 </Button>{' '}
                 <OButton btnText={'Delete'} onClick={handleDeleteCustomer} />

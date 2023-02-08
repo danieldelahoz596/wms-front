@@ -97,7 +97,7 @@ const SideSearch: React.FC = () => {
         </Form.Item>
       ))}
 
-      <Button type="primary">Search</Button>
+      <Button>Search</Button>
     </Form>
   );
 };

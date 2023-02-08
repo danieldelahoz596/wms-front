@@ -10,6 +10,7 @@ export interface IOButton {
   size?: any;
   className?: string;
   bordered?: boolean;
+  icon?: object;
 }
 
 export const OButton: React.FC<IOButton> = ({
@@ -22,6 +23,7 @@ export const OButton: React.FC<IOButton> = ({
   size="small",
   className,
   bordered,
+  icon,
 }) => {
   return hidden ? null : typeof btnText === 'string' ? (
     <Button
@@ -35,6 +37,7 @@ export const OButton: React.FC<IOButton> = ({
       }}
       disabled={disabled}
       className={className}
+      icon={icon}
     >
       {btnText}
     </Button>

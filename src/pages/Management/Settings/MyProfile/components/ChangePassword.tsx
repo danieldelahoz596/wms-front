@@ -119,7 +119,7 @@ const ChanagePassword: React.FC = () => {
           </Form.Item>
 
           <Row justify="end">
-            <Button type="primary" htmlType="submit" onClick={handleChangePassword}>
+            <Button htmlType="submit" onClick={handleChangePassword}>
               <FormattedMessage id="app.settings.profile.change-password.title" />
             </Button>
           </Row>

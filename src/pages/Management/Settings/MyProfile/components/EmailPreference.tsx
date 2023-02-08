@@ -41,7 +41,7 @@ const EmailPreference: React.FC = () => {
       </Row>
 
       <Row justify="end">
-        <Button type="primary" htmlType="submit">
+        <Button htmlType="submit">
           <FormattedMessage id="app.settings.profile.email-preference.update-preferences" />
         </Button>
       </Row>
