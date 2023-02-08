@@ -36,7 +36,7 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
           key: 'submit',
           type: 'primary',
           btnLabel: 'Continue',
-          onClick: () => onSave(modalType.ImportVendorProductsSummary),
+          onClick: () => onSave(modalType.ImportExportSummary),
         },
       ]}
     >

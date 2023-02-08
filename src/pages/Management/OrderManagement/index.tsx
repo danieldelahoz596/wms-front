@@ -22,11 +22,12 @@ import {
   GlobalOutlined,
   MessageOutlined,
   MinusCircleOutlined,
-  PlusCircleOutlined, RetweetOutlined,
+  PlusCircleOutlined,
+  RetweetOutlined,
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
@@ -133,6 +134,7 @@ const OrderManagement: React.FC = () => {
   const { customFields } = useModel('customOrderFields');
   const { selectedOrderStatus } = useModel('orderStatus');
   const { initialState } = useModel('@@initialState');
+  const { getShipmentImportExportSummary } = useModel('exportSummary');
   const [modalOpen, setModal] = useState('');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
@@ -602,6 +604,7 @@ const OrderManagement: React.FC = () => {
       <ImportExportSummaryModal
         title="External Shipment Import"
         info="TEST Shipment Import Report"
+        getImportExportSummary={getShipmentImportExportSummary}
         isOpen={modalOpen === modalType.ImportExportSummary}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}

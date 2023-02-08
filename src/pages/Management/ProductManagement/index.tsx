@@ -7,22 +7,11 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import {
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  MenuProps,
-  Popconfirm,
-  Row,
-  Select,
-  Space,
-  Switch,
-  Table
-} from 'antd';
+import { Button, Card, Col, Dropdown, Popconfirm, Row, Select, Space, Switch, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
+import type { MenuProps } from 'rc-menu';
 
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
@@ -35,7 +24,6 @@ import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
 import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
-import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
@@ -54,6 +42,7 @@ import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
 import SidePanel from './components/SidePanel/sidePanel';
 import styles from './index.less';
+import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -68,6 +57,7 @@ const ProductManagement: React.FC = () => {
     handleUpdateProduct,
   } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
+  const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [showProductDetailType, setShowProductDetailType] = useState(null);
 
   const handleProductSelectedRows = (_selectedRows = []) => {
@@ -657,14 +647,6 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportVendorProductsSummary
-        isOpen={modalOpen == modalType.ImportVendorProductsSummary}
-        title={'Vendor Product Import By Vendor'}
-        info={'Vendor SKU Import Summary'}
-        onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
-      />
-
       <ImportSKUAdjustment
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
         onSave={() => {}}
@@ -673,6 +655,15 @@ const ProductManagement: React.FC = () => {
 
       <ImportCustomFieldsModal
         isOpen={modalOpen == modalType.ImportCustomFields}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ImportExportSummaryModal
+        title="Vendor Product Import By Vendor"
+        info="Vendor SKU Import Summary"
+        getImportExportSummary={getVendorProductImportExportSummary}
+        isOpen={modalOpen === modalType.ImportExportSummary}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />

@@ -19,7 +19,6 @@ export enum modalType {
   ImportVendorProducts = 'ImportVendorProducts',
   ImportVendorProductsByVendor = 'ImportVendorProductsByVendor',
   ImportVendorProductsAll = 'ImportVendorProductsAll',
-  ImportVendorProductsSummary = 'ImportVendorProductsSummary',
   ImportCustomFields = 'ImportCustomFields',
   ExportVendorProducts = 'ExportVendorProducts',
   NewVendorProduct = 'NewVendorProduct',

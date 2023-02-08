@@ -1,50 +1,56 @@
 import { OModal } from '@/components/Globals/OModal';
-import { OTable } from '@/components/Globals/OTable';
 import { CheckCircleOutlined, PlusCircleOutlined, WarningOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Space, Table } from 'antd';
+import { useEffect } from 'react';
 
 interface IImportExportSummary {
   title: string;
   info: string;
   isOpen: boolean;
+  getImportExportSummary: () => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportExportSummary: React.FC<IImportExportSummary> = ({ title, info, isOpen, onClose, onSave }) => {
+const TColumns = [
+  {
+    key: 'id',
+    dataIndex: 'id',
+    title: '',
+  },
+  {
+    key: 'row',
+    dataIndex: 'row',
+    title: 'Row',
+  },
+  {
+    key: 'error_log',
+    dataIndex: 'error_log',
+    title: 'Error Log',
+  },
+  {
+    key: 'error_level',
+    dataIndex: 'error_level',
+    title: 'Error Level',
+  },
+];
+
+const ImportExportSummary: React.FC<IImportExportSummary> = ({
+  title,
+  info,
+  getImportExportSummary,
+  isOpen,
+  onClose,
+  onSave,
+}) => {
+  const { summary } = useModel('exportSummary');
+
+  useEffect(() => {
+    getImportExportSummary();
+  }, [getImportExportSummary, isOpen]);
+
   const handleSave = () => onSave();
-
-  const errorState = {
-    newSkuCreated: 0,
-    existingSkuUpdated: 0,
-    errorsInExcelFile: 2,
-    logs: {
-      columns: [
-        {
-          key: 'sl',
-          dataIndex: 'sl',
-          title: '',
-        },
-        {
-          key: 'errorLog',
-          dataIndex: 'errorLog',
-          title: 'Error Log',
-        },
-      ],
-
-      rows: [
-        {
-          sl: '1',
-          errorLog:
-            'SKU not processed at row 2 :: The Listing SKU has already been asigned to another product. The val...',
-        },
-        {
-          sl: '2',
-          errorLog:
-            'SKU not processed at row 3 :: The Listing SKU has already been asigned to another product. The val...',
-        },
-      ],
-    },
-  };
 
   return (
     <OModal
@@ -60,15 +66,15 @@ const ImportExportSummary: React.FC<IImportExportSummary> = ({ title, info, isOp
           onClick: onClose,
         },
         {
-          key: 'submit',
+          key: 'email_sumbit',
           type: 'primary',
           btnLabel: 'EMAIL SUMMARY & FINISH',
           onClick: handleSave,
         },
         {
-          key: 'submit',
+          key: 'done',
           type: 'primary',
-          btnLabel: 'Continue',
+          btnLabel: 'Done',
           onClick: handleSave,
         },
       ]}
@@ -87,22 +93,30 @@ const ImportExportSummary: React.FC<IImportExportSummary> = ({ title, info, isOp
             border: '1px solid rgb(255 233 163)',
           }}
         >
-          <div>
-            <PlusCircleOutlined style={{ color: 'blue' }} /> New SKUs Created:{' '}
-            {errorState.newSkuCreated}
-          </div>
-          <div>
-            {' '}
-            | <CheckCircleOutlined style={{ color: 'blue' }} /> Existing SKU Updated:{' '}
-            {errorState.existingSkuUpdated}
-          </div>
-          <div>
-            {' '}
-            | <WarningOutlined style={{ color: 'blue' }} /> Errors In ExcelFile:{' '}
-            {errorState.errorsInExcelFile}
-          </div>
+          <Space size={10}>
+            <div>
+              <PlusCircleOutlined style={{ color: 'blue' }} />
+              {` New SKUs Created: ${summary?.new_sku_created}`}
+            </div>
+            <div>
+              | <CheckCircleOutlined style={{ color: 'blue' }} />
+              {` Existing SKU Updated: ${summary?.existing_sku_updated}`}
+            </div>
+            <div>
+              | <WarningOutlined style={{ color: 'blue' }} />
+              {` Errors In ExcelFile: ${summary?.errors_count}`}
+            </div>
+          </Space>
         </div>
-        <OTable columns={errorState.logs.columns} rows={errorState.logs.rows} pagination={false} />
+        <Table
+          columns={TColumns}
+          dataSource={summary?.logs.map((log, index) => ({
+            ...log,
+            key: index + 1,
+            id: index + 1,
+          }))}
+          pagination={{ hideOnSinglePage: true }}
+        />
       </>
     </OModal>
   );
