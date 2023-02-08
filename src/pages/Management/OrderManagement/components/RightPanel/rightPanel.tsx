@@ -1,10 +1,9 @@
-import { Alert, Card, Form } from 'antd';
-import type { FC } from 'react';
-import { Tabs } from 'antd';
 import { OButton } from '@/components/Globals/OButton';
-import Method from './method';
-import { useModel } from '@umijs/max';
 import { OInput } from '@/components/Globals/OInput';
+import { useModel } from '@umijs/max';
+import { Alert, Card, Form, Tabs } from 'antd';
+import type { FC } from 'react';
+import Method from './method';
 
 const RightPanel: FC = () => {
   const { selectedOrders } = useModel('order');
@@ -62,9 +61,9 @@ const RightPanel: FC = () => {
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
-              <b style={strongStyle}>{selectedOrders?.length} orders</b> selected
-              requesting <b style={strongStyle}>STANDARD</b> from{' '}
-              <b style={strongStyle}>2</b> different countries.
+              <b style={strongStyle}>{selectedOrders?.length} orders</b> selected requesting{' '}
+              <b style={strongStyle}>STANDARD</b> from <b style={strongStyle}>2</b> different
+              countries.
             </div>
           }
           type="info"
@@ -86,7 +85,7 @@ const RightPanel: FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <label>Fulfillment</label>
+              <span>Fulfillment</span>
               <OInput
                 type="select"
                 name="fulfillment"
@@ -98,7 +97,7 @@ const RightPanel: FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <label>Source</label>
+              <span>Source</span>
               <OInput
                 type="select"
                 name="source"
@@ -110,9 +109,8 @@ const RightPanel: FC = () => {
             </Form.Item>
             <Form.Item>
               <OButton
-                type="primary"
                 htmlType="submit"
-                btnText={'UPDATE SELECTED ORDERS'}
+                btnText={'Update Selected Orders'}
                 style={{ width: '100%' }}
               />
             </Form.Item>

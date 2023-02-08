@@ -95,61 +95,11 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Col span={4}>State/Zip</Col>
                 <Col span={10}>
                   <Select
+                    size="small"
                     style={{ width: '100%' }}
                     onChange={(value) => handleInputChange('state', value)}
-                  >
-                    <Option value="State 1">Alabama</Option>
-                    <Option value="State 2">Alabama</Option>
-                    <Option value="State 3">Alaska</Option>
-                    <Option value="">Alabama</Option>
-                    <Option value="">Alaska</Option>
-                    <Option value="">Arizona</Option>
-                    <Option value="">Arkansas</Option>
-                    <Option value="">California</Option>
-                    <Option value="">Colorado</Option>
-                    <Option value="">Connecticut</Option>
-                    <Option value="">Delaware</Option>
-                    <Option value="">Florida</Option>
-                    <Option value="">Georgia</Option>
-                    <Option value="">Hawaii</Option>
-                    <Option value="">Idaho</Option>
-                    <Option value="">IllinoisIndiana</Option>
-                    <Option value="">Iowa</Option>
-                    <Option value="">Kansas</Option>
-                    <Option value="">Kentucky</Option>
-                    <Option value="">Louisiana</Option>
-                    <Option value="">Maine</Option>
-                    <Option value="">Maryland</Option>
-                    <Option value="">Massachusetts</Option>
-                    <Option value="">Michigan</Option>
-                    <Option value="">Minnesota</Option>
-                    <Option value="">Mississippi</Option>
-                    <Option value="">Missouri</Option>
-                    <Option value="">Montana</Option>
-                    <Option value="">Nebraska</Option>
-                    <Option value="">Nevada</Option>
-                    <Option value="">New Hampshire</Option>
-                    <Option value="">New Jersey</Option>
-                    <Option value="">New Mexico</Option>
-                    <Option value="">New York</Option>
-                    <Option value="">North Carolina</Option>
-                    <Option value="">North Dakota</Option>
-                    <Option value="">Ohio</Option>
-                    <Option value="">Oklahoma</Option>
-                    <Option value="">Oregon</Option>
-                    <Option value="">PennsylvaniaRhode Island</Option>
-                    <Option value="">South Carolina</Option>
-                    <Option value="">South Dakota</Option>
-                    <Option value="">Tennessee</Option>
-                    <Option value="">Texas</Option>
-                    <Option value="">Utah</Option>
-                    <Option value="">Vermont</Option>
-                    <Option value="">Virginia</Option>
-                    <Option value="">Washington</Option>
-                    <Option value="">West Virginia</Option>
-                    <Option value="">Wisconsin</Option>
-                    <Option value="">Wyoming</Option>
-                  </Select>
+                    options={[]}
+                  />
                 </Col>
                 <Col span={10}>
                   <Input
@@ -243,15 +193,14 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Col span={20}>
                   <Select
                     placeholder="Select..."
+                    size="small"
                     style={{ width: '100%' }}
                     onChange={(value) => handlePOInputChange('template', value)}
-                  >
-                    {poTemplateList.map((_item, _index) => (
-                      <Option key={_index} value={_item.value}>
-                        {_item.text}
-                      </Option>
-                    ))}
-                  </Select>
+                    options={poTemplateList.map((_item, _index) => ({
+                      value: _item.value,
+                      label: _item.text,
+                    }))}
+                  />
                 </Col>
               </Row>
               <Row className="pb-3">
@@ -259,11 +208,13 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Col span={20}>
                   <Select
                     placeholder="Please select"
+                    size="small"
                     style={{ width: '100%' }}
-                  >
-                      <Option key="PDF" value="PDF Attachment"></Option>
-                      <Option key="HTML" value="HTML Attachment"></Option>
-                  </Select>
+                    options={[
+                      { value: 'PDF', label: 'PDF Attachment' },
+                      { value: 'HTML', label: 'HTML Attachment' },
+                    ]}
+                  />
                 </Col>
               </Row>
               <Row className="pb-3">
@@ -271,15 +222,14 @@ export default function ({ isOpen, onSave, onClose }) {
                 <Col span={20}>
                   <Select
                     placeholder="Please select"
+                    size="small"
                     style={{ width: '100%' }}
                     onChange={(value) => handlePOInputChange('payment_term', value)}
-                  >
-                    {paymentTermList.map((_item) => (
-                      <Option key={_item.id} value={_item.value}>
-                        {_item.text}
-                      </Option>
-                    ))}
-                  </Select>
+                    options={paymentTermList.map((_item) => ({
+                      value: _item.value,
+                      label: _item.text,
+                    }))}
+                  />
                 </Col>
               </Row>
               <Row className="pb-3">

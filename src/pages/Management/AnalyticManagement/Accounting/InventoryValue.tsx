@@ -155,7 +155,7 @@ const InventoryValue: React.FC = () => {
               </Col>
               <Col span={6}>
                 <Form.Item label="Warehouse" style={{ margin: 0 }}>
-                  <Select defaultValue="37 Selected" style={{ width: '100%' }} size="small" />
+                  <Select size="small" defaultValue="37 Selected" style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
               <Col span={6}>

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Row, Col, Button, Space } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
 import { EditableTable } from '@/utils/components/EditableTable';
-import NewFieldType from './NewFieldType';
-import Checkbox from 'antd/es/checkbox';
-import { uuidv4 } from '@antv/xflow-core';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
+import { Col, Row, Space } from 'antd';
+import Checkbox from 'antd/es/checkbox';
+import React, { useState } from 'react';
+import NewFieldType from './NewFieldType';
 
 interface IConfigureFieldTypes {
   isOpen: boolean;
@@ -115,21 +116,22 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
       <Row justify="space-between">
         <Col>
           <Space size={10}>
-            <Button onClick={handleAddNewType}>New Field Type</Button>
-            <Button disabled={!selectedItemId} onClick={handleDeactive}>
-              {showActive ? 'Deactivate' : 'Activate'}
-            </Button>
+            <OButton btnText="New Field Type" onClick={handleAddNewType} />
+            <OButton
+              btnText={showActive ? 'Deactivate' : 'Activate'}
+              disabled={!selectedItemId}
+              onClick={handleDeactive}
+            />
           </Space>
         </Col>
         <Col>
-          <Button
+          <OButton
+            btnText={showActive ? 'Show Inactive' : 'Show Active'}
             onClick={() => {
               setSelectedItemId(null);
               setShowActive((prev) => !prev);
             }}
-          >
-            Show {showActive ? 'Inactive' : 'Active'}
-          </Button>
+          />
         </Col>
       </Row>
 

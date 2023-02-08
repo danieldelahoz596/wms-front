@@ -115,11 +115,6 @@ export default function ({ isOpen, onSave, onClose }) {
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Country" name={'country'} initialValue={selectedWarehouse?.country}>
-            <Select placeholder="Select...">
-              <Select.Option value="usa">United States of America</Select.Option>
-            </Select>
-          </Form.Item>
           <Form.Item label="Contact Phone">
             <Input.Group>
               <Form.Item name={'phone'} noStyle initialValue={selectedWarehouse?.phone}>
@@ -137,9 +132,11 @@ export default function ({ isOpen, onSave, onClose }) {
             <Input />
           </Form.Item>
           <Form.Item label="Timezone" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
-            <Select placeholder="Select...">
-              <Select.Option value={'est'}>EST</Select.Option>
-            </Select>
+            <Select
+              placeholder="Select..."
+              size="small"
+              options={[{ value: 'est', label: 'EST' }]}
+            />
           </Form.Item>
           <Form.Item label="Inventory Allocation Shipping Zone I.D Color" name={'id_color'}>
             <div style={{ textAlign: 'right' }}>

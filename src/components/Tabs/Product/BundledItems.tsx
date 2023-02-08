@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { OButton } from '@/components/Globals/OButton';
-import { Table } from 'antd';
-import { modalType } from '@/utils/helpers/types';
 import AddCoreProductModal from '@/components/Modals/Product/AddCoreProduct';
+import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
+import { Space, Table } from 'antd';
+import { useEffect, useState } from 'react';
 
 interface IBundleItems {}
 
@@ -43,26 +43,6 @@ const BundledItems: React.FC<IBundleItems> = () => {
     setCoreProductList(coreProductList.filter((product) => product.id !== selectedItem));
   };
 
-  const itemButtons = [
-    {
-      type: 'primary',
-      onClick: handleAddCoreProductClick,
-      btnText: 'Add Core Product',
-    },
-    {
-      type: 'primary',
-      onClick: handleEditCoreProductClick,
-      btnText: 'Edit Quantity',
-      disabled: !selectedItem,
-    },
-    {
-      type: 'primary',
-      onClick: handleRemoveClick,
-      btnText: 'Remove',
-      disabled: !selectedItem,
-    },
-  ];
-
   const tableColumns = [
     {
       title: '',
@@ -88,30 +68,30 @@ const BundledItems: React.FC<IBundleItems> = () => {
 
   return (
     <>
-      <div>
-        <div>
-          <h3>Manage cord products and their respective quantities within this bundle/kit</h3>
-        </div>
+      <h3>Manage cord products and their respective quantities within this bundle/kit</h3>
+      <Space size={4} style={{ marginBottom: 5 }}>
+        <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
+        <OButton
+          btnText="Edit Quantity"
+          onClick={handleEditCoreProductClick}
+          disabled={!selectedItem}
+        />
+        <OButton btnText="Remove" onClick={handleRemoveClick} disabled={!selectedItem} />
+      </Space>
+      <Table
+        columns={tableColumns}
+        dataSource={coreProductList}
+        pagination={false}
+        onRow={(record) => {
+          return {
+            onClick: () => handleRowClick(record), // click row
+          };
+        }}
+        rowClassName={(record) =>
+          record.id === selectedItem ? `data-row active-row pb-3` : 'data-row'
+        }
+      />
 
-        {itemButtons.map((btn, index) => (
-          <OButton key={index} {...btn} />
-        ))}
-        <div style={{ marginTop: '5px' }}>
-          <Table
-            columns={tableColumns}
-            dataSource={coreProductList}
-            pagination={false}
-            onRow={(record) => {
-              return {
-                onClick: () => handleRowClick(record), // click row
-              };
-            }}
-            rowClassName={(record) =>
-              record.id === selectedItem ? `data-row active-row pb-3` : 'data-row'
-            }
-          />
-        </div>
-      </div>
       <AddCoreProductModal
         isOpen={modal == modalType.AddCoreProduct}
         onSave={() => setModal(modalType.Close)}

@@ -1,8 +1,8 @@
+import { OButton } from '@/components/Globals/OButton';
+import { PageContainer } from '@ant-design/pro-components';
+import React, { useMemo, useState } from 'react';
 import StockManagement from './StockManagement';
 import TransferManagement from './TransferManagement';
-import React, { useState, useMemo } from 'react';
-import { PageContainer } from '@ant-design/pro-components';
-import { Button } from 'antd';
 
 const InventoryManagement: React.FC = () => {
   const [stockTab, setStockTab] = useState<boolean>(true);
@@ -21,16 +21,8 @@ const InventoryManagement: React.FC = () => {
   const tabButtons = useMemo(
     () => (
       <>
-        <Button
-          type="primary"
-          className='mr-10'
-          onClick={() => changeManagementTab('stock')}
-        >
-          STOCK
-        </Button>
-        <Button type="primary" onClick={() => changeManagementTab('transfer')}>
-          TRANSFERS
-        </Button>
+        <OButton btnText={'Stock'} className="mr-10" onClick={() => changeManagementTab('stock')} />
+        <OButton btnText={'Transfers'} onClick={() => changeManagementTab('transfer')} />
       </>
     ),
     [],

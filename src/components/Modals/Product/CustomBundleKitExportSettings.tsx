@@ -12,7 +12,10 @@ interface ICustomBundleKitExportSettings {
   onClose: () => void;
 }
 
-const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = ({ isOpen, onClose }) => {
+const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = ({
+  isOpen,
+  onClose,
+}) => {
   const {
     customBundleKitExportSettings,
     removeCustomBundleKitExportSettings,
@@ -35,9 +38,12 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
             onClick={() => handleEdit(_item)}
             style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }}
           />
-          <Popconfirm 
+          <Popconfirm
             title={'Sure to remove?'}
-            onConfirm={() => {removeCustomBundleKitExportSettings(_index);}}>
+            onConfirm={() => {
+              removeCustomBundleKitExportSettings(_index);
+            }}
+          >
             <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
           </Popconfirm>
         </Space>

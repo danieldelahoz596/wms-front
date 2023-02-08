@@ -87,10 +87,10 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
   ];
 
   return (
-    <Card title="P.O. DETAILS" style={{ marginRight: '.5rem' }}>
+    <Card title="P.O. Details" style={{ marginRight: '.5rem' }}>
       <Form>
         <Form.Item label="From Vendor">
-          <label style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</label>
+          <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
         </Form.Item>
         {formInputs?.map((inputItem, index) => (
           <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>

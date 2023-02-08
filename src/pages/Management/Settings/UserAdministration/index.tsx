@@ -1,10 +1,11 @@
+import { OButton } from '@/components/Globals/OButton';
 import NewUserModal from '@/components/Modals/Settings/UserAdministration/NewUserModal';
 import UserAdministrationHistory from '@/components/Modals/Settings/UserAdministration/UserAdministrationHistoryModal';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
-import { Button, Card, Space, Table, message } from 'antd';
+import { Card, message, Space, Table } from 'antd';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const TColumns = [
   {
@@ -54,23 +55,22 @@ export default function () {
       {contextHolder}
       <Card style={{ width: '100%' }}>
         <Space size={4}>
-          <Button
+          <OButton
+            btnText={'New User'}
             onClick={() => {
               setSelectedUser(null);
               setModal(modalType.New);
             }}
-          >
-            New User
-          </Button>
-          <Button
+          />
+          <OButton
+            btnText={'Edit User'}
             onClick={() => {
               setModal(modalType.New);
             }}
             disabled={!selectedUser}
-          >
-            Edit User
-          </Button>
-          <Button
+          />
+          <OButton
+            btnText={'Deactivate / Activate'}
             disabled={!selectedUser}
             onClick={() => {
               updateUser({ ...selectedUser, is_active: !selectedUser.is_active }).then(() => {
@@ -80,13 +80,12 @@ export default function () {
                 });
               });
             }}
-          >
-            Deactivate / Activate
-          </Button>
-          <Button onClick={() => setModal(modalType.History)}>History</Button>
-          <Button onClick={() => setShowInactive((prev) => !prev)}>
-            {showInactive ? 'SHOW INACTIVE' : 'SHOW ACTIVE'}
-          </Button>
+          />
+          <OButton btnText={'History'} onClick={() => setModal(modalType.History)} />
+          <OButton
+            btnText={showInactive ? 'Show Inactive' : 'Show Active'}
+            onClick={() => setShowInactive((prev) => !prev)}
+          />
         </Space>
         <Table
           columns={TColumns}

@@ -157,12 +157,12 @@ const OrderItems: React.FC = () => {
   return (
     <>
       <Row>
-        <Col span={6}>&nbsp;</Col>
-        <Col span={12}>
+        <Col offset={6} span={12}>
           <Select
-            options={productOptions}
             placeholder="Add a product.."
+            size="small"
             style={{ width: '100%' }}
+            options={productOptions}
             onChange={(value: any) => handleOrderProductAdd(value)}
             dropdownRender={(_menu) => (
               <>

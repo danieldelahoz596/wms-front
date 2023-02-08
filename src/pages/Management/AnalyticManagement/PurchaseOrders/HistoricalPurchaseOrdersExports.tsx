@@ -1,10 +1,11 @@
-import { Button, Card, Row, Col, Select, DatePicker, Form } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import { useModel } from '@umijs/max';
-import moment from 'moment';
-import { uuid } from '@antv/x6/lib/util/string/uuid';
 import httpClient from '@/utils/http-client';
+import { uuid } from '@antv/x6/lib/util/string/uuid';
+import { useModel } from '@umijs/max';
+import { Button, Card, Col, DatePicker, Form, Row, Select } from 'antd';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
 const HistoricalPurchaseOrdersExports: React.FC = () => {
   const { initialState } = useModel('@@initialState');
@@ -78,9 +79,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
     ..._item,
     actions:
       _item.status === 'Succeeded' || _item.status === 'Failed' ? (
-        <Button type="primary" onClick={handleDownload}>
-          Download
-        </Button>
+        <OButton btnText={'Download'} onClick={handleDownload}/>
       ) : null,
   }));
 
@@ -109,6 +108,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
                 <Form.Item label="Destination" name="destination">
                   <Select
                     mode="multiple"
+                    size="small"
                     placeholder="No warehouses selected..."
                     options={initialState?.initialData?.warehouses.map((_item) => ({
                       label: _item.name,
@@ -119,17 +119,23 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
               </Col>
               <Col span={6}>
                 <Form.Item label="Milestones" name="milestone">
-                  <Select mode="multiple" placeholder="No milestones selected...">
-                    <Select.Option value="1">milestone1</Select.Option>
-                    <Select.Option value="2">milestone2</Select.Option>
-                    <Select.Option value="3">milestone3</Select.Option>
-                  </Select>
+                  <Select
+                    mode="multiple"
+                    size="small"
+                    placeholder="No milestones selected..."
+                    options={[
+                      { value: 1, label: 'milestone1' },
+                      { value: 2, label: 'milestone2' },
+                      { value: 3, label: 'milestone3' },
+                    ]}
+                  />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Status" name="status">
                   <Select
                     mode="multiple"
+                    size="small"
                     placeholder="No status selected..."
                     options={initialState?.initialData?.purchaseorder_statuses.map((_item) => ({
                       label: _item.name,
@@ -142,6 +148,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
                 <Form.Item label="Vendors" name="vendor">
                   <Select
                     mode="multiple"
+                    size="small"
                     placeholder="No vendors selected..."
                     options={initialState?.initialData?.vendors.map((_item) => ({
                       label: _item.name,

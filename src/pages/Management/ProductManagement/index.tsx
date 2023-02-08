@@ -1,12 +1,29 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType, productType } from '@/utils/helpers/types';
-import { CheckOutlined, CloseOutlined, DownOutlined, RetweetOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import { MenuProps, message } from 'antd';
-import { Button, Card, Col, Dropdown, Form, Popconfirm, Row, Select, Space, Switch, Table } from 'antd';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DownOutlined,
+  RetweetOutlined,
+  VerticalAlignBottomOutlined,
+  VerticalAlignTopOutlined
+} from '@ant-design/icons';
+import {
+  Button,
+  Card,
+  Col,
+  Dropdown,
+  MenuProps,
+  Popconfirm,
+  Row,
+  Select,
+  Space,
+  Switch,
+  Table
+} from 'antd';
 import React, { useMemo, useState } from 'react';
 
-import { OInput } from '@/components/Globals/OInput';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
@@ -167,38 +184,15 @@ const ProductManagement: React.FC = () => {
         );
       },
     },
-  ]
-    .concat(
-      fieldTypes
-        .filter((type) => type.show_on_grid && type.active)
-        .map((type) => ({
-          title: type.name,
-          key: type.id,
-          dataIndex: type.id,
-        })),
-    )
-    .concat([
-      {
-        key: 'action',
-        title: 'Action',
-        render: (_, record) => (
-          <Space size={10}>
-            <a
-              onClick={(event) => {
-                event.stopPropagation();
-                setEditableProduct(productList.find((_item) => _item.id === record.id));
-                setModal(modalType.Edit);
-              }}
-            >
-              Edit
-            </a>
-            <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
-              <a>Delete</a>
-            </Popconfirm>
-          </Space>
-        ),
-      },
-    ]);
+  ].concat(
+    fieldTypes
+      .filter((type) => type.show_on_grid && type.active)
+      .map((type) => ({
+        title: type.name,
+        key: type.id,
+        dataIndex: type.id,
+      })),
+  );
 
   const TProductDetailColumns = [
     {
@@ -298,12 +292,16 @@ const ProductManagement: React.FC = () => {
         <span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>
       ),
       icon: <VerticalAlignBottomOutlined />,
-      disabled: true
+      disabled: true,
     },
     {
       key: '8',
-      label: (<span onClick={() => setModal(modalType.ExportCustomBundleKit)}>Custom Bundle/Kit Export</span>),
-      icon: <VerticalAlignBottomOutlined />
+      label: (
+        <span onClick={() => setModal(modalType.ExportCustomBundleKit)}>
+          Custom Bundle/Kit Export
+        </span>
+      ),
+      icon: <VerticalAlignBottomOutlined />,
     },
   ];
 
@@ -345,10 +343,11 @@ const ProductManagement: React.FC = () => {
               </Row>
               <Card style={{ width: '100%' }}>
                 <Space size={4}>
-                  <OButton 
+                  <OButton
                     btnText="Adjust Sku"
                     onClick={() => setModal(modalType.AdjustMasterSKU)}
-                    disabled={!(selectedProducts.length == 1)} />
+                    disabled={!(selectedProducts.length == 1)}
+                  />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
                     onConfirm={() => {
@@ -362,7 +361,11 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Bundle/Kit"
-                      disabled={!(selectedProducts.length == 1) || !(editableProduct?.type === productType.CoreProduct)} />
+                      disabled={
+                        !(selectedProducts.length == 1) ||
+                        !(editableProduct?.type === productType.CoreProduct)
+                      }
+                    />
                   </Popconfirm>
                   <Popconfirm
                     title="Sure to convert to Core?"
@@ -377,7 +380,11 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Core"
-                      disabled={!(selectedProducts.length == 1) || !(editableProduct?.type === productType.Variations)} />
+                      disabled={
+                        !(selectedProducts.length == 1) ||
+                        !(editableProduct?.type === productType.Variations)
+                      }
+                    />
                   </Popconfirm>
                   <Popconfirm
                     title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
@@ -399,7 +406,6 @@ const ProductManagement: React.FC = () => {
                     />
                   </Popconfirm>
                   <OButton
-                    type="primary"
                     onClick={() => console.log('History')}
                     disabled={selectedProducts.length === 0}
                     btnText="History"
@@ -415,7 +421,7 @@ const ProductManagement: React.FC = () => {
                 </Space>
 
                 <OTable
-                  type="checkbox"
+                  type="radio"
                   columns={TColumns}
                   rows={productTableRows}
                   selectedRows={selectedProducts.map((_item) => _item.id)}
@@ -435,47 +441,36 @@ const ProductManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <Row gutter={32}>
+              <Row gutter={8}>
                 <Col span={12}>
                   <Card
                     title="Performance"
                     extra={
                       <Space size={4}>
-                        <OButton type="primary" btnText={'Year-Over-Year'} />
-                        <OButton type="primary" btnText={'Recent Orders'} />
+                        <OButton btnText={'Year-Over-Year'} />
+                        <OButton btnText={'Recent Orders'} />
                       </Space>
                     }
+                    style={{ borderRadius: 4 }}
                   >
-                    <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                      <Form.Item>
-                        <OInput
-                          type="select"
-                          name="days"
-                          defaultValue={'30'}
-                          options={[
-                            {
-                              value: '30',
-                              text: '30 Days',
-                            },
-                          ]}
-                          onChange={() => {}}
+                    <div style={{ textAlign: 'right' }}>
+                      <Space size={4}>
+                        <Select
+                          placeholder="Select..."
+                          defaultValue="30"
+                          size="small"
+                          options={[{ value: '30', label: '30 Days' }]}
+                          style={{ width: 80, textAlign: 'left' }}
                         />
-                      </Form.Item>
-                      <Form.Item>
-                        <OInput
-                          type="select"
-                          name="quantity"
-                          defaultValue={'30'}
-                          options={[
-                            {
-                              value: 'quantitySold',
-                              text: 'Quantity Solds',
-                            },
-                          ]}
-                          onChange={() => {}}
+                        <Select
+                          placeholder="Select..."
+                          defaultValue="quantity_sold"
+                          size="small"
+                          options={[{ value: 'quantity_sold', label: 'Quantity Sold' }]}
+                          style={{ width: 100, textAlign: 'left' }}
                         />
-                      </Form.Item>
-                    </Form>
+                      </Space>
+                    </div>
                     <div style={{ textAlign: 'center', padding: '1rem' }}>
                       Select a product to view performance
                     </div>
@@ -485,7 +480,10 @@ const ProductManagement: React.FC = () => {
                   <Card
                     title="Product Details"
                     extra={
-                      <Space size={4} style={{ display: selectedProducts.length > 1 ? 'none' : '' }}>
+                      <Space
+                        size={4}
+                        style={{ display: selectedProducts.length > 1 ? 'none' : '' }}
+                      >
                         <OButton
                           btnText={'Fields'}
                           // onClick={() => setModal(modalType.ShowProductFields)}
@@ -495,13 +493,16 @@ const ProductManagement: React.FC = () => {
                         <OButton
                           btnText={'Vendor Products'}
                           onClick={() => setModal(modalType.ShowVendorProduct)}
-                          disabled={selectedProducts.length === 0} />
+                          disabled={selectedProducts.length === 0}
+                        />
                         <OButton
                           btnText={'Gallery'}
                           onClick={() => setModal(modalType.ShowGallery)}
-                          disabled={selectedProducts.length === 0} />
+                          disabled={selectedProducts.length === 0}
+                        />
                       </Space>
                     }
+                    style={{ borderRadius: 4 }}
                   >
                     {showProductDetailType === 'fields' ? (
                       <Table

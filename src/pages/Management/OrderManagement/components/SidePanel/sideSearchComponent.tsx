@@ -1,7 +1,8 @@
-import React from 'react';
-import { Button, Form } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
+import { Form } from 'antd';
+import React from 'react';
 
 const SideSearch: React.FC = () => {
   const { onChangeOrderSearchQuery, onOrderSearch, clearOrderSearchQuery } =
@@ -63,10 +64,7 @@ const SideSearch: React.FC = () => {
   ];
 
   return (
-    <Form
-      layout="vertical"
-      style={{ margin: '0% 5% 0% 5%' }}
-    >
+    <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
       {formInputs?.map((inputItem, index) => (
         <Form.Item key={index} label={inputItem.label}>
           <OInput {...inputItem} />
@@ -94,12 +92,8 @@ const SideSearch: React.FC = () => {
       </Form.Item>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button type="primary" onClick={clearOrderSearchQuery}>
-          Clear
-        </Button>
-        <Button type="primary" onClick={onOrderSearch}>
-          Search
-        </Button>
+        <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
+        <OButton btnText={'Search'} onClick={onOrderSearch} />
       </div>
     </Form>
   );

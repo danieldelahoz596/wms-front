@@ -35,7 +35,6 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
         <Row gutter={10}>
           <Col span={12}>
             <OButton
-              type="primary"
               btnText={'Import By Vendor'}
               onClick={() => onClick(modalType.ImportVendorProductsByVendor)}
               style={{ width: '100%', marginBottom: 10 }}
@@ -44,7 +43,6 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
           </Col>
           <Col span={12}>
             <OButton
-              type="primary"
               btnText={'Import All At Once'}
               onClick={() => onClick(modalType.ImportVendorProductsAll)}
               style={{ width: '100%', marginBottom: 10 }}

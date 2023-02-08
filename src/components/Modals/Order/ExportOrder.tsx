@@ -14,7 +14,9 @@ interface IExportOrder {
 }
 
 const ExportOrderModal: React.FC<IExportOrder> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   handleConfigureSettings,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -62,7 +64,10 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
       ]}
     >
       <>
-        <p>Skubana allows you to export any of the available order information in CSV, Excel, or plain text format.</p>
+        <p>
+          Skubana allows you to export any of the available order information in CSV, Excel, or
+          plain text format.
+        </p>
         <p>
           {`To export the selected orders, select one of your pre-configured export settings and click
           the 'Export Orders' button. If you haven't created any export settings yet, click on the
@@ -71,25 +76,23 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
         </p>
         <div style={{ textAlign: 'right', marginTop: 40 }}>
           <Space size={5}>
-            <label>Export Settings: </label>          
+            <span>Export Settings: </span>
             <Select
               placeholder="Select..."
-              size='small'
+              size="small"
               style={{ width: 200, textAlign: 'left' }}
               options={orderExportSettings.map((_item) => ({
                 value: _item.id,
                 label: _item.settingName,
-              }))} 
+              }))}
             />
-            <OButton btnText='Configure Settings' onClick={() => setShowModal(true)}/>
+            <OButton btnText="Configure Settings" onClick={() => setShowModal(true)} />
           </Space>
         </div>
 
         <OrderExportSettingsModal isOpen={showModal} onClose={() => setShowModal(false)} />
       </>
     </OModal>
-
-  
   );
 };
 

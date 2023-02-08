@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Input, Button } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { Input } from 'antd';
+import { useEffect, useState } from 'react';
 
 interface IConfigAttributes {
   isOpen: boolean;
@@ -53,17 +54,14 @@ const ConfigAttributes: React.FC<IConfigAttributes> = ({ isOpen, onClose, onSave
         <Input
           placeholder="Enter a valid attribute"
           addonAfter={
-            <Button
-              size="small"
-              type="primary"
+            <OButton
+              btnText="Add"
               onClick={() => {
                 setAttribute(null);
                 setItems([...items, attribute]);
               }}
               style={{ height: 30 }}
-            >
-              Add
-            </Button>
+            />
           }
           value={attribute}
           onChange={(e) => setAttribute(e.target.value)}

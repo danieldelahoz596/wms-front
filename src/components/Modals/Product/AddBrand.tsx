@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { Input, Button, List } from 'antd';
-import { useModel } from '@umijs/max';
-import { uuidv4 } from '@antv/xflow-core';
 import { CloseOutlined } from '@ant-design/icons';
+import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
+import { Input, List } from 'antd';
+import { useState } from 'react';
 
 interface IAddBrand {
   isOpen: boolean;
@@ -49,11 +50,7 @@ const AddBrand: React.FC<IAddBrand> = ({ isOpen, onClose, onSave }) => {
       <>
         <Input
           placeholder="Enter a valid attribute group name"
-          addonAfter={
-            <Button size="small" type="primary" style={{ height: 30 }} onClick={() => handleAdd()}>
-              Add
-            </Button>
-          }
+          addonAfter={<OButton btnText="Add" style={{ height: 30 }} onClick={() => handleAdd()} />}
           value={name}
           onChange={(e) => setName(e.target.value)}
           onPressEnter={() => handleAdd()}

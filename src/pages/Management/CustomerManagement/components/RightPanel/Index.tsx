@@ -1,3 +1,4 @@
+import { OButton } from '@/components/Globals/OButton';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Form, Input, Row, Space } from 'antd';
 import { useEffect } from 'react';
@@ -53,9 +54,7 @@ export default function index() {
                 <Button type="primary" htmlType="submit">
                   Update
                 </Button>{' '}
-                <Button type="ghost" onClick={handleDeleteCustomer}>
-                  Delete
-                </Button>
+                <OButton btnText={'Delete'} onClick={handleDeleteCustomer} />
               </Form.Item>
             </Form>
           </Space>

@@ -22,16 +22,19 @@ const EditItemModal: React.FC<IEditItemModal> = ({
 }) => {
   const prefixSelectorLabel = (
     <Form.Item name="prefix" noStyle>
-      <label>$</label>
+      <span>$</span>
     </Form.Item>
   );
 
   const prefixSelectorSelect = (
     <Form.Item name="prefix" noStyle>
-      <Select>
-        <Option value="1">Item 1</Option>
-        <Option value="2">Item 2</Option>
-      </Select>
+      <Select
+        size="small"
+        options={[
+          { value: 1, label: 'Item 1' },
+          { value: 2, label: 'Item 2' },
+        ]}
+      />
     </Form.Item>
   );
 
@@ -116,16 +119,16 @@ const EditItemModal: React.FC<IEditItemModal> = ({
                 <InputNumber value={25} />
               </Form.Item>
               <Form.Item label="Hold Quantity">
-                <label>0</label>
+                <span>0</span>
               </Form.Item>
               <Form.Item label="Unit of Measure">
-                <label>Each (x1)</label>
+                <span>Each (x1)</span>
               </Form.Item>
               <Form.Item label="Total Unit Quantity">
-                <label>25</label>
+                <span>25</span>
               </Form.Item>
               <Form.Item label="Unit Cost">
-                <label>$1.00</label>
+                <span>$1.00</span>
               </Form.Item>
               <Form.Item label="Billed Cost">
                 <Input type="number" addonBefore={prefixSelectorLabel} value={1.0} />
@@ -149,7 +152,7 @@ const EditItemModal: React.FC<IEditItemModal> = ({
                 </Row>
               </Form.Item>
               <Form.Item label="Total Cost">
-                <label>$27.50</label>
+                <span>$27.50</span>
               </Form.Item>
             </Form>
           </Col>

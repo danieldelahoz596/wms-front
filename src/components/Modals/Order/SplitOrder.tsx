@@ -78,10 +78,10 @@ const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
         <Form.Item label="Labels" labelCol={{ span: 4 }}>
           <Input.Group compact>
             <Form.Item style={{ width: '50%', paddingRight: 5 }} name="label1">
-              <Select />
+              <Select size="small" />
             </Form.Item>
             <Form.Item style={{ width: '50%', paddingLeft: 5 }} name="label2">
-              <Select />
+              <Select size="small" />
             </Form.Item>
           </Input.Group>
         </Form.Item>

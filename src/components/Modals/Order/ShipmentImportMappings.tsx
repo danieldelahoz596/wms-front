@@ -1,8 +1,8 @@
-import React from 'react';
-import { Card } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
+import { Card } from 'antd';
+import React from 'react';
 
 interface IShipmentImportMappings {
   isOpen: boolean;
@@ -32,11 +32,7 @@ const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({
       ]}
     >
       <>
-        <Card
-          title={
-            <OButton type="primary" btnText={'New Mapping'} onClick={onAdd} />
-          }
-        >
+        <Card title={<OButton btnText="New Mapping" onClick={onAdd} />}>
           <OTable
             pagination={false}
             columns={[

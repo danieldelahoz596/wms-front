@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
-import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
-import { Card, Col, Row, Form, Table } from 'antd';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
+import { Card, Col, Form, Row, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useModel } from 'umi';
 
 interface INewVendorProduct {
@@ -20,16 +20,17 @@ interface INewVendorProduct {
 }
 
 const NewVendorProduct: React.FC<INewVendorProduct> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   vendorProductList,
   setVendorProductList,
   selectedItemKey,
   setSelectedItemkey,
   type,
 }) => {
-
   const { initialState } = useModel('@@initialState');
-  
+
   const [newVendorProduct, setNewVendorProduct] = useState({
     vendor: null,
     vendorSku: 'Required',
@@ -126,9 +127,13 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       onChange: handleNewVendorProductChange,
       label: 'Vendor',
       name: 'vendor',
+      placeholer: 'Select...',
       defaultValue: newVendorProduct.vendor,
       value: newVendorProduct.vendor,
-      options: initialState?.initialData?.vendors.map((_item) => ({ value: _item.id, text: _item.name })),
+      options: initialState?.initialData?.vendors.map((_item) => ({
+        value: _item.id,
+        text: _item.name,
+      })),
     },
     {
       type: 'text',
@@ -172,18 +177,9 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       defaultValue: newVendorProduct.autoPoRounding,
       value: newVendorProduct.autoPoRounding,
       options: [
-        {
-          value: 'exact',
-          text: 'Exact',
-        },
-        {
-          value: 'round-up',
-          text: 'Round Up',
-        },
-        {
-          value: 'round-properly',
-          text: 'Round Properly',
-        },
+        { value: 'exact', text: 'Exact' },
+        { value: 'round-up', text: 'Round Up' },
+        { value: 'round-properly', text: 'Round Properly' },
       ],
       style: { width: '100%' },
     },
@@ -195,14 +191,8 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
       defaultValue: newVendorProduct.packaging,
       value: newVendorProduct.packaging,
       options: [
-        {
-          value: 'plastic',
-          text: 'plastic',
-        },
-        {
-          value: 'cardboard box',
-          text: 'cardboard box',
-        },
+        { value: 'plastic', text: 'plastic' },
+        { value: 'cardboard box', text: 'cardboard box' },
       ],
     },
   ];
@@ -310,7 +300,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
 
   return (
     <OModal
-      title={'New Vendor Product'}
+      title={selectedItemKey ? 'Edit Vendor Product' : 'New Vendor Product'}
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -342,7 +332,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
             </Card>
           </Col>
           <Col span={16}>
-            <Card title="PRICING TIERS">
+            <Card title="Pricing Tiers">
               <div style={{ display: 'flex', gap: '0.3rem', marginBottom: '1rem' }}>
                 {pricingTiersInputsFields?.map((inputItem, index) => (
                   <div
@@ -354,8 +344,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
                   </div>
                 ))}
                 <OButton
-                  type="primary"
-                  btnText={'ADD'}
+                  btnText={'Add'}
                   style={{ border: '1px solid blue' }}
                   onClick={handlePricingTiersAdd}
                 />
@@ -366,7 +355,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
                 pagination={false}
               />
             </Card>
-            <Card title="UNITS OF MEASURE">
+            <Card title="Units of Measure">
               <EditableTable
                 dataSource={unitMeasureDataRows}
                 columns={unitMeasureDataColumns}

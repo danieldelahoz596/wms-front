@@ -99,7 +99,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     values = {
       ...values,
       id: editableCustomBundleKitExportSetting?.id,
-      exportFields: selectedExportFields,      
+      exportFields: selectedExportFields,
     };
 
     if (editableCustomBundleKitExportSetting) {
@@ -132,7 +132,9 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     ),
     remove: (
       <span onClick={() => handleRemoveField(item.key)}>
-        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer', textAlign: 'center', width: 20 }} />
+        <CloseOutlined
+          style={{ color: '#5F5FFF', cursor: 'pointer', textAlign: 'center', width: 20 }}
+        />
       </span>
     ),
   }));
@@ -149,7 +151,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
   return (
     <OModal
-      title={editableCustomBundleKitExportSetting ? "Edit Export Settings" : "New Export Settings"}
+      title={editableCustomBundleKitExportSetting ? 'Edit Export Settings' : 'New Export Settings'}
       width={700}
       isOpen={isOpen}
       handleCancel={handleClose}
@@ -168,20 +170,28 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         },
       ]}
     >
-      <Form 
-        form={form} 
+      <Form
+        form={form}
         initialValues={editableCustomBundleKitExportSetting}
         labelCol={{ span: 6 }}
-        wrapperCol={{ span: 18 }}>
+        wrapperCol={{ span: 18 }}
+      >
         <Row>
           <Col span={11} style={{ padding: 5, paddingTop: 7 }}>
-            <Form.Item name="settingName" label="Settings Name" labelCol={{ span: 24 }} wrapperCol={{ span: 23 }}>
+            <Form.Item
+              name="settingName"
+              label="Settings Name"
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 23 }}
+            >
               <Input />
             </Form.Item>
             <Card title="File Configuration">
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
                   placeholder="Select..."
+                  size="small"
+                  defaultValue={'csv'}
                   options={[
                     { value: 'csv', label: 'CSV' },
                     { value: 'excel', label: 'EXCEL' },
@@ -189,9 +199,11 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                   ]}
                 />
               </Form.Item>
-              <Form.Item name='dateFormat' label="Date Format">
+              <Form.Item name="dateFormat" label="Date Format">
                 <Select
                   placeholder="Select..."
+                  size="small"
+                  defaultValue={'MM/dd/yyyy'}
                   options={[
                     { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
                     { value: 'yyyy-MM-dd', label: 'yyyy-MM-dd' },
@@ -204,15 +216,17 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               name="wrapDoubleQuote"
               valuePropName="checked"
               label="Wrap values in double quotes when exporting CSV/text files?"
-              colon={false}>
+              colon={false}
+            >
               <Checkbox />
             </Form.Item>
-            <Form.Item 
-              labelCol={{ span: 21 }} 
+            <Form.Item
+              labelCol={{ span: 21 }}
               name="onlyExportActive"
-              valuePropName="checked" 
+              valuePropName="checked"
               label="Only export active bundles/kits"
-              colon={false}>
+              colon={false}
+            >
               <Checkbox />
             </Form.Item>
           </Col>
@@ -221,12 +235,16 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
             <Card
               title={
                 <Space size={5} align={'start'}>
-                  <span>Export Fields</span>  
+                  <span>Export Fields</span>
                   <span style={{ color: 'blue', textTransform: 'capitalize' }}>
                     (Include column headers?
                   </span>
-                  <Form.Item name="includeColumnHeader" valuePropName="checked" style={{ marginTop: -6 }}>
-                    <Checkbox/>
+                  <Form.Item
+                    name="includeColumnHeader"
+                    valuePropName="checked"
+                    style={{ marginTop: -6 }}
+                  >
+                    <Checkbox />
                   </Form.Item>
                   <span style={{ color: 'blue' }}>)</span>
                 </Space>
@@ -240,6 +258,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               >
                 <Select
                   placeholder="Select..."
+                  size="small"
                   onChange={(_val) => handleAddField(_val)}
                   options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />
@@ -247,7 +266,8 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               <OTable
                 pagination={false}
                 columns={exportFieldsColumns}
-                rows={preparedImportFieldsRows} />
+                rows={preparedImportFieldsRows}
+              />
             </Card>
           </Col>
         </Row>

@@ -673,7 +673,7 @@ const SalesOverview: React.FC = () => {
               <Col span={5}>
                 <Row gutter={10} align="middle">
                   <Col>
-                    <label>By:</label>
+                    <span>By:</span>
                   </Col>
                   <Col>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -141,6 +141,7 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
             </div>
             <Select
               mode="multiple"
+              size="small"
               style={{ width: '100%' }}
               placeholder="Searcy by Master SKU or Name..."
               onChange={handleProductSelect}

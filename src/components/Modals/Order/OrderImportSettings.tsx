@@ -1,10 +1,10 @@
-import React from 'react';
-import { Card } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Card } from 'antd';
+import React from 'react';
 
 interface IOrderImportSettingsModal {
   isOpen: boolean;
@@ -56,11 +56,7 @@ const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
       ]}
     >
       <>
-        <Card
-          title={
-            <OButton type="primary" btnText={'New Settings'} onClick={onAddOrderImportSettings} />
-          }
-        >
+        <Card title={<OButton btnText="New Settings" onClick={onAddOrderImportSettings} />}>
           <OTable
             pagination={false}
             columns={[

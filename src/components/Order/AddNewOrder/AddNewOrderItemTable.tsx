@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { EditableTable } from '@/utils/components/EditableTable';
-import { useModel } from '@umijs/max';
-import { Col, Row, message } from 'antd';
 import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
+import { Col, message, Row } from 'antd';
+import { useEffect, useMemo, useState } from 'react';
 
 interface IAddNewOrderItemTable {
   initialItems: any[];
@@ -156,7 +156,7 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
           />
         </Col>
         <Col span={12} style={{ textAlign: 'right' }}>
-          <OButton type="primary" btnText={'Paste from CSV'} onClick={handlePasteFromCSV} />
+          <OButton btnText={'Paste from CSV'} onClick={handlePasteFromCSV} />
         </Col>
       </Row>
       <Row style={{ marginTop: '0.5rem' }}>

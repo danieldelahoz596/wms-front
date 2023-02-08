@@ -1,31 +1,33 @@
-import React, { useState, useMemo } from 'react';
-import { Button, Input, Card, Row, Col, Dropdown, Select, Space } from 'antd';
-import { data, stock_history, stock_allocation } from './components/structure';
-import { modalType } from '@/utils/helpers/types';
+import { OButton } from '@/components/Globals/OButton';
+import { OInput } from '@/components/Globals/OInput';
 import { OTable } from '@/components/Globals/OTable';
-import { DownOutlined, VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons';
-import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
-import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
+import SelectDropdown from '@/components/Globals/selectDropdown';
 import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconciliation';
+import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
 import StockAllocationDetailsModal from '@/components/Modals/Inventory/StockAllocationDetails';
-import { useResizable } from 'react-resizable-layout';
+import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import { productType, productStatus } from '@/utils/helpers/types';
-import CoreProductsIcon from '@/utils/icons/coreProduct';
+import { modalType, productStatus, productType } from '@/utils/helpers/types';
 import BundleIcon from '@/utils/icons/bundle';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
 import NoteIcon from '@/utils/icons/note';
-import VariationIcon from '@/utils/icons/variation';
+import SettingIcon from '@/utils/icons/setting';
 import ShieldAdmirationIcon from '@/utils/icons/shieldAdmiration';
 import ShieldCheckIcon from '@/utils/icons/shieldCheck';
 import ShieldDeniedIcon from '@/utils/icons/shieldDenied';
-import SettingIcon from '@/utils/icons/setting';
-import StockDetails from './components/RightPanel';
-import { OInput } from '@/components/Globals/OInput';
-import { OButton } from '@/components/Globals/OButton';
-import { OSelect } from '@/components/Globals/OSelect';
-import SelectDropdown from '@/components/Globals/selectDropdown';
-import { useModel } from '@umijs/max';
+import VariationIcon from '@/utils/icons/variation';
 import VectorIcon from '@/utils/icons/vector';
+import {
+  DownOutlined,
+  VerticalAlignBottomOutlined,
+  VerticalAlignTopOutlined
+} from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Button, Card, Col, Dropdown, Input, Row, Space } from 'antd';
+import React, { useMemo, useState } from 'react';
+import { useResizable } from 'react-resizable-layout';
+import StockDetails from './components/RightPanel';
+import { data, stock_allocation, stock_history } from './components/structure';
 
 const { Search } = Input;
 interface IStockManagement {
@@ -33,7 +35,6 @@ interface IStockManagement {
 }
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
-  
   const { initialState } = useModel('@@initialState');
 
   const { warehouseList } = useModel('warehouse');
@@ -42,15 +43,15 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
   const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
 
-  const [ warehouse, setWarehouse] = useState(null);
-  const [ status, setStatus] = useState('all');
+  const [warehouse, setWarehouse] = useState(null);
+  const [status, setStatus] = useState('all');
 
   const handleChangeWarehouse = (_name: string, value: any) => {
     setWarehouse(value);
-  }
+  };
   const handleChangeStatus = (_name: string, value: any) => {
     setStatus(value);
-  }
+  };
 
   const Tcolumns = useMemo(
     () => [
@@ -241,7 +242,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
           </Col>
         </Row>
 
-        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
+        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10 }}>
           <Space size={4}>
             <Search
               placeholder="Enter SKU or product name..."
@@ -256,48 +257,62 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 items: [
                   {
                     key: '1',
-                    label: (<span onClick={() => setCurrentModal(modalType.StockHistory)}>History</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.StockHistory)}>History</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '2',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Deactivate</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Deactivate</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '3',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Draw Rank</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Draw Rank</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '4',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Location</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Location</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '5',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Transfer</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Transfer</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '6',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Adjust</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Adjust</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '7',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Remove</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Remove</span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '8',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Add</span>),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Add</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                 ],
               }}
             >
-              <Button type="primary" size='small'>
+              <Button type="primary" size="small">
                 <Space>
                   Bulk Edit <DownOutlined />
                 </Space>
@@ -309,58 +324,80 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 items: [
                   {
                     key: '1',
-                    label: (<span onClick={() => setCurrentModal(modalType.StockHistory)}>Import Inventory</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.StockHistory)}>
+                        Import Inventory
+                      </span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '2',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Import Stock Minimums</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                        Import Stock Minimums
+                      </span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '3',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Import Reorder Rules</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                        Import Reorder Rules
+                      </span>
+                    ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '4',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Export Inventory</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                        Export Inventory
+                      </span>
+                    ),
                     icon: <VerticalAlignBottomOutlined />,
                   },
                   {
                     key: '5',
-                    label: (<span onClick={() => setCurrentModal(modalType.ManualOrder)}>Export Stock Details</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                        Export Stock Details
+                      </span>
+                    ),
                     icon: <VerticalAlignBottomOutlined />,
                   },
                   {
                     key: '6',
-                    label: (<span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>Export Stock Edit History</span>),
+                    label: (
+                      <span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>
+                        Export Stock Edit History
+                      </span>
+                    ),
                     icon: <VerticalAlignBottomOutlined />,
                   },
                 ],
               }}
             >
-              <Button type="primary" size='small'>
+              <Button type="primary" size="small">
                 <Space>
                   Import/Export <DownOutlined />
                 </Space>
               </Button>
             </Dropdown>
 
-            <OButton 
+            <OButton
               btnText="Bulk Reconciliation"
-              onClick={() => setCurrentModal(modalType.BulkReconciliation)} />
+              onClick={() => setCurrentModal(modalType.BulkReconciliation)}
+            />
           </Space>
 
-          <OTable 
-            columns={Tcolumns} 
-            rows={dataSource}
-            style={{ marginTop: 15 }} />
+          <OTable columns={Tcolumns} rows={dataSource} style={{ marginTop: 15 }} />
         </Card>
       </div>
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
-      
+
       <div
         className={cn('shrink-0 contents', isRightDragging && 'dragging')}
         style={{ width: RightW }}

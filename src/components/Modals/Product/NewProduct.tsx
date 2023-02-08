@@ -14,44 +14,30 @@ interface INewProduct {
 const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => {
   const buttons: IOButton[] = [
     {
-      type: 'primary',
       btnText: 'Core Product',
       onClick: () => handleClick(modalType.New),
     },
     {
-      type: 'primary',
       btnText: 'Bundle/Kit',
       onClick: () => handleClick(modalType.SelectCoreProduct),
     },
     {
-      type: 'primary',
       btnText: 'Product Variations',
       onClick: () => handleClick(modalType.NewVirtualProduct),
     },
   ];
 
   return (
-    <OModal
-      title={'New Product'}
-      width={300}
-      isOpen={isOpen}
-      handleCancel={onClose}
-      buttons={[]}
-    >
+    <OModal title={'New Product'} width={300} isOpen={isOpen} handleCancel={onClose} buttons={[]}>
       <div style={{ textAlign: 'center' }}>
         <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
-        <Space direction='vertical' size='small' style={{ display: 'flex' }}>
+        <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {buttons.map((btn, index) => (
-            <OButton
-              type={btn.type}
-              btnText={btn.btnText}
-              onClick={btn.onClick}
-              style={{ width: '100%' }}
-            />
-          ))}  
+            <OButton btnText={btn.btnText} size="large" onClick={btn.onClick} style={{ width: '100%' }} />
+          ))}
         </Space>
-        <br/>
-        <a href="#" className='help-link'>
+        <br />
+        <a href="#" className="help-link">
           <span>What's the difference</span> <QuestionCircleOutlined />
         </a>
       </div>

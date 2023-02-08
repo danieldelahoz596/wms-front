@@ -110,15 +110,6 @@ export default function ({ isOpen, onSave, onClose }) {
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item
-            label="Country"
-            name={'country'}
-            initialValue={selectedWarehouse?.return_location?.country}
-          >
-            <Select placeholder="Select...">
-              <Select.Option value="usa">United States of America</Select.Option>
-            </Select>
-          </Form.Item>
           <Form.Item label="Contact Phone">
             <Input.Group>
               <Form.Item

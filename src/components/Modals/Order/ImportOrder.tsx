@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Col, Form, Row, Upload } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
-import { OInput } from '@/components/Globals/OInput';
-import { fileUploadProps } from '@/utils/helpers/base';
-import { UploadOutlined } from '@ant-design/icons';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { OInput } from '@/components/Globals/OInput';
+import { OModal } from '@/components/Globals/OModal';
+import { fileUploadProps } from '@/utils/helpers/base';
 import { modalType } from '@/utils/helpers/types';
+import { UploadOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Button, Col, Form, Row, Upload } from 'antd';
+import React, { useState } from 'react';
 
 interface IImportOrder {
   isOpen: boolean;
@@ -16,7 +16,9 @@ interface IImportOrder {
 }
 
 const ImportOrderModal: React.FC<IImportOrder> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   handleConfigureSettings,
 }) => {
   const { orderImportSettings } = useModel('orderImportSettings');
@@ -85,12 +87,7 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
                 your choice.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
-                <OButton
-                  type="primary"
-                  btnText={'CONFIGURE'}
-                  bordered={true}
-                  onClick={onConfigureSettings}
-                />
+                <OButton btnText="Configure" bordered={true} onClick={onConfigureSettings} />
                 <span>Import Settings:</span>
                 <OInput
                   type="select"

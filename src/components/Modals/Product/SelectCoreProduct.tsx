@@ -55,6 +55,7 @@ const SelectCoreProduct: React.FC<ISelectCoreProduct> = ({ isOpen, onClose, onSa
         </div>
         <Select
           mode="multiple"
+          size="middle"
           style={{ width: '100%' }}
           placeholder="Searcy by Master SKU or Name..."
           onChange={handleProductSelect}

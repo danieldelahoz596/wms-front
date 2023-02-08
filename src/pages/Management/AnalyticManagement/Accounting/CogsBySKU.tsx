@@ -98,7 +98,7 @@ const CogsBySKU: React.FC = () => {
                 <Input style={{ width: 200 }} size="small" />
               </Form.Item>
               <Form.Item label="Brands" style={{ margin: 0 }}>
-                <Select defaultValue="Select..." style={{ width: 200 }} size="small" />
+                <Select size="small" defaultValue="Select..." style={{ width: 200 }} />
               </Form.Item>
               <Form.Item label="From" style={{ margin: 0 }}>
                 <DatePicker size="small" />

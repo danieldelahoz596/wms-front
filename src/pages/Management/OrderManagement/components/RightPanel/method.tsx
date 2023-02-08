@@ -1,8 +1,8 @@
-import type { FC } from 'react';
-import { OInput } from '@/components/Globals/OInput';
-import type { IOButton} from '@/components/Globals/OButton';
+import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
+import { OInput } from '@/components/Globals/OInput';
 import { Card } from 'antd';
+import type { FC } from 'react';
 
 const Method: FC = () => {
   const fulfillmentOptions = [

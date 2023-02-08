@@ -1,9 +1,10 @@
+import { OButton } from '@/components/Globals/OButton';
 import ConfigureFieldTypes from '@/components/Modals/Product/ConfigFieldTypes';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Row, Col, Select, Button } from 'antd';
-import { useState, useMemo } from 'react';
+import { Col, Row, Select } from 'antd';
+import { useMemo, useState } from 'react';
 
 interface IProductCustomFields {
   customFields: any[];
@@ -83,19 +84,18 @@ const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, set
           />
         </Col>
         <Col span={10}>
-          <Button
+          <OButton
+            btnText={'Remove Field'}
             onClick={() => {
               setCustomFields(customFields.filter((field) => field.field_id !== selectedItemId));
               setSelectedItemId(null);
             }}
             disabled={!selectedItemId}
-          >
-            Remove Field
-          </Button>
+          />
         </Col>
         <Col span={7}>
           <Row justify="end">
-            <Button onClick={() => setShowModal(true)}>Configure Field Types</Button>
+            <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
           </Row>
         </Col>
       </Row>

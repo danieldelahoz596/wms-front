@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Button, Card, Col, Form, Row, Space } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
+import { Card, Col, Form, Row, Space } from 'antd';
 import qs from 'qs';
+import { useState } from 'react';
 
 const initailState = {
   phonenumber: '',
@@ -104,13 +105,8 @@ export default function SearchCustomer() {
               ))}
             </Form>
             <div>
-              <Button type="ghost" onClick={clearSearchQuery}>
-                Clear
-              </Button>{' '}
-              &nbsp;
-              <Button type="primary" onClick={() => onSearch(searchQuery)}>
-                Search
-              </Button>
+              <OButton btnText={'Clear'} onClick={clearSearchQuery} />
+              <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
             </div>
           </Space>
         </Card>

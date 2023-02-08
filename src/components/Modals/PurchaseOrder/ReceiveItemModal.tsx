@@ -19,7 +19,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
 }) => {
   const prefixSelectorLabel = (
     <Form.Item name="prefix" noStyle>
-      <label>$</label>
+      <span>$</span>
     </Form.Item>
   );
 
@@ -111,7 +111,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
               <Form.Item label="Original Unit Quantity">
                 <Row gutter={8}>
                   <Col span={8}>
-                    <label>25</label>
+                    <span>25</span>
                   </Col>
                   <Col span={4}>units</Col>
                 </Row>
@@ -151,7 +151,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
             <Form.Item label="Total">
               <Row gutter={8}>
                 <Col span={8}>
-                  <label>25</label>
+                  <span>25</span>
                 </Col>
                 <Col span={4}>units</Col>
               </Row>

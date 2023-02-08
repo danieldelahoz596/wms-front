@@ -12,7 +12,9 @@ interface IVendorProductImportAtOnce {
 }
 
 const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
 }) => {
   return (
     <OModal
@@ -36,34 +38,44 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
       ]}
     >
       <>
-        <p>Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.</p>
+        <p>
+          Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.
+        </p>
         <a
           className="download-link"
           href={`${BACKEND_URL}/template/template_for_global_vendor_product_import.xlsx`}
         >
           <u>Download the Excel Template for Global Vendor Product Import</u>
         </a>
-        <p>To associate your product Master SKUs with Vendor Names and SKUs, simply use the provided template.</p>
         <p>
-          <b>Vendor name</b> must be <b>unique</b> for each vendor and are not case sensitive. 
-          <b>Vendor SKUs are <i>not</i> case sensitive.</b> For example, <i>'sku123' </i>
-          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for product's
-          Master SKUs.
+          To associate your product Master SKUs with Vendor Names and SKUs, simply use the provided
+          template.
+        </p>
+        <p>
+          <b>Vendor name</b> must be <b>unique</b> for each vendor and are not case sensitive.
+          <b>
+            Vendor SKUs are <i>not</i> case sensitive.
+          </b>{' '}
+          For example, <i>'sku123' </i>
+          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for
+          product's Master SKUs.
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
           <span>Excel File: &nbsp;</span>
-          <Upload {...fileUploadProps} >
+          <Upload {...fileUploadProps}>
             <Button icon={<UploadOutlined />}>Select...</Button>
           </Upload>
           <span>Update existing SKUs if changes found in the Excel file? &nbsp;</span>
-          <Select 
-            placeholder="Yes - Update existing SKUs and import new" 
-            defaultValue='update'
+          <Select
+            placeholder="Yes - Update existing SKUs and import new"
+            defaultValue="update"
+            size="small"
+            options={[
+              { value: 'update', label: 'Yes - Update existing SKUs and import new.' },
+              { value: 'ignore', label: 'No - Ignore exisiting SKUs only import new.' },
+            ]}
             style={{ marginTop: 10, width: 250, textAlign: 'left' }}
-          >
-            <Option value="update">Yes - Update existing SKUs and import new.</Option>
-            <Option value="ignore">No - Ignore exisiting SKUs only import new.</Option>
-          </Select>
+          />
         </div>
       </>
     </OModal>

@@ -4,7 +4,7 @@ import ManufacturerIcon from '@/utils/icons/manufacturer';
 import ShippingIcon from '@/utils/icons/shipping';
 import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
-import { Button, Card, Row, Col, Descriptions, Space, Popconfirm } from 'antd';
+import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
   const { selectedVendor, setEditableVendor, getVendorHistory, updateNewVendor } =
@@ -37,8 +37,8 @@ const VendorDetails = ({ setModal }) => {
       <Card title={'Vendor Details'}>
         <Space size={4} wrap>
           <OButton btnText="Edit" onClick={handleEditVendor} />
-          <OButton 
-            btnText="History" 
+          <OButton
+            btnText="History"
             onClick={() => {
               getVendorHistory(vendorDetails.id);
               setModal(modalType.History);
@@ -50,7 +50,7 @@ const VendorDetails = ({ setModal }) => {
               updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
             }}
           >
-            <OButton btnText={selectedVendor.status ? 'DEACTIVATE' : 'ACTIVATE'} /> 
+            <OButton btnText={selectedVendor.status ? 'Deactivate' : 'Activate'} />
           </Popconfirm>
         </Space>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
@@ -59,8 +59,11 @@ const VendorDetails = ({ setModal }) => {
               <Descriptions.Item label="Name">{vendorDetails.name}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Address">{vendorDetails.address}<br/><br/>
-              {vendorDetails.city}, {vendorDetails.state}, {vendorDetails.zip}
+              <Descriptions.Item label="Address">
+                {vendorDetails.address}
+                <br />
+                <br />
+                {vendorDetails.city}, {vendorDetails.state}, {vendorDetails.zip}
               </Descriptions.Item>
             </Descriptions>
             <Descriptions>

@@ -242,6 +242,7 @@ export default function () {
                 <Col span={6}>
                   <Select
                     placeholder="No Overriding Returns Warehouse"
+                    size="small"
                     options={[
                       { value: 'male', label: 'male' },
                       { value: 'female', label: 'female' },

@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
-import { Row, Col, Button } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
-import { ToolFilled } from '@ant-design/icons';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { ToolFilled } from '@ant-design/icons';
+import { Button, Col, Row } from 'antd';
+import { useMemo, useState } from 'react';
 import ConfigAttributes from './ConfigAttributes';
 
 interface IConfigAttributeGroups {
@@ -41,6 +41,7 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
       render: (_, record) => {
         return record.name === enteredRow ? (
           <Button
+            size="small"
             icon={<ToolFilled style={{ color: 'blue' }} />}
             onClick={() => {
               setShowModal(true);

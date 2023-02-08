@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Row, Col, Button, Space } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
 import { EditableTable } from '@/utils/components/EditableTable';
-import NewFieldType from './NewFieldType';
-import Checkbox from 'antd/es/checkbox';
-import { uuidv4 } from '@antv/xflow-core';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
+import { Button, Col, Row, Space } from 'antd';
+import Checkbox from 'antd/es/checkbox';
+import React, { useState } from 'react';
+import NewFieldType from './NewFieldType';
 
 interface IConfigureFieldTypes {
   isOpen: boolean;
@@ -94,70 +95,75 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
         },
       ]}
     >
-      <Row justify="space-between">
-        <Col>
-          <Space size={10}>
-            <Button onClick={handleAddNewType}>New Field Type</Button>
-            <Button disabled={!selectedItemId} onClick={handleDeactive}>
-              {showActive ? 'Deactivate' : 'Activate'}
-            </Button>
-          </Space>
-        </Col>
-        <Col>
-          <Button
-            onClick={() => {
-              setSelectedItemId(null);
-              setShowActive((prev) => !prev);
+      <>
+        <Row justify="space-between">
+          <Col>
+            <Space size={10}>
+              <OButton size="small" btnText="New Field Type" onClick={handleAddNewType} />
+              <OButton
+                size="small"
+                btnText={showActive ? 'Deactivate' : 'Activate'}
+                disabled={!selectedItemId}
+                onClick={handleDeactive}
+              />
+            </Space>
+          </Col>
+          <Col>
+            <OButton
+              size="small"
+              btnText={showActive ? 'Show Inactive' : 'Show Active'}
+              onClick={() => {
+                setSelectedItemId(null);
+                setShowActive((prev) => !prev);
+              }}
+            />
+          </Col>
+        </Row>
+
+        <div className="mt-10">
+          <EditableTable
+            columns={TColumns}
+            dataSource={fieldTypes
+              .filter((field) => field.active === showActive)
+              .map((fields) => ({ key: fields.id, ...fields }))}
+            handleSave={(key: any, name: any, value: any) => {
+              setFieldTypes(
+                fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)),
+              );
             }}
-          >
-            Show {showActive ? 'Inactive' : 'Active'}
-          </Button>
-        </Col>
-      </Row>
+            props={{
+              onRow: (record) => {
+                return {
+                  onClick: () => {
+                    if (selectedItemId === record.id) setSelectedItemId(null);
+                    else setSelectedItemId(record.id);
+                  },
+                };
+              },
+              rowClassName: (record) =>
+                record.id === selectedItemId ? `ant-table-row-selected` : '',
+            }}
+          />
+        </div>
 
-      <div className="mt-10">
-        <EditableTable
-          columns={TColumns}
-          dataSource={fieldTypes
-            .filter((field) => field.active === showActive)
-            .map((fields) => ({ key: fields.id, ...fields }))}
-          handleSave={(key: any, name: any, value: any) => {
-            setFieldTypes(
-              fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)),
-            );
+        <NewFieldType
+          isOpen={showModal}
+          onSave={(values) => {
+            setFieldTypes([
+              ...fieldTypes,
+              {
+                id: uuidv4(),
+                name: values.name,
+                description: values.description,
+                show_on_grid: true,
+                active: false,
+              },
+            ]);
+            setShowModal(false);
           }}
-          props={{
-            onRow: (record) => {
-              return {
-                onClick: () => {
-                  if (selectedItemId === record.id) setSelectedItemId(null);
-                  else setSelectedItemId(record.id);
-                },
-              };
-            },
-            rowClassName: (record) =>
-              record.id === selectedItemId ? `ant-table-row-selected` : '',
-          }}
+          onClose={() => setShowModal(false)}
         />
-      </div>
-
-      <NewFieldType
-        isOpen={showModal}
-        onSave={(values) => {
-          setFieldTypes([
-            ...fieldTypes,
-            {
-              id: uuidv4(),
-              name: values.name,
-              description: values.description,
-              show_on_grid: true,
-              active: false,
-            },
-          ]);
-          setShowModal(false);
-        }}
-        onClose={() => setShowModal(false)}
-      />
+      </>
     </OModal>
   );
 };

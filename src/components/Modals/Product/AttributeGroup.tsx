@@ -1,7 +1,8 @@
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { Input, Button, Collapse, List } from 'antd';
-import { useState } from 'react';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Collapse, Input, List } from 'antd';
+import { useState } from 'react';
 const { Panel } = Collapse;
 
 interface IAttributeGroup {
@@ -13,7 +14,9 @@ interface IAttributeGroup {
 }
 
 const AttributeGroup: React.FC<IAttributeGroup> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   attributeGroups,
   setAttributeGroups,
 }) => {
@@ -71,11 +74,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
         </h3>
         <Input
           placeholder="Enter a valid attribute group name"
-          addonAfter={
-            <Button size="small" type="primary" onClick={handleAttributeAdd}>
-              Add
-            </Button>
-          }
+          addonAfter={<OButton btnText="Add" onClick={handleAttributeAdd} />}
           value={groupName}
           onChange={handleAttributeChange}
         />
@@ -96,12 +95,15 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
               key={_group.name}
               extra={
                 <>
-                  <Button
-                    icon={<CloseOutlined />}
+                  <OButton
+                    btnText={<CloseOutlined />}
                     style={{ marginRight: '50px' }}
                     onClick={() => handleRemoveType(_group)}
                   />
-                  <Button icon={<PlusOutlined />} onClick={(e) => handleAddType(e, _group.name)} />
+                  <OButton
+                    btnText={<PlusOutlined />}
+                    onClick={(e) => handleAddType(e, _group.name)}
+                  />
                 </>
               }
             >

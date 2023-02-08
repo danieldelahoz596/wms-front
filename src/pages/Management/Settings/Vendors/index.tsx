@@ -89,17 +89,20 @@ export default function () {
       <div className="w-full flex flex-column h-screen">
         <Card style={{ width: '100%' }}>
           <Space size={4} className="mb-10">
-            <Search 
-              placeholder="Search vendors by name..." 
-              allowClear 
+            <Search
+              placeholder="Search vendors by name..."
+              allowClear
               onSearch={(value) => handleSearch(value)}
               onChange={(event) => setSearchText(event.target.value)}
               size="small"
-              style={{ width: 200 }} 
+              style={{ width: 200 }}
             />
             <OButton
               btnText="New Vendor"
-              onClick={() => { setModal(modalType.New); }} />
+              onClick={() => {
+                setModal(modalType.New);
+              }}
+            />
             <OButton
               btnText={showInactive ? 'Show Active' : 'Show Inactive'}
               onClick={() => {

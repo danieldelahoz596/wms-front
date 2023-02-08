@@ -15,7 +15,8 @@ interface IOrderExportSettingsModal {
 
 const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen, onClose }) => {
   const [showModal, setShowModal] = useState(false);
-  const { orderExportSettings, removeOrderExportSettings, setEditableExportSetting } = useModel('orderExportSettings');
+  const { orderExportSettings, removeOrderExportSettings, setEditableExportSetting } =
+    useModel('orderExportSettings');
 
   const handleEdit = (_item) => {
     console.log(_item);
@@ -32,9 +33,12 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen,
             onClick={() => handleEdit(_item)}
             style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }}
           />
-          <Popconfirm 
+          <Popconfirm
             title={'Sure to remove?'}
-            onConfirm={() => {removeOrderExportSettings(_index);}}>
+            onConfirm={() => {
+              removeOrderExportSettings(_index);
+            }}
+          >
             <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
           </Popconfirm>
         </Space>

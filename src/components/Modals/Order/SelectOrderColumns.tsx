@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
-import { Card, Table, Row, Col, Button, Input } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { defaultShowColumns } from '@/data/orderData';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Input, Row, Table } from 'antd';
+import { useMemo, useState } from 'react';
 
 interface ISelectOrderColumns {
   isOpen: boolean;
@@ -73,6 +73,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
                       <>
                         <Button
                           icon={<MinusOutlined />}
+                          size="small"
                           onClick={() => {
                             setShowColumns((prev) =>
                               prev.filter((column) => column !== record.name),
@@ -92,7 +93,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
               />
             </Col>
             <Col span={12}>
-              <Row align="middle" className='mt-10'>
+              <Row align="middle" className="mt-10">
                 <Col span={4}>
                   <a
                     style={{ fontWeight: 500, textTransform: 'uppercase' }}
@@ -124,6 +125,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
                       <>
                         <Button
                           icon={<PlusOutlined />}
+                          size="small"
                           onClick={() => {
                             setHideColumns((prev) =>
                               prev.filter((column) => column !== record.name),
@@ -139,7 +141,7 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
                 dataSource={filterColumns.map((column, index) => ({ name: column, key: index }))}
                 pagination={{ hideOnSinglePage: true, pageSize: 42 }}
                 scroll={{ y: 400 }}
-                className='mt-10'
+                className="mt-10"
                 showHeader={false}
               />
             </Col>

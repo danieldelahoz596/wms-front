@@ -16,23 +16,15 @@ export default function MergeCustomer() {
       <Select
         showSearch
         placeholder="Select a person"
+        size="small"
         optionFilterProp="children"
         filterOption={(input, option) =>
           (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
         }
         options={[
-          {
-            value: 'jack',
-            label: 'Jack',
-          },
-          {
-            value: 'lucy',
-            label: 'Lucy',
-          },
-          {
-            value: 'tom',
-            label: 'Tom',
-          },
+          { value: 'jack', label: 'Jack' },
+          { value: 'lucy', label: 'Lucy' },
+          { value: 'tom', label: 'Tom' },
         ]}
       />
       <p>Child Customer</p>

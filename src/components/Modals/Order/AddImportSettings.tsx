@@ -197,7 +197,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
         <Col span={10}>
           <Form form={form}>
             <Form.Item style={{ padding: '0.5rem', marginBottom: '1rem' }}>
-              <label>Settings Name</label>
+              <span>Settings Name</span>
               <OInput
                 type="text"
                 defaultValue={newSettings.settingName}

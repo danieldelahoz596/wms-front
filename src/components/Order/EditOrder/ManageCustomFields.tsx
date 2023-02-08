@@ -1,8 +1,9 @@
+import { OButton } from '@/components/Globals/OButton';
 import ConfigureFieldTypes from '@/components/Modals/Order/ConfigFieldTypes';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { useModel } from '@umijs/max';
-import { Row, Col, Select, Button, Checkbox } from 'antd';
-import { useState, useMemo } from 'react';
+import { Button, Checkbox, Col, Row, Select } from 'antd';
+import { useMemo, useState } from 'react';
 
 const ManageCustomFields: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -78,7 +79,7 @@ const ManageCustomFields: React.FC = () => {
         </Col>
         <Col span={7}>
           <Row justify="end">
-            <Button onClick={() => setShowModal(true)}>Configure Field Types</Button>
+            <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
           </Row>
         </Col>
       </Row>

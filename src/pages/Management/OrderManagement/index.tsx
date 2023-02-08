@@ -1,16 +1,13 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Card, Row, Col, Dropdown, Button, Badge, Modal, Space } from 'antd';
-import React, { useEffect, useState, useMemo } from 'react';
+import { Badge, Button, Card, Col, Dropdown, Modal, Row, Space } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 import SidePanel from './components/SidePanel/sidePanel';
 
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-import OrderItems from './components/Bottoms/orderItems';
-import RightPanel from './components/RightPanel/rightPanel';
-import { OTable } from '@/components/Globals/OTable';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { OTable } from '@/components/Globals/OTable';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { modalType } from '@/utils/helpers/types';
 import {
   BorderHorizontalOutlined,
   CheckCircleOutlined,
@@ -25,39 +22,40 @@ import {
   GlobalOutlined,
   MessageOutlined,
   MinusCircleOutlined,
-  PlusCircleOutlined,
-  RedoOutlined,
-  RetweetOutlined,
+  PlusCircleOutlined, RetweetOutlined,
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
-import { modalType } from '@/utils/helpers/types';
+import { useModel } from '@umijs/max';
+import { useResizable } from 'react-resizable-layout';
+import OrderItems from './components/Bottoms/orderItems';
+import RightPanel from './components/RightPanel/rightPanel';
 
 // modals
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
-import ManualOrderModal from '@/components/Modals/Order/ManualOrder';
-import EditOrderModal from '@/components/Modals/Order/EditOrder';
+import AddExportSettingsModal from '@/components/Modals/Order/AddExportSettings';
+import AddImportSettingsModal from '@/components/Modals/Order/AddImportSettings';
 import CancelOrderModal from '@/components/Modals/Order/CancelOrder';
-import RestoreOrderModal from '@/components/Modals/Order/RestoreOrder';
-import ImportOrderModal from '@/components/Modals/Order/ImportOrder';
-import ImportOrderShipmentModal from '@/components/Modals/Order/ImportOrderShipment';
+import EditOrderModal from '@/components/Modals/Order/EditOrder';
 import ExportOrderModal from '@/components/Modals/Order/ExportOrder';
 import ExportQueueOrderModal from '@/components/Modals/Order/ExportQueueOrder';
-import OrderImportSettingsModal from '@/components/Modals/Order/OrderImportSettings';
-import AddImportSettingsModal from '@/components/Modals/Order/AddImportSettings';
-import AddExportSettingsModal from '@/components/Modals/Order/AddExportSettings';
-import ShipmentImportMappingsModal from '@/components/Modals/Order/ShipmentImportMappings';
+import ImportOrderModal from '@/components/Modals/Order/ImportOrder';
+import ImportOrderShipmentModal from '@/components/Modals/Order/ImportOrderShipment';
+import ManualOrderModal from '@/components/Modals/Order/ManualOrder';
 import NewShipmentImportMappingsModal from '@/components/Modals/Order/NewShipmentImportMappings';
 import OrderExportSettingsModal from '@/components/Modals/Order/OrderExportSettings';
+import OrderImportSettingsModal from '@/components/Modals/Order/OrderImportSettings';
+import RestoreOrderModal from '@/components/Modals/Order/RestoreOrder';
+import ShipmentImportMappingsModal from '@/components/Modals/Order/ShipmentImportMappings';
 
-import moment from 'moment';
-import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumns';
-import { defaultShowColumns } from '@/data/orderData';
-import SplitOrder from '@/components/Modals/Order/SplitOrder';
-import { uuidv4 } from '@antv/xflow-core';
 import DuplicateOrderModal from '@/components/Modals/Order/DuplicateOrder';
+import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumns';
+import SplitOrder from '@/components/Modals/Order/SplitOrder';
+import { defaultShowColumns } from '@/data/orderData';
+import { uuidv4 } from '@antv/xflow-core';
+import moment from 'moment';
 
 const { confirm } = Modal;
 
@@ -210,43 +208,43 @@ const OrderManagement: React.FC = () => {
             items: [
               {
                 key: 'pick_list',
-                label: (<span> Pick List(s)</span>),
+                label: <span> Pick List(s)</span>,
                 icon: <FileOutlined />,
               },
               {
                 key: 'global_picK_list',
-                label: (<span> Global Pick List</span>),
+                label: <span> Global Pick List</span>,
                 icon: <FileOutlined />,
               },
               {
                 key: 'packing_slip',
-                label: (<span>Packing Slip(s)</span>),
-                icon: <FileTextOutlined />
+                label: <span>Packing Slip(s)</span>,
+                icon: <FileTextOutlined />,
               },
               {
                 key: 'item_label',
-                label: (<span>Item Label(s)</span>),
+                label: <span>Item Label(s)</span>,
                 icon: <FileOutlined />,
               },
               {
                 key: 'item_label_roll',
-                label: (<span>Item Label(s) Roll</span>),
+                label: <span>Item Label(s) Roll</span>,
                 icon: <FileOutlined />,
               },
               {
                 key: 'label',
-                label: (<span>Label(s)</span>),
+                label: <span>Label(s)</span>,
                 icon: <FileOutlined />,
               },
               {
                 key: 'custom_form',
-                label: (<span>Custom Form(s)</span>),
+                label: <span>Custom Form(s)</span>,
                 icon: <FileOutlined />,
               },
             ],
           }}
         >
-          <Button type="primary" size='small'>
+          <Button type="primary" size="small">
             <Space>
               Print <DownOutlined />
             </Space>
@@ -263,7 +261,7 @@ const OrderManagement: React.FC = () => {
             items: [],
           }}
         >
-          <Button type="primary" size='small'>
+          <Button type="primary" size="small">
             <Space>
               Label <DownOutlined />
             </Space>
@@ -278,20 +276,23 @@ const OrderManagement: React.FC = () => {
             items: [
               {
                 key: 'hold_until',
-                label: (<span>Hold Until..</span>),
+                label: <span>Hold Until..</span>,
                 icon: <FieldTimeOutlined />,
               },
               // In Awaiting Shipment or Pending Fulfillment
-              [3, 4].includes(selectedOrderStatus?.status.id) ? 
-              {
-                key: 'cancel_order',
-                label: (<span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>),
-                icon: <StopOutlined />,
-                disabled: selectedRows.length == 0,
-              } : null,
+              [3, 4].includes(selectedOrderStatus?.status.id)
+                ? {
+                    key: 'cancel_order',
+                    label: (
+                      <span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>
+                    ),
+                    icon: <StopOutlined />,
+                    disabled: selectedRows.length == 0,
+                  }
+                : null,
               {
                 key: 'assign_to',
-                label: (<span>Assign To</span>),
+                label: <span>Assign To</span>,
                 icon: <UserOutlined />,
                 children:
                   userList.length > 1 &&
@@ -305,18 +306,20 @@ const OrderManagement: React.FC = () => {
               },
               {
                 key: 'split_order',
-                label: (<span onClick={() => setModal(modalType.SplitOrder)}>SplitOrder</span>),
+                label: <span onClick={() => setModal(modalType.SplitOrder)}>SplitOrder</span>,
                 icon: <MinusCircleOutlined />,
                 disabled: selectedRows.length !== 1,
               },
               {
                 key: 'mark_shipped',
-                label: (<span>Mark 'Shipped'</span>),
+                label: <span>Mark 'Shipped'</span>,
                 icon: <CheckCircleOutlined />,
               },
               {
                 key: 'duplicate_order',
-                label: (<span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>),
+                label: (
+                  <span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>
+                ),
                 icon: <PlusCircleOutlined />,
               },
               // {
@@ -327,7 +330,7 @@ const OrderManagement: React.FC = () => {
             ],
           }}
         >
-          <Button type="primary" size='small'>
+          <Button type="primary" size="small">
             <Space>
               Edit <DownOutlined />
             </Space>
@@ -351,16 +354,25 @@ const OrderManagement: React.FC = () => {
     {
       btnText: (
         <Dropdown
-          menu={{ items: [
+          menu={{
+            items: [
               {
                 key: '3',
-                label: (<span onClick={() => {setModal(modalType.ManualOrder)}}>Manual Orders</span>),
-                icon: <GlobalOutlined />
+                label: (
+                  <span
+                    onClick={() => {
+                      setModal(modalType.ManualOrder);
+                    }}
+                  >
+                    Manual Orders
+                  </span>
+                ),
+                icon: <GlobalOutlined />,
               },
             ],
           }}
         >
-          <Button type="primary" size='small'>
+          <Button type="primary" size="small">
             <Space>
               New Order <DownOutlined />
             </Space>
@@ -372,31 +384,40 @@ const OrderManagement: React.FC = () => {
       onClick: () => console.log('Import/Export'),
       btnText: (
         <Dropdown
-          menu={{ items: [
+          menu={{
+            items: [
               {
                 key: '1',
-                label: (<span onClick={() => setModal(modalType.ImportOrder)}>Import Orders</span>),
+                label: <span onClick={() => setModal(modalType.ImportOrder)}>Import Orders</span>,
                 icon: <VerticalAlignTopOutlined />,
               },
               {
                 key: '2',
-                label: (<span onClick={() => setModal(modalType.ImportOrderShipments)}>Import Shipments</span>),
+                label: (
+                  <span onClick={() => setModal(modalType.ImportOrderShipments)}>
+                    Import Shipments
+                  </span>
+                ),
                 icon: <VerticalAlignTopOutlined />,
               },
-              { 
+              {
                 type: 'divider',
               },
               {
                 key: '4',
-                label: (<span onClick={() => setModal(modalType.ExportOrder)}>Export Selected Orders</span>),
+                label: (
+                  <span onClick={() => setModal(modalType.ExportOrder)}>
+                    Export Selected Orders
+                  </span>
+                ),
                 icon: <VerticalAlignBottomOutlined />,
-                disabled: selectedRows.length == 0
+                disabled: selectedRows.length == 0,
               },
             ],
           }}
         >
-          <Button type="primary" size='small'>
-            <Space >
+          <Button type="primary" size="small">
+            <Space>
               Import/Export <DownOutlined />
             </Space>
           </Button>
@@ -451,7 +472,9 @@ const OrderManagement: React.FC = () => {
         <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
           <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
           <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-          <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}/>
+          <MessageOutlined
+            style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
+          />
         </div>
       ),
       order_date: moment(item.order_date).format('Y-M-D'),
@@ -504,15 +527,15 @@ const OrderManagement: React.FC = () => {
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
                   {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
-                    <Button type="primary" style={{ paddingTop: '0', paddingBottom: '0' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span>
-                          {' '}
-                          <DownOutlined /> {selectedOrderStatus?.status.name} Queue
-                        </span>{' '}
-                        <Badge count={3} color="#5F5FFF" />
-                      </div>
-                    </Button>
+                  <Button type="primary" style={{ paddingTop: '0', paddingBottom: '0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span>
+                        {' '}
+                        <DownOutlined /> {selectedOrderStatus?.status.name} Queue
+                      </span>{' '}
+                      <Badge count={3} color="#5F5FFF" />
+                    </div>
+                  </Button>
                   {/* )} */}
                 </Col>
               </Row>

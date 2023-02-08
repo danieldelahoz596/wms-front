@@ -1,14 +1,14 @@
-import { Button, Input, Card, Row, Col, Select, Checkbox, Table, Space } from 'antd';
-import React, { useState } from 'react';
-import { data, historyData } from './components/structure';
-import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
-import TransferHistoryModal from '@/components/Modals/Inventory/TransferHistory';
-import { modalType } from '@/utils/helpers/types';
-import { useResizable } from 'react-resizable-layout';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import TransferDetails from './components/RightPanel';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
+import TransferHistoryModal from '@/components/Modals/Inventory/TransferHistory';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { modalType } from '@/utils/helpers/types';
+import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
+import { Card, Col, Input, Row, Select, Space } from 'antd';
+import React, { useState } from 'react';
+import { useResizable } from 'react-resizable-layout';
+import TransferDetails from './components/RightPanel';
+import { data, historyData } from './components/structure';
 const { Search } = Input;
 
 const Tcolumns = [
@@ -140,7 +140,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
           </Col>
         </Row>
 
-        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10}}>
+        <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10 }}>
           <Space size={4}>
             <Search
               placeholder="Enter Order#, SKU or product name..."
@@ -149,21 +149,17 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
               size="small"
               style={{ width: 300 }}
             />
-            <OButton 
+            <OButton
               btnText="Receive"
               disabled={!(selectedTranster?.status === 'pending_receiving')}
             />
-            <OButton
-              btnText="History"            
-              disabled={!selectedTranster}
-              onClick={showHistory}
-            />
+            <OButton btnText="History" disabled={!selectedTranster} onClick={showHistory} />
           </Space>
 
-          <OTable 
-            type='radio'
-            columns={Tcolumns} 
-            rows={dataSource} 
+          <OTable
+            type="radio"
+            columns={Tcolumns}
+            rows={dataSource}
             selectedRows={selectedTranster}
             setSelectedRows={setSelectedTranster}
             style={{ marginTop: 15 }}

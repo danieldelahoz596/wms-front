@@ -1,5 +1,5 @@
-import { OModal } from '@/components/Globals/OModal';
 import { OButton } from '@/components/Globals/OButton';
+import { OModal } from '@/components/Globals/OModal';
 import { Col, Row } from 'antd';
 
 interface IExportVendorProduct {
@@ -27,16 +27,18 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
       ]}
     >
       <>
-        <p>Skubana gives you the option to export vendor products by downloading an individial file
-          for each vendor, or by exporting one global file that contains all your vendor products.</p>
+        <p>
+          Skubana gives you the option to export vendor products by downloading an individial file
+          for each vendor, or by exporting one global file that contains all your vendor products.
+        </p>
 
         <Row gutter={16}>
           <Col span={12}>
-            <OButton type="primary" btnText={'Export By Vendor'} style={{ width: '100%', marginBottom: 10 }}/>
+            <OButton btnText={'Export By Vendor'} style={{ width: '100%', marginBottom: 10 }} />
             <p>Export vendor products through individual file for each vendor.</p>
           </Col>
           <Col span={12}>
-            <OButton type="primary" btnText={'Export All At Once'} style={{ width: '100%', marginBottom: 10 }}/>
+            <OButton btnText={'Export All At Once'} style={{ width: '100%', marginBottom: 10 }} />
             <p>Export all your vendor products in one file that includes vendor names.</p>
           </Col>
         </Row>

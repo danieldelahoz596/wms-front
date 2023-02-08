@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { OTable } from '@/components/Globals/OTable';
-import { Card, Row, Col } from 'antd';
-import { Table2DemoColumns, Table2StaticData } from '@/data';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import { Table2DemoColumns, Table2StaticData } from '@/data';
+import { Card, Col, Row } from 'antd';
+import { useState } from 'react';
 
 const Details: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);

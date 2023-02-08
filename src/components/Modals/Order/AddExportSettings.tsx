@@ -14,7 +14,7 @@ interface IAddExportSettingsModal {
 const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const [selectedExportFields, setSelectedExportFields] = useState([]);
-  const [multiSku, setMultiSku] =  useState();
+  const [multiSku, setMultiSku] = useState();
 
   const {
     editableExportSetting,
@@ -104,8 +104,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     { key: 80, field: 'Giftcard' },
     { key: 81, field: 'Product Name' },
     { key: 82, field: 'Brand Name' },
-    { key: 83, field: 'Customer Name'
-    },
+    { key: 83, field: 'Customer Name' },
   ];
 
   const exportFieldsColumns = [
@@ -205,7 +204,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
   return (
     <OModal
-      title={editableExportSetting ? "Edit Export Settings" : "New Export Settings"}
+      title={editableExportSetting ? 'Edit Export Settings' : 'New Export Settings'}
       width={700}
       isOpen={isOpen}
       handleCancel={handleClose}
@@ -224,20 +223,28 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         },
       ]}
     >
-      <Form 
-        form={form} 
+      <Form
+        form={form}
         initialValues={editableExportSetting}
         labelCol={{ span: 6 }}
-        wrapperCol={{ span: 18 }}>
+        wrapperCol={{ span: 18 }}
+      >
         <Row>
           <Col span={11} style={{ padding: 5, paddingTop: 7 }}>
-            <Form.Item name="settingName" label="Settings Name" labelCol={{ span: 24 }} wrapperCol={{ span: 23 }}>
+            <Form.Item
+              name="settingName"
+              label="Settings Name"
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 23 }}
+            >
               <Input />
             </Form.Item>
             <Card title="File Configuration">
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
                   placeholder="Select..."
+                  size="small"
+                  defaultValue={'csv'}
                   options={[
                     { value: 'csv', label: 'CSV' },
                     { value: 'excel', label: 'EXCEL' },
@@ -247,7 +254,9 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               </Form.Item>
               <Form.Item name={'dateFormat'} label="Date Format ">
                 <Select
-                  placeholder="MM/dd/yyyy"
+                  placeholder="Select..."
+                  size="small"
+                  defaultValue={'MM/dd/yyyy'}
                   options={[
                     { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
                     { value: 'yyyy-MM-dd', label: 'yyyy-MM-dd' },
@@ -255,11 +264,8 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 />
               </Form.Item>
               <Space size="small">
-                <Form.Item label="Multi SKUs" name='multiSku'>
-                  <Radio.Group
-                    value={multiSku}
-                    onChange={(e) => setMultiSku(e.target.value)}
-                  >
+                <Form.Item label="Multi SKUs" name="multiSku">
+                  <Radio.Group value={multiSku} onChange={(e) => setMultiSku(e.target.value)}>
                     <Radio value={'multiline'}>Multiline</Radio>
                     <Radio value={'delimit'}>Delimit</Radio>
                   </Radio.Group>
@@ -274,22 +280,27 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               name="wrapDoubleQuote"
               valuePropName="checked"
               label="Wrap values in double quotes when exporting CSV/text files?"
-              colon={false}>
+              colon={false}
+            >
               <Checkbox />
             </Form.Item>
-            <label>NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.</label>
+            <span>NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.</span>
           </Col>
 
           <Col span={13}>
             <Card
               title={
                 <Space size={5} align={'start'}>
-                  <span>Export Fields</span>  
+                  <span>Export Fields</span>
                   <span style={{ color: 'blue', textTransform: 'capitalize' }}>
                     (Include column headers?
                   </span>
-                  <Form.Item name="includeColumnHeader" valuePropName="checked" style={{ marginTop: -6 }}>
-                    <Checkbox/>
+                  <Form.Item
+                    name="includeColumnHeader"
+                    valuePropName="checked"
+                    style={{ marginTop: -6 }}
+                  >
+                    <Checkbox />
                   </Form.Item>
                   <span style={{ color: 'blue' }}>)</span>
                 </Space>
@@ -303,6 +314,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               >
                 <Select
                   placeholder="Select..."
+                  size="small"
                   onChange={(_val) => handleAddField(_val)}
                   options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />

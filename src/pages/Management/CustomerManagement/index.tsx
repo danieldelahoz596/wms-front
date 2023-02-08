@@ -139,16 +139,13 @@ const CustomerManagement: React.FC = () => {
               <Col span={24}>
                 <Card size="small" title="Customers">
                   <Space size={4} className="mb-10">
-                    <OButton 
-                      btnText="Merge"
-                      onClick={() => setModal(modalType.Merge)}  />
-                    <OButton 
-                      btnText="History" 
+                    <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
+                    <OButton
+                      btnText="History"
                       disabled={!selectedCustomer}
-                      onClick={() => setModal(modalType.History)} />
-                    <OButton 
-                      btnText="New Customers" 
-                      onClick={() => setModal(modalType.New)} />
+                      onClick={() => setModal(modalType.History)}
+                    />
+                    <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />
                   </Space>
                   <OTable
                     columns={Tcolumns}

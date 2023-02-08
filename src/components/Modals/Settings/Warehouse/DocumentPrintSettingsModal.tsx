@@ -42,9 +42,11 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Card title="LABEL PRINT OPTIONS">
                     <Form>
                       <Form.Item label="Order Labels By">
-                        <Select defaultValue={'0'}>
-                          <Select.Option value="0">None - as selected</Select.Option>
-                        </Select>
+                        <Select
+                          size="small"
+                          defaultValue="0"
+                          options={[{ value: 0, label: 'None - as selected' }]}
+                        />
                       </Form.Item>
                       <Form.Item label="Label Messages">
                         <p>
@@ -76,9 +78,11 @@ export default function ({ isOpen, onSave, onClose }) {
                             </div>
                           </Col>
                           <Col span={6}>
-                            <Select defaultValue={'12am'}>
-                              <Select.Option value="12am">12:00 AM</Select.Option>
-                            </Select>
+                            <Select
+                              size="small"
+                              defaultValue="12am"
+                              options={[{ value: '12am', label: '12:00 AM' }]}
+                            />
                           </Col>
                         </Row>
                       </Form.Item>
@@ -101,9 +105,11 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Card title="PACKING SLIP OPTIONS">
                     <Form labelCol={{ span: 16 }} wrapperCol={{ span: 8 }}>
                       <Form.Item label="Order Items By">
-                        <Select defaultValue={'0'}>
-                          <Select.Option value="0">Master SKU</Select.Option>
-                        </Select>
+                        <Select
+                          size="small"
+                          defaultValue="0"
+                          options={[{ value: 0, label: 'Master SKU' }]}
+                        />
                       </Form.Item>
                       <Form.Item label="Use Label Ordering when Printing Packing Slips Independently">
                         <Checkbox />
@@ -137,9 +143,11 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Card title="PACKING SLIP OPTIONS">
                     <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                       <Form.Item label="Order Items By">
-                        <Select defaultValue={'0'}>
-                          <Select.Option value="0">Master SKU</Select.Option>
-                        </Select>
+                        <Select
+                          size="small"
+                          defaultValue="0"
+                          options={[{ value: 0, label: 'Master SKU' }]}
+                        />
                       </Form.Item>
                       <Form.Item label="Product Images">
                         <Checkbox defaultChecked /> Print product image on Pick Lists

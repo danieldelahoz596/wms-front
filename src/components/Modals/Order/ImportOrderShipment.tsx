@@ -1,10 +1,10 @@
-import React from 'react';
-import { Button, Col, Form, Row, Upload } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
+import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
+import { OModal } from '@/components/Globals/OModal';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
-import { OButton } from '@/components/Globals/OButton';
+import { Button, Col, Form, Row, Upload } from 'antd';
+import React from 'react';
 
 interface IImportOrderShipment {
   isOpen: boolean;
@@ -14,7 +14,9 @@ interface IImportOrderShipment {
 }
 
 const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   onConfigure,
 }) => {
   const updateShipmentOptions = [
@@ -66,21 +68,20 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
               }}
             >
               <p>
-                All import of external shipments into Skubana are preformed using the Microsoft Excel
-                spreadsheet format. In order to generate the appropriate template to use for your
-                imports and ensure there is no ambiguity as to which channels and carriers. Please
-                note that mappings are not case sensitive.
+                All import of external shipments into Skubana are preformed using the Microsoft
+                Excel spreadsheet format. In order to generate the appropriate template to use for
+                your imports and ensure there is no ambiguity as to which channels and carriers.
+                Please note that mappings are not case sensitive.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
-                <OButton
-                  type="primary"
-                  btnText={'CONFIGURE'}
-                  bordered={true}
-                  onClick={onConfigure}
-                />
+                <OButton btnText="Configure" bordered={true} onClick={onConfigure} />
                 <span>Import Settings:</span>
                 <OInput type="select" placeholder="Select..." options={[]} style={{ flex: 1 }} />
-                <Button type="primary" style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}>
+                <Button
+                  type="primary"
+                  size="small"
+                  style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}
+                >
                   <VerticalAlignBottomOutlined size={16} />
                 </Button>
               </div>
@@ -102,7 +103,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
               </Form.Item>
 
               <Form.Item>
-                <label>Update existing shipments if changes found in the Excel file?</label>
+                <span>Update existing shipments if changes found in the Excel file?</span>
                 <OInput type="select" options={updateShipmentOptions} placeholder="Select..." />
               </Form.Item>
             </Form>

@@ -35,13 +35,21 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
       ]}
     >
       <>
-        <p>All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
-        <a className="download-link" href={`${BACKEND_URL}/template/template_for_product_import.xlsx`}>
+        <p>
+          All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
+        </p>
+        <a
+          className="download-link"
+          href={`${BACKEND_URL}/template/template_for_product_import.xlsx`}
+        >
           <u>Download the Excel Template for Product Import</u>
         </a>
         <p>
-          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are 
-          <i><strong> not</strong></i> case sensitive. For example, <i>'sku123' </i>
+          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are
+          <i>
+            <strong> not </strong>
+          </i>
+          case sensitive. For example, <i>'sku123' </i>
           is regarded the same as <i>'SKU123'</i> by the system.
         </p>
         <p>
@@ -52,18 +60,20 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
           <span>Products File: &nbsp;</span>
-          <Upload {...fileUploadProps} >
+          <Upload {...fileUploadProps}>
             <Button icon={<UploadOutlined />}>Select...</Button>
           </Upload>
           <span>Update existing products if changes found in the Excel file? &nbsp;</span>
-          <Select 
-            placeholder="Yes - Update existing products and import new" 
-            defaultValue='update'
+          <Select
+            placeholder="Yes - Update existing products and import new"
+            defaultValue="update"
+            size="small"
+            options={[
+              { value: 'update', label: 'Yes - Update existing products and import new.' },
+              { value: 'ignore', label: 'No - Ignore exisiting products; only import new.' },
+            ]}
             style={{ marginTop: 10, width: 250, textAlign: 'left' }}
-          >
-            <Option value="update">Yes - Update existing products and import new.</Option>
-            <Option value="ignore">No - Ignore exisiting products; only import new.</Option>
-          </Select>
+          />
         </div>
       </>
     </OModal>

@@ -49,8 +49,8 @@ const ExportCustomBundleKit: React.FC<IExportCustomBundleKit> = ({ isOpen, onClo
         </p>
         <div style={{ textAlign: 'right', marginTop: 40 }}>
           <Space size={5}>
-            <label>Export Settings: </label>
-            <Select 
+            <span>Export Settings: </span>
+            <Select
               placeholder="Select..."
               size="small"
               style={{ width: 200, textAlign: 'left' }}

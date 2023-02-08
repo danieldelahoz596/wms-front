@@ -1,3 +1,4 @@
+import { OButton } from '@/components/Globals/OButton';
 import AddShippingZonesModal from '@/components/Modals/Settings/Warehouse/AddShippingZonesModal';
 import BasicInfoModal from '@/components/Modals/Settings/Warehouse/BasicInfoModal';
 import DocumentPrintSettingsModal from '@/components/Modals/Settings/Warehouse/DocumentPrintSettingsModal';
@@ -21,10 +22,10 @@ import {
   PaperClipOutlined,
   QuestionCircleTwoTone,
   StopOutlined,
-  ToolFilled,
+  ToolFilled
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Card, Row, Col, Button, Dropdown, Space } from 'antd';
+import { Card, Col, Dropdown, Row, Space } from 'antd';
 import { useState } from 'react';
 
 export default function () {
@@ -43,22 +44,18 @@ export default function () {
       <Card>
         <Row gutter={5}>
           <Col span={24}>
-            <Button
-              type="primary"
+            <OButton
+              btnText={'New Warehouse'}
               onClick={() => setModalOpen(modalType.Void)}
               style={{ marginRight: '5px' }}
-            >
-              NEW WAREHOUSE
-            </Button>
-            <Button
-              type="primary"
+            />
+            <OButton
+              btnText={showInactive ? 'Show Active' : 'Show Inactive'}
               onClick={() => {
                 setShowInactive((prev) => !prev);
               }}
               style={{ marginRight: '5px' }}
-            >
-              {showInactive ? 'SHOW ACTIVE' : 'SHOW INACTIVE'}
-            </Button>
+            />
           </Col>
         </Row>
         <Row gutter={5} style={{ marginTop: '1rem' }}>

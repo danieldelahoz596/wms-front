@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Row, Col, Table } from 'antd';
-import { useModel } from '@umijs/max';
 import { OButton } from '@/components/Globals/OButton';
-import { CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { modalType } from '@/utils/helpers/types';
 import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct';
+import { modalType } from '@/utils/helpers/types';
+import { CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { Col, Popconfirm, Row, Space, Table } from 'antd';
+import { useEffect, useState } from 'react';
 
 const VendorProduct: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -92,25 +91,31 @@ const VendorProduct: React.FC = () => {
 
   const actionButtons = [
     {
-      type: 'primary',
       onClick: handleNewVendorProductClick,
       btnText: 'New Vendor Product',
-      disabled: false
+      disabled: false,
     },
     {
-      type: 'primary',
       onClick: handleEditVendorProductClick,
       btnText: 'Edit',
       disabled: !selectedVendorProductKey,
     },
     {
-      type: 'primary',
       onClick: handleDeactiveClick,
-      btnText: 'Deactivate',
-      disabled: !selectedVendorProductKey,
+      // btnText: 'Deactivate',
+      btnText: (
+        <Popconfirm
+          title={'Sure to Deactivate?'}
+          onConfirm={() => {
+            handleDeactiveClick;
+          }}
+        >
+          <OButton size="small" disabled={!selectedVendorProductKey} btnText={'Deactivate'}></OButton>
+        </Popconfirm>
+      ),
+      
     },
     {
-      type: 'primary',
       onClick: handleDefaultClick,
       btnText: 'Default',
       disabled: !selectedVendorProductKey,
@@ -125,36 +130,37 @@ const VendorProduct: React.FC = () => {
     <>
       <div>
         <p>Add vendor SKUs associated with this product.</p>
-        <Row justify="space-between">
-          <Col span={18} style={{ textAlign: 'left' }}>
-            {actionButtons.map((btn, index) => (
-              <OButton key={index} {...btn} />
-            ))}
+        <Row>
+          <Col span={18}>
+            <Space size={4}>
+              {actionButtons.map((btn, index) => (
+                <OButton {...btn} />
+              ))}
+            </Space>
           </Col>
           <Col span={6} style={{ textAlign: 'right' }}>
-            <OButton type="primary" btnText="Show Inactive" disabled={!selectedVendorProductKey} />
+            <OButton btnText="Show Inactive" disabled={vendorProductList.length == 0} />
           </Col>
         </Row>
-        <div style={{ marginTop: '1rem', minHeight: '200px' }}>
-          <Table
-            columns={vendorProductsTableColumns}
-            dataSource={vendorProductsTableRows}
-            pagination={false}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: () => {
-                  handleVendorRowClick(record);
-                }, // clicow
-                onDoubleClick: (event) => {
-                  handleVendorRowClick(record);
-                }, // double clicow
-              };
-            }}
-            rowClassName={(record) =>
-              record.key === selectedVendorProductKey ? `data-row active-row pb-3` : 'data-row'
-            }
-          />
-        </div>
+        <Table
+          columns={vendorProductsTableColumns}
+          dataSource={vendorProductsTableRows}
+          pagination={false}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: () => {
+                handleVendorRowClick(record);
+              }, // clicow
+              onDoubleClick: (event) => {
+                handleVendorRowClick(record);
+              }, // double clicow
+            };
+          }}
+          rowClassName={(record) =>
+            record.key === selectedVendorProductKey ? `data-row active-row pb-3` : 'data-row'
+          }
+          style={{ marginTop: '1rem', minHeight: 200 }}
+        />
       </div>
 
       <NewVendorProductModal

@@ -95,62 +95,12 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Col span={4}>State/Zip</Col>
                   <Col span={10}>
                     <Select
+                      size="small"
                       style={{ width: '100%' }}
                       defaultValue={editableVendor?.state}
                       onChange={(value) => handleInputChange('state', value)}
-                    >
-                      <Option value="1">Alabama</Option>
-                      <Option value="2">Alabama</Option>
-                      <Option value="3">Alaska</Option>
-                      <Option value="4">Alabama</Option>
-                      <Option value="5">Alaska</Option>
-                      <Option value="6">Arizona</Option>
-                      <Option value="7">Arkansas</Option>
-                      <Option value="8">California</Option>
-                      <Option value="9">Colorado</Option>
-                      <Option value="10">Connecticut</Option>
-                      <Option value="11">Delaware</Option>
-                      <Option value="12">Florida</Option>
-                      <Option value="13">Georgia</Option>
-                      <Option value="14">Hawaii</Option>
-                      <Option value="15">Idaho</Option>
-                      <Option value="16">IllinoisIndiana</Option>
-                      <Option value="17">Iowa</Option>
-                      <Option value="18">Kansas</Option>
-                      <Option value="19">Kentucky</Option>
-                      <Option value="20">Louisiana</Option>
-                      <Option value="21">Maine</Option>
-                      <Option value="22">Maryland</Option>
-                      <Option value="23">Massachusetts</Option>
-                      <Option value="24">Michigan</Option>
-                      <Option value="25">Minnesota</Option>
-                      <Option value="26">Mississippi</Option>
-                      <Option value="27">Missouri</Option>
-                      <Option value="28">Montana</Option>
-                      <Option value="29">Nebraska</Option>
-                      <Option value="30">Nevada</Option>
-                      <Option value="31">New Hampshire</Option>
-                      <Option value="32">New Jersey</Option>
-                      <Option value="33">New Mexico</Option>
-                      <Option value="34">New York</Option>
-                      <Option value="35">North Carolina</Option>
-                      <Option value="36">North Dakota</Option>
-                      <Option value="37">Ohio</Option>
-                      <Option value="38">Oklahoma</Option>
-                      <Option value="39">Oregon</Option>
-                      <Option value="40">PennsylvaniaRhode Island</Option>
-                      <Option value="41">South Carolina</Option>
-                      <Option value="42">South Dakota</Option>
-                      <Option value="43">Tennessee</Option>
-                      <Option value="44">Texas</Option>
-                      <Option value="45">Utah</Option>
-                      <Option value="46">Vermont</Option>
-                      <Option value="47">Virginia</Option>
-                      <Option value="48">Washington</Option>
-                      <Option value="49">West Virginia</Option>
-                      <Option value="50">Wisconsin</Option>
-                      <Option value="51">Wyoming</Option>
-                    </Select>
+                      options={[]}
+                    />
                   </Col>
                   <Col span={10}>
                     <Input
@@ -249,16 +199,15 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Col span={20}>
                     <Select
                       placeholder="Select..."
+                      size="small"
                       style={{ width: '100%' }}
                       defaultValue={`${editableVendor?.po_default.template}`}
                       onChange={(value) => handlePOInputChange('template', value)}
-                    >
-                      {poTemplateList.map((_item) => (
-                        <Option key={_item.id} value={`${_item.id}`}>
-                          {_item.value}
-                        </Option>
-                      ))}
-                    </Select>
+                      options={poTemplateList.map((_item) => ({
+                        value: _item.id,
+                        label: _item.value,
+                      }))}
+                    />
                   </Col>
                 </Row>
                 <Row className="pb-3">
@@ -266,11 +215,13 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Col span={20}>
                     <Select
                       placeholder="Please select"
+                      size="small"
                       style={{ width: '100%' }}
-                    >
-                      <Option key="PDF" value="PDF Attachment"></Option>
-                      <Option key="HTML" value="HTML Attachment"></Option>
-                    </Select>
+                      options={[
+                        { value: 'PDF', label: 'PDF Attachment' },
+                        { value: 'HTML', label: 'HTML Attachment' },
+                      ]}
+                    />
                   </Col>
                 </Row>
                 <Row className="pb-3">
@@ -278,16 +229,15 @@ export default function ({ isOpen, onSave, onClose }) {
                   <Col span={20}>
                     <Select
                       placeholder="Select..."
+                      size="small"
                       style={{ width: '100%' }}
                       defaultValue={`${editableVendor?.po_default.payment_term}`}
                       onChange={(value) => handlePOInputChange('payment_term', value)}
-                    >
-                      {paymentTermList.map((_item) => (
-                        <Option key={_item.id} value={`${_item.id}`}>
-                          {_item.value}
-                        </Option>
-                      ))}
-                    </Select>
+                      options={paymentTermList.map((_item) => ({
+                        value: _item.id,
+                        label: _item.value,
+                      }))}
+                    />
                   </Col>
                 </Row>
 

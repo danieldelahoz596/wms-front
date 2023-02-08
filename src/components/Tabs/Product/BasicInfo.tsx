@@ -79,14 +79,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         )}
         <Row>
           <Form.Item label="Buy | Brand *" name="buyer" style={{ width: 'calc(50% + 30px)' }}>
-            <Select
-              options={[
-                {
-                  value: 'lucy',
-                  label: 'lucky',
-                },
-              ]}
-            />
+            <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
           <Form.Item
             name="brand"
@@ -94,6 +87,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             rules={[{ required: true, message: 'Please input Brand' }]}
           >
             <Select
+              placeholder="Select..."
               options={brands.map((brand) => ({
                 value: brand.id,
                 label: brand.name,
@@ -145,19 +139,16 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Form.Item
           label="Vendor Cost: $"
           name="vendor_cost"
-          // wrapperCol={{ span: 4 }}
           colon={false}
         >
           <Input />
         </Form.Item>
-        <br />
-        <Card title="Measurements">
+        <Card title="Measurements" style={{ marginTop: 20 }}>
           <Row>
             <Col span={8}>
               <Form.Item
                 label="Weight"
                 labelCol={{ span: 6 }}
-                labelAlign="left"
                 className="custom-form-item"
               >
                 <Input.Group compact>
@@ -186,7 +177,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               <Form.Item
                 label="H/W/L"
                 labelCol={{ span: 4, offset: 1 }}
-                labelAlign="left"
                 className="custom-form-item"
               >
                 <Input.Group compact>

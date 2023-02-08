@@ -28,7 +28,6 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
         }}
       >
         <OButton
-          type="primary"
           btnText={'Direct (In-House) Fulfillment'}
           style={{ border: '1px solid #5F5FFF' }}
           onClick={handleOpenNew}

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Card, Row, Col, Form } from 'antd';
-import { OButton } from '@/components/Globals/OButton';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { useModel } from '@umijs/max';
-import { OInput } from '@/components/Globals/OInput';
 import { AddNewPOItemTableColumns } from '@/components/DemoData/index';
-import { CloseOutlined } from '@ant-design/icons';
+import { OButton } from '@/components/Globals/OButton';
+import { OInput } from '@/components/Globals/OInput';
+import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { CloseOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Card, Col, Form, Row } from 'antd';
+import React, { useState } from 'react';
 
 const AddNewPOItemTable: React.FC = () => {
   const { selectedPO, addPoItem, removePoItem, updatePoItem } = useModel('po');
@@ -98,7 +98,7 @@ const AddNewPOItemTable: React.FC = () => {
                 />
               </Form.Item>
             ))}
-            <OButton type="primary" onClick={handleAddNewPOProductItem} btnText="Save" />
+            <OButton btnText="Save" onClick={handleAddNewPOProductItem} />
           </Form>
         </Col>
       </Row>
