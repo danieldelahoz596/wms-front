@@ -75,6 +75,12 @@ const ProductManagement: React.FC = () => {
 
   const TColumns = [
     {
+      key: 'expand',
+      title: '',
+      width: 30,
+    },
+    Table.EXPAND_COLUMN,
+    {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
