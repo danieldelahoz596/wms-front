@@ -1,8 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { modalType, productType } from '@/utils/helpers/types';
 import {
-  CheckOutlined,
-  CloseOutlined,
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
@@ -11,20 +9,16 @@ import {
 import {
   Button,
   Card,
-  Col,
   Dropdown,
-  Form,
   Popconfirm,
   Row,
   Select,
   Space,
-  Switch,
   Table,
   message,
 } from 'antd';
 import React, { useMemo, useState } from 'react';
 
-import { OInput } from '@/components/Globals/OInput';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
@@ -42,8 +36,6 @@ import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
-import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
-import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import BundleIcon from '@/utils/icons/bundle';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
@@ -52,8 +44,8 @@ import VectorIcon from '@/utils/icons/vector';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import SidePanel from './components/LeftPanel/sidePanel';
-import styles from './index.less';
+import LeftPanel from './components/LeftPanel/sidePanel';
+import BottomPanel from './components/BottomPanel';
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 
 const ProductManagement: React.FC = () => {
@@ -62,7 +54,6 @@ const ProductManagement: React.FC = () => {
   const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } =
     useModel('product');
   const { fieldTypes } = useModel('customProductFields');
-  const [showProductDetailType, setShowProductDetailType] = useState(null);
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
 
   const handleMasterSKUClick = (event, record) => {
@@ -206,41 +197,6 @@ const ProductManagement: React.FC = () => {
       },
     ]);
 
-  const TProductDetailColumns = [
-    {
-      key: 'name',
-      dataIndex: 'name',
-      title: 'Name',
-    },
-    {
-      key: 'value',
-      dataIndex: 'value',
-      title: 'Value',
-    },
-    {
-      key: 'show_on_grid',
-      dataIndex: 'show_on_grid',
-      title: 'Show On Grid',
-      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
-    },
-    {
-      key: 'required',
-      dataIndex: 'required',
-      title: 'Required',
-      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
-    },
-  ];
-
-  const productDetailRows = useMemo(
-    () =>
-      editableProduct?.custom_fields.map((customField) => ({
-        key: customField.field_id,
-        value: customField.value,
-        ...fieldTypes.find((item) => item.id === customField.field_id),
-      })),
-    [editableProduct, fieldTypes],
-  );
-
   const productTableRows = useMemo(
     () =>
       productList
@@ -325,7 +281,7 @@ const ProductManagement: React.FC = () => {
           style={{ width: LeftW }}
         >
           <div className="w-full">
-            <SidePanel />
+            <LeftPanel />
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
@@ -456,125 +412,7 @@ const ProductManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <Row gutter={32}>
-                <Col span={12}>
-                  <Card
-                    title="Performance"
-                    extra={
-                      <Space size={4}>
-                        <OButton type="primary" btnText={'Year-Over-Year'} />
-                        <OButton type="primary" btnText={'Recent Orders'} />
-                      </Space>
-                    }
-                  >
-                    <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                      <Form.Item>
-                        <OInput
-                          type="select"
-                          name="days"
-                          defaultValue={'30'}
-                          options={[
-                            {
-                              value: '30',
-                              text: '30 Days',
-                            },
-                          ]}
-                          onChange={() => {}}
-                        />
-                      </Form.Item>
-                      <Form.Item>
-                        <OInput
-                          type="select"
-                          name="quantity"
-                          defaultValue={'30'}
-                          options={[
-                            {
-                              value: 'quantitySold',
-                              text: 'Quantity Solds',
-                            },
-                          ]}
-                          onChange={() => {}}
-                        />
-                      </Form.Item>
-                    </Form>
-                    <div style={{ textAlign: 'center', padding: '1rem' }}>
-                      Select a product to view performance
-                    </div>
-                  </Card>
-                </Col>
-                <Col span={12}>
-                  <Card
-                    title="Product Details"
-                    extra={
-                      <Space size={4}>
-                        <OButton
-                          btnText={'Fields'}
-                          // onClick={() => setModal(modalType.ShowProductFields)}
-                          onClick={() => setShowProductDetailType('fields')}
-                          disabled={!editableProduct}
-                        />
-                        <OButton
-                          btnText={'Vendor Products'}
-                          onClick={() => setModal(modalType.ShowVendorProduct)}
-                          disabled={!editableProduct}
-                        />
-                        <OButton
-                          btnText={'Gallery'}
-                          onClick={() => setModal(modalType.ShowGallery)}
-                          disabled={!editableProduct}
-                        />
-                      </Space>
-                    }
-                  >
-                    {showProductDetailType === 'fields' ? (
-                      <Table
-                        columns={TProductDetailColumns}
-                        dataSource={productDetailRows}
-                        pagination={{ hideOnSinglePage: true }}
-                      />
-                    ) : (
-                      <Table
-                        columns={[
-                          {
-                            key: 'pushInventory',
-                            dataIndex: 'pushInventory',
-                            title: 'Push Inventory',
-                            render: (pushInventory, record) => {
-                              return (
-                                <>
-                                  <Switch
-                                    size="small"
-                                    className={pushInventory ? styles.checked : styles.unchecked}
-                                    onClick={() => {
-                                      const item = productList.find(
-                                        (_item) => _item.id === record.id,
-                                      );
-                                      handleUpdateProduct({
-                                        ...item,
-                                        push_inventory: !pushInventory,
-                                      });
-                                    }}
-                                    checked={!pushInventory}
-                                  />
-                                  {pushInventory ? 'YES' : 'NO'}
-                                </>
-                              );
-                            },
-                          },
-                        ]}
-                        dataSource={[
-                          {
-                            key: editableProduct?.id,
-                            id: editableProduct?.id,
-                            pushInventory: editableProduct?.push_inventory,
-                          },
-                        ]}
-                        scroll={{ y: 150 }}
-                      />
-                    )}
-                  </Card>
-                </Col>
-              </Row>
+              <BottomPanel />
             </div>
           </div>
         </div>
@@ -700,16 +538,6 @@ const ProductManagement: React.FC = () => {
           setModal(value);
           setEditableProduct(null);
         }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ShowGalleryModal
-        isOpen={modalOpen == modalType.ShowGallery}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ShowVendorProductModal
-        isOpen={modalOpen == modalType.ShowVendorProduct}
         onClose={() => setModal(modalType.Close)}
       />
 

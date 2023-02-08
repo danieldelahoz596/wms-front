@@ -27,8 +27,6 @@ export enum modalType {
   AttributeGroup = 'AttributeGroup',
   AddCoreProduct = 'AddCoreProduct',
   ConfigAttributeGroups = 'ConfigAttributeGroups',
-  ShowGallery = 'ShowGallery',
-  ShowVendorProduct = 'ShowVendorProduct',
   AdjustMasterSKU = 'AdjustMasterSKU',
   ImportSKUAdjustment = 'ImportSKUAdjustment',
   NewVirtualProduct = 'NewVirtualProduct',
