@@ -19,9 +19,9 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const saveEditableOrder = () => {
+  const updateOrderItem = (orderItem) => {
     setOrderList((prevState) =>
-      prevState.map((_item) => (_item.key === editableOrder.key ? editableOrder : _item)),
+      prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)),
     );
   };
 
@@ -34,7 +34,7 @@ export default () => {
     initialOrderList,
     setOrderList,
     setEditableOrder,
-    saveEditableOrder,
+    updateOrderItem,
     setSelectedOrders,
   };
 };

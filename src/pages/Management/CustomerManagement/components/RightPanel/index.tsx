@@ -3,7 +3,7 @@ import { useModel } from '@umijs/max';
 import { Button, Card, Col, Form, Input, Row, Space } from 'antd';
 import { useEffect } from 'react';
 
-export default function index() {
+const RightPanel: React.FC = () => {
   const { selectedCustomer, handleUpdateCustomer, handleDeleteCustomer } = useModel('customer');
 
   const [form] = Form.useForm();
@@ -62,4 +62,6 @@ export default function index() {
       </Col>
     </Row>
   ) : null;
-}
+};
+
+export default RightPanel;

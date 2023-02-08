@@ -12,8 +12,8 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import React, { useEffect, useState } from 'react';
 import { DragDropContainer } from 'react-drag-drop-container-typescript';
 import { useResizable } from 'react-resizable-layout';
-import Bottom from './components/Bottom/index';
-import RightPanel from './components/RightPanel/index';
+import BottomPanel from './components/Bottom';
+import RightPanel from './components/RightPanel';
 import SearchCustomer from './components/SidePanel/SearchCustomer';
 
 const CustomerManagement: React.FC = () => {
@@ -180,7 +180,7 @@ const CustomerManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <Bottom />
+              <BottomPanel />
             </div>
           </div>
         </div>

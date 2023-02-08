@@ -1,9 +1,10 @@
 import React from 'react';
 import { Tabs } from 'antd';
+import type { TabsProps } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import OrderItems from '@/components/Order/EditOrder/OrderItems';
-import ManageCustomFields from '@/components/Order/EditOrder/ManageCustomFields';
+import OrderCustomFields from '@/components/Order/EditOrder/OrderCustomFields';
 import BasicInfo from '@/components/Order/EditOrder/BasicInfo';
 interface IEditOrderModal {
   isOpen: boolean;
@@ -12,43 +13,44 @@ interface IEditOrderModal {
 }
 
 const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) => {
-  const { editableOrder, saveEditableOrder } = useModel('order');
+  const { editableOrder, updateOrderItem } = useModel('order');
+  const { customFields } = useModel('customOrderFields');
 
-  const tabItems = [
+  const tabItems: TabsProps['items'] = [
     {
+      key: '1',
       label: 'Basic Info',
-      key: 1,
       children: <BasicInfo />,
     },
     {
+      key: '2',
       label: 'Order Items',
-      key: 2,
       children: <OrderItems />,
     },
     {
+      key: '3',
       label: 'Fields',
-      key: 3,
-      children: <ManageCustomFields />,
+      children: <OrderCustomFields />,
     },
     {
+      key: '4',
       label: 'Communication',
-      key: 4,
       children: <>Communication</>,
     },
     {
+      key: '5',
       label: 'Channel Fields',
-      key: 5,
       children: <>Channel Fields</>,
     },
     {
+      key: '6',
       label: 'History',
-      key: 6,
       children: <>History</>,
     },
   ];
 
   const handleSave = () => {
-    // saveEditableOrder();
+    updateOrderItem({ ...editableOrder, custom_fields: customFields });
     onSave();
   };
 

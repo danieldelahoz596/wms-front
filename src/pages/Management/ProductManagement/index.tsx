@@ -1,27 +1,12 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
 import { modalType, productType } from '@/utils/helpers/types';
 import {
-  CheckOutlined,
-  CloseOutlined,
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import {
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  MenuProps,
-  Popconfirm,
-  Row,
-  Select,
-  Space,
-  Switch,
-  Table
-} from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
@@ -35,15 +20,12 @@ import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
 import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
 import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
-import ImportVendorProductsSummary from '@/components/Modals/Product/ImportVendorProductsSummary';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
 import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
-import ShowGalleryModal from '@/components/Modals/Product/ShowGallery';
-import ShowVendorProductModal from '@/components/Modals/Product/ShowVendorProduct';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import BundleIcon from '@/utils/icons/bundle';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
@@ -52,29 +34,17 @@ import VectorIcon from '@/utils/icons/vector';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import SidePanel from './components/SidePanel/sidePanel';
-import styles from './index.less';
+import LeftPanel from './components/LeftPanel/sidePanel';
+import BottomPanel from './components/BottomPanel';
+import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
   const [showActivate, setShowActivate] = useState(true);
-  const {
-    productList,
-    selectedProducts,
-    editableProduct,
-    setSelectedProducts,
-    setProductList,
-    setEditableProduct,
-    handleUpdateProduct,
-  } = useModel('product');
+  const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } =
+    useModel('product');
   const { fieldTypes } = useModel('customProductFields');
-  const [showProductDetailType, setShowProductDetailType] = useState(null);
-
-  const handleProductSelectedRows = (_selectedRows = []) => {
-    const selectedList = productList.filter((_item) => _selectedRows.includes(_item.id));
-    setSelectedProducts(selectedList);
-    setEditableProduct(selectedList.length === 0 ? null : selectedList[0]);
-  };
+  const { getVendorProductImportExportSummary } = useModel('exportSummary');
 
   const handleMasterSKUClick = (event, record) => {
     event.stopPropagation();
@@ -104,6 +74,12 @@ const ProductManagement: React.FC = () => {
   });
 
   const TColumns = [
+    {
+      key: 'expand',
+      title: '',
+      width: 30,
+    },
+    Table.EXPAND_COLUMN,
     {
       title: 'Type',
       dataIndex: 'type',
@@ -184,50 +160,38 @@ const ProductManagement: React.FC = () => {
         );
       },
     },
-  ].concat(
-    fieldTypes
-      .filter((type) => type.show_on_grid && type.active)
-      .map((type) => ({
-        title: type.name,
-        key: type.id,
-        dataIndex: type.id,
-      })),
-  );
-
-  const TProductDetailColumns = [
-    {
-      key: 'name',
-      dataIndex: 'name',
-      title: 'Name',
-    },
-    {
-      key: 'value',
-      dataIndex: 'value',
-      title: 'Value',
-    },
-    {
-      key: 'show_on_grid',
-      dataIndex: 'show_on_grid',
-      title: 'Show On Grid',
-      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
-    },
-    {
-      key: 'required',
-      dataIndex: 'required',
-      title: 'Required',
-      render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
-    },
-  ];
-
-  const productDetailRows = useMemo(
-    () =>
-      selectedProducts[0]?.custom_fields.map((customField) => ({
-        key: customField.field_id,
-        value: customField.value,
-        ...fieldTypes.find((item) => item.id === customField.field_id),
-      })),
-    [selectedProducts, fieldTypes],
-  );
+  ]
+    .concat(
+      fieldTypes
+        .filter((type) => type.show_on_grid && type.active)
+        .map((type) => ({
+          title: type.name,
+          key: type.id,
+          dataIndex: type.id,
+        })),
+    )
+    .concat([
+      {
+        key: 'action',
+        title: 'Action',
+        render: (_, record) => (
+          <Space size={10}>
+            <a
+              onClick={(event) => {
+                event.stopPropagation();
+                setEditableProduct(productList.find((_item) => _item.id === record.id));
+                setModal(modalType.Edit);
+              }}
+            >
+              Edit
+            </a>
+            <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
+              <a>Delete</a>
+            </Popconfirm>
+          </Space>
+        ),
+      },
+    ]);
 
   const productTableRows = useMemo(
     () =>
@@ -241,7 +205,7 @@ const ProductManagement: React.FC = () => {
     [productList, showActivate],
   );
 
-  const importExportMenuItems: MenuProps['items'] = [
+  const importExportMenuItems = [
     {
       key: '1',
       label: <span onClick={() => setModal(modalType.Import)}> Import Products </span>,
@@ -313,7 +277,7 @@ const ProductManagement: React.FC = () => {
           style={{ width: LeftW }}
         >
           <div className="w-full">
-            <SidePanel />
+            <LeftPanel />
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
@@ -334,7 +298,6 @@ const ProductManagement: React.FC = () => {
                     onChange={(value) => {
                       setShowActivate(value === 'active' ? true : false);
                       setEditableProduct(null);
-                      setSelectedProducts([]);
                     }}
                     value={showActivate ? 'active' : 'inactive'}
                   />
@@ -346,7 +309,7 @@ const ProductManagement: React.FC = () => {
                   <OButton
                     btnText="Adjust Sku"
                     onClick={() => setModal(modalType.AdjustMasterSKU)}
-                    disabled={!(selectedProducts.length == 1)}
+                    disabled={!editableProduct}
                   />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
@@ -356,14 +319,12 @@ const ProductManagement: React.FC = () => {
                         type: productType.BundleOrKit,
                       });
                       setEditableProduct(null);
-                      setSelectedProducts([]);
                     }}
                   >
                     <OButton
                       btnText="Convert To Bundle/Kit"
                       disabled={
-                        !(selectedProducts.length == 1) ||
-                        !(editableProduct?.type === productType.CoreProduct)
+                        !editableProduct || !(editableProduct?.type === productType.CoreProduct)
                       }
                     />
                   </Popconfirm>
@@ -375,39 +336,37 @@ const ProductManagement: React.FC = () => {
                         type: productType.CoreProduct,
                       });
                       setEditableProduct(null);
-                      setSelectedProducts([]);
                     }}
                   >
                     <OButton
                       btnText="Convert To Core"
                       disabled={
-                        !(selectedProducts.length == 1) ||
-                        !(editableProduct?.type === productType.Variations)
+                        !editableProduct || !(editableProduct?.type === productType.Variations)
                       }
                     />
                   </Popconfirm>
                   <Popconfirm
                     title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
                     onConfirm={() => {
-                      setSelectedProducts([]);
-                      const selectedKeys = selectedProducts.map((_item) => _item.id);
                       setProductList(
                         productList.map((_product) =>
-                          selectedKeys.includes(_product.id)
+                          _product.id === editableProduct.id
                             ? { ..._product, status: !showActivate }
                             : _product,
                         ),
                       );
+                      setEditableProduct(null);
                     }}
                   >
                     <OButton
                       btnText={showActivate ? 'Deactivate' : 'Activate'}
-                      disabled={selectedProducts.length === 0}
+                      disabled={!editableProduct}
                     />
                   </Popconfirm>
                   <OButton
+                    type="primary"
                     onClick={() => console.log('History')}
-                    disabled={selectedProducts.length === 0}
+                    disabled={!editableProduct}
                     btnText="History"
                   />
                   <OButton btnText={'New Product'} onClick={() => setModal(modalType.Variation)} />
@@ -420,13 +379,21 @@ const ProductManagement: React.FC = () => {
                   </Dropdown>
                 </Space>
 
-                <OTable
-                  type="radio"
+                <Table
                   columns={TColumns}
-                  rows={productTableRows}
-                  selectedRows={selectedProducts.map((_item) => _item.id)}
-                  setSelectedRows={handleProductSelectedRows}
+                  dataSource={productTableRows}
                   style={{ marginTop: 10 }}
+                  onRow={(record) => {
+                    return {
+                      onClick: () => {
+                        if (record.id === editableProduct?.id) setEditableProduct(null);
+                        else setEditableProduct(productList.find((item) => item.id === record.id));
+                      },
+                    };
+                  }}
+                  rowClassName={(record) =>
+                    record.id === editableProduct?.id ? `ant-table-row-selected` : ''
+                  }
                 />
               </Card>
             </div>
@@ -441,123 +408,7 @@ const ProductManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <Row gutter={8}>
-                <Col span={12}>
-                  <Card
-                    title="Performance"
-                    extra={
-                      <Space size={4}>
-                        <OButton btnText={'Year-Over-Year'} />
-                        <OButton btnText={'Recent Orders'} />
-                      </Space>
-                    }
-                    style={{ borderRadius: 4 }}
-                  >
-                    <div style={{ textAlign: 'right' }}>
-                      <Space size={4}>
-                        <Select
-                          placeholder="Select..."
-                          defaultValue="30"
-                          size="small"
-                          options={[{ value: '30', label: '30 Days' }]}
-                          style={{ width: 80, textAlign: 'left' }}
-                        />
-                        <Select
-                          placeholder="Select..."
-                          defaultValue="quantity_sold"
-                          size="small"
-                          options={[{ value: 'quantity_sold', label: 'Quantity Sold' }]}
-                          style={{ width: 100, textAlign: 'left' }}
-                        />
-                      </Space>
-                    </div>
-                    <div style={{ textAlign: 'center', padding: '1rem' }}>
-                      Select a product to view performance
-                    </div>
-                  </Card>
-                </Col>
-                <Col span={12}>
-                  <Card
-                    title="Product Details"
-                    extra={
-                      <Space
-                        size={4}
-                        style={{ display: selectedProducts.length > 1 ? 'none' : '' }}
-                      >
-                        <OButton
-                          btnText={'Fields'}
-                          // onClick={() => setModal(modalType.ShowProductFields)}
-                          onClick={() => setShowProductDetailType('fields')}
-                          disabled={selectedProducts.length === 0}
-                        />
-                        <OButton
-                          btnText={'Vendor Products'}
-                          onClick={() => setModal(modalType.ShowVendorProduct)}
-                          disabled={selectedProducts.length === 0}
-                        />
-                        <OButton
-                          btnText={'Gallery'}
-                          onClick={() => setModal(modalType.ShowGallery)}
-                          disabled={selectedProducts.length === 0}
-                        />
-                      </Space>
-                    }
-                    style={{ borderRadius: 4 }}
-                  >
-                    {showProductDetailType === 'fields' ? (
-                      <Table
-                        columns={TProductDetailColumns}
-                        dataSource={productDetailRows}
-                        pagination={{ hideOnSinglePage: true }}
-                      />
-                    ) : (
-                      <Table
-                        columns={[
-                          {
-                            key: 'pushInventory',
-                            dataIndex: 'pushInventory',
-                            title: 'Push Inventory',
-                            render: (pushInventory, record) => {
-                              return (
-                                <>
-                                  <Switch
-                                    size="small"
-                                    className={pushInventory ? styles.checked : styles.unchecked}
-                                    onClick={() => {
-                                      const item = productList.find(
-                                        (_item) => _item.id === record.id,
-                                      );
-                                      handleUpdateProduct({
-                                        ...item,
-                                        push_inventory: !pushInventory,
-                                      });
-                                      setSelectedProducts(
-                                        selectedProducts.map((_item) =>
-                                          _item.id === record.id
-                                            ? { ..._item, push_inventory: !pushInventory }
-                                            : _item,
-                                        ),
-                                      );
-                                    }}
-                                    checked={!pushInventory}
-                                  />
-                                  {pushInventory ? 'YES' : 'NO'}
-                                </>
-                              );
-                            },
-                          },
-                        ]}
-                        dataSource={selectedProducts.map((_item) => ({
-                          key: _item.id,
-                          id: _item.id,
-                          pushInventory: _item.push_inventory,
-                        }))}
-                        scroll={{ y: 150 }}
-                      />
-                    )}
-                  </Card>
-                </Col>
-              </Row>
+              <BottomPanel />
             </div>
           </div>
         </div>
@@ -567,7 +418,6 @@ const ProductManagement: React.FC = () => {
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => {
           setModal(value);
-          setSelectedProducts([]);
           setEditableProduct(null);
         }}
         onClose={() => setModal(modalType.Close)}
@@ -581,32 +431,20 @@ const ProductManagement: React.FC = () => {
 
       <NewBundleKitModal
         isOpen={modalOpen == modalType.BundleKit}
-        onSave={() => {
-          setModal(modalType.Close);
-          setSelectedProducts([]);
-        }}
-        onClose={() => {
-          setModal(modalType.Close);
-          setSelectedProducts([]);
-        }}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
       />
 
       <SelectCoreProductModal
         isOpen={modalOpen === modalType.SelectCoreProduct}
         onSave={() => setModal(modalType.SelectQuantityOfSKU)}
-        onClose={() => {
-          setModal(modalType.Close);
-          setSelectedProducts([]);
-        }}
+        onClose={() => setModal(modalType.Close)}
       />
 
       <SelectQuantityOfSKUModal
         isOpen={modalOpen === modalType.SelectQuantityOfSKU}
         onSave={() => setModal(modalType.BundleKit)}
-        onClose={() => {
-          setModal(modalType.Close);
-          setSelectedProducts([]);
-        }}
+        onClose={() => setModal(modalType.Close)}
       />
 
       <NewVirtualProduct
@@ -626,7 +464,6 @@ const ProductManagement: React.FC = () => {
         onSave={() => {
           setModal(modalType.Close);
           handleUpdateProduct(editableProduct);
-          setSelectedProducts([]);
           setEditableProduct(null);
         }}
         onClose={() => setModal(modalType.Close)}
@@ -657,14 +494,6 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportVendorProductsSummary
-        isOpen={modalOpen == modalType.ImportVendorProductsSummary}
-        title={'Vendor Product Import By Vendor'}
-        info={'Vendor SKU Import Summary'}
-        onSave={() => {}}
-        onClose={() => setModal(modalType.Close)}
-      />
-
       <ImportSKUAdjustment
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
         onSave={() => {}}
@@ -673,6 +502,15 @@ const ProductManagement: React.FC = () => {
 
       <ImportCustomFieldsModal
         isOpen={modalOpen == modalType.ImportCustomFields}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ImportExportSummaryModal
+        title="Vendor Product Import By Vendor"
+        info="Vendor SKU Import Summary"
+        getImportExportSummary={getVendorProductImportExportSummary}
+        isOpen={modalOpen === modalType.ImportExportSummary}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
@@ -694,19 +532,8 @@ const ProductManagement: React.FC = () => {
         isOpen={modalOpen == modalType.Variation}
         handleClick={(value) => {
           setModal(value);
-          setSelectedProducts([]);
           setEditableProduct(null);
         }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ShowGalleryModal
-        isOpen={modalOpen == modalType.ShowGallery}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ShowVendorProductModal
-        isOpen={modalOpen == modalType.ShowVendorProduct}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -715,7 +542,6 @@ const ProductManagement: React.FC = () => {
         onSave={(master_sku) => {
           handleUpdateProduct({ ...editableProduct, master_sku });
           setEditableProduct([]);
-          setSelectedProducts([]);
           setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
