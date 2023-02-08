@@ -2,7 +2,7 @@ import { useModel } from '@umijs/max';
 import { OButton } from '@/components/Globals/OButton';
 import { CheckOutlined, CloseOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Card, Space, Table, Switch, Image } from 'antd';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from '../../index.less';
 
 const TFieldColumns = [
@@ -99,6 +99,10 @@ const ProductDetailsPanel: React.FC = () => {
     [editableProduct, fieldTypes],
   );
 
+  useEffect(() => {
+    setShowProductDetailType(null);
+  }, [editableProduct]);
+
   return (
     <Card
       title="Product Details"
@@ -140,43 +144,45 @@ const ProductDetailsPanel: React.FC = () => {
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         />
       ) : (
-        <Table
-          columns={[
-            {
-              key: 'pushInventory',
-              dataIndex: 'pushInventory',
-              title: 'Push Inventory',
-              render: (pushInventory, record) => (
-                <>
-                  <Switch
-                    size="small"
-                    className={pushInventory ? styles.checked : styles.unchecked}
-                    onClick={() => {
-                      handleUpdateProduct({
-                        ...productList.find((_item) => _item.id === record.key),
-                        push_inventory: !pushInventory,
-                      });
-                      setEditableProduct((prev) => ({
-                        ...prev,
-                        push_inventory: !prev.push_inventory,
-                      }));
-                    }}
-                    checked={!pushInventory}
-                  />
-                  {pushInventory ? 'YES' : 'NO'}
-                </>
-              ),
-            },
-          ]}
-          dataSource={[
-            {
-              key: editableProduct?.id,
-              pushInventory: editableProduct?.push_inventory,
-            },
-          ]}
-          scroll={{ y: 150 }}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        editableProduct && (
+          <Table
+            columns={[
+              {
+                key: 'pushInventory',
+                dataIndex: 'pushInventory',
+                title: 'Push Inventory',
+                render: (pushInventory, record) => (
+                  <>
+                    <Switch
+                      size="small"
+                      className={pushInventory ? styles.checked : styles.unchecked}
+                      onClick={() => {
+                        handleUpdateProduct({
+                          ...productList.find((_item) => _item.id === record.key),
+                          push_inventory: !pushInventory,
+                        });
+                        setEditableProduct((prev) => ({
+                          ...prev,
+                          push_inventory: !prev.push_inventory,
+                        }));
+                      }}
+                      checked={!pushInventory}
+                    />
+                    {pushInventory ? 'YES' : 'NO'}
+                  </>
+                ),
+              },
+            ]}
+            dataSource={[
+              {
+                key: editableProduct?.id,
+                pushInventory: editableProduct?.push_inventory,
+              },
+            ]}
+            scroll={{ y: 150 }}
+            pagination={{ hideOnSinglePage: true }}
+          />
+        )
       )}
     </Card>
   );
