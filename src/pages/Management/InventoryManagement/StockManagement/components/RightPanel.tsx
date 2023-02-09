@@ -1,18 +1,25 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType } from '@/utils/helpers/types';
+import BarCodeIcon from '@/utils/icons/barcode';
+import StockIcon from '@/utils/icons/stock';
 import {
   DownOutlined,
   QuestionCircleTwoTone,
   SnippetsTwoTone,
-  ToolTwoTone
+  ToolTwoTone,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space } from 'antd';
 import { useState } from 'react';
 import { stock_data } from './structure';
+import WarehouseTotalGraph from './WarehouseTotalGraph';
 
-const StockDetails = () => {
+interface IStockDetails {
+  stockData: any;
+}
+
+const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
   const [modal, setModal] = useState('');
   const [stockDataSource, setstockDataSource] = useState(stock_data);
   const [selectedLocation, setSelectedLocation] = useState([]);
@@ -23,6 +30,13 @@ const StockDetails = () => {
       title: 'Location',
       dataIndex: 'location',
       key: 'location',
+      render: (location) => (
+        <>
+          <BarCodeIcon style={{ fontSize: 15 }} />
+          <StockIcon style={{ fontSize: 15 }} />
+          {location}
+        </>
+      ),
     },
     {
       title: 'Status',
@@ -50,7 +64,7 @@ const StockDetails = () => {
   return (
     <div style={{ width: '100%' }}>
       <h2 style={{ marginLeft: '10px' }}>Stock Details</h2>
-      <Collapse>
+      <Collapse defaultActiveKey={initialState?.initialData?.warehouses[0].id}>
         {initialState?.initialData?.warehouses.map((_warehouse) => (
           <Collapse.Panel
             header={
@@ -160,10 +174,13 @@ const StockDetails = () => {
                   </Row>
                 </Space>
               </Col>
-              <Col span={12}>{/* <Column data={columnData} xField="type" yField="value" /> */}</Col>
+              <Col span={12}>
+                {/* <Column data={columnData} xField="type" yField="value" /> */}
+                <WarehouseTotalGraph />
+              </Col>
             </Row>
             <Card title="Stock Breakdown" style={{ marginTop: 20 }}>
-              <a>SUNGLASSES-1234-FBA.error - Sterling silver Garnet Accent Heart Pendant</a>
+              <a>{`${stockData?.name}-${stockData?.master_sku}-FBA.error - Sterling silver Garnet Accent Heart Pendant`}</a>
               <OTable
                 type="radio"
                 columns={Scolumns}

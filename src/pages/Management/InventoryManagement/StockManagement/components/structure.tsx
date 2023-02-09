@@ -88,6 +88,23 @@ export const data = [
     available: '5',
     discrepation: '0',
     status: 'red',
+    children: [
+      {
+        key: 50,
+        type: 'Core Product',
+        master_sku: '1234',
+        name: 'Water Bottle',
+        brand: 'RUTGERS',
+        description: '',
+        on_hands: '3,934',
+        locked: '191',
+        allocated: '0',
+        in_transfer: '0',
+        available: '3,543',
+        discrepation: '0',
+        status: 'yellow',
+      },
+    ],
   },
   {
     key: 7,

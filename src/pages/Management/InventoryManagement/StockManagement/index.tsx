@@ -16,6 +16,8 @@ import ShieldDeniedIcon from '@/utils/icons/shieldDenied';
 import VariationIcon from '@/utils/icons/variation';
 import VectorIcon from '@/utils/icons/vector';
 import {
+  CaretDownOutlined,
+  CaretRightOutlined,
   DownOutlined,
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
@@ -47,6 +49,12 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
 
   const Tcolumns = useMemo(
     () => [
+      {
+        key: 'expand',
+        title: '',
+        width: 30,
+      },
+      Table.EXPAND_COLUMN,
       {
         title: 'Type',
         dataIndex: 'type',
@@ -414,6 +422,33 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
             rowClassName={(record) =>
               record.key === selectedStockId ? `ant-table-row-selected` : ''
             }
+            expandIcon={(props) => {
+              if (props.expandable) {
+                if (props.expanded) {
+                  return (
+                    <a
+                      style={{ color: 'black' }}
+                      onClick={(e) => {
+                        props.onExpand(props.record, e);
+                      }}
+                    >
+                      <CaretDownOutlined />
+                    </a>
+                  );
+                } else {
+                  return (
+                    <a
+                      style={{ color: 'black' }}
+                      onClick={(e) => {
+                        props.onExpand(props.record, e);
+                      }}
+                    >
+                      <CaretRightOutlined />
+                    </a>
+                  );
+                }
+              }
+            }}
           />
         </Card>
       </div>
@@ -424,7 +459,11 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')}
         style={{ width: RightW }}
       >
-        <div className="w-full">{selectedStockId && <StockDetails />}</div>
+        <div className="w-full">
+          {selectedStockId && (
+            <StockDetails stockData={dataSource.find((item) => item.key === selectedStockId)} />
+          )}
+        </div>
       </div>
 
       <StockHistoryModal
