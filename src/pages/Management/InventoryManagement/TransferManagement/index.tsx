@@ -4,7 +4,7 @@ import TransferHistoryModal from '@/components/Modals/Inventory/TransferHistory'
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
-import { Card, Col, Input, Row, Select, Space } from 'antd';
+import { Card, Col, Input, Row, Select, Space, Table } from 'antd';
 import React, { useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import TransferDetails from './components/RightPanel';
@@ -154,13 +154,22 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
             />
             <OButton btnText="History" disabled={!selectedTransfer} onClick={showHistory} />
           </Space>
-          <OTable
-            type="radio"
+
+          <Table
             columns={Tcolumns}
-            rows={dataSource}
-            selectedRows={selectedTransfer}
-            setSelectedRows={setSelectedTransfer}
+            dataSource={dataSource}
             style={{ marginTop: 15 }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  if (record.key === selectedTransfer?.key) setSelectedTransfer(null);
+                  else setSelectedTransfer(record);
+                },
+              };
+            }}
+            rowClassName={(record) =>
+              record.key === selectedTransfer?.key ? `ant-table-row-selected` : ''
+            }
           />
         </Card>
       </div>
@@ -169,9 +178,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
         className={cn('shrink-0 contents', isRightDragging && 'dragging')}
         style={{ width: RightW }}
       >
-        <div className="w-full">
-          <TransferDetails />
-        </div>
+        <div className="w-full">{selectedTransfer && <TransferDetails />}</div>
       </div>
 
       <TransferHistoryModal

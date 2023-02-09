@@ -1,6 +1,4 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OInput } from '@/components/Globals/OInput';
-import { OTable } from '@/components/Globals/OTable';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconciliation';
 import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
@@ -20,10 +18,10 @@ import VectorIcon from '@/utils/icons/vector';
 import {
   DownOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Button, Card, Col, Dropdown, Input, Row, Space } from 'antd';
+import { Button, Card, Col, Dropdown, Input, Row, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import StockDetails from './components/RightPanel';
@@ -36,22 +34,16 @@ interface IStockManagement {
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   const { initialState } = useModel('@@initialState');
-
-  const { warehouseList } = useModel('warehouse');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [stockHistorySource, setstockHistorySource] = useState(stock_history);
   const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
+  // const [status, setStatus] = useState('all');
+  const [selectedStockId, setSelectedStockId] = useState(null);
 
-  const [warehouse, setWarehouse] = useState(null);
-  const [status, setStatus] = useState('all');
-
-  const handleChangeWarehouse = (_name: string, value: any) => {
-    setWarehouse(value);
-  };
-  const handleChangeStatus = (_name: string, value: any) => {
-    setStatus(value);
-  };
+  // const handleChangeStatus = (_name: string, value: any) => {
+  //   setStatus(value);
+  // };
 
   const Tcolumns = useMemo(
     () => [
@@ -208,10 +200,33 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                     value: warehouse.id,
                     label: warehouse.name,
                   }))}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
+                    (warehouse) => warehouse.id,
+                  )}
+                  type="warehouse"
                   style={{ width: '220px' }}
                   size={'middle'}
                 />
-                <OInput
+                <SelectDropdown
+                  options={[
+                    { value: 'onHand', label: 'On Hand' },
+                    { value: 'locked', label: 'Locked' },
+                    { value: 'allocated', label: 'Allocated' },
+                    { value: 'inTransite', label: 'In Transit' },
+                    { value: 'availableQuantities', label: 'Available quantities' },
+                  ]}
+                  defaultSelectedItems={[
+                    'onHand',
+                    'locked',
+                    'allocated',
+                    'inTransite',
+                    'availableQuantities',
+                  ]}
+                  type="item"
+                  style={{ width: '220px' }}
+                  size={'middle'}
+                />
+                {/* <OInput
                   type="select"
                   name="status"
                   showPlaceholder={false}
@@ -220,12 +235,12 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                     { value: 'locked', text: 'Locked' },
                     { value: 'allocated', text: 'Allocated' },
                     { value: 'inTransite', text: 'In Transit' },
-                    { value: 'avaiableQuantities', text: 'Available quantities' },
+                    { value: 'availableQuantities', text: 'Available quantities' },
                   ]}
                   value={status}
                   onChange={handleChangeStatus}
                   style={{ width: '220px', textAlign: 'left' }}
-                />
+                /> */}
               </Space>
             </div>
           </Col>
@@ -384,7 +399,22 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
             />
           </Space>
 
-          <OTable columns={Tcolumns} rows={dataSource} style={{ marginTop: 15 }} />
+          <Table
+            columns={Tcolumns}
+            dataSource={dataSource}
+            style={{ marginTop: 15 }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  if (record.key === selectedStockId) setSelectedStockId(null);
+                  else setSelectedStockId(record.key);
+                },
+              };
+            }}
+            rowClassName={(record) =>
+              record.key === selectedStockId ? `ant-table-row-selected` : ''
+            }
+          />
         </Card>
       </div>
 
@@ -394,9 +424,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')}
         style={{ width: RightW }}
       >
-        <div className="w-full">
-          <StockDetails />
-        </div>
+        <div className="w-full">{selectedStockId && <StockDetails />}</div>
       </div>
 
       <StockHistoryModal
