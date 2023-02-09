@@ -5,6 +5,10 @@ import { Card, Space, Table, Switch, Image } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import styles from '../../index.less';
 
+interface IProductDetailsPanel {
+  height: number;
+}
+
 const TFieldColumns = [
   {
     key: 'name',
@@ -83,7 +87,7 @@ const vendorProductTableRows = [
   },
 ];
 
-const ProductDetailsPanel: React.FC = () => {
+const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   const { editableProduct, productList, setEditableProduct, handleUpdateProduct } =
     useModel('product');
   const { fieldTypes } = useModel('customProductFields');
@@ -125,6 +129,7 @@ const ProductDetailsPanel: React.FC = () => {
           />
         </Space>
       }
+      style={{ height: height - 20 }}
     >
       {showProductDetailType === 'fields' ? (
         <Table

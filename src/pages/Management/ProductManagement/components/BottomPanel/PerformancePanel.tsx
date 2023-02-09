@@ -6,6 +6,10 @@ import { Card, Col, Dropdown, Form, Row, Space } from 'antd';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
+interface IPerformancePanel {
+  height: number;
+}
+
 const yoyChartData = [];
 
 for (const d = new Date(2021, 10, 7); d <= new Date(2022, 0, 5); d.setDate(d.getDate() + 1)) {
@@ -15,7 +19,7 @@ for (const d = new Date(2021, 10, 7); d <= new Date(2022, 0, 5); d.setDate(d.get
   });
 }
 
-const PerformancePanel: React.FC = () => {
+const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
   const [yoyChartInstance, setYOYChartInstance] = useState(null);
   const yoyChartRef = useRef(null);
 
@@ -32,6 +36,7 @@ const PerformancePanel: React.FC = () => {
           <OButton type="primary" btnText={'Recent Orders'} />
         </Space>
       }
+      style={{ height }}
     >
       <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
         <Space size={4}>

@@ -1,12 +1,14 @@
 import { OButton } from '@/components/Globals/OButton';
 import { modalType, productType } from '@/utils/helpers/types';
 import {
+  CaretDownOutlined,
+  CaretRightOutlined,
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message, Icon } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
@@ -394,6 +396,33 @@ const ProductManagement: React.FC = () => {
                   rowClassName={(record) =>
                     record.id === editableProduct?.id ? `ant-table-row-selected` : ''
                   }
+                  expandIcon={(props) => {
+                    if (props.expandable) {
+                      if (props.expanded) {
+                        return (
+                          <a
+                            style={{ color: 'black' }}
+                            onClick={(e) => {
+                              props.onExpand(props.record, e);
+                            }}
+                          >
+                            <CaretDownOutlined />
+                          </a>
+                        );
+                      } else {
+                        return (
+                          <a
+                            style={{ color: 'black' }}
+                            onClick={(e) => {
+                              props.onExpand(props.record, e);
+                            }}
+                          >
+                            <CaretRightOutlined />
+                          </a>
+                        );
+                      }
+                    }
+                  }}
                 />
               </Card>
             </div>
@@ -408,7 +437,7 @@ const ProductManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <BottomPanel />
+              <BottomPanel height={bottomH} />
             </div>
           </div>
         </div>
