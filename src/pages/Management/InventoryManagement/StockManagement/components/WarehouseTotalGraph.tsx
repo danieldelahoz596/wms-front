@@ -72,7 +72,7 @@ const WarehouseTotalGraph: React.FC = () => {
           />
         </Col>
       </Row>
-      <div ref={warehouseTotalChartRef} style={{ width: '100%' }}>
+      <div ref={warehouseTotalChartRef} style={{ height: 180 }}>
         <Column
           data={warehouseTotalData}
           xField="stock"
