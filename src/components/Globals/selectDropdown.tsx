@@ -36,14 +36,14 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({
 
   return (
     <Select
-      options={options.map((option) => ({
+      options={options?.map((option) => ({
         value: option.value,
         label: (
           <>
             <Row align="middle" gutter={10}>
               <Col>
                 <Checkbox
-                  checked={selectedItems.includes(option.value)}
+                  checked={selectedItems?.includes(option.value)}
                   onClick={() => handleSelectItem(option.value)}
                 />
               </Col>
@@ -73,7 +73,7 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({
       )}
       mode="multiple"
       onSelect={(value) => handleSelectItem(value)}
-      value={[`Showing ${selectedItems.length} ${type}s`]}
+      value={[`Showing ${selectedItems?.length} ${type}s`]}
       tagRender={({ value }) => <div>{value}</div>}
       {...props}
     />
