@@ -1,19 +1,19 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { Card, Row, Col, Form, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { modalType } from '@/utils/helpers/types';
-import SidePanel from './components/SidePanel/sidePanel';
-import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
+import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import { Table1DemoColumns } from '@/data';
+import { modalType } from '@/utils/helpers/types';
+import { PageContainer } from '@ant-design/pro-components';
+import { Card, Form, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import SidePanel from './components/SidePanel/sidePanel';
 
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
-import TabComponent from './components/Bottoms/tabcomponent';
-import { useModel } from 'umi';
-import { OTable } from '@/components/Globals/OTable';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { useResizable } from 'react-resizable-layout';
+import { useModel } from 'umi';
+import TabComponent from './components/Bottoms/tabcomponent';
 const vendorModalLayout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -153,7 +153,7 @@ const CustomerManagement: React.FC = () => {
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
-            <Card size="small" className="horizon-card">
+            <Card style={{ width: '100%' }}>
               <p>Purchase Orders :: Awaiting Authorization</p>
               <Space size={4} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (

@@ -1,7 +1,6 @@
-import React from 'react';
-import { Card } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
+import React from 'react';
 
 interface IStockHistoryModal {
   isOpen: boolean;
@@ -53,9 +52,7 @@ const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, onClose, data
         },
       ]}
     >
-      <Card>
-        <OTable columns={Tcolumns} rows={dataSource} />
-      </Card>
+      <OTable columns={Tcolumns} rows={dataSource} />
     </OModal>
   );
 };

@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
-import { Card, Col, Form, Row, Space } from 'antd';
+import { Card, Form, Space } from 'antd';
 import qs from 'qs';
 import { useState } from 'react';
 
@@ -73,44 +73,26 @@ export default function SearchCustomer() {
   ];
 
   return (
-    <Row>
-      <Col span={24}>
-        <Card
-          size="small"
-          className="horizon-card"
-          title={
-            <h3
-              style={{
-                fontSize: '1rem',
-                fontWeight: '700',
-                color: '#A2A2A2',
-              }}
-            >
-              Search Customers
-            </h3>
-          }
-        >
-          <Space direction="vertical">
-            <Form>
-              {inputFields.map((_inputField, _index) => (
-                <div key={_index}>
-                  <span>{_inputField.label}:</span>
-                  <OInput
-                    type={_inputField.type}
-                    name={_inputField.name}
-                    value={searchQuery[_inputField.name]}
-                    onChange={handleSearchQueryChange}
-                  />
-                </div>
-              ))}
-            </Form>
-            <div>
-              <OButton btnText={'Clear'} onClick={clearSearchQuery} />
-              <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
+    <Card title="Search Customers">
+      <Form>
+        <Space direction="vertical" size={10}>
+          {inputFields.map((_inputField, _index) => (
+            <div key={_index}>
+              <span>{_inputField.label}:</span>
+              <OInput
+                type={_inputField.type}
+                name={_inputField.name}
+                value={searchQuery[_inputField.name]}
+                onChange={handleSearchQueryChange}
+              />
             </div>
-          </Space>
-        </Card>
-      </Col>
-    </Row>
+          ))}
+        </Space>
+      </Form>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+        <OButton btnText={'Clear'} onClick={clearSearchQuery} />
+        <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
+      </div>
+    </Card>
   );
 }

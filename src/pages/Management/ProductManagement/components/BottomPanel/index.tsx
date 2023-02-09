@@ -4,7 +4,7 @@ import ProductDetailsPanel from './ProductDetailsPanel';
 
 const BottomPanel: React.FC = () => {
   return (
-    <Row gutter={32}>
+    <Row gutter={10}>
       <Col span={12}>
         <PerformancePanel />
       </Col>

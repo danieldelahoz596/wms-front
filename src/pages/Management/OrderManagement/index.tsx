@@ -27,7 +27,7 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
@@ -525,7 +525,7 @@ const OrderManagement: React.FC = () => {
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
-            <Card size="small" className="horizon-card">
+            <Card style={{ width: '100%' }}>
               <Row style={{ marginBottom: '0.5rem' }}>
                 <Col span={12}>
                   <p

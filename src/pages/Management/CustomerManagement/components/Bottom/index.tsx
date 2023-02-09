@@ -81,20 +81,7 @@ const BottomPanel: React.FC = () => {
 
   return (
     selectedCustomer && (
-      <Card
-        size="small"
-        title={
-          <h3
-            style={{
-              fontSize: '1rem',
-              fontWeight: '700',
-              color: '#A2A2A2',
-            }}
-          >
-            Customer Orders
-          </h3>
-        }
-      >
+      <Card title="Customer Orders">
         <OTable columns={TOrdercolumns} rows={rows} />
       </Card>
     )

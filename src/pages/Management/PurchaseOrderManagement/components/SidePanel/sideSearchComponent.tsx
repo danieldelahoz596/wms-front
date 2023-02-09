@@ -1,8 +1,9 @@
-import React from 'react';
-import { Button, Form } from 'antd';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
+import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
+import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { useModel } from '@umijs/max';
+import { Form, Space } from 'antd';
+import React from 'react';
 
 const SideSearch: React.FC = () => {
   const { initialState } = useModel('@@initialState');
@@ -10,11 +11,11 @@ const SideSearch: React.FC = () => {
 
   const createdByOptions: IOSelectOption[] = [
     {
-      text: 'Item 1',
+      text: 'User1',
       value: '1',
     },
     {
-      text: 'Item 2',
+      text: 'User2',
       value: '2',
     },
   ];
@@ -85,19 +86,15 @@ const SideSearch: React.FC = () => {
   ];
 
   return (
-    <Form
-      layout="vertical"
-      style={{
-        margin: '0% 5% 0% 5%',
-      }}
-    >
-      {formInputs?.map((inputItem, index) => (
-        <Form.Item key={index} label={inputItem.label}>
-          <OInput {...inputItem} />
-        </Form.Item>
-      ))}
-
-      <Button>Search</Button>
+    <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
+      <Space direction="vertical" size={3} style={{ display: 'flex' }}>
+        {formInputs?.map((inputItem, index) => (
+          <Form.Item key={index} label={inputItem.label}>
+            <OInput {...inputItem} style={{ width: '100%' }} />
+          </Form.Item>
+        ))}
+      </Space>
+      <OButton btnText={'Search'} className={'mt-10'} />
     </Form>
   );
 };

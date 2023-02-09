@@ -18,7 +18,7 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
   return (
     <OModal
       title="Export stock edit history"
-      width={800}
+      width={500}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

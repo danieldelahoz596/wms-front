@@ -334,7 +334,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
                 ))}
                 <OButton
                   btnText={'Add'}
-                  style={{ border: '1px solid blue' }}
+                  style={{ border: '1px solid blue', height: 31 }}
                   onClick={handlePricingTiersAdd}
                 />
               </div>

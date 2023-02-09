@@ -92,7 +92,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [historyDataSource, sethistoryDataSource] = useState(historyData);
-  const [selectedTranster, setSelectedTranster] = useState(null);
+  const [selectedTransfer, setSelectedTransfer] = useState(null);
 
   const {
     isDragging: isRightDragging,
@@ -113,30 +113,29 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
     <>
       <div className="w-full flex flex-column h-screen">
         <Row style={{ marginBottom: 10 }}>
-          <Col span={8} style={{ paddingLeft: 10 }}>
+          <Col span={6} style={{ paddingLeft: 10 }}>
             {tabButtons}
           </Col>
-          <Col span={16}>
-            <Space size={4}>
-              <Select
-                options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
-                defaultValue="source_warehouse"
-                size="small"
-                style={{ width: '200px' }}
-              />
-              <Select
-                options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
-                defaultValue="dest_warehouse"
-                size="small"
-                style={{ width: '100px' }}
-              />
-              <Select
-                options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
-                defaultValue="sto_statuses"
-                size="small"
-                style={{ width: '100px' }}
-              />
-            </Space>
+          <Col span={18}>
+            <div style={{ textAlign: 'right', marginRight: 10 }}>
+              <Space size={4}>
+                <Select
+                  options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
+                  defaultValue="source_warehouse"
+                  style={{ width: '220px', textAlign: 'left' }}
+                />
+                <Select
+                  options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
+                  defaultValue="dest_warehouse"
+                  style={{ width: '220px', textAlign: 'left' }}
+                />
+                <Select
+                  options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
+                  defaultValue="sto_statuses"
+                  style={{ width: '220px', textAlign: 'left' }}
+                />
+              </Space>
+            </div>
           </Col>
         </Row>
 
@@ -151,17 +150,16 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
             />
             <OButton
               btnText="Receive"
-              disabled={!(selectedTranster?.status === 'pending_receiving')}
+              disabled={!(selectedTransfer?.status === 'pending_receiving')}
             />
-            <OButton btnText="History" disabled={!selectedTranster} onClick={showHistory} />
+            <OButton btnText="History" disabled={!selectedTransfer} onClick={showHistory} />
           </Space>
-
           <OTable
             type="radio"
             columns={Tcolumns}
             rows={dataSource}
-            selectedRows={selectedTranster}
-            setSelectedRows={setSelectedTranster}
+            selectedRows={selectedTransfer}
+            setSelectedRows={setSelectedTransfer}
             style={{ marginTop: 15 }}
           />
         </Card>

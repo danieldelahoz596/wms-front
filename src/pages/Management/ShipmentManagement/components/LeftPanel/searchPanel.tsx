@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
-import { Select, Form, Input } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
+import { Form, Input, Select, Space } from 'antd';
+import { useMemo, useState } from 'react';
 
 const SearchPanel: React.FC = () => {
   const [selectedType, setSelectedType] = useState<'shipments' | 'batches' | 'returns'>(null);
@@ -23,28 +24,12 @@ const SearchPanel: React.FC = () => {
         value: 'batch_number',
       },
       {
-        label: 'Sales Channel',
-        value: 'sales_channel',
-      },
-      {
         label: 'Recipient',
         value: 'recipient',
       },
       {
         label: 'Shipping Provider',
         value: 'shipping_provider',
-      },
-      {
-        label: 'City',
-        value: 'city',
-      },
-      {
-        label: 'State',
-        value: 'state',
-      },
-      {
-        label: 'Country',
-        value: 'country',
       },
       {
         label: 'Warehouse',
@@ -99,28 +84,12 @@ const SearchPanel: React.FC = () => {
         value: 'rma_number',
       },
       {
-        label: 'Sales Channel',
-        value: 'sales_channel',
-      },
-      {
         label: 'Returner',
         value: 'returner',
       },
       {
         label: 'Shipping Provider',
         value: 'shipping_provider',
-      },
-      {
-        label: 'City',
-        value: 'city',
-      },
-      {
-        label: 'State',
-        value: 'state',
-      },
-      {
-        label: 'Country',
-        value: 'country',
       },
       {
         label: 'Created Date',
@@ -135,55 +104,41 @@ const SearchPanel: React.FC = () => {
   );
 
   return (
-    <div style={{ margin: 3, overflowY: 'scroll', height: 800 }}>
-      <div>
-        Search Type:
-        <Select
-          placeholder="Select..."
-          style={{ width: '100%', marginTop: 5 }}
-          options={[
-            { value: 'shipments', label: 'Shipments' },
-            { value: 'batches', label: 'Batches' },
-            { value: 'returns', label: 'Returns ' },
-          ]}
-          size="small"
-          onSelect={(value) => setSelectedType(value)}
-        />
-      </div>
-      <Form name="basic" layout="vertical" style={{ marginTop: 10 }}>
-        {selectedType === 'shipments' &&
-          shipmentFormInputs.map((formInput, index) => (
-            <Form.Item
-              key={index}
-              label={formInput.label}
-              name={formInput.value}
-              rules={[{ required: true, message: `Please input your ${formInput.label}!` }]}
-            >
-              <Input />
-            </Form.Item>
-          ))}
-        {selectedType === 'batches' &&
-          batchFormInputs.map((formInput, index) => (
-            <Form.Item
-              key={index}
-              label={formInput.label}
-              name={formInput.value}
-              rules={[{ required: true, message: `Please input your ${formInput.label}!` }]}
-            >
-              <Input />
-            </Form.Item>
-          ))}
-        {selectedType === 'returns' &&
-          returnFormInputs.map((formInput, index) => (
-            <Form.Item
-              key={index}
-              label={formInput.label}
-              name={formInput.value}
-              rules={[{ required: true, message: `Please input your ${formInput.label}!` }]}
-            >
-              <Input />
-            </Form.Item>
-          ))}
+    <div style={{ margin: 3, height: 800 }}>
+      <span>Search Type:</span>
+      <Select
+        placeholder="Select..."
+        style={{ width: '100%', marginTop: 5 }}
+        options={[
+          { value: 'shipments', label: 'Shipments' },
+          { value: 'batches', label: 'Batches' },
+          { value: 'returns', label: 'Returns ' },
+        ]}
+        size="middle"
+        onSelect={(value) => setSelectedType(value)}
+      />
+      <Form layout="vertical" style={{ marginTop: 10 }}>
+        <Space direction="vertical" size={3} style={{ display: 'flex' }}>
+          {selectedType === 'shipments' &&
+            shipmentFormInputs.map((formInput, index) => (
+              <Form.Item key={index} label={formInput.label} name={formInput.value}>
+                <Input style={{ width: '100%' }} />
+              </Form.Item>
+            ))}
+          {selectedType === 'batches' &&
+            batchFormInputs.map((formInput, index) => (
+              <Form.Item key={index} label={formInput.label} name={formInput.value}>
+                <Input style={{ width: '100%' }} />
+              </Form.Item>
+            ))}
+          {selectedType === 'returns' &&
+            returnFormInputs.map((formInput, index) => (
+              <Form.Item key={index} label={formInput.label} name={formInput.value}>
+                <Input style={{ width: '100%' }} />
+              </Form.Item>
+            ))}
+        </Space>
+        <OButton btnText={'Search'} className={'mt-10'} />
       </Form>
     </div>
   );

@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
-import { Form } from 'antd';
+import { Form, Space } from 'antd';
 import React from 'react';
 
 const SideSearch: React.FC = () => {
@@ -65,33 +65,37 @@ const SideSearch: React.FC = () => {
 
   return (
     <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
-      {formInputs?.map((inputItem, index) => (
-        <Form.Item key={index} label={inputItem.label}>
-          <OInput {...inputItem} />
-        </Form.Item>
-      ))}
+      <Space direction="vertical" size={3}>
+        {formInputs?.map((inputItem, index) => (
+          <Form.Item key={index} label={inputItem.label}>
+            <OInput {...inputItem} />
+          </Form.Item>
+        ))}
 
-      <Form.Item label={'Order Date'}>
-        <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="date" name="fromorder_date" onChange={onChangeOrderSearchQuery} />
+        <Form.Item label={'Order Date'}>
+          <Space size={3} align={'baseline'}>
+            <Form.Item>
+              <OInput type="date" name="fromorder_date" onChange={onChangeOrderSearchQuery} />
+            </Form.Item>
+            <span>to</span>
+            <Form.Item>
+              <OInput type="date" name="toorder_date" onChange={onChangeOrderSearchQuery} />
+            </Form.Item>
+          </Space>
         </Form.Item>
-        <div style={{ display: 'inline-block' }}>to</div>
-        <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="date" name="toorder_date" onChange={onChangeOrderSearchQuery} />
+        <Form.Item label={'Ship Date'}>
+          <Space size={3} align={'baseline'}>
+            <Form.Item>
+              <OInput type="date" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
+            </Form.Item>
+            <span>to</span>
+            <Form.Item>
+              <OInput type="date" name="toShipDate" onChange={onChangeOrderSearchQuery} />
+            </Form.Item>
+          </Space>
         </Form.Item>
-      </Form.Item>
-
-      <Form.Item label={'Ship Date'}>
-        <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="date" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
-        </Form.Item>
-        <div style={{ display: 'inline-block' }}>to</div>
-        <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-          <OInput type="date" name="toShipDate" onChange={onChangeOrderSearchQuery} />
-        </Form.Item>
-      </Form.Item>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      </Space>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
         <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
         <OButton btnText={'Search'} onClick={onOrderSearch} />
       </div>

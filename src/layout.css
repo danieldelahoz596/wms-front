@@ -64,12 +64,6 @@
     position: relative;
   }
 
-  .horizon-card{
-    width: 100%;
-    position:absolute !important;
-    z-index: 0;
-  }
-
   .sample-drag-bar.sample-drag-bar--dragging,
   .sample-drag-bar:hover{
     background-color: #63B3ED;

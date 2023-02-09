@@ -197,36 +197,37 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
     <>
       <div className="w-full flex flex-column h-screen">
         <Row style={{ marginBottom: 10 }}>
-          <Col span={8} style={{ paddingLeft: 10 }}>
+          <Col span={6} style={{ paddingLeft: 10 }}>
             {tabButtons}
           </Col>
-          <Col span={16}>
-            <Space size={5} align="center">
-              <SelectDropdown
-                options={initialState?.initialData?.warehouses.map((warehouse) => ({
-                  value: warehouse.id,
-                  label: warehouse.name,
-                }))}
-                size="small"
-                style={{ width: '250px' }}
-              />
-              <OInput
-                type="select"
-                name="status"
-                showPlaceholder={false}
-                options={[
-                  { value: 'all', text: '5 Statuses' },
-                  { value: 'onHand', text: 'On Hand' },
-                  { value: 'locked', text: 'Locked' },
-                  { value: 'allocated', text: 'Allocated' },
-                  { value: 'inTransite', text: 'In Transit' },
-                  { value: 'avaiableQuantities', text: 'Available quantities' },
-                ]}
-                value={status}
-                onChange={handleChangeStatus}
-                style={{ width: '200px' }}
-              />
-            </Space>
+          <Col span={18}>
+            <div style={{ textAlign: 'right', marginRight: 10 }}>
+              <Space size={5}>
+                <SelectDropdown
+                  options={initialState?.initialData?.warehouses.map((warehouse) => ({
+                    value: warehouse.id,
+                    label: warehouse.name,
+                  }))}
+                  style={{ width: '220px' }}
+                  size={'middle'}
+                />
+                <OInput
+                  type="select"
+                  name="status"
+                  showPlaceholder={false}
+                  options={[
+                    { value: 'onHand', text: 'On Hand' },
+                    { value: 'locked', text: 'Locked' },
+                    { value: 'allocated', text: 'Allocated' },
+                    { value: 'inTransite', text: 'In Transit' },
+                    { value: 'avaiableQuantities', text: 'Available quantities' },
+                  ]}
+                  value={status}
+                  onChange={handleChangeStatus}
+                  style={{ width: '220px', textAlign: 'left' }}
+                />
+              </Space>
+            </div>
           </Col>
         </Row>
 
@@ -390,7 +391,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
       <div
-        className={cn('shrink-0 contents', isRightDragging && 'dragging')}
+        className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')}
         style={{ width: RightW }}
       >
         <div className="w-full">

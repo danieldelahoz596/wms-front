@@ -1,7 +1,8 @@
-import React from 'react';
-import { Form, Checkbox, Button, Row, Col } from 'antd';
+import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
+import { Checkbox, Col, Form, Row, Space } from 'antd';
+import React from 'react';
 
 const SearchByProductPanel: React.FC = () => {
   const { initialState } = useModel('@@initialState');
@@ -81,29 +82,26 @@ const SearchByProductPanel: React.FC = () => {
   ];
 
   return (
-    <Form
-      layout="vertical"
-      style={{
-        margin: '0% 5% 0% 5%',
-      }}
-    >
-      {formInputs?.map((inputItem, index) => {
-        return index !== 2 ? (
-          <Form.Item key={index} label={inputItem.label}>
-            <OInput {...inputItem} />
-          </Form.Item>
-        ) : (
-          <Form.Item>
-            <Checkbox>Include related bundles</Checkbox>
-          </Form.Item>
-        );
-      })}
-      <Row justify="space-between">
+    <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
+      <Space direction="vertical" size={3} style={{ display: 'flex' }}>
+        {formInputs?.map((inputItem, index) => {
+          return index !== 2 ? (
+            <Form.Item key={index} label={inputItem.label}>
+              <OInput {...inputItem} style={{ width: '100%' }} />
+            </Form.Item>
+          ) : (
+            <Form.Item>
+              <Checkbox>Include related bundles</Checkbox>
+            </Form.Item>
+          );
+        })}
+      </Space>
+      <Row justify="space-between" style={{ marginTop: 10 }}>
         <Col>
-          <Button>Clear</Button>
+          <OButton btnText={'Clear'}></OButton>
         </Col>
         <Col>
-          <Button>Search</Button>
+          <OButton btnText={'Search'}></OButton>
         </Col>
       </Row>
     </Form>

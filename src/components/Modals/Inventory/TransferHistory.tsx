@@ -1,7 +1,6 @@
-import React from 'react';
-import { Card } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
+import React from 'react';
 
 interface ITransferHistoryModal {
   isOpen: boolean;
@@ -31,7 +30,7 @@ const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose
   return (
     <OModal
       title="History for stock transfer order stock-transfer-test-snow-peak"
-      width={1000}
+      width={700}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -43,11 +42,7 @@ const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose
         },
       ]}
     >
-      <>
-        <Card>
-          <OTable columns={Tcolumns} rows={dataSource} />
-        </Card>
-      </>
+      <OTable columns={Tcolumns} rows={dataSource} />
     </OModal>
   );
 };

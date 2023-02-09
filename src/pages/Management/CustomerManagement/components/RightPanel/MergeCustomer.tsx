@@ -11,7 +11,7 @@ export default function MergeCustomer() {
   };
 
   return (
-    <Card size="small" title="Merge Customer">
+    <Card title="Merge Customer">
       <p>Master Customer</p>
       <Select
         showSearch

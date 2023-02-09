@@ -1,6 +1,6 @@
-import React from 'react';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
+import React from 'react';
 
 import SideFilterTree from './sideFilterTree';
 import SideSearch from './sideSearchComponent';
@@ -8,23 +8,23 @@ import SideSearch from './sideSearchComponent';
 const SidePanel: React.FC = () => {
   const items = [
     {
+      key: '1',
       label: (
         <span>
           <FilterOutlined />
           Filter By
         </span>
       ),
-      key: '1',
       children: <SideFilterTree />,
     },
     {
+      key: '2',
       label: (
         <span>
           <SearchOutlined />
           Search By
         </span>
       ),
-      key: '2',
       children: <SideSearch />,
     },
   ];

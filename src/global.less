@@ -18,6 +18,15 @@ body,
   left: unset;
 }
 
+.ant-space-vertical {
+  .ant-form-item {
+    margin-bottom: 5px;
+    .ant-form-item-label {
+      padding: 0;
+    }
+  }
+}
+
 canvas {
   display: block;
 }
@@ -230,7 +239,27 @@ header.ant-layout-header {
   }
 }
 
+.right-panel {
+  .ant-card {
+    .ant-card-head {
+      position: absolute;
+      top: -10px;
+      left: 9px;
+      min-height: auto;
+      margin: 0;
+      padding: 0;
+      border: none;
 
+      .ant-card-head-title {
+        padding: 0 3px;
+        background: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
 .OModal {
   .ant-card {
     margin-top: 10px;

@@ -1,7 +1,6 @@
-import React from 'react';
-import { Button, Card, Row, Col, Form, Upload } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
+import React from 'react';
 
 interface IStockAllocationDetailsModal {
   isOpen: boolean;
@@ -10,32 +9,32 @@ interface IStockAllocationDetailsModal {
 }
 
 const Tcolumns = [
-    {
-      title: 'Warehouse',
-      dataIndex: 'warehouse',
-      key: 'warehouse',
-    },
-    {
-      title: 'Stock Location',
-      dataIndex: 'stock_location',
-      key: 'stock_location',
-    },
-    {
-      title: 'Order Number',
-      dataIndex: 'order_number',
-      key: 'order_number',
-    },
-    {
-      title: 'Allocated',
-      dataIndex: 'allocated',
-      key: 'allocated',
-    },
-    {
-      title: 'Picked',
-      dataIndex: 'picked',
-      key: 'picked',
-    }
-  ];
+  {
+    title: 'Warehouse',
+    dataIndex: 'warehouse',
+    key: 'warehouse',
+  },
+  {
+    title: 'Stock Location',
+    dataIndex: 'stock_location',
+    key: 'stock_location',
+  },
+  {
+    title: 'Order Number',
+    dataIndex: 'order_number',
+    key: 'order_number',
+  },
+  {
+    title: 'Allocated',
+    dataIndex: 'allocated',
+    key: 'allocated',
+  },
+  {
+    title: 'Picked',
+    dataIndex: 'picked',
+    key: 'picked',
+  },
+];
 
 const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
   isOpen,
@@ -45,7 +44,7 @@ const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
   return (
     <OModal
       title="Stock allocation details"
-      width={1000}
+      width={600}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -57,12 +56,7 @@ const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
         },
       ]}
     >
-      <Card>
-          <OTable
-            columns={Tcolumns}
-            rows={dataSource}
-          />
-      </Card>
+      <OTable columns={Tcolumns} rows={dataSource} />
     </OModal>
   );
 };

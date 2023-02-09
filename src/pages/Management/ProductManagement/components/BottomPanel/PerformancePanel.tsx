@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { Line } from '@ant-design/charts';
 import { MenuOutlined } from '@ant-design/icons';
-import { Card, Space, Form, Dropdown, Row, Col } from 'antd';
+import { Card, Col, Dropdown, Form, Row, Space } from 'antd';
 import { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
@@ -34,34 +34,36 @@ const PerformancePanel: React.FC = () => {
       }
     >
       <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-        <Form.Item>
-          <OInput
-            type="select"
-            name="days"
-            defaultValue={'30'}
-            options={[
-              {
-                value: '30',
-                text: '30 Days',
-              },
-            ]}
-            style={{ width: 200 }}
-          />
-        </Form.Item>
-        <Form.Item>
-          <OInput
-            type="select"
-            name="quantity"
-            defaultValue={'30'}
-            options={[
-              {
-                value: 'quantitySold',
-                text: 'Quantity Solds',
-              },
-            ]}
-            style={{ width: 200 }}
-          />
-        </Form.Item>
+        <Space size={4}>
+          <Form.Item>
+            <OInput
+              type="select"
+              name="days"
+              defaultValue={'30'}
+              options={[
+                {
+                  value: '30',
+                  text: '30 Days',
+                },
+              ]}
+              style={{ width: 200 }}
+            />
+          </Form.Item>
+          <Form.Item>
+            <OInput
+              type="select"
+              name="quantity"
+              defaultValue={'quantitySold'}
+              options={[
+                {
+                  value: 'quantitySold',
+                  text: 'Quantity Solds',
+                },
+              ]}
+              style={{ width: 200 }}
+            />
+          </Form.Item>
+        </Space>
       </Form>
       <Row justify="end">
         <Col>

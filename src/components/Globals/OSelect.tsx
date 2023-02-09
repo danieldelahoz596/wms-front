@@ -41,7 +41,7 @@ export const OSelect: React.FC<IOSelect> = ({
       allowClear={allowClear}
       defaultValue={defaultValue ?? '0'}
       value={value ?? '0'}
-      size="small"
+      size="middle"
       style={{ width: '100%', ...style }}
       className={className}
     >
