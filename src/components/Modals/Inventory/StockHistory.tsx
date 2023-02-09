@@ -5,7 +5,7 @@ import React from 'react';
 interface IStockHistoryModal {
   isOpen: boolean;
   dataSource: any[];
-  title: React.ReactNode;
+  title: string | React.ReactNode;
   onClose: () => void;
 }
 

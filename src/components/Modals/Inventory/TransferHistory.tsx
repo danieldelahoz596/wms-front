@@ -6,6 +6,7 @@ interface ITransferHistoryModal {
   isOpen: boolean;
   onClose: () => void;
   dataSource: any[];
+  title: string;
 }
 
 const Tcolumns = [
@@ -26,10 +27,15 @@ const Tcolumns = [
   },
 ];
 
-const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose, dataSource }) => {
+const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({
+  isOpen,
+  onClose,
+  dataSource,
+  title,
+}) => {
   return (
     <OModal
-      title="History for stock transfer order stock-transfer-test-snow-peak"
+      title={title}
       width={700}
       isOpen={isOpen}
       handleCancel={onClose}

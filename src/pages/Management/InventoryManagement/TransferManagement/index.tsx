@@ -222,8 +222,9 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
 
       <TransferHistoryModal
         isOpen={currentModal === modalType.History}
-        onClose={() => setCurrentModal(modalType.Close)}
+        title={`History for stock transfer order ${selectedTransfer?.order_number}`}
         dataSource={historyDataSource}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
     </>
   );
