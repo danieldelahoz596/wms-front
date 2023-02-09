@@ -297,6 +297,52 @@ export const stock_history = [
   },
 ];
 
+export const location_history = [
+  {
+    key: 1,
+    edit_time: '04/01/2021 10:49 AM',
+    user: 'support@skubana.com',
+    edit_type: 'Adjust',
+    description:
+      'Initial On Hand: 1000011 \nNew on Hand: 1000011 \n Initial Locked: 180 \nNew Locked: 0\nInitial Min. Stock:2\nNew Min.Stock:2',
+    notes: '',
+  },
+  {
+    key: 2,
+    edit_time: '04/01/2021 10:49 AM',
+    user: 'support@test.com',
+    edit_type: 'Adjust',
+    description:
+      'Initial On Hand: 1000011 \nNew on Hand: 1000011 \n New Locked: 0\nInitial Locked: 180 \nInitial Min. Stock:2\nNew Min.Stock:2',
+    notes: '',
+  },
+  {
+    key: 3,
+    edit_time: '04/01/2021 10:50 AM',
+    user: 'Skubana',
+    edit_type: 'Remove',
+    description: 'Initial On Hand: 1000012 \nQuantity Duducted: 1\n New On Hand: 1000011',
+    notes: '',
+  },
+  {
+    key: 4,
+    edit_time: '04/01/2021 10:50 AM',
+    user: 'Skubana',
+    edit_type: 'Remove',
+    description:
+      'Quantity Duducted: 1\n New On Hand: 1000012\n Initial On Hand: 1000013\n New On Hand: 1000013\n ',
+    notes: '',
+  },
+  {
+    key: 5,
+    edit_time: '04/01/2021 10:50 AM',
+    user: '',
+    edit_type: 'Adjust',
+    description: 'Initial On Hand: 1000013\n New On Hand: 1000013\n Initial Locked: 0',
+    notes: 'Order IP25chardot Shipped',
+  },
+];
+
 export const stock_allocation = [
   {
     key: 1,

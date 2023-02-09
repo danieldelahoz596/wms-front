@@ -468,8 +468,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
 
       <StockHistoryModal
         isOpen={currentModal === modalType.StockHistory}
-        onClose={() => setCurrentModal(modalType.Close)}
+        title={<>In house warehouse stock edit history for 1234 AT location232</>}
         dataSource={stockHistorySource}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
       <ExportStockEditHistoryModal
         isOpen={currentModal === modalType.ExportStockEditHistory}

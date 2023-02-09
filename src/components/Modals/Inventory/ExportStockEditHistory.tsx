@@ -3,6 +3,7 @@ import { Col, Row } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
 import { OButton } from '@/components/Globals/OButton';
+import { useModel } from '@umijs/max';
 
 interface IExportStockEditHistoryModal {
   isOpen: boolean;
@@ -12,9 +13,13 @@ interface IExportStockEditHistoryModal {
 }
 
 const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
-  isOpen, onClose, onSave,
+  isOpen,
+  onClose,
+  onSave,
   onAddOrderExportSettings,
 }) => {
+  const { initialState } = useModel('@@initialState');
+
   return (
     <OModal
       title="Export stock edit history"
@@ -38,9 +43,30 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
     >
       <>
         <p>Stock Edit History Export is generated in the Microsoft Excel spreadsheet format.</p>
-        <p>To download your stock edit history, select a warehouse and click the 'Export' button. The export will include stock edit history available in Skubana from within the last 6 months. Please allow the time necessary for the Excel file to be generated and emailed to you.</p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem', padding: '1rem', width: '40%', marginLeft: 'auto' }}>
-          <OInput type="select" placeholder="Select..." options={[{ value: '', text: 'Select ...'},{ value: 'test', text: 'test'},]} style={{ flex: 1 }} />
+        <p>
+          To download your stock edit history, select a warehouse and click the 'Export' button. The
+          export will include stock edit history available in Skubana from within the last 6 months.
+          Please allow the time necessary for the Excel file to be generated and emailed to you.
+        </p>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.1rem',
+            padding: '1rem',
+            width: '40%',
+            marginLeft: 'auto',
+          }}
+        >
+          <OInput
+            type="select"
+            placeholder="Select..."
+            options={initialState?.initialData?.warehouses.map((_item) => ({
+              text: _item.name,
+              value: _item.id,
+            }))}
+            style={{ flex: 1 }}
+          />
         </div>
       </>
     </OModal>

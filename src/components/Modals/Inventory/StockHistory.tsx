@@ -4,8 +4,9 @@ import React from 'react';
 
 interface IStockHistoryModal {
   isOpen: boolean;
-  onClose: () => void;
   dataSource: any[];
+  title: React.ReactNode;
+  onClose: () => void;
 }
 
 const Tcolumns = [
@@ -36,10 +37,15 @@ const Tcolumns = [
   },
 ];
 
-const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, onClose, dataSource }) => {
+const StockHistoryModal: React.FC<IStockHistoryModal> = ({
+  isOpen,
+  title,
+  dataSource,
+  onClose,
+}) => {
   return (
     <OModal
-      title="In house warehouse stock edit history for 1234 AT location232"
+      title={title}
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}

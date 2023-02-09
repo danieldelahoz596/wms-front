@@ -1,29 +1,38 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
+import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { modalType } from '@/utils/helpers/types';
 import BarCodeIcon from '@/utils/icons/barcode';
+import ClipboardIcon from '@/utils/icons/clipboard';
 import StockIcon from '@/utils/icons/stock';
+import TransferIcon from '@/utils/icons/transfer';
+import UpDownArrowIcon from '@/utils/icons/upDownArrow';
 import {
-  DownOutlined,
+  CaretRightFilled,
+  CheckCircleFilled,
+  LinkOutlined,
+  MinusCircleFilled,
+  PlusCircleFilled,
   QuestionCircleTwoTone,
   SnippetsTwoTone,
+  StopOutlined,
   ToolTwoTone,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space } from 'antd';
 import { useState } from 'react';
-import { stock_data } from './structure';
+import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
-
 interface IStockDetails {
   stockData: any;
 }
 
 const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
+  const { initialState } = useModel('@@initialState');
   const [modal, setModal] = useState('');
   const [stockDataSource, setstockDataSource] = useState(stock_data);
+  const [locationHistory, setLocationHistory] = useState(location_history);
   const [selectedLocation, setSelectedLocation] = useState([]);
-  const { initialState } = useModel('@@initialState');
 
   const Scolumns = [
     {
@@ -201,13 +210,19 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
                           {
                             key: '1',
                             label: (
-                              <span onClick={() => setModal(modalType.StockHistory)}>History</span>
+                              <span onClick={() => setModal(modalType.StockHistory)}>
+                                <ClipboardIcon style={{ fontSize: 15, marginRight: 10 }} /> History
+                              </span>
                             ),
                           },
                           {
                             key: '2',
                             label: (
                               <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <StopOutlined
+                                  rotate={90}
+                                  style={{ fontSize: 15, marginRight: 10 }}
+                                />
                                 Deactivate
                               </span>
                             ),
@@ -215,43 +230,60 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
                           {
                             key: '3',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>Draw Rank</span>
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw
+                                Rank
+                              </span>
                             ),
                           },
                           {
                             key: '4',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>Location</span>
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <LinkOutlined style={{ fontSize: 15, marginRight: 10 }} /> Location
+                              </span>
                             ),
                           },
                           {
                             key: '5',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>Transfer</span>
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <TransferIcon style={{ fontSize: 15, marginRight: 10 }} /> Transfer
+                              </span>
                             ),
                           },
                           {
                             key: '6',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>Adjust</span>
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
+                                Adjust
+                              </span>
                             ),
                           },
                           {
                             key: '7',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>Remove</span>
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
+                                Remove
+                              </span>
                             ),
                           },
                           {
                             key: '8',
-                            label: <span onClick={() => setModal(modalType.ManualOrder)}>Add</span>,
+                            label: (
+                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                                <PlusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Add
+                              </span>
+                            ),
                           },
                         ],
                       }}
                     >
                       <Button size="small">
                         <Space>
-                          Edit <DownOutlined />
+                          Edit <CaretRightFilled />
                         </Space>
                       </Button>
                     </Dropdown>
@@ -266,6 +298,20 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
           </Collapse.Panel>
         ))}
       </Collapse>
+
+      <StockHistoryModal
+        isOpen={modal === modalType.StockHistory}
+        title={
+          <>
+            {"In-House Warehouse Stock Edit History For 1234 At '"}{' '}
+            <BarCodeIcon style={{ fontSize: 15 }} />
+            <StockIcon style={{ fontSize: 15 }} />
+            {"Location1234234234'"}
+          </>
+        }
+        dataSource={locationHistory}
+        onClose={() => setModal(modalType.Close)}
+      />
     </div>
   );
 };
