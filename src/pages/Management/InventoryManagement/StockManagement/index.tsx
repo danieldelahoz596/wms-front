@@ -1,6 +1,8 @@
 import { OButton } from '@/components/Globals/OButton';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconciliation';
+import ExportInventoryModal from '@/components/Modals/Inventory/ExportInventory';
+import ExportStockDetailsModal from '@/components/Modals/Inventory/ExportStockDetails';
 import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
 import StockAllocationDetailsModal from '@/components/Modals/Inventory/StockAllocationDetails';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
@@ -367,7 +369,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '4',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                      <span onClick={() => setCurrentModal(modalType.ExportInventory)}>
                         Export Inventory
                       </span>
                     ),
@@ -376,7 +378,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '5',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                      <span onClick={() => setCurrentModal(modalType.ExportStockDetails)}>
                         Export Stock Details
                       </span>
                     ),
@@ -472,17 +474,32 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         dataSource={stockHistorySource}
         onClose={() => setCurrentModal(modalType.Close)}
       />
+
       <ExportStockEditHistoryModal
         isOpen={currentModal === modalType.ExportStockEditHistory}
         onSave={() => {}}
         onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
         onClose={() => setCurrentModal(modalType.Close)}
       />
+
+      <ExportStockDetailsModal
+        isOpen={currentModal === modalType.ExportStockDetails}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <ExportInventoryModal
+        isOpen={currentModal === modalType.ExportInventory}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
       <BulkReconciliationModal
         isOpen={currentModal === modalType.BulkReconciliation}
         onSave={() => {}}
         onClose={() => setCurrentModal(modalType.Close)}
       />
+
       <StockAllocationDetailsModal
         isOpen={currentModal === modalType.StockAllocationDetails}
         onClose={() => setCurrentModal(modalType.Close)}
