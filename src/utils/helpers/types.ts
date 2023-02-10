@@ -59,6 +59,12 @@ export enum modalType {
 
   // inventory
   StockHistory = 'StockHistory',
+  StockDeactive = 'StockDeactive',
+  StockDrawRank = 'StockDrawRank',
+  StockLocationChange = 'StockLocationChange',
+  StockLocationTransfer = 'StockLocationTransfer',
+  StockAdjust = 'StockAdjust',
+  StockEdit = 'StockEdit',
   ExportStockEditHistory = 'ExportStockEditHistory',
   ExportStockDetails = 'ExportStockDetails',
   ExportInventory = 'ExportInventory',
@@ -67,7 +73,7 @@ export enum modalType {
 
   // Purchasing
   CancelPurchaseOrders = 'Cancel',
-  
+
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
   WarehouseReturnLocation = 'WarehouseReturnLocation',
