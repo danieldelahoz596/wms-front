@@ -13,9 +13,9 @@ import SalesIcon from '@/utils/icons/sales';
 import ShippingIcon from '@/utils/icons/shipping';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 
-import { Link } from '@umijs/max';
+import { Link, useLocation } from '@umijs/max';
 import type { MenuProps } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 // Dashboard
 import Dashboard from './Dashboard/dashboard';
@@ -74,20 +74,31 @@ import Analyticstrendinginventoryvalue from './Analytics/Inventory/analyticstren
 import Analyticscriticalinventorylevels from './Analytics/Inventory/analyticscriticalinventorylevels';
 import Analyticsinventoryaging from './Analytics/Inventory/analyticsinventoryaging';
 
-
 // Settings
 import Companyinfo from './Settings/companyinfo';
 import Myprofile from './Settings/myprofile';
 import Useradministration from './Settings/useradministration';
 
-
 const { Sider, Content } = Layout;
+const rootSubmenuKeys = [
+  'dashboard',
+  'orders',
+  'inventory',
+  'purchasing',
+  'shipments',
+  'customers',
+  'products',
+  'analytics',
+  'settings',
+  'help',
+];
 
 const Help: React.FC = () => {
-
-  const rootSubmenuKeys = ['main1', 'main2', 'main3', 'main4', 'main5'];
-  const [openKeys, setOpenKeys] = useState(['main1']);
-  const [selectKey, setSelectedKey] = useState('');
+  const location = useLocation();
+  const [openKeys, setOpenKeys] = useState([
+    location.pathname.split('/')[2],
+    location.pathname.split('/')[3],
+  ]);
 
   const {
     isDragging: isLeftDragging,
@@ -108,629 +119,728 @@ const Help: React.FC = () => {
     }
   };
 
-  const handleSelect = ({ key }) => {
-    setSelectedKey(key);
-  };
+  const renderableContent = useMemo(() => {
+    switch (location.pathname) {
+      case '/help/dashboard/general':
+        return <SkuAlerts />;
+      case '/help/dashboard/skualerts':
+        return <Dashboard />;
+      // Orders
+      case '/help/orders/general':
+        return <Orders />;
+      case '/help/orders/manage/cancel':
+        return <Cancelorders />;
+      case '/help/orders/exportorders':
+        return <Exportorders />;
+      // Customers
+      case '/help/customers/search':
+        return <Searchcustomers />;
+      case '/help/customers/module':
+        return <Customersmodule />;
+      case '/help/customers/exportphonenumbers':
+        return <Exportcustomerphonenumbers />;
+      // Product
+      case '/help/products/general':
+        return <Products />;
+      case '/help/products/manage':
+        return <Manageproducts />;
+      case '/help/products/create/coreproduct':
+        return <CreateCoreProduct />;
+      case '/help/products/create/bundlekit':
+        return <CreateBundleKit />;
+      case '/help/products/create/productvariations':
+        return <CreateProductVariations />;
+      case '/help/products/import/products':
+        return <Importproducts />;
+      case '/help/products/import/vendorproducts':
+        return <ImportVendorProducts />;
+      case '/help/products/import/skuadjustments':
+        return <ImportSkuAdjustments />;
+      case '/help/products/export/products':
+        return <Exportproducts />;
+      case '/help/products/export/vendorproducts':
+        return <Exportvendorproducts />;
+      case '/help/products/export/custombundlekit':
+        return <Exportcustombundlekit />;
+      case '/help/products/searchproducts':
+        return <Searchproducts />;
+      case '/help/products/customproductfields':
+        return <Customproductfields />;
+      case '/help/analytics/general/theanalyticsmodules':
+        return <Theanalyticsmodules />;
+      case '/help/analytics/general/analyticsreports':
+        return <Analyticsreports />;
+      case '/help/analytics/general/printingchartsfromanalytics':
+        return <Printingchartsfromanalytics />;
+      case '/help/analytics/general/exportingreports':
+        return <Exportingreports />;
+      case '/help/analytics/suborders/historicalsexports':
+        return <Historicalordersexports />;
+      case '/help/analytics/suborders/salesoverview':
+        return <Salesoverview />;
+      case '/help/analytics/suborders/biggesttickets':
+        return <Biggesttickets />;
+      case '/help/analytics/suborders/shipments':
+        return <Shipments />;
+      case '/help/analytics/subproducts/analyticsskuprofitability':
+        return <Analyticsskuprofitability />;
+      case '/help/analytics/subproducts/yoygrowth':
+        return <Yoygrowth />;
+      case '/help/analytics/subproducts/analyticslistingprofitability':
+        return <Analyticslistingprofitability />;
+      case '/help/analytics/subproducts/topsellersandworstsellersreports':
+        return <Topsellersandworstsellersreports />;
+      case '/help/analytics/subproducts/analyticstrendingprofitability':
+        return <Analyticstrendingprofitability />;
+      case '/help/analytics/subdashboard/opportunitiesfoundbyextensivordermanager':
+        return <Opportunitiesfoundbyextensivordermanager />;
+      case '/help/analytics/subinventory/analyticsinventoryreplenishmentalerts':
+        return <Analyticsinventoryreplenishmentalerts />;
+      case '/help/analytics/subinventory/analyticssnapshotinventoryvalue':
+        return <Analyticssnapshotinventoryvalue />;
+      case '/help/analytics/subinventory/analyticstrendinginventoryvalue':
+        return <Analyticstrendinginventoryvalue />;
+      case '/help/analytics/subinventory/analyticscriticalinventorylevels':
+        return <Analyticscriticalinventorylevels />;
+      case '/help/analytics/subinventory/analyticsinventoryaging':
+        return <Analyticsinventoryaging />;
+      case '/help/analytics/subpurchaseorders/historicalexports':
+        return <Historicalpurchaseordersexports />;
+      case '/help/settings/myprofile':
+        return <Myprofile />;
+      case '/help/settings/useradministration':
+        return <Useradministration />;
+      case '/help/settings/companyinfo':
+        return <Companyinfo />;
+      default:
+        return <></>;
+    }
+  }, [location.pathname]);
 
-  let renderableContent = null;
-  if (selectKey === 'dashboard_skualerts') renderableContent = <SkuAlerts />
-  else if (selectKey === 'dashboard_general') renderableContent = <Dashboard />
-  else if (selectKey === 'orders_cancelorders') renderableContent = <Cancelorders />;
-  else if (selectKey === 'orders_general') renderableContent = <Orders />;
-  else if (selectKey === 'orders_exportorders') renderableContent = <Exportorders />;
-  else if (selectKey === 'customers_searchcustomers') renderableContent = <Searchcustomers />
-  else if (selectKey === 'customers_customersmodule') renderableContent = <Customersmodule />
-  else if (selectKey === 'customers_exportcustomerphonenumbers') renderableContent = <Exportcustomerphonenumbers />
-  else if (selectKey === 'products_general') renderableContent = <Products />;
-  else if (selectKey === 'products_manageproducts') renderableContent = <Manageproducts />
-  else if (selectKey === 'products_create_coreproduct') renderableContent = <CreateCoreProduct />
-  else if (selectKey === 'products_create_bundlekit') renderableContent = <CreateBundleKit />
-  else if (selectKey === 'products_create_productvariations') renderableContent = <CreateProductVariations />
-  else if (selectKey === 'products_importproducts') renderableContent = <Importproducts />
-  else if (selectKey === 'products_importvendorproducts') renderableContent = <ImportVendorProducts />
-  else if (selectKey === 'products_importskuadjustments') renderableContent = <ImportSkuAdjustments />
-  else if (selectKey === 'products_exportproducts') renderableContent = <Exportproducts />
-  else if (selectKey === 'products_exportvendorproducts') renderableContent = <Exportvendorproducts />
-  else if (selectKey === 'products_exportcustombundlekit') renderableContent = <Exportcustombundlekit />
-  else if (selectKey === 'products_searchproducts') renderableContent = <Searchproducts />
-  else if (selectKey === 'products_customproductfields') renderableContent = <Customproductfields />
-  else if (selectKey === 'analytics_orders_historicalexports') renderableContent = <Historicalordersexports />
-  else if (selectKey === 'analytics_orders_salesoverview') renderableContent = <Salesoverview />
-  else if (selectKey === 'analytics_orders_biggesttickets') renderableContent = <Biggesttickets />
-  else if (selectKey === 'analytics_orders_shipments') renderableContent = <Shipments />
-  else if (selectKey === 'analytics_general_theanalyticsmodules') renderableContent = <Theanalyticsmodules />
-  else if (selectKey === 'analytics_general_analyticsreports') renderableContent = <Analyticsreports />
-  else if (selectKey === 'analytics_general_printingchartsfromanalytics') renderableContent = <Printingchartsfromanalytics />
-  else if (selectKey === 'analytics_general_exportingreports') renderableContent = <Exportingreports />
-  else if (selectKey === 'analytics_products_analyticsskuprofitability') renderableContent = <Analyticsskuprofitability />
-  else if (selectKey === 'analytics_products_yoygrowth') renderableContent = <Yoygrowth />
-  else if (selectKey === 'analytics_products_analyticslistingprofitability') renderableContent = <Analyticslistingprofitability />
-  else if (selectKey === 'analytics_products_topsellersandworstsellersreports') renderableContent = <Topsellersandworstsellersreports />
-  else if (selectKey === 'analytics_products_analyticstrendingprofitability') renderableContent = <Analyticstrendingprofitability />
-  else if (selectKey === 'analytics_dashboard_opportunitiesfoundbyextensivordermanagery') renderableContent = <Opportunitiesfoundbyextensivordermanager />
-  else if (selectKey === 'analytics_inventory_analyticsinventoryreplenishmentalerts') renderableContent = <Analyticsinventoryreplenishmentalerts />
-  else if (selectKey === 'analytics_inventory_analyticssnapshotinventoryvalue') renderableContent = <Analyticssnapshotinventoryvalue />
-  else if (selectKey === 'analytics_inventory_analyticstrendinginventoryvalue') renderableContent = <Analyticstrendinginventoryvalue />
-  else if (selectKey === 'analytics_inventory_analyticscriticalinventorylevels') renderableContent = <Analyticscriticalinventorylevels />
-  else if (selectKey === 'analytics_inventory_analyticsinventoryaging') renderableContent = <Analyticsinventoryaging />
-  else if (selectKey === 'analytics_purchaseorders_historicalexports') renderableContent = <Historicalpurchaseordersexports />
-  else if (selectKey === 'settings_myprofile') renderableContent = <Myprofile />
-  else if (selectKey === 'settings_useradministration') renderableContent = <Useradministration />
-  else if (selectKey === 'settings_companyinfo') renderableContent = <Companyinfo />;
-  
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
         <Sider width={LeftW} trigger={null}>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['main3', selectKey]}
+            defaultSelectedKeys={[location.pathname]}
             openKeys={openKeys}
             onOpenChange={onOpenChange}
-            onSelect={handleSelect}
             items={[
+              // Dashboard
               {
-                key: 'main1',
+                key: 'dashboard',
                 icon: <ProductsIcon />,
                 label: 'Dashboard',
                 children: [
                   {
-                    key: 'dashboard_general',
+                    key: '/help/dashboard/general',
                     icon: <BellOutlined />,
-                    label: (
-                      <Link to="/help/dashboard/general">Dashboard</Link>
-                    ),
+                    label: <Link to="/help/dashboard/general">Dashboard</Link>,
                   },
                   {
-                    key: 'dashboard_skualerts',
+                    key: '/help/dashboard/skualerts',
                     icon: <BellOutlined />,
-                    label: (
-                      <Link to="/help/dashboard/skualerts">SKU Alerts</Link>
-                    ),
+                    label: <Link to="/help/dashboard/skualerts">SKU Alerts</Link>,
                   },
                 ],
               },
+
+              // Orders
               {
-                key: 'main2',
+                key: 'orders',
                 icon: <InventoryIcon />,
                 label: 'Orders',
                 children: [
+                  // Orders - General
                   {
-                    key: 'orders_general',
+                    key: '/help/orders/general',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/orders/general">Orders</Link>
-                    ),
+                    label: <Link to="/help/orders/general">Orders</Link>,
                   },
+                  // Orders - Manage
                   {
-                    key: 'orders_manage',
+                    key: 'manage',
                     icon: <AccountingIcon />,
-                    label: 'How to Manage Orders',                      
+                    label: 'How to Manage Orders',
                     children: [
                       {
-                        key: 'orders_cancelorders',
+                        key: '/help/orders/manage/cancel',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/cancelorders">Cancel Order</Link>
-                        ),
+                        label: <Link to="/help/orders/manage/cancel">Cancel Order</Link>,
                       },
                       {
-                        key: 'orders_mergeorders',
+                        key: '/help/orders/manage/merge',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/mergeorders">Merge Orders</Link>
-                        ),
+                        label: <Link to="/help/orders/manage/merge">Merge Orders</Link>,
                       },
                       {
-                        key: 'orders_splitorders',
+                        key: '/help/orders/manage/split',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/splitorders">Split Orders</Link>
-                        ),
+                        label: <Link to="/help/orders/manage/split">Split Orders</Link>,
                       },
                       {
-                        key: 'orders_restoreorders',
+                        key: '/help/orders/manage/restore',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/restoreorders">Restore Orders</Link>
-                        ),
+                        label: <Link to="/help/orders/manage/restore">Restore Orders</Link>,
                       },
                       {
-                        key: 'orders_markorders',
+                        key: '/help/orders/manage/makeorders',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/orders/markorders">Mark Orders as Shipped</Link>
+                          <Link to="/help/orders/manage/makeorders">Mark Orders as Shipped</Link>
                         ),
                       },
-                    ]
+                    ],
                   },
+                  // Orders - Edit
                   {
-                    key: 'orders_edit',
+                    key: 'edit',
                     icon: <AccountingIcon />,
-                    label: 'How to Edit Orders',                      
+                    label: 'How to Edit Orders',
                     children: [
                       {
-                        key: '',
+                        key: '/help/orders/edit/add',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="">Add an item to an existing order</Link>
+                          <Link to="/help/orders/edit/add">Add an item to an existing order</Link>
                         ),
                       },
-                    ]
+                    ],
                   },
+                  // Orders - ExportOrders
                   {
-                    key: 'orders_exportorders',
+                    key: '/help/orders/exportorders',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/orders/exportorders">How to Export Orders</Link>
-                    )
+                    label: <Link to="/help/orders/exportorders">How to Export Orders</Link>,
                   },
+                  // Orders - Resolve
                   {
-                    key: 'orders_resolve',
+                    key: 'resolve',
                     icon: <AccountingIcon />,
-                    label: 'How to Resolve Orders',                      
+                    label: 'How to Resolve Orders',
                     children: [
                       {
-                        key: 'orders_resolve_missingproductinfo',
+                        key: '/help/orders/resolve/missingorderinfo',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="">Missing Order Info</Link>
+                          <Link to="/help/orders/resolve/missingorderinfo">Missing Order Info</Link>
                         ),
                       },
                       {
-                        key: 'orders_resolve_missingproductinfo',
+                        key: '/help/orders/resolve/missingproductinfo',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/orders/resolvemissingproductinfo">Missing Product Info</Link>
+                          <Link to="/help/orders/resolve/missingproductinfo">
+                            Missing Product Info
+                          </Link>
                         ),
                       },
                       {
-                        key: 'orders_resolve_outofstock',
+                        key: '/help/orders/resolve/missingfulfillmentsource',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/orders/resolveoutofstock">Missing Fulfillment Source</Link>
+                          <Link to="/help/orders/resolve/missingfulfillmentsource">
+                            Missing Fulfillment Source
+                          </Link>
                         ),
                       },
                       {
-                        key: 'orders_resolve_missingstocklocation',
+                        key: '/help/orders/resolve/missingstocklocation',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/orders/resolvemissingstocklocation">Missing Stock Location</Link>
+                          <Link to="/help/orders/resolve/missingstocklocation">
+                            Missing Stock Location
+                          </Link>
                         ),
                       },
                       {
-                        key: 'orders_resolve_outofstock',
+                        key: '/help/orders/resolve/outofstock',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/resolveoutofstock">Out of Stock</Link>
-                        ),
+                        label: <Link to="/help/orders/resolve/outofstock">Out of Stock</Link>,
                       },
-                    ]
+                    ],
                   },
                 ],
               },
+
+              // Inventory
               {
-                key: 'main3',
+                key: 'inventory',
                 icon: <OrdersIcon />,
                 label: 'Inventory',
                 children: [
                   {
-                    key: 'sub31',
+                    key: '/help/inventory/salesoverview',
                     icon: <SalesIcon />,
-                    label: 'Sales Overview',
+                    label: <Link to="/help/inventory/salesoverview">Sales Overview</Link>,
                   },
                 ],
               },
+
+              // Purchasing
               {
-                key: 'main4',
+                key: 'purchasing',
                 icon: <CustomersIcon />,
                 label: 'Purchasing',
                 children: [
                   {
-                    key: 'sub41',
+                    key: '/help/purchasing/test',
                     icon: <UserOutlined />,
-                    label: 'Test',
+                    label: <Link to="/help/purchasing/test">Test</Link>,
                   },
                 ],
               },
+
+              // Shipments
               {
-                key: 'main5',
+                key: 'shipments',
                 icon: <AccountingIcon />,
                 label: 'Shipments',
                 children: [
                   {
-                    key: 'sub51',
+                    key: '/help/shipments/test',
                     icon: <UserOutlined />,
-                    label: 'Test',
+                    label: <Link to="/help/shipments/test">Test</Link>,
                   },
                 ],
               },
+
+              // Customers
               {
-                key: 'main6',
+                key: 'customers',
                 icon: <AccountingIcon />,
                 label: 'Customers',
                 children: [
                   {
-                    key: 'customers_searchcustomers',
+                    key: '/help/customers/search',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/customers/search">How to Search Customers</Link>
-                    ),
+                    label: <Link to="/help/customers/search">How to Search Customers</Link>,
                   },
                   {
-                    key: 'customers_customersmodule',
+                    key: '/help/customers/module',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/customers/customersmodule">Customers Module</Link>
-                    ),
+                    label: <Link to="/help/customers/module">Customers Module</Link>,
                   },
                   {
-                    key: 'customers_exportcustomerphonenumbers',
+                    key: '/help/customers/exportphonenumbers',
                     icon: <AccountingIcon />,
                     label: (
-                      <Link to="/help/customers/exportcustomerphonenumbers">Exporting Customer Phone Numbers from the Orders Module</Link>
+                      <Link to="/help/customers/exportphonenumbers">
+                        Exporting Customer Phone Numbers from the Orders Module
+                      </Link>
                     ),
                   },
                 ],
               },
+
+              // Products
               {
-                key: 'main7',
+                key: 'products',
                 icon: <AccountingIcon />,
                 label: 'Products',
                 children: [
                   {
-                    key: 'products_general',
+                    key: '/help/products/general',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/general">Products</Link>
-                    ),
+                    label: <Link to="/help/products/general">Products</Link>,
                   },
                   {
-                    key: 'products_manageproducts',
+                    key: '/help/products/manage',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/manageproducts">How to Manage Products</Link>
-                    ),
+                    label: <Link to="/help/products/manage">How to Manage Products</Link>,
                   },
+
+                  // Product - Create
                   {
-                    key: 'products_create',
+                    key: 'create',
                     icon: <AccountingIcon />,
-                    label: 'How to Create Through the UI',                      
+                    label: 'How to Create Through the UI',
                     children: [
                       {
-                        key: 'products_create_coreproduct',
+                        key: '/help/products/create/coreproduct',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/createcoreproduct">Create Core Products</Link>
+                          <Link to="/help/products/create/coreproduct">Create Core Products</Link>
                         ),
                       },
                       {
-                        key: 'products_create_bundlekit',
+                        key: '/help/products/create/bundlekit',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/createbundlekit">Create Bundles/Kits</Link>
+                          <Link to="/help/products/create/bundlekit">Create Bundles/Kits</Link>
                         ),
                       },
                       {
-                        key: 'products_create_productvariations',
+                        key: '/help/products/create/productvariations',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/createproductvariations">Create Product Variations</Link>
+                          <Link to="/help/products/create/productvariations">
+                            Create Product Variations
+                          </Link>
                         ),
                       },
-                    ]
+                    ],
                   },
+
+                  // Product - Import
                   {
-                    key: 'products_import',
+                    key: 'import',
                     icon: <AccountingIcon />,
                     label: 'How to Import',
                     children: [
                       {
-                        key: 'products_importproducts',
+                        key: '/help/products/import/products',
+                        icon: <AccountingIcon />,
+                        label: <Link to="/help/products/import/products">Import Products</Link>,
+                      },
+                      {
+                        key: '/help/products/import/vendorproducts',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/importproducts">Import Products</Link>
+                          <Link to="/help/products/import/vendorproducts">
+                            Import Vendor Products
+                          </Link>
                         ),
                       },
                       {
-                        key: 'products_importvendorproducts',
+                        key: '/help/products/import/skuadjustments',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/importvendorproducts">Import Vendor Products</Link>
+                          <Link to="/help/products/import/skuadjustments">
+                            Import SKU Adjustments
+                          </Link>
                         ),
                       },
-                      {
-                        key: 'products_importskuadjustments',
-                        icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/importskuadjustments">Import SKU Adjustments</Link>
-                        ),
-                      },
-                    ]
+                    ],
                   },
+
+                  // Product - Export
                   {
-                    key: 'products_export',
+                    key: 'export',
                     icon: <AccountingIcon />,
                     label: 'How to Export',
                     children: [
                       {
-                        key: 'products_exportproducts',
+                        key: '/help/products/export/products',
+                        icon: <AccountingIcon />,
+                        label: <Link to="/help/products/export/products">Export Products</Link>,
+                      },
+                      {
+                        key: '/help/products/export/vendorproducts',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/exportproducts">Export Products</Link>
+                          <Link to="/help/products/export/vendorproducts">
+                            Export Vendor Products
+                          </Link>
                         ),
                       },
                       {
-                        key: 'products_exportvendorproducts',
+                        key: '/help/products/export/custombundlekit',
                         icon: <AccountingIcon />,
                         label: (
-                          <Link to="/help/products/exportvendorproducts">Export Vendor Products</Link>
+                          <Link to="/help/products/export/custombundlekit">
+                            Export Custom Bundle/Kit
+                          </Link>
                         ),
                       },
-                      {
-                        key: 'products_exportcustombundlekit',
-                        icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/exportcustombundlekit">Export Custom Bundle/Kit</Link>
-                        ),
-                      },
-                    ]
+                    ],
                   },
+
+                  // Product - Search
                   {
-                    key: 'products_searchproducts',
+                    key: '/help/products/searchproducts',
+                    icon: <AccountingIcon />,
+                    label: <Link to="/help/products/searchproducts">How to Search Products</Link>,
+                  },
+
+                  // Product - Custom Product Fields
+                  {
+                    key: '/help/products/customproductfields',
                     icon: <AccountingIcon />,
                     label: (
-                      <Link to="/help/products/searchproducts">How to Search Products</Link>
-                    ),
-                  },
-                  {
-                    key: 'products_customproductfields',
-                    icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/customproductfields">How to Create Custom Product Fields</Link>
+                      <Link to="/help/products/customproductfields">
+                        How to Create Custom Product Fields
+                      </Link>
                     ),
                   },
                 ],
               },
+
+              // Analytics
               {
-                key: 'main8',
+                key: 'analytics',
                 icon: <ShippingIcon />,
                 label: 'Analytics',
                 children: [
+                  // Analytics - General
                   {
-                    key: 'sub83',
+                    key: 'general',
                     icon: <SalesIcon />,
                     label: 'General',
                     children: [
                       {
-                        key: 'analytics_general_theanalyticsmodules',
+                        key: '/help/analytics/general/theanalyticsmodules',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/theanalyticsmodules">The Analytics Module's Landing Page</Link>
+                          <Link to="/help/analytics/general/theanalyticsmodules">
+                            {"The Analytics Module's Landing Page"}
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_general_analyticsreports',
+                        key: '/help/analytics/general/analyticsreports',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/analyticsreports">Analytics Reports</Link>
+                          <Link to="/help/analytics/general/analyticsreports">
+                            Analytics Reports
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_general_printingchartsfromanalytics',
+                        key: '/help/analytics/general/printingchartsfromanalytics',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/printingchartsfromanalytics">Printing Charts from Analytics</Link>
+                          <Link to="/help/analytics/general/printingchartsfromanalytics">
+                            Printing Charts from Analytics
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_general_exportingreports',
+                        key: '/help/analytics/general/exportingreports',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/exportingreports">Exporting Reports</Link>
+                          <Link to="/help/analytics/general/exportingreports">
+                            Exporting Reports
+                          </Link>
                         ),
                       },
                     ],
                   },
+
+                  // Analytics - Orders
                   {
-                    key: 'sub84',
+                    key: 'suborders',
                     icon: <OrdersIcon />,
                     label: 'Orders',
                     children: [
                       {
-                        key: 'analytics_orders_historicalexports',
+                        key: '/help/analytics/suborders/historicalsexports',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/orders/historicalsexports">Historical Exports</Link>
+                          <Link to="/help/analytics/suborders/historicalsexports">
+                            Historical Exports
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_orders_salesoverview',
+                        key: '/help/analytics/suborders/salesoverview',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/orders/salesoverview">Sales Overview</Link>
+                          <Link to="/help/analytics/suborders/salesoverview">Sales Overview</Link>
                         ),
                       },
                       {
-                        key: 'analytics_orders_biggesttickets',
+                        key: '/help/analytics/suborders/biggesttickets',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/orders/biggesttickets">Biggest Tickets</Link>
+                          <Link to="/help/analytics/suborders/biggesttickets">Biggest Tickets</Link>
                         ),
                       },
                       {
-                        key: 'analytics_orders_shipments',
+                        key: '/help/analytics/suborders/shipments',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/orders/shipments">Shipments</Link>
-                        ),
+                        label: <Link to="/help/analytics/suborders/shipments">Shipments</Link>,
                       },
                     ],
                   },
+
+                  // Analytics - Purchase Orders
                   {
-                    key: 'sub85',
+                    key: 'subpurchaseorders',
                     icon: <OrdersIcon />,
                     label: 'Purchase Orders',
                     children: [
                       {
-                        key: 'analytics_purchaseorders_historicalexports',
+                        key: '/help/analytics/subpurchaseorders/historicalexports',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/purchaseorders/historicalexports">Historical Exports</Link>
+                          <Link to="/help/analytics/subpurchaseorders/historicalexports">
+                            Historical Exports
+                          </Link>
                         ),
                       },
                     ],
                   },
+
+                  // Analytics - Products
                   {
-                    key: 'sub86',
+                    key: 'subproducts',
                     icon: <OrdersIcon />,
                     label: 'Products',
                     children: [
                       {
-                        key: 'analytics_products_analyticsskuprofitability',
+                        key: '/help/analytics/subproducts/analyticsskuprofitability',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/products/analyticsskuprofitability">Analytics - SKU Profitability</Link>
+                          <Link to="/help/analytics/subproducts/analyticsskuprofitability">
+                            Analytics - SKU Profitability
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_products_yoygrowth',
+                        key: '/help/analytics/subproducts/yoygrowth',
+                        icon: <SalesIcon />,
+                        label: <Link to="/help/analytics/subproducts/yoygrowth">Y-O-Y Growth</Link>,
+                      },
+                      {
+                        key: '/help/analytics/subproducts/analyticslistingprofitability',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/products/yoygrowth">Y-O-Y Growth</Link>
+                          <Link to="/help/analytics/subproducts/analyticslistingprofitability">
+                            Analytics - Listing Profitability
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_products_analyticslistingprofitability',
+                        key: '/help/analytics/subproducts/topsellersandworstsellersreports',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/products/analyticslistingprofitability">Analytics - Listing Profitability</Link>
+                          <Link to="/help/analytics/subproducts/topsellersandworstsellersreports">
+                            Top Sellers & Worst Sellers Reports
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_products_topsellersandworstsellersreports',
+                        key: '/help/analytics/subproducts/analyticstrendingprofitability',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/products/topsellersandworstsellersreports">Top Sellers & Worst Sellers Reports</Link>
-                        ),
-                      },
-                      {
-                        key: 'analytics_products_analyticstrendingprofitability',
-                        icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/products/analyticstrendingprofitability">Analytics - Trending Profitability</Link>
+                          <Link to="/help/analytics/subproducts/analyticstrendingprofitability">
+                            Analytics - Trending Profitability
+                          </Link>
                         ),
                       },
                     ],
                   },
+
+                  // Analytics - Dashboard
                   {
-                    key: 'sub87',
+                    key: 'subdashboard',
                     icon: <OrdersIcon />,
                     label: 'Dashboard',
                     children: [
                       {
-                        key: 'analytics_dashboard_opportunitiesfoundbyextensivordermanagery',
+                        key: '/help/analytics/subdashboard/opportunitiesfoundbyextensivordermanager',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/dashboard/opportunitiesfoundbyextensivordermanager">Opportunities Found by Extensiv Order Manager</Link>
+                          <Link to="/help/analytics/subdashboard/opportunitiesfoundbyextensivordermanager">
+                            Opportunities Found by Extensiv Order Manager
+                          </Link>
                         ),
                       },
                     ],
                   },
+
+                  // Analytics - Inventory
                   {
-                    key: 'sub88',
+                    key: 'subinventory',
                     icon: <OrdersIcon />,
                     label: 'Inventory',
                     children: [
                       {
-                        key: 'analytics_inventory_analyticsinventoryreplenishmentalerts',
+                        key: '/help/analytics/subinventory/analyticsinventoryreplenishmentalerts',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/inventory/analyticsinventoryreplenishmentalerts">Analytics - Inventory Replenishment Alerts</Link>
+                          <Link to="/help/analytics/subinventory/analyticsinventoryreplenishmentalerts">
+                            Analytics - Inventory Replenishment Alerts
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_inventory_analyticssnapshotinventoryvalue',
+                        key: '/help/analytics/subinventory/analyticssnapshotinventoryvalue',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/inventory/analyticssnapshotinventoryvalue">Analytics - Snapshot Inventory Value</Link>
+                          <Link to="/help/analytics/subinventory/analyticssnapshotinventoryvalue">
+                            Analytics - Snapshot Inventory Value
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_inventory_analyticstrendinginventoryvalue',
+                        key: '/help/analytics/subinventory/analyticstrendinginventoryvalue',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/inventory/analyticstrendinginventoryvalue">Analytics - Trending Inventory Value</Link>
+                          <Link to="/help/analytics/subinventory/analyticstrendinginventoryvalue">
+                            Analytics - Trending Inventory Value
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_inventory_analyticscriticalinventorylevels',
+                        key: '/help/analytics/subinventory/analyticscriticalinventorylevels',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/inventory/analyticscriticalinventorylevels">Analytics - Critical Inventory Levels</Link>
+                          <Link to="/help/analytics/subinventory/analyticscriticalinventorylevels">
+                            Analytics - Critical Inventory Levels
+                          </Link>
                         ),
                       },
                       {
-                        key: 'analytics_inventory_analyticsinventoryaging',
+                        key: '/help/analytics/subinventory/analyticsinventoryaging',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/inventory/analyticsinventoryaging">Analytics - Inventory Aging</Link>
+                          <Link to="/help/analytics/subinventory/analyticsinventoryaging">
+                            Analytics - Inventory Aging
+                          </Link>
                         ),
                       },
                     ],
                   },
                 ],
               },
+
+              // Settings
               {
-                key: 'main9',
+                key: 'settings',
                 icon: <BiggestTicketsIcon />,
                 label: 'Settings',
                 children: [
                   {
-                    key: 'settings_myprofile',
+                    key: '/help/settings/myprofile',
                     icon: <SalesIcon />,
-                    label: (
-                      <Link to="/help/settings/myprofile">My Profile</Link>
-                    ),
+                    label: <Link to="/help/settings/myprofile">My Profile</Link>,
                   },
                   {
-                    key: 'settings_useradministration',
+                    key: '/help/settings/useradministration',
                     icon: <SalesIcon />,
-                    label: (
-                      <Link to="/help/settings/useradministration">User Administration</Link>
-                    ),
+                    label: <Link to="/help/settings/useradministration">User Administration</Link>,
                   },
                   {
-                    key: 'settings_companyinfo',
+                    key: '/help/settings/companyinfo',
                     icon: <SalesIcon />,
-                    label: (
-                      <Link to="/help/settings/companyinfo">Company Info</Link>
-                    ),
+                    label: <Link to="/help/settings/companyinfo">Company Info</Link>,
                   },
                 ],
               },
+
+              // Help
               {
-                key: 'main10',
+                key: 'help',
                 icon: <AccountingIcon />,
                 label: 'Help',
                 children: [
                   {
-                    key: 'sub101',
+                    key: '/help/help',
                     icon: <UserOutlined />,
-                    label: 'Test',
+                    label: <Link to="/help/help">Test</Link>,
                   },
                 ],
               },
             ]}
           />
         </Sider>
-        
+
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        
-        <div className='help-content'>
-          {renderableContent}
-        </div>
-        
+
+        <div className="help-content">{renderableContent}</div>
 
         {/* <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
@@ -739,7 +849,7 @@ const Help: React.FC = () => {
             </Layout>
           </div>
         </div> */}
-      </div>     
+      </div>
     </PageContainer>
   );
 };
