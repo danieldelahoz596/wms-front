@@ -26,6 +26,7 @@ import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
 import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
 import StockLocationTransferModal from '@/components/Modals/Inventory/StockLocationTransfer';
+import StockAdjustModal from '@/components/Modals/Inventory/StockAdjust';
 interface IStockDetails {
   vendorData: any;
 }
@@ -269,7 +270,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '6',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span onClick={() => setModal(modalType.StockAdjust)}>
                                 <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
                                 Adjust
                               </span>
@@ -392,6 +393,22 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                 : location.key === data.destination
                 ? { ...location, available: location.available + data.available }
                 : location,
+            ),
+          );
+          setSelectedLocation(null);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockAdjustModal
+        isOpen={modal === modalType.StockAdjust}
+        vendorName={vendorData.name}
+        initialData={selectedLocation}
+        onSave={(data) => {
+          setLocationList(
+            locationList.map((location) =>
+              location.key === selectedLocation.key ? { ...location, ...data } : location,
             ),
           );
           setSelectedLocation(null);
