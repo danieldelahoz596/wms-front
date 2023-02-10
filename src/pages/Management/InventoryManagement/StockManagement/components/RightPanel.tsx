@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
+import StockDeactiveModal from '@/components/Modals/Inventory/StockDeactive';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { modalType } from '@/utils/helpers/types';
 import BarCodeIcon from '@/utils/icons/barcode';
@@ -19,7 +19,7 @@ import {
   ToolTwoTone,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Button, Card, Col, Collapse, Dropdown, Row, Space } from 'antd';
+import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
 import { useState } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
@@ -30,9 +30,10 @@ interface IStockDetails {
 const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
   const { initialState } = useModel('@@initialState');
   const [modal, setModal] = useState('');
-  const [stockDataSource, setstockDataSource] = useState(stock_data);
   const [locationHistory, setLocationHistory] = useState(location_history);
-  const [selectedLocation, setSelectedLocation] = useState([]);
+  const [locationList, setLocationList] = useState(stock_data);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [showActive, setShowActive] = useState(true);
 
   const Scolumns = [
     {
@@ -190,21 +191,31 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
             </Row>
             <Card title="Stock Breakdown" style={{ marginTop: 20 }}>
               <a>{`${stockData?.name}-${stockData?.master_sku}-FBA.error - Sterling silver Garnet Accent Heart Pendant`}</a>
-              <OTable
-                type="radio"
+
+              <Table
                 columns={Scolumns}
-                rows={stockDataSource}
-                selectedRows={selectedLocation}
-                setSelectedRows={setSelectedLocation}
-                pagination={false}
+                dataSource={locationList.filter((item) => item.status === showActive)}
+                onRow={(record) => {
+                  return {
+                    onClick() {
+                      if (record.key === selectedLocation?.key) setSelectedLocation(null);
+                      else setSelectedLocation(record);
+                    },
+                  };
+                }}
+                rowClassName={(record) =>
+                  record.key === selectedLocation?.key ? `ant-table-row-selected` : ''
+                }
                 style={{ marginTop: 5, marginBottom: 10 }}
+                pagination={{ hideOnSinglePage: true }}
               />
+
               <Row>
                 <Col span={18}>
                   <Space size={4}>
                     <OButton btnText={'New Stock'} />
                     <Dropdown
-                      disabled={selectedLocation.length === 0}
+                      disabled={!selectedLocation}
                       menu={{
                         items: [
                           {
@@ -218,12 +229,12 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
                           {
                             key: '2',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span onClick={() => setModal(modalType.StockDeactive)}>
                                 <StopOutlined
                                   rotate={90}
                                   style={{ fontSize: 15, marginRight: 10 }}
                                 />
-                                Deactivate
+                                {showActive ? 'Deactivate' : 'Activate'}
                               </span>
                             ),
                           },
@@ -291,7 +302,13 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
                   </Space>
                 </Col>
                 <Col span={6}>
-                  <OButton btnText={'Show Inactive'} />
+                  <OButton
+                    btnText={`Show ${showActive ? 'Inactive' : 'Active'}`}
+                    onClick={() => {
+                      setShowActive((prev) => !prev);
+                      setSelectedLocation(null);
+                    }}
+                  />
                 </Col>
               </Row>
             </Card>
@@ -310,6 +327,22 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
           </>
         }
         dataSource={locationHistory}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockDeactiveModal
+        isOpen={modal === modalType.StockDeactive}
+        itemTitle={`${stockData.name} @ ${selectedLocation?.location}`}
+        active={showActive}
+        onSave={() => {
+          setLocationList(
+            locationList.map((item) =>
+              item.key === selectedLocation?.key ? { ...item, status: !item.status } : item,
+            ),
+          );
+          setModal(modalType.Close);
+          setSelectedLocation(null);
+        }}
         onClose={() => setModal(modalType.Close)}
       />
     </div>
