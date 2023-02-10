@@ -63,6 +63,9 @@ export enum modalType {
   BulkReconciliation = 'BulkReconciliation',
   StockAllocationDetails = 'StockAllocationDetails',
 
+  // Purchasing
+  CancelPurchaseOrders = 'Cancel',
+  
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
   WarehouseReturnLocation = 'WarehouseReturnLocation',

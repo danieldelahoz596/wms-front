@@ -2,17 +2,17 @@ import { OModal } from '@/components/Globals/OModal';
 import { Alert } from 'antd';
 import React from 'react';
 
-interface IExportQueueOrderModal {
+interface ICancelPurchaseOrders {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ExportQueueOrderModal: React.FC<IExportQueueOrderModal> = ({ isOpen, onClose, onSave }) => {
+const CancelPurchaseOrders: React.FC<ICancelPurchaseOrders> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
-      title="Export Order(s)"
-      width={600}
+      title="Cancel P.O.(s)"
+      width={300}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -25,26 +25,19 @@ const ExportQueueOrderModal: React.FC<IExportQueueOrderModal> = ({ isOpen, onClo
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Yes-Export',
+          btnLabel: 'Yes - Cancel P.O.',
           onClick: onSave,
         },
       ]}
     >
       <>
-        <Alert
-          description={
-            <p>
-              The selected orders will be placed into the queue and exported automatically.{' '}
-              <b>All previous orders in the queue will be removed.</b>
-            </p>
-          }
-        />
+        <Alert description="Canceling will prevent the selected P.O.(s) from being issued to vendors." />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
-          Are you sure you want to proceed?
+          <span>Are you sure you want to proceed?</span>
         </div>
       </>
     </OModal>
   );
 };
 
-export default ExportQueueOrderModal;
+export default CancelPurchaseOrders;

@@ -1,8 +1,3 @@
-import { PageContainer } from '@ant-design/pro-components';
-import { Badge, Button, Card, Col, Dropdown, Modal, Row, Space } from 'antd';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import SidePanel from './components/SidePanel/sidePanel';
-
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
@@ -29,10 +24,14 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined
 } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
+import { Badge, Button, Card, Col, Dropdown, Modal, Row, Space } from 'antd';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import OrderItems from './components/Bottoms/orderItems';
 import RightPanel from './components/RightPanel/rightPanel';
+import SidePanel from './components/SidePanel/sidePanel';
 
 // modals
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -526,18 +525,9 @@ const OrderManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
             <Card style={{ width: '100%' }}>
-              <Row style={{ marginBottom: '0.5rem' }}>
+              <Row>
                 <Col span={12}>
-                  <p
-                    style={{
-                      fontSize: '1rem',
-                      textTransform: 'uppercase',
-                      fontWeight: '700',
-                      color: '#A2A2A2',
-                    }}
-                  >
-                    Orders :: {selectedOrderStatus?.status.name}{' '}
-                  </p>
+                  <p className="page-title">Orders :: {selectedOrderStatus?.status.name}</p>
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
                   {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}

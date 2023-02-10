@@ -1,10 +1,12 @@
-import React from 'react';
-import { Button, Row, Form, Input, Table } from 'antd';
-import { modalType } from '@/utils/helpers/types';
 import { AddNewItemTableColumns, AddNewItemTableData } from '@/components/DemoData/index';
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
+import { OTable } from '@/components/Globals/OTable';
+import { modalType } from '@/utils/helpers/types';
+import { Form, Input, Row } from 'antd';
+import React from 'react';
 
 interface IAddNewItemModal {
   title?: string;
@@ -31,7 +33,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
 
   const unitMeasureOptions: IOSelectOption[] = [
     {
-      text: 'Item 1',
+      text: 'Each',
       value: '1',
     },
     {
@@ -67,16 +69,15 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
             <Form.Item>
               <OSelect
                 name="product"
+                placeholder="Select a product..."
                 options={productOptions}
                 onChange={() => {}}
-                placeholder="Select a product..."
+                style={{ width: 220 }}
               />
             </Form.Item>
-
             <Form.Item label="Quantity">
               <Input type="number" />
             </Form.Item>
-
             <Form.Item label="Unit of measure">
               <OSelect
                 name="unitMeasure"
@@ -85,25 +86,15 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
                 placeholder="Select..."
               />
             </Form.Item>
-            <Button type="default">Add</Button>
+            <OButton btnText={'Add'} size="large"/>
           </Form>
         </Row>
-        <Row
-          style={{
-            marginTop: '1%',
-          }}
-        >
-          <Table
-            bordered
-            columns={AddNewItemTableColumns}
-            dataSource={AddNewItemTableData}
-            size="small"
-            style={{
-              minWidth: '100%',
-            }}
-            pagination={false}
-          />
-        </Row>
+        <OTable
+          bordered
+          columns={AddNewItemTableColumns}
+          rows={AddNewItemTableData}
+          pagination={false}
+        />
       </>
     </OModal>
   );

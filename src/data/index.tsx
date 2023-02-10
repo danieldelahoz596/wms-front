@@ -108,12 +108,17 @@ export const Table1DemoColumns = [
     key: 'ponumber',
   },
   {
+    title: 'Custom P.O. Number',
+    dataIndex: 'customponumber',
+    key: 'ponumber',
+  },
+  {
     title: 'Created By',
     dataIndex: 'createdBy',
     key: 'createdBy',
   },
   {
-    title: 'Authorized',
+    title: 'Authorizer',
     dataIndex: 'authorized',
     key: 'authorized',
   },
@@ -130,8 +135,8 @@ export const Table1DemoColumns = [
   },
   {
     title: 'Date Created',
-    dataIndex: 'confirmedBy',
-    key: 'confirmedBy',
+    dataIndex: 'dateCreated',
+    key: 'dateCreated',
   },
   {
     title: 'Date issued',

@@ -1,19 +1,21 @@
-import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
-import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
-import { Table1DemoColumns } from '@/data';
-import { modalType } from '@/utils/helpers/types';
-import { PageContainer } from '@ant-design/pro-components';
-import { Card, Form, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import SidePanel from './components/SidePanel/sidePanel';
-
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
+import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
+import CancelPurchaseOrdersModal from '@/components/Modals/PurchaseOrder/CancelPurchaseOrders';
+import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
+import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { modalType } from '@/utils/helpers/types';
+import { DownOutlined, FileOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-components';
+import { Button, Card, Dropdown, Form, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
+import SidePanel from './components/SidePanel/sidePanel';
+
 const vendorModalLayout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -38,6 +40,7 @@ const CustomerManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
   const [form] = Form.useForm();
+  const [modalOpen, setModal] = useState('');
 
   const {
     isDragging: isBottomDragging,
@@ -88,31 +91,70 @@ const CustomerManagement: React.FC = () => {
   const actionButtons: IOButton[] = [
     {
       onClick: () => console.log('Vendor'),
-      btnText: 'Print',
+      btnText: (
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 'pick_list',
+                label: <span> Pick List(s)</span>,
+                icon: <FileOutlined />,
+              },
+            ],
+          }}
+          disabled={selectedRows.length === 0}
+        >
+          <Button size="small">
+            <Space>
+              Print <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
+      ),
     },
     {
       onClick: () => console.log('Authorized'),
       btnText: 'Authorize',
-      hidden:
-        (selectedPOStatus?.key !== '0' && selectedPOStatus?.key !== '1') ||
-        !selectedPOStatus?.selectedWarehouse,
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || selectedPOStatus?.poStatus !== '1',
     },
     {
-      onClick: () => console.log('Canceled'),
+      onClick: () => console.log('Restore P.O.'),
+      btnText: 'Restore P.O.',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus?.poStatus !== '10',
+    },
+    {
+      onClick: () => setModal(modalType.CancelPurchaseOrders),
       btnText: 'Cancel',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || ['10', '1'].includes(selectedPOStatus.poStatus),
     },
     {
       onClick: handleNewPOModalOpen,
       btnText: 'New P.O.',
     },
     {
-      onClick: () => console.log('Restore P.O.'),
-      btnText: 'Restore P.O.',
-      hidden: selectedPOStatus?.key !== '10' || !selectedPOStatus?.selectedWarehouse,
-    },
-    {
       onClick: () => console.log('Import/Export'),
-      btnText: 'Import/Export',
+      btnText: (
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 'pick_list',
+                label: <span> Pick List(s)</span>,
+                icon: <FileOutlined />,
+              },
+            ],
+          }}
+        >
+          <Button size="small">
+            <Space>
+              Import/Export <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
+      ),
     },
   ];
 
@@ -133,6 +175,7 @@ const CustomerManagement: React.FC = () => {
   }, [initialMilestonesList, initialShippingTermList]);
 
   useEffect(() => {
+    console.log(selectedPOStatus);
     if (selectedRows && selectedRows[0]) {
       const _selectedPo = poList.find((poItem) => poItem.key === selectedRows[0]);
       setSelectedPO(_selectedPo);
@@ -154,7 +197,9 @@ const CustomerManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
             <Card style={{ width: '100%' }}>
-              <p>Purchase Orders :: Awaiting Authorization</p>
+              <p className="page-title">
+                Purchase Orders :: {selectedPOStatus ? selectedPOStatus.poStatus : ''}
+              </p>
               <Space size={4} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
                   <OButton key={index} {...btn} />
@@ -163,7 +208,6 @@ const CustomerManagement: React.FC = () => {
               <OTable
                 columns={Table1DemoColumns}
                 rows={poListTableRows}
-                type={'radio'}
                 selectedRows={selectedRows}
                 setSelectedRows={setSelectedRows}
               />
@@ -175,7 +219,7 @@ const CustomerManagement: React.FC = () => {
             {...bottomDragBarProps}
           />
           <div
-            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
+            className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')}
             style={{ height: bottomH }}
           >
             <div className="w-full">
@@ -194,6 +238,11 @@ const CustomerManagement: React.FC = () => {
         onVendorChange={onVendorChange}
       />
       <AddNewPOModal newPOModal={newPOModal} setNewPOModal={setNewPOModal} />
+      <CancelPurchaseOrdersModal
+        isOpen={modalOpen === modalType.CancelPurchaseOrders}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
     </PageContainer>
   );
 };

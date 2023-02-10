@@ -1,6 +1,6 @@
-import React from 'react';
-import { Alert } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
+import { Alert } from 'antd';
+import React from 'react';
 
 interface IRestoreOrderModal {
   isOpen: boolean;
@@ -31,13 +31,8 @@ const RestoreOrderModal: React.FC<IRestoreOrderModal> = ({ isOpen, onClose, onSa
       ]}
     >
       <>
-        <Alert
-          message=""
-          description="Restoring the selected orders will revert them back to their previous status."
-          type="info"
-          style={{ backgroundColor: '#DEE0FF', borderColor: '#8C93FF' }}
-        />
-        <div style={{ textAlign: 'right', margin: '1rem 0' }}>
+        <Alert description="Restoring the selected orders will revert them back to their previous status." />
+        <div style={{ textAlign: 'right', margin: '10px 5px' }}>
           Are you sure you want to proceed?
         </div>
       </>

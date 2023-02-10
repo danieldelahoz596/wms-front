@@ -33,7 +33,7 @@ export const OModal: React.FC<IOmodal> = (props) => {
       className="OModal"
       centered
       footer={buttons?.map((btn) => (
-        <Button key={btn.key} type={btn.type} onClick={btn.onClick} htmlType={btn.htmlType}>
+        <Button key={btn.key} type={btn.type} onClick={btn.onClick} htmlType={btn.htmlType} size="large">
           {btn.btnLabel}
         </Button>
       ))}

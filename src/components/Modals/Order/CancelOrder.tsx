@@ -1,8 +1,8 @@
-import React from 'react';
-import { Alert, Col, Form, Row } from 'antd';
-import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
+import { OModal } from '@/components/Globals/OModal';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Alert, Col, Form, Row } from 'antd';
+import React from 'react';
 
 interface ICancelOrderModal {
   isOpen: boolean;
@@ -34,7 +34,6 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
     >
       <>
         <Alert
-          message=""
           description={
             <ul>
               <li>If the sales channel is not notified, these orders can be restored.</li>
@@ -45,8 +44,6 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
               </li>
             </ul>
           }
-          type="info"
-          // style={{ backgroundColor: '#DEE0FF', borderColor: '#8C93FF' }}
         />
         <Row className="mt-10">
           <Col offset={6} span={18}>
@@ -96,19 +93,19 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
                 />
               </Form.Item>
               <Form.Item name={'details'} label="Details">
-                <OInput type="textarea" rows={3}/>
+                <OInput type="textarea" rows={3} />
               </Form.Item>
               <Row>
-                <Col  span={17}>
-                  <Form.Item name='notify'>
-                    <OInput type="checkbox"/> Notify sales channel
+                <Col span={17}>
+                  <Form.Item name="notify">
+                    <OInput type="checkbox" /> Notify sales channel
                   </Form.Item>
-                  <Form.Item name='refund'>
-                    <OInput type="checkbox"/> Refund order(s)
+                  <Form.Item name="refund">
+                    <OInput type="checkbox" /> Refund order(s)
                     <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
                   </Form.Item>
-                  <Form.Item name='emailUpdate'>
-                    <OInput type="checkbox"/> Request channel email update
+                  <Form.Item name="emailUpdate">
+                    <OInput type="checkbox" /> Request channel email update
                     <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
                   </Form.Item>
                 </Col>

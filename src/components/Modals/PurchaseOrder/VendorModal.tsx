@@ -1,10 +1,10 @@
-import React from 'react';
-import { Form } from 'antd';
-import { modalType } from '@/utils/helpers/types';
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
+import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
+import { Card, Form, Select } from 'antd';
+import React from 'react';
 interface IVendorModal {
   vendorModal: string;
   onVendorModalNext: () => void;
@@ -22,7 +22,8 @@ const VendorModal: React.FC<IVendorModal> = ({
   form,
   onVendorChange,
 }) => {
-  const { vendorList } = useModel('vendor')
+  const { vendorList } = useModel('vendor');
+  const { initialState } = useModel('@@initialState');
 
   const handleVendorChange = (name: string, value: string) => {
     if (onVendorChange) {
@@ -37,11 +38,11 @@ const VendorModal: React.FC<IVendorModal> = ({
 
   return (
     <OModal
-        title="Choose P.O. Vendor"
-        width={400}
-        isOpen={vendorModal === modalType.New} 
-        handleCancel={onVendorModalCancel} 
-        buttons={[
+      title="Choose P.O. Vendor"
+      width={400}
+      isOpen={vendorModal === modalType.New}
+      handleCancel={onVendorModalCancel}
+      buttons={[
         {
           key: 'back',
           type: 'default',
@@ -56,17 +57,33 @@ const VendorModal: React.FC<IVendorModal> = ({
         },
       ]}
     >
-      <Form {...vendorModalLayout} className="choose-vendor" form={form} name="control-hooks">
-        <Form.Item name="vendor" label="Vendor" rules={[{ required: true }]}>
-          <OSelect
+      <Card title="Vendor">
+        <>
+          <Select
+            placeholder="Select..."
+            size="middle"
             name="vendor"
-            options={selectVendorOptions}
-            placeholder="Select Vendor"
+            options={initialState?.initialData?.vendors.map((_item) => ({
+              value: _item.id,
+              label: _item.name,
+            }))}
             onChange={handleVendorChange}
             allowClear
+            style={{ width: '100%', marginBottom: 5 }}
           />
-        </Form.Item>
-      </Form>
+          {/* <Form {...vendorModalLayout} className="choose-vendor" form={form} name="control-hooks">
+            <Form.Item name="vendor" label="Vendor" rules={[{ required: true }]}>
+              <OSelect
+                name="vendor"
+                options={selectVendorOptions}
+                placeholder="Select Vendor"
+                onChange={handleVendorChange}
+                allowClear
+              />
+            </Form.Item>
+          </Form> */}
+        </>
+      </Card>
     </OModal>
   );
 };

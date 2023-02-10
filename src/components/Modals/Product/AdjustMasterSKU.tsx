@@ -1,7 +1,7 @@
-import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { Input, Form, Alert } from 'antd';
 import { useModel } from '@umijs/max';
+import { Alert, Form, Input } from 'antd';
+import React from 'react';
 
 interface IAdjustMasterSKU {
   isOpen: boolean;
@@ -41,12 +41,13 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
     >
       <>
         <Alert
-          description={<p>Please note that changing the master SKU for a product could have adverse effects on
-          analytics and data integrity. Adjust the master SKU <u>only</u>. if you made a typo.</p>}
-          type="info"
+          description="Please note that changing the master SKU for a product could have adverse effects on
+              analytics and data integrity. Adjust the master SKU <u>only</u>. if you made a typo."
         />
         <Form form={form}>
-          <Form.Item label="Current Master SKU" labelCol={{ span: 10 }}>{editableProduct?.master_sku}</Form.Item>
+          <Form.Item label="Current Master SKU" labelCol={{ span: 10 }}>
+            {editableProduct?.master_sku}
+          </Form.Item>
           <Form.Item
             label="New Master SKU"
             name="master_sku"

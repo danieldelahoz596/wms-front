@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Row, Col } from 'antd';
 import { Table2DemoColumns } from '@/components/DemoData';
-import AddNewItemModal from '@/components/Modals/PurchaseOrder/AddNewItemModal';
-import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
-import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
-import VoidItemModal from '@/components/Modals/PurchaseOrder/VoidItemModal';
-import CancelItemModal from '@/components/Modals/PurchaseOrder/CancelItemModal';
-import RemoveItemModal from '@/components/Modals/PurchaseOrder/RemoveItemModal';
-import { modalType } from '@/utils/helpers/types';
-import { OTable } from '@/components/Globals/OTable';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
+import AddNewItemModal from '@/components/Modals/PurchaseOrder/AddNewItemModal';
+import CancelItemModal from '@/components/Modals/PurchaseOrder/CancelItemModal';
+import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
+import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
+import RemoveItemModal from '@/components/Modals/PurchaseOrder/RemoveItemModal';
+import VoidItemModal from '@/components/Modals/PurchaseOrder/VoidItemModal';
+import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
+import { Col, Row, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 interface IHistoryManagement {
   data: any[];
@@ -63,9 +63,8 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
 
   const actionButtons: IOButton[] = [
     {
-      type: 'primary',
       onClick: () => setNewItemModal(modalType.New),
-      btnText: 'Add',
+      btnText: 'Add Item',
       style: btnStyle,
       disabled: isDisableButtons,
     },
@@ -75,7 +74,7 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
       btnText: 'Edit',
       style: btnStyle,
       disabled: isDisableButtons,
-      hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
+      // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
       type: 'primary',
@@ -124,27 +123,26 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
 
   return (
     <>
-      <Row>
+      <Row gutter={10}>
         <Col span={22}>
-          <Card size="small">
-            <OTable
-              columns={Table2DemoColumns}
-              rows={rows}
-              type={'radio'}
-              selectedRows={selectedRows}
-              setSelectedRows={setSelectedRows}
-              onSelect={onSelect}
-            />
-          </Card>
+          <OTable
+            columns={Table2DemoColumns}
+            rows={rows}
+            type={'radio'}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            onSelect={onSelect}
+          />
         </Col>
         <Col span={2}>
-          <Card size="small">
+          <Space size={4} direction={'vertical'} style={{ display: 'flex' }}>
             {actionButtons.map((btn, index) => (
-              <OButton key={index} {...btn} />
+              <OButton key={index} {...btn} style={{ width: '100%' }} />
             ))}
-          </Card>
+          </Space>
         </Col>
       </Row>
+
       <AddNewItemModal
         title={newItemModalTitle}
         newItemModal={newItemModal}

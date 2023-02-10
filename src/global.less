@@ -27,6 +27,13 @@ body,
   }
 }
 
+.page-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #A2A2A2;
+}
+
 canvas {
   display: block;
 }
@@ -160,6 +167,8 @@ header.ant-layout-header {
   color: #ffffff !important;
 }
 
+.ant-btn-default:disabled,
+.ant-btn-default[disabled],
 .ant-btn-primary:disabled,
 .ant-btn-primary[disabled] {
   border: 1px solid #d0d0d0 !important;;
@@ -202,33 +211,6 @@ header.ant-layout-header {
   }
 }
 
-.choose-vendor {
-  .ant-row.ant-form-item-row {
-    position: relative;
-    display: block;
-    padding: 10px 10px;
-    border: 1px solid #ccc;
-    .ant-form-item-label {
-      position: absolute;
-      top: -14px;
-      z-index: 9;
-      display: block;
-      max-width: 100%;
-      color: #3892d2;
-      text-align: left;
-      background: #fff;
-      label {
-        height: auto;
-      }
-    }
-  }
-
-  .ant-form-item-control {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
 .ant-card {
   .ant-card-head-title {
     text-transform: uppercase;
@@ -239,7 +221,7 @@ header.ant-layout-header {
   }
 }
 
-.right-panel {
+.bottom-panel, .right-panel {
   .ant-card {
     .ant-card-head {
       position: absolute;
@@ -261,6 +243,18 @@ header.ant-layout-header {
   }
 }
 .OModal {
+  .ant-btn-primary.ant-btn-lg {
+    height: 32px;
+    font-size: 15px;
+    padding: 1.1px 12px;
+  }
+
+  .ant-modal-footer .ant-btn.ant-btn-lg {
+    height: 32px;
+    font-size: 15px;
+    padding: 1.1px 12px;
+  }
+
   .ant-card {
     margin-top: 10px;
     .ant-card-head {
@@ -407,9 +401,6 @@ header.ant-layout-header {
   .ant-alert-message {
     text-transform: uppercase;
   }
-  // img {}
-
-  // h2.page-title {}
 }
 
 .custom {

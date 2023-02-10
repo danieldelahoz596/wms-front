@@ -66,7 +66,6 @@ const RightPanel: FC = () => {
               countries.
             </div>
           }
-          type="info"
           showIcon
           style={{ background: '#fff' }}
         />
