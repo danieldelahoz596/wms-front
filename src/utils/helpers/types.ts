@@ -64,6 +64,7 @@ export enum modalType {
   StockLocationChange = 'StockLocationChange',
   StockLocationTransfer = 'StockLocationTransfer',
   StockAdjust = 'StockAdjust',
+  StockEdit = 'StockEdit',
   ExportStockEditHistory = 'ExportStockEditHistory',
   ExportStockDetails = 'ExportStockDetails',
   ExportInventory = 'ExportInventory',

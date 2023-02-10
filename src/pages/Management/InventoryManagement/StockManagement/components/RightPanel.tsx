@@ -27,6 +27,7 @@ import WarehouseTotalGraph from './WarehouseTotalGraph';
 import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
 import StockLocationTransferModal from '@/components/Modals/Inventory/StockLocationTransfer';
 import StockAdjustModal from '@/components/Modals/Inventory/StockAdjust';
+import StockEditModal from '@/components/Modals/Inventory/StockEdit';
 interface IStockDetails {
   vendorData: any;
 }
@@ -38,6 +39,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
   const [locationList, setLocationList] = useState(stock_data);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showActive, setShowActive] = useState(true);
+  const [actionType, setActionType] = useState('Add');
 
   const Scolumns = [
     {
@@ -279,7 +281,12 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '7',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span
+                                onClick={() => {
+                                  setModal(modalType.StockEdit);
+                                  setActionType('Remove');
+                                }}
+                              >
                                 <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
                                 Remove
                               </span>
@@ -288,7 +295,12 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '8',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span
+                                onClick={() => {
+                                  setModal(modalType.StockEdit);
+                                  setActionType('Add');
+                                }}
+                              >
                                 <PlusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Add
                               </span>
                             ),
@@ -410,6 +422,28 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
             locationList.map((location) =>
               location.key === selectedLocation.key ? { ...location, ...data } : location,
             ),
+          );
+          setSelectedLocation(null);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockEditModal
+        isOpen={modal === modalType.StockEdit}
+        vendorName={vendorData.name}
+        locationInfo={selectedLocation}
+        actionType={actionType}
+        onSave={(count) => {
+          setLocationList(
+            locationList.map((location) => {
+              if (location.key === selectedLocation.key) {
+                if (actionType === 'Add')
+                  return { ...location, available: location.available + count };
+                else return { ...location, available: location.available - count };
+              }
+              return location;
+            }),
           );
           setSelectedLocation(null);
           setModal(modalType.Close);
