@@ -25,6 +25,7 @@ import { useState } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
 import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
+import StockLocationTransferModal from '@/components/Modals/Inventory/StockLocationTransfer';
 interface IStockDetails {
   vendorData: any;
 }
@@ -252,7 +253,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '4',
                             label: (
-                              <span onClick={() => setModal(modalType.StockChangeLocation)}>
+                              <span onClick={() => setModal(modalType.StockLocationChange)}>
                                 <LinkOutlined style={{ fontSize: 15, marginRight: 10 }} /> Location
                               </span>
                             ),
@@ -260,7 +261,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '5',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span onClick={() => setModal(modalType.StockLocationTransfer)}>
                                 <TransferIcon style={{ fontSize: 15, marginRight: 10 }} /> Transfer
                               </span>
                             ),
@@ -361,7 +362,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
       />
 
       <StockLocationChangeModal
-        isOpen={modal === modalType.StockChangeLocation}
+        isOpen={modal === modalType.StockLocationChange}
         vendorName={vendorData.name}
         locationName={selectedLocation?.location}
         onSave={(name) => {
@@ -369,6 +370,27 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
             locationList.map((location) =>
               location.key === selectedLocation.key
                 ? { ...selectedLocation, location: name }
+                : location,
+            ),
+          );
+          setSelectedLocation(null);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockLocationTransferModal
+        isOpen={modal === modalType.StockLocationTransfer}
+        vendorName={vendorData.name}
+        selectedLocation={selectedLocation}
+        locations={locationList}
+        onSave={(data) => {
+          setLocationList(
+            locationList.map((location) =>
+              location.key === selectedLocation.key
+                ? { ...location, available: location.available - data.available }
+                : location.key === data.destination
+                ? { ...location, available: location.available + data.available }
                 : location,
             ),
           );

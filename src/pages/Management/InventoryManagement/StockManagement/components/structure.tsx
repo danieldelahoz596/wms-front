@@ -251,6 +251,9 @@ export const stock_data = [
     rank: 1,
     min_level: '2',
     available: 100,
+    on_hand: 0,
+    locked: 0,
+    min: 0,
   },
   {
     key: 2,
@@ -259,6 +262,9 @@ export const stock_data = [
     rank: 2,
     min_level: '3',
     available: 200,
+    on_hand: 0,
+    locked: 0,
+    min: 0,
   },
   {
     key: 3,
@@ -267,6 +273,9 @@ export const stock_data = [
     rank: 3,
     min_level: '2',
     available: 200,
+    on_hand: 0,
+    locked: 0,
+    min: 0,
   },
 ];
 
