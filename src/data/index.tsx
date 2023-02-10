@@ -119,8 +119,8 @@ export const Table1DemoColumns = [
   },
   {
     title: 'Authorizer',
-    dataIndex: 'authorized',
-    key: 'authorized',
+    dataIndex: 'authorizer',
+    key: 'authorizer',
   },
   {
     title: 'Milestone',

@@ -7,7 +7,7 @@ import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
-import { DownOutlined, FileOutlined } from '@ant-design/icons';
+import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, Card, Dropdown, Form, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -96,8 +96,8 @@ const CustomerManagement: React.FC = () => {
           menu={{
             items: [
               {
-                key: 'pick_list',
-                label: <span> Pick List(s)</span>,
+                key: 'pro_forma',
+                label: <span>Pro Forma</span>,
                 icon: <FileOutlined />,
               },
             ],
@@ -116,19 +116,50 @@ const CustomerManagement: React.FC = () => {
       onClick: () => console.log('Authorized'),
       btnText: 'Authorize',
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || selectedPOStatus?.poStatus !== '1',
+      hidden: selectedPOStatus == null || !['1'].includes(selectedPOStatus.poStatus),
+      // Only in Awaiting Authorization.
     },
     {
       onClick: () => console.log('Restore P.O.'),
       btnText: 'Restore P.O.',
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus?.poStatus !== '10',
+      hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
+      // Only in Canceled status.
+    },
+    {
+      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      btnText: 'Re-Send',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      // Only in Awaiting Confirmation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
       onClick: () => setModal(modalType.CancelPurchaseOrders),
       btnText: 'Cancel',
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || ['10', '1'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
+      // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
+    },
+    {
+      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      btnText: 'Confirm',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus.poStatus),
+      // Only in Awaiting Confirmation
+    },
+    {
+      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      btnText: 'Receive',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      // Only in Pending Delivery or Partially Delivered
+    },
+    {
+      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      btnText: 'Void',
+      disabled: selectedRows.length === 0,
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      // Only in Pending Delivery or Partially Delivered
     },
     {
       onClick: handleNewPOModalOpen,
@@ -142,8 +173,8 @@ const CustomerManagement: React.FC = () => {
             items: [
               {
                 key: 'pick_list',
-                label: <span> Pick List(s)</span>,
-                icon: <FileOutlined />,
+                label: <span>Export Purchase Orders</span>,
+                icon: <VerticalAlignBottomOutlined />,
               },
             ],
           }}
