@@ -60,6 +60,7 @@ export enum modalType {
   // inventory
   StockHistory = 'StockHistory',
   StockDeactive = 'StockDeactive',
+  StockDrawRank = 'StockDrawRank',
   ExportStockEditHistory = 'ExportStockEditHistory',
   ExportStockDetails = 'ExportStockDetails',
   ExportInventory = 'ExportInventory',

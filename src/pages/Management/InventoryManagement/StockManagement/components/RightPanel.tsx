@@ -1,5 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import StockDeactiveModal from '@/components/Modals/Inventory/StockDeactive';
+import StockDrawRankModal from '@/components/Modals/Inventory/StockDrawLRank';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { modalType } from '@/utils/helpers/types';
 import BarCodeIcon from '@/utils/icons/barcode';
@@ -24,10 +25,10 @@ import { useState } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
 interface IStockDetails {
-  stockData: any;
+  vendorData: any;
 }
 
-const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
+const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
   const { initialState } = useModel('@@initialState');
   const [modal, setModal] = useState('');
   const [locationHistory, setLocationHistory] = useState(location_history);
@@ -190,7 +191,7 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
               </Col>
             </Row>
             <Card title="Stock Breakdown" style={{ marginTop: 20 }}>
-              <a>{`${stockData?.name}-${stockData?.master_sku}-FBA.error - Sterling silver Garnet Accent Heart Pendant`}</a>
+              <a>{`${vendorData?.name}-${vendorData?.master_sku}-FBA.error - Sterling silver Garnet Accent Heart Pendant`}</a>
 
               <Table
                 columns={Scolumns}
@@ -241,7 +242,7 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
                           {
                             key: '3',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span onClick={() => setModal(modalType.StockDrawRank)}>
                                 <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw
                                 Rank
                               </span>
@@ -332,7 +333,7 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
 
       <StockDeactiveModal
         isOpen={modal === modalType.StockDeactive}
-        itemTitle={`${stockData.name} @ ${selectedLocation?.location}`}
+        subTitle={`${vendorData.name} @ ${selectedLocation?.location}`}
         active={showActive}
         onSave={() => {
           setLocationList(
@@ -342,6 +343,18 @@ const StockDetails: React.FC<IStockDetails> = ({ stockData }) => {
           );
           setModal(modalType.Close);
           setSelectedLocation(null);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockDrawRankModal
+        isOpen={modal === modalType.StockDrawRank}
+        vendorName={vendorData.name}
+        locations={locationList.filter((item) => item.status)}
+        onSave={(items) => {
+          setLocationList(items.map((item, index) => ({ ...item, rank: index + 1 })));
+          setSelectedLocation(null);
+          setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
       />

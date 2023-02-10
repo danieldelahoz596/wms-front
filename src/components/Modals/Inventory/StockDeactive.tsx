@@ -5,7 +5,7 @@ const { TextArea } = Input;
 
 interface IStockDeactiveModal {
   isOpen: boolean;
-  itemTitle: string;
+  subTitle: string;
   active: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -13,7 +13,7 @@ interface IStockDeactiveModal {
 
 const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
   isOpen,
-  itemTitle,
+  subTitle,
   active,
   onClose,
   onSave,
@@ -42,7 +42,7 @@ const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
       {/* <OTable columns={Tcolumns} rows={dataSource} /> */}
       <Row justify="center">
         <Col>
-          <h2>{itemTitle}</h2>
+          <h2>{subTitle}</h2>
         </Col>
       </Row>
       <Typography style={{ marginTop: '5px' }}>
