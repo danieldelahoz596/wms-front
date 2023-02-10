@@ -24,6 +24,7 @@ import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
 import { useState } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
+import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
 interface IStockDetails {
   vendorData: any;
 }
@@ -251,7 +252,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                           {
                             key: '4',
                             label: (
-                              <span onClick={() => setModal(modalType.ManualOrder)}>
+                              <span onClick={() => setModal(modalType.StockChangeLocation)}>
                                 <LinkOutlined style={{ fontSize: 15, marginRight: 10 }} /> Location
                               </span>
                             ),
@@ -353,6 +354,24 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         locations={locationList.filter((item) => item.status)}
         onSave={(items) => {
           setLocationList(items.map((item, index) => ({ ...item, rank: index + 1 })));
+          setSelectedLocation(null);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockLocationChangeModal
+        isOpen={modal === modalType.StockChangeLocation}
+        vendorName={vendorData.name}
+        locationName={selectedLocation?.location}
+        onSave={(name) => {
+          setLocationList(
+            locationList.map((location) =>
+              location.key === selectedLocation.key
+                ? { ...selectedLocation, location: name }
+                : location,
+            ),
+          );
           setSelectedLocation(null);
           setModal(modalType.Close);
         }}

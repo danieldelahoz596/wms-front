@@ -28,7 +28,7 @@ import { useModel } from '@umijs/max';
 import { Button, Card, Col, Dropdown, Input, Row, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
-import StockDetails from './components/RightPanel';
+import StockDetailsPanel from './components/RightPanel';
 import { data, stock_allocation, stock_history } from './components/structure';
 
 const { Search } = Input;
@@ -463,7 +463,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
       >
         <div className="w-full">
           {selectedStockId && (
-            <StockDetails stockData={dataSource.find((item) => item.key === selectedStockId)} />
+            <StockDetailsPanel
+              vendorData={dataSource.find((item) => item.key === selectedStockId)}
+            />
           )}
         </div>
       </div>
