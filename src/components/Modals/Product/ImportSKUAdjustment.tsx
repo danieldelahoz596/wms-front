@@ -34,7 +34,9 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
       ]}
     >
       <>
-        <p>All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
+        <p>
+          All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
+        </p>
         <a
           className="download-link"
           href={`${BACKEND_URL}/template/template_for_sku_adjustment_import.xlsx`}
@@ -42,8 +44,10 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
           <u>Download the Excel Template for the Sku Adjustment Import</u>
         </a>
         <p>
-          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are <i>not </i> 
-          case sensitive. For example, <i>'sku123' </i> is regarded the same as <i>'SKU123' </i> by the system.
+          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are{' '}
+          <i>not </i>
+          case sensitive. For example, <i>'sku123' </i> is regarded the same as <i>'SKU123' </i> by
+          the system.
         </p>
         <p>
           This import is for adjusting SKUs in bulk. If there are any issues, Skubana will take not

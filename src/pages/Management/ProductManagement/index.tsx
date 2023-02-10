@@ -1,12 +1,14 @@
 import { OButton } from '@/components/Globals/OButton';
 import { modalType, productType } from '@/utils/helpers/types';
 import {
+  CaretDownOutlined,
+  CaretRightOutlined,
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message, Icon } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
@@ -45,6 +47,7 @@ const ProductManagement: React.FC = () => {
     useModel('product');
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
+  const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
 
   const handleMasterSKUClick = (event, record) => {
     event.stopPropagation();
@@ -394,6 +397,33 @@ const ProductManagement: React.FC = () => {
                   rowClassName={(record) =>
                     record.id === editableProduct?.id ? `ant-table-row-selected` : ''
                   }
+                  expandIcon={(props) => {
+                    if (props.expandable) {
+                      if (props.expanded) {
+                        return (
+                          <a
+                            style={{ color: 'black' }}
+                            onClick={(e) => {
+                              props.onExpand(props.record, e);
+                            }}
+                          >
+                            <CaretDownOutlined />
+                          </a>
+                        );
+                      } else {
+                        return (
+                          <a
+                            style={{ color: 'black' }}
+                            onClick={(e) => {
+                              props.onExpand(props.record, e);
+                            }}
+                          >
+                            <CaretRightOutlined />
+                          </a>
+                        );
+                      }
+                    }
+                  }}
                 />
               </Card>
             </div>
@@ -408,7 +438,7 @@ const ProductManagement: React.FC = () => {
             style={{ height: bottomH }}
           >
             <div className="w-full">
-              <BottomPanel />
+              <BottomPanel height={bottomH} />
             </div>
           </div>
         </div>
@@ -471,7 +501,10 @@ const ProductManagement: React.FC = () => {
 
       <ImportProductsModal
         isOpen={modalOpen == modalType.Import}
-        onSave={() => setModal(modalType.Import)}
+        onSave={() => {
+          setModal(modalType.ImportExportSummary);
+          setImportExportSummaryData({ title: 'Product Import', info: 'Product Import Summary' });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
@@ -484,31 +517,55 @@ const ProductManagement: React.FC = () => {
 
       <ImportVendorProductsByVendor
         isOpen={modalOpen == modalType.ImportVendorProductsByVendor}
-        onSave={(value: any) => setModal(value)}
+        onSave={() => {
+          setModal(modalType.ImportExportSummary);
+          setImportExportSummaryData({
+            title: 'Vendor Product Import By Vendor',
+            info: 'Vendor SKU Import Summary',
+          });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportVendorProductsAll
         isOpen={modalOpen == modalType.ImportVendorProductsAll}
-        onSave={(value: any) => setModal(value)}
+        onSave={() => {
+          setModal(modalType.ImportExportSummary);
+          setImportExportSummaryData({
+            title: 'Vendor Product Import By All',
+            info: 'Vendor SKU Import Summary',
+          });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportSKUAdjustment
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
-        onSave={() => {}}
+        onSave={() => {
+          setModal(modalType.ImportExportSummary);
+          setImportExportSummaryData({
+            title: 'Product SKU Adjustment Import',
+            info: 'Product SKU Adjustment Import Summary',
+          });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportCustomFieldsModal
         isOpen={modalOpen == modalType.ImportCustomFields}
-        onSave={() => setModal(modalType.Close)}
+        onSave={() => {
+          setModal(modalType.ImportExportSummary);
+          setImportExportSummaryData({
+            title: 'Product Custom Fields Import',
+            info: 'Product Custom Fields Import Summary',
+          });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <ImportExportSummaryModal
-        title="Vendor Product Import By Vendor"
-        info="Vendor SKU Import Summary"
+        title={importExportSummaryData.title}
+        info={importExportSummaryData.info}
         getImportExportSummary={getVendorProductImportExportSummary}
         isOpen={modalOpen === modalType.ImportExportSummary}
         onSave={() => setModal(modalType.Close)}
@@ -544,12 +601,6 @@ const ProductManagement: React.FC = () => {
           setEditableProduct([]);
           setModal(modalType.Close);
         }}
-        onClose={() => setModal(modalType.Close)}
-      />
-
-      <ImportSKUAdjustment
-        isOpen={modalOpen == modalType.ImportSKUAdjustment}
-        onSave={() => {}}
         onClose={() => setModal(modalType.Close)}
       />
 

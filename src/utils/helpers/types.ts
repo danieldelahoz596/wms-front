@@ -60,6 +60,8 @@ export enum modalType {
   // inventory
   StockHistory = 'StockHistory',
   ExportStockEditHistory = 'ExportStockEditHistory',
+  ExportStockDetails = 'ExportStockDetails',
+  ExportInventory = 'ExportInventory',
   BulkReconciliation = 'BulkReconciliation',
   StockAllocationDetails = 'StockAllocationDetails',
 

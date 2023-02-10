@@ -1,14 +1,12 @@
 import { OModal } from '@/components/Globals/OModal';
 import { fileUploadProps } from '@/utils/helpers/base';
-import { modalType } from '@/utils/helpers/types';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Select, Upload } from 'antd';
-const { Option } = Select;
 
 interface IVendorProductImportAtOnce {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: any) => void;
+  onSave: () => void;
 }
 
 const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
@@ -33,7 +31,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
           key: 'submit',
           type: 'primary',
           btnLabel: 'Continue',
-          onClick: () => onSave(modalType.ImportExportSummary),
+          onClick: onSave,
         },
       ]}
     >

@@ -1,5 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
+import { useModel } from '@umijs/max';
 import React from 'react';
 
 interface IBulkReconciliationModal {
@@ -13,6 +14,7 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
   onClose,
   onSave,
 }) => {
+  const { vendorList } = useModel('vendor');
   return (
     <OModal
       title="Bulk Reconciliation"
@@ -47,10 +49,9 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
         <OInput
           type="select"
           placeholder="Select..."
-          options={[
-            { value: '', text: 'Select ...' },
-            { value: 'test', text: 'test' },
-          ]}
+          options={vendorList
+            .filter((item) => item.status === 1)
+            .map((vendor) => ({ value: vendor.id, text: vendor.name }))}
           style={{ flex: 1, width: '100%', marginTop: 5 }}
         />
       </>

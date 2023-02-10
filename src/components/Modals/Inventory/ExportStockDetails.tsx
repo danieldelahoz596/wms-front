@@ -1,28 +1,24 @@
 import React from 'react';
-import { Col, Row } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
-import { OButton } from '@/components/Globals/OButton';
 import { useModel } from '@umijs/max';
 
-interface IExportStockEditHistoryModal {
+interface IExportStockDetailsModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
-  onAddOrderExportSettings: () => void;
 }
 
-const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
+const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({
   isOpen,
   onClose,
   onSave,
-  onAddOrderExportSettings,
 }) => {
   const { initialState } = useModel('@@initialState');
 
   return (
     <OModal
-      title="Export stock edit history"
+      title="Export Stock Details"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -36,17 +32,17 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Export Orders',
+          btnLabel: 'Export Stock Details',
           onClick: onSave,
         },
       ]}
     >
       <>
-        <p>Stock Edit History Export is generated in the Microsoft Excel spreadsheet format.</p>
+        <p>Stock details is generated in the Microsoft Excel spreadsheet format.</p>
         <p>
-          To download your stock edit history, select a warehouse and click the 'Export' button. The
-          export will include stock edit history available in Skubana from within the last 6 months.
-          Please allow the time necessary for the Excel file to be generated and emailed to you.
+          {
+            "To download your stock details, select a warehouse and click the 'Export' button. Please allow the time necessary for the Excel file to be generated and emailed to you."
+          }
         </p>
         <div
           style={{
@@ -73,4 +69,4 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
   );
 };
 
-export default ExportStockEditHistoryModal;
+export default ExportStockDetailsModal;

@@ -12,7 +12,7 @@ interface IOModalButton {
 }
 
 interface IOmodal {
-  title?: string;
+  title?: string | React.ReactNode;
   isOpen: boolean;
   handleCancel: () => void;
   buttons: IOModalButton[];

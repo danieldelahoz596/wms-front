@@ -1,10 +1,12 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
+// import { OTable } from '@/components/Globals/OTable';
+import SelectDropdown from '@/components/Globals/selectDropdown';
 import TransferHistoryModal from '@/components/Modals/Inventory/TransferHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
-import { Card, Col, Input, Row, Select, Space } from 'antd';
+import { useModel } from '@umijs/max';
+import { Card, Col, Input, Row, Space, Table } from 'antd';
 import React, { useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import TransferDetails from './components/RightPanel';
@@ -89,6 +91,7 @@ interface ITransferManagement {
 }
 
 const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
+  const { initialState } = useModel('@@initialState');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource, setDataSource] = useState(data);
   const [historyDataSource, sethistoryDataSource] = useState(historyData);
@@ -119,20 +122,56 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
           <Col span={18}>
             <div style={{ textAlign: 'right', marginRight: 10 }}>
               <Space size={4}>
-                <Select
+                {/* <Select
                   options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
                   defaultValue="source_warehouse"
                   style={{ width: '220px', textAlign: 'left' }}
-                />
-                <Select
+                /> */}
+                {/* <Select
                   options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
                   defaultValue="dest_warehouse"
                   style={{ width: '220px', textAlign: 'left' }}
-                />
-                <Select
+                /> */}
+                {/* <Select
                   options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
                   defaultValue="sto_statuses"
                   style={{ width: '220px', textAlign: 'left' }}
+                /> */}
+                <SelectDropdown
+                  options={initialState?.initialData?.warehouses.map((warehouse) => ({
+                    value: warehouse.id,
+                    label: warehouse.name,
+                  }))}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
+                    (warehouse) => warehouse.id,
+                  )}
+                  type="Source Warehouse"
+                  style={{ width: '220px' }}
+                  size={'middle'}
+                />
+                <SelectDropdown
+                  options={initialState?.initialData?.warehouses.map((warehouse) => ({
+                    value: warehouse.id,
+                    label: warehouse.name,
+                  }))}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
+                    (warehouse) => warehouse.id,
+                  )}
+                  type="Dest. Warehouse"
+                  style={{ width: '220px' }}
+                  size={'middle'}
+                />
+                <SelectDropdown
+                  options={initialState?.initialData?.warehouses.map((warehouse) => ({
+                    value: warehouse.id,
+                    label: warehouse.name,
+                  }))}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
+                    (warehouse) => warehouse.id,
+                  )}
+                  type="STO Statuse"
+                  style={{ width: '220px' }}
+                  size={'middle'}
                 />
               </Space>
             </div>
@@ -154,13 +193,22 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
             />
             <OButton btnText="History" disabled={!selectedTransfer} onClick={showHistory} />
           </Space>
-          <OTable
-            type="radio"
+
+          <Table
             columns={Tcolumns}
-            rows={dataSource}
-            selectedRows={selectedTransfer}
-            setSelectedRows={setSelectedTransfer}
+            dataSource={dataSource}
             style={{ marginTop: 15 }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  if (record.key === selectedTransfer?.key) setSelectedTransfer(null);
+                  else setSelectedTransfer(record);
+                },
+              };
+            }}
+            rowClassName={(record) =>
+              record.key === selectedTransfer?.key ? `ant-table-row-selected` : ''
+            }
           />
         </Card>
       </div>
@@ -169,15 +217,14 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
         className={cn('shrink-0 contents', isRightDragging && 'dragging')}
         style={{ width: RightW }}
       >
-        <div className="w-full">
-          <TransferDetails />
-        </div>
+        <div className="w-full">{selectedTransfer && <TransferDetails />}</div>
       </div>
 
       <TransferHistoryModal
         isOpen={currentModal === modalType.History}
-        onClose={() => setCurrentModal(modalType.Close)}
+        title={`History for stock transfer order ${selectedTransfer?.order_number}`}
         dataSource={historyDataSource}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
     </>
   );
