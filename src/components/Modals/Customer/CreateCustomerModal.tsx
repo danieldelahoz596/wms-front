@@ -1,10 +1,8 @@
-import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { Modal, Row, Col, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 
 export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
-
   const [form] = Form.useForm();
   const { onChangeNewCustomer, handleCreateCustomer } = useModel('customer');
 
@@ -17,6 +15,7 @@ export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
   return (
     <OModal
       title="Create New Customer"
+      helpLink="/help/customers/module"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -35,36 +34,26 @@ export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
         },
       ]}
     >
-      <Form
-        form={form}
-        labelCol={{ span:7 }}
-        wrapperCol={{ span: 17 }}
-        >
+      <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
         <Form.Item
           label="Phone Number"
           name="phonenumber"
           rules={[{ required: true, message: 'Please input Phone Number!' }]}
         >
-          <Input placeholder="Phone Number"/>
+          <Input placeholder="Phone Number" />
         </Form.Item>
         <Form.Item
           label="Card ID Number"
           name="card_number"
           rules={[{ required: true, message: 'Please input Card ID Number!' }]}
         >
-          <Input placeholder="Card ID Number"/>
+          <Input placeholder="Card ID Number" />
         </Form.Item>
-        <Form.Item
-          label="Address"
-          name="address"
-        >
-          <Input placeholder="Customer Address"/>
+        <Form.Item label="Address" name="address">
+          <Input placeholder="Customer Address" />
         </Form.Item>
-        <Form.Item
-          label="Name"
-          name="name"
-        >
-          <Input placeholder="Customer Name"/>
+        <Form.Item label="Name" name="name">
+          <Input placeholder="Customer Name" />
         </Form.Item>
       </Form>
     </OModal>
