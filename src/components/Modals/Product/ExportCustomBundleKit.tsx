@@ -18,6 +18,7 @@ const ExportCustomBundleKit: React.FC<IExportCustomBundleKit> = ({ isOpen, onClo
   return (
     <OModal
       title={'Custom Bundle/Kit Export'}
+      helpLink="/help/products/export/custombundlekit"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}

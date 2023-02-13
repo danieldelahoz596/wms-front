@@ -290,6 +290,7 @@ const NewVendorProduct: React.FC<INewVendorProduct> = ({
   return (
     <OModal
       title={!!initialVendorProduct ? 'Edit Vendor Product' : 'New Vendor Product'}
+      helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}

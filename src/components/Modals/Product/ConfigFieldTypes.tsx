@@ -95,6 +95,7 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
   return (
     <OModal
       title="Configure Fields Definitions"
+      helpLink="/help/products/customproductfields"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -113,72 +114,74 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
         },
       ]}
     >
-      <Row justify="space-between">
-        <Col>
-          <Space size={10}>
-            <OButton btnText="New Field Type" onClick={handleAddNewType} />
+      <>
+        <Row justify="space-between">
+          <Col>
+            <Space size={10}>
+              <OButton btnText="New Field Type" onClick={handleAddNewType} />
+              <OButton
+                btnText={showActive ? 'Deactivate' : 'Activate'}
+                disabled={!selectedItemId}
+                onClick={handleDeactive}
+              />
+            </Space>
+          </Col>
+          <Col>
             <OButton
-              btnText={showActive ? 'Deactivate' : 'Activate'}
-              disabled={!selectedItemId}
-              onClick={handleDeactive}
+              btnText={showActive ? 'Show Inactive' : 'Show Active'}
+              onClick={() => {
+                setSelectedItemId(null);
+                setShowActive((prev) => !prev);
+              }}
             />
-          </Space>
-        </Col>
-        <Col>
-          <OButton
-            btnText={showActive ? 'Show Inactive' : 'Show Active'}
-            onClick={() => {
-              setSelectedItemId(null);
-              setShowActive((prev) => !prev);
+          </Col>
+        </Row>
+
+        <div style={{ marginTop: 10 }}>
+          <EditableTable
+            columns={TColumns}
+            dataSource={fieldTypes
+              .filter((field) => field.active === showActive)
+              .map((fields) => ({ key: fields.id, ...fields }))}
+            handleSave={(key: any, name: any, value: any) => {
+              setFieldTypes(
+                fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)),
+              );
+            }}
+            props={{
+              onRow: (record) => {
+                return {
+                  onClick: () => {
+                    if (selectedItemId === record.id) setSelectedItemId(null);
+                    else setSelectedItemId(record.id);
+                  },
+                };
+              },
+              rowClassName: (record) =>
+                record.id === selectedItemId ? `ant-table-row-selected` : '',
             }}
           />
-        </Col>
-      </Row>
+        </div>
 
-      <div style={{ marginTop: 10 }}>
-        <EditableTable
-          columns={TColumns}
-          dataSource={fieldTypes
-            .filter((field) => field.active === showActive)
-            .map((fields) => ({ key: fields.id, ...fields }))}
-          handleSave={(key: any, name: any, value: any) => {
-            setFieldTypes(
-              fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)),
-            );
+        <NewFieldType
+          isOpen={showModal}
+          onSave={(values) => {
+            setFieldTypes([
+              ...fieldTypes,
+              {
+                id: uuidv4(),
+                name: values.name,
+                description: values.description,
+                show_on_grid: true,
+                required: true,
+                active: false,
+              },
+            ]);
+            setShowModal(false);
           }}
-          props={{
-            onRow: (record) => {
-              return {
-                onClick: () => {
-                  if (selectedItemId === record.id) setSelectedItemId(null);
-                  else setSelectedItemId(record.id);
-                },
-              };
-            },
-            rowClassName: (record) =>
-              record.id === selectedItemId ? `ant-table-row-selected` : '',
-          }}
+          onClose={() => setShowModal(false)}
         />
-      </div>
-
-      <NewFieldType
-        isOpen={showModal}
-        onSave={(values) => {
-          setFieldTypes([
-            ...fieldTypes,
-            {
-              id: uuidv4(),
-              name: values.name,
-              description: values.description,
-              show_on_grid: true,
-              required: true,
-              active: false,
-            },
-          ]);
-          setShowModal(false);
-        }}
-        onClose={() => setShowModal(false)}
-      />
+      </>
     </OModal>
   );
 };

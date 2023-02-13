@@ -1,9 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row, Select, Upload, Space } from 'antd';
+import { Button, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
-const { Option } = Select;
-
 interface IImportCustomFields {
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +14,7 @@ const ImportCustomFields: React.FC<IImportCustomFields> = ({ isOpen, onClose, on
   return (
     <OModal
       title={'Product Custom Fields Import'}
+      helpLink=""
       width={550}
       isOpen={isOpen}
       handleCancel={onClose}

@@ -63,6 +63,7 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
   return (
     <OModal
       title={'CONFIG ATTRIBUTE GROUPS'}
+      helpLink="/help/products/create/productvariations"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -116,23 +117,23 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
             );
           }}
         />
-      </>
 
-      <ConfigAttributes
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onSave={(items: any[]) => {
-          setAttributeGroups(
-            attributeGroups.map((attributeGroup) =>
-              attributeGroup.id === editableGroup.id
-                ? { ...attributeGroup, items }
-                : attributeGroup,
-            ),
-          );
-          setShowModal(false);
-        }}
-        attributes={editableGroup ? editableGroup.items : []}
-      />
+        <ConfigAttributes
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          onSave={(items: any[]) => {
+            setAttributeGroups(
+              attributeGroups.map((attributeGroup) =>
+                attributeGroup.id === editableGroup.id
+                  ? { ...attributeGroup, items }
+                  : attributeGroup,
+              ),
+            );
+            setShowModal(false);
+          }}
+          attributes={editableGroup ? editableGroup.items : []}
+        />
+      </>
     </OModal>
   );
 };

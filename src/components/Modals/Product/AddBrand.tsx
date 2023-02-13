@@ -28,6 +28,7 @@ const AddBrand: React.FC<IAddBrand> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'Add New Brand'}
+      helpLink=""
       width={600}
       centered
       isOpen={isOpen}

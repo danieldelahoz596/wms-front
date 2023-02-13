@@ -75,6 +75,7 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'New Core Product'}
+      helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}

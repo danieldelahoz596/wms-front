@@ -11,12 +11,12 @@ interface IEditProduct {
 
 const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
-  
+
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
       label: 'BASIC INFO',
-      children: <BasicInfoTab form={form}/>,
+      children: <BasicInfoTab form={form} />,
     },
     {
       key: 'tab-2',
@@ -28,6 +28,7 @@ const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'New Core Product'}
+      helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}

@@ -21,6 +21,7 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
   return (
     <OModal
       title={'Adjust Master SKU'}
+      helpLink="/help/products/manage"
       width={350}
       isOpen={isOpen}
       handleCancel={onClose}

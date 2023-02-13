@@ -13,7 +13,8 @@ const ExportProduct: React.FC<IExportProduct> = ({ isOpen, onClose, onSave }) =>
 
   return (
     <OModal
-      title={'Export Product'}
+      title="Export Product"
+      helpLink="/help/products/export/products"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -34,7 +35,11 @@ const ExportProduct: React.FC<IExportProduct> = ({ isOpen, onClose, onSave }) =>
     >
       <>
         <p>Click Export Button to download the Excel file</p>
-        <p>Every product is uniquely identified by its Internal SKU, and those SKU's are not case sensitive.</p>
+        <p>
+          {
+            "Every product is uniquely identified by its Internal SKU, and those SKU's are not case sensitive."
+          }
+        </p>
         <Row>
           <Col span={4}>Download Here:</Col>
           <Col span={8}>

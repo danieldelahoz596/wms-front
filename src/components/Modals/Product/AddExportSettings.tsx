@@ -152,6 +152,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   return (
     <OModal
       title={editableCustomBundleKitExportSetting ? 'Edit Export Settings' : 'New Export Settings'}
+      helpLink="/help/products/customproductfields"
       width={700}
       isOpen={isOpen}
       handleCancel={handleClose}

@@ -13,6 +13,7 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
   return (
     <OModal
       title={'Select How To Import Vendor Products'}
+      helpLink="/help/products/import/vendorproducts"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

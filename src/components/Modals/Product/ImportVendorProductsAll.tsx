@@ -17,6 +17,7 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
   return (
     <OModal
       title={'Global Vendor Product Import'}
+      helpLink="/help/products/import/vendorproducts"
       width={550}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -54,9 +55,9 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
           <b>
             Vendor SKUs are <i>not</i> case sensitive.
           </b>{' '}
-          For example, <i>'sku123' </i>
-          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for
-          product's Master SKUs.
+          For example, <i>{"'sku123'"} </i>
+          <b>is regarded the same as</b> <i>{"'SKU123'"}</i> by the system. The same applies for
+          {"product's Master SKUs."}
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
           <span>Excel File: &nbsp;</span>
