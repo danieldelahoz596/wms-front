@@ -126,6 +126,7 @@ const TopSellers: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Top Sellers"
+        helpLink="/help/analytics/subproducts/topsellersandworstsellersreports"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

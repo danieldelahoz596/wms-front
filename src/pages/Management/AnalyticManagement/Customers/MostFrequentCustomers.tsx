@@ -161,6 +161,7 @@ const MostFrequentCustomers: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Most Frequent Customers"
+        helpLink="/analytics/customers/mostfrequentcustomers"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

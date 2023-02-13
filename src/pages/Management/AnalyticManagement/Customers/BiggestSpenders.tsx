@@ -161,6 +161,7 @@ const BiggestSpenders: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Biggest Spenders"
+        helpLink="/analytics/customers/biggestspenders"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

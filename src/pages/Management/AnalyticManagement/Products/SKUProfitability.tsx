@@ -131,6 +131,7 @@ const SKUProfitability: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="SKU Profitability"
+        helpLink="help/analytics/subproducts/analyticsskuprofitability"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

@@ -150,6 +150,7 @@ const ShipmentSummary: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Shipment Summary"
+        helpLink="/analytics/accounting/shipmentsummary"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);
