@@ -30,6 +30,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ newPOModal, setNewPOModal}) =
   return (
     <OModal
         title="New Purchase Order"
+        helpLink=""
         width={1400}
         isOpen={newPOModal == modalType.New}
         handleCancel={handleCancel} 

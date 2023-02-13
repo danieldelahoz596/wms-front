@@ -22,6 +22,7 @@ const VoidItemModal: React.FC<IVoidItemModal> = ({
   return (
     <OModal
       title={'Void Item ' + voidItemData?.product}
+      helpLink=""
       width={600}
       isOpen={voidItemModal == modalType.Void}
       handleCancel={handleCancel}

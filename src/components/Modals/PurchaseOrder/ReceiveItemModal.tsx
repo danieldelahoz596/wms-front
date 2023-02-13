@@ -59,6 +59,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
   return (
     <OModal
       title={'Receive Item ' + receiveItemData?.product}
+      helpLink=""
       width={1200}
       isOpen={receiveItemModal == modalType.Receive}
       handleCancel={handleCancel}

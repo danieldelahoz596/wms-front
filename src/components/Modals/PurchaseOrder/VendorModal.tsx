@@ -1,9 +1,8 @@
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { OSelect } from '@/components/Globals/OSelect';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
-import { Card, Form, Select } from 'antd';
+import { Card, Select } from 'antd';
 import React from 'react';
 interface IVendorModal {
   vendorModal: string;
@@ -39,6 +38,7 @@ const VendorModal: React.FC<IVendorModal> = ({
   return (
     <OModal
       title="Choose P.O. Vendor"
+      helpLink=""
       width={400}
       isOpen={vendorModal === modalType.New}
       handleCancel={onVendorModalCancel}

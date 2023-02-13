@@ -45,6 +45,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
   return (
     <OModal
       title={'Add Items To ' + title}
+      helpLink=""
       width={1200}
       isOpen={newItemModal == modalType.New}
       handleCancel={handleCancel}
@@ -86,7 +87,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
                 placeholder="Select..."
               />
             </Form.Item>
-            <OButton btnText={'Add'} size="large"/>
+            <OButton btnText={'Add'} size="large" />
           </Form>
         </Row>
         <OTable
