@@ -89,7 +89,7 @@ export default function SearchCustomer() {
           ))}
         </Space>
       </Form>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+      <div className="buttons-space-between" style={{ marginTop: 10 }}>
         <OButton btnText={'Clear'} onClick={clearSearchQuery} />
         <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
       </div>

@@ -1,7 +1,11 @@
 import { OButton } from '@/components/Globals/OButton';
+import StockAdjustModal from '@/components/Modals/Inventory/StockAdjust';
 import StockDeactiveModal from '@/components/Modals/Inventory/StockDeactive';
 import StockDrawRankModal from '@/components/Modals/Inventory/StockDrawLRank';
+import StockEditModal from '@/components/Modals/Inventory/StockEdit';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
+import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
+import StockLocationTransferModal from '@/components/Modals/Inventory/StockLocationTransfer';
 import { modalType } from '@/utils/helpers/types';
 import BarCodeIcon from '@/utils/icons/barcode';
 import ClipboardIcon from '@/utils/icons/clipboard';
@@ -17,17 +21,13 @@ import {
   QuestionCircleTwoTone,
   SnippetsTwoTone,
   StopOutlined,
-  ToolTwoTone,
+  ToolTwoTone
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
 import { useState } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
-import StockLocationChangeModal from '@/components/Modals/Inventory/StockLocationChange';
-import StockLocationTransferModal from '@/components/Modals/Inventory/StockLocationTransfer';
-import StockAdjustModal from '@/components/Modals/Inventory/StockAdjust';
-import StockEditModal from '@/components/Modals/Inventory/StockEdit';
 interface IStockDetails {
   vendorData: any;
 }
@@ -196,7 +196,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
               </Col>
             </Row>
             <Card title="Stock Breakdown" style={{ marginTop: 20 }}>
-              <a>{`${vendorData?.name}-${vendorData?.master_sku}-FBA.error - Sterling silver Garnet Accent Heart Pendant`}</a>
+              <a>{`${vendorData?.name}-${vendorData?.master_sku}`}</a>
 
               <Table
                 columns={Scolumns}
@@ -217,7 +217,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
               />
 
               <Row>
-                <Col span={18}>
+                <Col span={17}>
                   <Space size={4}>
                     <OButton btnText={'New Stock'} />
                     <Dropdown
@@ -317,7 +317,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                     <OButton btnText={'Inv. Val. Hist.'} />
                   </Space>
                 </Col>
-                <Col span={6}>
+                <Col span={7} style={{ textAlign: 'right' }}>
                   <OButton
                     btnText={`Show ${showActive ? 'Inactive' : 'Active'}`}
                     onClick={() => {

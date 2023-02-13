@@ -64,7 +64,7 @@ const SideSearch: React.FC = () => {
   ];
 
   return (
-    <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
+    <Form layout="vertical" style={{ marginLeft: 5, marginRight: 5 }}>
       <Space direction="vertical" size={3}>
         {formInputs?.map((inputItem, index) => (
           <Form.Item key={index} label={inputItem.label}>
@@ -95,7 +95,7 @@ const SideSearch: React.FC = () => {
           </Space>
         </Form.Item>
       </Space>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+      <div className="buttons-space-between" style={{ marginTop: 10 }}>
         <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
         <OButton btnText={'Search'} onClick={onOrderSearch} />
       </div>

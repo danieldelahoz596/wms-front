@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { useModel } from '@umijs/max';
-import { Col, Form, Row, Space } from 'antd';
+import { Form, Space } from 'antd';
 import React from 'react';
 
 const SideSearch: React.FC = () => {
@@ -94,14 +94,10 @@ const SideSearch: React.FC = () => {
           </Form.Item>
         ))}
       </Space>
-      <Row justify="space-between" style={{ marginTop: 10 }}>
-        <Col>
-          <OButton btnText={'Clear'}></OButton>
-        </Col>
-        <Col>
-          <OButton btnText={'Search'}></OButton>
-        </Col>
-      </Row>
+      <div className="buttons-space-between" style={{ marginTop: 10 }}>
+        <OButton btnText={'Clear'}></OButton>
+        <OButton btnText={'Search'}></OButton>
+      </div>
     </Form>
   );
 };
