@@ -1,6 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
 import { Select, Space } from 'antd';
 import React, { useState } from 'react';
@@ -45,6 +44,7 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
   return (
     <OModal
       title="Export Selected Orders"
+      helpLink="/help/orders/general"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}

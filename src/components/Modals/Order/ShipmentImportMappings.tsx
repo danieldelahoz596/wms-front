@@ -19,6 +19,7 @@ const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({
   return (
     <OModal
       title="Shipment import mappings"
+      helpLink="/help/orders/general"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

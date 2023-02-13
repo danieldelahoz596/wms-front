@@ -46,6 +46,7 @@ const ImportOrderModal: React.FC<IImportOrder> = ({
   return (
     <OModal
       title="Manual Import Orders"
+      helpLink="/help/orders/general"
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}

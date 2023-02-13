@@ -12,6 +12,7 @@ const ExportQueueOrderModal: React.FC<IExportQueueOrderModal> = ({ isOpen, onClo
   return (
     <OModal
       title="Export Order(s)"
+      helpLink='/help/orders/general'
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

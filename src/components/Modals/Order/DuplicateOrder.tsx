@@ -15,6 +15,7 @@ const DuplicateOrder: React.FC<IDuplicateOrder> = ({ isOpen, onClose, onSave }) 
   return (
     <OModal
       title={`Duplicate Order ${editableOrder?.order_number}`}
+      helpLink='/help/orders/general'
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

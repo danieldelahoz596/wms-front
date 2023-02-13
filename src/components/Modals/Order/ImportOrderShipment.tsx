@@ -32,6 +32,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
   return (
     <OModal
       title="External Shipment Import"
+      helpLink='/help/orders/general'
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}
