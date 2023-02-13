@@ -19,6 +19,7 @@ const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({
   return (
     <OModal
       title="Export Stock Details"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}

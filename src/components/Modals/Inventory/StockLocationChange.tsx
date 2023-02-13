@@ -27,6 +27,7 @@ const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({
   return (
     <OModal
       title="In-House Warehouse - Change Stock Location"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -45,34 +46,36 @@ const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({
         },
       ]}
     >
-      <Row justify="center">
-        <Col>
-          <h2>{vendorName}</h2>
-        </Col>
-      </Row>
-      <Card title="Location">
-        <Input value={name} onChange={(e) => setName(e.target.value)} />
+      <>
+        <Row justify="center">
+          <Col>
+            <h2>{vendorName}</h2>
+          </Col>
+        </Row>
+        <Card title="Location">
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
 
-        <Checkbox.Group
-          options={[
-            {
-              label: 'Is Pickable?',
-              value: 'is_pickable',
-            },
-            {
-              label: 'Is Receivable?',
-              value: 'is_receivable',
-            },
-          ]}
-          style={{ marginTop: 10 }}
-        />
-      </Card>
+          <Checkbox.Group
+            options={[
+              {
+                label: 'Is Pickable?',
+                value: 'is_pickable',
+              },
+              {
+                label: 'Is Receivable?',
+                value: 'is_receivable',
+              },
+            ]}
+            style={{ marginTop: 10 }}
+          />
+        </Card>
 
-      <Form layout="vertical" style={{ marginTop: 10 }}>
-        <Form.Item label="Edit Notes:">
-          <TextArea />
-        </Form.Item>
-      </Form>
+        <Form layout="vertical" style={{ marginTop: 10 }}>
+          <Form.Item label="Edit Notes:">
+            <TextArea />
+          </Form.Item>
+        </Form>
+      </>
     </OModal>
   );
 };

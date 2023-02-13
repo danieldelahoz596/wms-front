@@ -35,6 +35,7 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   return (
     <OModal
       title="In-House Warehouse Stock Location Transfer"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -53,30 +54,32 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
         },
       ]}
     >
-      <Row justify="center">
-        <Col>
-          <h2>{vendorName}</h2>
-        </Col>
-      </Row>
+      <>
+        <Row justify="center">
+          <Col>
+            <h2>{vendorName}</h2>
+          </Col>
+        </Row>
 
-      <Form form={form}>
-        <Form.Item label="Quantity" name="available">
-          <InputNumber max={selectedLocation?.available} min={0} />
-        </Form.Item>
-        <Form.Item label="To Location" name="destination">
-          <Select
-            options={locations
-              .filter((location) => location.key !== selectedLocation?.key)
-              .map((item) => ({ label: item.location, value: item.key }))}
-          />
-        </Form.Item>
-      </Form>
+        <Form form={form}>
+          <Form.Item label="Quantity" name="available">
+            <InputNumber max={selectedLocation?.available} min={0} />
+          </Form.Item>
+          <Form.Item label="To Location" name="destination">
+            <Select
+              options={locations
+                .filter((location) => location.key !== selectedLocation?.key)
+                .map((item) => ({ label: item.location, value: item.key }))}
+            />
+          </Form.Item>
+        </Form>
 
-      <Form layout="vertical" style={{ marginTop: 10 }}>
-        <Form.Item label="Edit Notes:">
-          <TextArea />
-        </Form.Item>
-      </Form>
+        <Form layout="vertical" style={{ marginTop: 10 }}>
+          <Form.Item label="Edit Notes:">
+            <TextArea />
+          </Form.Item>
+        </Form>
+      </>
     </OModal>
   );
 };

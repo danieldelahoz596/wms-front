@@ -36,6 +36,7 @@ const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({
   return (
     <OModal
       title={title}
+      helpLink=""
       width={700}
       isOpen={isOpen}
       handleCancel={onClose}

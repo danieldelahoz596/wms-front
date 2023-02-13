@@ -21,6 +21,7 @@ const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
   return (
     <OModal
       title="In-House Warehouse - Deactive Stock"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -39,34 +40,36 @@ const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
         },
       ]}
     >
-      {/* <OTable columns={Tcolumns} rows={dataSource} /> */}
-      <Row justify="center">
-        <Col>
-          <h2>{subTitle}</h2>
-        </Col>
-      </Row>
-      <Typography style={{ marginTop: '5px' }}>
-        <Typography.Paragraph
-          style={{
-            backgroundColor: '#DEE0FF',
-            color: 'black',
-            fontSize: '12px',
-            paddingLeft: 5,
-            paddingRight: 5,
-            paddingTop: 10,
-            paddingBottom: 5,
-          }}
-        >
-          {active ? 'Deactivating' : 'Activating'} this stock will subtract all of its available
-          inventory from associated product listings
-        </Typography.Paragraph>
-      </Typography>
+      <>
+        {/* <OTable columns={Tcolumns} rows={dataSource} /> */}
+        <Row justify="center">
+          <Col>
+            <h2>{subTitle}</h2>
+          </Col>
+        </Row>
+        <Typography style={{ marginTop: '5px' }}>
+          <Typography.Paragraph
+            style={{
+              backgroundColor: '#DEE0FF',
+              color: 'black',
+              fontSize: '12px',
+              paddingLeft: 5,
+              paddingRight: 5,
+              paddingTop: 10,
+              paddingBottom: 5,
+            }}
+          >
+            {active ? 'Deactivating' : 'Activating'} this stock will subtract all of its available
+            inventory from associated product listings
+          </Typography.Paragraph>
+        </Typography>
 
-      <Form layout="vertical">
-        <Form.Item label="Edit Notes:">
-          <TextArea />
-        </Form.Item>
-      </Form>
+        <Form layout="vertical">
+          <Form.Item label="Edit Notes:">
+            <TextArea />
+          </Form.Item>
+        </Form>
+      </>
     </OModal>
   );
 };
