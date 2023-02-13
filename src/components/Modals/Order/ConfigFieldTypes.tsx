@@ -4,7 +4,7 @@ import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
-import { Button, Col, Row, Space } from 'antd';
+import { Col, Row, Space } from 'antd';
 import Checkbox from 'antd/es/checkbox';
 import React, { useState } from 'react';
 import NewFieldType from './NewFieldType';
@@ -77,6 +77,7 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
   return (
     <OModal
       title="Configure Fields Definitions"
+      helpLink="/help/orders/general"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

@@ -23,6 +23,7 @@ const EditBrand: React.FC<IEditBrand> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'Config Brand'}
+      helpLink=""
       width={600}
       centered
       isOpen={isOpen}

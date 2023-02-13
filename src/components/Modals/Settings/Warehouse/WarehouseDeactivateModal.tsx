@@ -24,6 +24,7 @@ const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({
   return (
     <OModal
       title={title}
+      helpLink=""
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

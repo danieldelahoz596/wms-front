@@ -108,6 +108,7 @@ const CriticalInventoryLevels: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Critical Inventory Levels"
+        helpLink="/analytics/inventory/criticalinventorylevels"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

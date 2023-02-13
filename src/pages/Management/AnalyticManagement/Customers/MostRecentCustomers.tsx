@@ -154,6 +154,7 @@ const MostRecentCustomers: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Most Recent Customers"
+        helpLink="/analytics/customers/mostrecentcustomers"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

@@ -19,6 +19,7 @@ const AddAttribute: React.FC<IAddAttribute> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'Add New Attribute'}
+      helpLink="/help/products/create/productvariations"
       width={600}
       centered
       isOpen={isOpen}

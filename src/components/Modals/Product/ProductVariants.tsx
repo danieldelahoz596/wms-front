@@ -61,6 +61,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
   return (
     <OModal
       title={'NEW VIRTUAL PRODUCT'}
+      helpLink="/help/products/create/productvariations"
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -129,7 +130,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
         <Row justify="start">
           <h2>Create your Core product variations below by clicking on the + symbol</h2>
         </Row>
-        <Row className='mt-10' justify="space-between">
+        <Row className="mt-10" justify="space-between">
           <Col span={8}>
             <Row>
               <Col span={4}>

@@ -22,13 +22,18 @@ const columns = [
   },
 ];
 
-const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({ isOpen, onSave, onClose }) => {
+const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({
+  isOpen,
+  onSave,
+  onClose,
+}) => {
   return (
     <OModal
       title="User Administration History"
+      helpLink="http://localhost:8001/help/settings/useradministration"
       width={1000}
       isOpen={isOpen}
-      onCancel={onClose}
+      handleCancel={onClose}
       buttons={[
         {
           key: 'cancel',
@@ -38,7 +43,7 @@ const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({ isOpe
         },
       ]}
     >
-      <Table columns={columns} dataSource={[]} pagination={{ pageSize: 3 }} scroll={{ y: 600 }}/>
+      <Table columns={columns} dataSource={[]} pagination={{ pageSize: 3 }} scroll={{ y: 600 }} />
     </OModal>
   );
 };

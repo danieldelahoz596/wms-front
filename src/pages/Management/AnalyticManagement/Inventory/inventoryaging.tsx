@@ -303,6 +303,7 @@ const InventoryAging: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Inventory Aging"
+        helpLink="/analytics/inventory/inventoryaging"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

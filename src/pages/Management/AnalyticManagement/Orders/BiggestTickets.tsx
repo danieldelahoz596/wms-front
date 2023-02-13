@@ -111,6 +111,7 @@ const BiggestTickets: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Biggest Tickets"
+        helpLink="/analytics/orders/biggesttickets"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

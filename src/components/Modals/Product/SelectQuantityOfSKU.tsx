@@ -60,6 +60,7 @@ const SelectQuantityOfSKU: React.FC<ISelectQuantityOfSKU> = ({ isOpen, onClose, 
   return (
     <OModal
       title="New Bundle/Kit"
+      helpLink="/help/products/create/bundlekit"
       width={800}
       centered
       isOpen={isOpen}

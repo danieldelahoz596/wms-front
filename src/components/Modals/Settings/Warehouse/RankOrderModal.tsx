@@ -57,6 +57,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="International Shipping Warehouse Order"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

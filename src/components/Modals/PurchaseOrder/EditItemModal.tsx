@@ -6,7 +6,6 @@ import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
 
-const { Option } = Select;
 const { TextArea } = Input;
 
 interface IEditItemModal {
@@ -57,6 +56,7 @@ const EditItemModal: React.FC<IEditItemModal> = ({
   return (
     <OModal
       title={'Edit Item ' + editItemData?.product}
+      helpLink=""
       width={1200}
       isOpen={editItemModal == modalType.Edit}
       handleCancel={handleCancel}

@@ -1,6 +1,7 @@
+import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
-import { Modal, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 import moment from 'moment';
 
 export default function EditHistoryModal({ isOpen, onSave, onClose }) {
@@ -33,18 +34,32 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
     : [];
 
   return (
-    <Modal
+    <OModal
       title="CUSTOMER EDIT HISTORY"
-      open={isOpen}
-      onOk={onSave}
-      onCancel={onClose}
+      helpLink="/help/customers/module"
       width={800}
+      isOpen={isOpen}
+      handleCancel={onClose}
+      buttons={[
+        {
+          key: 'cancel',
+          type: 'default',
+          btnLabel: 'Cancel',
+          onClick: onClose,
+        },
+        {
+          key: 'submit',
+          type: 'primary',
+          btnLabel: 'Save',
+          onClick: onSave,
+        },
+      ]}
     >
       <Row>
         <Col span={24}>
           <OTable columns={THistoryColumns} rows={historyData} />
         </Col>
       </Row>
-    </Modal>
+    </OModal>
   );
 }

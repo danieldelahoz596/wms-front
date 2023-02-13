@@ -14,6 +14,7 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
   return (
     <OModal
       title="Cancel orders"
+      helpLink="/help/orders/manage/cancel"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -38,8 +39,8 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
             <ul>
               <li>If the sales channel is not notified, these orders can be restored.</li>
               <li>
-                When "Notify Channel" is selected, the options to "Refund order(s)" and "Request
-                Channel Email Update" will be available if all sales channels selected support those
+                {`When "Notify Channel" is selected, the options to "Refund order(s)" and "Request`}
+                {`Channel Email Update" will be available if all sales channels selected support those`}
                 options.
               </li>
             </ul>

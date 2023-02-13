@@ -44,6 +44,7 @@ const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
   return (
     <OModal
       title="Stock allocation details"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

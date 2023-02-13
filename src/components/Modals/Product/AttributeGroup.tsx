@@ -48,7 +48,8 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
 
   return (
     <OModal
-      title={'New attribute groupings'}
+      title="New attribute groupings"
+      helpLink="/help/products/create/productvariations"
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -89,7 +90,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
           activeKey={selectedPanel}
           accordion
         >
-          {attributeGroups.map((_group, index) => (
+          {attributeGroups.map((_group) => (
             <Panel
               header={<h3>{_group.name}</h3>}
               key={_group.name}

@@ -83,6 +83,7 @@ const ReplenishmentAlerts: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Inventory Replenishment Alerts"
+        helpLink="/analytics/inventory/replenishmentalerts"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

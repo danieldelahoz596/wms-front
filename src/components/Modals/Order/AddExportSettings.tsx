@@ -205,6 +205,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   return (
     <OModal
       title={editableExportSetting ? 'Edit Export Settings' : 'New Export Settings'}
+      helpLink="/help/orders/general"
       width={700}
       isOpen={isOpen}
       handleCancel={handleClose}

@@ -4,14 +4,16 @@ import { OModal } from '@/components/Globals/OModal';
 interface IExportModal {
   isOpen: boolean;
   title: string;
+  helpLink: string;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ExportModal: React.FC<IExportModal> = ({ isOpen, title, onClose, onSave }) => {
+const ExportModal: React.FC<IExportModal> = ({ isOpen, title, helpLink, onClose, onSave }) => {
   return (
     <OModal
       title={title}
+      helpLink={helpLink}
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}

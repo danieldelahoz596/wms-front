@@ -5,8 +5,6 @@ import { useModel } from '@umijs/max';
 import { Row, Col, Input, Select, Checkbox, Card, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-const { Option } = Select;
-
 export default function ({ isOpen, onSave, onClose }) {
   const { editableVendor, updateNewVendor, setEditableVendor } = useModel('vendor');
   const { poTemplateList } = useModel('poTemplate');
@@ -38,6 +36,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="Edit Vendor"
+      helpLink=""
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

@@ -115,6 +115,7 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title={'New Bundle/Kit'}
+      helpLink="/help/products/create/bundlekit"
       width={800}
       isOpen={isOpen}
       handleCancel={onClose}

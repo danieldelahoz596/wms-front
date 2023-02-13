@@ -2,7 +2,6 @@ import { OModal } from '@/components/Globals/OModal';
 import { HomeOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
 import { Link, useModel } from '@umijs/max';
 import { Card, Select } from 'antd';
-const { Option } = Select;
 
 export default function ({ isOpen, onSave, onClose }) {
   const { warehouseList } = useModel('warehouse');
@@ -14,6 +13,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="Inventory Allocation Shipping Zones"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

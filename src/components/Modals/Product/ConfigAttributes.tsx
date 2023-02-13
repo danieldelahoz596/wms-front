@@ -31,6 +31,7 @@ const ConfigAttributes: React.FC<IConfigAttributes> = ({ isOpen, onClose, onSave
   return (
     <OModal
       title={'Add or Edit attributes'}
+      helpLink="/help/products/create/productvariations"
       width={600}
       centered
       isOpen={isOpen}

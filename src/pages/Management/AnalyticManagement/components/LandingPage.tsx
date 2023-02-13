@@ -403,6 +403,7 @@ const LandingPage: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Export Opportunities Found by Skubana"
+        helpLink="/analytics/general/theanalyticsmodules"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

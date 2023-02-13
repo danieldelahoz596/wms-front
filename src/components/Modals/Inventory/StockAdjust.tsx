@@ -34,6 +34,7 @@ const StockAdjustModal: React.FC<IStockAdjustModal> = ({
   return (
     <OModal
       title="In-House Warehouse - Adjust Stock"
+      helpLink=""
       width={700}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -52,32 +53,34 @@ const StockAdjustModal: React.FC<IStockAdjustModal> = ({
         },
       ]}
     >
-      <Row justify="center">
-        <Col>
-          <h2>{vendorName}</h2>
-        </Col>
-      </Row>
+      <>
+        <Row justify="center">
+          <Col>
+            <h2>{vendorName}</h2>
+          </Col>
+        </Row>
 
-      <Card title="Stock">
-        <Form form={form} layout="inline" labelCol={{ span: 10 }}>
-          <Form.Item label="On Hand" name="on_hand" style={{ width: 180 }}>
-            <InputNumber />
-          </Form.Item>
-          <Form.Item label="Locked" name="locked" style={{ width: 180 }}>
-            <InputNumber />
-          </Form.Item>
-          <Form.Item label="Min" name="min" style={{ width: 220 }}>
-            <InputNumber />
-            <QuestionCircleTwoTone style={{ fontSize: 16 }} />
+        <Card title="Stock">
+          <Form form={form} layout="inline" labelCol={{ span: 10 }}>
+            <Form.Item label="On Hand" name="on_hand" style={{ width: 180 }}>
+              <InputNumber />
+            </Form.Item>
+            <Form.Item label="Locked" name="locked" style={{ width: 180 }}>
+              <InputNumber />
+            </Form.Item>
+            <Form.Item label="Min" name="min" style={{ width: 220 }}>
+              <InputNumber />
+              <QuestionCircleTwoTone style={{ fontSize: 16 }} />
+            </Form.Item>
+          </Form>
+        </Card>
+
+        <Form layout="vertical" style={{ marginTop: 10 }}>
+          <Form.Item label="Edit Notes:">
+            <TextArea />
           </Form.Item>
         </Form>
-      </Card>
-
-      <Form layout="vertical" style={{ marginTop: 10 }}>
-        <Form.Item label="Edit Notes:">
-          <TextArea />
-        </Form.Item>
-      </Form>
+      </>
     </OModal>
   );
 };

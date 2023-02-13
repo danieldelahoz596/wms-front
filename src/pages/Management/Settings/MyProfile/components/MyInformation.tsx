@@ -43,7 +43,7 @@ const MyInformation: React.FC = () => {
         style={{ width: 600 }}
       >
         <Form
-          name="basic"
+          name="my_info"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ full_name: initialState?.currentUser?.user.full_name, username: initialState?.currentUser?.user.username}}

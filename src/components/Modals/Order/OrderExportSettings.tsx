@@ -49,6 +49,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen,
   return (
     <OModal
       title="Order Export Settings"
+      helpLink='/help/orders/exportorders'
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

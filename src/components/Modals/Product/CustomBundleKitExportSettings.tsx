@@ -54,6 +54,7 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
   return (
     <OModal
       title="Custom Bundle/Kit Export Settings"
+      helpLink="/help/products/export/custombundlekit"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

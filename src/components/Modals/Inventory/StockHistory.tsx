@@ -46,6 +46,7 @@ const StockHistoryModal: React.FC<IStockHistoryModal> = ({
   return (
     <OModal
       title={title}
+      helpLink=""
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}

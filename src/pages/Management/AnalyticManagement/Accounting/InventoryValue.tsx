@@ -223,6 +223,7 @@ const InventoryValue: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Inventory Value By Product"
+        helpLink="/analytics/accounting/inventoryvalue"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

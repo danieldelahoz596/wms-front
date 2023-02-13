@@ -1,8 +1,6 @@
 import React from 'react';
-import { Col, Row } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
-import { OButton } from '@/components/Globals/OButton';
 import { useModel } from '@umijs/max';
 
 interface IExportStockEditHistoryModal {
@@ -23,6 +21,7 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
   return (
     <OModal
       title="Export stock edit history"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -44,9 +43,9 @@ const ExportStockEditHistoryModal: React.FC<IExportStockEditHistoryModal> = ({
       <>
         <p>Stock Edit History Export is generated in the Microsoft Excel spreadsheet format.</p>
         <p>
-          To download your stock edit history, select a warehouse and click the 'Export' button. The
-          export will include stock edit history available in Skubana from within the last 6 months.
-          Please allow the time necessary for the Excel file to be generated and emailed to you.
+          {
+            "To download your stock edit history, select a warehouse and click the 'Export' button. The export will include stock edit history available in Skubana from within the last 6 months. Please allow the time necessary for the Excel file to be generated and emailed to you."
+          }
         </p>
         <div
           style={{

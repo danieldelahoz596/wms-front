@@ -9,7 +9,7 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, Space } from 'antd';
+import { Button, Card, Dropdown, Form, Space, Popconfirm, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
@@ -120,14 +120,23 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Authorization.
     },
     {
-      onClick: () => console.log('Restore P.O.'),
-      btnText: 'Restore P.O.',
-      disabled: selectedRows.length === 0,
+      btnText: (
+        <Popconfirm
+          title="This will restore and send the selected P.O.(s) back to pending delivery."
+          onConfirm={() => {
+            message.success('P.O.(s) moved to Pending Delivery status');
+          }}
+        >
+          <OButton btnText="Restore P.O." />
+        </Popconfirm>
+      ),
       hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
       // Only in Canceled status.
     },
     {
-      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      onClick: () => {
+        message.success('The selected P.O.(s) have been re-sent to their vendors.');
+      },
       btnText: 'Re-Send',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
@@ -148,16 +157,30 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Confirmation
     },
     {
-      onClick: () => setModal(modalType.CancelPurchaseOrders),
-      btnText: 'Receive',
-      disabled: selectedRows.length === 0,
+      btnText: (
+        <Popconfirm
+          title="Canceling will prevent the selected P.O.(s) from being issued to vendors."
+          onConfirm={() => {
+            message.success('P.O.(s) moved to Fulfilled status.');
+          }}
+        >
+          <OButton btnText="Restore P.O." />
+        </Popconfirm>
+      ),
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered
     },
     {
-      onClick: () => setModal(modalType.CancelPurchaseOrders),
-      btnText: 'Void',
-      disabled: selectedRows.length === 0,
+      btnText: (
+        <Popconfirm
+          title="This will void all pending items and close the selected P.O.(s)."
+          onConfirm={() => {
+            message.success('P.O.(s) moved to Void status.');
+          }}
+        >
+          <OButton btnText="Void" />
+        </Popconfirm>
+      ),
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered
     },

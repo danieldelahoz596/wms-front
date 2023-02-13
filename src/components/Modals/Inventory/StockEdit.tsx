@@ -29,6 +29,7 @@ const StockEditModal: React.FC<IStockEditModal> = ({
   return (
     <OModal
       title={`In-House Warehouse - ${actionType} Stock`}
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -47,36 +48,40 @@ const StockEditModal: React.FC<IStockEditModal> = ({
         },
       ]}
     >
-      <Row justify="center">
-        <Col>
-          <h1>{vendorName}</h1>
-        </Col>
-      </Row>
+      <>
+        <Row justify="center">
+          <Col>
+            <h1>{vendorName}</h1>
+          </Col>
+        </Row>
 
-      <div style={{ position: 'relative' }}>
-        <h2 style={{ textAlign: 'center' }}>
-          Available stock at <u>{`${locationInfo?.location}`}</u>{' '}
-        </h2>
-        <h2 style={{ position: 'absolute', top: 0, left: 440 }}>{`${locationInfo?.available}`}</h2>
-      </div>
+        <div style={{ position: 'relative' }}>
+          <h2 style={{ textAlign: 'center' }}>
+            Available stock at <u>{`${locationInfo?.location}`}</u>{' '}
+          </h2>
+          <h2
+            style={{ position: 'absolute', top: 0, left: 440 }}
+          >{`${locationInfo?.available}`}</h2>
+        </div>
 
-      <Form layout="inline" style={{ marginTop: 10 }} labelCol={{ span: 6 }}>
-        <Form.Item label={`${actionType}`} style={{ marginLeft: 'auto' }}>
-          <InputNumber
-            style={{ width: '100%' }}
-            value={count}
-            min={0}
-            max={actionType === 'Remove' && locationInfo?.available}
-            onChange={(value) => setCount(value)}
-          />
-        </Form.Item>
-      </Form>
+        <Form layout="inline" style={{ marginTop: 10 }} labelCol={{ span: 6 }}>
+          <Form.Item label={`${actionType}`} style={{ marginLeft: 'auto' }}>
+            <InputNumber
+              style={{ width: '100%' }}
+              value={count}
+              min={0}
+              max={actionType === 'Remove' && locationInfo?.available}
+              onChange={(value) => setCount(value)}
+            />
+          </Form.Item>
+        </Form>
 
-      <Form layout="vertical" style={{ marginTop: 10 }}>
-        <Form.Item label="Edit Notes:">
-          <TextArea />
-        </Form.Item>
-      </Form>
+        <Form layout="vertical" style={{ marginTop: 10 }}>
+          <Form.Item label="Edit Notes:">
+            <TextArea />
+          </Form.Item>
+        </Form>
+      </>
     </OModal>
   );
 };

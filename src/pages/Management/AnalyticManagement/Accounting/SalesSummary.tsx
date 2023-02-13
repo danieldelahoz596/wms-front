@@ -204,6 +204,7 @@ const SalesSummary: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="Sales Summary"
+        helpLink="/analytics/accounting/salessummary"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

@@ -9,11 +9,10 @@ interface IExportVendorProduct {
 }
 
 const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, onSave }) => {
-  const handleSave = () => onSave();
-
   return (
     <OModal
-      title={'Select How To Export Vendor Products'}
+      title="Select How To Export Vendor Products"
+      helpLink="/help/products/export/vendorproducts"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

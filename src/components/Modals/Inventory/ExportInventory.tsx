@@ -16,6 +16,7 @@ const ExportInventoryModal: React.FC<IExportInventoryModal> = ({ isOpen, onClose
   return (
     <OModal
       title="Export Inventory"
+      helpLink=""
       width={500}
       isOpen={isOpen}
       handleCancel={onClose}

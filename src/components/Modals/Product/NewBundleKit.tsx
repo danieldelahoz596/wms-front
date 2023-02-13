@@ -43,7 +43,8 @@ const NewBundleKit: React.FC<INewBundleKit> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'New Bundle/Kit'}
+      title="New Bundle/Kit"
+      helpLink="/help/products/create/bundlekit"
       width={800}
       centered
       isOpen={isOpen}

@@ -32,6 +32,7 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
   return (
     <OModal
       title="New Manual Order"
+      helpLink="/help/orders/general"
       width={1200}
       isOpen={isOpen}
       handleCancel={onClose}

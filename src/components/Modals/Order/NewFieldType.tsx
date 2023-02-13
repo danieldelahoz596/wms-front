@@ -24,6 +24,7 @@ const NewFieldType: React.FC<INewFieldType> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title="Add New Type"
+      helpLink=""
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

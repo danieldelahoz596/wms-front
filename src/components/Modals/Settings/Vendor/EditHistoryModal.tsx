@@ -1,7 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
-import { Modal, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 
 export default function EditHistoryModal({ isOpen, onSave, onClose }) {
   const { vendorHistory } = useModel('vendor');
@@ -27,6 +27,7 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="Vendor Edit History"
+      helpLink=""
       isOpen={isOpen}
       onOk={onSave}
       onCancel={onClose}

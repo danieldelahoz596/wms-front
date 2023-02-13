@@ -6,7 +6,6 @@ import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import moment from 'moment';
-import orderImportSettings from '@/models/orderImportSettings';
 import { uuidv4 } from '@antv/xflow-core';
 
 interface IAddImportSettingsModal {
@@ -175,6 +174,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
   return (
     <OModal
       title="New import settings"
+      helpLink='/help/orders/general'
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}

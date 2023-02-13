@@ -124,6 +124,7 @@ const CogsBySKU: React.FC = () => {
       <ExportModal
         isOpen={showModal}
         title="COGS By SKU"
+        helpLink="/analytics/accounting/cogsbysku"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);

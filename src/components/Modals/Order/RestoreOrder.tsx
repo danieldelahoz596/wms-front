@@ -12,6 +12,7 @@ const RestoreOrderModal: React.FC<IRestoreOrderModal> = ({ isOpen, onClose, onSa
   return (
     <OModal
       title="Restore Orders"
+      helpLink="/help/orders/manage/restore"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

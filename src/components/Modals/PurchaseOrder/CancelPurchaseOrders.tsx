@@ -12,6 +12,7 @@ const CancelPurchaseOrders: React.FC<ICancelPurchaseOrders> = ({ isOpen, onClose
   return (
     <OModal
       title="Cancel P.O.(s)"
+      helpLink=""
       width={300}
       isOpen={isOpen}
       handleCancel={onClose}

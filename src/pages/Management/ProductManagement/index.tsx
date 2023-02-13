@@ -82,7 +82,6 @@ const ProductManagement: React.FC = () => {
       title: '',
       width: 30,
     },
-    Table.EXPAND_COLUMN,
     {
       title: 'Type',
       dataIndex: 'type',

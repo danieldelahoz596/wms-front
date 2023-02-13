@@ -38,6 +38,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="New Direct Fulfillment Warehouse"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

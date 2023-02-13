@@ -26,7 +26,7 @@ export default function () {
       <Col span={15}>
         <Card title="Company Info" style={{ marginLeft: 10, marginTop: 10 }}>
           <Form
-            name="basic"
+            name="company_info"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
@@ -259,9 +259,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button htmlType="submit">
-                Update
-              </Button>
+              <Button htmlType="submit">Update</Button>
             </Row>
           </Form>
         </Card>
@@ -270,7 +268,7 @@ export default function () {
       <Col span={9}>
         <Card title="Billing" style={{ marginTop: 10, marginRight: 10 }}>
           <Form
-            name="basic"
+            name="billing"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
@@ -304,16 +302,14 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button htmlType="submit">
-                Update
-              </Button>
+              <Button htmlType="submit">Update</Button>
             </Row>
           </Form>
         </Card>
 
         <Card title="Operations" style={{ marginTop: 10, marginRight: 10 }}>
           <Form
-            name="basic"
+            name="operations"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
@@ -347,16 +343,14 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button htmlType="submit">
-                Update
-              </Button>
+              <Button htmlType="submit">Update</Button>
             </Row>
           </Form>
         </Card>
 
         <Card title="Technical" style={{ marginTop: 10, marginRight: 10 }}>
           <Form
-            name="basic"
+            name="technical"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
@@ -390,9 +384,7 @@ export default function () {
             </Form.Item>
 
             <Row justify="end">
-              <Button htmlType="submit">
-                Update
-              </Button>
+              <Button htmlType="submit">Update</Button>
             </Row>
           </Form>
         </Card>

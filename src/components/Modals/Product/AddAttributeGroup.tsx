@@ -51,6 +51,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
   return (
     <OModal
       title={'NEW ATTRIBUTE GROUPINGS'}
+      helpLink="/help/products/create/productvariations"
       width={600}
       centered
       isOpen={isOpen}
@@ -70,76 +71,78 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
         },
       ]}
     >
-      <div style={{ padding: '1rem' }}>
-        <h3>
-          Enter your attribute group names to begin adding attributes for use in product creation.
-          (blank attributes will not be saved)
-        </h3>
-        <Input
-          placeholder="Enter a valid attribute group name"
-          addonAfter={<OButton btnText="Add" onClick={handleAddGroup} style={{ height: 30 }} />}
-          value={groupName}
-          onChange={handleGroupNameChange}
-        />
-        <Collapse
-          onChange={(key) => setSelectedPanel(key)}
-          expandIconPosition="end"
-          expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
-          style={{ marginTop: '5px', overflowY: 'scroll', overflowX: 'hidden', height: '600px' }}
-          activeKey={selectedPanel}
-          accordion
-          ghost
-        >
-          {attributeGroups.map((_group) => (
-            <Panel
-              header={<h3>{_group.name}</h3>}
-              key={_group.id}
-              extra={
-                <>
-                  <Space size={50}>
-                    <OButton
-                      btnText={<CloseOutlined />}
-                      onClick={() => handleRemoveGroup(_group.name)}
-                    />
-                    <OButton
-                      btnText={<PlusOutlined />}
-                      onClick={(e) => handleAddAttribute(e, _group.id)}
-                    />
-                  </Space>
-                </>
-              }
-              className="custom"
-            >
-              <List
-                bordered={false}
-                dataSource={_group.items}
-                renderItem={(item) => (
-                  <List.Item style={{ marginLeft: '30px' }}>
-                    <h3>{item}</h3>
-                  </List.Item>
-                )}
-              />
-            </Panel>
-          ))}
-        </Collapse>
-      </div>
+      <>
+        <div style={{ padding: '1rem' }}>
+          <h3>
+            Enter your attribute group names to begin adding attributes for use in product creation.
+            (blank attributes will not be saved)
+          </h3>
+          <Input
+            placeholder="Enter a valid attribute group name"
+            addonAfter={<OButton btnText="Add" onClick={handleAddGroup} style={{ height: 30 }} />}
+            value={groupName}
+            onChange={handleGroupNameChange}
+          />
+          <Collapse
+            onChange={(key) => setSelectedPanel(key)}
+            expandIconPosition="end"
+            expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
+            style={{ marginTop: '5px', overflowY: 'scroll', overflowX: 'hidden', height: '600px' }}
+            activeKey={selectedPanel}
+            accordion
+            ghost
+          >
+            {attributeGroups.map((_group) => (
+              <Panel
+                header={<h3>{_group.name}</h3>}
+                key={_group.id}
+                extra={
+                  <>
+                    <Space size={50}>
+                      <OButton
+                        btnText={<CloseOutlined />}
+                        onClick={() => handleRemoveGroup(_group.name)}
+                      />
+                      <OButton
+                        btnText={<PlusOutlined />}
+                        onClick={(e) => handleAddAttribute(e, _group.id)}
+                      />
+                    </Space>
+                  </>
+                }
+                className="custom"
+              >
+                <List
+                  bordered={false}
+                  dataSource={_group.items}
+                  renderItem={(item) => (
+                    <List.Item style={{ marginLeft: '30px' }}>
+                      <h3>{item}</h3>
+                    </List.Item>
+                  )}
+                />
+              </Panel>
+            ))}
+          </Collapse>
+        </div>
 
-      <AddAttributeModal
-        isOpen={showModal}
-        onClose={() => {
-          setShowModal(false);
-        }}
-        onSave={(value) => {
-          setShowModal(false);
-          setAttributeGroups(
-            attributeGroups.map((attributeGroup) =>
-              attributeGroup.id === selectedGroupId
-                ? { ...attributeGroup, items: [...attributeGroup.items, value] }
-                : attributeGroup,
-            ),
-          );
-        }}
-      />
+        <AddAttributeModal
+          isOpen={showModal}
+          onClose={() => {
+            setShowModal(false);
+          }}
+          onSave={(value) => {
+            setShowModal(false);
+            setAttributeGroups(
+              attributeGroups.map((attributeGroup) =>
+                attributeGroup.id === selectedGroupId
+                  ? { ...attributeGroup, items: [...attributeGroup.items, value] }
+                  : attributeGroup,
+              ),
+            );
+          }}
+        />
+      </>
     </OModal>
   );
 };

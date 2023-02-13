@@ -15,6 +15,7 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
   return (
     <OModal
       title={'SKU Adjustment Import'}
+      helpLink="/help/products/import/skuadjustments"
       width={550}
       isOpen={isOpen}
       handleCancel={onClose}

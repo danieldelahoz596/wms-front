@@ -18,6 +18,7 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
   return (
     <OModal
       title="Bulk Reconciliation"
+      helpLink=""
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

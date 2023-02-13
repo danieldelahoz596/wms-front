@@ -43,6 +43,7 @@ const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
   return (
     <OModal
       title="Order import settings"
+      helpLink="/help/orders/general"
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

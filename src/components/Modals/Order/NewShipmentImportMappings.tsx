@@ -85,6 +85,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
   return (
     <OModal
       title="New Shipment Import Mappings"
+      helpLink=""
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -104,7 +105,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
       ]}
     >
       <>
-        <Row className='mb-10'>
+        <Row className="mb-10">
           <Col span={12}>
             <Form>
               <Form.Item name={'fileFormat'} label="Add Optional Field">

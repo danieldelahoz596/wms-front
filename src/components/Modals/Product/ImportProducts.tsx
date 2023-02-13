@@ -16,6 +16,7 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
   return (
     <OModal
       title={'Product Import'}
+      helpLink="/help/products/import/products"
       width={550}
       isOpen={isOpen}
       handleCancel={onClose}

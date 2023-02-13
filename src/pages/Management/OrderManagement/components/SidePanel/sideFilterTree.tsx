@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tree } from 'antd';
 import { useModel } from 'umi';
 
 const SideFilterTree: React.FC = () => {
   const { orderStatusList, changeSelectedOrderStatus, initialOrderStatus } =
     useModel('orderStatus');
+  const [selectedKeys, setSelectedKeys] = useState(['3']);
 
   useEffect(() => {
     if (orderStatusList.length == 0) {
@@ -13,6 +14,7 @@ const SideFilterTree: React.FC = () => {
   }, [orderStatusList.length, initialOrderStatus]);
 
   const onSelect = (selectedKey: any) => {
+    if (selectedKey.length !== 0) setSelectedKeys(selectedKey);
     if (selectedKey && selectedKey.length > 0) {
       const _keys = selectedKey[0].split('-');
       let _fullStatus = {};
@@ -103,7 +105,7 @@ const SideFilterTree: React.FC = () => {
       treeData={prepareOrderFiltersForTree}
       showLine={true}
       onSelect={onSelect}
-      defaultSelectedKeys={['3']}
+      selectedKeys={selectedKeys}
     />
   );
 };
