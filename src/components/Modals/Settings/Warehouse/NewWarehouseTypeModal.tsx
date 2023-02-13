@@ -6,6 +6,7 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
   return (
     <OModal
       title="New Warehouse"
+      helpLink=""
       width={300}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -38,7 +39,7 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
           onClick={onClose}
         />
         <a href="#">
-          What's the the difference <QuestionCircleTwoTone />
+          {"What's the the difference"} <QuestionCircleTwoTone />
         </a>
       </div>
     </OModal>

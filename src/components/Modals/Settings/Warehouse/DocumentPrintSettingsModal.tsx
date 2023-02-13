@@ -6,6 +6,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="Document Print Settings For In House"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -123,13 +124,13 @@ export default function ({ isOpen, onSave, onClose }) {
                       </Form.Item>
                     </Form>
                     <p style={{ color: '#4e4e4e' }}>
-                      Selecting this will break down your bundles/kits to the core products on your
+                      {`Selecting this will break down your bundles/kits to the core products on your
                       packing slips. This will allow you to get accurate picking location if needed
                       BUT will reflect information from the core products per line as opposed to the
                       bundles itself. We suggest you do NOT use 'PRICE' as a tag if you choose this.
                       For bundles, we can break down the unit price per core, but for kits we will
                       only display "-,-" as we cannot know the individual breakdown. The order total
-                      will still remain the full price.
+                      will still remain the full price.`}
                     </p>
                   </Card>
                 </>

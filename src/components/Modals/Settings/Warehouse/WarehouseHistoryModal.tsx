@@ -1,7 +1,6 @@
 import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 
@@ -31,6 +30,7 @@ const WarehouseHistory: React.FC<IWarehouseHistory> = ({ isOpen, onClose }) => {
   return (
     <OModal
       title="In_House Warehouse Edit History"
+      helpLink=""
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}

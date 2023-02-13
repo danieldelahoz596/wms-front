@@ -1,13 +1,11 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { Form, Input, Select } from 'antd';
+import { Form, Input } from 'antd';
 import { useEffect } from 'react';
 
 export default function ({ isOpen, onSave, onClose }) {
   const [form] = Form.useForm();
   const { selectedWarehouse, updateReturnLocation, setSelectedWarehouse } = useModel('warehouse');
-
-  console.log(selectedWarehouse);
 
   const handleSave = () => {
     const values = form.getFieldsValue();
@@ -26,6 +24,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="Edit Return Location For In-House Warehouse"
+      helpLink=""
       width={600}
       isOpen={isOpen}
       handleCancel={onClose}

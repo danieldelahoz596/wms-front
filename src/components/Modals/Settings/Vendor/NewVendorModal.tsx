@@ -6,8 +6,6 @@ import { Row, Col, Input, Select, Checkbox, Card, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { useState } from 'react';
 
-const { Option } = Select;
-
 export default function ({ isOpen, onSave, onClose }) {
   const [newVendor, setNewVendor] = useState({
     po_default: null,
@@ -42,6 +40,7 @@ export default function ({ isOpen, onSave, onClose }) {
   return (
     <OModal
       title="New Vendor"
+      helpLink=""
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -196,7 +195,7 @@ export default function ({ isOpen, onSave, onClose }) {
                     size="small"
                     style={{ width: '100%' }}
                     onChange={(value) => handlePOInputChange('template', value)}
-                    options={poTemplateList.map((_item, _index) => ({
+                    options={poTemplateList.map((_item) => ({
                       value: _item.value,
                       label: _item.text,
                     }))}

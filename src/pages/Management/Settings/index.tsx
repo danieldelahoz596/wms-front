@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
 import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
 import { useResizable } from 'react-resizable-layout';
-import {
-  ContainerOutlined,
-  MailFilled,
-  RobotFilled,
-  ShoppingCartOutlined,
-  SnippetsFilled,
-} from '@ant-design/icons';
+import { ContainerOutlined, RobotFilled, SnippetsFilled } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 const { Sider } = Layout;
 
@@ -23,8 +17,6 @@ import ProfileIcon from '@/utils/icons/profile';
 import CustomersIcon from '@/utils/icons/customers';
 import CompanyIcon from '@/utils/icons/company';
 import WarehouseIcon from '@/utils/icons/warehouse';
-import ShippingIcon from '@/utils/icons/shipping';
-import InventoryIcon from '@/utils/icons/inventory';
 import VendorIcon from '@/utils/icons/vendor';
 
 const OrderManagement: React.FC = () => {

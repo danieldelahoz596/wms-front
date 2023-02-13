@@ -172,6 +172,7 @@ export default function ({ isOpen, onSave, onClose }) {
       {contextHolder}
       <OModal
         title="New User"
+        helpLink="http://localhost:8001/help/settings/useradministration"
         isOpen={isOpen}
         handleCancel={onClose}
         buttons={[
