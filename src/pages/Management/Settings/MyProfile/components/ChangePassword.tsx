@@ -43,7 +43,7 @@ const ChanagePassword: React.FC = () => {
         style={{ width: 600, marginTop: 10 }}
       >
         <Form
-          name="basic"
+          name="change_password"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           autoComplete="off"
