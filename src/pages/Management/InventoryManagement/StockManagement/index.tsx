@@ -56,7 +56,6 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         title: '',
         width: 30,
       },
-      Table.EXPAND_COLUMN,
       {
         title: 'Type',
         dataIndex: 'type',
