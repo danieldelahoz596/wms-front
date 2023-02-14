@@ -16,6 +16,7 @@ import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
+import poStatus from '@/models/poStatus';
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -258,6 +259,11 @@ const CustomerManagement: React.FC = () => {
     totalCost: getPoTotalCost(poItem),
     totalUnits: getTotalUnitQuantity(poItem),
   }));
+
+  useEffect(() => {
+    console.log('click');
+    setSelectedRows([]);
+  }, [selectedPOStatus]);
 
   useEffect(() => {
     initialMilestonesList();
