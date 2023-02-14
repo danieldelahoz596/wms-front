@@ -2,16 +2,26 @@ import { OModal } from '@/components/Globals/OModal';
 import { Alert } from 'antd';
 import React from 'react';
 
-interface ICancelPurchaseOrders {
+export interface IManagePurchaseOrders {
   isOpen: boolean;
+  title: string;
+  submitBtnText: string;
+  description: string;
   onClose: () => void;
   onSave: () => void;
 }
 
-const CancelPurchaseOrders: React.FC<ICancelPurchaseOrders> = ({ isOpen, onClose, onSave }) => {
+const ManagePurchaseOrders: React.FC<IManagePurchaseOrders> = ({
+  isOpen,
+  title,
+  submitBtnText,
+  description,
+  onClose,
+  onSave,
+}) => {
   return (
     <OModal
-      title="Cancel P.O.(s)"
+      title={title}
       helpLink=""
       width={300}
       isOpen={isOpen}
@@ -26,13 +36,13 @@ const CancelPurchaseOrders: React.FC<ICancelPurchaseOrders> = ({ isOpen, onClose
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Yes - Cancel P.O.',
+          btnLabel: submitBtnText,
           onClick: onSave,
         },
       ]}
     >
       <>
-        <Alert description="Canceling will prevent the selected P.O.(s) from being issued to vendors." />
+        <Alert description={description} />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
           <span>Are you sure you want to proceed?</span>
         </div>
@@ -41,4 +51,4 @@ const CancelPurchaseOrders: React.FC<ICancelPurchaseOrders> = ({ isOpen, onClose
   );
 };
 
-export default CancelPurchaseOrders;
+export default ManagePurchaseOrders;
