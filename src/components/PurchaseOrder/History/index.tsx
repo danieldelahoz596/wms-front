@@ -1,7 +1,5 @@
-import { Table2DemoColumns } from '@/components/DemoData';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
 import AddNewItemModal from '@/components/Modals/PurchaseOrder/AddNewItemModal';
 import CancelItemModal from '@/components/Modals/PurchaseOrder/CancelItemModal';
 import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
@@ -9,16 +7,98 @@ import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal
 import RemoveItemModal from '@/components/Modals/PurchaseOrder/RemoveItemModal';
 import VoidItemModal from '@/components/Modals/PurchaseOrder/VoidItemModal';
 import { modalType } from '@/utils/helpers/types';
+import { CheckCircleFilled, MinusCircleFilled, PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space } from 'antd';
+import { Col, Row, Space, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 interface IHistoryManagement {
   data: any[];
 }
 
+const TColumns = [
+  {
+    title: '',
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status) =>
+      status === 'success' ? (
+        <CheckCircleFilled style={{ color: 'blue' }} />
+      ) : status === 'pending' ? (
+        <PlayCircleFilled style={{ color: 'blue' }} />
+      ) : (
+        <MinusCircleFilled style={{ color: 'red' }} />
+      ),
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Vendor SKU',
+    dataIndex: 'vendorSku',
+    key: 'vendorSku',
+  },
+  {
+    title: 'Buyer',
+    dataIndex: 'buyer',
+    key: 'buyer',
+  },
+  {
+    title: 'Qty.',
+    dataIndex: 'qty',
+    key: 'qty',
+  },
+  {
+    title: 'Unit of Measure',
+    dataIndex: 'unitMeasure',
+    key: 'unitMeasure',
+  },
+  {
+    title: 'Total Unit Qty.',
+    dataIndex: 'totalUnitQty',
+    key: 'totalUnitQty',
+  },
+  {
+    title: 'Original Cost',
+    dataIndex: 'originalCost',
+    key: 'originalCost',
+  },
+  {
+    title: 'Billed Cost',
+    dataIndex: 'billedCost',
+    key: 'billedCost',
+  },
+  {
+    title: 'Landed Cost',
+    dataIndex: 'landedCost',
+    key: 'landedCost',
+  },
+  {
+    title: 'Discount',
+    dataIndex: 'discount',
+    key: 'discount',
+  },
+  {
+    title: 'Tax %',
+    dataIndex: 'tax',
+    key: 'tax',
+  },
+  {
+    title: 'Total Cost',
+    dataIndex: 'totalCost',
+    key: 'totalCost',
+  },
+];
+
 const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
-  const [newItemModal, setNewItemModal] = useState('');
+  const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [newItemModalTitle, setNewItemModalTitle] = useState<any>('');
   const [isDisableButtons, setIsDisableButtons] = useState(true);
 
@@ -37,24 +117,16 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
   const [removeItemModal, setRemoveItemModal] = useState('');
   const [removeItemData, setRemoveItemData] = useState<any>({});
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [selectedRow, setSelectedRow] = useState(null);
   const { selectedPOStatus } = useModel('poStatus');
 
-  const onSelect = (record: any) => {
-    setNewItemModalTitle(record.vendorSku);
-    setEditItemData(record);
-    setReceiveItemData(record);
-    setVoidItemData(record);
-    setCancelItemData(record);
-    setRemoveItemData(record);
-  };
-
-  useEffect(() => {
-    if (selectedRows.length) {
-      setIsDisableButtons(false);
-    } else {
-      setIsDisableButtons(true);
-    }
-  }, [selectedRows]);
+  // useEffect(() => {
+  //   if (selectedRows.length) {
+  //     setIsDisableButtons(false);
+  //   } else {
+  //     setIsDisableButtons(true);
+  //   }
+  // }, [selectedRows]);
 
   const btnStyle = {
     marginBottom: '10px',
@@ -63,9 +135,10 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
 
   const actionButtons: IOButton[] = [
     {
-      onClick: () => setNewItemModal(modalType.New),
+      onClick: () => setShowModal(modalType.New),
       btnText: 'Add Item',
-      hidden: selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      hidden:
+        selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
@@ -107,10 +180,13 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     },
   ];
 
-  const rows = data.map((poItem: any) => ({
+  const rows = data.map((poItem: any, index) => ({
+    key: index + 1,
+    id: poItem.id,
+    status: poItem.status,
     product: poItem.product?.name,
     vendorSku: poItem.product?.vendorSku,
-    Qty: poItem.quantity,
+    qty: poItem.quantity,
     unitMeasure: poItem.unitMeasure,
     totalUnitQty: poItem.quantity,
     originalCost: poItem.unitCost,
@@ -123,14 +199,21 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     <>
       <Row gutter={10}>
         <Col span={22}>
-          <OTable
-            columns={Table2DemoColumns}
-            rows={rows}
-            type={'radio'}
-            selectedRows={selectedRows}
-            setSelectedRows={setSelectedRows}
-            onSelect={onSelect}
-            pagination={false}
+          <Table
+            columns={TColumns}
+            dataSource={rows}
+            pagination={{ hideOnSinglePage: true }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  if (record.id === selectedRow?.id) setSelectedRow(null);
+                  else setSelectedRow(record);
+                }, // click row
+              };
+            }}
+            rowClassName={(record) =>
+              record.id === selectedRow?.id ? `ant-table-row-selected` : ''
+            }
           />
         </Col>
         <Col span={2}>
@@ -143,10 +226,12 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
       </Row>
 
       <AddNewItemModal
+        isOpen={showModal === modalType.New}
         title={newItemModalTitle}
-        newItemModal={newItemModal}
-        setNewItemModal={setNewItemModal}
+        onSave={() => setShowModal(modalType.Close)}
+        onCancel={() => setShowModal(modalType.Close)}
       />
+
       <EditItemModal
         editItemData={editItemData}
         editItemModal={editItemModal}
