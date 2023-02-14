@@ -48,8 +48,6 @@ const SideFilterTree: React.FC = () => {
       }
 
       changeSelectedOrderStatus(_fullStatus);
-    } else {
-      changeSelectedOrderStatus(null);
     }
   };
 
