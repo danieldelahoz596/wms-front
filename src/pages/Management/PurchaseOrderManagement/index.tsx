@@ -3,14 +3,14 @@ import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
 import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
-import ManagePurchaseOrdersModal from '@/components/Modals/PurchaseOrder/ManagePurchaseOrders';
+import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, message, Popconfirm, Space } from 'antd';
+import { Button, Card, Dropdown, Form, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
@@ -21,6 +21,7 @@ interface IManagePurchaseOrdersModal {
   title: string;
   submitBtnText: string;
   description: string;
+  confirmMessage: string;
   onClose: () => void;
   onSave: () => void;
 }
@@ -33,7 +34,6 @@ const vendorModalLayout = {
 const CustomerManagement: React.FC = () => {
   const {
     poList,
-    selectedPO,
     initialSelectedPO,
     handleSelectedPOChange,
     getPoTotalCost,
@@ -44,7 +44,6 @@ const CustomerManagement: React.FC = () => {
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
   const { selectedPOStatus } = useModel('poStatus');
-  const { initialState } = useModel('@@initialState');
 
   const [vendorModal, setVendorModal] = useState('');
   const [newPOModal, setNewPOModal] = useState('');
@@ -139,6 +138,7 @@ const CustomerManagement: React.FC = () => {
           title: 'Restore P.O.(S)',
           submitBtnText: 'Yes - Restore P.O.',
           description: 'This will restore and send the selected P.O.(s) back to pending delivery.',
+          confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
             message.success('P.O.(s) moved to Pending Delivery status');
@@ -206,6 +206,7 @@ const CustomerManagement: React.FC = () => {
           title: 'Void P.O.(S)',
           submitBtnText: 'Yes - Void P.O.',
           description: 'This will all pending items and close the seleted P.O.(s).',
+          confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
             message.success('P.O.(s) moved to Voided status');
@@ -328,7 +329,7 @@ const CustomerManagement: React.FC = () => {
 
       <AddNewPOModal newPOModal={newPOModal} setNewPOModal={setNewPOModal} />
 
-      <ManagePurchaseOrdersModal
+      <ManageItemsModal
         isOpen={modalOpen === modalType.ManagePurchaseOrders}
         {...manageOrdersModalData}
       />

@@ -2,20 +2,22 @@ import { OModal } from '@/components/Globals/OModal';
 import { Alert } from 'antd';
 import React from 'react';
 
-export interface IManagePurchaseOrders {
+export interface IManageItemsModal {
   isOpen: boolean;
   title: string;
   submitBtnText: string;
   description: string;
+  confirmMessage: string;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ManagePurchaseOrders: React.FC<IManagePurchaseOrders> = ({
+const ManageItemsModal: React.FC<IManageItemsModal> = ({
   isOpen,
   title,
   submitBtnText,
   description,
+  confirmMessage,
   onClose,
   onSave,
 }) => {
@@ -44,11 +46,11 @@ const ManagePurchaseOrders: React.FC<IManagePurchaseOrders> = ({
       <>
         <Alert description={description} />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
-          <span>Are you sure you want to proceed?</span>
+          <span>{confirmMessage}</span>
         </div>
       </>
     </OModal>
   );
 };
 
-export default ManagePurchaseOrders;
+export default ManageItemsModal;
