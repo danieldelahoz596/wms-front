@@ -2,19 +2,27 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
-import CancelPurchaseOrdersModal from '@/components/Modals/PurchaseOrder/CancelPurchaseOrders';
+import ManagePurchaseOrdersModal from '@/components/Modals/PurchaseOrder/ManagePurchaseOrders';
 import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, Space, Popconfirm, message } from 'antd';
+import { Button, Card, Dropdown, Form, Space, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
+
+interface IManagePurchaseOrdersModal {
+  title: string;
+  submitBtnText: string;
+  description: string;
+  onClose: () => void;
+  onSave: () => void;
+}
 
 const vendorModalLayout = {
   labelCol: { span: 8 },
@@ -24,11 +32,13 @@ const vendorModalLayout = {
 const CustomerManagement: React.FC = () => {
   const {
     poList,
+    selectedPO,
     initialSelectedPO,
     handleSelectedPOChange,
     getPoTotalCost,
     getTotalUnitQuantity,
     setSelectedPO,
+    setPoList,
   } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
@@ -38,6 +48,8 @@ const CustomerManagement: React.FC = () => {
   const [vendorModal, setVendorModal] = useState('');
   const [newPOModal, setNewPOModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [manageOrdersModalData, setManageOrdersModalData] =
+    useState<IManagePurchaseOrdersModal>(null);
 
   const [form] = Form.useForm();
   const [modalOpen, setModal] = useState('');
@@ -120,16 +132,21 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Authorization.
     },
     {
-      btnText: (
-        <Popconfirm
-          title="This will restore and send the selected P.O.(s) back to pending delivery."
-          onConfirm={() => {
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Restore P.O.(S)',
+          submitBtnText: 'Yes - Restore P.O.',
+          description: 'This will restore and send the selected P.O.(s) back to pending delivery.',
+          onSave: () => {
+            setModal(modalType.Close);
             message.success('P.O.(s) moved to Pending Delivery status');
-          }}
-        >
-          <OButton btnText="Restore P.O." />
-        </Popconfirm>
-      ),
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
+      btnText: 'Restore P.O.',
+      disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
       // Only in Canceled status.
     },
@@ -140,47 +157,63 @@ const CustomerManagement: React.FC = () => {
       btnText: 'Re-Send',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
-      // Only in Awaiting Confirmation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
+      // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
-      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      onClick: () => setModal(modalType.ManagePurchaseOrders),
       btnText: 'Cancel',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
     },
     {
-      onClick: () => setModal(modalType.CancelPurchaseOrders),
+      onClick: () => setModal(modalType.ManagePurchaseOrders),
       btnText: 'Confirm',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Confirmation
     },
     {
-      btnText: (
-        <Popconfirm
-          title="Canceling will prevent the selected P.O.(s) from being issued to vendors."
-          onConfirm={() => {
-            message.success('P.O.(s) moved to Fulfilled status.');
-          }}
-        >
-          <OButton btnText="Restore P.O." />
-        </Popconfirm>
-      ),
+      onClick: () => {
+        setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
+        // setPoList(
+        //   poList.map((item) =>
+        //     selectedRows.includes(item.key)
+        //       ? {
+        //           ...item,
+        //           po_status: {
+        //             code: '6',
+        //             id: 6,
+        //             name: 'Fullfilled',
+        //           },
+        //         }
+        //       : item,
+        //   ),
+        // );
+        setSelectedRows([]);
+        message.success('P.O.(s) moved to Fulfilled status.');
+      },
+      btnText: 'Receive',
+      disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered
     },
     {
-      btnText: (
-        <Popconfirm
-          title="This will void all pending items and close the selected P.O.(s)."
-          onConfirm={() => {
-            message.success('P.O.(s) moved to Void status.');
-          }}
-        >
-          <OButton btnText="Void" />
-        </Popconfirm>
-      ),
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Void P.O.(S)',
+          submitBtnText: 'Yes - Void P.O.',
+          description: 'This will all pending items and close the seleted P.O.(s).',
+          onSave: () => {
+            setModal(modalType.Close);
+            message.success('P.O.(s) moved to Voided status');
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
+      btnText: 'Void',
+      disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered
     },
@@ -229,7 +262,6 @@ const CustomerManagement: React.FC = () => {
   }, [initialMilestonesList, initialShippingTermList]);
 
   useEffect(() => {
-    console.log(selectedPOStatus);
     if (selectedRows && selectedRows[0]) {
       const _selectedPo = poList.find((poItem) => poItem.key === selectedRows[0]);
       setSelectedPO(_selectedPo);
@@ -291,11 +323,12 @@ const CustomerManagement: React.FC = () => {
         form={form}
         onVendorChange={onVendorChange}
       />
+
       <AddNewPOModal newPOModal={newPOModal} setNewPOModal={setNewPOModal} />
-      <CancelPurchaseOrdersModal
-        isOpen={modalOpen === modalType.CancelPurchaseOrders}
-        onSave={() => setModal(modalType.Close)}
-        onClose={() => setModal(modalType.Close)}
+
+      <ManagePurchaseOrdersModal
+        isOpen={modalOpen === modalType.ManagePurchaseOrders}
+        {...manageOrdersModalData}
       />
     </PageContainer>
   );

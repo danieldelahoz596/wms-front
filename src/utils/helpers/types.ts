@@ -72,7 +72,7 @@ export enum modalType {
   StockAllocationDetails = 'StockAllocationDetails',
 
   // Purchasing
-  CancelPurchaseOrders = 'Cancel',
+  ManagePurchaseOrders = 'Manage',
 
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
