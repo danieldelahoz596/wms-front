@@ -2,6 +2,7 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
+import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
 import ManagePurchaseOrdersModal from '@/components/Modals/PurchaseOrder/ManagePurchaseOrders';
 import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
 import { Table1DemoColumns } from '@/data';
@@ -222,7 +223,7 @@ const CustomerManagement: React.FC = () => {
       btnText: 'New P.O.',
     },
     {
-      onClick: () => console.log('Import/Export'),
+      onClick: () => console.log('Export Purchase Orders'),
       btnText: (
         <Dropdown
           menu={{
@@ -231,6 +232,7 @@ const CustomerManagement: React.FC = () => {
                 key: 'pick_list',
                 label: <span>Export Purchase Orders</span>,
                 icon: <VerticalAlignBottomOutlined />,
+                onClick: () => setModal(modalType.ExportPOSettings),
               },
             ],
           }}
@@ -329,6 +331,13 @@ const CustomerManagement: React.FC = () => {
       <ManagePurchaseOrdersModal
         isOpen={modalOpen === modalType.ManagePurchaseOrders}
         {...manageOrdersModalData}
+      />
+
+      <ExportPOModal
+        isOpen={modalOpen === modalType.ExportPOSettings}
+        onSave={() => setModal(modalType.Close)}
+        handleConfigureSettings={(value: any) => setModal(value)}
+        onClose={() => setModal(modalType.Close)}
       />
     </PageContainer>
   );
