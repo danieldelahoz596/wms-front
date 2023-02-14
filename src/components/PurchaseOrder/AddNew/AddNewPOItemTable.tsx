@@ -2,6 +2,7 @@ import { AddNewPOItemTableColumns } from '@/components/DemoData/index';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
+import POItemsFromCSVModal from '@/components/Modals/PurchaseOrder/POItemsFromCSV';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
@@ -9,9 +10,10 @@ import { Form, Space } from 'antd';
 import React, { useState } from 'react';
 
 const AddNewPOItemTable: React.FC = () => {
-  const { selectedPO, addPoItem, removePoItem, updatePoItem } = useModel('po');
+  const { selectedPO, addPoItem, addPoItems, removePoItem, updatePoItem } = useModel('po');
   const { productList } = useModel('product');
   const [poItem, setPoItem] = useState({});
+  const [showModal, setShowModal] = useState(false);
 
   const unitMeasureOptions: IOSelectOption[] = [
     {
@@ -98,13 +100,24 @@ const AddNewPOItemTable: React.FC = () => {
             <OButton btnText="Add" onClick={handleAddNewPOProductItem} size="large" />
           </Space>
         </Form>
-        <OButton btnText="Paste From CSV" size="large" />
+        <OButton btnText="Paste From CSV" size="large" onClick={() => setShowModal(true)} />
       </div>
+
       <EditableTable
         dataSource={rows}
         columns={AddNewPOItemTableColumns}
         handleSave={updatePoItem}
         pagination={false}
+      />
+
+      <POItemsFromCSVModal
+        isOpen={showModal}
+        onSave={(items) => {
+          console.log("items: ", items);
+          addPoItems(items);
+          setShowModal(false);
+        }}
+        onClose={() => setShowModal(false)}
       />
     </>
   );

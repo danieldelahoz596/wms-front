@@ -96,6 +96,12 @@ export default () => {
   const addPoItem = (item: any) =>
     setSelectedPO((prevState: any) => ({ ...prevState, poItems: [...prevState.poItems, item] }));
 
+  const addPoItems = (items: any[]) =>
+    setSelectedPO((prevState: any) => ({
+      ...prevState,
+      poItems: [...prevState.poItems, ...items],
+    }));
+
   // remove po item
   const removePoItem = (index: any) =>
     setSelectedPO((prevState: any) => ({
@@ -147,6 +153,7 @@ export default () => {
     addOtherCost,
     removeOtherCost,
     addPoItem,
+    addPoItems,
     removePoItem,
     updatePoItem,
     getPoTotalCost,
