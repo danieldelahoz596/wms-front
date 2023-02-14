@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { milestonesStaticData } from '../data';
 
 export default () => {
-  const [milestonesList, setMilestonesList] = useState<any[]>([]);
+  const [milestonesList, setMilestonesList] = useState<any[]>(milestonesStaticData);
 
   const initialMilestonesList = () => {
-    setMilestonesList(milestonesStaticData);
+    // setMilestonesList(milestonesStaticData);
   };
 
-  return { milestonesList, initialMilestonesList };
+  return { milestonesList, setMilestonesList, initialMilestonesList };
 };

@@ -74,6 +74,7 @@ export enum modalType {
   // Purchasing
   ManagePurchaseOrders = 'Manage',
   ExportPOSettings = 'ExportPOSetings',
+  ConfigureMilestones = 'ConfigureMilestones',
 
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
