@@ -1,7 +1,7 @@
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Form } from 'antd';
+import { Form, Space } from 'antd';
 import React, { useState } from 'react';
 
 interface IPaymentTerm {
@@ -13,26 +13,10 @@ const PaymentTerm: React.FC<IPaymentTerm> = ({ inputField }) => {
   const [editModal, setEditModal] = useState(false);
 
   return (
-    <div style={{ display: 'flex', gap: '0.2rem', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 3 }}>
       <div style={{ flex: '1' }}>{inputField}</div>
-      <PlusOutlined
-        onClick={() => setAddModal(true)}
-        style={{
-          color: 'blue',
-          cursor: 'pointer',
-          padding: '0.5rem',
-          border: '1px solid blue',
-        }}
-      />
-      <SettingOutlined
-        onClick={() => setEditModal(true)}
-        style={{
-          color: 'blue',
-          cursor: 'pointer',
-          padding: '0.5rem',
-          border: '1px solid blue',
-        }}
-      />
+      <PlusOutlined className="plus-button" onClick={() => setAddModal(true)} />
+      <SettingOutlined className="setting-button" onClick={() => setEditModal(true)} />
 
       <OModal
         title={'Add Payment Term'}

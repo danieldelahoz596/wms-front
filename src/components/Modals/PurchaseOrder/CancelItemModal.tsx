@@ -1,7 +1,7 @@
-import React from 'react';
-import { Row, Col, Card } from 'antd';
-import { modalType } from '@/utils/helpers/types';
 import { OModal } from '@/components/Globals/OModal';
+import { modalType } from '@/utils/helpers/types';
+import { Alert } from 'antd';
+import React from 'react';
 
 interface ICancelItemModal {
   cancelItemData?: any;
@@ -21,9 +21,9 @@ const CancelItemModal: React.FC<ICancelItemModal> = ({
 
   return (
     <OModal
-      title={'Cancel Item ' + cancelItemData?.product}
+      title={"Cancel Item '" + cancelItemData?.product + "'"}
       helpLink=""
-      width={600}
+      width={350}
       isOpen={cancelItemModal == modalType.Cancel}
       handleCancel={handleCancel}
       buttons={[
@@ -42,20 +42,18 @@ const CancelItemModal: React.FC<ICancelItemModal> = ({
       ]}
     >
       <>
-        <Row>
-          <Card style={{ minWidth: '100%', background: '#00ffff', border: '1px ridge' }}>
-            <h4>
-              {
-                "Canceling this item will mark it as an error. Please note that canceled items do not count againist a vendor's score card."
-              }
-            </h4>
-          </Card>
-        </Row>
-        <Row>
-          <Col span={12} offset={12} className="mt-10">
-            <h4>Are you sure want to proceed?</h4>
-          </Col>
-        </Row>
+        <Alert
+          description={
+            <p>
+              Canceling this item will mark it as an error. Please note that canceled items{' '}
+              <b>do not </b>
+              count againist a vendor's score card.
+            </p>
+          }
+        />
+        <div style={{ textAlign: 'right', margin: '10px 5px' }}>
+          <span>Are you sure want to proceed?</span>
+        </div>
       </>
     </OModal>
   );

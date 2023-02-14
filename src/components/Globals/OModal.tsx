@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ModalProps } from 'antd';
+import { Button, Modal } from 'antd';
+import React from 'react';
 
 declare const ButtonTypes: ['default', 'primary', 'ghost', 'dashed', 'link', 'text'];
 
 interface IOModalButton {
   key?: string;
-  type: (typeof ButtonTypes)[number];
+  type: typeof ButtonTypes[number];
   btnLabel: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick: () => void;
@@ -15,7 +15,7 @@ interface IOModalButton {
 
 interface IOmodal {
   title: string | React.ReactNode;
-  helpLink: string;
+  helpLink?: string;
   isOpen: boolean;
   handleCancel?: () => void;
   buttons?: IOModalButton[];
@@ -35,15 +35,6 @@ export const OModal: React.FC<IOmodal & ModalProps> = ({
   helpLink,
   ...props
 }) => {
-  const [isHover, setIsHover] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHover(false);
-  };
-
   return (
     <Modal
       open={isOpen}
@@ -70,16 +61,11 @@ export const OModal: React.FC<IOmodal & ModalProps> = ({
           }}
         >
           <div>{title}</div>
-          <a
-            style={{
-              color: isHover ? 'rgba(0, 0, 0, 0.75)' : 'rgba(0, 0, 0, 0.45)',
-            }}
-            href={helpLink}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <QuestionCircleOutlined style={{ marginRight: 42 }} />
-          </a>
+          {helpLink && (
+            <a style={{ color: 'rgba(95, 95, 255, 1)', fontSize: 22 }} href={helpLink}>
+              <QuestionCircleOutlined style={{ marginRight: 30 }} />
+            </a>
+          )}
         </div>
       }
       {...props}

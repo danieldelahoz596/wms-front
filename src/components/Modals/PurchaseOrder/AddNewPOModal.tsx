@@ -10,10 +10,10 @@ import { useModel } from '@umijs/max';
 
 interface IAddNewPOModal {
   newPOModal: string;
-  setNewPOModal: (value: string) => void;  
+  setNewPOModal: (value: string) => void;
 }
 
-const AddNewPOModal: React.FC<IAddNewPOModal> = ({ newPOModal, setNewPOModal}) => {
+const AddNewPOModal: React.FC<IAddNewPOModal> = ({ newPOModal, setNewPOModal }) => {
   const { addNewPO, initialSelectedPO } = useModel('po');
 
   const handleCancel = () => {
@@ -29,12 +29,12 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ newPOModal, setNewPOModal}) =
 
   return (
     <OModal
-        title="New Purchase Order"
-        helpLink=""
-        width={1400}
-        isOpen={newPOModal == modalType.New}
-        handleCancel={handleCancel} 
-        buttons={[
+      title="New Purchase Order"
+      helpLink=""
+      width={1000}
+      isOpen={newPOModal == modalType.New}
+      handleCancel={handleCancel}
+      buttons={[
         {
           key: 'back',
           type: 'default',
@@ -56,14 +56,14 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ newPOModal, setNewPOModal}) =
       ]}
     >
       <>
-        <Row>
-          <Col span={8}>
+        <Row gutter={5}>
+          <Col span={10}>
             <PurchaseOrderDetail />
           </Col>
-          <Col span={8}>
+          <Col span={7}>
             <AggregateCosts />
           </Col>
-          <Col span={8}>
+          <Col span={7}>
             <POCommunication />
           </Col>
         </Row>

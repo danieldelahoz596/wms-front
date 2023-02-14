@@ -5,7 +5,7 @@ import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Card, Col, Form, Row } from 'antd';
+import { Form, Space } from 'antd';
 import React, { useState } from 'react';
 
 const AddNewPOItemTable: React.FC = () => {
@@ -46,6 +46,7 @@ const AddNewPOItemTable: React.FC = () => {
           productList.find((item) => item.id === value),
         ),
       options: productList.map((_product) => ({ text: _product.name, value: _product.id })),
+      style: { width: 250 },
     },
     {
       type: 'number',
@@ -53,6 +54,7 @@ const AddNewPOItemTable: React.FC = () => {
       name: 'quantity',
       placeholder: 'Quantity',
       onChange: (name: any, value: any) => handleInputChange(name, value),
+      style: { width: 70 },
     },
     {
       type: 'select',
@@ -61,6 +63,7 @@ const AddNewPOItemTable: React.FC = () => {
       placeholder: 'Unit of Measure',
       onChange: (name: any, value: any) => handleInputChange(name, value),
       options: unitMeasureOptions,
+      style: { width: 120 },
     },
   ];
 
@@ -84,36 +87,25 @@ const AddNewPOItemTable: React.FC = () => {
 
   return (
     <>
-      <Row className="add-item-row" style={{ marginTop: '.5rem', marginBottom: '.5rem' }}>
-        <Col>
-          <Form layout="inline">
+      <div className="space-between" style={{ margin: '20px 0 8px' }}>
+        <Form>
+          <Space>
             {inputFields.map((inputItem, index) => (
               <Form.Item label={inputItem.label} key={index}>
-                <OInput
-                  type={inputItem.type}
-                  name={inputItem.name}
-                  options={inputItem.options}
-                  onChange={inputItem.onChange}
-                  placeholder={inputItem.placeholder}
-                />
+                <OInput {...inputItem} />
               </Form.Item>
             ))}
-            <OButton btnText="Save" onClick={handleAddNewPOProductItem} />
-          </Form>
-        </Col>
-      </Row>
-      <Row className="add-item-row" style={{ marginTop: '.5rem', marginBottom: '.5rem' }}>
-        <Col>
-          <Card style={{ width: '100%' }}>
-            <EditableTable
-              dataSource={rows}
-              columns={AddNewPOItemTableColumns}
-              handleSave={updatePoItem}
-              pagination={false}
-            />
-          </Card>
-        </Col>
-      </Row>
+            <OButton btnText="Add" onClick={handleAddNewPOProductItem} size="large" />
+          </Space>
+        </Form>
+        <OButton btnText="Paste From CSV" size="large" />
+      </div>
+      <EditableTable
+        dataSource={rows}
+        columns={AddNewPOItemTableColumns}
+        handleSave={updatePoItem}
+        pagination={false}
+      />
     </>
   );
 };

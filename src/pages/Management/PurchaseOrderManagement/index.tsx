@@ -9,7 +9,7 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, Space, Popconfirm, message } from 'antd';
+import { Button, Card, Dropdown, Form, message, Popconfirm, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
@@ -127,7 +127,7 @@ const CustomerManagement: React.FC = () => {
             message.success('P.O.(s) moved to Pending Delivery status');
           }}
         >
-          <OButton btnText="Restore P.O." />
+          <OButton btnText="Restore P.O." disabled={selectedRows.length === 0} />
         </Popconfirm>
       ),
       hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
@@ -164,7 +164,7 @@ const CustomerManagement: React.FC = () => {
             message.success('P.O.(s) moved to Fulfilled status.');
           }}
         >
-          <OButton btnText="Restore P.O." />
+          <OButton btnText="Receive" disabled={selectedRows.length === 0} />
         </Popconfirm>
       ),
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
@@ -178,7 +178,7 @@ const CustomerManagement: React.FC = () => {
             message.success('P.O.(s) moved to Void status.');
           }}
         >
-          <OButton btnText="Void" />
+          <OButton btnText="Void" disabled={selectedRows.length === 0} />
         </Popconfirm>
       ),
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),

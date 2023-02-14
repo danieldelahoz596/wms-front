@@ -5,7 +5,7 @@ import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType } from '@/utils/helpers/types';
-import { Form, Input, Row } from 'antd';
+import { Form, Input, Space } from 'antd';
 import React from 'react';
 
 interface IAddNewItemModal {
@@ -65,36 +65,37 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ title, newItemModal, setN
       ]}
     >
       <>
-        <Row>
-          <Form layout="inline">
+        <Form>
+          <Space>
             <Form.Item>
               <OSelect
                 name="product"
                 placeholder="Select a product..."
                 options={productOptions}
                 onChange={() => {}}
-                style={{ width: 220 }}
+                style={{ width: 250 }}
               />
             </Form.Item>
             <Form.Item label="Quantity">
-              <Input type="number" />
+              <Input type="number" style={{ width: 70 }} />
             </Form.Item>
             <Form.Item label="Unit of measure">
               <OSelect
                 name="unitMeasure"
                 options={unitMeasureOptions}
                 onChange={() => {}}
-                placeholder="Select..."
+                style={{ width: 120 }}
               />
             </Form.Item>
             <OButton btnText={'Add'} size="large" />
-          </Form>
-        </Row>
+          </Space>
+        </Form>
         <OTable
           bordered
           columns={AddNewItemTableColumns}
           rows={AddNewItemTableData}
           pagination={false}
+          style={{ marginTop: 10 }}
         />
       </>
     </OModal>

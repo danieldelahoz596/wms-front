@@ -1,7 +1,8 @@
-import React from 'react';
-import { Card, Form } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
+import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Card, Form, Space } from 'antd';
+import React from 'react';
 import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
@@ -20,34 +21,43 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       type: 'select',
       label: 'To Destination',
       name: 'destination',
-      placeholder: 'Select..',
       defaultValue: selectedPO?.destination?.value,
       onChange: handleSelectedPOChange,
       options: initialState?.initialData.warehouses?.map((_item) => ({
         text: _item.name,
         value: `${_item.id}`,
       })),
-      rules: [{ required: true, message: 'Please select destination!' }],
+    },
+    {
+      type: 'text',
+      label: 'Custom P.O. Number',
+      name: 'customPONumber',
+      defaultValue: selectedPO?.destination?.value,
+      onChange: handleSelectedPOChange,
     },
     {
       type: 'select',
-      label: 'P. O. Format : ',
+      label: 'P.O. Template',
       name: 'poTemplate',
-      placeholder: 'Select..',
       defaultValue: selectedPO?.poTemplate?.value,
       onChange: handleSelectedPOChange,
       options: poTemplateList,
-      rules: [{ required: true, message: 'Please select P. O. Format!' }],
     },
     {
       type: 'select',
-      label: 'Shipping terms',
+      label: 'P.O. Format',
+      name: 'poFormat',
+      defaultValue: selectedPO?.poTemplate?.value,
+      onChange: handleSelectedPOChange,
+      options: poTemplateList,
+    },
+    {
+      type: 'select',
+      label: 'Shipping Terms',
       name: 'shippingTerm',
-      placeholder: 'Select..',
       defaultValue: selectedPO?.shippingTerm?.value,
       onChange: handleSelectedPOChange,
       options: shippingTermList,
-      rules: [{ required: true, message: 'Please select shipping terms!' }],
     },
     {
       type: 'select',
@@ -62,17 +72,11 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
     },
     {
       type: 'date',
-      label: 'Confirmed By',
-      name: 'confirmedBy',
+      label: 'Confirm By',
+      name: 'confirmBy',
       defaultValue: selectedPO?.confirmedBy,
       onChange: handleSelectedPOChange,
       rules: [{ required: true, message: 'Required!' }],
-    },
-    {
-      type: 'checkbox',
-      label: 'Enable Portal',
-      name: 'enablePortal',
-      onChange: () => {},
     },
     {
       type: 'select',
@@ -82,21 +86,41 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       defaultValue: selectedPO?.milestone?.value,
       onChange: (name: string, value: any) => handleSelectedPOChange(name, value),
       options: milestonesList,
+      render: (inputField: any) => (
+        <div style={{ display: 'flex', gap: 3 }}>
+          <div style={{ flex: '1' }}>{inputField}</div>
+          <SettingOutlined className="setting-button" />
+        </div>
+      ),
       rules: [{ required: true, message: 'Please select Payment terms!' }],
+    },
+    {
+      type: 'checkbox',
+      label: 'Enable Auto Update',
+      name: 'enablePortal',
+      onChange: () => {},
+      render: (inputField: any) => (
+        <>
+          {inputField}
+          <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
+        </>
+      ),
     },
   ];
 
   return (
-    <Card title="P.O. Details" style={{ marginRight: '.5rem' }}>
-      <Form>
-        <Form.Item label="From Vendor">
-          <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
-        </Form.Item>
-        {formInputs?.map((inputItem, index) => (
-          <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
-            <OInput {...inputItem} />
+    <Card title="P.O. Details">
+      <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
+        <Space direction="vertical" style={{ width: '100%' }} size={4}>
+          <Form.Item label="From Vendor">
+            <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
           </Form.Item>
-        ))}
+          {formInputs?.map((inputItem, index) => (
+            <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
+              <OInput {...inputItem} />
+            </Form.Item>
+          ))}
+        </Space>
       </Form>
     </Card>
   );

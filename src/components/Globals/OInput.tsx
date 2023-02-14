@@ -79,7 +79,7 @@ export const OInput: React.FC<IOInput> = ({
       <TextArea
         showCount={false}
         maxLength={100}
-        style={{ height: 120, marginBottom: 24, ...style }}
+        style={{ ...style }}
         rows={rows}
         name={name}
         onChange={(e) => onChange(name, e.target.value)}

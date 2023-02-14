@@ -58,7 +58,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-      <Form form={form}>
+      <Form form={form} labelCol={{ span: 3}}>
         {!editableProduct && (
           <>
             <Form.Item
@@ -77,13 +77,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Form.Item>
           </>
         )}
-        <Row>
-          <Form.Item label="Buy | Brand *" name="buyer" style={{ width: 'calc(50% + 30px)' }}>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <Form.Item label="Buy | Brand *" name="buyer" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
           <Form.Item
             name="brand"
-            style={{ width: 'calc(50% - 110px)', marginLeft: 6 }}
+            style={{ flex: '1' }}
             rules={[{ required: true, message: 'Please input Brand' }]}
           >
             <Select
@@ -99,9 +99,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="setting-button"
             onClick={() => setCurrentModal(modalType.Edit)}
           />
-        </Row>
-        <Row>
-          <Form.Item label="Categories" name="categories" style={{ width: 'calc(100% - 74px)' }}>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
             <Select
               placeholder="Select..."
               options={initialState?.initialData?.categories.map((brand) => ({
@@ -115,9 +115,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="setting-button"
             onClick={() => setCurrentModal(modalType.Edit)}
           />
-        </Row>
-        <Row>
-          <Form.Item label="Labels" name="labels" style={{ width: 'calc(100% - 74px)' }}>
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
             <Select
               placeholder="Select..."
               options={initialState?.initialData?.labels.map((brand) => ({
@@ -131,26 +131,18 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="setting-button"
             onClick={() => setCurrentModal(modalType.Edit)}
           />
-        </Row>
+        </div>
 
         <Form.Item label="Description" name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item
-          label="Vendor Cost: $"
-          name="vendor_cost"
-          colon={false}
-        >
+        <Form.Item label="Vendor Cost: $" name="vendor_cost" colon={false}>
           <Input />
         </Form.Item>
         <Card title="Measurements" style={{ marginTop: 20 }}>
           <Row>
             <Col span={8}>
-              <Form.Item
-                label="Weight"
-                labelCol={{ span: 6 }}
-                className="custom-form-item"
-              >
+              <Form.Item label="Weight" labelCol={{ span: 6 }} className="custom-form-item">
                 <Input.Group compact>
                   <Form.Item
                     label="lb."

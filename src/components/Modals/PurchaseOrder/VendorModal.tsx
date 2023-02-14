@@ -38,7 +38,6 @@ const VendorModal: React.FC<IVendorModal> = ({
   return (
     <OModal
       title="Choose P.O. Vendor"
-      helpLink=""
       width={400}
       isOpen={vendorModal === modalType.New}
       handleCancel={onVendorModalCancel}

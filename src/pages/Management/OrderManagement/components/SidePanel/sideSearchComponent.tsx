@@ -95,7 +95,7 @@ const SideSearch: React.FC = () => {
           </Space>
         </Form.Item>
       </Space>
-      <div className="buttons-space-between" style={{ marginTop: 10 }}>
+      <div className="space-between" style={{ marginTop: 10 }}>
         <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
         <OButton btnText={'Search'} onClick={onOrderSearch} />
       </div>

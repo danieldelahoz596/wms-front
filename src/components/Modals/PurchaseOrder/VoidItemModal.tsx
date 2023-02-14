@@ -1,7 +1,7 @@
-import React from 'react';
-import { Row, Col, Card } from 'antd';
-import { modalType } from '@/utils/helpers/types';
 import { OModal } from '@/components/Globals/OModal';
+import { modalType } from '@/utils/helpers/types';
+import { Alert } from 'antd';
+import React from 'react';
 
 interface IVoidItemModal {
   voidItemData?: any;
@@ -21,9 +21,9 @@ const VoidItemModal: React.FC<IVoidItemModal> = ({
 
   return (
     <OModal
-      title={'Void Item ' + voidItemData?.product}
+      title={"Void Item '" + voidItemData?.product + "'"}
       helpLink=""
-      width={600}
+      width={350}
       isOpen={voidItemModal == modalType.Void}
       handleCancel={handleCancel}
       buttons={[
@@ -42,16 +42,10 @@ const VoidItemModal: React.FC<IVoidItemModal> = ({
       ]}
     >
       <>
-        <Row>
-          <Card style={{ minWidth: '100%', background: '#00ffff', border: '1px ridge' }}>
-            <h4>Voiding this item will mark it as unfulfilled bt the vendor</h4>
-          </Card>
-        </Row>
-        <Row>
-          <Col span={12} offset={12} style={{ marginTop: '2%' }}>
-            <h4>Are you sure want to proceed?</h4>
-          </Col>
-        </Row>
+        <Alert description="Voiding this item will mark it as unfulfilled by the vendor." />
+        <div style={{ textAlign: 'right', margin: '10px 5px' }}>
+          <span>Are you sure want to proceed?</span>
+        </div>
       </>
     </OModal>
   );

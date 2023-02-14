@@ -65,14 +65,12 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     {
       onClick: () => setNewItemModal(modalType.New),
       btnText: 'Add Item',
-      style: btnStyle,
-      disabled: isDisableButtons,
+      hidden: selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
-      type: 'primary',
       onClick: () => setEditItemModal(modalType.Edit),
       btnText: 'Edit',
-      style: btnStyle,
       disabled: isDisableButtons,
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
@@ -132,6 +130,7 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
             selectedRows={selectedRows}
             setSelectedRows={setSelectedRows}
             onSelect={onSelect}
+            pagination={false}
           />
         </Col>
         <Col span={2}>

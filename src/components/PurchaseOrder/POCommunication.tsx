@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Form } from 'antd';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
+import { Card, Form, Space } from 'antd';
+import React from 'react';
 
 const POCommunication: React.FC = () => {
   const { handleSelectedPOChange, selectedPO } = useModel('po');
@@ -11,7 +11,8 @@ const POCommunication: React.FC = () => {
       type: 'textarea',
       label: 'Message To Vendor',
       name: 'messageToVendor',
-      rows: 4,
+      rows: 5,
+      placeholder: 'Hi Vendor,\n\n Message',
       defaultValue: selectedPO?.messageToVendor,
       onChange: handleSelectedPOChange,
     },
@@ -19,20 +20,23 @@ const POCommunication: React.FC = () => {
       type: 'textarea',
       label: 'Internal Notes',
       name: 'internalNote',
-      rows: 4,
+      placeholder: 'TEAM: Please call me when this delivery arrives at the warehouse',
+      rows: 5,
       defaultValue: selectedPO?.internalNote,
       onChange: handleSelectedPOChange,
     },
   ];
 
   return (
-    <Card className="communication-card" title="Communication">
+    <Card title="Communication" style={{ paddingBottom: 10 }}>
       <Form layout="vertical">
-        {formInputs.map((inputItem, index) => (
-          <Form.Item key={index} label={inputItem.label}>
-            <OInput {...inputItem} />
-          </Form.Item>
-        ))}
+        <Space direction="vertical" size={10} style={{ width: '100%' }}>
+          {formInputs.map((inputItem, index) => (
+            <Form.Item key={index} label={inputItem.label}>
+              <OInput {...inputItem} />
+            </Form.Item>
+          ))}
+        </Space>
       </Form>
     </Card>
   );

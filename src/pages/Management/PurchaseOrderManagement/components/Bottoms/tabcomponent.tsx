@@ -31,6 +31,7 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
       defaultActiveKey="items"
       items={tabListNoTitle}
       tabBarExtraContent={<a href="#">P.O. #FORKS1114</a>}
+      style={{ paddingLeft: 10, paddingRight: 10 }}
     />
   );
 };

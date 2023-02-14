@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Card, Row, Col, Modal } from 'antd';
-import { OTable } from '@/components/Globals/OTable';
-import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { OInput } from '@/components/Globals/OInput';
+import { OTable } from '@/components/Globals/OTable';
 import type { IPOOtherCost } from '@/interfaces';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
+import { Col, Row } from 'antd';
+import React, { useState } from 'react';
+import { OModal } from '../Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
   const { addOtherCost, removeOtherCost, selectedPO, getPoTotalCost } = useModel('po');
@@ -39,11 +40,7 @@ const AggregateCostTable: React.FC = () => {
 
   const columns = [
     {
-      title: (
-        <div onClick={showModal}>
-          <PlusCircleOutlined style={{ color: 'blue' }} />
-        </div>
-      ),
+      title: <PlusCircleOutlined style={{ color: 'blue', fontSize: 14 }} onClick={showModal} />,
       dataIndex: 'add',
       key: 'add',
     },
@@ -53,7 +50,7 @@ const AggregateCostTable: React.FC = () => {
       key: 'name',
     },
     {
-      title: 'Cost',
+      title: 'Amount',
       dataIndex: 'cost',
       key: 'cost',
     },
@@ -71,20 +68,35 @@ const AggregateCostTable: React.FC = () => {
 
   return (
     <>
-      <Card bordered>
-        <OTable type="checkbox" columns={columns} rows={rows} pagination={false} />
-      </Card>
-      <hr />
+      <OTable
+        type="checkbox"
+        columns={columns}
+        rows={rows}
+        pagination={false}
+        style={{ marginTop: 3, marginBottom: 3, textAlign: 'center' }}
+      />
       <Row>
-        <Col span={12}>&nbsp;</Col>
-        <Col span={6}>Total:</Col>
-        <Col span={6}> ${getPoTotalCost(selectedPO)} </Col>
+        <Col offset={12} span={6}>
+          <span>Total:</span>
+        </Col>
+        <Col span={6}>
+          <span>${getPoTotalCost(selectedPO)}</span>{' '}
+        </Col>
       </Row>
-      <Modal title="Add new cost" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <OInput type="text" name="name" onChange={handleChange} placeholder="Title" />
-        <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
-        <OInput type="number" name="cost" onChange={handleChange} placeholder="amount" />
-      </Modal>
+
+      <OModal
+        title="Add New Cost"
+        width={250}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <>
+          <OInput type="text" name="name" onChange={handleChange} placeholder="Title" />
+          <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
+          <OInput type="number" name="cost" onChange={handleChange} placeholder="amount" />
+        </>
+      </OModal>
     </>
   );
 };

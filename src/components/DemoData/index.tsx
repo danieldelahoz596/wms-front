@@ -56,6 +56,11 @@ export const AddNewPOItemTableColumns = [
 
 export const AddNewItemTableColumns = [
   {
+    title: '',
+    dataIndex: '',
+    key: '',
+  },
+  {
     title: 'Product',
     dataIndex: 'product',
     key: 'product',
@@ -128,6 +133,11 @@ export const AddNewItemTableData = [
 ];
 
 export const Table2DemoColumns = [
+  {
+    title: '',
+    dataIndex: '',
+    key: '',
+  },
   {
     title: 'Status',
     dataIndex: 'status',
