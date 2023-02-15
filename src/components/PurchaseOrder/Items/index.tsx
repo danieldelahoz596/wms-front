@@ -1,19 +1,27 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import AddNewItemModal from '@/components/Modals/PurchaseOrder/AddNewItemModal';
-import CancelItemModal from '@/components/Modals/PurchaseOrder/CancelItemModal';
+import { OTable } from '@/components/Globals/OTable';
+import ManageItemsModal from '@/components/Modals/ManageItemsModal';
+import AddNewItem from '@/components/Modals/PurchaseOrder/AddNewItem';
 import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
 import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
-import RemoveItemModal from '@/components/Modals/PurchaseOrder/RemoveItemModal';
-import VoidItemModal from '@/components/Modals/PurchaseOrder/VoidItemModal';
 import { modalType } from '@/utils/helpers/types';
-import { CheckCircleFilled, MinusCircleFilled, PlayCircleFilled } from '@ant-design/icons';
+import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space, Table } from 'antd';
+import { Col, Row, Space } from 'antd';
 import React, { useState } from 'react';
 
-interface IHistoryManagement {
+interface IItemsManagement {
   data: any[];
+}
+
+interface IManagePurchaseOrdersModal {
+  title: string;
+  submitBtnText: string;
+  description: string;
+  confirmMessage: string;
+  onClose: () => void;
+  onSave: () => void;
 }
 
 const TColumns = [
@@ -27,12 +35,16 @@ const TColumns = [
     dataIndex: 'status',
     key: 'status',
     render: (status) =>
-      status === 'success' ? (
-        <CheckCircleFilled style={{ color: 'blue' }} />
-      ) : status === 'pending' ? (
-        <PlayCircleFilled style={{ color: 'blue' }} />
+      status === '1' ? (
+        <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} /> // Fulfilled
+      ) : status === '2' ? (
+        <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} /> //
+      ) : status === '3' ? (
+        <CloseCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
+      ) : status === '4' ? (
+        <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
       ) : (
-        <MinusCircleFilled style={{ color: 'red' }} />
+        <PlayCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
       ),
   },
   {
@@ -97,10 +109,8 @@ const TColumns = [
   },
 ];
 
-const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
+const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
-  const [newItemModalTitle, setNewItemModalTitle] = useState<any>('');
-  const [isDisableButtons, setIsDisableButtons] = useState(true);
 
   const [editItemModal, setEditItemModal] = useState('');
   const [editItemData, setEditItemData] = useState<any>({});
@@ -108,30 +118,11 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
   const [receiveItemModal, setReceiveItemModal] = useState('');
   const [receiveItemData, setReceiveItemData] = useState<any>({});
 
-  const [voidItemModal, setVoidItemModal] = useState('');
-  const [voidItemData, setVoidItemData] = useState<any>({});
-
-  const [cancelItemModal, setCancelItemModal] = useState('');
-  const [cancelItemData, setCancelItemData] = useState<any>({});
-
-  const [removeItemModal, setRemoveItemModal] = useState('');
-  const [removeItemData, setRemoveItemData] = useState<any>({});
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const { selectedPOStatus } = useModel('poStatus');
-
-  // useEffect(() => {
-  //   if (selectedRows.length) {
-  //     setIsDisableButtons(false);
-  //   } else {
-  //     setIsDisableButtons(true);
-  //   }
-  // }, [selectedRows]);
-
-  const btnStyle = {
-    marginBottom: '10px',
-    width: '80%',
-  };
+  const [modalOpen, setModal] = useState('');
+  const [manageOrdersModalData, setManageOrdersModalData] =
+    useState<IManagePurchaseOrdersModal>(null);
 
   const actionButtons: IOButton[] = [
     {
@@ -144,34 +135,66 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     {
       onClick: () => setEditItemModal(modalType.Edit),
       btnText: 'Edit',
-      disabled: isDisableButtons,
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
       onClick: () => setReceiveItemModal(modalType.Receive),
       btnText: 'Receive',
-      disabled: isDisableButtons,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
-      onClick: () => setVoidItemModal(modalType.Void),
       btnText: 'Void',
-      disabled: isDisableButtons,
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: "Void Item 'Test Product - Test Product'",
+          submitBtnText: 'Yes - Void Item',
+          description: 'Voiding this item will mark it as unfulfilled by the vendor.',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
-      onClick: () => setCancelItemModal(modalType.Cancel),
       btnText: 'Cancel',
-      disabled: isDisableButtons,
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: "Cancel Item 'Test Product - Test Product'",
+          submitBtnText: 'Yes - Cancel Item',
+          description:
+            "Canceling this item will mark it as an error. Please note that canceled items <b> do not </b> count against a vendor's score card.",
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
-      onClick: () => setRemoveItemModal(modalType.Remove),
       btnText: 'Remove',
-      disabled: isDisableButtons,
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: "Remove Item 'Test Product - Test Product'",
+          submitBtnText: 'Yes - Remove Item',
+          description: 'Removing this item will exclue it from the issued P.O.',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
@@ -188,7 +211,7 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     qty: poItem.quantity,
     unitMeasure: poItem.unitMeasure,
     totalUnitQty: poItem.quantity,
-    originalCost: poItem.unitCost,
+    originalCost: poItem.originalCost,
     discount: poItem.discount,
     totalCost:
       parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
@@ -198,10 +221,10 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     <>
       <Row gutter={10}>
         <Col span={22}>
-          <Table
+          <OTable
             columns={TColumns}
-            dataSource={rows}
-            pagination={{ hideOnSinglePage: true }}
+            rows={rows}
+            pagination={false}
             onRow={(record) => {
               return {
                 onClick: () => {
@@ -210,9 +233,9 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
                 }, // click row
               };
             }}
-            rowClassName={(record) =>
-              record.id === selectedRow?.id ? `ant-table-row-selected` : ''
-            }
+            // rowClassName={(record) =>
+            //   record.id === selectedRow?.id ? `ant-table-row-selected` : ''
+            // }
           />
         </Col>
         <Col span={2}>
@@ -224,13 +247,11 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
         </Col>
       </Row>
 
-      <AddNewItemModal
+      <AddNewItem
         isOpen={showModal === modalType.New}
-        title={newItemModalTitle}
         onSave={() => setShowModal(modalType.Close)}
         onCancel={() => setShowModal(modalType.Close)}
       />
-
       <EditItemModal
         editItemData={editItemData}
         editItemModal={editItemModal}
@@ -241,23 +262,12 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
         receiveItemModal={receiveItemModal}
         setReceiveItemModal={setReceiveItemModal}
       />
-      <VoidItemModal
-        voidItemData={voidItemData}
-        voidItemModal={voidItemModal}
-        setVoidItemModal={setVoidItemModal}
-      />
-      <CancelItemModal
-        cancelItemData={cancelItemData}
-        cancelItemModal={cancelItemModal}
-        setCancelItemModal={setCancelItemModal}
-      />
-      <RemoveItemModal
-        removeItemData={removeItemData}
-        removeItemModal={removeItemModal}
-        setRemoveItemModal={setRemoveItemModal}
+      <ManageItemsModal
+        isOpen={modalOpen === modalType.ManagePurchaseOrders}
+        {...manageOrdersModalData}
       />
     </>
   );
 };
 
-export default HistoryManagement;
+export default ItemsManagement;

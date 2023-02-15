@@ -1,7 +1,7 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import { Table2DemoColumns, Table2StaticData } from '@/data';
+import { PODetailsItemsColumns, Table2StaticData } from '@/data';
 import { Card, Col, Row } from 'antd';
 import { useState } from 'react';
 
@@ -44,7 +44,7 @@ const Details: React.FC = () => {
             <Col span={12}>&nbsp;</Col>
           </Row>
           <OTable
-            columns={Table2DemoColumns}
+            columns={PODetailsItemsColumns}
             rows={Table2StaticData}
             type="checkbox"
             selectedRows={selectedRows}

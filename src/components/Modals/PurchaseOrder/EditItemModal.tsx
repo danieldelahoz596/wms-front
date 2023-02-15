@@ -63,7 +63,8 @@ const EditItemModal: React.FC<IEditItemModal> = ({
     >
       <>
         <div style={{ textAlign: 'center' }}>
-          <h1>{editItemData?.vendorSku}</h1>
+          {/* <h1>{editItemData?.vendorSku}</h1> */}
+          <h1>Vendor SKU: test product</h1>
         </div>
         <Row gutter={10}>
           <Col span={14}>

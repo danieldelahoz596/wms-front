@@ -20,26 +20,6 @@ const ExportOrderModal: React.FC<IExportOrder> = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const { orderExportSettings } = useModel('orderExportSettings');
-  const [selectedSettings, setSelectedSettings] = useState();
-
-  const handleSettingsSelect = (_value) => {
-    if (_value == 0) {
-      setSelectedSettings(null);
-    } else {
-      const _selectedFullSettings = orderExportSettings.find(
-        (_item, _index) => _index + 1 == _value,
-      );
-      setSelectedSettings(_selectedFullSettings);
-    }
-  };
-
-  // const onConfigureSettings = () => {
-  //   if (selectedSettings) {
-  //     handleConfigureSettings(modalType.OrderExportSettings);
-  //   } else {
-  //     handleConfigureSettings(modalType.AddOrderExportSettings);
-  //   }
-  // };
 
   return (
     <OModal

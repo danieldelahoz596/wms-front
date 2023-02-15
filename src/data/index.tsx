@@ -180,7 +180,7 @@ export const Table1DemoColumns = [
   },
 ];
 
-export const Table2DemoColumns = [
+export const PODetailsItemsColumns = [
   {
     title: 'Status',
     dataIndex: 'status',

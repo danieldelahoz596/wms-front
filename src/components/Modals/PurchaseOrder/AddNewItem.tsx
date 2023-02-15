@@ -7,14 +7,13 @@ import { OTable } from '@/components/Globals/OTable';
 import { Form, Input, Space } from 'antd';
 import React from 'react';
 
-interface IAddNewItemModal {
+interface IAddNewItem {
   isOpen: boolean;
-  title?: string;
   onSave: () => void;
   onCancel: () => void;
 }
 
-const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, title, onSave, onCancel }) => {
+const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, onSave, onCancel }) => {
   const productOptions: IOSelectOption[] = [
     {
       text: 'Item 1',
@@ -39,9 +38,9 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, title, onSave, on
 
   return (
     <OModal
-      title={'Add Items To ' + title}
+      title={'Add Items To P.O. #PO12147'}
       helpLink=""
-      width={1200}
+      width={1000}
       isOpen={isOpen}
       handleCancel={onCancel}
       buttons={[
@@ -88,7 +87,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, title, onSave, on
         <OTable
           bordered
           columns={AddNewItemTableColumns}
-          rows={AddNewItemTableData}
+          rows={[]}
           pagination={false}
           style={{ marginTop: 10 }}
         />
@@ -97,4 +96,4 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, title, onSave, on
   );
 };
 
-export default AddNewItemModal;
+export default AddNewItem;

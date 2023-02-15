@@ -10,7 +10,7 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, message, Space } from 'antd';
+import { Button, Card, Dropdown, Form, message, Popconfirm, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
@@ -126,57 +126,101 @@ const CustomerManagement: React.FC = () => {
       ),
     },
     {
-      onClick: () => console.log('Authorized'),
       btnText: 'Authorize',
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Authorize P.O.(s)',
+          submitBtnText: 'Yes - Authorize P.O.',
+          description: 'Authorizing will send the P.O.(s) to the vendor for confirmation. If a P.O. is tied to a Dropship Order, it will move to Pending Delivery status.',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+            message.success(<p>P.O.(s) moved to <b>Awaiting Confirmation</b> status.</p>);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['1'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization.
     },
     {
+      btnText: 'Restore P.O.',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: 'Restore P.O.(S)',
+          title: 'Restore P.O.(s)',
           submitBtnText: 'Yes - Restore P.O.',
           description: 'This will restore and send the selected P.O.(s) back to pending delivery.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success('P.O.(s) moved to Pending Delivery status');
+            message.success(<p>P.O.(s) moved to <b>Pending Delivery</b> status</p>);
           },
           onClose: () => setModal(modalType.Close),
         });
       },
-      btnText: 'Restore P.O.',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
       // Only in Canceled status.
     },
     {
-      btnText: (
-        <Popconfirm
-          title={'Sure to resend?'}
-          onConfirm={() => {
-            message.success('The selected P.O.(s) have been re-sent to their vendors.');
-          }}
-        >
-          <OButton disabled={selectedRows.length === 0} btnText="Re-send"></OButton>
-        </Popconfirm>
-      ),
+      btnText: 'Re-send',
       disabled: selectedRows.length === 0,
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Resend P.O.(s)',
+          submitBtnText: 'Yes - Resend P.O.',
+          description: 'This will resend the selected P.O.(s) to your vendor partner.',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+            message.success(<p>The selected P.O.(s) have been re-sent to their vendors.</p>);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
-      onClick: () => setModal(modalType.ManagePurchaseOrders),
       btnText: 'Cancel',
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Cancel P.O.(s)',
+          submitBtnText: 'Yes - Cancel P.O.',
+          description: 'Canceling will prevent the selected P.O.(s) from being issued to vendors.',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+            message.success(<p>P.O.(s) moved to <b>Canceled</b> status</p>);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
     },
     {
-      onClick: () => setModal(modalType.ManagePurchaseOrders),
       btnText: 'Confirm',
+      onClick: () => {
+        setModal(modalType.ManagePurchaseOrders);
+        setManageOrdersModalData({
+          title: 'Confirm P.O.(s)',
+          submitBtnText: 'Yes - Confirm P.O.',
+          description: 'Confirming will effectively issue the selected P.O.(s).',
+          confirmMessage: 'Are you sure you want to proceed?',
+          onSave: () => {
+            setModal(modalType.Close);
+            message.success(<p>P.O.(s) moved to <b>Pending Delivery</b> status</p>);
+          },
+          onClose: () => setModal(modalType.Close),
+        });
+      },
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Confirmation
@@ -208,12 +252,13 @@ const CustomerManagement: React.FC = () => {
       // Only in Pending Delivery or Partially Delivered
     },
     {
+      btnText: 'Void',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: 'Void P.O.(S)',
+          title: 'Void P.O.(s)',
           submitBtnText: 'Yes - Void P.O.',
-          description: 'This will all pending items and close the seleted P.O.(s).',
+          description: 'This will void all pending items and close the seleted P.O.(s).',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
@@ -222,7 +267,6 @@ const CustomerManagement: React.FC = () => {
           onClose: () => setModal(modalType.Close),
         });
       },
-      btnText: 'Void',
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered

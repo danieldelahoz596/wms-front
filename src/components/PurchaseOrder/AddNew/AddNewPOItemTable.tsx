@@ -81,8 +81,8 @@ const AddNewPOItemTable: React.FC = () => {
     vendorSku: item.product?.vendorSku,
     quantity: item.quantity,
     unitMeasure: item.unitMeasure,
-    totalUnitQty: item.quantity,
-    unitCost: item.unitCost,
+    totalUnitQty: item.totalUnitqQuantity,
+    originalCost: item.originalCost,
     discountType: item.discountType,
     discount: item.discount,
   }));

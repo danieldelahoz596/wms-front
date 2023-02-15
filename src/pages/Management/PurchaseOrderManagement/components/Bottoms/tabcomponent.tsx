@@ -1,5 +1,5 @@
 import PODetailsBottom from '@/components/PurchaseOrder/Details';
-import HistoryManagement from '@/components/PurchaseOrder/History';
+import ItemsManagement from '@/components/PurchaseOrder/Items';
 import { Tabs } from 'antd';
 import type { FC } from 'react';
 
@@ -12,7 +12,7 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
     {
       key: 'items',
       label: 'Items',
-      children: <HistoryManagement data={POProductItems} />,
+      children: <ItemsManagement data={POProductItems} />,
     },
     {
       key: 'details',

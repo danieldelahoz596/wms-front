@@ -80,7 +80,8 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
     >
       <>
         <div style={{ textAlign: 'center' }}>
-          <h1>{receiveItemData?.vendorSku}</h1>
+          {/* <h1>{receiveItemData?.vendorSku}</h1> */}
+          <h1>Vendor SKU: test product</h1>
         </div>
         <Row gutter={10}>
           <Col span={9}>

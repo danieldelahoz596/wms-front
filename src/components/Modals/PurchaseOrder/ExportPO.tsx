@@ -41,7 +41,7 @@ const ExportPOModal: React.FC<IExportPO> = ({
 
   return (
     <OModal
-      title="Export Selected Orders"
+      title="Export Selected Purchase Orders"
       helpLink=""
       width={500}
       isOpen={isOpen}
@@ -56,7 +56,7 @@ const ExportPOModal: React.FC<IExportPO> = ({
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Export orders',
+          btnLabel: 'Export Purchase Orders',
           onClick: onSave,
         },
       ]}

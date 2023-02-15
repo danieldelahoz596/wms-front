@@ -133,7 +133,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   return (
     <OModal
       title={editableExportSetting ? 'Edit Export Settings' : 'New Export Settings'}
-      helpLink="/help/orders/general"
       width={700}
       isOpen={isOpen}
       handleCancel={handleClose}
@@ -204,18 +203,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 </Form.Item>
               </Space>
             </Card>
-            <Form.Item
-              labelCol={{ span: 21 }}
-              name="wrapDoubleQuote"
-              valuePropName="checked"
-              label="Wrap values in double quotes when exporting CSV/text files?"
-              colon={false}
-            >
-              <Checkbox />
-            </Form.Item>
-            <span>NOTE: Vendor Cost and Vendor SKU fields are specific to dropship orders.</span>
           </Col>
-
           <Col span={13}>
             <Card
               title={

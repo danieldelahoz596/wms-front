@@ -25,7 +25,7 @@ const ManageItemsModal: React.FC<IManageItemsModal> = ({
     <OModal
       title={title}
       helpLink=""
-      width={300}
+      width={320}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

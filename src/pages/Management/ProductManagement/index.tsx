@@ -39,6 +39,7 @@ import { useResizable } from 'react-resizable-layout';
 import LeftPanel from './components/LeftPanel/sidePanel';
 import BottomPanel from './components/BottomPanel';
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
+import { OTable } from '@/components/Globals/OTable';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -381,9 +382,9 @@ const ProductManagement: React.FC = () => {
                   </Dropdown>
                 </Space>
 
-                <Table
+                <OTable
                   columns={TColumns}
-                  dataSource={productTableRows}
+                  rows={productTableRows}
                   style={{ marginTop: 10 }}
                   onRow={(record) => {
                     return {

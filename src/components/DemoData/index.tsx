@@ -36,7 +36,7 @@ export const AddNewPOItemTableColumns = [
   },
   {
     title: 'Unit Cost',
-    dataIndex: 'unitCost',
+    dataIndex: 'originalCost',
     key: 'unitCost',
     editable: true,
   },
@@ -104,109 +104,6 @@ export const AddNewItemTableColumns = [
     title: 'Discount',
     dataIndex: 'discount',
     key: 'discount',
-  },
-];
-
-export const AddNewItemTableData = [
-  {
-    product: 'product 1',
-    vendorSku: '123456',
-    buyer: '123456',
-    qty: '10',
-    unitMeasure: 'Each',
-    totalUnitQty: '50',
-    unitCost: '$61',
-    discountType: '$',
-    discount: '0.00',
-  },
-  {
-    product: 'product 1',
-    vendorSku: '123456',
-    buyer: '123456',
-    qty: '10',
-    unitMeasure: 'Each',
-    totalUnitQty: '50',
-    unitCost: '$61',
-    discountType: '$',
-    discount: '0.00',
-  },
-];
-
-export const Table2DemoColumns = [
-  {
-    title: '',
-    dataIndex: '',
-    key: '',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-  },
-  {
-    title: 'Product',
-    dataIndex: 'product',
-    key: 'product',
-  },
-  {
-    title: 'Vendor SKU',
-    dataIndex: 'vendorSku',
-    key: 'vendorSku',
-  },
-  {
-    title: 'Buyer',
-    dataIndex: 'buyer',
-    key: 'buyer',
-  },
-  {
-    title: 'Qty.',
-    dataIndex: 'qty',
-    key: 'qty',
-  },
-  {
-    title: 'Hold Qty',
-    dataIndex: 'holdQty',
-    key: 'holdQty',
-  },
-  {
-    title: 'Unit of Measure',
-    dataIndex: 'unitMeasure',
-    key: 'unitMeasure',
-  },
-  {
-    title: 'Total Unit Qty.',
-    dataIndex: 'totalUnitQty',
-    key: 'totalUnitQty',
-  },
-  {
-    title: 'Original Cost',
-    dataIndex: 'originalCost',
-    key: 'originalCost',
-  },
-  {
-    title: 'Billed Cost',
-    dataIndex: 'billedCost',
-    key: 'billedCost',
-  },
-  {
-    title: 'Landed Cost',
-    dataIndex: 'landedCost',
-    key: 'landedCost',
-  },
-  {
-    title: 'Discount',
-    dataIndex: 'discount',
-    key: 'discount',
-  },
-  {
-    title: 'Tax %',
-    dataIndex: 'tax',
-    key: 'tax',
-  },
-  {
-    title: 'Total Cost',
-    dataIndex: 'totalCost',
-    key: 'totalCost',
   },
 ];
 

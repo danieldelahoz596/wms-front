@@ -1,9 +1,11 @@
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
+import { OTable } from '@/components/Globals/OTable';
+import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
-import { Button, Space, Table } from 'antd';
+import { Space } from 'antd';
 import React, { useState } from 'react';
 import NewMilestone from './NewMilestone';
-import { uuidv4 } from '@antv/xflow-core';
 
 export interface IConfigureMilestonesModal {
   isOpen: boolean;
@@ -53,9 +55,10 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
       ]}
     >
       <>
-        <Space size={10}>
-          <Button onClick={() => setShowModal(true)}>New Milestone</Button>
-          <Button
+        <Space size={4}>
+          <OButton btnText="New Milestone" onClick={() => setShowModal(true)} />
+          <OButton
+            btnText="Delete Selected"
             onClick={() => {
               setMilestonesList((prev) =>
                 prev.filter((item) => item.value !== selectedMilestone.value),
@@ -63,14 +66,12 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
               setSelectedMilestone(null);
             }}
             disabled={!selectedMilestone}
-          >
-            Delete Selected
-          </Button>
+          />
         </Space>
-        <Table
+        <OTable
           columns={TColumns}
-          dataSource={milestonesList.map((item, index) => ({ ...item, id: index + 1, key: index }))}
-          pagination={{ hideOnSinglePage: true }}
+          rows={milestonesList.map((item, index) => ({ ...item, id: index + 1, key: index }))}
+          pagination={false}
           onRow={(record) => {
             return {
               onClick: () => setSelectedMilestone(record), // click row
@@ -79,6 +80,7 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
           rowClassName={(record) =>
             record.id === selectedMilestone?.id ? `ant-table-row-selected` : ''
           }
+          style={{ marginTop: 5 }}
         />
 
         <NewMilestone
