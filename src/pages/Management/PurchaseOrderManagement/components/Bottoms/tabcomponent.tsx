@@ -5,6 +5,7 @@ import ItemsManagement from '@/components/PurchaseOrder/Items';
 import { Radio, Card, Space } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import { useModel } from '@umijs/max';
+import PoItemHistoryModal from '@/components/PurchaseOrder/History';
 
 interface ITabComponent {
   POProductItems: any[];
@@ -50,15 +51,9 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
         ) : selectedMode === 'details' ? (
           <PODetailsBottom />
         ) : (
-          <p>project content</p>
+          <PoItemHistoryModal />
         )}
       </Card>
-      {/* <Tabs
-        defaultActiveKey="items"
-        items={tabListNoTitle}
-        tabBarExtraContent={<a href="#">P.O. #FORKS1114</a>}
-        style={{ paddingLeft: 10, paddingRight: 10 }}
-      /> */}
     </>
   );
 };
