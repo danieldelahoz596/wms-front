@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import type { InputRef } from 'antd';
-import { Form, Input, Table } from 'antd';
+import { Form, Input, Table, Select } from 'antd';
 import type { FormInstance } from 'antd/es/form';
 
 interface EditableRowProps {
@@ -10,6 +9,7 @@ interface EditableRowProps {
 interface EditableCellProps {
   title: React.ReactNode;
   editable: boolean;
+  options: { value; label }[];
   children: React.ReactNode;
   dataIndex: string;
   record: any;
@@ -46,6 +46,7 @@ const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
 export const EditableCell: React.FC<EditableCellProps> = ({
   title,
   editable,
+  options,
   children,
   dataIndex,
   record,
@@ -53,7 +54,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
-  const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef(null);
   const form = useContext(EditableContext)!;
 
   useEffect(() => {
@@ -83,18 +84,40 @@ export const EditableCell: React.FC<EditableCellProps> = ({
 
   if (editable) {
     childNode = editing ? (
-      <Form.Item
-        style={{ margin: 0 }}
-        name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
-      >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} autoFocus={true} />
-      </Form.Item>
+      options ? (
+        <Form.Item
+          style={{ margin: 0 }}
+          name={dataIndex}
+          rules={[
+            {
+              required: true,
+              message: `${title} is required.`,
+            },
+          ]}
+        >
+          <Select
+            ref={inputRef}
+            options={options}
+            onChange={save}
+            // onPressEnter={save}
+            onBlur={() => toggleEdit()}
+            autoFocus={true}
+          />
+        </Form.Item>
+      ) : (
+        <Form.Item
+          style={{ margin: 0 }}
+          name={dataIndex}
+          rules={[
+            {
+              required: true,
+              message: `${title} is required.`,
+            },
+          ]}
+        >
+          <Input ref={inputRef} onPressEnter={save} onBlur={save} autoFocus={true} />
+        </Form.Item>
+      )
     ) : (
       <div className="editable-cell-value-wrap" style={{ paddingRight: 24 }} onClick={toggleEdit}>
         {children}
@@ -128,6 +151,7 @@ export const EditableTable: React.FC<ITable> = ({
       onCell: (record: IColumn) => ({
         record,
         editable: col.editable,
+        options: col.options,
         dataIndex: col.dataIndex,
         title: col.title,
         handleSave,

@@ -1,33 +1,21 @@
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
-import { modalType } from '@/utils/helpers/types';
 import { PercentageOutlined } from '@ant-design/icons';
 import { Card, Col, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const { TextArea } = Input;
 
 interface IEditItemModal {
-  editItemData?: any;
-  editItemModal: string;
-  setEditItemModal?: (value: string) => void;
+  isOpen: boolean;
+  item: any;
+  onSave: (item: any) => void;
+  onCancel: () => void;
 }
 
-const EditItemModal: React.FC<IEditItemModal> = ({
-  editItemData,
-  editItemModal,
-  setEditItemModal,
-}) => {
-  const prefixSelectorLabel = <span>$</span>;
-
-  const prefixSelectorSelect = <Form.Item name="prefix" noStyle></Form.Item>;
-
-  const handleCancel = () =>
-    setEditItemModal ? setEditItemModal(modalType.Close) : console.log('Cancel');
-  const handleSave = () =>
-    setEditItemModal ? setEditItemModal(modalType.Close) : console.log('Save');
-
+const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCancel }) => {
+  const [form] = Form.useForm();
   const buyerOptions: IOSelectOption[] = [
     {
       text: 'Item 1',
@@ -39,19 +27,31 @@ const EditItemModal: React.FC<IEditItemModal> = ({
     },
   ];
 
+  useEffect(() => {
+    form.setFieldsValue({
+      ...item,
+      billedCost: item?.billed_cost,
+      landedCost: item?.landed_cost,
+    });
+  }, [isOpen]);
+
+  const handleSave = () => {
+    form.validateFields().then((values) => onSave(values));
+  };
+
   return (
     <OModal
-      title={"Edit Item '" + editItemData?.product + "'"}
+      title={`Edit Item '${item?.product.name}'`}
       helpLink=""
       width={600}
-      isOpen={editItemModal == modalType.Edit}
-      handleCancel={handleCancel}
+      isOpen={isOpen}
+      handleCancel={onCancel}
       buttons={[
         {
           key: 'back',
           type: 'default',
           btnLabel: 'Cancel',
-          onClick: handleCancel,
+          onClick: onCancel,
         },
         {
           key: 'submit',
@@ -99,8 +99,8 @@ const EditItemModal: React.FC<IEditItemModal> = ({
           </Col>
           <Col span={10}>
             <Card title="Item Totals">
-              <Form labelCol={{ span: 14 }}>
-                <Form.Item label="Order Quantity">
+              <Form labelCol={{ span: 14 }} form={form}>
+                <Form.Item label="Order Quantity" name="quantity">
                   <InputNumber value={25} />
                 </Form.Item>
                 <Form.Item label="Hold Quantity">
@@ -115,28 +115,23 @@ const EditItemModal: React.FC<IEditItemModal> = ({
                 <Form.Item label="Unit Cost">
                   <span>$1.00</span>
                 </Form.Item>
-                <Form.Item label="Billed Cost">
+                <Form.Item label="Billed Cost" name="billedCost">
                   <Input type="number" addonBefore="$" value={1.0} />
                 </Form.Item>
-                <Form.Item label="Landed Cost">
+                <Form.Item label="Landed Cost" name="landedCost">
                   <Input type="number" addonBefore="$" value={1.0} />
                 </Form.Item>
                 <Form.Item label="Discount">
-                  <Input
-                    type="number"
-                    addonBefore={
-                      <Select
-                        size="small"
-                        options={[
-                          { value: 1, label: 'Item 1' },
-                          { value: 2, label: 'Item 2' },
-                        ]}
-                      />
-                    }
-                    value={0.0}
-                  />
+                  <Input.Group compact>
+                    <Form.Item name="discountType" noStyle>
+                      <Select size="small" options={[{ value: '$', label: '$' }]} />
+                    </Form.Item>
+                    <Form.Item name="discount" noStyle>
+                      <Input type="number" value={0.0} />
+                    </Form.Item>
+                  </Input.Group>
                 </Form.Item>
-                <Form.Item label="Item Tax">
+                <Form.Item label="Item Tax" name="tax">
                   <Row gutter={8}>
                     <Col span={8}>
                       <Form.Item noStyle>

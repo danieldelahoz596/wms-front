@@ -1,15 +1,20 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
 import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import AddNewItem from '@/components/Modals/PurchaseOrder/AddNewItem';
 import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
 import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
 import { modalType } from '@/utils/helpers/types';
-import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled } from '@ant-design/icons';
+import {
+  CheckCircleFilled,
+  CloseCircleFilled,
+  MinusCircleFilled,
+  PlayCircleFilled,
+  StopOutlined,
+} from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space } from 'antd';
-import React, { useState } from 'react';
+import { Col, Row, Space, Table } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 
 interface IItemsManagement {
   data: any[];
@@ -27,8 +32,8 @@ interface IManagePurchaseOrdersModal {
 const TColumns = [
   {
     title: '',
-    dataIndex: 'id',
-    key: 'id',
+    dataIndex: 'key',
+    key: 'key',
   },
   {
     title: 'Status',
@@ -44,7 +49,7 @@ const TColumns = [
       ) : status === '4' ? (
         <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
       ) : (
-        <PlayCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
+        <StopOutlined style={{ color: 'red', fontSize: 14 }} /> //
       ),
   },
   {
@@ -110,19 +115,19 @@ const TColumns = [
 ];
 
 const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
+  const { selectedPOStatus } = useModel('poStatus');
+  const { selectedPO } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
-
-  const [editItemModal, setEditItemModal] = useState('');
-  const [editItemData, setEditItemData] = useState<any>({});
-
-  const [receiveItemModal, setReceiveItemModal] = useState('');
-  const [receiveItemData, setReceiveItemData] = useState<any>({});
+  const [poItems, setPoItems] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const { selectedPOStatus } = useModel('poStatus');
-  const [modalOpen, setModal] = useState('');
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
+
+  useEffect(() => {
+    setPoItems(data);
+    setSelectedRow(null);
+  }, [data]);
 
   const actionButtons: IOButton[] = [
     {
@@ -133,109 +138,121 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
       // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
-      onClick: () => setEditItemModal(modalType.Edit),
+      onClick: () => setShowModal(modalType.Edit),
       btnText: 'Edit',
+      disabled: !selectedRow,
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
-      onClick: () => setReceiveItemModal(modalType.Receive),
+      onClick: () => setShowModal(modalType.Receive),
       btnText: 'Receive',
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
       btnText: 'Void',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Void Item 'Test Product - Test Product'",
+          title: `Void Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Void Item',
           description: 'Voiding this item will mark it as unfulfilled by the vendor.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
       btnText: 'Cancel',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Cancel Item 'Test Product - Test Product'",
+          title: `Cancel Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Cancel Item',
           description:
             "Canceling this item will mark it as an error. Please note that canceled items <b> do not </b> count against a vendor's score card.",
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
       btnText: 'Remove',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Remove Item 'Test Product - Test Product'",
+          title: `Remove Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Remove Item',
           description: 'Removing this item will exclue it from the issued P.O.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
+            setPoItems((prev) => prev.filter((item) => item.id !== selectedRow.id));
+            setSelectedRow(null);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
   ];
 
-  const rows = data.map((poItem: any, index) => ({
-    key: index + 1,
-    id: poItem.id,
-    status: poItem.status,
-    product: poItem.product?.name,
-    vendorSku: poItem.product?.vendorSku,
-    Qty: poItem.quantity,
-    holdQty: poItem.holdQty,
-    qty: poItem.quantity,
-    unitMeasure: poItem.unitMeasure,
-    totalUnitQty: poItem.quantity,
-    originalCost: poItem.originalCost,
-    discount: poItem.discount,
-    totalCost:
-      parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
-  }));
+  const rows = useMemo(
+    () =>
+      poItems.map((poItem: any, index) => ({
+        key: index + 1,
+        id: poItem.id,
+        status: poItem.status,
+        product: poItem.product?.name,
+        vendorSku: poItem.product?.vendorSku,
+        Qty: poItem.quantity,
+        holdQty: poItem.holdQty,
+        qty: poItem.quantity,
+        unitMeasure: poItem.unitMeasure,
+        totalUnitQty: poItem.quantity,
+        originalCost: poItem.originalCost,
+        discount: poItem.discount,
+        tax: poItem.tax,
+        totalCost:
+          parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
+      })),
+    [poItems],
+  );
 
   return (
     <>
       <Row gutter={10}>
         <Col span={22}>
-          <OTable
+          <Table
             columns={TColumns}
-            rows={rows}
+            dataSource={rows}
             pagination={false}
             onRow={(record) => {
               return {
                 onClick: () => {
                   if (record.id === selectedRow?.id) setSelectedRow(null);
-                  else setSelectedRow(record);
+                  else setSelectedRow(poItems.find((item) => item.id === record.id));
                 }, // click row
               };
             }}
-            // rowClassName={(record) =>
-            //   record.id === selectedRow?.id ? `ant-table-row-selected` : ''
-            // }
+            rowClassName={(record) =>
+              record.id === selectedRow?.id ? `ant-table-row-selected` : ''
+            }
           />
         </Col>
         <Col span={2}>
@@ -249,21 +266,60 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
 
       <AddNewItem
         isOpen={showModal === modalType.New}
-        onSave={() => setShowModal(modalType.Close)}
+        poNumber={selectedPO?.ponumber}
+        items={data}
+        onSave={(items) => {
+          setPoItems(items);
+          setShowModal(modalType.Close);
+        }}
         onCancel={() => setShowModal(modalType.Close)}
       />
       <EditItemModal
-        editItemData={editItemData}
-        editItemModal={editItemModal}
-        setEditItemModal={setEditItemModal}
+        isOpen={showModal === modalType.Edit}
+        item={selectedRow}
+        onSave={(poData) => {
+          setSelectedRow(null);
+          setPoItems((prev) =>
+            prev.map((item) =>
+              item.id === selectedRow.id
+                ? {
+                    ...item,
+                    ...poData,
+                    billed_cost: poData.billedCost,
+                    landed_cost: poData.landedCost,
+                  }
+                : item,
+            ),
+          );
+          setShowModal(modalType.Close);
+        }}
+        onCancel={() => setShowModal(modalType.Close)}
       />
+
       <ReceiveItemModal
-        receiveItemData={receiveItemData}
-        receiveItemModal={receiveItemModal}
-        setReceiveItemModal={setReceiveItemModal}
+        isOpen={showModal === modalType.Receive}
+        item={selectedRow}
+        onSave={(poData) => {
+          setSelectedRow(null);
+          setPoItems((prev) =>
+            prev.map((item) =>
+              item.id === selectedRow.id
+                ? {
+                    ...item,
+                    ...poData,
+                    billed_cost: poData.billedCost,
+                    landed_cost: poData.landedCost,
+                  }
+                : item,
+            ),
+          );
+          setShowModal(modalType.Close);
+        }}
+        onCancel={() => setShowModal(modalType.Close)}
       />
+
       <ManageItemsModal
-        isOpen={modalOpen === modalType.ManagePurchaseOrders}
+        isOpen={showModal === modalType.ManagePurchaseOrders}
         {...manageOrdersModalData}
       />
     </>

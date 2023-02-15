@@ -1,86 +1,70 @@
 import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
-import { Card, Select } from 'antd';
-import React from 'react';
+import { Card, Select, Form } from 'antd';
+import React, { useMemo } from 'react';
 interface IVendorModal {
-  vendorModal: string;
-  onVendorModalNext: () => void;
-  onVendorModalCancel: () => void;
-  vendorModalLayout: any;
-  form?: any;
-  onVendorChange?: (value: string) => void;
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
 }
 
-const VendorModal: React.FC<IVendorModal> = ({
-  vendorModal,
-  onVendorModalNext,
-  onVendorModalCancel,
-  vendorModalLayout,
-  form,
-  onVendorChange,
-}) => {
-  const { vendorList } = useModel('vendor');
-  const { initialState } = useModel('@@initialState');
+const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
+  const [form] = Form.useForm();
+  const { vendorList, setSelectedVendor } = useModel('vendor');
 
-  const handleVendorChange = (name: string, value: string) => {
-    if (onVendorChange) {
-      onVendorChange(value);
-    }
+  const selectVendorOptions = useMemo(
+    () =>
+      vendorList.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    [vendorList],
+  );
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      setSelectedVendor(vendorList.find((item) => item.id === values.vendor));
+      onSave();
+    });
   };
-
-  const selectVendorOptions: IOSelectOption[] = vendorList?.map((item) => ({
-    value: item.id,
-    text: item.name,
-  }));
 
   return (
     <OModal
       title="Choose P.O. Vendor"
       width={400}
-      isOpen={vendorModal === modalType.New}
-      handleCancel={onVendorModalCancel}
+      isOpen={isOpen}
+      handleCancel={onClose}
       buttons={[
         {
           key: 'back',
           type: 'default',
           btnLabel: 'Cancel',
-          onClick: onVendorModalCancel,
+          onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
           btnLabel: 'Next',
-          onClick: onVendorModalNext,
+          onClick: handleSave,
         },
       ]}
     >
       <Card title="Vendor">
         <>
-          <Select
-            placeholder="Select..."
-            size="middle"
-            name="vendor"
-            options={initialState?.initialData?.vendors.map((_item) => ({
-              value: _item.id,
-              label: _item.name,
-            }))}
-            onChange={handleVendorChange}
-            allowClear
-            style={{ width: '100%', marginBottom: 5 }}
-          />
-          {/* <Form {...vendorModalLayout} className="choose-vendor" form={form} name="control-hooks">
-            <Form.Item name="vendor" label="Vendor" rules={[{ required: true }]}>
-              <OSelect
-                name="vendor"
+          <Form form={form}>
+            <Form.Item
+              name="vendor"
+              rules={[{ required: true, message: 'Please select the vendor!' }]}
+              labelCol={{ span: 0 }}
+            >
+              <Select
+                placeholder="Select..."
+                size="middle"
                 options={selectVendorOptions}
-                placeholder="Select Vendor"
-                onChange={handleVendorChange}
-                allowClear
+                style={{ width: '100%', marginBottom: 5 }}
               />
             </Form.Item>
-          </Form> */}
+          </Form>
         </>
       </Card>
     </OModal>

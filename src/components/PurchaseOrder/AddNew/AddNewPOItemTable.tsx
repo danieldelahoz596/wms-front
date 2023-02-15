@@ -47,6 +47,7 @@ const AddNewPOItemTable: React.FC = () => {
           name,
           productList.find((item) => item.id === value),
         ),
+      value: poItem.product?.id,
       options: productList.map((_product) => ({ text: _product.name, value: _product.id })),
       style: { width: 250 },
     },
@@ -55,6 +56,7 @@ const AddNewPOItemTable: React.FC = () => {
       label: 'Quantity',
       name: 'quantity',
       placeholder: 'Quantity',
+      value: poItem.quantity,
       onChange: (name: any, value: any) => handleInputChange(name, value),
       style: { width: 70 },
     },
@@ -64,6 +66,7 @@ const AddNewPOItemTable: React.FC = () => {
       name: 'unitMeasure',
       placeholder: 'Unit of Measure',
       onChange: (name: any, value: any) => handleInputChange(name, value),
+      value: poItem.unitMeasure,
       options: unitMeasureOptions,
       style: { width: 120 },
     },
@@ -113,7 +116,7 @@ const AddNewPOItemTable: React.FC = () => {
       <POItemsFromCSVModal
         isOpen={showModal}
         onSave={(items) => {
-          console.log("items: ", items);
+          console.log('items: ', items);
           addPoItems(items);
           setShowModal(false);
         }}

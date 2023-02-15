@@ -2,13 +2,16 @@ import { OInput } from '@/components/Globals/OInput';
 import { OTable } from '@/components/Globals/OTable';
 import type { IPOOtherCost } from '@/interfaces';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
 import { Col, Row } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { OModal } from '../Globals/OModal';
 
-const AggregateCostTable: React.FC = () => {
-  const { addOtherCost, removeOtherCost, selectedPO, getPoTotalCost } = useModel('po');
+interface IAggregateCostTable {
+  costItems: any[];
+  setCostItems: (value: any) => void;
+}
+
+const AggregateCostTable: React.FC<IAggregateCostTable> = ({ costItems, setCostItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCost, setNewCost] = useState<IPOOtherCost>({
     name: '',
@@ -30,12 +33,17 @@ const AggregateCostTable: React.FC = () => {
     }));
 
   const handleOk = () => {
-    addOtherCost(newCost);
+    // addOtherCost(newCost);
+    setCostItems((prev) => [...prev, newCost]);
     setNewCost({
       name: '',
       cost: 0,
     });
     setIsModalOpen(false);
+  };
+
+  const handleRemove = (removeIndex) => {
+    setCostItems((prev) => prev.filter((item, index) => index !== removeIndex));
   };
 
   const columns = [
@@ -56,15 +64,20 @@ const AggregateCostTable: React.FC = () => {
     },
   ];
 
-  const rows = selectedPO?.otherCost?.map((item: any, index: number) => ({
-    add: (
-      <div onClick={() => {}}>
-        <MinusCircleOutlined style={{ color: 'blue' }} onClick={() => removeOtherCost(index)} />
-      </div>
-    ),
-    name: item.name,
-    cost: item.cost,
-  }));
+  const rows = useMemo(
+    () =>
+      costItems.map((item: any, index: number) => ({
+        key: index,
+        add: (
+          <div onClick={() => {}}>
+            <MinusCircleOutlined style={{ color: 'blue' }} onClick={() => handleRemove(index)} />
+          </div>
+        ),
+        name: item.name,
+        cost: item.cost,
+      })),
+    [costItems],
+  );
 
   return (
     <>
@@ -80,7 +93,7 @@ const AggregateCostTable: React.FC = () => {
           <span>Total:</span>
         </Col>
         <Col span={6}>
-          <span>${getPoTotalCost(selectedPO)}</span>{' '}
+          <span>${costItems.reduce((pre, cur) => pre + cur.cost, 0)}</span>{' '}
         </Col>
       </Row>
 
@@ -92,9 +105,21 @@ const AggregateCostTable: React.FC = () => {
         onCancel={handleCancel}
       >
         <>
-          <OInput type="text" name="name" onChange={handleChange} placeholder="Title" />
+          <OInput
+            type="text"
+            name="name"
+            onChange={handleChange}
+            placeholder="Title"
+            value={newCost.name}
+          />
           <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
-          <OInput type="number" name="cost" onChange={handleChange} placeholder="amount" />
+          <OInput
+            type="number"
+            name="cost"
+            onChange={handleChange}
+            placeholder="amount"
+            value={newCost.cost}
+          />
         </>
       </OModal>
     </>
