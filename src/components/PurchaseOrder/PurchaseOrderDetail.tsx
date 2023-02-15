@@ -1,8 +1,10 @@
 import { OInput } from '@/components/Globals/OInput';
+import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Form, Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import ConfigureMilestonesModal from '../Modals/PurchaseOrder/ConfigureMilestonesModal';
 import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
@@ -12,6 +14,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
   const { handleSelectedPOChange, selectedPO } = useModel('po');
   const { milestonesList } = useModel('milestones');
   const { initialState } = useModel('@@initialState');
+  const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
   const formInputs = [
     {
@@ -100,7 +103,9 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       render: (inputField: any) => (
         <div style={{ display: 'flex', gap: 3 }}>
           <div style={{ flex: '1' }}>{inputField}</div>
-          <SettingOutlined className="setting-button" />
+          <span onClick={() => setShowModal(modalType.ConfigureMilestones)}>
+            <SettingOutlined className="setting-button" />
+          </span>
         </div>
       ),
     },
@@ -119,20 +124,27 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
   ];
 
   return (
-    <Card title="P.O. Details">
-      <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
-        <Space direction="vertical" style={{ width: '100%' }} size={4}>
-          <Form.Item label="From Vendor">
-            <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
-          </Form.Item>
-          {formInputs?.map((inputItem, index) => (
-            <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
-              <OInput {...inputItem} />
+    <>
+      <Card title="P.O. Details">
+        <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
+          <Space direction="vertical" style={{ width: '100%' }} size={4}>
+            <Form.Item label="From Vendor">
+              <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
             </Form.Item>
-          ))}
-        </Space>
-      </Form>
-    </Card>
+            {formInputs?.map((inputItem, index) => (
+              <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
+                <OInput {...inputItem} />
+              </Form.Item>
+            ))}
+          </Space>
+        </Form>
+      </Card>
+
+      <ConfigureMilestonesModal
+        isOpen={showModal === modalType.ConfigureMilestones}
+        onClose={() => setShowModal(modalType.Close)}
+      />
+    </>
   );
 };
 

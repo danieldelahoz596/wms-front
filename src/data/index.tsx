@@ -15,32 +15,46 @@ export const productStaticData = [
 
 export const milestonesStaticData = [
   {
-    text: '30% Deposit Paid',
+    id: 1,
     value: '1',
+    text: '30% Deposit Paid',
+    color: '#000000',
   },
   {
+    id: 2,
     text: '30% Deposit; 50% PAID',
     value: '2',
+    color: '#000000',
   },
   {
+    id: 3,
     text: '50% sent',
     value: '3',
+    color: '#000000',
   },
   {
+    id: 4,
     text: 'Added in SAP',
     value: '4',
+    color: '#000000',
   },
   {
+    id: 5,
     text: 'Awaiting Truck',
     value: '5',
+    color: '#000000',
   },
   {
+    id: 6,
     text: 'Bagged',
     value: '6',
+    color: '#000000',
   },
   {
+    id: 7,
     text: 'CEO',
     value: '7',
+    color: '#000000',
   },
 ];
 

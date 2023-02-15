@@ -81,6 +81,7 @@
     "@umijs/max": "^4.0.24",
     "@umijs/openapi": "^1.7.0",
     "@umijs/plugin-locale": "^0.16.0",
+    "antd-colorpicker": "^1.0.0",
     "cross-env": "^7.0.3",
     "cross-port-killer": "^1.4.0",
     "detect-installer": "^1.0.2",
