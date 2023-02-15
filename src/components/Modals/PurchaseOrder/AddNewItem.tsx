@@ -1,29 +1,29 @@
-import { AddNewItemTableColumns, AddNewItemTableData } from '@/components/DemoData/index';
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { OSelect } from '@/components/Globals/OSelect';
-import { OTable } from '@/components/Globals/OTable';
-import { Form, Input, Space } from 'antd';
-import React from 'react';
+import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
+import { EditableTable } from '@/utils/components/EditableTable';
+import { Form, Input, Space, Select } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 
 interface IAddNewItem {
   isOpen: boolean;
-  onSave: () => void;
+  poNumber: string;
+  items: any[];
+  onSave: (items: any[]) => void;
   onCancel: () => void;
 }
 
-const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, onSave, onCancel }) => {
-  const productOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
+const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, onCancel }) => {
+  const { productList } = useModel('product');
+  const [form] = Form.useForm();
+  const [poItems, setPoItems] = useState([]);
+
+  const productOptions = useMemo(
+    () => productList.map((item) => ({ value: item.id, label: item.name })),
+    [productList],
+  );
 
   const unitMeasureOptions: IOSelectOption[] = [
     {
@@ -36,9 +36,120 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, onSave, onCancel }) => {
     },
   ];
 
+  const AddNewItemTableColumns = [
+    {
+      title: 'Product',
+      dataIndex: 'product',
+      key: 'product',
+      editable: true,
+      options: productOptions,
+    },
+    {
+      title: 'Vendor SKU',
+      dataIndex: 'vendorSku',
+      key: 'vendorSku',
+      editable: true,
+    },
+    {
+      title: 'Buyer.',
+      dataIndex: 'buyer',
+      key: 'buyer',
+    },
+    {
+      title: 'Qty.',
+      dataIndex: 'quantity',
+      key: 'quantity',
+      editable: true,
+    },
+    {
+      title: 'Unit of Measure',
+      dataIndex: 'unitMeasure',
+      key: 'unitMeasure',
+      editable: true,
+    },
+    {
+      title: 'Total Unit Qty.',
+      dataIndex: 'totalUnitQty',
+      key: 'totalUnitQty',
+      editable: true,
+    },
+    {
+      title: 'Unit Cost',
+      dataIndex: 'unitCost',
+      key: 'unitCost',
+      editable: true,
+    },
+    {
+      title: 'Discount Type',
+      dataIndex: 'discountType',
+      key: 'discountType',
+      editable: true,
+      options: [{ value: '$', label: '$' }],
+    },
+    {
+      title: 'Discount',
+      dataIndex: 'discount',
+      key: 'discount',
+      editable: true,
+    },
+  ];
+
+  const tableRows = useMemo(
+    () =>
+      poItems.map((item) => ({
+        key: item.id,
+        product: item.product?.name,
+        vendorSku: item.product?.vendor_skus,
+        buyer: item.product?.buyer,
+        quantity: item.quantity,
+        unitMeasure: item.unitMeasure,
+        totalUnitqQuantity: item.totalUnitqQuantity,
+        unitCost: '',
+        discountType: item.discountType,
+        discount: item.discount,
+      })),
+    [poItems],
+  );
+
+  useEffect(() => {
+    setPoItems(items);
+  }, [isOpen]);
+
+  const handleAdd = () => {
+    form.validateFields().then((values) =>
+      setPoItems((prev) => [
+        ...prev,
+        {
+          id: uuidv4(),
+          ...values,
+          product: productList.find((item) => item.id === values.product),
+          discountType: '$',
+          discount: 1,
+        },
+      ]),
+    );
+  };
+
+  const handleItemSave = (index, name, value) => {
+    console.log(index, name, value);
+    setPoItems((prev) =>
+      prev.map((item) =>
+        item.id === index
+          ? name === 'product'
+            ? { ...item, product: productList.find((product) => product.id === value) }
+            : { ...item, [name]: value }
+          : item,
+      ),
+    );
+  };
+
+  const handleSave = () => {
+    onSave(poItems);
+  };
+
   return (
     <OModal
-      title={'Add Items To P.O. #PO12147'}
+      title={`Add Items To P.O. #${poNumber}`}
       helpLink=""
       width={1000}
       isOpen={isOpen}
@@ -54,42 +165,35 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, onSave, onCancel }) => {
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: onSave,
+          onClick: handleSave,
         },
       ]}
     >
       <>
-        <Form>
+        <Form form={form}>
           <Space>
-            <Form.Item>
-              <OSelect
-                name="product"
+            <Form.Item name="product">
+              <Select
                 placeholder="Select a product..."
                 options={productOptions}
                 onChange={() => {}}
                 style={{ width: 250 }}
               />
             </Form.Item>
-            <Form.Item label="Quantity">
-              <Input type="number" style={{ width: 70 }} />
+            <Form.Item label="Quantity" name="quantity">
+              <Input type="number" style={{ width: 70 }} min={1} />
             </Form.Item>
-            <Form.Item label="Unit of measure">
-              <OSelect
-                name="unitMeasure"
-                options={unitMeasureOptions}
-                onChange={() => {}}
-                style={{ width: 120 }}
-              />
+            <Form.Item label="Unit of measure" name="unitMeasure">
+              <Select options={unitMeasureOptions} onChange={() => {}} style={{ width: 120 }} />
             </Form.Item>
-            <OButton btnText={'Add'} size="large" />
+            <OButton btnText={'Add'} size="large" onClick={handleAdd} />
           </Space>
         </Form>
-        <OTable
-          bordered
+        <EditableTable
           columns={AddNewItemTableColumns}
-          rows={[]}
+          dataSource={tableRows}
           pagination={false}
-          style={{ marginTop: 10 }}
+          handleSave={handleItemSave}
         />
       </>
     </OModal>

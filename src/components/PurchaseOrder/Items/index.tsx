@@ -14,7 +14,7 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space, Table } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 interface IItemsManagement {
   data: any[];
@@ -115,7 +115,10 @@ const TColumns = [
 ];
 
 const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
+  const { selectedPOStatus } = useModel('poStatus');
+  const { selectedPO } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
+  const [poItems, setPoItems] = useState([]);
 
   const [editItemModal, setEditItemModal] = useState('');
   const [editItemData, setEditItemData] = useState<any>({});
@@ -124,10 +127,11 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [receiveItemData, setReceiveItemData] = useState<any>({});
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const { selectedPOStatus } = useModel('poStatus');
   const [modalOpen, setModal] = useState('');
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
+
+  useEffect(() => setPoItems(data), [data]);
 
   const actionButtons: IOButton[] = [
     {
@@ -205,22 +209,26 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
     },
   ];
 
-  const rows = data.map((poItem: any, index) => ({
-    key: index + 1,
-    id: poItem.id,
-    status: poItem.status,
-    product: poItem.product?.name,
-    vendorSku: poItem.product?.vendorSku,
-    Qty: poItem.quantity,
-    holdQty: poItem.holdQty,
-    qty: poItem.quantity,
-    unitMeasure: poItem.unitMeasure,
-    totalUnitQty: poItem.quantity,
-    originalCost: poItem.originalCost,
-    discount: poItem.discount,
-    totalCost:
-      parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
-  }));
+  const rows = useMemo(
+    () =>
+      poItems.map((poItem: any, index) => ({
+        key: index + 1,
+        id: poItem.id,
+        status: poItem.status,
+        product: poItem.product?.name,
+        vendorSku: poItem.product?.vendorSku,
+        Qty: poItem.quantity,
+        holdQty: poItem.holdQty,
+        qty: poItem.quantity,
+        unitMeasure: poItem.unitMeasure,
+        totalUnitQty: poItem.quantity,
+        originalCost: poItem.originalCost,
+        discount: poItem.discount,
+        totalCost:
+          parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
+      })),
+    [poItems],
+  );
 
   return (
     <>
@@ -254,7 +262,12 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
 
       <AddNewItem
         isOpen={showModal === modalType.New}
-        onSave={() => setShowModal(modalType.Close)}
+        poNumber={selectedPO?.ponumber}
+        items={data}
+        onSave={(items) => {
+          setPoItems(items);
+          setShowModal(modalType.Close);
+        }}
         onCancel={() => setShowModal(modalType.Close)}
       />
       <EditItemModal
