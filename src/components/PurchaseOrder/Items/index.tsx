@@ -120,9 +120,6 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [poItems, setPoItems] = useState([]);
 
-  const [editItemModal, setEditItemModal] = useState('');
-  const [editItemData, setEditItemData] = useState<any>({});
-
   const [receiveItemModal, setReceiveItemModal] = useState('');
   const [receiveItemData, setReceiveItemData] = useState<any>({});
 
@@ -142,8 +139,9 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
       // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
-      onClick: () => setEditItemModal(modalType.Edit),
+      onClick: () => setShowModal(modalType.Edit),
       btnText: 'Edit',
+      disabled: !selectedRow,
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
@@ -224,6 +222,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         totalUnitQty: poItem.quantity,
         originalCost: poItem.originalCost,
         discount: poItem.discount,
+        tax: poItem.tax,
         totalCost:
           parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
       })),
@@ -242,7 +241,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
               return {
                 onClick: () => {
                   if (record.id === selectedRow?.id) setSelectedRow(null);
-                  else setSelectedRow(record);
+                  else setSelectedRow(poItems.find((item) => item.id === record.id));
                 }, // click row
               };
             }}
@@ -271,9 +270,25 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         onCancel={() => setShowModal(modalType.Close)}
       />
       <EditItemModal
-        editItemData={editItemData}
-        editItemModal={editItemModal}
-        setEditItemModal={setEditItemModal}
+        isOpen={showModal === modalType.Edit}
+        item={selectedRow}
+        onSave={(poData) => {
+          setSelectedRow(null);
+          setPoItems((prev) =>
+            prev.map((item) =>
+              item.id === selectedRow.id
+                ? {
+                    ...item,
+                    ...poData,
+                    billed_cost: poData.billedCost,
+                    landed_cost: poData.landedCost,
+                  }
+                : item,
+            ),
+          );
+          setShowModal(modalType.Close);
+        }}
+        onCancel={() => setShowModal(modalType.Close)}
       />
       <ReceiveItemModal
         receiveItemData={receiveItemData}
