@@ -1,14 +1,19 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
 import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import AddNewItem from '@/components/Modals/PurchaseOrder/AddNewItem';
 import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
 import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
 import { modalType } from '@/utils/helpers/types';
-import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled } from '@ant-design/icons';
+import {
+  CheckCircleFilled,
+  CloseCircleFilled,
+  MinusCircleFilled,
+  PlayCircleFilled,
+  StopOutlined,
+} from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space } from 'antd';
+import { Col, Row, Space, Table } from 'antd';
 import React, { useState } from 'react';
 
 interface IItemsManagement {
@@ -27,8 +32,8 @@ interface IManagePurchaseOrdersModal {
 const TColumns = [
   {
     title: '',
-    dataIndex: 'id',
-    key: 'id',
+    dataIndex: 'key',
+    key: 'key',
   },
   {
     title: 'Status',
@@ -44,7 +49,7 @@ const TColumns = [
       ) : status === '4' ? (
         <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
       ) : (
-        <PlayCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
+        <StopOutlined style={{ color: 'red', fontSize: 14 }} /> //
       ),
   },
   {
@@ -221,9 +226,9 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
     <>
       <Row gutter={10}>
         <Col span={22}>
-          <OTable
+          <Table
             columns={TColumns}
-            rows={rows}
+            dataSource={rows}
             pagination={false}
             onRow={(record) => {
               return {
@@ -233,9 +238,9 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
                 }, // click row
               };
             }}
-            // rowClassName={(record) =>
-            //   record.id === selectedRow?.id ? `ant-table-row-selected` : ''
-            // }
+            rowClassName={(record) =>
+              record.id === selectedRow?.id ? `ant-table-row-selected` : ''
+            }
           />
         </Col>
         <Col span={2}>
