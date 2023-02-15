@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { OTable } from '@/components/Globals/OTable';
 
 const TColumns = [
   {
@@ -26,12 +26,24 @@ const rows = [
     changedValues:
       'P.O. Created and Authorized by Daniel Levin, then sent to vendor for confirmation.',
   },
+  {
+    key: 2,
+    editTime: '04/11/2018 04:39 PM',
+    user: 'Skubana',
+    changedValues: 'Items Added = [ SC701980787843(x4) SC701980787843(x996) ]',
+  },
+  {
+    key: 3,
+    editTime: '04/09/2018 05:20 PM',
+    user: 'DANIEL.LEVIN@SKUBANA.com',
+    changedValues: 'P.O. created by Skubana. Awaiting authorization.',
+  },
 ];
 
 const PoItemHistoryModal: React.FC = () => {
   return (
     <>
-      <Table columns={TColumns} dataSource={rows} pagination={{ hideOnSinglePage: true }} />
+      <OTable columns={TColumns} rows={rows} pagination={false} />
     </>
   );
 };

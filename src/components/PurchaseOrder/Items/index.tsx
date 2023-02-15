@@ -274,6 +274,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         }}
         onCancel={() => setShowModal(modalType.Close)}
       />
+      
       <EditItemModal
         isOpen={showModal === modalType.Edit}
         item={selectedRow}

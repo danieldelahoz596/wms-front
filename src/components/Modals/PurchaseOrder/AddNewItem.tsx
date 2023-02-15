@@ -125,6 +125,7 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
           product: productList.find((item) => item.id === values.product),
           discountType: '$',
           discount: 1,
+          status: "1",
         },
       ]),
     );
@@ -170,8 +171,8 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
       ]}
     >
       <>
-        <Form form={form}>
-          <Space>
+        <Form form={form} style={{ marginBottom: 10 }}>
+          <Space size={4}>
             <Form.Item name="product">
               <Select
                 placeholder="Select a product..."

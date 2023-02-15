@@ -6,11 +6,13 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table, message, Icon } from 'antd';
+import { Button, Card, Dropdown, message, Popconfirm, Row, Select, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
+import { OTable } from '@/components/Globals/OTable';
+import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
@@ -36,10 +38,8 @@ import VectorIcon from '@/utils/icons/vector';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import LeftPanel from './components/LeftPanel/sidePanel';
 import BottomPanel from './components/BottomPanel';
-import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
-import { OTable } from '@/components/Globals/OTable';
+import LeftPanel from './components/LeftPanel/sidePanel';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -164,37 +164,15 @@ const ProductManagement: React.FC = () => {
       },
     },
   ]
-    .concat(
-      fieldTypes
-        .filter((type) => type.show_on_grid && type.active)
-        .map((type) => ({
-          title: type.name,
-          key: type.id,
-          dataIndex: type.id,
-        })),
-    )
-    .concat([
-      {
-        key: 'action',
-        title: 'Action',
-        render: (_, record) => (
-          <Space size={10}>
-            <a
-              onClick={(event) => {
-                event.stopPropagation();
-                setEditableProduct(productList.find((_item) => _item.id === record.id));
-                setModal(modalType.Edit);
-              }}
-            >
-              Edit
-            </a>
-            <Popconfirm title="Sure to delete?" onConfirm={() => message.success('Deleted')}>
-              <a>Delete</a>
-            </Popconfirm>
-          </Space>
-        ),
-      },
-    ]);
+  .concat(
+    fieldTypes
+      .filter((type) => type.show_on_grid && type.active)
+      .map((type) => ({
+        title: type.name,
+        key: type.id,
+        dataIndex: type.id,
+      })),
+  );
 
   const productTableRows = useMemo(
     () =>

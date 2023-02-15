@@ -1,7 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
-import { PercentageOutlined } from '@ant-design/icons';
 import { Card, Col, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd';
 import React, { useEffect } from 'react';
 
@@ -63,10 +62,9 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
     >
       <>
         <div style={{ textAlign: 'center' }}>
-          {/* <h1>{editItemData?.vendorSku}</h1> */}
-          <h1>Vendor SKU: test product</h1>
+          <h1>Vendor SKU: {item?.product.vendor_skus}</h1>
         </div>
-        <Row gutter={10}>
+        <Row gutter={8}>
           <Col span={14}>
             <Card title="Details">
               <Form labelCol={{ span: 10 }} labelAlign="left">
@@ -99,7 +97,7 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
           </Col>
           <Col span={10}>
             <Card title="Item Totals">
-              <Form labelCol={{ span: 14 }} form={form}>
+              <Form labelCol={{ span: 14 }} form={form} style={{ textAlign: 'right' }}>
                 <Form.Item label="Order Quantity" name="quantity">
                   <InputNumber value={25} />
                 </Form.Item>
@@ -121,27 +119,21 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
                 <Form.Item label="Landed Cost" name="landedCost">
                   <Input type="number" addonBefore="$" value={1.0} />
                 </Form.Item>
-                <Form.Item label="Discount">
-                  <Input.Group compact>
-                    <Form.Item name="discountType" noStyle>
-                      <Select size="small" options={[{ value: '$', label: '$' }]} />
-                    </Form.Item>
-                    <Form.Item name="discount" noStyle>
-                      <Input type="number" value={0.0} />
-                    </Form.Item>
-                  </Input.Group>
+                <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
+                  <Input
+                    type="number"
+                    addonBefore={
+                      <Select
+                        defaultValue="$"
+                        style={{ width: 40 }}
+                        options={[{ value: '$', label: '$' }]}
+                      />
+                    }
+                    value={0.0}
+                  />
                 </Form.Item>
                 <Form.Item label="Item Tax" name="tax">
-                  <Row gutter={8}>
-                    <Col span={8}>
-                      <Form.Item noStyle>
-                        <Input value={'10.0'} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={4}>
-                      <PercentageOutlined />
-                    </Col>
-                  </Row>
+                  <Input value={'10.0'} addonAfter="%" />
                 </Form.Item>
                 <hr />
                 <Form.Item label="Total Cost">

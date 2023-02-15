@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import type { FC } from 'react';
 import PODetailsBottom from '@/components/PurchaseOrder/Details';
-import ItemsManagement from '@/components/PurchaseOrder/Items';
-import { Radio, Card, Space } from 'antd';
-import type { RadioChangeEvent } from 'antd';
-import { useModel } from '@umijs/max';
 import PoItemHistoryModal from '@/components/PurchaseOrder/History';
+import ItemsManagement from '@/components/PurchaseOrder/Items';
+import { useModel } from '@umijs/max';
+import type { RadioChangeEvent } from 'antd';
+import { Card, Radio, Space } from 'antd';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 interface ITabComponent {
   POProductItems: any[];
@@ -21,24 +21,10 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: 5,
-          marginLeft: 10,
-          marginRight: 10,
-        }}
-      >
-        <h2>{selectedPO?.ponumber}</h2>
-        <Radio.Group
-          style={{ marginBottom: 8 }}
-          size="large"
-          value={selectedMode}
-          onChange={handleChange}
-        >
-          <Space size={5}>
+      <div className="space-between" style={{ margin: '5px 5px 0 5px' }}>
+        <h2>P.O. #{selectedPO?.ponumber}</h2>
+        <Radio.Group size="small" buttonStyle="solid" value={selectedMode} onChange={handleChange}>
+          <Space size={2}>
             <Radio.Button value="items">Items</Radio.Button>
             <Radio.Button value="details">Details</Radio.Button>
             <Radio.Button value="history">History</Radio.Button>

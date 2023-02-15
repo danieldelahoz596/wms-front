@@ -1,7 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { OSelect } from '@/components/Globals/OSelect';
-import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import React, { useEffect } from 'react';
 const { TextArea } = Input;
@@ -61,8 +60,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
     >
       <>
         <div style={{ textAlign: 'center' }}>
-          {/* <h1>{receiveItemData?.vendorSku}</h1> */}
-          <h1>Vendor SKU: test product</h1>
+          <h1>Vendor SKU: {item?.product?.vendor_skus}</h1>
         </div>
         <Row gutter={10}>
           <Col span={9}>
@@ -83,7 +81,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
                 <Input />
               </Form.Item>
               <Form.Item label="Item Memo">
-                <TextArea rows={4} />
+                <TextArea rows={2} />
               </Form.Item>
             </Form>
           </Col>
@@ -98,35 +96,28 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
               <Form.Item label="Landed Unit Cost" name="landedCost">
                 <Input type="number" addonBefore="$" />
               </Form.Item>
-              <Form.Item label="Discount">
-                <Input.Group compact>
-                  <Form.Item name="discountType" noStyle>
-                    <Select size="small" options={[{ value: '$', label: '$' }]} />
-                  </Form.Item>
-                  <Form.Item name="discount" noStyle>
-                    <Input type="number" value={0.0} />
-                  </Form.Item>
-                </Input.Group>
+              <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
+                <Input
+                  type="number"
+                  addonBefore={
+                    <Select
+                      defaultValue="$"
+                      style={{ width: 40 }}
+                      options={[{ value: '$', label: '$' }]}
+                    />
+                  }
+                  value={0.0}
+                />
               </Form.Item>
             </Form>
           </Col>
           <Col span={9}>
             <Form labelCol={{ span: 10 }} style={{ textAlign: 'right' }}>
               <Form.Item label="Accept">
-                <Form.Item>
-                  <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                    <Input type="number" value={25} />
-                    <span>units</span>
-                  </div>
-                </Form.Item>
+                <Input type="number" addonAfter="units" value={25} />
               </Form.Item>
               <Form.Item label="Reject">
-                <Form.Item>
-                  <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                    <Input type="number" value={0} />
-                    <span>units</span>
-                  </div>
-                </Form.Item>
+                <Input type="number" addonAfter="units" value={0} />
               </Form.Item>
               <Form.Item label="Total">
                 <span>
@@ -138,33 +129,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
                 <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
               </Form.Item>
               <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
-                <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                  <Input type="number" value={25} />
-                  <span>units</span>
-                </div>
-              </Form.Item>
-              <Form.Item label="Reject">
-                <Form.Item>
-                  <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                    <Input type="number" value={0} />
-                    <span>units</span>
-                  </div>
-                </Form.Item>
-              </Form.Item>
-              <Form.Item label="Total">
-                <span>
-                  <b>25</b> units
-                </span>
-              </Form.Item>
-              <Form.Item label="Update inventory" style={{ textAlign: 'left' }}>
-                <Checkbox />
-                <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
-              </Form.Item>
-              <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
-                <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                  <OSelect name="prefix" options={locationOptions} onChange={() => {}} />
-                  <PlusOutlined className="setting-button" />
-                </div>
+                <Input type="number" addonAfter="units" value={25} />
               </Form.Item>
             </Form>
           </Col>
