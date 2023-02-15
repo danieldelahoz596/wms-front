@@ -126,24 +126,10 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
                   </Form.Item>
                   <Form.Item label="Discount">
                     <Input.Group compact>
-                      <Form.Item
-                        name="discountType"
-                        noStyle
-                        rules={[{ required: true, message: 'Province is required' }]}
-                      >
-                        <Select
-                          size="small"
-                          options={[
-                            { value: 1, label: 'Item 1' },
-                            { value: 2, label: 'Item 2' },
-                          ]}
-                        />
+                      <Form.Item name="discountType" noStyle>
+                        <Select size="small" options={[{ value: '$', label: '$' }]} />
                       </Form.Item>
-                      <Form.Item
-                        name="discount"
-                        noStyle
-                        rules={[{ required: true, message: 'Street is required' }]}
-                      >
+                      <Form.Item name="discount" noStyle>
                         <Input type="number" value={0.0} />
                       </Form.Item>
                     </Input.Group>

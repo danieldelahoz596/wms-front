@@ -120,15 +120,15 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [poItems, setPoItems] = useState([]);
 
-  const [receiveItemModal, setReceiveItemModal] = useState('');
-  const [receiveItemData, setReceiveItemData] = useState<any>({});
-
   const [selectedRow, setSelectedRow] = useState(null);
   const [modalOpen, setModal] = useState('');
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
 
-  useEffect(() => setPoItems(data), [data]);
+  useEffect(() => {
+    setPoItems(data);
+    setSelectedRow(null);
+  }, [data]);
 
   const actionButtons: IOButton[] = [
     {
@@ -145,8 +145,9 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
-      onClick: () => setReceiveItemModal(modalType.Receive),
+      onClick: () => setShowModal(modalType.Receive),
       btnText: 'Receive',
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
@@ -290,11 +291,29 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         }}
         onCancel={() => setShowModal(modalType.Close)}
       />
+
       <ReceiveItemModal
-        receiveItemData={receiveItemData}
-        receiveItemModal={receiveItemModal}
-        setReceiveItemModal={setReceiveItemModal}
+        isOpen={showModal === modalType.Receive}
+        item={selectedRow}
+        onSave={(poData) => {
+          setSelectedRow(null);
+          setPoItems((prev) =>
+            prev.map((item) =>
+              item.id === selectedRow.id
+                ? {
+                    ...item,
+                    ...poData,
+                    billed_cost: poData.billedCost,
+                    landed_cost: poData.landedCost,
+                  }
+                : item,
+            ),
+          );
+          setShowModal(modalType.Close);
+        }}
+        onCancel={() => setShowModal(modalType.Close)}
       />
+
       <ManageItemsModal
         isOpen={modalOpen === modalType.ManagePurchaseOrders}
         {...manageOrdersModalData}
