@@ -121,7 +121,6 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [poItems, setPoItems] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const [modalOpen, setModal] = useState('');
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
 
@@ -154,55 +153,60 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
     {
       btnText: 'Void',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Void Item 'Test Product - Test Product'",
+          title: `Void Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Void Item',
           description: 'Voiding this item will mark it as unfulfilled by the vendor.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
       btnText: 'Cancel',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Cancel Item 'Test Product - Test Product'",
+          title: `Cancel Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Cancel Item',
           description:
             "Canceling this item will mark it as an error. Please note that canceled items <b> do not </b> count against a vendor's score card.",
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Awaiting Confirmation
     },
     {
       btnText: 'Remove',
       onClick: () => {
-        setModal(modalType.ManagePurchaseOrders);
+        setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: "Remove Item 'Test Product - Test Product'",
+          title: `Remove Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Remove Item',
           description: 'Removing this item will exclue it from the issued P.O.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
+            setShowModal(modalType.Close);
+            setPoItems((prev) => prev.filter((item) => item.id !== selectedRow.id));
+            setSelectedRow(null);
           },
-          onClose: () => setModal(modalType.Close),
+          onClose: () => setShowModal(modalType.Close),
         });
       },
+      disabled: !selectedRow,
       hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
@@ -315,7 +319,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
       />
 
       <ManageItemsModal
-        isOpen={modalOpen === modalType.ManagePurchaseOrders}
+        isOpen={showModal === modalType.ManagePurchaseOrders}
         {...manageOrdersModalData}
       />
     </>
