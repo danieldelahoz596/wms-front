@@ -10,13 +10,12 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, Form, message, Popconfirm, Space } from 'antd';
+import { Button, Card, Dropdown, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
-import poStatus from '@/models/poStatus';
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -27,16 +26,10 @@ interface IManagePurchaseOrdersModal {
   onSave: () => void;
 }
 
-const vendorModalLayout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-
 const CustomerManagement: React.FC = () => {
   const {
     poList,
     initialSelectedPO,
-    handleSelectedPOChange,
     getPoTotalCost,
     getTotalUnitQuantity,
     setSelectedPO,
@@ -46,13 +39,12 @@ const CustomerManagement: React.FC = () => {
   const { initialShippingTermList } = useModel('shippingTerm');
   const { selectedPOStatus } = useModel('poStatus');
 
-  const [vendorModal, setVendorModal] = useState('');
-  const [newPOModal, setNewPOModal] = useState('');
+  // const [vendorModal, setVendorModal] = useState('');
+  // const [newPOModal, setNewPOModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
 
-  const [form] = Form.useForm();
   const [modalOpen, setModal] = useState('');
 
   const {
@@ -76,29 +68,29 @@ const CustomerManagement: React.FC = () => {
     min: 50,
   });
 
-  const onVendorModalNext = () => {
-    setVendorModal(modalType.Close);
-    if (form.getFieldValue('vendor')) {
-      setNewPOModal(modalType.New);
-    }
-  };
+  // const onVendorModalNext = () => {
+  //   setVendorModal(modalType.Close);
+  //   if (form.getFieldValue('vendor')) {
+  //     setNewPOModal(modalType.New);
+  //   }
+  // };
 
-  const onVendorModalCancel = () => {
-    setVendorModal(modalType.Close);
-  };
+  // const onVendorModalCancel = () => {
+  //   setVendorModal(modalType.Close);
+  // };
 
-  const onVendorChange = (value: string) => {
-    handleSelectedPOChange('fromVendor', value);
-    // Need to use the local storage's vendors
-    // const itemValue = initialState?.initialData?.vendors?.find((item) => item.id == value)?.name;
-    form.setFieldsValue({
-      vendor: value,
-    });
-  };
+  // const onVendorChange = (value: string) => {
+  //   handleSelectedPOChange('fromVendor', value);
+  //   // Need to use the local storage's vendors
+  //   // const itemValue = initialState?.initialData?.vendors?.find((item) => item.id == value)?.name;
+  //   form.setFieldsValue({
+  //     vendor: value,
+  //   });
+  // };
 
   const handleNewPOModalOpen = () => {
     initialSelectedPO();
-    setVendorModal(modalType.New);
+    setModal(modalType.New);
   };
 
   const actionButtons: IOButton[] = [
@@ -132,11 +124,16 @@ const CustomerManagement: React.FC = () => {
         setManageOrdersModalData({
           title: 'Authorize P.O.(s)',
           submitBtnText: 'Yes - Authorize P.O.',
-          description: 'Authorizing will send the P.O.(s) to the vendor for confirmation. If a P.O. is tied to a Dropship Order, it will move to Pending Delivery status.',
+          description:
+            'Authorizing will send the P.O.(s) to the vendor for confirmation. If a P.O. is tied to a Dropship Order, it will move to Pending Delivery status.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success(<p>P.O.(s) moved to <b>Awaiting Confirmation</b> status.</p>);
+            message.success(
+              <p>
+                P.O.(s) moved to <b>Awaiting Confirmation</b> status.
+              </p>,
+            );
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -156,7 +153,11 @@ const CustomerManagement: React.FC = () => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success(<p>P.O.(s) moved to <b>Pending Delivery</b> status</p>);
+            message.success(
+              <p>
+                P.O.(s) moved to <b>Pending Delivery</b> status
+              </p>,
+            );
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -196,7 +197,11 @@ const CustomerManagement: React.FC = () => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success(<p>P.O.(s) moved to <b>Canceled</b> status</p>);
+            message.success(
+              <p>
+                P.O.(s) moved to <b>Canceled</b> status
+              </p>,
+            );
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -216,7 +221,11 @@ const CustomerManagement: React.FC = () => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success(<p>P.O.(s) moved to <b>Pending Delivery</b> status</p>);
+            message.success(
+              <p>
+                P.O.(s) moved to <b>Pending Delivery</b> status
+              </p>,
+            );
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -262,7 +271,11 @@ const CustomerManagement: React.FC = () => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
-            message.success(<p>P.O.(s) moved to <b>Voided</b> status.</p>);
+            message.success(
+              <p>
+                P.O.(s) moved to <b>Voided</b> status.
+              </p>,
+            );
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -377,15 +390,18 @@ const CustomerManagement: React.FC = () => {
       </div>
 
       <VendorModal
-        vendorModal={vendorModal}
-        onVendorModalNext={onVendorModalNext}
-        onVendorModalCancel={onVendorModalCancel}
-        vendorModalLayout={vendorModalLayout}
-        form={form}
-        onVendorChange={onVendorChange}
+        isOpen={modalOpen === modalType.New}
+        onSave={() => {
+          setModal(modalType.AddNewPo);
+        }}
+        onClose={() => {}}
       />
 
-      <AddNewPOModal newPOModal={newPOModal} setNewPOModal={setNewPOModal} />
+      <AddNewPOModal
+        isOpen={modalOpen === modalType.AddNewPo}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
 
       <ManageItemsModal
         isOpen={modalOpen === modalType.ManagePurchaseOrders}
