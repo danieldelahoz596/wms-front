@@ -73,7 +73,7 @@ const AggregateCostTable: React.FC = () => {
         columns={columns}
         rows={rows}
         pagination={false}
-        style={{ marginTop: 3, marginBottom: 3, textAlign: 'center' }}
+        style={{ marginTop: 3, marginBottom: 3, textAlign: '' }}
       />
       <Row>
         <Col offset={12} span={6}>

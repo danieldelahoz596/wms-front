@@ -45,14 +45,14 @@ const CancelItemModal: React.FC<ICancelItemModal> = ({
         <Alert
           description={
             <p>
-              Canceling this item will mark it as an error. Please note that canceled items{' '}
-              <b>do not </b>
-              count againist a vendor's score card.
+              Canceling this item will mark it as an error. Please note that canceled items
+              <b> do not </b>
+              count against a vendor's score card.
             </p>
           }
         />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
-          <span>Are you sure want to proceed?</span>
+          <span>Are you sure you want to proceed?</span>
         </div>
       </>
     </OModal>

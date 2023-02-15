@@ -86,7 +86,7 @@ header.ant-layout-header {
   padding: 0px !important;
 }
 
-.bottom-panel, .right-panel {
+.bottom-panel, .right-panel, .left-panel {
   .ant-card {
     .ant-card-head {
       position: absolute;
@@ -103,6 +103,15 @@ header.ant-layout-header {
         font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
+      }
+    }
+  }
+
+  .ant-space-vertical, .ant-space-horizontal, .ant-form-vertical {
+    .ant-form-item {
+      margin-bottom: 0px;
+      .ant-form-item-label {
+        padding: 0;
       }
     }
   }
@@ -233,6 +242,30 @@ header.ant-layout-header {
   justify-content: space-between;
 }
 
+.bottom-panel, .right-panel {
+  .plus-button {
+    color: blue;
+    cursor: pointer;
+    height: 32px;
+    padding: 0.6rem 0.6rem;
+    border: 1px solid blue;
+  }
+
+  .setting-button {
+    color: blue;
+    cursor: pointer;
+    height: 32px;
+    padding: 0.6rem 0.6rem;
+    border: 1px solid blue;
+  }
+
+  .help-button {
+    color: blue;
+    cursor: pointer;
+    font-size: 18px;
+  }
+}
+
 .OModal {
   .download-link {
     display: block;
@@ -272,6 +305,15 @@ header.ant-layout-header {
     font-size: 18px;
   }
 }
+
+.help-content {
+  padding: 10px;
+
+  .ant-alert-message {
+    text-transform: uppercase;
+  }
+}
+
 
 // Commons spacing utilites
 .mb-10 {
@@ -384,13 +426,7 @@ header.ant-layout-header {
 //   border-top: 4px solid rgba(0, 0, 0, 0.06);
 // }
 
-// .help-content {
-//   padding: 10px;
 
-//   .ant-alert-message {
-//     text-transform: uppercase;
-//   }
-// }
 
 // .custom {
 //   .ant-collapse-header {

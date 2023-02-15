@@ -152,10 +152,16 @@ const CustomerManagement: React.FC = () => {
       // Only in Canceled status.
     },
     {
-      onClick: () => {
-        message.success('The selected P.O.(s) have been re-sent to their vendors.');
-      },
-      btnText: 'Re-Send',
+      btnText: (
+        <Popconfirm
+          title={'Sure to resend?'}
+          onConfirm={() => {
+            message.success('The selected P.O.(s) have been re-sent to their vendors.');
+          }}
+        >
+          <OButton disabled={selectedRows.length === 0} btnText="Re-send"></OButton>
+        </Popconfirm>
+      ),
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
@@ -173,6 +179,7 @@ const CustomerManagement: React.FC = () => {
       disabled: selectedRows.length === 0,
       hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus.poStatus),
       // Only in Awaiting Confirmation
+      // Confirming will effectively issue the selected P.O.(s).
     },
     {
       onClick: () => {
@@ -208,7 +215,7 @@ const CustomerManagement: React.FC = () => {
           description: 'This will all pending items and close the seleted P.O.(s).',
           onSave: () => {
             setModal(modalType.Close);
-            message.success('P.O.(s) moved to Voided status');
+            message.success(<p>P.O.(s) moved to <b>Voided</b> status.</p>);
           },
           onClose: () => setModal(modalType.Close),
         });
@@ -232,6 +239,7 @@ const CustomerManagement: React.FC = () => {
                 key: 'pick_list',
                 label: <span>Export Purchase Orders</span>,
                 icon: <VerticalAlignBottomOutlined />,
+                disabled: selectedRows.length === 0,
                 onClick: () => setModal(modalType.ExportPOSettings),
               },
             ],

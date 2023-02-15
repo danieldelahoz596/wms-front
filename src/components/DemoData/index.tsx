@@ -164,6 +164,11 @@ export const Table2DemoColumns = [
     key: 'qty',
   },
   {
+    title: 'Hold Qty',
+    dataIndex: 'holdQty',
+    key: 'holdQty',
+  },
+  {
     title: 'Unit of Measure',
     dataIndex: 'unitMeasure',
     key: 'unitMeasure',

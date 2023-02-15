@@ -32,7 +32,7 @@ const LeftPanel: React.FC = () => {
   );
 
   return (
-    <div style={{ padding: 2 }}>
+    <div className="left-panel" style={{ padding: 2 }}>
       <Tabs size="small" defaultActiveKey="1" items={tabItems} />
     </div>
   );

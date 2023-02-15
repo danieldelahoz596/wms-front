@@ -1,7 +1,4 @@
-import {
-  FilterOutlined,
-  SearchOutlined
-} from '@ant-design/icons';
+import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import React from 'react';
 import SideFilterTree from './sideFilterTree';
@@ -32,7 +29,7 @@ const SidePanel: React.FC = () => {
   ];
 
   return (
-    <div style={{ padding: 2 }}>
+    <div className="left-panel" style={{ padding: 2 }}>
       <Tabs size="small" defaultActiveKey="1" items={items} />
     </div>
   );

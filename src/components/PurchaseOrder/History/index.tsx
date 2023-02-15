@@ -75,35 +75,32 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
       // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
     },
     {
-      type: 'primary',
       onClick: () => setReceiveItemModal(modalType.Receive),
       btnText: 'Receive',
-      style: btnStyle,
       disabled: isDisableButtons,
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      // Only NOT in Awaiting Confirmation
     },
     {
-      type: 'primary',
       onClick: () => setVoidItemModal(modalType.Void),
       btnText: 'Void',
-      style: btnStyle,
       disabled: isDisableButtons,
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      // Only NOT in Awaiting Confirmation
     },
     {
-      type: 'primary',
       onClick: () => setCancelItemModal(modalType.Cancel),
       btnText: 'Cancel',
-      style: btnStyle,
       disabled: isDisableButtons,
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      // Only NOT in Awaiting Confirmation
     },
     {
-      type: 'primary',
       onClick: () => setRemoveItemModal(modalType.Remove),
       btnText: 'Remove',
-      style: btnStyle,
       disabled: isDisableButtons,
-      hidden:
-        (selectedPOStatus?.key !== '0' && selectedPOStatus?.key !== '1') ||
-        !selectedPOStatus?.selectedWarehouse,
+      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
+      // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
   ];
 
@@ -111,6 +108,7 @@ const HistoryManagement: React.FC<IHistoryManagement> = ({ data }) => {
     product: poItem.product?.name,
     vendorSku: poItem.product?.vendorSku,
     Qty: poItem.quantity,
+    holdQty: poItem.holdQty,
     unitMeasure: poItem.unitMeasure,
     totalUnitQty: poItem.quantity,
     originalCost: poItem.unitCost,

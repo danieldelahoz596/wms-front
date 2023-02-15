@@ -44,7 +44,7 @@ const VoidItemModal: React.FC<IVoidItemModal> = ({
       <>
         <Alert description="Voiding this item will mark it as unfulfilled by the vendor." />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
-          <span>Are you sure want to proceed?</span>
+          <span>Are you sure you want to proceed?</span>
         </div>
       </>
     </OModal>

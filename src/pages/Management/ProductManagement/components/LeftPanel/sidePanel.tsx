@@ -8,7 +8,7 @@ const SidePanel: React.FC = () => {
   const [searchType, setSearchType] = useState(true);
 
   return (
-    <div>
+    <div className='left-panel'>
       <Row justify="space-between" align="middle">
         <Col flex="auto">
           <div style={{ marginLeft: '5px' }}>

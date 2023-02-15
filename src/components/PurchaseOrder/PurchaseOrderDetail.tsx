@@ -11,9 +11,6 @@ interface IPurchaseOrderDetail {
 const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
   const { handleSelectedPOChange, selectedPO } = useModel('po');
   const { milestonesList } = useModel('milestones');
-  const { shippingTermList } = useModel('shippingTerm');
-  const { poTemplateList } = useModel('poTemplate');
-  const { paymentTermList } = useModel('paymentTerm');
   const { initialState } = useModel('@@initialState');
 
   const formInputs = [
@@ -33,7 +30,6 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       label: 'Custom P.O. Number',
       name: 'customPONumber',
       defaultValue: selectedPO?.destination?.value,
-      onChange: handleSelectedPOChange,
     },
     {
       type: 'select',
@@ -41,7 +37,10 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       name: 'poTemplate',
       defaultValue: selectedPO?.poTemplate?.value,
       onChange: handleSelectedPOChange,
-      options: poTemplateList,
+      options: initialState?.initialData.poTemplates?.map((_item) => ({
+        text: _item.name,
+        value: `${_item.id}`,
+      })),
     },
     {
       type: 'select',
@@ -49,7 +48,11 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       name: 'poFormat',
       defaultValue: selectedPO?.poTemplate?.value,
       onChange: handleSelectedPOChange,
-      options: poTemplateList,
+      options: [
+        { value: 'pdf', text: 'PDF Attachment'},
+        { value: 'email', text: 'Email Attachment'},
+        { value: 'html', text: 'HTML Attachment'},
+      ],
     },
     {
       type: 'select',
@@ -57,7 +60,10 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       name: 'shippingTerm',
       defaultValue: selectedPO?.shippingTerm?.value,
       onChange: handleSelectedPOChange,
-      options: shippingTermList,
+      options: initialState?.initialData.shippingTerms?.map((_item) => ({
+        text: _item.name,
+        value: `${_item.id}`,
+      })),
     },
     {
       type: 'select',
@@ -66,8 +72,10 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       placeholder: 'Select..',
       defaultValue: selectedPO?.paymentTerm?.value,
       onChange: handleSelectedPOChange,
-      options: paymentTermList?.map((_item) => ({ value: _item.id, text: _item.value })),
-      rules: [{ required: true, message: 'Please select Payment terms!' }],
+      options: initialState?.initialData.paymentTerms?.map((_item) => ({
+        text: _item.name,
+        value: `${_item.id}`,
+      })),
       render: (inputField: any) => <PaymentTerm inputField={inputField} />,
     },
     {
@@ -85,14 +93,16 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       placeholder: 'Select..',
       defaultValue: selectedPO?.milestone?.value,
       onChange: (name: string, value: any) => handleSelectedPOChange(name, value),
-      options: milestonesList,
+      options: initialState?.initialData.milestones?.map((_item) => ({
+        text: _item.name,
+        value: `${_item.id}`,
+      })),
       render: (inputField: any) => (
         <div style={{ display: 'flex', gap: 3 }}>
           <div style={{ flex: '1' }}>{inputField}</div>
           <SettingOutlined className="setting-button" />
         </div>
       ),
-      rules: [{ required: true, message: 'Please select Payment terms!' }],
     },
     {
       type: 'checkbox',
