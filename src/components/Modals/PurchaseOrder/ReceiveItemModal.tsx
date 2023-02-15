@@ -3,7 +3,7 @@ import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
 import { modalType } from '@/utils/helpers/types';
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Checkbox, Col, DatePicker, Form, Input, Row, Space } from 'antd';
+import { Checkbox, Col, DatePicker, Form, Input, Row } from 'antd';
 import React from 'react';
 const { TextArea } = Input;
 interface IReceiveItemModal {
@@ -86,79 +86,75 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({
         <Row gutter={10}>
           <Col span={9}>
             <Form labelCol={{ span: 12 }} labelAlign="left">
-              <Space direction="vertical" size={4} style={{ width: '100%' }}>
-                <Form.Item label="Delivered">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Received">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Billed On">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Landed Cost Payment Date">
-                  <DatePicker />
-                </Form.Item>
-                <Form.Item label="Reference #">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Item Memo">
-                  <TextArea rows={4} />
-                </Form.Item>
-              </Space>
+              <Form.Item label="Delivered">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Received">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Billed On">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Landed Cost Payment Date">
+                <DatePicker />
+              </Form.Item>
+              <Form.Item label="Reference #">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Item Memo">
+                <TextArea rows={4} />
+              </Form.Item>
             </Form>
           </Col>
           <Col span={6}>
-            <Form labelCol={{ span: 12 }}>
-              <Space direction="vertical" size={4} style={{ width: '100%', textAlign: 'right' }}>
-                <Form.Item label="Original Unit Cost">
-                  <span>$1.00</span>
-                </Form.Item>
-                <Form.Item label="Billed Unit Cost">
-                  <Input type="number" addonBefore="$" value={1.0} />
-                </Form.Item>
-                <Form.Item label="Landed Unit Cost">
-                  <Input type="number" addonBefore="$" value={1.0} />
-                </Form.Item>
-                <Form.Item label="Discount">
-                  <Input type="number" addonBefore={prefixSelectorSelect} value={1.0} />
-                </Form.Item>
-              </Space>
+            <Form labelCol={{ span: 12 }} style={{ textAlign: 'right' }}>
+              <Form.Item label="Original Unit Cost">
+                <span>$1.00</span>
+              </Form.Item>
+              <Form.Item label="Billed Unit Cost">
+                <Input type="number" addonBefore="$" value={1.0} />
+              </Form.Item>
+              <Form.Item label="Landed Unit Cost">
+                <Input type="number" addonBefore="$" value={1.0} />
+              </Form.Item>
+              <Form.Item label="Discount">
+                <Input type="number" addonBefore={prefixSelectorSelect} value={1.0} />
+              </Form.Item>
             </Form>
           </Col>
           <Col span={9}>
-            <Form labelCol={{ span: 10 }}>
-              <Space direction="vertical" size={4} style={{ width: '100%', textAlign: 'right' }}>
-                <Form.Item label="Accept">
-                  <Form.Item>
-                    <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                      <Input type="number" value={25} />
-                      <span>units</span>
-                    </div>
-                  </Form.Item>
-                </Form.Item>
-                <Form.Item label="Reject">
-                  <Form.Item>
-                    <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                      <Input type="number" value={0} />
-                      <span>units</span>
-                    </div>
-                  </Form.Item>
-                </Form.Item>
-                <Form.Item label="Total">
-                  <span><b>25</b> units</span>
-                </Form.Item>
-                <Form.Item label="Update inventory" style={{ textAlign: 'left'}}>
-                  <Checkbox />
-                  <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
-                </Form.Item>
-                <Form.Item label="Receiving Location" labelCol={{ span: 8}}>
+            <Form labelCol={{ span: 10 }} style={{ textAlign: 'right' }}>
+              <Form.Item label="Accept">
+                <Form.Item>
                   <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                    <OSelect name="prefix" options={locationOptions} onChange={() => {}} />
-                    <PlusOutlined className="setting-button" />
+                    <Input type="number" value={25} />
+                    <span>units</span>
                   </div>
                 </Form.Item>
-              </Space>
+              </Form.Item>
+              <Form.Item label="Reject">
+                <Form.Item>
+                  <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+                    <Input type="number" value={0} />
+                    <span>units</span>
+                  </div>
+                </Form.Item>
+              </Form.Item>
+              <Form.Item label="Total">
+                <span>
+                  <b>25</b> units
+                </span>
+              </Form.Item>
+              <Form.Item label="Update inventory" style={{ textAlign: 'left' }}>
+                <Checkbox />
+                <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
+              </Form.Item>
+              <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
+                <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+                  <OSelect name="prefix" options={locationOptions} onChange={() => {}} />
+                  <PlusOutlined className="setting-button" />
+                </div>
+              </Form.Item>
             </Form>
           </Col>
         </Row>

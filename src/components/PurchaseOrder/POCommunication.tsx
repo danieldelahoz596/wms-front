@@ -30,13 +30,11 @@ const POCommunication: React.FC = () => {
   return (
     <Card title="Communication" style={{ paddingBottom: 10 }}>
       <Form layout="vertical">
-        <Space direction="vertical" size={10} style={{ width: '100%' }}>
           {formInputs.map((inputItem, index) => (
             <Form.Item key={index} label={inputItem.label}>
               <OInput {...inputItem} />
             </Form.Item>
           ))}
-        </Space>
       </Form>
     </Card>
   );

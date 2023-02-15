@@ -89,7 +89,7 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, onSave, onCancel }) => {
           columns={AddNewItemTableColumns}
           rows={[]}
           pagination={false}
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 5 }}
         />
       </>
     </OModal>

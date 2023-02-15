@@ -158,7 +158,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         wrapperCol={{ span: 18 }}
       >
         <Row>
-          <Col span={11} style={{ padding: 5, paddingTop: 7 }}>
+          <Col span={11} style={{ padding: 5 }}>
             <Form.Item
               name="settingName"
               label="Settings Name"
@@ -167,11 +167,10 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
             >
               <Input />
             </Form.Item>
-            <Card title="File Configuration">
+            <Card title="File Configuration" style={{ marginTop: 15 }}>
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
                   placeholder="Select..."
-                  size="small"
                   defaultValue={'csv'}
                   options={[
                     { value: 'csv', label: 'CSV' },
@@ -183,7 +182,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               <Form.Item name={'dateFormat'} label="Date Format ">
                 <Select
                   placeholder="Select..."
-                  size="small"
                   defaultValue={'MM/dd/yyyy'}
                   options={[
                     { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
@@ -192,7 +190,12 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                 />
               </Form.Item>
               <Space size="small">
-                <Form.Item label="Multi SKUs" name="multiSku">
+                <Form.Item
+                  label="Multi SKUs"
+                  name="multiSku"
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                >
                   <Radio.Group value={multiSku} onChange={(e) => setMultiSku(e.target.value)}>
                     <Radio value={'multiline'}>Multiline</Radio>
                     <Radio value={'delimit'}>Delimit</Radio>

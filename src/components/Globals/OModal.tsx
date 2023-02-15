@@ -62,7 +62,7 @@ export const OModal: React.FC<IOmodal & ModalProps> = ({
         >
           <div>{title}</div>
           {helpLink && (
-            <a style={{ color: 'rgba(95, 95, 255, 1)', fontSize: 22 }} href={helpLink}>
+            <a style={{ color: 'rgba(95, 95, 255, 1)', fontSize: 22 }} href={helpLink} target="_blank">
               <QuestionCircleOutlined style={{ marginRight: 30 }} />
             </a>
           )}

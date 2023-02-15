@@ -3,7 +3,7 @@ import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { OSelect } from '@/components/Globals/OSelect';
 import { modalType } from '@/utils/helpers/types';
 import { PercentageOutlined } from '@ant-design/icons';
-import { Card, Col, DatePicker, Form, Input, InputNumber, Row, Select, Space } from 'antd';
+import { Card, Col, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd';
 import React from 'react';
 
 const { TextArea } = Input;
@@ -70,92 +70,88 @@ const EditItemModal: React.FC<IEditItemModal> = ({
           <Col span={14}>
             <Card title="Details">
               <Form labelCol={{ span: 10 }} labelAlign="left">
-                <Space direction="vertical" size={4} style={{ width: '100%' }}>
-                  <Form.Item label="Billed On">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Est. Delivery">
-                    <DatePicker />
-                  </Form.Item>
-                  <Form.Item label="Delivered">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Landed Cost Payment Date">
-                    <DatePicker />
-                  </Form.Item>
-                  <Form.Item label="Packaging">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Reference #">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Buyer">
-                    <OSelect name="buyer" options={buyerOptions} onChange={() => {}} />
-                  </Form.Item>
-                  <Form.Item label="Item Memo">
-                    <TextArea rows={4} />
-                  </Form.Item>
-                </Space>
+                <Form.Item label="Billed On">
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Est. Delivery">
+                  <DatePicker />
+                </Form.Item>
+                <Form.Item label="Delivered">
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Landed Cost Payment Date">
+                  <DatePicker />
+                </Form.Item>
+                <Form.Item label="Packaging">
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Reference #">
+                  <Input />
+                </Form.Item>
+                <Form.Item label="Buyer">
+                  <OSelect name="buyer" options={buyerOptions} onChange={() => {}} />
+                </Form.Item>
+                <Form.Item label="Item Memo">
+                  <TextArea rows={4} />
+                </Form.Item>
               </Form>
             </Card>
           </Col>
           <Col span={10}>
             <Card title="Item Totals">
               <Form labelCol={{ span: 14 }}>
-                <Space direction="vertical" size={3} style={{ width: '100%' }}>
-                  <Form.Item label="Order Quantity">
-                    <InputNumber value={25} />
-                  </Form.Item>
-                  <Form.Item label="Hold Quantity">
-                    <span>0</span>
-                  </Form.Item>
-                  <Form.Item label="Unit of Measure">
-                    <span>Each (x1)</span>
-                  </Form.Item>
-                  <Form.Item label="Total Unit Quantity">
-                    <span>25</span>
-                  </Form.Item>
-                  <Form.Item label="Unit Cost">
-                    <span>$1.00</span>
-                  </Form.Item>
-                  <Form.Item label="Billed Cost">
-                    <Input type="number" addonBefore="$" value={1.0} />
-                  </Form.Item>
-                  <Form.Item label="Landed Cost">
-                    <Input type="number" addonBefore="$" value={1.0} />
-                  </Form.Item>
-                  <Form.Item label="Discount">
-                    <Input
-                      type="number"
-                      addonBefore={
-                        <Select
-                          size="small"
-                          options={[
-                            { value: 1, label: 'Item 1' },
-                            { value: 2, label: 'Item 2' },
-                          ]}
-                        />
-                      }
-                      value={0.0}
-                    />
-                  </Form.Item>
-                  <Form.Item label="Item Tax">
-                    <Row gutter={8}>
-                      <Col span={8}>
-                        <Form.Item noStyle>
-                          <Input value={'10.0'} />
-                        </Form.Item>
-                      </Col>
-                      <Col span={4}>
-                        <PercentageOutlined />
-                      </Col>
-                    </Row>
-                  </Form.Item>
-                  <hr/>
-                  <Form.Item label="Total Cost">
-                    <span>$27.50</span>
-                  </Form.Item>
-                </Space>
+                <Form.Item label="Order Quantity">
+                  <InputNumber value={25} />
+                </Form.Item>
+                <Form.Item label="Hold Quantity">
+                  <span>0</span>
+                </Form.Item>
+                <Form.Item label="Unit of Measure">
+                  <span>Each (x1)</span>
+                </Form.Item>
+                <Form.Item label="Total Unit Quantity">
+                  <span>25</span>
+                </Form.Item>
+                <Form.Item label="Unit Cost">
+                  <span>$1.00</span>
+                </Form.Item>
+                <Form.Item label="Billed Cost">
+                  <Input type="number" addonBefore="$" value={1.0} />
+                </Form.Item>
+                <Form.Item label="Landed Cost">
+                  <Input type="number" addonBefore="$" value={1.0} />
+                </Form.Item>
+                <Form.Item label="Discount">
+                  <Input
+                    type="number"
+                    addonBefore={
+                      <Select
+                        size="small"
+                        options={[
+                          { value: 1, label: 'Item 1' },
+                          { value: 2, label: 'Item 2' },
+                        ]}
+                      />
+                    }
+                    value={0.0}
+                  />
+                </Form.Item>
+                <Form.Item label="Item Tax">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <Form.Item noStyle>
+                        <Input value={'10.0'} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={4}>
+                      <PercentageOutlined />
+                    </Col>
+                  </Row>
+                </Form.Item>
+                <hr />
+                <Form.Item label="Total Cost">
+                  <span>$27.50</span>
+                </Form.Item>
               </Form>
             </Card>
           </Col>

@@ -2,7 +2,7 @@ import { OInput } from '@/components/Globals/OInput';
 import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Card, Form, Space } from 'antd';
+import { Card, Form } from 'antd';
 import React, { useState } from 'react';
 import ConfigureMilestonesModal from '../Modals/PurchaseOrder/ConfigureMilestonesModal';
 import PaymentTerm from './PaymentTerm';
@@ -52,9 +52,9 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
       defaultValue: selectedPO?.poTemplate?.value,
       onChange: handleSelectedPOChange,
       options: [
-        { value: 'pdf', text: 'PDF Attachment'},
-        { value: 'email', text: 'Email Attachment'},
-        { value: 'html', text: 'HTML Attachment'},
+        { value: 'pdf', text: 'PDF Attachment' },
+        { value: 'email', text: 'Email Attachment' },
+        { value: 'html', text: 'HTML Attachment' },
       ],
     },
     {
@@ -127,16 +127,14 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = () => {
     <>
       <Card title="P.O. Details">
         <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
-          <Space direction="vertical" style={{ width: '100%' }} size={4}>
-            <Form.Item label="From Vendor">
-              <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
+          <Form.Item label="From Vendor">
+            <span style={{ fontWeight: 'bold' }}>{selectedPO?.fromVendor?.name}</span>
+          </Form.Item>
+          {formInputs?.map((inputItem, index) => (
+            <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
+              <OInput {...inputItem} />
             </Form.Item>
-            {formInputs?.map((inputItem, index) => (
-              <Form.Item key={index} label={inputItem.label} rules={inputItem.rules}>
-                <OInput {...inputItem} />
-              </Form.Item>
-            ))}
-          </Space>
+          ))}
         </Form>
       </Card>
 

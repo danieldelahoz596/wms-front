@@ -176,9 +176,10 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
         initialValues={editableCustomBundleKitExportSetting}
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
+        labelAlign="left"
       >
         <Row>
-          <Col span={11} style={{ padding: 5, paddingTop: 7 }}>
+          <Col span={11} style={{ padding: 5 }}>
             <Form.Item
               name="settingName"
               label="Settings Name"
@@ -187,11 +188,10 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
             >
               <Input />
             </Form.Item>
-            <Card title="File Configuration">
+            <Card title="File Configuration" style={{ marginTop: 15 }}>
               <Form.Item name={'fileFormat'} label="File Format">
                 <Select
                   placeholder="Select..."
-                  size="small"
                   defaultValue={'csv'}
                   options={[
                     { value: 'csv', label: 'CSV' },
@@ -203,7 +203,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               <Form.Item name="dateFormat" label="Date Format">
                 <Select
                   placeholder="Select..."
-                  size="small"
                   defaultValue={'MM/dd/yyyy'}
                   options={[
                     { value: 'MM/dd/yyyy', label: 'MM/dd/yyyy' },
@@ -213,7 +212,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               </Form.Item>
             </Card>
             <Form.Item
-              labelCol={{ span: 21 }}
+              labelCol={{ span: 22 }}
               name="wrapDoubleQuote"
               valuePropName="checked"
               label="Wrap values in double quotes when exporting CSV/text files?"
@@ -222,7 +221,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               <Checkbox />
             </Form.Item>
             <Form.Item
-              labelCol={{ span: 21 }}
+              labelCol={{ span: 12 }}
               name="onlyExportActive"
               valuePropName="checked"
               label="Only export active bundles/kits"
@@ -259,7 +258,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               >
                 <Select
                   placeholder="Select..."
-                  size="small"
                   onChange={(_val) => handleAddField(_val)}
                   options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />

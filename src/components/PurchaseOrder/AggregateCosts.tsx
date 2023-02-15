@@ -27,7 +27,6 @@ const AggregateCosts: React.FC = () => {
   return (
     <Card title="Aggregate Costs">
       <Form labelCol={{ span: 14 }} wrapperCol={{ span: 10 }}>
-        <Space direction='vertical' size={3} style={{ width: '100%'}}>
           <Form.Item key={'itemCost'} label={'Item Cost: '}>
             {getTotalItemCost(selectedPO)}
           </Form.Item>
@@ -41,7 +40,6 @@ const AggregateCosts: React.FC = () => {
               />
             </Form.Item>
           ))}
-        </Space>
       </Form>
       <AggregateCostTable />
     </Card>
