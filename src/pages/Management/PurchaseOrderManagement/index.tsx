@@ -5,10 +5,14 @@ import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
 import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
 import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
-import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
-import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
+import {
+  CheckSquareFilled,
+  DownOutlined,
+  FileOutlined,
+  VerticalAlignBottomOutlined,
+} from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, Card, Dropdown, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -16,6 +20,91 @@ import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
+import NoteEditIcon from '@/utils/icons/noteEdit';
+import ChatIcon from '@/utils/icons/chat';
+
+export const TColumns = [
+  {
+    title: 'Vendor',
+    dataIndex: 'fromVendor',
+    key: 'fromVendor',
+    render: (obj: any) => obj?.name,
+  },
+  {
+    title: 'P.O. Number',
+    dataIndex: 'ponumber',
+    key: 'ponumber',
+  },
+  {
+    title: 'Custom P.O. Number',
+    dataIndex: 'customponumber',
+    key: 'ponumber',
+  },
+  {
+    title: 'Created By',
+    dataIndex: 'createdBy',
+    key: 'createdBy',
+  },
+  {
+    title: 'Authorizer',
+    dataIndex: 'authorizer',
+    key: 'authorizer',
+  },
+  {
+    title: 'Milestone',
+    dataIndex: 'milestone',
+    key: 'milestone',
+    align: 'center',
+    render: (milestone) => (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <CheckSquareFilled style={{ color: milestone.color, fontSize: 13 }} />
+      </div>
+    ),
+  },
+  {
+    title: 'Notes',
+    dataIndex: 'internalNote',
+    key: 'internalNote',
+    align: 'center',
+    render: () => (
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 5 }}>
+        <NoteEditIcon style={{ fontSize: 16, fill: 'blue' }} />
+        <ChatIcon style={{ fontSize: 16, fill: 'blue' }} />
+      </div>
+    ),
+  },
+  {
+    title: 'Date Created',
+    dataIndex: 'dateCreated',
+    key: 'dateCreated',
+  },
+  {
+    title: 'Date issued',
+    dataIndex: 'dateIssued',
+    key: 'dateIssued',
+  },
+  {
+    title: 'Destination',
+    dataIndex: 'destination',
+    key: 'destination',
+    render: (obj: any) => obj?.text,
+  },
+  {
+    title: 'Total Cost',
+    dataIndex: 'totalCost',
+    key: 'totalCost',
+  },
+  {
+    title: 'Shipping Cost',
+    dataIndex: 'shippingCost',
+    key: 'shippingCost',
+  },
+  {
+    title: 'Total units',
+    dataIndex: 'totalUnits',
+    key: 'totalUnits',
+  },
+];
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -369,7 +458,7 @@ const CustomerManagement: React.FC = () => {
                 ))}
               </Space>
               <OTable
-                columns={Table1DemoColumns}
+                columns={TColumns}
                 rows={poListTableRows}
                 selectedRows={selectedRows}
                 setSelectedRows={setSelectedRows}

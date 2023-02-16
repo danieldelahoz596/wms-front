@@ -89,15 +89,17 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           <Form.Item label="Confirm By" name="confirmBy">
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Milestones" name="milestone">
+          <Form.Item label="Milestones">
             <div style={{ display: 'flex', gap: 3 }}>
               <div style={{ flex: '1' }}>
-                <Select
-                  options={milestonesList?.map((_item) => ({
-                    label: _item.text,
-                    value: _item.id,
-                  }))}
-                />
+                <Form.Item name="milestone">
+                  <Select
+                    options={milestonesList?.map((_item) => ({
+                      label: _item.text,
+                      value: _item.id,
+                    }))}
+                  />
+                </Form.Item>
               </div>
               <span onClick={() => setShowModal(modalType.ConfigureMilestones)}>
                 <SettingOutlined className="setting-button" />
