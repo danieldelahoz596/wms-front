@@ -135,7 +135,6 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
     [poItems],
   );
 
-  console.log('tableRows: ', tableRows);
   useEffect(() => {
     setPoItems(items);
   }, [isOpen]);

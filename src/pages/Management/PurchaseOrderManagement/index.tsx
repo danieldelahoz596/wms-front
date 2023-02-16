@@ -393,6 +393,7 @@ const CustomerManagement: React.FC = () => {
         isOpen={modalOpen === modalType.New}
         onSave={() => {
           setModal(modalType.AddNewPo);
+          initialSelectedPO();
         }}
         onClose={() => {}}
       />
