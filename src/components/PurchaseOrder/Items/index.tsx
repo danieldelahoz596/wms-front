@@ -194,7 +194,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
       onClick: () => {
         setShowModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
-          title: `Remove Item '${selectedRow?.product.name} - ${selectedRow?.product.name}'`,
+          title: `Remove Item '${selectedRow?.product.name}'`,
           submitBtnText: 'Yes - Remove Item',
           description: 'Removing this item will exclue it from the issued P.O.',
           confirmMessage: 'Are you sure you want to proceed?',
