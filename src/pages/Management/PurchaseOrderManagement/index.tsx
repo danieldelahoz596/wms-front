@@ -22,6 +22,7 @@ import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
+import ReceivePOModal from '@/components/Modals/PurchaseOrder/ReceivePOModal';
 
 export const TColumns = [
   {
@@ -122,11 +123,12 @@ const CustomerManagement: React.FC = () => {
     getPoTotalCost,
     getTotalUnitQuantity,
     setSelectedPO,
+    selectedPO,
     setPoList,
   } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
-  const { selectedPOStatus, poStatusList } = useModel('poStatus');
+  const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
 
   // const [vendorModal, setVendorModal] = useState('');
   // const [newPOModal, setNewPOModal] = useState('');
@@ -156,26 +158,6 @@ const CustomerManagement: React.FC = () => {
     initial: 220,
     min: 50,
   });
-
-  // const onVendorModalNext = () => {
-  //   setVendorModal(modalType.Close);
-  //   if (form.getFieldValue('vendor')) {
-  //     setNewPOModal(modalType.New);
-  //   }
-  // };
-
-  // const onVendorModalCancel = () => {
-  //   setVendorModal(modalType.Close);
-  // };
-
-  // const onVendorChange = (value: string) => {
-  //   handleSelectedPOChange('fromVendor', value);
-  //   // Need to use the local storage's vendors
-  //   // const itemValue = initialState?.initialData?.vendors?.find((item) => item.id == value)?.name;
-  //   form.setFieldsValue({
-  //     vendor: value,
-  //   });
-  // };
 
   const handleNewPOModalOpen = () => {
     initialSelectedPO();
@@ -326,23 +308,10 @@ const CustomerManagement: React.FC = () => {
     },
     {
       onClick: () => {
-        setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
-        // setPoList(
-        //   poList.map((item) =>
-        //     selectedRows.includes(item.key)
-        //       ? {
-        //           ...item,
-        //           po_status: {
-        //             code: '6',
-        //             id: 6,
-        //             name: 'Fullfilled',
-        //           },
-        //         }
-        //       : item,
-        //   ),
-        // );
-        setSelectedRows([]);
-        message.success('P.O.(s) moved to Fulfilled status.');
+        // setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
+        // setSelectedRows([]);
+        // message.success('P.O.(s) moved to Fulfilled status.');
+        setModal(modalType.Receive);
       },
       btnText: 'Receive',
       disabled: selectedRows.length === 0,
@@ -415,6 +384,10 @@ const CustomerManagement: React.FC = () => {
   }));
 
   useEffect(() => {
+    changeSelectedPOStatus({ poStatus: 1, warehouse: null });
+  }, [poStatusList]);
+
+  useEffect(() => {
     setSelectedRows([]);
   }, [selectedPOStatus]);
 
@@ -449,7 +422,7 @@ const CustomerManagement: React.FC = () => {
                 Purchase Orders ::{' '}
                 {selectedPOStatus
                   ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)
-                      .po_status.name
+                      ?.po_status.name
                   : ''}
               </p>
               <Space size={4} style={{ marginBottom: 10 }}>
@@ -492,6 +465,13 @@ const CustomerManagement: React.FC = () => {
 
       <AddNewPOModal
         isOpen={modalOpen === modalType.AddNewPo}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ReceivePOModal
+        isOpen={modalOpen === modalType.Receive}
+        item={selectedPO}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
