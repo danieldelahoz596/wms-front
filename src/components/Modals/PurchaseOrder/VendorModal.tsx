@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { Card, Select, Form } from 'antd';
+import { Card, Form, Select } from 'antd';
 import React, { useMemo } from 'react';
 interface IVendorModal {
   isOpen: boolean;
@@ -50,22 +50,14 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
       ]}
     >
       <Card title="Vendor">
-        <>
-          <Form form={form}>
-            <Form.Item
-              name="vendor"
-              rules={[{ required: true, message: 'Please select the vendor!' }]}
-              labelCol={{ span: 0 }}
-            >
-              <Select
-                placeholder="Select..."
-                size="middle"
-                options={selectVendorOptions}
-                style={{ width: '100%', marginBottom: 5 }}
-              />
-            </Form.Item>
-          </Form>
-        </>
+        <Form form={form}>
+          <Form.Item
+            name="vendor"
+            rules={[{ required: true, message: 'Please select the vendor!' }]}
+          >
+            <Select placeholder="Select..." options={selectVendorOptions} />
+          </Form.Item>
+        </Form>
       </Card>
     </OModal>
   );
