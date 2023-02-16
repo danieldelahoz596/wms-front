@@ -1,13 +1,13 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import type { ModalProps } from 'antd';
 import { Button, Modal } from 'antd';
 import React from 'react';
+import HelpLink from '../HelpLink';
 
 declare const ButtonTypes: ['default', 'primary', 'ghost', 'dashed', 'link', 'text'];
 
 interface IOModalButton {
   key?: string;
-  type: typeof ButtonTypes[number];
+  type: (typeof ButtonTypes)[number];
   btnLabel: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick: () => void;
@@ -61,11 +61,7 @@ export const OModal: React.FC<IOmodal & ModalProps> = ({
           }}
         >
           <div>{title}</div>
-          {helpLink && (
-            <a style={{ color: 'rgba(95, 95, 255, 1)', fontSize: 22 }} href={helpLink} target="_blank">
-              <QuestionCircleOutlined style={{ marginRight: 30 }} />
-            </a>
-          )}
+          {helpLink && <HelpLink url={helpLink} />}
         </div>
       }
       {...props}
