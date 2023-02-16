@@ -37,7 +37,7 @@ const CustomerManagement: React.FC = () => {
   } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
-  const { selectedPOStatus } = useModel('poStatus');
+  const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   // const [vendorModal, setVendorModal] = useState('');
   // const [newPOModal, setNewPOModal] = useState('');
@@ -326,7 +326,6 @@ const CustomerManagement: React.FC = () => {
   }));
 
   useEffect(() => {
-    console.log('click');
     setSelectedRows([]);
   }, [selectedPOStatus]);
 
@@ -358,7 +357,11 @@ const CustomerManagement: React.FC = () => {
           <div className="horizon-content">
             <Card style={{ width: '100%' }}>
               <p className="page-title">
-                Purchase Orders :: {selectedPOStatus ? selectedPOStatus.poStatus : ''}
+                Purchase Orders ::{' '}
+                {selectedPOStatus
+                  ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)
+                      .po_status.name
+                  : ''}
               </p>
               <Space size={4} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
