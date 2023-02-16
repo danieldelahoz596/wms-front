@@ -19,7 +19,6 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
   useEffect(() => {
-    console.log('selectedPO: ', selectedPO);
     if (!!selectedPO.key) {
       form.setFieldsValue({
         destination: selectedPO?.destination?.id,
@@ -45,7 +44,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
           <Form.Item label="To Destination" name="destination">
             <Select
-              options={initialState?.initialData.warehouses?.map((_item) => ({
+              options={initialState?.initialData?.warehouses?.map((_item) => ({
                 label: _item.name,
                 value: _item.id,
               }))}
@@ -56,7 +55,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
           <Form.Item label="P.O. Template" name="poTemplate">
             <Select
-              options={initialState?.initialData.poTemplates?.map((_item) => ({
+              options={initialState?.initialData?.poTemplates?.map((_item) => ({
                 label: _item.name,
                 value: _item.id,
               }))}
@@ -73,7 +72,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
           <Form.Item label="Shipping Terms" name="shippingTerm">
             <Select
-              options={initialState?.initialData.shippingTerms?.map((_item) => ({
+              options={initialState?.initialData?.shippingTerms?.map((_item) => ({
                 label: _item.name,
                 value: _item.id,
               }))}
@@ -81,7 +80,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
           <Form.Item label="Payment Terms" name="paymentTerm">
             <Select
-              options={initialState?.initialData.paymentTerms?.map((_item) => ({
+              options={initialState?.initialData?.paymentTerms?.map((_item) => ({
                 label: _item.name,
                 value: _item.id,
               }))}

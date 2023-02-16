@@ -14,8 +14,8 @@ export interface IConfigureMilestonesModal {
 
 const TColumns = [
   {
-    key: 'id',
-    dataIndex: 'id',
+    key: 'index',
+    dataIndex: 'index',
     title: '',
   },
   {
@@ -27,8 +27,11 @@ const TColumns = [
     key: 'color',
     dataIndex: 'color',
     title: 'Color',
-    render: (color) => <div style={{ width: '100px', height: '20px', backgroundColor: color }} />,
-    width: '100px',
+    render: (color) => (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '70px', height: '20px', backgroundColor: color }} />
+      </div>
+    ),
     align: 'center',
   },
 ];
@@ -36,7 +39,7 @@ const TColumns = [
 const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen, onClose }) => {
   const [showModal, setShowModal] = useState(false);
   const { milestonesList, setMilestonesList } = useModel('milestones');
-  const [selectedMilestone, setSelectedMilestone] = useState(null);
+  const [selectedMilestone, setSelectedMilestone] = useState([]);
 
   return (
     <OModal
@@ -60,26 +63,19 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
           <OButton
             btnText="Delete Selected"
             onClick={() => {
-              setMilestonesList((prev) =>
-                prev.filter((item) => item.value !== selectedMilestone.value),
-              );
-              setSelectedMilestone(null);
+              setMilestonesList((prev) => prev.filter((item) => item.id !== selectedMilestone[0]));
+              setSelectedMilestone([]);
             }}
-            disabled={!selectedMilestone}
+            disabled={selectedMilestone.length === 0}
           />
         </Space>
         <OTable
+          type="radio"
           columns={TColumns}
-          rows={milestonesList.map((item, index) => ({ ...item, id: index + 1, key: index }))}
+          rows={milestonesList?.map((item, index) => ({ ...item, key: item.id, index: index + 1 }))}
           pagination={false}
-          onRow={(record) => {
-            return {
-              onClick: () => setSelectedMilestone(record), // click row
-            };
-          }}
-          rowClassName={(record) =>
-            record.id === selectedMilestone?.id ? `ant-table-row-selected` : ''
-          }
+          setSelectedRows={setSelectedMilestone}
+          selectedRows={selectedMilestone}
           style={{ marginTop: 5 }}
         />
 
