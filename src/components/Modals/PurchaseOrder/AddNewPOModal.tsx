@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Form } from 'antd';
 import PurchaseOrderDetail from '@/components/PurchaseOrder/PurchaseOrderDetail';
 import AggregateCosts from '@/components/PurchaseOrder/AggregateCosts';
@@ -7,6 +7,7 @@ import AddNewPOItemTable from '@/components/PurchaseOrder/AddNew/AddNewPOItemTab
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { uuidv4 } from '@antv/xflow-core';
+import moment from 'moment';
 
 interface IAddNewPOModal {
   isOpen: boolean;
@@ -17,24 +18,12 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { selectedPO, setPoList } = useModel('po');
+  const { selectedPO, setPoList, initialSelectedPO } = useModel('po');
   const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
   const { selectedVendor } = useModel('vendor');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
-  const [costItems, setCostItems] = useState([]);
-
-  // const handleCancel = () => {
-  //   initialSelectedPO();
-  //   setNewPOModal(modalType.Close);
-  // };
-
-  // const handleNewPOSave = () => {
-  //   addNewPO();
-  //   initialSelectedPO();
-  //   handleCancel();
-  // };
 
   const handleSave = () => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
@@ -51,6 +40,10 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           createdBy: initialState?.currentUser?.user?.full_name,
           dateCreated: new Date(),
           fromVendor: selectedVendor,
+          poFormat: purchaseFormValues.poFormat,
+          destination: initialState?.initialData.warehouses?.find(
+            (warehouse) => warehouse.id === purchaseFormValues.destination,
+          ),
           poTemplate: initialState?.initialData.poTemplates?.find(
             (template) => template.id === purchaseFormValues.poTemplate,
           ),
@@ -60,7 +53,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           paymentTerm: initialState?.initialData.paymentTerms?.find(
             (term) => term.id === purchaseFormValues.paymentTerm,
           ),
-          confirmedBy: purchaseFormValues.confirmBy,
+          confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
           enablePortal: null,
           milestone: milestonesList.find(
             (milestone) => milestone.id === purchaseFormValues.milestone,
@@ -68,12 +61,13 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           itemCost: 0,
           shippingCost: aggregateCostValues.shippingCost,
           paymentDate: new Date(),
-          otherCost: costItems,
+          otherCost: selectedPO.otherCost,
           messageToVendor: 'abc',
           internalNote: 'abc',
           poItems: selectedPO?.poItems,
         };
         setPoList((prev) => [...prev, item]);
+        initialSelectedPO();
         onSave();
       });
     });
@@ -113,11 +107,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
             <PurchaseOrderDetail form={purchaseForm} />
           </Col>
           <Col span={7}>
-            <AggregateCosts
-              form={aggregateCostForm}
-              costItems={costItems}
-              setCostItems={setCostItems}
-            />
+            <AggregateCosts form={aggregateCostForm} />
           </Col>
           <Col span={7}>
             <POCommunication />

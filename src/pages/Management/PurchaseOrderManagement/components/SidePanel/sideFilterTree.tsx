@@ -16,7 +16,7 @@ const SideFilterTree: React.FC = () => {
     if (Array.isArray(selectedKey) && selectedKey.length > 0) {
       const _selectedKeys = selectedKey[0]?.split('-');
 
-      const _selectedWarehouse = _selectedKeys[1] !== "0" ? _selectedKeys[1] : null;
+      const _selectedWarehouse = _selectedKeys[1] !== '0' ? _selectedKeys[1] : null;
 
       selectedPOS = {
         poStatus: _selectedKeys[0],
@@ -54,7 +54,14 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return <Tree treeData={preparePoFiltersForTree} showLine={true} onSelect={onSelect} />;
+  return (
+    <Tree
+      treeData={preparePoFiltersForTree}
+      showLine={true}
+      onSelect={onSelect}
+      defaultSelectedKeys={['1']}
+    />
+  );
 };
 
 export default SideFilterTree;

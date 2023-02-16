@@ -5,10 +5,14 @@ import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
 import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
 import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
-import { Table1DemoColumns } from '@/data';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
-import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
+import {
+  CheckSquareFilled,
+  DownOutlined,
+  FileOutlined,
+  VerticalAlignBottomOutlined,
+} from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, Card, Dropdown, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -16,6 +20,92 @@ import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
+import NoteEditIcon from '@/utils/icons/noteEdit';
+import ChatIcon from '@/utils/icons/chat';
+import ReceivePOModal from '@/components/Modals/PurchaseOrder/ReceivePOModal';
+
+export const TColumns = [
+  {
+    title: 'Vendor',
+    dataIndex: 'fromVendor',
+    key: 'fromVendor',
+    render: (obj: any) => obj?.name,
+  },
+  {
+    title: 'P.O. Number',
+    dataIndex: 'ponumber',
+    key: 'ponumber',
+  },
+  {
+    title: 'Custom P.O. Number',
+    dataIndex: 'customponumber',
+    key: 'ponumber',
+  },
+  {
+    title: 'Created By',
+    dataIndex: 'createdBy',
+    key: 'createdBy',
+  },
+  {
+    title: 'Authorizer',
+    dataIndex: 'authorizer',
+    key: 'authorizer',
+  },
+  {
+    title: 'Milestone',
+    dataIndex: 'milestone',
+    key: 'milestone',
+    align: 'center',
+    render: (milestone) => (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <CheckSquareFilled style={{ color: milestone.color, fontSize: 13 }} />
+      </div>
+    ),
+  },
+  {
+    title: 'Notes',
+    dataIndex: 'internalNote',
+    key: 'internalNote',
+    align: 'center',
+    render: () => (
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 5 }}>
+        <NoteEditIcon style={{ fontSize: 16, fill: 'blue' }} />
+        <ChatIcon style={{ fontSize: 16, fill: 'blue' }} />
+      </div>
+    ),
+  },
+  {
+    title: 'Date Created',
+    dataIndex: 'dateCreated',
+    key: 'dateCreated',
+  },
+  {
+    title: 'Date issued',
+    dataIndex: 'dateIssued',
+    key: 'dateIssued',
+  },
+  {
+    title: 'Destination',
+    dataIndex: 'destination',
+    key: 'destination',
+    render: (obj: any) => obj?.text,
+  },
+  {
+    title: 'Total Cost',
+    dataIndex: 'totalCost',
+    key: 'totalCost',
+  },
+  {
+    title: 'Shipping Cost',
+    dataIndex: 'shippingCost',
+    key: 'shippingCost',
+  },
+  {
+    title: 'Total units',
+    dataIndex: 'totalUnits',
+    key: 'totalUnits',
+  },
+];
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -33,11 +123,12 @@ const CustomerManagement: React.FC = () => {
     getPoTotalCost,
     getTotalUnitQuantity,
     setSelectedPO,
+    selectedPO,
     setPoList,
   } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
-  const { selectedPOStatus } = useModel('poStatus');
+  const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
 
   // const [vendorModal, setVendorModal] = useState('');
   // const [newPOModal, setNewPOModal] = useState('');
@@ -67,26 +158,6 @@ const CustomerManagement: React.FC = () => {
     initial: 220,
     min: 50,
   });
-
-  // const onVendorModalNext = () => {
-  //   setVendorModal(modalType.Close);
-  //   if (form.getFieldValue('vendor')) {
-  //     setNewPOModal(modalType.New);
-  //   }
-  // };
-
-  // const onVendorModalCancel = () => {
-  //   setVendorModal(modalType.Close);
-  // };
-
-  // const onVendorChange = (value: string) => {
-  //   handleSelectedPOChange('fromVendor', value);
-  //   // Need to use the local storage's vendors
-  //   // const itemValue = initialState?.initialData?.vendors?.find((item) => item.id == value)?.name;
-  //   form.setFieldsValue({
-  //     vendor: value,
-  //   });
-  // };
 
   const handleNewPOModalOpen = () => {
     initialSelectedPO();
@@ -237,23 +308,10 @@ const CustomerManagement: React.FC = () => {
     },
     {
       onClick: () => {
-        setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
-        // setPoList(
-        //   poList.map((item) =>
-        //     selectedRows.includes(item.key)
-        //       ? {
-        //           ...item,
-        //           po_status: {
-        //             code: '6',
-        //             id: 6,
-        //             name: 'Fullfilled',
-        //           },
-        //         }
-        //       : item,
-        //   ),
-        // );
-        setSelectedRows([]);
-        message.success('P.O.(s) moved to Fulfilled status.');
+        // setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
+        // setSelectedRows([]);
+        // message.success('P.O.(s) moved to Fulfilled status.');
+        setModal(modalType.Receive);
       },
       btnText: 'Receive',
       disabled: selectedRows.length === 0,
@@ -326,7 +384,10 @@ const CustomerManagement: React.FC = () => {
   }));
 
   useEffect(() => {
-    console.log('click');
+    changeSelectedPOStatus({ poStatus: 1, warehouse: null });
+  }, [poStatusList]);
+
+  useEffect(() => {
     setSelectedRows([]);
   }, [selectedPOStatus]);
 
@@ -358,7 +419,11 @@ const CustomerManagement: React.FC = () => {
           <div className="horizon-content">
             <Card style={{ width: '100%' }}>
               <p className="page-title">
-                Purchase Orders :: {selectedPOStatus ? selectedPOStatus.poStatus : ''}
+                Purchase Orders ::{' '}
+                {selectedPOStatus
+                  ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)
+                      ?.po_status.name
+                  : ''}
               </p>
               <Space size={4} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
@@ -366,7 +431,7 @@ const CustomerManagement: React.FC = () => {
                 ))}
               </Space>
               <OTable
-                columns={Table1DemoColumns}
+                columns={TColumns}
                 rows={poListTableRows}
                 selectedRows={selectedRows}
                 setSelectedRows={setSelectedRows}
@@ -393,12 +458,20 @@ const CustomerManagement: React.FC = () => {
         isOpen={modalOpen === modalType.New}
         onSave={() => {
           setModal(modalType.AddNewPo);
+          initialSelectedPO();
         }}
         onClose={() => {}}
       />
 
       <AddNewPOModal
         isOpen={modalOpen === modalType.AddNewPo}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ReceivePOModal
+        isOpen={modalOpen === modalType.Receive}
+        item={selectedPO}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />

@@ -2,10 +2,33 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Form, Input, Select, Space } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
+
+const unitMeasureOptions: IOSelectOption[] = [
+  {
+    text: 'Each',
+    value: '1',
+  },
+  {
+    text: 'Item 2',
+    value: '2',
+  },
+];
+
+const buyerOptions = [
+  {
+    value: 1,
+    label: 'Buyer1',
+  },
+  {
+    value: 2,
+    label: 'Buyer2',
+  },
+];
 
 interface IAddNewItem {
   isOpen: boolean;
@@ -25,18 +48,17 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
     [productList],
   );
 
-  const unitMeasureOptions: IOSelectOption[] = [
-    {
-      text: 'Each',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
-
   const AddNewItemTableColumns = [
+    {
+      title: '',
+      key: 'delete',
+      dataIndex: 'key',
+      render: (id) => (
+        <span onClick={() => setPoItems((prev) => prev.filter((item) => item.id !== id))}>
+          <CloseOutlined style={{ color: 'blue' }} />
+        </span>
+      ),
+    },
     {
       title: 'Product',
       dataIndex: 'product',
@@ -54,6 +76,8 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
       title: 'Buyer.',
       dataIndex: 'buyer',
       key: 'buyer',
+      editable: true,
+      options: buyerOptions,
     },
     {
       title: 'Qty.',
@@ -69,8 +93,8 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
     },
     {
       title: 'Total Unit Qty.',
-      dataIndex: 'totalUnitQty',
-      key: 'totalUnitQty',
+      dataIndex: 'totalUnitqQuantity',
+      key: 'totalUnitqQuantity',
       editable: true,
     },
     {
@@ -104,7 +128,7 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
         quantity: item.quantity,
         unitMeasure: item.unitMeasure,
         totalUnitqQuantity: item.totalUnitqQuantity,
-        unitCost: '',
+        unitCost: item.unitCost,
         discountType: item.discountType,
         discount: item.discount,
       })),
@@ -125,19 +149,26 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
           product: productList.find((item) => item.id === values.product),
           discountType: '$',
           discount: 1,
-          status: "1",
+          status: '1',
         },
       ]),
     );
   };
 
   const handleItemSave = (index, name, value) => {
-    console.log(index, name, value);
     setPoItems((prev) =>
       prev.map((item) =>
         item.id === index
           ? name === 'product'
             ? { ...item, product: productList.find((product) => product.id === value) }
+            : name === 'buyer'
+            ? {
+                ...item,
+                product: {
+                  ...item.product,
+                  buyer: buyerOptions.find((buyer) => buyer.value === value).label,
+                },
+              }
             : { ...item, [name]: value }
           : item,
       ),

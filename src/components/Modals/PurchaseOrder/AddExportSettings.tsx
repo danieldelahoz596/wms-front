@@ -1,6 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined } from '@ant-design/icons';
+import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Radio, Row, Select, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +16,10 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   const [form] = Form.useForm();
   const [selectedExportFields, setSelectedExportFields] = useState([]);
   const [multiSku, setMultiSku] = useState();
+
+  useEffect(() => {
+    setSelectedExportFields([]);
+  }, [isOpen]);
 
   const {
     editableExportSetting,
@@ -88,7 +93,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     if (editableExportSetting) {
       updatePOExportSettings(values);
     } else {
-      addPOExportSettings(values);
+      addPOExportSettings({ ...values, id: uuidv4() });
     }
 
     setEditableExportSetting(null);

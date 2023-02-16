@@ -44,7 +44,7 @@ const ManageItemsModal: React.FC<IManageItemsModal> = ({
       ]}
     >
       <>
-        <Alert description={description} />
+        <Alert description={<div dangerouslySetInnerHTML={{ __html: description }} />} />
         <div style={{ textAlign: 'right', margin: '10px 5px' }}>
           <span>{confirmMessage}</span>
         </div>
