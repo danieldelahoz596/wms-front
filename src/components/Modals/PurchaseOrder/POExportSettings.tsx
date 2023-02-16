@@ -25,6 +25,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen,
   };
 
   const settings = poExportSettings.map((_item, _index) => ({
+    key: _item.id,
     setting: _item.settingName.toUpperCase(),
     actions: (
       <div style={{ textAlign: 'center' }}>

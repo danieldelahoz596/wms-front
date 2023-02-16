@@ -12,32 +12,9 @@ interface IExportPO {
   handleConfigureSettings: (value: any) => void;
 }
 
-const ExportPOModal: React.FC<IExportPO> = ({
-  isOpen,
-  onClose,
-  onSave,
-  handleConfigureSettings,
-}) => {
+const ExportPOModal: React.FC<IExportPO> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { poExportSettings } = useModel('poExportSettings');
-  // const [selectedSettings, setSelectedSettings] = useState();
-
-  // const handleSettingsSelect = (_value) => {
-  //   if (_value == 0) {
-  //     setSelectedSettings(null);
-  //   } else {
-  //     const _selectedFullSettings = poExportSettings.find((_item, _index) => _index + 1 == _value);
-  //     setSelectedSettings(_selectedFullSettings);
-  //   }
-  // };
-
-  // const onConfigureSettings = () => {
-  //   if (selectedSettings) {
-  //     handleConfigureSettings(modalType.OrderExportSettings);
-  //   } else {
-  //     handleConfigureSettings(modalType.AddOrderExportSettings);
-  //   }
-  // };
 
   return (
     <OModal
