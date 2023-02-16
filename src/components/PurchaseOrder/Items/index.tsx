@@ -219,7 +219,8 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         id: poItem.id,
         status: poItem.status,
         product: poItem.product?.name,
-        vendorSku: poItem.product?.vendorSku,
+        vendorSku: poItem.product?.vendor_skus,
+        buyer: poItem.product?.buyer,
         Qty: poItem.quantity,
         holdQty: poItem.holdQty,
         qty: poItem.quantity,
@@ -274,7 +275,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         }}
         onCancel={() => setShowModal(modalType.Close)}
       />
-      
+
       <EditItemModal
         isOpen={showModal === modalType.Edit}
         item={selectedRow}
