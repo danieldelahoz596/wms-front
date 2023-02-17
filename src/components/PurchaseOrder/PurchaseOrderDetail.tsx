@@ -27,7 +27,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
         poFormat: selectedPO?.poFormat,
         shippingTerm: selectedPO?.shipmentTerm?.id,
         paymentTerm: selectedPO?.paymentTerm?.id,
-        milestone: selectedPO?.milestone,
+        milestone: selectedPO?.milestone?.id,
         enablePortal: selectedPO?.enablePortal,
       });
     }
