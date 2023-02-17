@@ -109,6 +109,7 @@ export const TColumns = [
 
 interface IManagePurchaseOrdersModal {
   title: string;
+  cancelBtnText?: string;
   submitBtnText: string;
   description: string;
   confirmMessage: string;
@@ -124,14 +125,11 @@ const CustomerManagement: React.FC = () => {
     getTotalUnitQuantity,
     setSelectedPO,
     selectedPO,
-    setPoList,
   } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
   const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
 
-  // const [vendorModal, setVendorModal] = useState('');
-  // const [newPOModal, setNewPOModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [manageOrdersModalData, setManageOrdersModalData] =
     useState<IManagePurchaseOrdersModal>(null);
@@ -472,7 +470,20 @@ const CustomerManagement: React.FC = () => {
       <ReceivePOModal
         isOpen={modalOpen === modalType.Receive}
         item={selectedPO}
-        onSave={() => setModal(modalType.Close)}
+        onSave={() => {
+          setModal(modalType.ManagePurchaseOrders);
+          setManageOrdersModalData({
+            title: 'P.O.Status Change',
+            cancelBtnText: 'OK',
+            submitBtnText: '',
+            description: 'P.O.(s) moved to <b>Fulfilled</b> status.',
+            confirmMessage: 'Press OK to proceed.',
+            onSave: () => {
+              setModal(modalType.Close);
+            },
+            onClose: () => setModal(modalType.Close),
+          });
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 

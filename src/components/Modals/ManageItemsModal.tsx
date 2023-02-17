@@ -5,6 +5,7 @@ import React from 'react';
 export interface IManageItemsModal {
   isOpen: boolean;
   title: string;
+  cancelBtnText?: string;
   submitBtnText: string;
   description: string;
   confirmMessage: string;
@@ -15,6 +16,7 @@ export interface IManageItemsModal {
 const ManageItemsModal: React.FC<IManageItemsModal> = ({
   isOpen,
   title,
+  cancelBtnText = 'Cancel',
   submitBtnText,
   description,
   confirmMessage,
@@ -32,7 +34,7 @@ const ManageItemsModal: React.FC<IManageItemsModal> = ({
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: cancelBtnText,
           onClick: onClose,
         },
         {

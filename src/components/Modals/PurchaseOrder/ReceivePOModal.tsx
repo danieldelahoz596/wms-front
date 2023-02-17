@@ -1,8 +1,9 @@
 import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { uuidv4 } from '@antv/xflow-core';
 import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import NewRecevingLocation from './NewRecevingLocation';
 const { TextArea } = Input;
 interface IReceivePOModal {
   isOpen: boolean;
@@ -11,18 +12,31 @@ interface IReceivePOModal {
   onClose: () => void;
 }
 
+const locationData = [
+  {
+    id: '1',
+    name: 'Location 1',
+  },
+  {
+    id: '2',
+    name: 'Location 2',
+  },
+  {
+    id: '3',
+    name: 'Location 3',
+  },
+];
+
 const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClose }) => {
   const [form] = Form.useForm();
-  const locationOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
+  const [locations, setLocations] = useState(locationData);
+  const [showModal, setShowModal] = useState(false);
+
+  const locationOptions = useMemo(
+    () =>
+      locations.map((location) => ({ key: location.id, value: location.id, label: location.name })),
+    [locations],
+  );
 
   useEffect(() => {
     form.setFieldsValue({
@@ -100,7 +114,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
           </Form.Item>
         </div>
         <Row gutter={10} style={{ marginTop: 10 }}>
-          <Col span={9}>
+          <Col span={3}>
             <Form labelCol={{ span: 12 }} labelAlign="left">
               <Form.Item label="Delivered">
                 <Input />
@@ -117,23 +131,32 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
               <Form.Item label="Reference #">
                 <Input />
               </Form.Item>
-              <Form.Item label="Item Memo">
-                <TextArea rows={2} />
-              </Form.Item>
             </Form>
           </Col>
-          <Col span={6}>
+          <Col span={3}>
+            <Form.Item label="Item Memo">
+              <TextArea rows={2} />
+            </Form.Item>
+          </Col>
+          <Col span={5}>
             <Form labelCol={{ span: 12 }} form={form} style={{ textAlign: 'right' }}>
               <Form.Item label="Original Unit Cost">
                 <span>$1.00</span>
               </Form.Item>
-              <Form.Item label="Billed Unit Cost" name="billedCost">
-                <Input type="number" addonBefore="$" />
-              </Form.Item>
               <Form.Item label="Landed Unit Cost" name="landedCost">
                 <Input type="number" addonBefore="$" />
               </Form.Item>
-              <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
+              <Form.Item label="Landed Cost Payment Date">
+                <Input />
+              </Form.Item>
+            </Form>
+          </Col>
+          <Col span={5}>
+            <Form labelCol={{ span: 12 }} form={form} style={{ textAlign: 'right' }}>
+              <Form.Item label="Billed Unit Cost" name="billedCost">
+                <Input type="number" addonBefore="$" />
+              </Form.Item>
+              <Form.Item label="Discount" name="discount">
                 <Input
                   type="number"
                   addonBefore={
@@ -148,7 +171,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
               </Form.Item>
             </Form>
           </Col>
-          <Col span={9}>
+          <Col span={3}>
             <Form labelCol={{ span: 10 }} style={{ textAlign: 'right' }}>
               <Form.Item label="Accept">
                 <Input type="number" addonAfter="units" value={25} />
@@ -161,17 +184,41 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
                   <b>25</b> units
                 </span>
               </Form.Item>
-              <Form.Item label="Update inventory" style={{ textAlign: 'left' }}>
-                <Checkbox />
-                <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
-              </Form.Item>
-              <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
-                <Input type="number" addonAfter="units" value={25} />
+            </Form>
+          </Col>
+          <Col span={5}>
+            <Form layout="vertical">
+              <Form.Item label="Receiving Location" name="location">
+                <div style={{ display: 'flex', gap: 4 }}>
+                  <Select options={locationOptions} style={{ flex: '1' }} />
+                  <PlusOutlined className="plus-button" onClick={() => setShowModal(true)} />
+                </div>
               </Form.Item>
             </Form>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'end',
+                alignItems: 'center',
+                marginTop: 5,
+                gap: 3,
+              }}
+            >
+              Update inventory: <Checkbox />
+              <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
+            </div>
           </Col>
         </Row>
       </>
+
+      <NewRecevingLocation
+        isOpen={showModal}
+        onSave={(value) => {
+          setShowModal(false);
+          setLocations((prev) => [...prev, { id: uuidv4(), name: value }]);
+        }}
+        onClose={() => setShowModal(false)}
+      />
     </OModal>
   );
 };
