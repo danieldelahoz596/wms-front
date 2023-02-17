@@ -13,8 +13,6 @@ interface IAddNewPOModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
-  // newPOModal: string;
-  // setNewPOModal: (value: string) => void;
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {

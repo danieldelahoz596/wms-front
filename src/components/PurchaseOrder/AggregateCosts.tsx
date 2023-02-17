@@ -1,7 +1,7 @@
 import AggregateCostTable from '@/components/PurchaseOrder/AggregateCostTable';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface IAggregateCosts {
   form: any;
@@ -9,6 +9,14 @@ interface IAggregateCosts {
 
 const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
   const { selectedPO, getTotalItemCost } = useModel('po');
+
+  useEffect(() => {
+    if (!!selectedPO.key) {
+      form.setFieldsValue({
+        shippingCost: selectedPO?.shippingCost,
+      });
+    }
+  }, [selectedPO, form]);
 
   return (
     <Card title="Aggregate Costs">

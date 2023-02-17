@@ -9,11 +9,11 @@ import moment from 'moment';
 const { TextArea } = Input;
 
 const PODetailsBottom: React.FC = () => {
-  const { selectedPO, setPoList } = useModel('po');
+  const { selectedPO, setPoList, getTotalItemCost } = useModel('po');
   const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
-  const [form] = Form.useForm();
   const [purchaseForm] = Form.useForm();
+  const [aggregateCostForm] = Form.useForm();
 
   const handleUpdateDetails = () => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
@@ -61,6 +61,23 @@ const PODetailsBottom: React.FC = () => {
     });
   };
 
+  const handleUpdateCosts = () => {
+    aggregateCostForm.validateFields().then((aggregateCostValues) => {
+      setPoList((prev) =>
+        prev.map((item) =>
+          item.key === selectedPO.key
+            ? {
+                ...item,
+                ...(aggregateCostValues.shippingCost && {
+                  shippingCost: aggregateCostValues.shippingCost,
+                }),
+              }
+            : item,
+        ),
+      );
+    });
+  };
+
   return (
     <Row style={{ marginTop: 12 }} gutter={10}>
       <Col span={12}>
@@ -81,7 +98,18 @@ const PODetailsBottom: React.FC = () => {
         </Row>
       </Col>
       <Col span={6}>
-        <AggregateCosts form={form} />
+        <AggregateCosts form={aggregateCostForm} />
+        <div style={{ display: 'flex', gap: 20 }}>
+          <Button onClick={handleUpdateCosts}>Update Costs</Button>
+          <h3>
+            Total:{' '}
+            {getTotalItemCost(selectedPO) +
+              selectedPO?.otherCost
+                .map(({ cost }) => cost)
+                .reduce((acc: any, curValue: any) => acc + curValue, 0) +
+              selectedPO?.shippingCost}
+          </h3>
+        </div>
       </Col>
       <Col span={6}>
         <MilestonesCard />
