@@ -1,148 +1,107 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
-import { Card } from 'antd';
+import { CaretDownOutlined, ToolFilled } from '@ant-design/icons';
+import { Card, Form, Select } from 'antd';
 import type { FC } from 'react';
 
+const fulfillmentOptions = [
+  {
+    text: 'Direct/In-House',
+    value: 'directInHouse',
+  },
+];
+
+const sourceOptions = [
+  {
+    text: 'Office',
+    value: 'office',
+  },
+];
+
+const actionButtons: IOButton[] = [
+  {
+    btnText: 'Rate',
+    type: 'primary',
+    onClick: () => {},
+  },
+  {
+    btnText: 'Save',
+    type: 'primary',
+    onClick: () => {},
+  },
+  {
+    btnText: 'Queue',
+    type: 'primary',
+    onClick: () => {},
+  },
+  {
+    btnText: 'Ship',
+    type: 'primary',
+    onClick: () => {},
+  },
+];
+
 const Method: FC = () => {
-  const fulfillmentOptions = [
-    {
-      text: 'Direct/In-House',
-      value: 'directInHouse',
-    },
-  ];
-  const sourceOptions = [
-    {
-      text: 'Office',
-      value: 'office',
-    },
-  ];
-
-  const actionButtons: IOButton[] = [
-    {
-      btnText: 'Rate',
-      type: 'primary',
-      onClick: () => {},
-    },
-    {
-      btnText: 'Save',
-      type: 'primary',
-      onClick: () => {},
-    },
-    {
-      btnText: 'Queue',
-      type: 'primary',
-      onClick: () => {},
-    },
-    {
-      btnText: 'Ship',
-      type: 'primary',
-      onClick: () => {},
-    },
-  ];
-
-  const shippingInputFields = [
-    {
-      type: 'text',
-      name: 'requrestProvider',
-      defaultValue: 'UPS',
-      onChange: () => {},
-    },
-    {
-      type: 'text',
-      name: 'service',
-      onChange: () => {},
-    },
-    {
-      type: 'text',
-      name: 'package',
-      onChange: () => {},
-    },
-    {
-      type: 'text',
-      name: 'confirmation',
-      defaultValue: 'No Confirmation',
-      onChange: () => {},
-    },
-    {
-      type: 'text',
-      name: 'insurance',
-      defaultValue: 'No insureance provider',
-      onChange: () => {},
-    },
-    {
-      type: 'text',
-      name: 'insuredValue',
-      onChange: () => {},
-    },
-  ];
-
   return (
     <>
-      <div style={{ borderBottom: '1px dashed #ccc', display: 'flex', gap: '0.1rem' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'flex-end',
-          }}
-        >
-          <div>Fulfillment: </div>
-          <div>Source: </div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
-          <OInput
-            type="select"
-            name="fulfillment"
-            defaultValue={'directInHouse'}
-            options={fulfillmentOptions}
-            onChange={() => {}}
-            style={{ display: 'block', margin: '0.5rem 0' }}
-          />
-          <OInput
-            type="select"
-            name="source"
-            defaultValue={'office'}
-            options={sourceOptions}
-            onChange={() => {}}
-            style={{ display: 'block', margin: '0.5rem 0' }}
-          />
-        </div>
+      <div>
+        <Form labelCol={{ span: 6 }}>
+          <Form.Item label="Fulfillment" name="fulfillment">
+            <Select defaultValue="directInHouse" options={fulfillmentOptions} />
+          </Form.Item>
+          <Form.Item label="Source" name="source">
+            <Select defaultValue="office" options={sourceOptions} />
+          </Form.Item>
+        </Form>
       </div>
+      <hr style={{ borderTop: 1, borderTopStyle: 'dotted' }} />
       <div style={{ padding: '0.5rem 0' }}>
         {actionButtons.map((btn, index) => (
-          <OButton key={index} {...btn} style={{ padding: '0.4rem 0.5rem' }} />
+          <OButton key={index} {...btn} style={{ marginLeft: 10 }} />
         ))}
-        <div className="OModal" style={{ marginTop: '1rem' }}>
-          <Card title="Shipping" style={{ marginRight: '.5rem' }}>
-            <div style={{ borderBottom: '1px dashed #ccc', display: 'flex', gap: '0.1rem' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                }}
-              >
-                <div>
-                  Request
-                  <br />
-                  Provider:{' '}
-                </div>
-                <div>Service: </div>
-                <div>Package: </div>
-                <div>Confirm: </div>
-                <div>Insurance: </div>
-                <div>Insured Value: </div>
+        <div className="OModal" style={{ marginTop: 20 }}>
+          <Card
+            title={
+              <div>
+                Shipping
+                <span style={{ color: 'blue', marginLeft: 10 }}>
+                  {'('}
+                  <ToolFilled style={{ border: 1, borderStyle: 'solid' }} />
+                  <span
+                    style={{
+                      fontSize: 10,
+                      marginLeft: 3,
+                      borderBottom: 1,
+                      borderBottomStyle: 'solid',
+                    }}
+                  >
+                    {'Presets'}
+                  </span>
+                  <CaretDownOutlined style={{ color: 'gray' }} />
+                  {')'}
+                </span>
               </div>
-              <div
-                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}
-              >
-                {shippingInputFields.map((item, index) => (
-                  <OInput key={index} style={{ display: 'block', margin: '0.5rem 0' }} {...item} />
-                ))}
-              </div>
-            </div>
+            }
+            style={{ marginRight: '.5rem' }}
+          >
+            <Form labelCol={{ span: 10 }} labelAlign="left">
+              <Form.Item label="Request Provider">
+                <Select defaultValue="UPS Amazon Partner" />
+              </Form.Item>
+              <Form.Item label="Service">
+                <Select defaultValue="UPS Default" />
+              </Form.Item>
+              <Form.Item label="Package">
+                <Select />
+              </Form.Item>
+              <Form.Item label="Confirm">
+                <Select defaultValue="No Confirmation" />
+              </Form.Item>
+              <Form.Item label="Insurance">
+                <Select defaultValue="No Insurance Provider" />
+              </Form.Item>
+            </Form>
           </Card>
         </div>
         <div className="OModal" style={{ marginTop: '1rem' }}>

@@ -1,5 +1,5 @@
 import { useModel } from '@umijs/max';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Image } from 'antd';
 import type { FC } from 'react';
 
 const OrderItems: FC = () => {
@@ -39,16 +39,19 @@ const OrderItems: FC = () => {
                       {order.sales_channel?.name} :: {order.order_number}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                      <div
+                      <Image
+                        src={item.image}
+                        alt="No Image Found"
+                        width="5rem"
+                        height="5rem"
                         style={{
-                          padding: '1rem',
-                          width: '5rem',
+                          border: 1,
+                          borderStyle: 'solid',
+                          color: 'gray',
+                          fontSize: 15,
                           textAlign: 'center',
-                          border: '1px solid #ccc',
                         }}
-                      >
-                        <img src={item.image} />
-                      </div>
+                      />
                       <div>
                         <div>LISTING SKU: {item.listingSku}</div>
                         <div>LISTING NAME: {item.name}</div>

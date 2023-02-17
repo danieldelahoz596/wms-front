@@ -4,6 +4,7 @@ import { useModel } from '@umijs/max';
 import { Alert, Card, Form, Tabs } from 'antd';
 import type { FC } from 'react';
 import Method from './method';
+import Recipient from './Recipient';
 
 const RightPanel: FC = () => {
   const { selectedOrders } = useModel('order');
@@ -107,11 +108,7 @@ const RightPanel: FC = () => {
               />
             </Form.Item>
             <Form.Item>
-              <OButton
-                htmlType="submit"
-                btnText={'Update Selected Orders'}
-                style={{ width: '100%' }}
-              />
+              <OButton btnText={'Update Selected Orders'} style={{ width: '100%' }} />
             </Form.Item>
           </Form>
         </div>
@@ -148,7 +145,7 @@ const RightPanel: FC = () => {
             {
               label: 'Recipient',
               key: '2',
-              children: `Recipient`,
+              children: <Recipient />,
             },
           ]}
         />
