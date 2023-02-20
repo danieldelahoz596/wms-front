@@ -4,7 +4,7 @@ import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
-import ConfigureMilestonesModal from '../Modals/PurchaseOrder/ConfigureMilestonesModal';
+import ConfigureMilestonesModal from '../Modals/PurchaseOrder/ConfigureMilestones';
 // import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;

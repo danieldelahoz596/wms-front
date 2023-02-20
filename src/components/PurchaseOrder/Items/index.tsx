@@ -2,8 +2,8 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import ManageItemsModal from '@/components/Modals/ManageItemsModal';
 import AddNewItem from '@/components/Modals/PurchaseOrder/AddNewItem';
-import EditItemModal from '@/components/Modals/PurchaseOrder/EditItemModal';
-import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItemModal';
+import EditItemModal from '@/components/Modals/PurchaseOrder/EditItem';
+import ReceiveItemModal from '@/components/Modals/PurchaseOrder/ReceiveItem';
 import { modalType } from '@/utils/helpers/types';
 import {
   CheckCircleFilled,

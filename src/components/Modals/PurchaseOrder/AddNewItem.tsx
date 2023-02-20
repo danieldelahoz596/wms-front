@@ -30,7 +30,7 @@ const buyerOptions = [
   },
 ];
 
-interface IAddNewItem {
+interface IAddNewItemModal {
   isOpen: boolean;
   poNumber: string;
   items: any[];
@@ -38,7 +38,13 @@ interface IAddNewItem {
   onCancel: () => void;
 }
 
-const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, onCancel }) => {
+const AddNewItemModal: React.FC<IAddNewItemModal> = ({
+  isOpen,
+  poNumber,
+  items,
+  onSave,
+  onCancel,
+}) => {
   const { productList } = useModel('product');
   const [form] = Form.useForm();
   const [poItems, setPoItems] = useState([]);
@@ -232,4 +238,4 @@ const AddNewItem: React.FC<IAddNewItem> = ({ isOpen, poNumber, items, onSave, on
   );
 };
 
-export default AddNewItem;
+export default AddNewItemModal;

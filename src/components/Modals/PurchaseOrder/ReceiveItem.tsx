@@ -1,5 +1,4 @@
 import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import React, { useEffect } from 'react';
@@ -13,16 +12,6 @@ interface IReceiveItemModal {
 
 const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, onCancel }) => {
   const [form] = Form.useForm();
-  const locationOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
 
   useEffect(() => {
     form.setFieldsValue({

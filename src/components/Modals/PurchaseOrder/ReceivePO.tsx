@@ -3,7 +3,7 @@ import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import NewRecevingLocation from './NewRecevingLocation';
+import NewRecevingLocationModal from './NewRecevingLocation';
 const { TextArea } = Input;
 interface IReceivePOModal {
   isOpen: boolean;
@@ -211,7 +211,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
         </Row>
       </>
 
-      <NewRecevingLocation
+      <NewRecevingLocationModal
         isOpen={showModal}
         onSave={(value) => {
           setShowModal(false);

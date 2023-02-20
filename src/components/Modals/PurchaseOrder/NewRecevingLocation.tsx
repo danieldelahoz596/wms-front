@@ -1,11 +1,15 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Checkbox, Form, Input } from 'antd';
-interface INewRecevingLocation {
+interface INewRecevingLocationModal {
   isOpen: boolean;
   onSave: (item: string) => void;
   onClose: () => void;
 }
-const NewRecevingLocation: React.FC<INewRecevingLocation> = ({ isOpen, onSave, onClose }) => {
+const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({
+  isOpen,
+  onSave,
+  onClose,
+}) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {
@@ -55,4 +59,4 @@ const NewRecevingLocation: React.FC<INewRecevingLocation> = ({ isOpen, onSave, o
   );
 };
 
-export default NewRecevingLocation;
+export default NewRecevingLocationModal;
