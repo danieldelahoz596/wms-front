@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Table, Space, Select, Button } from 'antd';
 import React, { useState } from 'react';
 import { PlayCircleOutlined, QuestionCircleFilled } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/components/Modals/Analytic/ExportModal';
+import ExportModal from '@/components/Modals/Analytic/Export';
 import tableExport from 'antd-table-export';
 
 const InventoryAging: React.FC = () => {

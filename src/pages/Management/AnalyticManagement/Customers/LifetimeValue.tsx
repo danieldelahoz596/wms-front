@@ -163,9 +163,6 @@ const LifetimeValue: React.FC = () => {
                 offsetX: -50,
                 offsetY: 10,
               }}
-              // legend={{
-              //   position: 'bottom',
-              // }}
               onReady={(chartInstance) => setLifetimeValueChartInstance(chartInstance)}
             />
           </div>
