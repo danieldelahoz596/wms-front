@@ -2,7 +2,17 @@ import { OModal } from '@/components/Globals/OModal';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import { Card, Checkbox, Col, Form, Input, Row, Select, Tabs } from 'antd';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface IDocumentPrintSettingsModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
+  isOpen,
+  onSave,
+  onClose,
+}) => {
   return (
     <OModal
       title="Document Print Settings For In House"
@@ -179,4 +189,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default DocumentPrintSettingsModal;

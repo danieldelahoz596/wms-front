@@ -4,7 +4,13 @@ import { Form, Input, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { SketchPicker } from 'react-color';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface IBasicInfoModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const { selectedWarehouse, updateWarehouse, setSelectedWarehouse } = useModel('warehouse');
   const [displayColorPicker, setDisplayColorPicker] = useState({
@@ -187,4 +193,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default BasicInfoModal;

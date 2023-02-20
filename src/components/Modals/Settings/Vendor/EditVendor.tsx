@@ -5,7 +5,13 @@ import { useModel } from '@umijs/max';
 import { Row, Col, Input, Select, Checkbox, Card, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface IEditVendorModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const EditVendorModal: React.FC<IEditVendorModal> = ({ isOpen, onSave, onClose }) => {
   const { editableVendor, updateNewVendor, setEditableVendor } = useModel('vendor');
   const { poTemplateList } = useModel('poTemplate');
   const { paymentTermList } = useModel('paymentTerm');
@@ -266,4 +272,6 @@ export default function ({ isOpen, onSave, onClose }) {
       )}
     </OModal>
   );
-}
+};
+
+export default EditVendorModal;

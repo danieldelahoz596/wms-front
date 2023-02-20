@@ -2,7 +2,17 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 
-export default function ({ isOpen, onClose, handleOpenNew }) {
+interface INewWarehouseTypeModal {
+  isOpen: boolean;
+  handleOpenNew: () => void;
+  onClose: () => void;
+}
+
+const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({
+  isOpen,
+  onClose,
+  handleOpenNew,
+}) => {
   return (
     <OModal
       title="New Warehouse"
@@ -44,4 +54,6 @@ export default function ({ isOpen, onClose, handleOpenNew }) {
       </div>
     </OModal>
   );
-}
+};
+
+export default NewWarehouseTypeModal;

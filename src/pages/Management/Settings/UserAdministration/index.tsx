@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
-import NewUserModal from '@/components/Modals/Settings/UserAdministration/NewUserModal';
-import UserAdministrationHistory from '@/components/Modals/Settings/UserAdministration/UserAdministrationHistoryModal';
+import NewUserModal from '@/components/Modals/Settings/UserAdministration/NewUser';
+import UserAdministrationHistoryModal from '@/components/Modals/Settings/UserAdministration/UserAdministrationHistory';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
 import { Card, message, Space, Table } from 'antd';
@@ -114,7 +114,7 @@ export default function () {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <UserAdministrationHistory
+      <UserAdministrationHistoryModal
         isOpen={modalOpen === modalType.History}
         onClose={() => setModal(modalType.Close)}
       />

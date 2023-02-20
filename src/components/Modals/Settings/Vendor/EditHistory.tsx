@@ -3,7 +3,13 @@ import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
 import { Row, Col } from 'antd';
 
-export default function EditHistoryModal({ isOpen, onSave, onClose }) {
+interface IEditHistoryModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const EditHistoryModal: React.FC<IEditHistoryModal> = ({ isOpen, onSave, onClose }) => {
   const { vendorHistory } = useModel('vendor');
 
   const THistoryColumns = [
@@ -43,4 +49,6 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
       </Row>
     </OModal>
   );
-}
+};
+
+export default EditHistoryModal;

@@ -1,13 +1,13 @@
 import { OButton } from '@/components/Globals/OButton';
-import AddShippingZonesModal from '@/components/Modals/Settings/Warehouse/AddShippingZonesModal';
-import BasicInfoModal from '@/components/Modals/Settings/Warehouse/BasicInfoModal';
-import DocumentPrintSettingsModal from '@/components/Modals/Settings/Warehouse/DocumentPrintSettingsModal';
-import NewWarehouseModal from '@/components/Modals/Settings/Warehouse/NewWarehouseModal';
-import NewWarehouseTypeModal from '@/components/Modals/Settings/Warehouse/NewWarehouseTypeModal';
-import RankOrderModal from '@/components/Modals/Settings/Warehouse/RankOrderModal';
-import ReturnLocationModal from '@/components/Modals/Settings/Warehouse/ReturnLocationModal';
-import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivateModal';
-import WarehouseHistoryModal from '@/components/Modals/Settings/Warehouse/WarehouseHistoryModal';
+import AddShippingZonesModal from '@/components/Modals/Settings/Warehouse/AddShippingZones';
+import BasicInfoModal from '@/components/Modals/Settings/Warehouse/BasicInfo';
+import DocumentPrintSettingsModal from '@/components/Modals/Settings/Warehouse/DocumentPrintSettings';
+import NewWarehouseModal from '@/components/Modals/Settings/Warehouse/NewWarehouse';
+import NewWarehouseTypeModal from '@/components/Modals/Settings/Warehouse/NewWarehouseType';
+import RankOrderModal from '@/components/Modals/Settings/Warehouse/RankOrder';
+import ReturnLocationModal from '@/components/Modals/Settings/Warehouse/ReturnLocation';
+import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivate';
+import WarehouseHistoryModal from '@/components/Modals/Settings/Warehouse/WarehouseHistory';
 import { modalType } from '@/utils/helpers/types';
 import {
   ArrowLeftOutlined,
@@ -22,7 +22,7 @@ import {
   PaperClipOutlined,
   QuestionCircleTwoTone,
   StopOutlined,
-  ToolFilled
+  ToolFilled,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Col, Dropdown, Row, Space } from 'antd';
@@ -228,7 +228,6 @@ export default function () {
 
       <AddShippingZonesModal
         isOpen={modalOpen === modalType.WarehouseShippingZones}
-        onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />
 

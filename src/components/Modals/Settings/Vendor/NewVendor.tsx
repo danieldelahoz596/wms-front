@@ -6,7 +6,13 @@ import { Row, Col, Input, Select, Checkbox, Card, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { useState } from 'react';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface INewVendorModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) => {
   const [newVendor, setNewVendor] = useState({
     po_default: null,
     is_supplier: false,
@@ -252,4 +258,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </Form>
     </OModal>
   );
-}
+};
+
+export default NewVendorModal;

@@ -2,7 +2,7 @@ import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Table } from 'antd';
 
-interface IUserAdministrationHistory {
+interface IUserAdministrationHistoryModal {
   isOpen: boolean;
   onClose: () => void;
 }
@@ -22,9 +22,8 @@ const columns = [
   },
 ];
 
-const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({
+const UserAdministrationHistoryModal: React.FC<IUserAdministrationHistoryModal> = ({
   isOpen,
-  onSave,
   onClose,
 }) => {
   return (
@@ -48,4 +47,4 @@ const UserAdministrationHistory: React.FC<IUserAdministrationHistory> = ({
   );
 };
 
-export default UserAdministrationHistory;
+export default UserAdministrationHistoryModal;

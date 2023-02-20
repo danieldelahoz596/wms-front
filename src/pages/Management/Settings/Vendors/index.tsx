@@ -1,7 +1,7 @@
 import { OTable } from '@/components/Globals/OTable';
-import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistoryModal';
-import EditVendorModal from '@/components/Modals/Settings/Vendor/EditVendorModal';
-import NewVendorModal from '@/components/Modals/Settings/Vendor/NewVendorModal';
+import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistory';
+import EditVendorModal from '@/components/Modals/Settings/Vendor/EditVendor';
+import NewVendorModal from '@/components/Modals/Settings/Vendor/NewVendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
@@ -23,7 +23,7 @@ export default function () {
     useModel('vendor');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [showInactive, setShowInactive] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [, setSearchText] = useState('');
 
   const {
     isDragging: isRightDragging,
@@ -35,11 +35,6 @@ export default function () {
     min: 50,
     reverse: true,
   });
-
-  const editVendor = (_record) => {
-    setEditableVendor(_record);
-    setModal(modalType.Edit);
-  };
 
   const vendorListRows = vendorList
     ?.filter((_item) => _item.status == !showInactive)

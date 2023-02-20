@@ -3,7 +3,13 @@ import { useModel } from '@umijs/max';
 import { Form, Input } from 'antd';
 import { useEffect } from 'react';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface IReturnLocationModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const { selectedWarehouse, updateReturnLocation, setSelectedWarehouse } = useModel('warehouse');
 
@@ -131,4 +137,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default ReturnLocationModal;

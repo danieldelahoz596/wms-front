@@ -4,12 +4,18 @@ import { useState } from 'react';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { moveInArray } from '@/utils/common';
 
+interface IRankOrderModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
 const SortableItem = sortableElement(({ value }) => <div style={{ zIndex: 99999 }}>{value}</div>);
 const SortableContainer = sortableContainer(({ children }) => {
   return <div>{children}</div>;
 });
 
-export default function ({ isOpen, onSave, onClose }) {
+const RankOrderModal: React.FC<IRankOrderModal> = ({ isOpen, onSave, onClose }) => {
   const [items, setItems] = useState([
     {
       id: 1,
@@ -102,4 +108,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default RankOrderModal;

@@ -2,14 +2,14 @@ import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Typography, Row } from 'antd';
 
-interface IWarehouseDeactivate {
+interface IWarehouseDeactivateModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
   activate: boolean;
 }
 
-const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({
+const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({
   isOpen,
   onSave,
   onClose,
@@ -61,4 +61,4 @@ const WarehouseDeactivate: React.FC<IWarehouseDeactivate> = ({
   );
 };
 
-export default WarehouseDeactivate;
+export default WarehouseDeactivateModal;
