@@ -1,4 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
+import NewStockModal from '@/components/Modals/Inventory/NewStock';
 import StockAdjustModal from '@/components/Modals/Inventory/StockAdjust';
 import StockDeactiveModal from '@/components/Modals/Inventory/StockDeactive';
 import StockDrawRankModal from '@/components/Modals/Inventory/StockDrawLRank';
@@ -219,7 +220,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
               <Row>
                 <Col span={17}>
                   <Space size={4}>
-                    <OButton btnText={'New Stock'} />
+                    <OButton btnText={'New Stock'} onClick={() => setModal(modalType.NewStock)} />
                     <Dropdown
                       disabled={!selectedLocation}
                       menu={{
@@ -449,6 +450,13 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
           setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
+      />
+
+      <NewStockModal
+        isOpen={modal === modalType.NewStock}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+        stockData={vendorData}
       />
     </div>
   );
