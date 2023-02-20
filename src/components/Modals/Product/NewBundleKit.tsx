@@ -6,13 +6,13 @@ import GalleryTab from '@/components/Tabs/Product/Gallery';
 import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
 import BundledItemsTab from '@/components/Tabs/Product/BundledItems';
 
-interface INewBundleKit {
+interface INewBundleKitModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const NewBundleKit: React.FC<INewBundleKit> = ({ isOpen, onClose, onSave }) => {
+const NewBundleKitModal: React.FC<INewBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
@@ -71,4 +71,4 @@ const NewBundleKit: React.FC<INewBundleKit> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default NewBundleKit;
+export default NewBundleKitModal;

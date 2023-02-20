@@ -6,14 +6,14 @@ import { UploadOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Row, Upload } from 'antd';
 import React from 'react';
 
-interface IImportOrderShipment {
+interface IImportOrderShipmentModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
   onConfigure: () => void;
 }
 
-const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
+const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({
   isOpen,
   onClose,
   onSave,
@@ -32,7 +32,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
   return (
     <OModal
       title="External Shipment Import"
-      helpLink='/help/orders/general'
+      helpLink="/help/orders/general"
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -56,7 +56,7 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
           External shipments are any shipments that were not processed through Skubana shipping
           module. This includes shipments for orders that were fulfilled by a channel (e.g. Amazon
           FBA), a 3PL, a dropship vendor, or any other source outside of Skubana. This is the batch
-          import equivalent of <b>marking orders as "Shipped".</b>
+          import equivalent of <b>{`marking orders as "Shipped".`}</b>
         </p>
         <Row gutter={32}>
           <Col span={14}>
@@ -115,4 +115,4 @@ const ImportOrderShipment: React.FC<IImportOrderShipment> = ({
   );
 };
 
-export default ImportOrderShipment;
+export default ImportOrderShipmentModal;

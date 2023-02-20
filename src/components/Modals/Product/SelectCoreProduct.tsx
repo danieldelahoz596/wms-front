@@ -4,13 +4,13 @@ import { useModel } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import { productType } from '@/utils/helpers/types';
 
-interface ISelectCoreProduct {
+interface ISelectCoreProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const SelectCoreProduct: React.FC<ISelectCoreProduct> = ({ isOpen, onClose, onSave }) => {
+const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onClose, onSave }) => {
   const { productList, setSelectedProducts } = useModel('product');
   const [selectedProductIds, setSelectedProductIds] = useState([]);
 
@@ -76,4 +76,4 @@ const SelectCoreProduct: React.FC<ISelectCoreProduct> = ({ isOpen, onClose, onSa
   );
 };
 
-export default SelectCoreProduct;
+export default SelectCoreProductModal;

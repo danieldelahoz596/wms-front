@@ -5,6 +5,12 @@ import { Card, Checkbox, Col, Form, Input, Row, List, message } from 'antd';
 import { useState, useEffect } from 'react';
 import styles from './index.less';
 
+interface INewUserModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
 const userAdministration = [
   {
     id: 'orders',
@@ -98,7 +104,7 @@ const userAdministration = [
   },
 ];
 
-export default function ({ isOpen, onSave, onClose }) {
+const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const [permissions, setPermissions] = useState([]);
   const { selectedUser, createUser, updateUser } = useModel('user');
@@ -273,4 +279,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </OModal>
     </>
   );
-}
+};
+
+export default NewUserModal;

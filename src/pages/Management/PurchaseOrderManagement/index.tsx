@@ -1,10 +1,10 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPOModal';
+import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPO';
 import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
-import ManageItemsModal from '@/components/Modals/ManageItemsModal';
-import VendorModal from '@/components/Modals/PurchaseOrder/VendorModal';
+import ManageItemsModal from '@/components/Modals/ManageItems';
+import VendorModal from '@/components/Modals/PurchaseOrder/Vendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import {
@@ -22,7 +22,7 @@ import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
-import ReceivePOModal from '@/components/Modals/PurchaseOrder/ReceivePOModal';
+import ReceivePOModal from '@/components/Modals/PurchaseOrder/ReceivePO';
 
 export const TColumns = [
   {
@@ -164,6 +164,7 @@ const CustomerManagement: React.FC = () => {
 
   const actionButtons: IOButton[] = [
     {
+      key: 'print',
       onClick: () => console.log('Vendor'),
       btnText: (
         <Dropdown
@@ -187,6 +188,7 @@ const CustomerManagement: React.FC = () => {
       ),
     },
     {
+      key: 'authorize',
       btnText: 'Authorize',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
@@ -212,6 +214,7 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Authorization.
     },
     {
+      key: 'restore',
       btnText: 'Restore P.O.',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
@@ -236,6 +239,7 @@ const CustomerManagement: React.FC = () => {
       // Only in Canceled status.
     },
     {
+      key: 'resend',
       btnText: 'Re-send',
       disabled: selectedRows.length === 0,
       onClick: () => {
@@ -256,6 +260,7 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
+      key: 'cancel',
       btnText: 'Cancel',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
@@ -280,6 +285,7 @@ const CustomerManagement: React.FC = () => {
       // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
     },
     {
+      key: 'confirm',
       btnText: 'Confirm',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
@@ -305,6 +311,7 @@ const CustomerManagement: React.FC = () => {
       // Confirming will effectively issue the selected P.O.(s).
     },
     {
+      key: 'receive',
       onClick: () => {
         // setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
         // setSelectedRows([]);
@@ -317,6 +324,7 @@ const CustomerManagement: React.FC = () => {
       // Only in Pending Delivery or Partially Delivered
     },
     {
+      key: 'void',
       btnText: 'Void',
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
@@ -341,10 +349,12 @@ const CustomerManagement: React.FC = () => {
       // Only in Pending Delivery or Partially Delivered
     },
     {
+      key: 'new',
       onClick: handleNewPOModalOpen,
       btnText: 'New P.O.',
     },
     {
+      key: 'import',
       onClick: () => console.log('Export Purchase Orders'),
       btnText: (
         <Dropdown
@@ -383,7 +393,7 @@ const CustomerManagement: React.FC = () => {
 
   useEffect(() => {
     changeSelectedPOStatus({ poStatus: 1, warehouse: null });
-  }, [poStatusList]);
+  }, [poStatusList, changeSelectedPOStatus]);
 
   useEffect(() => {
     setSelectedRows([]);
@@ -424,8 +434,8 @@ const CustomerManagement: React.FC = () => {
                   : ''}
               </p>
               <Space size={4} style={{ marginBottom: 10 }}>
-                {actionButtons.map((btn, index) => (
-                  <OButton key={index} {...btn} />
+                {actionButtons.map((btn) => (
+                  <OButton key={btn.key} {...btn} />
                 ))}
               </Space>
               <OTable

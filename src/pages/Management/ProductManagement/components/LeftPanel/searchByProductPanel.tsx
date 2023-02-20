@@ -97,8 +97,8 @@ const SearchByProductPanel: React.FC = () => {
         })}
       </Space>
       <div className="space-between" style={{ marginTop: 10 }}>
-        <OButton btnText={'Clear'}></OButton>
-        <OButton btnText={'Search'}></OButton>
+        <OButton btnText={'Clear'} />
+        <OButton btnText={'Search'} />
       </div>
     </Form>
   );

@@ -3,13 +3,13 @@ import { Form, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
 import GalleryTab from '@/components/Tabs/Product/Gallery';
-interface IEditProduct {
+interface IEditProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
+const EditProductModal: React.FC<IEditProductModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
 
   const tabItems: TabsProps['items'] = [
@@ -27,7 +27,7 @@ const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'New Core Product'}
+      title="New Core Product"
       helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}
@@ -52,4 +52,4 @@ const EditProduct: React.FC<IEditProduct> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default EditProduct;
+export default EditProductModal;

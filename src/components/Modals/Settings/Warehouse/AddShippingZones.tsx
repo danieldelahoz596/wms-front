@@ -3,7 +3,12 @@ import { HomeOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
 import { Link, useModel } from '@umijs/max';
 import { Card, Select } from 'antd';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface IAddShippingZonesModal {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const AddShippingZonesModal: React.FC<IAddShippingZonesModal> = ({ isOpen, onClose }) => {
   const { warehouseList } = useModel('warehouse');
 
   const handleChange = (value: string) => {
@@ -26,7 +31,7 @@ export default function ({ isOpen, onSave, onClose }) {
             it.
           </p>
           <Link to={'#'} style={{ textDecoration: 'underline' }}>
-            What's this
+            {`What's this`}
             <QuestionCircleTwoTone />
           </Link>
         </div>
@@ -63,4 +68,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default AddShippingZonesModal;

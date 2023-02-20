@@ -4,7 +4,7 @@ import { Table } from 'antd';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 
-interface IWarehouseHistory {
+interface IWarehouseHistoryModal {
   isOpen: boolean;
   onClose: () => void;
 }
@@ -24,7 +24,7 @@ const columns = [
   },
 ];
 
-const WarehouseHistory: React.FC<IWarehouseHistory> = ({ isOpen, onClose }) => {
+const WarehouseHistoryModal: React.FC<IWarehouseHistoryModal> = ({ isOpen, onClose }) => {
   const { warehouseHistoryList } = useModel('warehouse');
 
   return (
@@ -53,4 +53,4 @@ const WarehouseHistory: React.FC<IWarehouseHistory> = ({ isOpen, onClose }) => {
   );
 };
 
-export default WarehouseHistory;
+export default WarehouseHistoryModal;

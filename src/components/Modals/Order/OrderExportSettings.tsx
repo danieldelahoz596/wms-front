@@ -10,7 +10,7 @@ import AddExportSettingsModal from './AddExportSettings';
 interface IOrderExportSettingsModal {
   isOpen: boolean;
   onClose: () => void;
-  // onAddOrderExportSettings: () => void;
+  onAddOrderExportSettings: () => void;
 }
 
 const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen, onClose }) => {
@@ -49,7 +49,7 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen,
   return (
     <OModal
       title="Order Export Settings"
-      helpLink='/help/orders/exportorders'
+      helpLink="/help/orders/exportorders"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}

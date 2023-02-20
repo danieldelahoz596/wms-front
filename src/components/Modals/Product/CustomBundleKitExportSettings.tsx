@@ -7,12 +7,12 @@ import { Popconfirm, Space } from 'antd';
 import React, { useState } from 'react';
 import AddExportSettingsModal from './AddExportSettings';
 
-interface ICustomBundleKitExportSettings {
+interface ICustomBundleKitExportSettingsModal {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = ({
+const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSettingsModal> = ({
   isOpen,
   onClose,
 }) => {
@@ -103,4 +103,4 @@ const CustomBundleKitExportSettings: React.FC<ICustomBundleKitExportSettings> = 
   );
 };
 
-export default CustomBundleKitExportSettings;
+export default CustomBundleKitExportSettingsModal;

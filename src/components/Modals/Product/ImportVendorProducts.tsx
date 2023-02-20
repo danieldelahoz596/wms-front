@@ -3,16 +3,20 @@ import { OModal } from '@/components/Globals/OModal';
 import { modalType } from '@/utils/helpers/types';
 import { Col, Row } from 'antd';
 
-interface IImportVendorProducts {
+interface IImportVendorProductsModal {
   isOpen: boolean;
   onClose: () => void;
   onClick: (value: any) => void;
 }
 
-const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose, onClick }) => {
+const ImportVendorProductsModal: React.FC<IImportVendorProductsModal> = ({
+  isOpen,
+  onClose,
+  onClick,
+}) => {
   return (
     <OModal
-      title={'Select How To Import Vendor Products'}
+      title="Select How To Import Vendor Products"
       helpLink="/help/products/import/vendorproducts"
       width={400}
       isOpen={isOpen}
@@ -56,4 +60,4 @@ const ImportVendorProducts: React.FC<IImportVendorProducts> = ({ isOpen, onClose
   );
 };
 
-export default ImportVendorProducts;
+export default ImportVendorProductsModal;

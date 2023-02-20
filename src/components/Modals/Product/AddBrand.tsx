@@ -6,13 +6,13 @@ import { useModel } from '@umijs/max';
 import { Input, List } from 'antd';
 import { useState } from 'react';
 
-interface IAddBrand {
+interface IAddBrandModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const AddBrand: React.FC<IAddBrand> = ({ isOpen, onClose, onSave }) => {
+const AddBrandModal: React.FC<IAddBrandModal> = ({ isOpen, onClose, onSave }) => {
   const { brands, setBrands } = useModel('brand');
   const [name, setName] = useState(null);
 
@@ -27,7 +27,7 @@ const AddBrand: React.FC<IAddBrand> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'Add New Brand'}
+      title="Add New Brand"
       helpLink=""
       width={600}
       centered
@@ -83,4 +83,4 @@ const AddBrand: React.FC<IAddBrand> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default AddBrand;
+export default AddBrandModal;

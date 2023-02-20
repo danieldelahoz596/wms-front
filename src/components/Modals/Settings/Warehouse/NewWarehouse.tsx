@@ -5,7 +5,13 @@ import { useModel } from '@umijs/max';
 import { Card, Checkbox, Form, Input, Select } from 'antd';
 import { useState } from 'react';
 
-export default function ({ isOpen, onSave, onClose }) {
+interface INewWarehouseModal {
+  isOpen: boolean;
+  onSave: () => void;
+  onClose: () => void;
+}
+
+const NewWarehouseModal: React.FC<INewWarehouseModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const { warehouseList, createWarehouse } = useModel('warehouse');
   const [backupWarehouses, setBackupWarehouses] = useState([]);
@@ -148,7 +154,7 @@ export default function ({ isOpen, onSave, onClose }) {
                     label: _item.name,
                   }))}
                   onChange={handleAddBackupWarehouse}
-                ></Select>
+                />
               </Form.Item>
               <OTable
                 pagination={false}
@@ -177,4 +183,6 @@ export default function ({ isOpen, onSave, onClose }) {
       </>
     </OModal>
   );
-}
+};
+
+export default NewWarehouseModal;

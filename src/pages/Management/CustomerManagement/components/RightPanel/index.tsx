@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { useModel } from '@umijs/max';
-import { Card, Col, Form, Input, Row, Space } from 'antd';
-import { useEffect } from 'react';
+import { Card, Form, Input, Space } from 'antd';
 
 const RightPanel: React.FC = () => {
   const { selectedCustomer, handleUpdateCustomer, handleDeleteCustomer } = useModel('customer');
@@ -21,7 +21,7 @@ const RightPanel: React.FC = () => {
   return selectedCustomer ? (
     <Card title={selectedCustomer?.name}>
       <Space>
-        <Form layout="vertical" form={form} onFinish={handleUpdate} >
+        <Form layout="vertical" form={form} onFinish={handleUpdate}>
           <Form.Item name="phonenumber" label={'Phone *'}>
             <Input />
           </Form.Item>

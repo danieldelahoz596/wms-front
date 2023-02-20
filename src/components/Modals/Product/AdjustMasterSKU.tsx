@@ -3,13 +3,13 @@ import { useModel } from '@umijs/max';
 import { Alert, Form, Input } from 'antd';
 import React from 'react';
 
-interface IAdjustMasterSKU {
+interface IAdjustMasterSKUModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (value: string) => void;
 }
 
-const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }) => {
+const AdjustMasterSKUModal: React.FC<IAdjustMasterSKUModal> = ({ isOpen, onClose, onSave }) => {
   const { editableProduct } = useModel('product');
   const [form] = Form.useForm();
 
@@ -20,7 +20,7 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
   };
   return (
     <OModal
-      title={'Adjust Master SKU'}
+      title="Adjust Master SKU"
       helpLink="/help/products/manage"
       width={350}
       isOpen={isOpen}
@@ -63,4 +63,4 @@ const AdjustMasterSKU: React.FC<IAdjustMasterSKU> = ({ isOpen, onClose, onSave }
   );
 };
 
-export default AdjustMasterSKU;
+export default AdjustMasterSKUModal;

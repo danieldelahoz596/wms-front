@@ -22,7 +22,7 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
@@ -52,7 +52,7 @@ import ShipmentImportMappingsModal from '@/components/Modals/Order/ShipmentImpor
 
 import DuplicateOrderModal from '@/components/Modals/Order/DuplicateOrder';
 import SelectOrderColumnsModal from '@/components/Modals/Order/SelectOrderColumns';
-import SplitOrder from '@/components/Modals/Order/SplitOrder';
+import SplitOrderModal from '@/components/Modals/Order/SplitOrder';
 import { defaultShowColumns } from '@/data/orderData';
 import { uuidv4 } from '@antv/xflow-core';
 import moment from 'moment';
@@ -319,7 +319,7 @@ const OrderManagement: React.FC = () => {
               },
               {
                 key: 'mark_shipped',
-                label: <span>Mark 'Shipped'</span>,
+                label: <span>{`Mark 'Shipped'`}</span>,
                 icon: <CheckCircleOutlined />,
               },
               {
@@ -710,7 +710,7 @@ const OrderManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <SplitOrder
+      <SplitOrderModal
         isOpen={modalOpen === modalType.SplitOrder}
         onSave={(item) => {
           const newOrderList = [];

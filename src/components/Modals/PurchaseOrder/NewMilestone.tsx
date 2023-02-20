@@ -3,13 +3,13 @@ import { Input, Form } from 'antd';
 import { Colorpicker } from 'antd-colorpicker';
 import { useEffect } from 'react';
 
-export interface INewMilestone {
+export interface INewMilestoneModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (value: any) => void;
 }
 
-const NewMilestone: React.FC<INewMilestone> = ({ isOpen, onClose, onSave }) => {
+const NewMilestoneModal: React.FC<INewMilestoneModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {
@@ -56,4 +56,4 @@ const NewMilestone: React.FC<INewMilestone> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default NewMilestone;
+export default NewMilestoneModal;

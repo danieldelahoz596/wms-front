@@ -2,7 +2,7 @@ import { Button, Card, Row, Col, DatePicker, Form, Table, Space, InputNumber, Se
 import React, { useState } from 'react';
 import { QuestionCircleFilled, RetweetOutlined } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/components/Modals/Analytic/ExportModal';
+import ExportModal from '@/components/Modals/Analytic/Export';
 import tableExport from 'antd-table-export';
 
 const MostFrequentCustomers: React.FC = () => {

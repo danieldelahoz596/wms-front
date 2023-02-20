@@ -41,7 +41,6 @@ const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
       ]}
     >
       <>
-        {/* <OTable columns={Tcolumns} rows={dataSource} /> */}
         <Row justify="center">
           <Col>
             <h2>{subTitle}</h2>

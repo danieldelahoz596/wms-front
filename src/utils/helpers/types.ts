@@ -70,6 +70,11 @@ export enum modalType {
   ExportInventory = 'ExportInventory',
   BulkReconciliation = 'BulkReconciliation',
   StockAllocationDetails = 'StockAllocationDetails',
+  ImportReorderRules = 'ImportReorderRules',
+  InventoryRules = 'InventoryRules',
+  SelectWarehouseForInventoryImport = 'SelectWarehouseForInventoryImport',
+  IncomingUnits = 'IncomingUnits',
+  NewStock = 'NewStock',
 
   // Purchasing
   ManagePurchaseOrders = 'Manage',

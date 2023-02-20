@@ -1,9 +1,15 @@
 import { OButton } from '@/components/Globals/OButton';
 import SelectDropdown from '@/components/Globals/selectDropdown';
+import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconciliation';
 import ExportInventoryModal from '@/components/Modals/Inventory/ExportInventory';
 import ExportStockDetailsModal from '@/components/Modals/Inventory/ExportStockDetails';
 import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
+import IncomingUnitsModal from '@/components/Modals/Inventory/ImcomingUnits';
+import ImportReorderRulesModal from '@/components/Modals/Inventory/ImportReorderRules';
+import InventoryLevelsImportModal from '@/components/Modals/Inventory/InventoryLevelsImport';
+import InventoryRulesModal from '@/components/Modals/Inventory/InventoryRules';
+import SelectWarehouseForInventoryImportModal from '@/components/Modals/Inventory/SelectWarehouseForInventoryImport';
 import StockAllocationDetailsModal from '@/components/Modals/Inventory/StockAllocationDetails';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
@@ -26,7 +32,7 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Dropdown, Input, Row, Space, Table } from 'antd';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import StockDetailsPanel from './components/RightPanel';
 import { data, stock_allocation, stock_history } from './components/structure';
@@ -39,17 +45,20 @@ interface IStockManagement {
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   const { initialState } = useModel('@@initialState');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
-  const [dataSource, setDataSource] = useState(data);
-  const [stockHistorySource, setstockHistorySource] = useState(stock_history);
-  const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
-  // const [status, setStatus] = useState('all');
+  const [dataSource] = useState(data);
+  const [stockHistorySource] = useState(stock_history);
+  const [stockAllocationSource] = useState(stock_allocation);
   const [selectedStockId, setSelectedStockId] = useState(null);
+  const { getInventoryImportExportSummary } = useModel('exportSummary');
+  const [selectedWarehouseName, setSelectedWarehouseName] = useState('');
 
-  // const handleChangeStatus = (_name: string, value: any) => {
-  //   setStatus(value);
-  // };
+  const handleMasterSKU = (event, id) => {
+    event.stopPropagation();
+    setSelectedStockId(id);
+    setCurrentModal(modalType.InventoryRules);
+  };
 
-  const Tcolumns = useMemo(
+  const TColumns = useMemo(
     () => [
       {
         key: 'expand',
@@ -84,8 +93,8 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         title: 'MASTER SKU',
         dataIndex: 'master_sku',
         key: 'master_sku',
-        render: (text: any) => (
-          <a>
+        render: (text: any, record) => (
+          <a onClick={(event) => handleMasterSKU(event, record.key)}>
             <u>{text}</u>
           </a>
         ),
@@ -136,7 +145,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         render: (text: any) => (
           <span
             style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
+            onClick={() => setCurrentModal(modalType.IncomingUnits)}
           >
             <u>{text}</u>
           </span>
@@ -235,21 +244,6 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   style={{ width: '220px' }}
                   size={'middle'}
                 />
-                {/* <OInput
-                  type="select"
-                  name="status"
-                  showPlaceholder={false}
-                  options={[
-                    { value: 'onHand', text: 'On Hand' },
-                    { value: 'locked', text: 'Locked' },
-                    { value: 'allocated', text: 'Allocated' },
-                    { value: 'inTransite', text: 'In Transit' },
-                    { value: 'availableQuantities', text: 'Available quantities' },
-                  ]}
-                  value={status}
-                  onChange={handleChangeStatus}
-                  style={{ width: '220px', textAlign: 'left' }}
-                /> */}
               </Space>
             </div>
           </Col>
@@ -338,7 +332,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '1',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.StockHistory)}>
+                      <span
+                        onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}
+                      >
                         Import Inventory
                       </span>
                     ),
@@ -347,7 +343,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '2',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                      <span
+                        onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}
+                      >
                         Import Stock Minimums
                       </span>
                     ),
@@ -356,7 +354,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '3',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                      <span onClick={() => setCurrentModal(modalType.ImportReorderRules)}>
                         Import Reorder Rules
                       </span>
                     ),
@@ -409,7 +407,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
           </Space>
 
           <Table
-            columns={Tcolumns}
+            columns={TColumns}
             dataSource={dataSource}
             style={{ marginTop: 15 }}
             onRow={(record) => {
@@ -479,8 +477,8 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
       <ExportStockEditHistoryModal
         isOpen={currentModal === modalType.ExportStockEditHistory}
         onSave={() => {}}
-        onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
         onClose={() => setCurrentModal(modalType.Close)}
+        onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
       />
 
       <ExportStockDetailsModal
@@ -505,6 +503,49 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         isOpen={currentModal === modalType.StockAllocationDetails}
         onClose={() => setCurrentModal(modalType.Close)}
         dataSource={stockAllocationSource}
+      />
+
+      <ImportReorderRulesModal
+        isOpen={currentModal === modalType.ImportReorderRules}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <InventoryRulesModal
+        isOpen={currentModal === modalType.InventoryRules}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+        stockData={dataSource.find((item) => item.key === selectedStockId)}
+      />
+
+      <SelectWarehouseForInventoryImportModal
+        isOpen={currentModal === modalType.SelectWarehouseForInventoryImport}
+        onSave={(name: string) => {
+          setSelectedWarehouseName(name);
+          setCurrentModal(modalType.Import);
+        }}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <InventoryLevelsImportModal
+        isOpen={currentModal === modalType.Import}
+        onSave={() => setCurrentModal(modalType.ImportExportSummary)}
+        onClose={() => setCurrentModal(modalType.Close)}
+        warehouseName={selectedWarehouseName}
+      />
+
+      <ImportExportSummaryModal
+        title="In-House Inventory Import"
+        info="In-House Warehouse Manual Inventory Import Summary"
+        getImportExportSummary={getInventoryImportExportSummary}
+        isOpen={currentModal === modalType.ImportExportSummary}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <IncomingUnitsModal
+        isOpen={currentModal === modalType.IncomingUnits}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
     </>
   );

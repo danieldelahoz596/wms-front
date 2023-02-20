@@ -14,7 +14,7 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
 
   return (
     <OModal
-      title={'SKU Adjustment Import'}
+      title="SKU Adjustment Import"
       helpLink="/help/products/import/skuadjustments"
       width={550}
       isOpen={isOpen}
@@ -45,10 +45,11 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
           <u>Download the Excel Template for the Sku Adjustment Import</u>
         </a>
         <p>
-          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are{' '}
+          Every product is uniquely identified by its <b>Internal SKU</b>
+          {`, and those SKU's are `}
           <i>not </i>
-          case sensitive. For example, <i>'sku123' </i> is regarded the same as <i>'SKU123' </i> by
-          the system.
+          case sensitive. For example, <i>{`'sku123' `}</i> is regarded the same as{' '}
+          <i>{`'SKU123' `}</i> by the system.
         </p>
         <p>
           This import is for adjusting SKUs in bulk. If there are any issues, Skubana will take not

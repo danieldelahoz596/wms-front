@@ -9,13 +9,17 @@ import Checkbox from 'antd/es/checkbox';
 import React, { useState } from 'react';
 import NewFieldType from './NewFieldType';
 
-interface IConfigureFieldTypes {
+interface IConfigureFieldTypesModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, onSave }) => {
+const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+}) => {
   const { fieldTypes, setFieldTypes } = useModel('customOrderFields');
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -169,4 +173,4 @@ const ConfigureFieldTypes: React.FC<IConfigureFieldTypes> = ({ isOpen, onClose, 
   );
 };
 
-export default ConfigureFieldTypes;
+export default ConfigureFieldTypesModal;

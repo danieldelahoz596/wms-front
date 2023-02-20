@@ -10,7 +10,7 @@ import {
 import { Card, Row, Col, Space, Table, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { Pie } from '@ant-design/charts';
-import ExportModal from '@/components/Modals/Analytic/ExportModal';
+import ExportModal from '@/components/Modals/Analytic/Export';
 import { useState, useRef } from 'react';
 import tableExport from 'antd-table-export';
 import { useReactToPrint } from 'react-to-print';

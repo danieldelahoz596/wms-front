@@ -5,13 +5,13 @@ import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 
-interface INewProduct {
+interface INewProductModal {
   isOpen: boolean;
   onClose: () => void;
   handleClick: (value: any) => void;
 }
 
-const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => {
+const NewProductModal: React.FC<INewProductModal> = ({ isOpen, onClose, handleClick }) => {
   const buttons: IOButton[] = [
     {
       btnText: 'Core Product',
@@ -29,7 +29,7 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
 
   return (
     <OModal
-      title={'New Product'}
+      title="New Product"
       helpLink="/help/products/create/coreproduct"
       width={300}
       isOpen={isOpen}
@@ -58,4 +58,4 @@ const NewProduct: React.FC<INewProduct> = ({ isOpen, onClose, handleClick }) => 
   );
 };
 
-export default NewProduct;
+export default NewProductModal;

@@ -2,13 +2,13 @@ import { OModal } from '@/components/Globals/OModal';
 import { Button, Col, Row } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-interface IExportProduct {
+interface IExportProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ExportProduct: React.FC<IExportProduct> = ({ isOpen, onClose, onSave }) => {
+const ExportProductModal: React.FC<IExportProductModal> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
 
   return (
@@ -51,4 +51,4 @@ const ExportProduct: React.FC<IExportProduct> = ({ isOpen, onClose, onSave }) =>
   );
 };
 
-export default ExportProduct;
+export default ExportProductModal;

@@ -5,14 +5,14 @@ import { Select, Space } from 'antd';
 import React, { useState } from 'react';
 import POExportSettingsModal from './POExportSettings';
 
-interface IExportPO {
+interface IExportPOModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
   handleConfigureSettings: (value: any) => void;
 }
 
-const ExportPOModal: React.FC<IExportPO> = ({ isOpen, onClose, onSave }) => {
+const ExportPOModal: React.FC<IExportPOModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { poExportSettings } = useModel('poExportSettings');
 
