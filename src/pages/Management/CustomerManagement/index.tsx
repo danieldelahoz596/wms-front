@@ -1,15 +1,13 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomerModal';
-import EditHistoryModal from '@/components/Modals/Customer/EditHistoryModal';
+import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomer';
+import EditHistoryModal from '@/components/Modals/Customer/EditHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import { sampleImages } from '@/utils/helpers/base';
 import { modalType } from '@/utils/helpers/types';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Card, Col, Row, Space } from 'antd';
-import type { UploadFile } from 'antd/es/upload/interface';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContainer } from 'react-drag-drop-container-typescript';
 import { useResizable } from 'react-resizable-layout';
 import BottomPanel from './components/Bottom';
@@ -25,9 +23,6 @@ const CustomerManagement: React.FC = () => {
     onGetSelectedCustomer,
   } = useModel('customer');
   const [modalOpen, setModal] = useState('');
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>(sampleImages);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
   const {

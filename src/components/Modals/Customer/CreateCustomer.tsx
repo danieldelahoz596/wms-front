@@ -2,15 +2,15 @@ import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Form, Input } from 'antd';
 
-export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
-  const [form] = Form.useForm();
-  const { onChangeNewCustomer, handleCreateCustomer } = useModel('customer');
+interface ICreateCustomerModal {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave?: () => void;
+}
 
-  // new customer create modal handler
-  const handleNewCustomerCreate = () => {
-    handleCreateCustomer();
-    onClose();
-  };
+const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose }) => {
+  const [form] = Form.useForm();
+  const { handleCreateCustomer } = useModel('customer');
 
   return (
     <OModal
@@ -58,4 +58,6 @@ export default function CreateCustomerModal({ isOpen, onClose, onSave }) {
       </Form>
     </OModal>
   );
-}
+};
+
+export default CreateCustomerModal;
