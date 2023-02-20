@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 
 export interface IOButton {
+  key?: string | number;
   type?: 'link' | 'text' | 'ghost' | 'default' | 'primary' | 'dashed';
   onClick?: (event?: any) => void;
   style?: object;
@@ -14,13 +15,13 @@ export interface IOButton {
 }
 
 export const OButton: React.FC<IOButton> = ({
-  type="primary",
+  type = 'primary',
   onClick,
   style,
   btnText,
-  disabled=false,
+  disabled = false,
   hidden,
-  size="small",
+  size = 'small',
   className,
   bordered,
   icon,
