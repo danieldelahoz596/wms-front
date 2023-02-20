@@ -8,14 +8,14 @@ import { useModel } from '@umijs/max';
 import { Button, Col, Form, Row, Upload } from 'antd';
 import React, { useState } from 'react';
 
-interface IImportOrder {
+interface IImportOrderModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
   handleConfigureSettings: (value: any) => void;
 }
 
-const ImportOrderModal: React.FC<IImportOrder> = ({
+const ImportOrderModal: React.FC<IImportOrderModal> = ({
   isOpen,
   onClose,
   onSave,

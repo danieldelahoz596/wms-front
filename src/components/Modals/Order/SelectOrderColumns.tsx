@@ -4,13 +4,17 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Row, Table } from 'antd';
 import { useMemo, useState } from 'react';
 
-interface ISelectOrderColumns {
+interface ISelectOrderColumnsModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (items: string[]) => void;
 }
 
-const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, onSave }) => {
+const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+}) => {
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
   const [hideColumns, setHideColumns] = useState([]);
   const [search, setSearch] = useState('');
@@ -153,4 +157,4 @@ const SelectOrderColumns: React.FC<ISelectOrderColumns> = ({ isOpen, onClose, on
   );
 };
 
-export default SelectOrderColumns;
+export default SelectOrderColumnsModal;

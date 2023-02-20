@@ -5,19 +5,14 @@ import { Select, Space } from 'antd';
 import React, { useState } from 'react';
 import OrderExportSettingsModal from './OrderExportSettings';
 
-interface IExportOrder {
+interface IExportOrderModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
   handleConfigureSettings: (value: any) => void;
 }
 
-const ExportOrderModal: React.FC<IExportOrder> = ({
-  isOpen,
-  onClose,
-  onSave,
-  handleConfigureSettings,
-}) => {
+const ExportOrderModal: React.FC<IExportOrderModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { orderExportSettings } = useModel('orderExportSettings');
 

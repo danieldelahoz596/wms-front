@@ -3,13 +3,13 @@ import { Row, Col, Input, Select, Form, InputNumber } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 
-interface ISplitOrder {
+interface ISplitOrderModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (item: any) => void;
 }
 
-const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
+const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }) => {
   const { editableOrder } = useModel('order');
   const [form] = Form.useForm();
 
@@ -247,4 +247,4 @@ const SplitOrder: React.FC<ISplitOrder> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default SplitOrder;
+export default SplitOrderModal;
