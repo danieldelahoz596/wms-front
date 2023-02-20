@@ -4,6 +4,7 @@ import BulkReconciliationModal from '@/components/Modals/Inventory/BulkReconcili
 import ExportInventoryModal from '@/components/Modals/Inventory/ExportInventory';
 import ExportStockDetailsModal from '@/components/Modals/Inventory/ExportStockDetails';
 import ExportStockEditHistoryModal from '@/components/Modals/Inventory/ExportStockEditHistory';
+import ImportReorderRulesModal from '@/components/Modals/Inventory/ImportReorderRules';
 import StockAllocationDetailsModal from '@/components/Modals/Inventory/StockAllocationDetails';
 import StockHistoryModal from '@/components/Modals/Inventory/StockHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
@@ -26,7 +27,7 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Dropdown, Input, Row, Space, Table } from 'antd';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import StockDetailsPanel from './components/RightPanel';
 import { data, stock_allocation, stock_history } from './components/structure';
@@ -336,7 +337,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '3',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>
+                      <span onClick={() => setCurrentModal(modalType.ImportReorderRules)}>
                         Import Reorder Rules
                       </span>
                     ),
@@ -485,6 +486,12 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         isOpen={currentModal === modalType.StockAllocationDetails}
         onClose={() => setCurrentModal(modalType.Close)}
         dataSource={stockAllocationSource}
+      />
+
+      <ImportReorderRulesModal
+        isOpen={currentModal === modalType.ImportReorderRules}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
       />
     </>
   );
