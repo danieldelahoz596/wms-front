@@ -7,7 +7,7 @@ import { useState } from 'react';
 import AddAttributeModal from './AddAttribute';
 const { Panel } = Collapse;
 
-interface IAddAttributeGroup {
+interface IAddAttributeGroupModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -15,7 +15,7 @@ interface IAddAttributeGroup {
   setAttributeGroups: (groups: any[]) => void;
 }
 
-const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
+const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
   isOpen,
   onClose,
   onSave,
@@ -50,7 +50,7 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
 
   return (
     <OModal
-      title={'NEW ATTRIBUTE GROUPINGS'}
+      title='NEW ATTRIBUTE GROUPINGS'
       helpLink="/help/products/create/productvariations"
       width={600}
       centered
@@ -147,4 +147,4 @@ const AddAttributeGroup: React.FC<IAddAttributeGroup> = ({
   );
 };
 
-export default AddAttributeGroup;
+export default AddAttributeGroupModal;

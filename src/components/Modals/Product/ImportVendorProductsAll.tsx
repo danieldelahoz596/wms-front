@@ -3,20 +3,20 @@ import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Select, Upload } from 'antd';
 
-interface IVendorProductImportAtOnce {
+interface IVendorProductImportAtOnceModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
+const VendorProductImportAtOnceModal: React.FC<IVendorProductImportAtOnceModal> = ({
   isOpen,
   onClose,
   onSave,
 }) => {
   return (
     <OModal
-      title={'Global Vendor Product Import'}
+      title="Global Vendor Product Import"
       helpLink="/help/products/import/vendorproducts"
       width={550}
       isOpen={isOpen}
@@ -81,4 +81,4 @@ const VendorProductImportAtOnce: React.FC<IVendorProductImportAtOnce> = ({
   );
 };
 
-export default VendorProductImportAtOnce;
+export default VendorProductImportAtOnceModal;

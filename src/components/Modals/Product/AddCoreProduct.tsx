@@ -4,7 +4,7 @@ import { Form } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
 
-interface IAddProduct {
+interface IAddCoreProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -15,7 +15,7 @@ interface IAddProduct {
   type: string;
 }
 
-const AddCoreProduct: React.FC<IAddProduct> = ({
+const AddCoreProductModal: React.FC<IAddCoreProductModal> = ({
   isOpen,
   onClose,
   onSave,
@@ -41,9 +41,8 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
         product: '',
         quantity: '',
       });
-    }
-    if (type === 'edit') {
-      const item = coreProductList.find((item) => item.id === selectedItemKey);
+    } else if (type === 'edit') {
+      const item = coreProductList.find((coreProduct) => coreProduct.id === selectedItemKey);
       if (item) {
         setNewCoreProduct({
           product: item.id,
@@ -55,7 +54,7 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
 
   const handleSave = () => {
     if (type === 'add') {
-      const item = productList.find((item) => item.id === newCoreProduct.product);
+      const item = productList.find((product) => product.id === newCoreProduct.product);
       setCoreProductList([
         ...coreProductList,
         { ...item, masterSKU: item.master_sku, quantity: newCoreProduct.quantity },
@@ -131,4 +130,4 @@ const AddCoreProduct: React.FC<IAddProduct> = ({
   );
 };
 
-export default AddCoreProduct;
+export default AddCoreProductModal;

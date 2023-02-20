@@ -8,13 +8,13 @@ import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
 import ProductCustomFields from '@/components/Tabs/Product/ProductCustomFields';
 import { useModel } from '@umijs/max';
 
-interface ICoreProduct {
+interface ICoreProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (value: any) => void;
 }
 
-const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
+const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave }) => {
   const { editableProduct, handleUpdateProduct } = useModel('product');
   const [form] = Form.useForm();
   const [customFields, setCustomFields] = useState([]);
@@ -74,7 +74,7 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'New Core Product'}
+      title="New Core Product"
       helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}
@@ -99,4 +99,4 @@ const CoreProduct: React.FC<ICoreProduct> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default CoreProduct;
+export default CoreProductModal;

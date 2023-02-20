@@ -3,7 +3,7 @@ import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Row, Select, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 interface IAddExportSettingsModal {
   isOpen: boolean;
   onSave: () => void;

@@ -2,13 +2,13 @@ import { OModal } from '@/components/Globals/OModal';
 import { Input } from 'antd';
 import { useState } from 'react';
 
-interface IAddAttribute {
+interface IAddAttributeModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (value: string) => void;
 }
 
-const AddAttribute: React.FC<IAddAttribute> = ({ isOpen, onClose, onSave }) => {
+const AddAttributeModal: React.FC<IAddAttributeModal> = ({ isOpen, onClose, onSave }) => {
   const [attribute, setAttribute] = useState(null);
 
   const handleSave = () => {
@@ -18,7 +18,7 @@ const AddAttribute: React.FC<IAddAttribute> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'Add New Attribute'}
+      title="Add New Attribute"
       helpLink="/help/products/create/productvariations"
       width={600}
       centered
@@ -51,4 +51,4 @@ const AddAttribute: React.FC<IAddAttribute> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default AddAttribute;
+export default AddAttributeModal;

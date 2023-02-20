@@ -4,13 +4,13 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Select, Upload } from 'antd';
 import { useModel } from 'umi';
 
-interface IImportVendorProductsByVendor {
+interface IImportVendorProductsByVendorModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
+const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorModal> = ({
   isOpen,
   onClose,
   onSave,
@@ -19,7 +19,7 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
 
   return (
     <OModal
-      title={'Vendor Product Import By Vendor'}
+      title="Vendor Product Import By Vendor"
       helpLink="/help/products/import/vendorproducts"
       width={550}
       isOpen={isOpen}
@@ -57,9 +57,9 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
           <b>
             Vendor SKUs, are <i>not</i> case sensitive.
           </b>{' '}
-          For example, <i>'sku123' </i>
-          <b>is regarded the same as</b> <i>'SKU123'</i> by the system. The same applies for
-          product's Master SKU's.
+          For example, <i>{`'sku123' `}</i>
+          <b>is regarded the same as</b> <i>{`'SKU123'`}</i>{' '}
+          {`by the system. The same applies for product's Master SKU's.`}
         </p>
 
         <Row style={{ display: 'flex', alignItems: 'center' }}>
@@ -101,4 +101,4 @@ const ImportVendorProductsByVendor: React.FC<IImportVendorProductsByVendor> = ({
   );
 };
 
-export default ImportVendorProductsByVendor;
+export default ImportVendorProductsByVendorModal;

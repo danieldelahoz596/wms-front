@@ -5,14 +5,14 @@ import { Button, Col, Row } from 'antd';
 import { useMemo, useState } from 'react';
 import ConfigAttributes from './ConfigAttributes';
 
-interface IConfigAttributeGroups {
+interface IConfigAttributeGroupsModal {
   isOpen: boolean;
   onClose: () => void;
   attributeGroups: any[];
   setAttributeGroups: (items: any) => void;
 }
 
-const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
+const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
   isOpen,
   onClose,
   attributeGroups,
@@ -62,7 +62,7 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
 
   return (
     <OModal
-      title={'CONFIG ATTRIBUTE GROUPS'}
+      title="CONFIG ATTRIBUTE GROUPS"
       helpLink="/help/products/create/productvariations"
       width={400}
       isOpen={isOpen}
@@ -138,4 +138,4 @@ const ConfigAttributeGroups: React.FC<IConfigAttributeGroups> = ({
   );
 };
 
-export default ConfigAttributeGroups;
+export default ConfigAttributeGroupsModal;

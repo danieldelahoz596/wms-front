@@ -4,14 +4,19 @@ import { EditableTable } from '@/utils/components/EditableTable';
 import { Input } from 'antd';
 import { useEffect, useState } from 'react';
 
-interface IConfigAttributes {
+interface IConfigAttributesModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (items: any[]) => void;
   attributes: any[];
 }
 
-const ConfigAttributes: React.FC<IConfigAttributes> = ({ isOpen, onClose, onSave, attributes }) => {
+const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+  attributes,
+}) => {
   const [items, setItems] = useState([]);
   const [attribute, setAttribute] = useState(null);
 
@@ -30,7 +35,7 @@ const ConfigAttributes: React.FC<IConfigAttributes> = ({ isOpen, onClose, onSave
 
   return (
     <OModal
-      title={'Add or Edit attributes'}
+      title="Add or Edit attributes"
       helpLink="/help/products/create/productvariations"
       width={600}
       centered
@@ -80,4 +85,4 @@ const ConfigAttributes: React.FC<IConfigAttributes> = ({ isOpen, onClose, onSave
   );
 };
 
-export default ConfigAttributes;
+export default ConfigAttributesModal;

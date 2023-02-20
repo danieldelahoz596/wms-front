@@ -2,13 +2,17 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { Col, Row } from 'antd';
 
-interface IExportVendorProduct {
+interface IExportVendorProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, onSave }) => {
+const ExportVendorProductModal: React.FC<IExportVendorProductModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+}) => {
   return (
     <OModal
       title="Select How To Export Vendor Products"
@@ -46,4 +50,4 @@ const ExportVendorProduct: React.FC<IExportVendorProduct> = ({ isOpen, onClose, 
   );
 };
 
-export default ExportVendorProduct;
+export default ExportVendorProductModal;

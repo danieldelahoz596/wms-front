@@ -2,20 +2,19 @@ import { OModal } from '@/components/Globals/OModal';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Select, Upload } from 'antd';
-const { Option } = Select;
 
-interface IImportProduct {
+interface IImportProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) => {
+const ImportProductModal: React.FC<IImportProductModal> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
 
   return (
     <OModal
-      title={'Product Import'}
+      title="Product Import"
       helpLink="/help/products/import/products"
       width={550}
       isOpen={isOpen}
@@ -46,12 +45,13 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
           <u>Download the Excel Template for Product Import</u>
         </a>
         <p>
-          Every product is uniquely identified by its <b>Internal SKU</b>, and those SKU's are
+          Every product is uniquely identified by its <b>Internal SKU</b>
+          {`, and those SKU's are`}
           <i>
             <strong> not </strong>
           </i>
-          case sensitive. For example, <i>'sku123' </i>
-          is regarded the same as <i>'SKU123'</i> by the system.
+          case sensitive. For example, <i>{`'sku123'`}</i>
+          is regarded the same as <i>{`'SKU123'`}</i> by the system.
         </p>
         <p>
           If Skubana encounters duplicate SKU values in your Excel file, it will process the first
@@ -81,4 +81,4 @@ const ImportProduct: React.FC<IImportProduct> = ({ isOpen, onClose, onSave }) =>
   );
 };
 
-export default ImportProduct;
+export default ImportProductModal;

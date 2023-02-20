@@ -6,9 +6,9 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, message, Popconfirm, Row, Select, Space } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import { OTable } from '@/components/Globals/OTable';
@@ -16,17 +16,17 @@ import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import AdjustMasterSKUModal from '@/components/Modals/Product/AdjustMasterSKU';
 import CoreProductModal from '@/components/Modals/Product/CoreProduct';
 import EditProductModal from '@/components/Modals/Product/EditProduct';
-import ExportCustomBundleKit from '@/components/Modals/Product/ExportCustomBundleKit';
+import ExportCustomBundleKitModal from '@/components/Modals/Product/ExportCustomBundleKit';
 import ExportVendorProductsModal from '@/components/Modals/Product/ExportVendorProducts';
 import ImportCustomFieldsModal from '@/components/Modals/Product/ImportCustomFields';
 import ImportProductsModal from '@/components/Modals/Product/ImportProducts';
-import ImportSKUAdjustment from '@/components/Modals/Product/ImportSKUAdjustment';
+import ImportSKUAdjustmentModal from '@/components/Modals/Product/ImportSKUAdjustment';
 import ImportVendorProductsModal from '@/components/Modals/Product/ImportVendorProducts';
-import ImportVendorProductsAll from '@/components/Modals/Product/ImportVendorProductsAll';
-import ImportVendorProductsByVendor from '@/components/Modals/Product/ImportVendorProductsByVendor';
+import ImportVendorProductsAllModal from '@/components/Modals/Product/ImportVendorProductsAll';
+import ImportVendorProductsByVendorModal from '@/components/Modals/Product/ImportVendorProductsByVendor';
 import NewBundleKitModal from '@/components/Modals/Product/NewBundleKit';
 import NewProductModal from '@/components/Modals/Product/NewProduct';
-import NewVirtualProduct from '@/components/Modals/Product/NewVirtualProduct';
+import NewVirtualProductModal from '@/components/Modals/Product/NewVirtualProduct';
 import ProductVariantsModal from '@/components/Modals/Product/ProductVariants';
 import SelectCoreProductModal from '@/components/Modals/Product/SelectCoreProduct';
 import SelectQuantityOfSKUModal from '@/components/Modals/Product/SelectQuantityOfSKU';
@@ -163,8 +163,7 @@ const ProductManagement: React.FC = () => {
         );
       },
     },
-  ]
-  .concat(
+  ].concat(
     fieldTypes
       .filter((type) => type.show_on_grid && type.active)
       .map((type) => ({
@@ -455,7 +454,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <NewVirtualProduct
+      <NewVirtualProductModal
         isOpen={modalOpen == modalType.NewVirtualProduct}
         onSave={() => setModal(modalType.ProductVariants)}
         onClose={() => setModal(modalType.Close)}
@@ -493,7 +492,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportVendorProductsByVendor
+      <ImportVendorProductsByVendorModal
         isOpen={modalOpen == modalType.ImportVendorProductsByVendor}
         onSave={() => {
           setModal(modalType.ImportExportSummary);
@@ -505,7 +504,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportVendorProductsAll
+      <ImportVendorProductsAllModal
         isOpen={modalOpen == modalType.ImportVendorProductsAll}
         onSave={() => {
           setModal(modalType.ImportExportSummary);
@@ -517,7 +516,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ImportSKUAdjustment
+      <ImportSKUAdjustmentModal
         isOpen={modalOpen == modalType.ImportSKUAdjustment}
         onSave={() => {
           setModal(modalType.ImportExportSummary);
@@ -582,7 +581,7 @@ const ProductManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ExportCustomBundleKit
+      <ExportCustomBundleKitModal
         isOpen={modalOpen === modalType.ExportCustomBundleKit}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}

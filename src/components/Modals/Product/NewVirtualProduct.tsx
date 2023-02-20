@@ -5,13 +5,13 @@ import { Fragment } from 'react';
 import { OInput } from '@/components/Globals/OInput';
 import { productSelectOptions } from '@/utils/helpers/base';
 
-interface INewVirtualProduct {
+interface INewVirtualProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSave }) => {
+const NewVirtualProductModal: React.FC<INewVirtualProductModal> = ({ isOpen, onClose, onSave }) => {
   const newProductInputFields = [
     {
       type: 'text',
@@ -163,7 +163,7 @@ const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSa
 
   return (
     <OModal
-      title={'NEW VIRTUAL PRODUCT'}
+      title="NEW VIRTUAL PRODUCT"
       helpLink="/help/products/create/productvariations"
       width={800}
       centered
@@ -212,4 +212,4 @@ const NewVirtualProduct: React.FC<INewVirtualProduct> = ({ isOpen, onClose, onSa
   );
 };
 
-export default NewVirtualProduct;
+export default NewVirtualProductModal;

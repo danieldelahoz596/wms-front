@@ -5,19 +5,23 @@ import { Select, Space } from 'antd';
 import React, { useState } from 'react';
 import CustomBundleKitExportSettings from './CustomBundleKitExportSettings';
 
-interface IExportCustomBundleKit {
+interface IExportCustomBundleKitModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ExportCustomBundleKit: React.FC<IExportCustomBundleKit> = ({ isOpen, onClose, onSave }) => {
+const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const { customBundleKitExportSettings } = useModel('customBundleKitExportSettings');
 
   return (
     <OModal
-      title={'Custom Bundle/Kit Export'}
+      title="Custom Bundle/Kit Export"
       helpLink="/help/products/export/custombundlekit"
       width={500}
       isOpen={isOpen}
@@ -70,4 +74,4 @@ const ExportCustomBundleKit: React.FC<IExportCustomBundleKit> = ({ isOpen, onClo
   );
 };
 
-export default ExportCustomBundleKit;
+export default ExportCustomBundleKitModal;

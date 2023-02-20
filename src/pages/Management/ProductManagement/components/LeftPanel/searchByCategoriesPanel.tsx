@@ -104,7 +104,7 @@ const SearchByCategoriesPanel: React.FC = () => {
 
   return (
     <div>
-      <h3>Hold 'Ctrl' or '' Key to select multiple.</h3>
+      <h3>{`Hold 'Ctrl' or '' Key to select multiple.`}</h3>
       <Tree
         showIcon
         defaultExpandAll

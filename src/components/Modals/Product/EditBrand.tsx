@@ -2,13 +2,13 @@ import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { EditableTable } from '@/utils/components/EditableTable';
 
-interface IEditBrand {
+interface IEditBrandModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const EditBrand: React.FC<IEditBrand> = ({ isOpen, onClose, onSave }) => {
+const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) => {
   const { brands, setBrands } = useModel('brand');
 
   const TColumns = [
@@ -22,7 +22,7 @@ const EditBrand: React.FC<IEditBrand> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'Config Brand'}
+      title="Config Brand"
       helpLink=""
       width={600}
       centered
@@ -56,4 +56,4 @@ const EditBrand: React.FC<IEditBrand> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default EditBrand;
+export default EditBrandModal;

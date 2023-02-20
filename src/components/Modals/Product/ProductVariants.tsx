@@ -13,13 +13,13 @@ import { modalType } from '@/utils/helpers/types';
 import { uuidv4 } from '@antv/xflow-core';
 import ConfigAttributeGroups from './ConfigAttributeGroups';
 
-interface IProductVariants {
+interface IProductVariantsModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }) => {
+const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose, onSave }) => {
   const [currentModal, setCurrentModal] = useState('');
   const [attributeGroups, setAttributeGroups] = useState<any[]>([]);
   const [variationDetailsGroup, setVariationDetailsGroup] = useState([{ key: uuidv4() }]);
@@ -60,7 +60,7 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
 
   return (
     <OModal
-      title={'NEW VIRTUAL PRODUCT'}
+      title="NEW VIRTUAL PRODUCT"
       helpLink="/help/products/create/productvariations"
       width={800}
       isOpen={isOpen}
@@ -276,4 +276,4 @@ const ProductVariants: React.FC<IProductVariants> = ({ isOpen, onClose, onSave }
   );
 };
 
-export default ProductVariants;
+export default ProductVariantsModal;

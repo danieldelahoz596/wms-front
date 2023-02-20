@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { Form, Input } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 
-interface INewFieldType {
+interface INewFieldTypeModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (values: any) => void;
 }
 
-const NewFieldType: React.FC<INewFieldType> = ({ isOpen, onClose, onSave }) => {
+const NewFieldTypeModal: React.FC<INewFieldTypeModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {
@@ -24,7 +24,7 @@ const NewFieldType: React.FC<INewFieldType> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title="Add New Type"
-      helpLink='/help/products/customproductfields'
+      helpLink="/help/products/customproductfields"
       width={400}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -63,4 +63,4 @@ const NewFieldType: React.FC<INewFieldType> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default NewFieldType;
+export default NewFieldTypeModal;

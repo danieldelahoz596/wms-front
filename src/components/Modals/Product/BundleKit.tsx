@@ -9,7 +9,7 @@ import GalleryTab from '@/components/Tabs/Product/Gallery';
 import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
 import BundledItemsTab from '@/components/Tabs/Product/BundledItems';
 
-interface IBundleKit {
+interface IBundleKitModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -21,7 +21,7 @@ interface DataType {
   quantity: string;
 }
 
-const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
+const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const [step, setStep] = useState(1);
   const { productList } = useModel('product');
   const [selectedProductIds, setSelectedProductIds] = useState([]);
@@ -114,7 +114,7 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
 
   return (
     <OModal
-      title={'New Bundle/Kit'}
+      title="New Bundle/Kit"
       helpLink="/help/products/create/bundlekit"
       width={800}
       isOpen={isOpen}
@@ -172,4 +172,4 @@ const BundleKit: React.FC<IBundleKit> = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default BundleKit;
+export default BundleKitModal;

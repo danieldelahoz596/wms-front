@@ -2,18 +2,22 @@ import { OModal } from '@/components/Globals/OModal';
 import { Button, Upload } from 'antd';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
-interface IImportCustomFields {
+interface IImportCustomFieldsModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportCustomFields: React.FC<IImportCustomFields> = ({ isOpen, onClose, onSave }) => {
+const ImportCustomFieldsModal: React.FC<IImportCustomFieldsModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+}) => {
   const handleSave = () => onSave();
 
   return (
     <OModal
-      title={'Product Custom Fields Import'}
+      title="Product Custom Fields Import"
       helpLink=""
       width={550}
       isOpen={isOpen}
@@ -60,4 +64,4 @@ const ImportCustomFields: React.FC<IImportCustomFields> = ({ isOpen, onClose, on
   );
 };
 
-export default ImportCustomFields;
+export default ImportCustomFieldsModal;
