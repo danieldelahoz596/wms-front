@@ -1,5 +1,4 @@
 import { OButton } from '@/components/Globals/OButton';
-// import { OTable } from '@/components/Globals/OTable';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import TransferHistoryModal from '@/components/Modals/Inventory/TransferHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
@@ -93,8 +92,8 @@ interface ITransferManagement {
 const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
   const { initialState } = useModel('@@initialState');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
-  const [dataSource, setDataSource] = useState(data);
-  const [historyDataSource, sethistoryDataSource] = useState(historyData);
+  const [dataSource] = useState(data);
+  const [historyDataSource] = useState(historyData);
   const [selectedTransfer, setSelectedTransfer] = useState(null);
 
   const {
@@ -122,21 +121,6 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
           <Col span={18}>
             <div style={{ textAlign: 'right', marginRight: 10 }}>
               <Space size={4}>
-                {/* <Select
-                  options={[{ value: 'source_warehouse', label: '37 source Warehouses' }]}
-                  defaultValue="source_warehouse"
-                  style={{ width: '220px', textAlign: 'left' }}
-                /> */}
-                {/* <Select
-                  options={[{ value: 'dest_warehouse', label: '37 Dest. Warehouses' }]}
-                  defaultValue="dest_warehouse"
-                  style={{ width: '220px', textAlign: 'left' }}
-                /> */}
-                {/* <Select
-                  options={[{ value: 'sto_statuses', label: '7 STO Statuses' }]}
-                  defaultValue="sto_statuses"
-                  style={{ width: '220px', textAlign: 'left' }}
-                /> */}
                 <SelectDropdown
                   options={initialState?.initialData?.warehouses.map((warehouse) => ({
                     value: warehouse.id,

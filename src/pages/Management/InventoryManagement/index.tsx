@@ -31,8 +31,6 @@ const InventoryManagement: React.FC = () => {
           <Radio.Button value="stock">Stock</Radio.Button>
           <Radio.Button value="transfer">Transfer</Radio.Button>
         </Radio.Group>
-        {/* <OButton btnText={'Stock'} className="mr-10" onClick={() => changeManagementTab('stock')} />
-        <OButton btnText={'Transfers'} onClick={() => changeManagementTab('transfer')} /> */}
       </>
     ),
     [selectedTab],

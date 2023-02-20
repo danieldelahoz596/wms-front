@@ -21,7 +21,7 @@ import {
   QuestionCircleTwoTone,
   SnippetsTwoTone,
   StopOutlined,
-  ToolTwoTone
+  ToolTwoTone,
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
@@ -35,7 +35,7 @@ interface IStockDetails {
 const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
   const { initialState } = useModel('@@initialState');
   const [modal, setModal] = useState('');
-  const [locationHistory, setLocationHistory] = useState(location_history);
+  const [locationHistory] = useState(location_history);
   const [locationList, setLocationList] = useState(stock_data);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showActive, setShowActive] = useState(true);

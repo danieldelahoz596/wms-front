@@ -39,15 +39,10 @@ interface IStockManagement {
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   const { initialState } = useModel('@@initialState');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
-  const [dataSource, setDataSource] = useState(data);
-  const [stockHistorySource, setstockHistorySource] = useState(stock_history);
-  const [stockAllocationSource, setStockAllocationSource] = useState(stock_allocation);
-  // const [status, setStatus] = useState('all');
+  const [dataSource] = useState(data);
+  const [stockHistorySource] = useState(stock_history);
+  const [stockAllocationSource] = useState(stock_allocation);
   const [selectedStockId, setSelectedStockId] = useState(null);
-
-  // const handleChangeStatus = (_name: string, value: any) => {
-  //   setStatus(value);
-  // };
 
   const Tcolumns = useMemo(
     () => [
@@ -235,21 +230,6 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   style={{ width: '220px' }}
                   size={'middle'}
                 />
-                {/* <OInput
-                  type="select"
-                  name="status"
-                  showPlaceholder={false}
-                  options={[
-                    { value: 'onHand', text: 'On Hand' },
-                    { value: 'locked', text: 'Locked' },
-                    { value: 'allocated', text: 'Allocated' },
-                    { value: 'inTransite', text: 'In Transit' },
-                    { value: 'availableQuantities', text: 'Available quantities' },
-                  ]}
-                  value={status}
-                  onChange={handleChangeStatus}
-                  style={{ width: '220px', textAlign: 'left' }}
-                /> */}
               </Space>
             </div>
           </Col>
@@ -479,8 +459,8 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
       <ExportStockEditHistoryModal
         isOpen={currentModal === modalType.ExportStockEditHistory}
         onSave={() => {}}
-        onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
         onClose={() => setCurrentModal(modalType.Close)}
+        onAddOrderExportSettings={() => setCurrentModal(modalType.AddOrderExportSettings)}
       />
 
       <ExportStockDetailsModal

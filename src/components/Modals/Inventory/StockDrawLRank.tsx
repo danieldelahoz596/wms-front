@@ -59,7 +59,6 @@ const StockDrawRankModal: React.FC<IStockDrawRankModal> = ({
       ]}
     >
       <>
-        {/* <OTable columns={Tcolumns} rows={dataSource} /> */}
         <Row justify="center">
           <Col>
             <h2>{vendorName}</h2>
