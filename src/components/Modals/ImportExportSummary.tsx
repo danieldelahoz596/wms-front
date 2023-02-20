@@ -4,7 +4,7 @@ import { useModel } from '@umijs/max';
 import { Space, Table } from 'antd';
 import { useEffect } from 'react';
 
-interface IImportExportSummary {
+interface IImportExportSummaryModal {
   title: string;
   info: string;
   isOpen: boolean;
@@ -36,7 +36,7 @@ const TColumns = [
   },
 ];
 
-const ImportExportSummary: React.FC<IImportExportSummary> = ({
+const ImportExportSummaryModal: React.FC<IImportExportSummaryModal> = ({
   title,
   info,
   getImportExportSummary,
@@ -122,4 +122,4 @@ const ImportExportSummary: React.FC<IImportExportSummary> = ({
   );
 };
 
-export default ImportExportSummary;
+export default ImportExportSummaryModal;

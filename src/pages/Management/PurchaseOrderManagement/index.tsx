@@ -3,7 +3,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPO';
 import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
-import ManageItemsModal from '@/components/Modals/ManageItemsModal';
+import ManageItemsModal from '@/components/Modals/ManageItems';
 import VendorModal from '@/components/Modals/PurchaseOrder/Vendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';

@@ -4,14 +4,14 @@ import { CloseOutlined, ExclamationCircleFilled, InfoCircleFilled } from '@ant-d
 import { skuAlertsType } from '@/utils/helpers/types';
 import { OTable } from '@/components/Globals/OTable';
 
-interface ISKUAlerts {
+interface ISKUAlertsModal {
   isOpen: boolean;
   onClose: () => void;
   alerts: any[];
   setAlerts: (any) => void;
 }
 
-const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts }) => {
+const SKUAlertsModal: React.FC<ISKUAlertsModal> = ({ isOpen, onClose, alerts, setAlerts }) => {
   const handleDelete = (id) => {
     setAlerts(alerts.filter((alert) => alert.id !== id));
   };
@@ -112,4 +112,4 @@ const SKUAlerts: React.FC<ISKUAlerts> = ({ isOpen, onClose, alerts, setAlerts })
   );
 };
 
-export default SKUAlerts;
+export default SKUAlertsModal;
