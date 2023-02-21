@@ -2,7 +2,7 @@ import { Card, Row, Col, DatePicker, Form, Table, Space, Select, Input } from 'a
 import React, { useState } from 'react';
 import { QuestionCircleFilled, QuestionCircleOutlined } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/components/Modals/Analytic/Export';
+import ExportModal from '@/pages/AnalyticManagement/components/Modals/Export';
 import tableExport from 'antd-table-export';
 
 const InventoryValue: React.FC = () => {
