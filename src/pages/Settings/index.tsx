@@ -18,6 +18,7 @@ import CustomersIcon from '@/utils/icons/customers';
 import CompanyIcon from '@/utils/icons/company';
 import WarehouseIcon from '@/utils/icons/warehouse';
 import VendorIcon from '@/utils/icons/vendor';
+import OrderBots from './Orderbots';
 
 const OrderManagement: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<string>('Warehouses');
@@ -35,6 +36,8 @@ const OrderManagement: React.FC = () => {
     mainContent = <CompanyInfo />;
   } else if (activeMenu === 'potemplates') {
     mainContent = <POTemplates />;
+  } else if (activeMenu === 'orderbots') {
+    mainContent = <OrderBots />;
   } else {
     mainContent = <Vendors />;
   }
@@ -96,7 +99,7 @@ const OrderManagement: React.FC = () => {
                     key: 'orderbots',
                     icon: <RobotFilled style={{ fontSize: 15 }} />,
                     label: 'Orderbots',
-                    disabled: true,
+                    onClick: handleMenuItemClick,
                   },
                   {
                     key: 'packingsliptemplates',

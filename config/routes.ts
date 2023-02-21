@@ -215,6 +215,11 @@ export default [
       },
       {
         hideInMenu: true,
+        path: '/settings/orderbots',
+        component: './Settings/Orderbots',
+      },
+      {
+        hideInMenu: true,
         path: '/settings/potemplates',
         component: './Settings/POTemplates',
       },
