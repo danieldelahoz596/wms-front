@@ -1,4 +1,3 @@
-import { AddNewPOItemTableColumns } from '@/components/DemoData/index';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
@@ -8,6 +7,62 @@ import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Form, Space } from 'antd';
 import React, { useState } from 'react';
+
+const AddNewPOItemTableColumns = [
+  {
+    title: '',
+    dataIndex: 'removeBtn',
+    key: 'removeBtn',
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Vendor SKU',
+    dataIndex: 'vendorSku',
+    key: 'vendorSku',
+  },
+  {
+    title: 'Buyer.',
+    dataIndex: 'buyer',
+    key: 'buyer',
+  },
+  {
+    title: 'Qty.',
+    dataIndex: 'quantity',
+    key: 'quantity',
+  },
+  {
+    title: 'Unit of Measure',
+    dataIndex: 'unitMeasure',
+    key: 'unitMeasure',
+  },
+  {
+    title: 'Total Unit Qty.',
+    dataIndex: 'totalUnitQty',
+    key: 'totalUnitQty',
+  },
+  {
+    title: 'Unit Cost',
+    dataIndex: 'originalCost',
+    key: 'unitCost',
+    editable: true,
+  },
+  {
+    title: 'Discount Type',
+    dataIndex: 'discountType',
+    key: 'discountType',
+    editable: true,
+  },
+  {
+    title: 'Discount',
+    dataIndex: 'discount',
+    key: 'discount',
+    editable: true,
+  },
+];
 
 const AddNewPOItemTable: React.FC = () => {
   const { selectedPO, addPoItem, addPoItems, removePoItem, updatePoItem } = useModel('po');

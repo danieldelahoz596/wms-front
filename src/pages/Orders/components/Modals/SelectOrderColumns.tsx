@@ -1,5 +1,4 @@
 import { OModal } from '@/components/Globals/OModal';
-import { defaultShowColumns } from '@/data/orderData';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Row, Table } from 'antd';
 import { useMemo, useState } from 'react';
@@ -9,6 +8,20 @@ interface ISelectOrderColumnsModal {
   onClose: () => void;
   onSave: (items: string[]) => void;
 }
+
+const defaultShowColumns = [
+  'Channel',
+  'Order Number',
+  'Labels',
+  'Notes',
+  'Order Date',
+  'Date Paid',
+  'Age',
+  'Recipient',
+  'Order Total',
+  'Items',
+  'Item Names',
+];
 
 const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({
   isOpen,

@@ -53,11 +53,24 @@ import ShipmentImportMappingsModal from './components/Modals/ShipmentImportMappi
 import DuplicateOrderModal from './components/Modals/DuplicateOrder';
 import SelectOrderColumnsModal from './components/Modals/SelectOrderColumns';
 import SplitOrderModal from './components/Modals/SplitOrder';
-import { defaultShowColumns } from '@/data/orderData';
 import { uuidv4 } from '@antv/xflow-core';
 import moment from 'moment';
 
 const { confirm } = Modal;
+
+const defaultShowColumns = [
+  'Channel',
+  'Order Number',
+  'Labels',
+  'Notes',
+  'Order Date',
+  'Date Paid',
+  'Age',
+  'Recipient',
+  'Order Total',
+  'Items',
+  'Item Names',
+];
 
 const defaultOrderTableColumns = [
   {
