@@ -1,10 +1,10 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import AddNewPOModal from '@/components/Modals/PurchaseOrder/AddNewPO';
-import ExportPOModal from '@/components/Modals/PurchaseOrder/ExportPO';
-import ManageItemsModal from '@/components/Modals/ManageItems';
-import VendorModal from '@/components/Modals/PurchaseOrder/Vendor';
+import AddNewPOModal from './components/Modals/AddNewPO';
+import ExportPOModal from './components/Modals/ExportPO';
+import ManageItemsModal from '@/components/ManageItems';
+import VendorModal from './components/Modals/Vendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import {
@@ -22,7 +22,7 @@ import TabComponent from './components/Bottoms/tabcomponent';
 import SidePanel from './components/SidePanel/sidePanel';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
-import ReceivePOModal from '@/components/Modals/PurchaseOrder/ReceivePO';
+import ReceivePOModal from './components/Modals/ReceivePO';
 
 export const TColumns = [
   {

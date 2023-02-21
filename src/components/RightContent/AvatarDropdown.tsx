@@ -1,4 +1,4 @@
-import SKUAlertsModal from '../Modals/Toolbar/SKUAlerts';
+import SKUAlertsModal from '../SKUAlerts';
 import { outLogin } from '@/services/ant-design-pro/api';
 import { modalType } from '@/utils/helpers/types';
 import ListIcon from '@/utils/icons/list';

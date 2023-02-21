@@ -1,6 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
-import AddBrandModal from '@/components/Modals/Product/AddBrand';
-import EditBrandModal from '@/components/Modals/Product/EditBrand';
+import AddBrandModal from '@/pages/ProductManagement/components/Modals/AddBrand';
+import EditBrandModal from '@/pages/ProductManagement/components/Modals/EditBrand';
 import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
@@ -58,7 +58,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-      <Form form={form} labelCol={{ span: 3}}>
+      <Form form={form} labelCol={{ span: 3 }}>
         {!editableProduct && (
           <>
             <Form.Item

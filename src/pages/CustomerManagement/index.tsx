@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import CreateCustomerModal from '@/components/Modals/Customer/CreateCustomer';
-import EditHistoryModal from '@/components/Modals/Customer/EditHistory';
+import CreateCustomerModal from '@/pages/CustomerManagement/components/Modals/CreateCustomer';
+import EditHistoryModal from '@/pages/CustomerManagement/components/Modals/EditHistory';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { PageContainer } from '@ant-design/pro-components';

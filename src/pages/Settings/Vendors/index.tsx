@@ -1,7 +1,7 @@
 import { OTable } from '@/components/Globals/OTable';
-import EditHistoryModal from '@/components/Modals/Settings/Vendor/EditHistory';
-import EditVendorModal from '@/components/Modals/Settings/Vendor/EditVendor';
-import NewVendorModal from '@/components/Modals/Settings/Vendor/NewVendor';
+import EditHistoryModal from '../Modals/Vendor/EditHistory';
+import EditVendorModal from '../Modals/Vendor/EditVendor';
+import NewVendorModal from '../Modals/Vendor/NewVendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
@@ -12,7 +12,7 @@ import { Card, Input, Space } from 'antd';
 import qs from 'qs';
 import { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
-import { OButton } from '../../../../components/Globals/OButton';
+import { OButton } from '@/components/Globals/OButton';
 import RightPanel from './components/RightPanel';
 
 const { Search } = Input;

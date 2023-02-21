@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import AddCoreProductModal from '@/components/Modals/Product/AddCoreProduct';
+import AddCoreProductModal from '@/pages/ProductManagement/components/Modals/AddCoreProduct';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
 import { Space, Table } from 'antd';

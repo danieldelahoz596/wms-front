@@ -1,13 +1,13 @@
 import { OButton } from '@/components/Globals/OButton';
-import AddShippingZonesModal from '@/components/Modals/Settings/Warehouse/AddShippingZones';
-import BasicInfoModal from '@/components/Modals/Settings/Warehouse/BasicInfo';
-import DocumentPrintSettingsModal from '@/components/Modals/Settings/Warehouse/DocumentPrintSettings';
-import NewWarehouseModal from '@/components/Modals/Settings/Warehouse/NewWarehouse';
-import NewWarehouseTypeModal from '@/components/Modals/Settings/Warehouse/NewWarehouseType';
-import RankOrderModal from '@/components/Modals/Settings/Warehouse/RankOrder';
-import ReturnLocationModal from '@/components/Modals/Settings/Warehouse/ReturnLocation';
-import WarehouseDeactivateModal from '@/components/Modals/Settings/Warehouse/WarehouseDeactivate';
-import WarehouseHistoryModal from '@/components/Modals/Settings/Warehouse/WarehouseHistory';
+import AddShippingZonesModal from '../Modals/Warehouse/AddShippingZones';
+import BasicInfoModal from '../Modals/Warehouse/BasicInfo';
+import DocumentPrintSettingsModal from '../Modals/Warehouse/DocumentPrintSettings';
+import NewWarehouseModal from '../Modals/Warehouse/NewWarehouse';
+import NewWarehouseTypeModal from '../Modals/Warehouse/NewWarehouseType';
+import RankOrderModal from '../Modals/Warehouse/RankOrder';
+import ReturnLocationModal from '../Modals/Warehouse/ReturnLocation';
+import WarehouseDeactivateModal from '../Modals/Warehouse/WarehouseDeactivate';
+import WarehouseHistoryModal from '../Modals/Warehouse/WarehouseHistory';
 import { modalType } from '@/utils/helpers/types';
 import {
   ArrowLeftOutlined,

@@ -3,7 +3,7 @@ import { Card, Button } from 'antd';
 import { useModel } from '@umijs/max';
 import { CheckSquareFilled } from '@ant-design/icons';
 import { OTable } from '../Globals/OTable';
-import ConfigureMilestonesModal from '../Modals/PurchaseOrder/ConfigureMilestones';
+import ConfigureMilestonesModal from '@/pages/PurchaseOrderManagement/components/Modals/ConfigureMilestones';
 
 const TColumns = [
   {
