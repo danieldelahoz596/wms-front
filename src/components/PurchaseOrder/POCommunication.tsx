@@ -1,6 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
-import { Card, Form, Space } from 'antd';
+import { Card, Form } from 'antd';
 import React from 'react';
 
 const POCommunication: React.FC = () => {
@@ -30,11 +30,11 @@ const POCommunication: React.FC = () => {
   return (
     <Card title="Communication" style={{ paddingBottom: 10 }}>
       <Form layout="vertical">
-          {formInputs.map((inputItem, index) => (
-            <Form.Item key={index} label={inputItem.label}>
-              <OInput {...inputItem} />
-            </Form.Item>
-          ))}
+        {formInputs.map((inputItem, index) => (
+          <Form.Item key={index} label={inputItem.label}>
+            <OInput {...inputItem} />
+          </Form.Item>
+        ))}
       </Form>
     </Card>
   );

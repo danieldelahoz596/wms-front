@@ -14,6 +14,7 @@ export enum modalType {
   Remove = 'Remove',
   Variation = 'Variation',
   ImportExportSummary = 'ImportExportSummary',
+  Activate = 'Activate',
 
   // products
   ImportVendorProducts = 'ImportVendorProducts',

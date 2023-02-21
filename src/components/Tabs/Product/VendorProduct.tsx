@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import NewVendorProductModal from '@/components/Modals/Product/NewVendorProduct';
+import NewVendorProductModal from '@/pages/Products/components/Modals/NewVendorProduct';
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';

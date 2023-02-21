@@ -1,10 +1,10 @@
 import { OButton } from '@/components/Globals/OButton';
-import ConfigureFieldTypes from '@/components/Modals/Order/ConfigFieldTypes';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Col, Row, Select } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import ConfigureFieldTypesModal from '@/pages/Orders/components/Modals/ConfigFieldTypes';
 
 const TColumns = [
   {
@@ -108,7 +108,7 @@ const OrderCustomFields: React.FC = () => {
         }}
       />
 
-      <ConfigureFieldTypes
+      <ConfigureFieldTypesModal
         isOpen={showModal}
         onSave={() => setShowModal(false)}
         onClose={() => setShowModal(false)}
