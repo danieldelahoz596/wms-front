@@ -393,7 +393,7 @@ const CustomerManagement: React.FC = () => {
 
   useEffect(() => {
     changeSelectedPOStatus({ poStatus: 1, warehouse: null });
-  }, [poStatusList, changeSelectedPOStatus]);
+  }, []);
 
   useEffect(() => {
     setSelectedRows([]);
