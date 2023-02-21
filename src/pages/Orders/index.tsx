@@ -35,7 +35,7 @@ import SidePanel from './components/SidePanel/sidePanel';
 
 // modals
 import ImportExportSummaryModal from '@/components/ImportExportSummary';
-import AddExportSettingsModal from '@/pages/OrderManagement/components/Modals/AddExportSettings';
+import AddExportSettingsModal from '@/pages/Orders/components/Modals/AddExportSettings';
 import AddImportSettingsModal from './components/Modals/AddImportSettings';
 import CancelOrderModal from './components/Modals/CancelOrder';
 import EditOrderModal from './components/Modals/EditOrder';

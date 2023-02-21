@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import ImportExportSummaryModal from '@/components/ImportExportSummary';
-import BulkReconciliationModal from '@/pages/InventoryManagement/Modals/BulkReconciliation';
+import BulkReconciliationModal from '@/pages/Inventories/Modals/BulkReconciliation';
 import ExportInventoryModal from '../Modals/ExportInventory';
 import ExportStockDetailsModal from '../Modals/ExportStockDetails';
 import ExportStockEditHistoryModal from '../Modals/ExportStockEditHistory';

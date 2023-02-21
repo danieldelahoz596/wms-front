@@ -1,12 +1,11 @@
-import { Button, Card, Row, Col, DatePicker, Form, Table, Space, InputNumber, Select } from 'antd';
+import { Card, Row, Col, Button, Input, DatePicker, Form, Table, Space, Select } from 'antd';
 import React, { useState } from 'react';
-import { QuestionCircleFilled, QuestionCircleOutlined, RetweetOutlined } from '@ant-design/icons';
+import { PlayCircleOutlined } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/pages/AnalyticManagement/components/Modals/Export';
+import ExportModal from '@/pages/Analytics/components/Modals/Export';
 import tableExport from 'antd-table-export';
-import ShippingIcon from '@/utils/icons/shipping';
 
-const TopSellers: React.FC = () => {
+const CogsBySKU: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const TColumns = [
@@ -16,20 +15,32 @@ const TopSellers: React.FC = () => {
       title: '',
     },
     {
-      key: 'product',
-      dataIndex: 'product',
-      title: 'Product',
-    },
-    {
       key: 'master_sku',
       dataIndex: 'master_sku',
       title: 'Master SKU',
     },
     {
+      key: 'name',
+      dataIndex: 'name',
+      title: 'Name',
+    },
+    {
+      key: 'brand',
+      dataIndex: 'brand',
+      title: 'Brand',
+    },
+    {
       key: 'units_sold',
       dataIndex: 'units_sold',
       title: 'Units Sold',
+      align: 'center',
+    },
+    {
+      key: 'cogs',
+      dataIndex: 'cogs',
+      title: 'C.O.G.S',
       align: 'right',
+      render: (cogs) => <>${Number(cogs).toFixed(2)}</>,
     },
   ];
 
@@ -37,30 +48,29 @@ const TopSellers: React.FC = () => {
     {
       key: 1,
       id: 1,
-      product: 'blue shirt',
-      master_sku: 'shirt3',
-      units_sold: 804,
+      master_sku: '1201',
+      name: 'Bjj Belt White K1',
+      brand: 'Sanabul',
+      units_sold: 1,
+      cogs: 1.75,
     },
     {
       key: 2,
       id: 2,
-      product: '10820',
-      master_sku: '10820',
-      units_sold: 100,
+      master_sku: 'rudysku_4',
+      name: 'Toys',
+      brand: '13 Fishing',
+      units_sold: 13,
+      cogs: 78,
     },
     {
       key: 3,
       id: 3,
-      product: 'shirt1',
-      master_sku: 'shirt1',
-      units_sold: 73,
-    },
-    {
-      key: 4,
-      id: 4,
-      product: 'shirt2',
-      master_sku: 'shirt2',
-      units_sold: 59,
+      master_sku: 'rudysku_3',
+      name: "Rudy's Test Product 3",
+      brand: '13 Fishing',
+      units_sold: 10,
+      cogs: 50,
     },
   ];
 
@@ -69,13 +79,11 @@ const TopSellers: React.FC = () => {
       <div style={{ margin: '10px' }}>
         <Row justify="space-between" style={{ marginTop: 10 }}>
           <Col>
-            <h2>Top Sellers</h2>
+            <h2>COGS By SKU</h2>
           </Col>
           <Col>
             <Space size={10} align="center">
               <h2 style={{ textTransform: 'uppercase' }}>This report is only available in utc</h2>
-              <ShippingIcon style={{ fontSize: 20 }} />
-              <QuestionCircleFilled style={{ fontSize: 20 }} />
               <span onClick={() => setShowModal(true)}>
                 <LaunchIcon style={{ fontSize: 20 }} />
               </span>
@@ -86,12 +94,11 @@ const TopSellers: React.FC = () => {
         <Card>
           <Form>
             <Space size={10}>
-              <Form.Item label="Top" style={{ margin: 0 }}>
-                <InputNumber defaultValue={100} size="small" />
+              <Form.Item label="SKU" style={{ margin: 0 }}>
+                <Input style={{ width: 200 }} size="small" />
               </Form.Item>
-              <Button icon={<RetweetOutlined />} />
-              <Form.Item label="Sales Channels" style={{ margin: 0 }}>
-                <Select defaultValue="6 Selected" style={{ width: 200 }} size="small" />
+              <Form.Item label="Brands" style={{ margin: 0 }}>
+                <Select size="small" defaultValue="Select..." style={{ width: 200 }} />
               </Form.Item>
               <Form.Item label="From" style={{ margin: 0 }}>
                 <DatePicker size="small" />
@@ -99,19 +106,10 @@ const TopSellers: React.FC = () => {
               <Form.Item label="To" style={{ margin: 0 }}>
                 <DatePicker size="small" />
               </Form.Item>
-              <Form.Item label="By" style={{ margin: 0 }}>
-                <Space size={10}>
-                  <Button>Units Sold</Button>
-                  <Button>Revenue</Button>
-                </Space>
-              </Form.Item>
-              <Form.Item label="SKU" style={{ margin: 0 }}>
-                <Space size={10}>
-                  <Button>Listing SKU</Button>
-                  <Button>Master SKU</Button>
-                </Space>
-              </Form.Item>
-              <QuestionCircleOutlined style={{ fontSize: 20, color: 'blue' }} />
+              <Button>
+                Search
+                <PlayCircleOutlined />
+              </Button>
             </Space>
           </Form>
           <Table
@@ -125,17 +123,17 @@ const TopSellers: React.FC = () => {
 
       <ExportModal
         isOpen={showModal}
-        title="Top Sellers"
-        helpLink="/help/analytics/subproducts/topsellersandworstsellersreports"
+        title="COGS By SKU"
+        helpLink="/analytics/accounting/cogsbysku"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);
           const exportInstance = new tableExport(dataSource, TColumns);
-          exportInstance.download('Top Sellers', 'xlsx');
+          exportInstance.download('COGS By SKU', 'xlsx');
         }}
       />
     </>
   );
 };
 
-export default TopSellers;
+export default CogsBySKU;

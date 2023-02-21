@@ -2,7 +2,7 @@ import { AddNewPOItemTableColumns } from '@/components/DemoData/index';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
-import POItemsFromCSVModal from '@/pages/PurchaseOrderManagement/components/Modals/POItemsFromCSV';
+import POItemsFromCSVModal from '@/pages/PurchaseOrders/components/Modals/POItemsFromCSV';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';

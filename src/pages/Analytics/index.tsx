@@ -30,7 +30,7 @@ import BiggestSpenders from './components/Customers/BiggestSpenders';
 import MostFrequentCustomers from './components/Customers/MostFrequentCustomers';
 import MostRecentCustomers from './components/Customers/MostRecentCustomers';
 
-const AnalyticManagement: React.FC = () => {
+const Analytics: React.FC = () => {
   const location = useLocation();
 
   const {
@@ -137,4 +137,4 @@ const AnalyticManagement: React.FC = () => {
   );
 };
 
-export default AnalyticManagement;
+export default Analytics;

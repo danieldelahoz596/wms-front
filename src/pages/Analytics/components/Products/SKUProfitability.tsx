@@ -2,7 +2,7 @@ import { Button, Card, Row, Col, DatePicker, Form, Table, Space } from 'antd';
 import React, { useState } from 'react';
 import { QuestionCircleFilled, ToolFilled } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/pages/AnalyticManagement/components/Modals/Export';
+import ExportModal from '@/pages/Analytics/components/Modals/Export';
 import tableExport from 'antd-table-export';
 
 const SKUProfitability: React.FC = () => {

@@ -1,6 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
-import AddBrandModal from '@/pages/ProductManagement/components/Modals/AddBrand';
-import EditBrandModal from '@/pages/ProductManagement/components/Modals/EditBrand';
+import AddBrandModal from '@/pages/Products/components/Modals/AddBrand';
+import EditBrandModal from '@/pages/Products/components/Modals/EditBrand';
 import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
