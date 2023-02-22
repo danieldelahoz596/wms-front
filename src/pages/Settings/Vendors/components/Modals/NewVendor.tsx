@@ -85,29 +85,23 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
               <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input Address' }]}>
                 <TextArea rows={3} />
               </Form.Item>
-              <Form.Item label="City" name="city" rules={[{ required: true, message: 'Please input City' }]}>
-                <Input placeholder="City" />
-              </Form.Item>
-              <Form.Item label="State, Zip">
+              <Form.Item label="City, State">
                 <Input.Group compact>
-                  <Form.Item name="state" rules={[{ required: true, message: 'Please input State' }]}>
+                  <Form.Item name="City">
+                    <Input placeholder="City" />
+                  </Form.Item>
+                  <Form.Item name="state">
                     <Input placeholder="State" />
                   </Form.Item>
-                  <Form.Item name="zip" rules={[{ required: true, message: 'Please input Zip' }]}>
-                    <Input placeholder="Zip" />
-                  </Form.Item>
                 </Input.Group>
-              </Form.Item>
-              <Form.Item label="Country" name="country" rules={[{ required: true, message: 'Please input Country' }]}>
-                <Input placeholder="Country" />
               </Form.Item>
               <Form.Item label="Phone 1" name="phone1" rules={[{ required: true, message: 'Please input Phone1' }]}>
                 <Input placeholder="Phone 1" />
               </Form.Item>
-              <Form.Item label="Phone 2" name="phone2" rules={[{ required: true, message: 'Please input Phone2' }]}>
+              <Form.Item label="Phone 2" name="phone2">
                 <Input placeholder="Phone 2" />
               </Form.Item>
-              <Form.Item label="Website" name="website" rules={[{ required: true, message: 'Please input Website' }]}>
+              <Form.Item label="Website" name="website">
                 <Input placeholder="Website" />
               </Form.Item>
             </Card>

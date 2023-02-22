@@ -23,36 +23,6 @@ const TColumns = [
     render: (name: string) => <div style={{ width: '10rem' }}>{name.toUpperCase()}</div>,
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'City',
-    dataIndex: 'city',
-    key: 'city',
-  },
-  {
-    title: 'State',
-    dataIndex: 'state',
-    key: 'state',
-  },
-  {
-    title: 'Country',
-    dataIndex: 'country',
-    key: 'country',
-  },
-  {
-    title: 'Phone 1',
-    dataIndex: 'phone1',
-    key: 'phone1',
-  },
-  {
-    title: 'Phone 2',
-    dataIndex: 'phone2',
-    key: 'phone2',
-  },
-  {
     title: 'Services',
     key: 'services',
     render: (_, record) => (
