@@ -1,13 +1,12 @@
+import { useEffect, useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
-import { OTable } from '@/components/Globals/OTable';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
-import { Card, Input, Space } from 'antd';
+import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
-import { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import EditVendorModal from './components/Modals/EditVendor';
 import HistoryModal from './components/Modals/History';
@@ -16,12 +15,81 @@ import RightPanel from './components/RightPanel';
 
 const { Search } = Input;
 
+const TColumns = [
+  {
+    title: 'Vendor',
+    dataIndex: 'name',
+    key: 'name',
+    render: (name: string) => <div style={{ width: '10rem' }}>{name.toUpperCase()}</div>,
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'City',
+    dataIndex: 'city',
+    key: 'city',
+  },
+  {
+    title: 'State',
+    dataIndex: 'state',
+    key: 'state',
+  },
+  {
+    title: 'Country',
+    dataIndex: 'country',
+    key: 'country',
+  },
+  {
+    title: 'Phone 1',
+    dataIndex: 'phone1',
+    key: 'phone1',
+  },
+  {
+    title: 'Phone 2',
+    dataIndex: 'phone2',
+    key: 'phone2',
+  },
+  {
+    title: 'Services',
+    key: 'services',
+    render: (_, record) => (
+      <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}>
+        {record.is_supplier ? <TrainIcon style={{ fontSize: 20 }} /> : ''}
+        {record.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 20 }} /> : ''}
+      </div>
+    ),
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status) => (status ? 'ACTIVE' : 'INACTIVE'),
+  },
+  {
+    title: "Open P.O.'s",
+    dataIndex: 'open_pos',
+    key: 'openPos',
+  },
+  {
+    title: 'Pending Units',
+    dataIndex: 'pending_units',
+    key: 'pendingUnits',
+  },
+  {
+    title: 'Pending Value',
+    dataIndex: 'pending_value',
+    key: 'pendingValue',
+  },
+];
+
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const { vendorList, getVendorList, setSelectedVendor, setEditableVendor, setVendorList } = useModel('vendor');
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const [showInactive, setShowInactive] = useState(false);
-  const [, setSearchText] = useState('');
+  const { vendorList, selectedVendor, showActive, getVendorList, setSelectedVendor, setEditableVendor, setShowActive } =
+    useModel('vendor');
+  const [searchText, setSearchText] = useState('');
 
   const {
     isDragging: isRightDragging,
@@ -34,37 +102,19 @@ export default function () {
     reverse: true,
   });
 
-  const vendorListRows = vendorList
-    ?.filter((_item) => _item.status == !showInactive)
-    .map((_item) => ({
-      key: _item.id,
-      name: <div style={{ width: '10rem' }}>{_item.name.toUpperCase()}</div>,
-      services: (
-        <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}>
-          {_item.is_supplier ? <TrainIcon /> : ''}
-          {_item.is_manufacturer ? <ManufacturerIcon /> : ''}
-        </div>
-      ),
-      status: _item.status ? 'ACTIVE' : 'INACTIVE',
-      openPos: _item.open_pos,
-      pendingUnits: _item.pending_units,
-      pendingValue: _item.pending_value,
-    }));
-
-  const handleSelectedRows = (_selectedRows = []) => {
-    setSelectedRows(_selectedRows);
-    const _selectedVendor = vendorList.find((_item) => _item.id == _selectedRows[0]);
-    setSelectedVendor(_selectedVendor);
-  };
+  const vendorListRows = useMemo(
+    () =>
+      vendorList.map((_item) => ({
+        key: _item.id,
+        ..._item,
+      })),
+    [vendorList],
+  );
 
   useEffect(() => {
-    const queryString = qs.stringify({
-      status: showInactive ? false : true,
-    });
-
     setSearchText('');
-    getVendorList(queryString);
-  }, [showInactive, getVendorList]);
+    getVendorList();
+  }, [showActive, getVendorList]);
 
   const handleSearch = (value) => {
     const queryString = qs.stringify({
@@ -84,6 +134,7 @@ export default function () {
               allowClear
               onSearch={(value) => handleSearch(value)}
               onChange={(event) => setSearchText(event.target.value)}
+              value={searchText}
               size="small"
               style={{ width: 200 }}
             />
@@ -94,51 +145,25 @@ export default function () {
               }}
             />
             <OButton
-              btnText={showInactive ? 'Show Active' : 'Show Inactive'}
+              btnText={showActive ? 'Show Active' : 'Show Inactive'}
               onClick={() => {
-                setShowInactive((prev) => !prev);
+                setShowActive((prev) => !prev);
                 setSelectedVendor(null);
-                setVendorList([]);
               }}
             />
           </Space>
-          <OTable
-            type="radio"
-            columns={[
-              {
-                title: 'Vendor',
-                dataIndex: 'name',
-                key: 'name',
-              },
-              {
-                title: 'Services',
-                dataIndex: 'services',
-                key: 'services',
-              },
-              {
-                title: 'Status',
-                dataIndex: 'status',
-                key: 'status',
-              },
-              {
-                title: "Open P.O.'s",
-                dataIndex: 'openPos',
-                key: 'openPos',
-              },
-              {
-                title: 'Pending Units',
-                dataIndex: 'pendingUnits',
-                key: 'pendingUnits',
-              },
-              {
-                title: 'Pending Value',
-                dataIndex: 'pendingValue',
-                key: 'pendingValue',
-              },
-            ]}
-            rows={vendorListRows}
-            selectedRows={selectedRows}
-            setSelectedRows={handleSelectedRows}
+          <Table
+            columns={TColumns}
+            dataSource={vendorListRows}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  if (record.id === selectedVendor?.id) setSelectedVendor(null);
+                  else setSelectedVendor(record);
+                }, // click row
+              };
+            }}
+            rowClassName={(record) => (record.id === selectedVendor?.id ? `ant-table-row-selected` : '')}
           />
         </Card>
       </div>

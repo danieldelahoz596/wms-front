@@ -1,5 +1,4 @@
 import { useCallback, useEffect } from 'react';
-import httpClient from '@/utils/http-client';
 import { useState } from 'react';
 import { useModel } from '@umijs/max';
 
@@ -8,8 +7,8 @@ export default () => {
   const { initialState } = useModel('@@initialState');
 
   const initialPaymentTermList = useCallback(() => {
-    httpClient.get('/api/payment_terms').then((response: any) => setPaymentTermList(response.data));
-  }, []);
+    setPaymentTermList(initialState?.initialData?.paymentTerms);
+  }, [initialState?.initialData]);
 
   useEffect(() => {
     if (initialState?.currentUser) {

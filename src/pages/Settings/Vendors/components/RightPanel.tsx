@@ -1,13 +1,13 @@
 import { OButton } from '@/components/Globals/OButton';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
-import ShippingIcon from '@/utils/icons/shipping';
 import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
 import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, setEditableVendor, getVendorHistory, updateVendor } = useModel('vendor');
+  const { selectedVendor, setEditableVendor, setSelectedVendor, getVendorHistory, updateVendor, getVendorList } =
+    useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { poTemplateList } = useModel('poTemplate');
 
@@ -44,6 +44,8 @@ const VendorDetails = ({ setModal }) => {
             title="Sure to deactivate?"
             onConfirm={() => {
               updateVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+              getVendorList();
+              setSelectedVendor(null);
             }}
           >
             <OButton btnText={selectedVendor.status ? 'Deactivate' : 'Activate'} />
@@ -74,7 +76,7 @@ const VendorDetails = ({ setModal }) => {
               <Row align="middle">
                 <Col span={4}>
                   <Row justify="center">
-                    <TrainIcon />
+                    <TrainIcon style={{ fontSize: 20 }} />
                   </Row>
                 </Col>
                 <Col span={20}>
@@ -85,28 +87,14 @@ const VendorDetails = ({ setModal }) => {
               ''
             )}
             {vendorDetails.is_manufacturer ? (
-              <Row align="middle">
+              <Row align="middle" style={{ marginTop: 10 }}>
                 <Col span={4}>
                   <Row justify="center">
-                    <ManufacturerIcon />
+                    <ManufacturerIcon style={{ fontSize: 20 }} />
                   </Row>
                 </Col>
                 <Col span={20}>
                   <div style={{ fontSize: '10px' }}>This vendor manufactures products</div>
-                </Col>
-              </Row>
-            ) : (
-              ''
-            )}
-            {vendorDetails.is_dropshipper ? (
-              <Row align="middle">
-                <Col span={4}>
-                  <Row justify="center">
-                    <ShippingIcon />
-                  </Row>
-                </Col>
-                <Col span={20}>
-                  <div style={{ fontSize: '10px' }}>This vendor is a dropshipper</div>
                 </Col>
               </Row>
             ) : (

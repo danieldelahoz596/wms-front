@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
 
 export default () => {
@@ -7,8 +6,8 @@ export default () => {
   const { initialState } = useModel('@@initialState');
 
   const initialPoTemplateList = useCallback(() => {
-    httpClient.get('/api/po_templates').then((response: any) => setPoTemplateList(response.data));
-  }, []);
+    setPoTemplateList(initialState?.initialData?.poTemplates);
+  }, [initialState?.initialData]);
 
   useEffect(() => {
     if (initialState?.currentUser) {
