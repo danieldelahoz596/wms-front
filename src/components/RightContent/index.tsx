@@ -1,7 +1,7 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { useModel, SelectLang } from '@umijs/max';
+import { useModel, SelectLang, useLocation } from '@umijs/max';
 import { Space } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 import HeaderSearch from '../HeaderSearch';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
@@ -9,6 +9,8 @@ import styles from './index.less';
 export type SiderTheme = 'light' | 'dark';
 
 const GlobalHeaderRight: React.FC = () => {
+  const location = useLocation();
+  const helpUrl = useMemo(() => location.pathname.split('/')[1], [location.pathname]);
   const { initialState } = useModel('@@initialState');
 
   if (!initialState || !initialState.settings) {
@@ -21,6 +23,7 @@ const GlobalHeaderRight: React.FC = () => {
   if ((navTheme === 'realDark' && layout === 'top') || layout === 'mix') {
     className = `${styles.right}  ${styles.dark}`;
   }
+
   return (
     <Space className={className}>
       <SelectLang />
@@ -47,17 +50,15 @@ const GlobalHeaderRight: React.FC = () => {
         //   console.log('input', value);
         // }}
       />
-      <span
+      <a
         className={styles.action}
         style={{
           color: '#ffffff',
         }}
-        onClick={() => {
-          window.open('https://pro.ant.design/docs/getting-started');
-        }}
+        href={`help/${helpUrl}/general`}
       >
         <QuestionCircleOutlined />
-      </span>
+      </a>
       <Avatar />
     </Space>
   );
