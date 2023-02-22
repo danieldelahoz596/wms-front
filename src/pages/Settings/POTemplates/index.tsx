@@ -1,50 +1,6 @@
-import { FormattedMessage } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Button, Card, Space, Table } from 'antd';
-
-const potemplateList = [
-  {
-    id: 1,
-    name: 'Default Template',
-    status: 1,
-    created: '05/15/2015',
-    modified: '05/15/2017',
-  },
-  {
-    id: 2,
-    name: 'Sandi Test Received PO Quantity',
-    status: 1,
-    created: '06/08/2017',
-    modified: '03/03/2020',
-  },
-  {
-    id: 1,
-    name: "Sam's New Po Template",
-    status: 1,
-    created: '06/25/2017',
-    modified: '09/11/2019',
-  },
-  {
-    id: 1,
-    name: 'Mecca Sample',
-    status: 1,
-    created: '08/23/2017',
-    modified: '09/10/2020',
-  },
-  {
-    id: 1,
-    name: 'Default Template',
-    status: 1,
-    created: '08/23/2017',
-    modified: '08/23/2017',
-  },
-  {
-    id: 1,
-    name: 'Default PO Template',
-    status: 1,
-    created: '01/07/2018',
-    modified: '01/07/2018',
-  },
-];
+import { useMemo } from 'react';
 
 const TColumns = [
   {
@@ -66,6 +22,10 @@ const TColumns = [
 ];
 
 export default function () {
+  const { poTemplateList } = useModel('poTemplate');
+
+  const TRows = useMemo(() => poTemplateList?.map((item) => ({ key: item.id, ...item })), [poTemplateList]);
+
   return (
     <Card style={{ width: '100%' }}>
       <Space size={4}>
@@ -83,7 +43,7 @@ export default function () {
         </Button>
       </Space>
 
-      <Table columns={TColumns} dataSource={potemplateList} style={{ marginTop: 10 }} />
+      <Table columns={TColumns} dataSource={TRows} style={{ marginTop: 10 }} />
     </Card>
   );
 }
