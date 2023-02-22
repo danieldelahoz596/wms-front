@@ -12,15 +12,9 @@ interface ICustomBundleKitExportSettingsModal {
   onClose: () => void;
 }
 
-const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSettingsModal> = ({
-  isOpen,
-  onClose,
-}) => {
-  const {
-    customBundleKitExportSettings,
-    removeCustomBundleKitExportSettings,
-    setEditableBundleKitExportSetting,
-  } = useModel('customBundleKitExportSettings');
+const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSettingsModal> = ({ isOpen, onClose }) => {
+  const { customBundleKitExportSettings, removeCustomBundleKitExportSettings, setEditableBundleKitExportSetting } =
+    useModel('customBundleKitExportSettings');
   const [showModal, setShowModal] = useState(false);
 
   const handleEdit = (_item) => {
@@ -34,10 +28,7 @@ const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSetting
     actions: (
       <div style={{ textAlign: 'center' }}>
         <Space>
-          <ToolOutlined
-            onClick={() => handleEdit(_item)}
-            style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }}
-          />
+          <ToolOutlined onClick={() => handleEdit(_item)} style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
           <Popconfirm
             title={'Sure to remove?'}
             onConfirm={() => {
@@ -93,11 +84,7 @@ const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSetting
           style={{ marginTop: 10 }}
         />
 
-        <AddExportSettingsModal
-          isOpen={showModal}
-          onSave={() => setShowModal(false)}
-          onClose={() => setShowModal(false)}
-        />
+        <AddExportSettingsModal isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
       </>
     </OModal>
   );

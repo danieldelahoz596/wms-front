@@ -61,16 +61,9 @@ const OrderManagement: React.FC = () => {
   };
 
   return (
-    <PageContainer
-      title={false}
-      className={'flex flex-column overflow-hidden'}
-      header={{ breadcrumb: {} }}
-    >
+    <PageContainer title={false} className={'flex flex-column overflow-hidden'} header={{ breadcrumb: {} }}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <Sider width={220} trigger={null}>
               <Menu

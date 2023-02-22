@@ -149,12 +149,7 @@ const MostFrequentCustomers: React.FC = () => {
               </Form.Item>
             </Space>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

@@ -17,11 +17,7 @@ export default () => {
 
     //load data with api in the future
     httpClient
-      .get(
-        `/api/purchaseorders?po_status=${data?.poStatus ?? ''}&warehouse_id=${
-          data?.warehouse ?? ''
-        }`,
-      )
+      .get(`/api/purchaseorders?po_status=${data?.poStatus ?? ''}&warehouse_id=${data?.warehouse ?? ''}`)
       .then((res) => setPoList(res.data))
       .catch(() => setPoList([]));
   };

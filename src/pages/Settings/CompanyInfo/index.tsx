@@ -102,11 +102,7 @@ export default function () {
             <h2>Order Settings</h2>
             <hr />
 
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label="Prevent the editing of partially picked orders"
-            >
+            <Form.Item name="remember" valuePropName="checked" label="Prevent the editing of partially picked orders">
               <Checkbox />
             </Form.Item>
 
@@ -120,9 +116,7 @@ export default function () {
               <>
                 <Checkbox />
                 <Link to="/help/settings/companyinfo/#Product_Settings_Section">
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Link>
               </>
             </Form.Item>
@@ -151,11 +145,7 @@ export default function () {
               </>
             </Form.Item>
 
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label="Use Component Inventory Across Warehouses?"
-            >
+            <Form.Item name="remember" valuePropName="checked" label="Use Component Inventory Across Warehouses?">
               <>
                 <Checkbox />
                 <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
@@ -169,9 +159,7 @@ export default function () {
                 </Col>
                 <Col span={18}>
                   <span style={{ marginLeft: 5 }}>day(s)</span>
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Col>
               </Row>
             </Form.Item>
@@ -183,9 +171,7 @@ export default function () {
                 </Col>
                 <Col span={18}>
                   <span style={{ marginLeft: 5 }}>day(s)</span>
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Col>
               </Row>
             </Form.Item>
@@ -197,9 +183,7 @@ export default function () {
                 </Col>
                 <Col span={18}>
                   <span style={{ marginLeft: 5 }}>%</span>
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Col>
               </Row>
             </Form.Item>
@@ -211,9 +195,7 @@ export default function () {
                 </Col>
                 <Col span={18}>
                   <span style={{ marginLeft: 5 }}>day(s)</span>
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Col>
               </Row>
             </Form.Item>
@@ -222,11 +204,7 @@ export default function () {
             <h2>Inventory Value Reconciliation Settings</h2>
             <hr />
 
-            <Form.Item
-              name="remember"
-              valuePropName="checked"
-              label="Choose from all Vendors for reconciliation?"
-            >
+            <Form.Item name="remember" valuePropName="checked" label="Choose from all Vendors for reconciliation?">
               <>
                 <Checkbox />
                 <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
@@ -251,9 +229,7 @@ export default function () {
                   />
                 </Col>
                 <Col span={18}>
-                  <QuestionCircleOutlined
-                    style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }}
-                  />
+                  <QuestionCircleOutlined style={{ color: '#A6AEF4', fontSize: 18, marginLeft: 5 }} />
                 </Col>
               </Row>
             </Form.Item>
@@ -277,19 +253,11 @@ export default function () {
             autoComplete="off"
             labelAlign="left"
           >
-            <Form.Item
-              label="Full Name"
-              name="full_name"
-              rules={[{ required: true, message: 'Please input your Name!' }]}
-            >
+            <Form.Item label="Full Name" name="full_name" rules={[{ required: true, message: 'Please input your Name!' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: 'Please input your Email!' }]}
-            >
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your Email!' }]}>
               <Input />
             </Form.Item>
 
@@ -318,19 +286,11 @@ export default function () {
             autoComplete="off"
             labelAlign="left"
           >
-            <Form.Item
-              label="Full Name"
-              name="full_name"
-              rules={[{ required: true, message: 'Please input your Name!' }]}
-            >
+            <Form.Item label="Full Name" name="full_name" rules={[{ required: true, message: 'Please input your Name!' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: 'Please input your Email!' }]}
-            >
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your Email!' }]}>
               <Input />
             </Form.Item>
 
@@ -359,19 +319,11 @@ export default function () {
             autoComplete="off"
             labelAlign="left"
           >
-            <Form.Item
-              label="Full Name"
-              name="full_name"
-              rules={[{ required: true, message: 'Please input your Name!' }]}
-            >
+            <Form.Item label="Full Name" name="full_name" rules={[{ required: true, message: 'Please input your Name!' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: 'Please input your Email!' }]}
-            >
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your Email!' }]}>
               <Input />
             </Form.Item>
 

@@ -33,9 +33,7 @@ const RestoreOrderModal: React.FC<IRestoreOrderModal> = ({ isOpen, onClose, onSa
     >
       <>
         <Alert description="Restoring the selected orders will revert them back to their previous status." />
-        <div style={{ textAlign: 'right', margin: '10px 5px' }}>
-          Are you sure you want to proceed?
-        </div>
+        <div style={{ textAlign: 'right', margin: '10px 5px' }}>Are you sure you want to proceed?</div>
       </>
     </OModal>
   );

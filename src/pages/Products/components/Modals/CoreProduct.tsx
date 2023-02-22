@@ -57,9 +57,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
     {
       key: 'tab-4',
       label: 'Fields',
-      children: (
-        <ProductCustomFields customFields={customFields} setCustomFields={setCustomFields} />
-      ),
+      children: <ProductCustomFields customFields={customFields} setCustomFields={setCustomFields} />,
     },
   ];
 

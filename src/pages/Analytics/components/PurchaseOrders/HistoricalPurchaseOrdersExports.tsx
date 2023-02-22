@@ -79,7 +79,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
     ..._item,
     actions:
       _item.status === 'Succeeded' || _item.status === 'Failed' ? (
-        <OButton btnText={'Download'} onClick={handleDownload}/>
+        <OButton btnText={'Download'} onClick={handleDownload} />
       ) : null,
   }));
 
@@ -95,14 +95,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
         {/* Make this dynamic */}
         <h2 className="page-title">Purchase Orders {'>'} Historical Exports</h2>
         <Card>
-          <Form
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 18 }}
-            labelAlign="left"
-            labelWrap
-            form={form}
-            onFinish={handleSubmit}
-          >
+          <Form labelCol={{ span: 5 }} wrapperCol={{ span: 18 }} labelAlign="left" labelWrap form={form} onFinish={handleSubmit}>
             <Row>
               <Col span={6}>
                 <Form.Item label="Destination" name="destination">
@@ -169,11 +162,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
               </Col>
               <Col span={4}>
                 <Row>
-                  <Form.Item
-                    name="received_date_from"
-                    label="Received Date From"
-                    labelCol={{ span: 8 }}
-                  >
+                  <Form.Item name="received_date_from" label="Received Date From" labelCol={{ span: 8 }}>
                     <DatePicker />
                   </Form.Item>
                 </Row>
@@ -206,8 +195,8 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
 
         <Card>
           <h3>
-            Note: The data from Historical Exports might be delayed for up to 24 hours, the exports
-            do not reflect the most up-to-date state of the purchase orders.
+            Note: The data from Historical Exports might be delayed for up to 24 hours, the exports do not reflect the most
+            up-to-date state of the purchase orders.
           </h3>
 
           <OTable columns={Tcolumns} rows={exportRows} bordered={false} />

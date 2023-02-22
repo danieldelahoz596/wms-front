@@ -12,14 +12,7 @@ interface IStockEditModal {
   onSave: (count: any) => void;
 }
 
-const StockEditModal: React.FC<IStockEditModal> = ({
-  isOpen,
-  vendorName,
-  locationInfo,
-  actionType,
-  onClose,
-  onSave,
-}) => {
+const StockEditModal: React.FC<IStockEditModal> = ({ isOpen, vendorName, locationInfo, actionType, onClose, onSave }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -59,9 +52,7 @@ const StockEditModal: React.FC<IStockEditModal> = ({
           <h2 style={{ textAlign: 'center' }}>
             Available stock at <u>{`${locationInfo?.location}`}</u>{' '}
           </h2>
-          <h2
-            style={{ position: 'absolute', top: 0, left: 440 }}
-          >{`${locationInfo?.available}`}</h2>
+          <h2 style={{ position: 'absolute', top: 0, left: 440 }}>{`${locationInfo?.available}`}</h2>
         </div>
 
         <Form layout="inline" style={{ marginTop: 10 }} labelCol={{ span: 6 }}>

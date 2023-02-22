@@ -42,17 +42,13 @@ const PODetailsBottom: React.FC = () => {
                   ),
                 }),
                 ...(purchaseFormValues.paymentTerm && {
-                  paymentTerm: initialState?.initialData.paymentTerms?.find(
-                    (term) => term.id === purchaseFormValues.paymentTerm,
-                  ),
+                  paymentTerm: initialState?.initialData.paymentTerms?.find((term) => term.id === purchaseFormValues.paymentTerm),
                 }),
                 ...(purchaseFormValues.confirmBy && {
                   confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
                 }),
                 ...(purchaseFormValues.milestone && {
-                  milestone: milestonesList.find(
-                    (milestone) => milestone.id === purchaseFormValues.milestone,
-                  ),
+                  milestone: milestonesList.find((milestone) => milestone.id === purchaseFormValues.milestone),
                 }),
               }
             : item,
@@ -104,9 +100,7 @@ const PODetailsBottom: React.FC = () => {
           <h3>
             Total:{' '}
             {getTotalItemCost(selectedPO) +
-              selectedPO?.otherCost
-                .map(({ cost }) => cost)
-                .reduce((acc: any, curValue: any) => acc + curValue, 0) +
+              selectedPO?.otherCost.map(({ cost }) => cost).reduce((acc: any, curValue: any) => acc + curValue, 0) +
               selectedPO?.shippingCost}
           </h3>
         </div>

@@ -35,8 +35,7 @@ const ExportModal: React.FC<IExportModal> = ({ isOpen, title, helpLink, onClose,
       <>
         <p>This report is only available in UTC</p>
         <p>
-          This report is exported in the Microsoft Excel spreadsheet format and a download link will
-          be emailed to you shortly
+          This report is exported in the Microsoft Excel spreadsheet format and a download link will be emailed to you shortly
         </p>
       </>
     </OModal>

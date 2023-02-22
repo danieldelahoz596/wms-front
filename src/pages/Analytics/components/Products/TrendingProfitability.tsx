@@ -135,21 +135,13 @@ const TrendingProfitability: React.FC = () => {
                           key: 'download_png',
                           label: 'Download PNG image',
                           disabled: !trendingChartInstance,
-                          onClick: () =>
-                            trendingChartInstance.downloadImage(
-                              'listing-profitability-chart',
-                              'image/png',
-                            ),
+                          onClick: () => trendingChartInstance.downloadImage('listing-profitability-chart', 'image/png'),
                         },
                         {
                           key: 'download_jpeg',
                           label: 'Download JPEG image',
                           disabled: !trendingChartInstance,
-                          onClick: () =>
-                            trendingChartInstance.downloadImage(
-                              'listing-profitability-chart',
-                              'image/jpeg',
-                            ),
+                          onClick: () => trendingChartInstance.downloadImage('listing-profitability-chart', 'image/jpeg'),
                         },
                         {
                           key: 'download_pdf',

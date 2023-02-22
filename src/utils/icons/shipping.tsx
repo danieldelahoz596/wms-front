@@ -7,8 +7,6 @@ const ShippingSvg = () => (
   </svg>
 );
 
-const ShippingIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ShippingSvg} {...props} />
-);
+const ShippingIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ShippingSvg} {...props} />;
 
 export default ShippingIcon;

@@ -55,10 +55,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
     },
   ];
 
-  const dataSource = useMemo(
-    () => attributeGroups.map((_item) => ({ ..._item, key: _item.id })),
-    [attributeGroups],
-  );
+  const dataSource = useMemo(() => attributeGroups.map((_item) => ({ ..._item, key: _item.id })), [attributeGroups]);
 
   return (
     <OModal
@@ -112,9 +109,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
             },
           }}
           handleSave={(key: any, name: any, value: any) => {
-            setAttributeGroups(
-              attributeGroups.map((item) => (item.id === key ? { ...item, [name]: value } : item)),
-            );
+            setAttributeGroups(attributeGroups.map((item) => (item.id === key ? { ...item, [name]: value } : item)));
           }}
         />
 
@@ -124,9 +119,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
           onSave={(items: any[]) => {
             setAttributeGroups(
               attributeGroups.map((attributeGroup) =>
-                attributeGroup.id === editableGroup.id
-                  ? { ...attributeGroup, items }
-                  : attributeGroup,
+                attributeGroup.id === editableGroup.id ? { ...attributeGroup, items } : attributeGroup,
               ),
             );
             setShowModal(false);

@@ -8,11 +8,7 @@ interface IExportVendorProductModal {
   onSave: () => void;
 }
 
-const ExportVendorProductModal: React.FC<IExportVendorProductModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ExportVendorProductModal: React.FC<IExportVendorProductModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title="Select How To Export Vendor Products"
@@ -31,8 +27,8 @@ const ExportVendorProductModal: React.FC<IExportVendorProductModal> = ({
     >
       <>
         <p>
-          Skubana gives you the option to export vendor products by downloading an individial file
-          for each vendor, or by exporting one global file that contains all your vendor products.
+          Skubana gives you the option to export vendor products by downloading an individial file for each vendor, or by
+          exporting one global file that contains all your vendor products.
         </p>
 
         <Row gutter={16}>

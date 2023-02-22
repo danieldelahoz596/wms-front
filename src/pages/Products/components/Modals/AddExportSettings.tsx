@@ -89,9 +89,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   };
 
   const handleColumnNameChange = (item, value) => {
-    setSelectedExportFields((prevState) =>
-      prevState.map((cur) => (cur.key == item.key ? { ...cur, name: value } : cur)),
-    );
+    setSelectedExportFields((prevState) => prevState.map((cur) => (cur.key == item.key ? { ...cur, name: value } : cur)));
   };
 
   const handleSave = () => {
@@ -124,17 +122,10 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   const preparedImportFieldsRows = selectedExportFields?.map((item, index) => ({
     sl: index + 1,
     dataField: item.field.toUpperCase(),
-    columnName: (
-      <Input
-        defaultValue={item.field.toUpperCase()}
-        onChange={(e) => handleColumnNameChange(item, e.target.value)}
-      />
-    ),
+    columnName: <Input defaultValue={item.field.toUpperCase()} onChange={(e) => handleColumnNameChange(item, e.target.value)} />,
     remove: (
       <span onClick={() => handleRemoveField(item.key)}>
-        <CloseOutlined
-          style={{ color: '#5F5FFF', cursor: 'pointer', textAlign: 'center', width: 20 }}
-        />
+        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer', textAlign: 'center', width: 20 }} />
       </span>
     ),
   }));
@@ -180,12 +171,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
       >
         <Row>
           <Col span={11} style={{ padding: 5 }}>
-            <Form.Item
-              name="settingName"
-              label="Settings Name"
-              labelCol={{ span: 24 }}
-              wrapperCol={{ span: 23 }}
-            >
+            <Form.Item name="settingName" label="Settings Name" labelCol={{ span: 24 }} wrapperCol={{ span: 23 }}>
               <Input />
             </Form.Item>
             <Card title="File Configuration" style={{ marginTop: 15 }}>
@@ -236,37 +222,22 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
               title={
                 <Space size={5} align={'start'}>
                   <span>Export Fields</span>
-                  <span style={{ color: 'blue', textTransform: 'capitalize' }}>
-                    (Include column headers?
-                  </span>
-                  <Form.Item
-                    name="includeColumnHeader"
-                    valuePropName="checked"
-                    style={{ marginTop: -6 }}
-                  >
+                  <span style={{ color: 'blue', textTransform: 'capitalize' }}>(Include column headers?</span>
+                  <Form.Item name="includeColumnHeader" valuePropName="checked" style={{ marginTop: -6 }}>
                     <Checkbox />
                   </Form.Item>
                   <span style={{ color: 'blue' }}>)</span>
                 </Space>
               }
             >
-              <Form.Item
-                name={'exportFields'}
-                label="Add Field"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 15 }}
-              >
+              <Form.Item name={'exportFields'} label="Add Field" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }}>
                 <Select
                   placeholder="Select..."
                   onChange={(_val) => handleAddField(_val)}
                   options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
                 />
               </Form.Item>
-              <OTable
-                pagination={false}
-                columns={exportFieldsColumns}
-                rows={preparedImportFieldsRows}
-              />
+              <OTable pagination={false} columns={exportFieldsColumns} rows={preparedImportFieldsRows} />
             </Card>
           </Col>
         </Row>

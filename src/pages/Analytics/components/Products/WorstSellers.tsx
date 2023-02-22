@@ -114,12 +114,7 @@ const WorstSellers: React.FC = () => {
               <QuestionCircleOutlined style={{ fontSize: 20, color: 'blue' }} />
             </Space>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

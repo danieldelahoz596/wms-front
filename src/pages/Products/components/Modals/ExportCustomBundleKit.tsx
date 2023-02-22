@@ -11,11 +11,7 @@ interface IExportCustomBundleKitModal {
   onSave: () => void;
 }
 
-const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { customBundleKitExportSettings } = useModel('customBundleKitExportSettings');
 
@@ -42,10 +38,7 @@ const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({
       ]}
     >
       <>
-        <p>
-          Skubana allows you to export any of the available product information in CSV, Excel, or
-          plain text format.
-        </p>
+        <p>Skubana allows you to export any of the available product information in CSV, Excel, or plain text format.</p>
         <p>
           {`To export the selected products, select one of your pre-configured export settings and
           click the 'Export Bundles/Kits' button. If you haven't created any export settings yet,

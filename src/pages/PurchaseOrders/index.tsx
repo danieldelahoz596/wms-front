@@ -7,12 +7,7 @@ import ManageItemsModal from '@/components/ManageItems';
 import VendorModal from './components/Modals/Vendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
-import {
-  CheckSquareFilled,
-  DownOutlined,
-  FileOutlined,
-  VerticalAlignBottomOutlined,
-} from '@ant-design/icons';
+import { CheckSquareFilled, DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, Card, Dropdown, message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -118,21 +113,13 @@ interface IManagePurchaseOrdersModal {
 }
 
 const CustomerManagement: React.FC = () => {
-  const {
-    poList,
-    initialSelectedPO,
-    getPoTotalCost,
-    getTotalUnitQuantity,
-    setSelectedPO,
-    selectedPO,
-  } = useModel('po');
+  const { poList, initialSelectedPO, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
   const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
 
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-  const [manageOrdersModalData, setManageOrdersModalData] =
-    useState<IManagePurchaseOrdersModal>(null);
+  const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
 
   const [modalOpen, setModal] = useState('');
 
@@ -414,10 +401,7 @@ const CustomerManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <SidePanel />
           </div>
@@ -429,8 +413,7 @@ const CustomerManagement: React.FC = () => {
               <p className="page-title">
                 Purchase Orders ::{' '}
                 {selectedPOStatus
-                  ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)
-                      ?.po_status.name
+                  ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name
                   : ''}
               </p>
               <Space size={4} style={{ marginBottom: 10 }}>
@@ -438,26 +421,12 @@ const CustomerManagement: React.FC = () => {
                   <OButton key={btn.key} {...btn} />
                 ))}
               </Space>
-              <OTable
-                columns={TColumns}
-                rows={poListTableRows}
-                selectedRows={selectedRows}
-                setSelectedRows={setSelectedRows}
-              />
+              <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
             </Card>
           </div>
-          <SampleSplitter
-            dir={'horizontal'}
-            isDragging={isBottomDragging}
-            {...bottomDragBarProps}
-          />
-          <div
-            className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')}
-            style={{ height: bottomH }}
-          >
-            <div className="w-full">
-              {selectedRows.length == 1 && <TabComponent POProductItems={POProductItems} />}
-            </div>
+          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+          <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
+            <div className="w-full">{selectedRows.length == 1 && <TabComponent POProductItems={POProductItems} />}</div>
           </div>
         </div>
       </div>
@@ -497,10 +466,7 @@ const CustomerManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ManageItemsModal
-        isOpen={modalOpen === modalType.ManagePurchaseOrders}
-        {...manageOrdersModalData}
-      />
+      <ManageItemsModal isOpen={modalOpen === modalType.ManagePurchaseOrders} {...manageOrdersModalData} />
 
       <ExportPOModal
         isOpen={modalOpen === modalType.ExportPOSettings}

@@ -5,11 +5,7 @@ interface INewRecevingLocationModal {
   onSave: (item: string) => void;
   onClose: () => void;
 }
-const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({
-  isOpen,
-  onSave,
-  onClose,
-}) => {
+const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {
@@ -43,11 +39,7 @@ const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({
       <>
         <h2 style={{ textAlign: 'center' }}>AA0001</h2>
         <Form form={form}>
-          <Form.Item
-            label="Location"
-            name="location"
-            rules={[{ required: true, message: 'Please input location' }]}
-          >
+          <Form.Item label="Location" name="location" rules={[{ required: true, message: 'Please input location' }]}>
             <Input />
           </Form.Item>
         </Form>

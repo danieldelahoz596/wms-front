@@ -6,8 +6,6 @@ const BoxSvg = () => (
   </svg>
 );
 
-const BoxIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={BoxSvg} {...props} />
-);
+const BoxIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={BoxSvg} {...props} />;
 
 export default BoxIcon;

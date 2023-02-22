@@ -116,19 +116,11 @@ const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, set
           rowClassName: (record) => (record.id === selectedItemId ? `ant-table-row-selected` : ''),
         }}
         handleSave={(index, name, value) => {
-          setCustomFields(
-            customFields.map((field) =>
-              field.field_id === index ? { ...field, [name]: value } : field,
-            ),
-          );
+          setCustomFields(customFields.map((field) => (field.field_id === index ? { ...field, [name]: value } : field)));
         }}
       />
 
-      <ConfigureFieldTypes
-        isOpen={showModal}
-        onSave={() => setShowModal(false)}
-        onClose={() => setShowModal(false)}
-      />
+      <ConfigureFieldTypes isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
     </>
   );
 };

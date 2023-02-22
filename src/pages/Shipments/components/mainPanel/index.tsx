@@ -55,11 +55,7 @@ const LeftPanel: React.FC = () => {
       render: (order: IOrderItem) => {
         return (
           <a>
-            {order.type === 'warehouse' ? (
-              <WarehouseIcon style={{ width: 15 }} />
-            ) : (
-              <GlobalOutlined style={{ width: 15 }} />
-            )}
+            {order.type === 'warehouse' ? <WarehouseIcon style={{ width: 15 }} /> : <GlobalOutlined style={{ width: 15 }} />}
             {'  '}
             {order.value}
           </a>

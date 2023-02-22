@@ -46,12 +46,7 @@ const IncomingStock: React.FC<IIncomingStock> = ({ stock }) => {
   return (
     <>
       <Card title="Incoming Stock">
-        <Table
-          columns={Tcolumns}
-          dataSource={rows}
-          scroll={{ y: 200 }}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        <Table columns={Tcolumns} dataSource={rows} scroll={{ y: 200 }} pagination={{ hideOnSinglePage: true }} />
       </Card>
     </>
   );

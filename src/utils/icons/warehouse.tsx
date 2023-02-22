@@ -6,8 +6,6 @@ const WarehouseSvg = () => (
   </svg>
 );
 
-const WarehouseIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={WarehouseSvg} {...props} />
-);
+const WarehouseIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={WarehouseSvg} {...props} />;
 
 export default WarehouseIcon;

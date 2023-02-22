@@ -6,8 +6,6 @@ const LeafSvg = () => (
   </svg>
 );
 
-const LeafIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={LeafSvg} {...props} />
-);
+const LeafIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={LeafSvg} {...props} />;
 
 export default LeafIcon;

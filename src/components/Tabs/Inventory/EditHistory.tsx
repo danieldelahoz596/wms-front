@@ -5,8 +5,7 @@ const historyData = [
     key: 1,
     editTime: '01/05/2021 11:28 AM',
     user: 'support@skubana.com',
-    description:
-      'Channel Allocation Rules(SCMagentotes :: Standard = 100% Of Available] Excluded Warehouses[In-House Warehouse]',
+    description: 'Channel Allocation Rules(SCMagentotes :: Standard = 100% Of Available] Excluded Warehouses[In-House Warehouse]',
   },
   {
     key: 2,

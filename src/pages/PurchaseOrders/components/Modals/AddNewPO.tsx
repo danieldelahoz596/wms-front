@@ -39,23 +39,13 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           dateCreated: new Date(),
           fromVendor: selectedVendor,
           poFormat: purchaseFormValues.poFormat,
-          destination: initialState?.initialData.warehouses?.find(
-            (warehouse) => warehouse.id === purchaseFormValues.destination,
-          ),
-          poTemplate: initialState?.initialData.poTemplates?.find(
-            (template) => template.id === purchaseFormValues.poTemplate,
-          ),
-          shippingTerm: initialState?.initialData.shippingTerms?.find(
-            (term) => term.id === purchaseFormValues.shippingTerm,
-          ),
-          paymentTerm: initialState?.initialData.paymentTerms?.find(
-            (term) => term.id === purchaseFormValues.paymentTerm,
-          ),
+          destination: initialState?.initialData.warehouses?.find((warehouse) => warehouse.id === purchaseFormValues.destination),
+          poTemplate: initialState?.initialData.poTemplates?.find((template) => template.id === purchaseFormValues.poTemplate),
+          shippingTerm: initialState?.initialData.shippingTerms?.find((term) => term.id === purchaseFormValues.shippingTerm),
+          paymentTerm: initialState?.initialData.paymentTerms?.find((term) => term.id === purchaseFormValues.paymentTerm),
           confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
           enablePortal: null,
-          milestone: milestonesList.find(
-            (milestone) => milestone.id === purchaseFormValues.milestone,
-          ),
+          milestone: milestonesList.find((milestone) => milestone.id === purchaseFormValues.milestone),
           itemCost: 0,
           shippingCost: aggregateCostValues.shippingCost,
           paymentDate: new Date(),

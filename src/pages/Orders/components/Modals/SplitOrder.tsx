@@ -58,12 +58,7 @@ const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }
         </Row>
         <Form.Item label="Order Number" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label={editableOrder?.order_number}
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
+            <Form.Item label={editableOrder?.order_number} labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
             <Form.Item
               label=" "
               labelCol={{ span: 12 }}
@@ -101,143 +96,62 @@ const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }
               colon={true}
               rules={[{ required: true, message: 'Quantity is required!' }]}
             >
-              <InputNumber
-                style={{ width: '100%' }}
-                max={editableOrder?.orderItems[0].unitQty}
-                min={1}
-              />
+              <InputNumber style={{ width: '100%' }} max={editableOrder?.orderItems[0].unitQty} min={1} />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Order Total" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="order_total"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="order_total" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Amount Paid" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="amount_paid"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="amount_paid" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Shipping Paid" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="shipping_paid"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="shipping_paid" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Tax Amount" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="tax_amount"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="tax_amount" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Insured Value" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="insured_value"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="insured_value" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Weight(oz)" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="384.0"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="weight"
-              colon={false}
-            >
+            <Form.Item label="384.0" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="weight" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>
         </Form.Item>
         <Form.Item label="Discount" labelCol={{ span: 4 }}>
           <Input.Group compact>
-            <Form.Item
-              label="$0.00"
-              labelCol={{ span: 24 }}
-              style={{ width: '50%' }}
-              colon={false}
-            />
-            <Form.Item
-              label=" "
-              labelCol={{ span: 12 }}
-              style={{ width: '50%' }}
-              name="discount"
-              colon={false}
-            >
+            <Form.Item label="$0.00" labelCol={{ span: 24 }} style={{ width: '50%' }} colon={false} />
+            <Form.Item label=" " labelCol={{ span: 12 }} style={{ width: '50%' }} name="discount" colon={false}>
               <Input />
             </Form.Item>
           </Input.Group>

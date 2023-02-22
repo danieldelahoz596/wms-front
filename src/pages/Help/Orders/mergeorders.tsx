@@ -9,8 +9,8 @@ export default function () {
           <Card>
             <h1>How to Merge Orders</h1>
             <p>
-              In order to help you save on shipping, Extensiv Order Manager may recommend that two
-              or more unshipped orders be merged into one if they are going to the same customer.
+              In order to help you save on shipping, Extensiv Order Manager may recommend that two or more unshipped orders be
+              merged into one if they are going to the same customer.
             </p>
             <p>
               You will see these recommendations in your{' '}
@@ -23,14 +23,14 @@ export default function () {
             <ul>
               <li>
                 <p>
-                  If there are unshipped orders with the same Email Address, Extensiv Order Manager
-                  will suggest that the orders be merged.
+                  If there are unshipped orders with the same Email Address, Extensiv Order Manager will suggest that the orders
+                  be merged.
                 </p>
               </li>
               <li>
                 <p>
-                  If there is no email address match but unshipped orders have the same Recipient
-                  Name and Address, Extensiv Order Manager will suggest the orders be merged.
+                  If there is no email address match but unshipped orders have the same Recipient Name and Address, Extensiv Order
+                  Manager will suggest the orders be merged.
                 </p>
               </li>
             </ul>
@@ -40,9 +40,7 @@ export default function () {
             />
             <br />
             <br />
-            <p>
-              Follow the steps outlined below on how to merge an order in Extensiv Order Manager.
-            </p>
+            <p>Follow the steps outlined below on how to merge an order in Extensiv Order Manager.</p>
             <h1>Step 1</h1>
             <p>
               In the toolbar, select the <strong>Orders</strong> module
@@ -56,14 +54,12 @@ export default function () {
             <br />
             <h1>Step 2</h1>
             <p>
-              Search for the orders you would like to merge. You can search for orders in the left
-              sidebar search panel or locate them in the orders grid. You will need to be able to
-              see both orders to merge in the same orders grid, so if your search result is only for
-              one of the orders, you won't be able to merge it.
+              Search for the orders you would like to merge. You can search for orders in the left sidebar search panel or locate
+              them in the orders grid. You will need to be able to see both orders to merge in the same orders grid, so if your
+              search result is only for one of the orders, you won't be able to merge it.
             </p>
             <p>
-              <strong>ie:</strong> Search for orders from Shopify in Awaiting Shipment status, not
-              just a specific order number.
+              <strong>ie:</strong> Search for orders from Shopify in Awaiting Shipment status, not just a specific order number.
             </p>
             <br />
             <img
@@ -72,10 +68,7 @@ export default function () {
             />
             <br />
             <br />
-            <p>
-              To select an order, click on the box next to the order which will highlight the order
-              in blue.{' '}
-            </p>
+            <p>To select an order, click on the box next to the order which will highlight the order in blue. </p>
             <h1>Step 3</h1>
             <p>
               Click on the <strong>Merge</strong> button. This will open up a new pop-up window.
@@ -89,11 +82,10 @@ export default function () {
             <br />
             <h1>Step 4</h1>
             <p>
-              Drag and drop which order you’d like to be the "master order" and which one you’d like
-              to be the "child order(s)" from the orders list. You can merge more than two orders at
-              a time. When you are finished, click Merge. Most information in the child order will
-              be replaced by the master order. Some numeric quantities, like weights and totals, may
-              be summed during the merge process.
+              Drag and drop which order you’d like to be the "master order" and which one you’d like to be the "child order(s)"
+              from the orders list. You can merge more than two orders at a time. When you are finished, click Merge. Most
+              information in the child order will be replaced by the master order. Some numeric quantities, like weights and
+              totals, may be summed during the merge process.
             </p>
             <Alert
               message="Note"
@@ -110,8 +102,8 @@ export default function () {
                   </li>
                   <li>
                     <p>
-                      You cannot merge orders that are in different order statuses. For example, you
-                      cannot merge an order in an Unresolved status with one in Awaiting 3PL status.
+                      You cannot merge orders that are in different order statuses. For example, you cannot merge an order in an
+                      Unresolved status with one in Awaiting 3PL status.
                     </p>
                   </li>
                   <li>
@@ -129,9 +121,8 @@ export default function () {
             <br />
             <h1>Step 5</h1>
             <p>
-              Once you've dragged/dropped at least one order into the master order section and one
-              into the section to be merged into the master order, click <strong>Merge</strong>. You
-              will be prompted to confirm the merge.
+              Once you've dragged/dropped at least one order into the master order section and one into the section to be merged
+              into the master order, click <strong>Merge</strong>. You will be prompted to confirm the merge.
             </p>
             <br />
             <img
@@ -141,9 +132,8 @@ export default function () {
             <br />
             <br />
             <p>
-              If you are merging a manual order with a native sales channel order, you'll be
-              notified that you need to manually update the sale channel with a tracking number when
-              the master order is shipped.
+              If you are merging a manual order with a native sales channel order, you'll be notified that you need to manually
+              update the sale channel with a tracking number when the master order is shipped.
             </p>
             <br />
             <img
@@ -153,8 +143,8 @@ export default function () {
             <br />
             <br />
             <p>
-              Once you confirm the merge, if the orders were qualified to merge together, you will
-              be prompted with a success prompt like this:
+              Once you confirm the merge, if the orders were qualified to merge together, you will be prompted with a success
+              prompt like this:
             </p>
             <br />
             <img

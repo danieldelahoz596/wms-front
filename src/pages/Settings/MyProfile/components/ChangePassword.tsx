@@ -38,10 +38,7 @@ const ChanagePassword: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Card
-        title={<FormattedMessage id="app.settings.profile.change-password.title" />}
-        style={{ width: 600, marginTop: 10 }}
-      >
+      <Card title={<FormattedMessage id="app.settings.profile.change-password.title" />} style={{ width: 600, marginTop: 10 }}>
         <Form
           name="change_password"
           labelCol={{ span: 8 }}
@@ -56,9 +53,7 @@ const ChanagePassword: React.FC = () => {
             rules={[
               {
                 required: true,
-                message: (
-                  <FormattedMessage id="app.settings.profile.change-password.current-password-message" />
-                ),
+                message: <FormattedMessage id="app.settings.profile.change-password.current-password-message" />,
               },
             ]}
           >
@@ -71,18 +66,14 @@ const ChanagePassword: React.FC = () => {
             rules={[
               {
                 required: true,
-                message: (
-                  <FormattedMessage id="app.settings.profile.change-password.new-password-message" />
-                ),
+                message: <FormattedMessage id="app.settings.profile.change-password.new-password-message" />,
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('old_password') !== value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(
-                    new Error('The new password should be different from the current password'),
-                  );
+                  return Promise.reject(new Error('The new password should be different from the current password'));
                 },
               }),
             ]}
@@ -99,18 +90,14 @@ const ChanagePassword: React.FC = () => {
             rules={[
               {
                 required: true,
-                message: (
-                  <FormattedMessage id="app.settings.profile.change-password.confirm-password-message1" />
-                ),
+                message: <FormattedMessage id="app.settings.profile.change-password.confirm-password-message1" />,
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('new_password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(
-                    new Error('The two passwords that you entered do not match!'),
-                  );
+                  return Promise.reject(new Error('The two passwords that you entered do not match!'));
                 },
               }),
             ]}

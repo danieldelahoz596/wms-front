@@ -10,14 +10,10 @@ export default () => {
   };
 
   const updateOrderImportSettings = (_updatedSetting) => {
-    setOrderImportSettings((prevState) =>
-      prevState.map((_item) => (_item.key == _updatedSetting.key ? _updatedSetting : _item)),
-    );
+    setOrderImportSettings((prevState) => prevState.map((_item) => (_item.key == _updatedSetting.key ? _updatedSetting : _item)));
   };
   const removeOrderImportSettings = (_index) => {
-    setOrderImportSettings((prevState) =>
-      prevState.filter((_item, _curIndex) => _index !== _curIndex),
-    );
+    setOrderImportSettings((prevState) => prevState.filter((_item, _curIndex) => _index !== _curIndex));
   };
 
   return {

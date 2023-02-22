@@ -31,24 +31,14 @@ import { useState } from 'react';
 export default function () {
   const [modalOpen, setModalOpen] = useState('');
   const [showInactive, setShowInactive] = useState(false);
-  const {
-    warehouseList,
-    setSelectedWarehouse,
-    selectedWarehouse,
-    updateWarehouse,
-    getWarehouseHistory,
-  } = useModel('warehouse');
+  const { warehouseList, setSelectedWarehouse, selectedWarehouse, updateWarehouse, getWarehouseHistory } = useModel('warehouse');
 
   return (
     <div className="w-full">
       <Card>
         <Row gutter={5}>
           <Col span={24}>
-            <OButton
-              btnText={'New Warehouse'}
-              onClick={() => setModalOpen(modalType.Void)}
-              style={{ marginRight: '5px' }}
-            />
+            <OButton btnText={'New Warehouse'} onClick={() => setModalOpen(modalType.Void)} style={{ marginRight: '5px' }} />
             <OButton
               btnText={showInactive ? 'Show Active' : 'Show Inactive'}
               onClick={() => {
@@ -265,10 +255,7 @@ export default function () {
         activate={showInactive}
       />
 
-      <WarehouseHistoryModal
-        isOpen={modalOpen === modalType.WarehouseHistory}
-        onClose={() => setModalOpen(modalType.Close)}
-      />
+      <WarehouseHistoryModal isOpen={modalOpen === modalType.WarehouseHistory} onClose={() => setModalOpen(modalType.Close)} />
     </div>
   );
 }

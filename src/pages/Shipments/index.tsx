@@ -18,10 +18,7 @@ const ShipmentManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <LeftPanel />
           </div>

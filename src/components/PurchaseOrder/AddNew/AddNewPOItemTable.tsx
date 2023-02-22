@@ -87,8 +87,7 @@ const AddNewPOItemTable: React.FC = () => {
     setPoItem({});
   };
 
-  const handleInputChange = (name: any, value: any) =>
-    setPoItem((prevState) => ({ ...prevState, [name]: value }));
+  const handleInputChange = (name: any, value: any) => setPoItem((prevState) => ({ ...prevState, [name]: value }));
 
   // add new product to poItems list form input fields
   const inputFields = [
@@ -161,12 +160,7 @@ const AddNewPOItemTable: React.FC = () => {
         <OButton btnText="Paste From CSV" size="large" onClick={() => setShowModal(true)} />
       </div>
 
-      <EditableTable
-        dataSource={rows}
-        columns={AddNewPOItemTableColumns}
-        handleSave={updatePoItem}
-        pagination={false}
-      />
+      <EditableTable dataSource={rows} columns={AddNewPOItemTableColumns} handleSave={updatePoItem} pagination={false} />
 
       <POItemsFromCSVModal
         isOpen={showModal}

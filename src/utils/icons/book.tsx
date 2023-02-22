@@ -6,8 +6,6 @@ const BookSvg = () => (
   </svg>
 );
 
-const BookIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={BookSvg} {...props} />
-);
+const BookIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={BookSvg} {...props} />;
 
 export default BookIcon;

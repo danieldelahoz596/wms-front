@@ -5,9 +5,7 @@ export default () => {
   const [shippingTermList, setShippingTermList] = useState<any[]>([]);
 
   const initialShippingTermList = useCallback(() => {
-    httpClient
-      .get('/api/shipping_terms')
-      .then((response: any) => setShippingTermList(response.data));
+    httpClient.get('/api/shipping_terms').then((response: any) => setShippingTermList(response.data));
   }, []);
 
   return { shippingTermList, initialShippingTermList };

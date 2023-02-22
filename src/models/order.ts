@@ -20,9 +20,7 @@ export default () => {
   }, []);
 
   const updateOrderItem = (orderItem) => {
-    setOrderList((prevState) =>
-      prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)),
-    );
+    setOrderList((prevState) => prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)));
   };
 
   return {

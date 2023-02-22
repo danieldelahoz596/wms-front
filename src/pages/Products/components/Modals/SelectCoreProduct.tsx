@@ -66,8 +66,7 @@ const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onC
             type: product.type,
           }))}
           filterOption={(input, option) =>
-            (option.type === productType.CoreProduct || option.type === productType.Variations) &&
-            option.label.includes(input)
+            (option.type === productType.CoreProduct || option.type === productType.Variations) && option.label.includes(input)
           }
           value={selectedProductIds}
         />

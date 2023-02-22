@@ -106,15 +106,13 @@ const LifetimeValue: React.FC = () => {
                       key: 'download_png',
                       label: 'Download PNG image',
                       disabled: !lifetimeValueChartInstance,
-                      onClick: () =>
-                        lifetimeValueChartInstance.downloadImage('lifetime-value', 'image/png'),
+                      onClick: () => lifetimeValueChartInstance.downloadImage('lifetime-value', 'image/png'),
                     },
                     {
                       key: 'download_jpeg',
                       label: 'Download JPEG image',
                       disabled: !lifetimeValueChartInstance,
-                      onClick: () =>
-                        lifetimeValueChartInstance.downloadImage('lifetime-value', 'image/jpeg'),
+                      onClick: () => lifetimeValueChartInstance.downloadImage('lifetime-value', 'image/jpeg'),
                     },
                     {
                       key: 'download_pdf',

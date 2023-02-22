@@ -711,18 +711,13 @@ const SalesOverview: React.FC = () => {
                           key: 'download_png',
                           label: 'Download PNG image',
                           disabled: !salesOverviewChartInstance,
-                          onClick: () =>
-                            salesOverviewChartInstance.downloadImage('sales-overview', 'image/png'),
+                          onClick: () => salesOverviewChartInstance.downloadImage('sales-overview', 'image/png'),
                         },
                         {
                           key: 'download_jpeg',
                           label: 'Download JPEG image',
                           disabled: !salesOverviewChartInstance,
-                          onClick: () =>
-                            salesOverviewChartInstance.downloadImage(
-                              'sales-overview',
-                              'image/jpeg',
-                            ),
+                          onClick: () => salesOverviewChartInstance.downloadImage('sales-overview', 'image/jpeg'),
                         },
                         {
                           key: 'download_pdf',
@@ -748,11 +743,7 @@ const SalesOverview: React.FC = () => {
                   yField="value"
                   seriesField="carrier"
                   color={({ carrier }) => {
-                    return carrier === 'tracker'
-                      ? '#727276'
-                      : carrier === 'woocommerce'
-                      ? '#9DC7F1'
-                      : '#F9BA85';
+                    return carrier === 'tracker' ? '#727276' : carrier === 'woocommerce' ? '#9DC7F1' : '#F9BA85';
                   }}
                   yAxis={{
                     tickInterval: 25,

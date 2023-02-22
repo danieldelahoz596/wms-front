@@ -88,8 +88,7 @@ const vendorProductTableRows = [
 ];
 
 const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
-  const { editableProduct, productList, setEditableProduct, handleUpdateProduct } =
-    useModel('product');
+  const { editableProduct, productList, setEditableProduct, handleUpdateProduct } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
   const [showProductDetailType, setShowProductDetailType] = useState(null);
 
@@ -112,42 +111,23 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
       title="Product Details"
       extra={
         <Space size={4}>
-          <OButton
-            btnText={'Fields'}
-            onClick={() => setShowProductDetailType('fields')}
-            disabled={!editableProduct}
-          />
+          <OButton btnText={'Fields'} onClick={() => setShowProductDetailType('fields')} disabled={!editableProduct} />
           <OButton
             btnText={'Vendor Products'}
             onClick={() => setShowProductDetailType('vendorProduct')}
             disabled={!editableProduct}
           />
-          <OButton
-            btnText={'Gallery'}
-            onClick={() => setShowProductDetailType('gallery')}
-            disabled={!editableProduct}
-          />
+          <OButton btnText={'Gallery'} onClick={() => setShowProductDetailType('gallery')} disabled={!editableProduct} />
         </Space>
       }
       style={{ height: height - 20 }}
     >
       {showProductDetailType === 'fields' ? (
-        <Table
-          columns={TFieldColumns}
-          dataSource={fieldTableRows}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
       ) : showProductDetailType === 'vendorProduct' ? (
-        <Table
-          columns={TVendorProductColumns}
-          dataSource={vendorProductTableRows}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
       ) : showProductDetailType === 'gallery' ? (
-        <Image
-          width={200}
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        />
+        <Image width={200} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
       ) : (
         editableProduct && (
           <Table

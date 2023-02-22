@@ -9,8 +9,7 @@ export default function () {
           <Card>
             <h1>How to Create Products via Spreadsheet</h1>
             <p>
-              For an instructional video of how to create Master Products via spreadsheet, please
-              click{' '}
+              For an instructional video of how to create Master Products via spreadsheet, please click{' '}
               <a href="" className="helplink">
                 here
               </a>
@@ -27,23 +26,21 @@ export default function () {
             {/* Master SKU */}
             <h1>Master SKU</h1>
             <p>
-              You can build your product catalog in Extensiv Order Manager using the{' '}
-              <b>Import Products spreadsheet</b> to import all your product information and create
-              the Extensiv Order Manager <b>MASTER SKU</b>.
+              You can build your product catalog in Extensiv Order Manager using the <b>Import Products spreadsheet</b> to import
+              all your product information and create the Extensiv Order Manager <b>MASTER SKU</b>.
             </p>
             <p>
-              Here are some helpful tips to help you fill in the Import Products spreadsheet. Please
-              take your time to review and plan how you will build your Product catalog because once
-              products are created in Extensiv Order Manager they cannot be deleted, they can only
-              be edited or deactivated.
+              Here are some helpful tips to help you fill in the Import Products spreadsheet. Please take your time to review and
+              plan how you will build your Product catalog because once products are created in Extensiv Order Manager they cannot
+              be deleted, they can only be edited or deactivated.
             </p>
 
             <h2>Building Core Products and Variations using the Import Product Spreadsheet:</h2>
             <ol>
               <li>
                 <p>
-                  Download the <b>“Import Products”</b> spreadsheet from the dropdown{' '}
-                  <b>Import/Export</b> button in the <b>Products Module</b>.
+                  Download the <b>“Import Products”</b> spreadsheet from the dropdown <b>Import/Export</b> button in the{' '}
+                  <b>Products Module</b>.
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product.png"
@@ -60,8 +57,7 @@ export default function () {
               </li>
               <li>
                 <p>
-                  Click on the <b>“Core Products”</b> sheet in the Excel spreadsheet to create
-                  single products
+                  Click on the <b>“Core Products”</b> sheet in the Excel spreadsheet to create single products
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_2_.png"
@@ -72,20 +68,17 @@ export default function () {
               </li>
               <li>
                 <p>
-                  In this template,{' '}
-                  <b>these are the only 4 required fields, everything else is optional</b>:
+                  In this template, <b>these are the only 4 required fields, everything else is optional</b>:
                 </p>
                 <ul>
                   <li>
                     <p>
-                      <b>Column A: Master SKU</b> - is your unique SKU in Extensiv Order Manager and
-                      it is tied to everything. If you have multiple listings for the same product
-                      only make one “Master SKU" for this product and you can connect multiple
-                      listings via the listing SKU spreadsheet.
+                      <b>Column A: Master SKU</b> - is your unique SKU in Extensiv Order Manager and it is tied to everything. If
+                      you have multiple listings for the same product only make one “Master SKU" for this product and you can
+                      connect multiple listings via the listing SKU spreadsheet.
                     </p>
                     <p>
-                      <b>NOTE:</b> The same Master SKU cannot be used twice, every Master SKU must
-                      be unique
+                      <b>NOTE:</b> The same Master SKU cannot be used twice, every Master SKU must be unique
                     </p>
                   </li>
                   <li>
@@ -100,21 +93,19 @@ export default function () {
                   </li>
                   <li>
                     <p>
-                      <b>Column U: Active</b> - is this an active product? Please fill out with
-                      either a TRUE or FALSE (False will deactivate the product)
+                      <b>Column U: Active</b> - is this an active product? Please fill out with either a TRUE or FALSE (False will
+                      deactivate the product)
                     </p>
                     <p>
-                      <b>NOTE:</b> If you plan on building out parent-child relationships (
-                      <b>Variations</b>) <b>TWO MORE fields are REQUIRED</b>. Variations are
-                      comprised of one parent SKU with multiple child SKUs.
+                      <b>NOTE:</b> If you plan on building out parent-child relationships (<b>Variations</b>){' '}
+                      <b>TWO MORE fields are REQUIRED</b>. Variations are comprised of one parent SKU with multiple child SKUs.
                     </p>
                   </li>
                   <li>
                     <p>
-                      <b>Column B: Virtual SKU</b> - this is your parent SKU. So if your master SKUs
-                      are “Red-Shirt”, “Green-Shirt”, “Blue-Shirt” in column A, then the virtual SKU
-                      (parent SKU) for all 3 rows can be “Shirts” so you can encompass them under
-                      one parent.
+                      <b>Column B: Virtual SKU</b> - this is your parent SKU. So if your master SKUs are “Red-Shirt”,
+                      “Green-Shirt”, “Blue-Shirt” in column A, then the virtual SKU (parent SKU) for all 3 rows can be “Shirts” so
+                      you can encompass them under one parent.
                     </p>
                     <p>
                       <b>PLEASE NOTE:</b> YOUR VIRTUAL SKUS AND MASTER SKUS CANNOT BE THE SAME
@@ -122,11 +113,10 @@ export default function () {
                   </li>
                   <li>
                     <p>
-                      <b>Column E: The attributes</b> - these are the specific characteristic that
-                      make it a variation (i.e color, size, etc.) You can choose to call the
-                      attribute groups whatever you'd like and in the {`{}`} you will indicate the
-                      specific options you would like to see available for this attribute group.
-                      Example - Color {`{Azure Blue}`}
+                      <b>Column E: The attributes</b> - these are the specific characteristic that make it a variation (i.e color,
+                      size, etc.) You can choose to call the attribute groups whatever you'd like and in the {`{}`} you will
+                      indicate the specific options you would like to see available for this attribute group. Example - Color{' '}
+                      {`{Azure Blue}`}
                     </p>
                   </li>
                 </ul>
@@ -139,8 +129,7 @@ export default function () {
             <ol>
               <li>
                 <p>
-                  Using the <b>“Import Products”</b> spreadsheet, select the second sheet{' '}
-                  <b>“Bundles & Kits”</b>.
+                  Using the <b>“Import Products”</b> spreadsheet, select the second sheet <b>“Bundles & Kits”</b>.
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/product%2B_3_.png"
@@ -156,13 +145,12 @@ export default function () {
                 <ul>
                   <li>
                     <p>
-                      <b>Column A: Master SKU,</b> the unique SKU in Extensiv Order Manager. If you
-                      have multiple listings for the same product only make one master SKU for this
-                      product and the listings will be connected via the listing SKU spreadsheet
+                      <b>Column A: Master SKU,</b> the unique SKU in Extensiv Order Manager. If you have multiple listings for the
+                      same product only make one master SKU for this product and the listings will be connected via the listing
+                      SKU spreadsheet
                     </p>
                     <p>
-                      <b>NOTE:</b> You cannot use the same master SKU twice, each Master SKU must be
-                      unique.
+                      <b>NOTE:</b> You cannot use the same master SKU twice, each Master SKU must be unique.
                     </p>
                   </li>
                   <li>
@@ -172,9 +160,8 @@ export default function () {
                   </li>
                   <li>
                     <p>
-                      <b>Column D: Bundled Item Master SKU & Quantity</b> - what SKU(s) from the
-                      core product sheet make up the bundle/kit and how many of each. Please follow
-                      format: <b>SKU-123 {`{10}`}</b>
+                      <b>Column D: Bundled Item Master SKU & Quantity</b> - what SKU(s) from the core product sheet make up the
+                      bundle/kit and how many of each. Please follow format: <b>SKU-123 {`{10}`}</b>
                     </p>
                   </li>
                   <li>
@@ -184,8 +171,8 @@ export default function () {
                   </li>
                   <li>
                     <p>
-                      <b>Column T: Active</b> - is this an active product? Please fill out with
-                      either <b>TRUE</b> or <b>FALSE</b>.
+                      <b>Column T: Active</b> - is this an active product? Please fill out with either <b>TRUE</b> or <b>FALSE</b>
+                      .
                     </p>
                   </li>
                 </ul>
@@ -216,9 +203,8 @@ export default function () {
                 <tr>
                   <td>Virtual SKU</td>
                   <td>
-                    The unique variation value given to all related products. The virtual SKU cannot
-                    be a value that has been previously used as a Master SKU. You must have
-                    attributes when using a virtual SKU.
+                    The unique variation value given to all related products. The virtual SKU cannot be a value that has been
+                    previously used as a Master SKU. You must have attributes when using a virtual SKU.
                   </td>
                   <td>T-Shirt</td>
                   <td>
@@ -407,8 +393,8 @@ export default function () {
             <h1>Vendor Products</h1>
             <h2>Vendor Product Import</h2>
             <p>
-              First download the <b>“Vendor Product” spreadsheet</b> from the dropdown{' '}
-              <b>Import/Export</b> button in the <b>Products</b> Module.
+              First download the <b>“Vendor Product” spreadsheet</b> from the dropdown <b>Import/Export</b> button in the{' '}
+              <b>Products</b> Module.
             </p>
             <br />
             <img
@@ -418,9 +404,9 @@ export default function () {
             <br />
             <br />
             <p>
-              Extensiv Order Manager gives you an option between uploading an individual file for
-              each vendor, or by importing one global file that contains vendor products for any/all
-              vendors at once that will require you to specify which vendor a vendor product is for.
+              Extensiv Order Manager gives you an option between uploading an individual file for each vendor, or by importing one
+              global file that contains vendor products for any/all vendors at once that will require you to specify which vendor
+              a vendor product is for.
             </p>
             <br />
             <br />
@@ -431,8 +417,8 @@ export default function () {
             <br />
             <br />
             <p>
-              The window that pops up will allow you to download the required Excel template to
-              import the Vendors. Click the link to <b>Download the Excel Template</b>.
+              The window that pops up will allow you to download the required Excel template to import the Vendors. Click the link
+              to <b>Download the Excel Template</b>.
             </p>
             <i>Import By Vendor</i>
             <br />
@@ -453,69 +439,59 @@ export default function () {
             <br />
             <br />
             <h2>
-              ALL FIELDS ARE REQUIRED TO BE FILLED OUT EXCEPT COLUMN H & K - YOUR FILE WILL ERROR IF
-              THERE ARE BLANKS. YOU CANNOT DELETE COLUMNS OR ADD COLUMNS, DO NOT CHANGE THE
-              INTEGRITY OF THE FILE
+              ALL FIELDS ARE REQUIRED TO BE FILLED OUT EXCEPT COLUMN H & K - YOUR FILE WILL ERROR IF THERE ARE BLANKS. YOU CANNOT
+              DELETE COLUMNS OR ADD COLUMNS, DO NOT CHANGE THE INTEGRITY OF THE FILE
             </h2>
             <ul>
               <li>
                 <p>
-                  <b>Column A: Vendor Name</b> - You must select which vendor you are adding this
-                  cost for.
+                  <b>Column A: Vendor Name</b> - You must select which vendor you are adding this cost for.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column B: Master SKU</b> - The Master SKU in Extensiv Order Manager you are
-                  adding a cost for.
+                  <b>Column B: Master SKU</b> - The Master SKU in Extensiv Order Manager you are adding a cost for.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column C: Vendor SKU</b> - This is the SKU your vendor recognizes the product
-                  as. It is the SKU included in the Purchase Orders Extensiv Order Manager creates
-                  when Auto PO Generations is turned on.
+                  <b>Column C: Vendor SKU</b> - This is the SKU your vendor recognizes the product as. It is the SKU included in
+                  the Purchase Orders Extensiv Order Manager creates when Auto PO Generations is turned on.
                 </p>
               </li>
             </ul>
             <br />
             <p>
-              <b>
-                Vendor SKUs must be different for each product if they come from the same vendor{' '}
-              </b>{' '}
-              - if the vendor SKU is the same but purchased from different vendors then you can add
-              it multiple times for each vendor
+              <b>Vendor SKUs must be different for each product if they come from the same vendor </b> - if the vendor SKU is the
+              same but purchased from different vendors then you can add it multiple times for each vendor
             </p>
             <ul>
               <li>
                 <p>
-                  <b>Column D: Active</b> - Set this to “TRUE” if you want Extensiv Order Manager to
-                  calculate purchase orders for this product, “False” if you do not want to.
+                  <b>Column D: Active</b> - Set this to “TRUE” if you want Extensiv Order Manager to calculate purchase orders for
+                  this product, “False” if you do not want to.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column E: Minimum Order Qty</b> - the minimum amount you must order from the
-                  vendor. the value must be greater than or equal to 1- cannot be 0.
+                  <b>Column E: Minimum Order Qty</b> - the minimum amount you must order from the vendor. the value must be
+                  greater than or equal to 1- cannot be 0.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column F: Lead Time</b> - this is the time it takes for the product to get from
-                  the vendor to you. This is in calendar days, the value must greater than or equal
-                  to 1.
+                  <b>Column F: Lead Time</b> - this is the time it takes for the product to get from the vendor to you. This is in
+                  calendar days, the value must greater than or equal to 1.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column G: Pricing Tiers</b> - Please be very clear with the format. You can
-                  leave it as one group of parentheses if you are doing one large pricing tier.
-                  EXAMPLE: (1-10000|5.00) The price goes after the | If you do not have pricing
-                  tiers you can select an arbitrary number that you rarely order the quantity for to
-                  serve as the max. For example: 1-10000 (this is defining the first 10,000 orders
-                  are the same cost per unit, 10,000 is serving as the max). You can make the number
-                  as high as you want so you do not have a cap. If you do have pricing tiers then
-                  you can just enter them in this format: (1-100|12.00)(101-200|10.00)
+                  <b>Column G: Pricing Tiers</b> - Please be very clear with the format. You can leave it as one group of
+                  parentheses if you are doing one large pricing tier. EXAMPLE: (1-10000|5.00) The price goes after the | If you
+                  do not have pricing tiers you can select an arbitrary number that you rarely order the quantity for to serve as
+                  the max. For example: 1-10000 (this is defining the first 10,000 orders are the same cost per unit, 10,000 is
+                  serving as the max). You can make the number as high as you want so you do not have a cap. If you do have
+                  pricing tiers then you can just enter them in this format: (1-100|12.00)(101-200|10.00)
                 </p>
                 <p>
                   <b>NOTE:</b> Pricing tiers must start at 1.
@@ -523,23 +499,21 @@ export default function () {
               </li>
               <li>
                 <p>
-                  <b>Column H: Units of Measure</b> - This is an optional field, you can leave it
-                  blank. If you choose to use it you can just write the name of the measure and how
-                  many units go into it. The quantity of units goes into the {`{ }`}.
+                  <b>Column H: Units of Measure</b> - This is an optional field, you can leave it blank. If you choose to use it
+                  you can just write the name of the measure and how many units go into it. The quantity of units goes into the{' '}
+                  {`{ }`}.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column I: Is Default</b> - this applies if you are ordering the Master SKU from
-                  multiple vendors, you will mark TRUE for the vendor you want to serve as the
-                  default when ordering the product. You can leave them all as FALSE if you do not
-                  want to specify a default vendor or TRUE if it is just for one.
+                  <b>Column I: Is Default</b> - this applies if you are ordering the Master SKU from multiple vendors, you will
+                  mark TRUE for the vendor you want to serve as the default when ordering the product. You can leave them all as
+                  FALSE if you do not want to specify a default vendor or TRUE if it is just for one.
                 </p>
               </li>
               <li>
                 <p>
-                  <b>Column J: Auto-P.O. Rounding</b> - It is REQUIRED that you choose from one of
-                  the three statements below:
+                  <b>Column J: Auto-P.O. Rounding</b> - It is REQUIRED that you choose from one of the three statements below:
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/pic2644473.jpg"
@@ -550,8 +524,8 @@ export default function () {
               </li>
               <li>
                 <p>
-                  <b>Column K: Packaging - This is an optional field</b>. This field is for vendors
-                  that need special instructions about packaging this product.
+                  <b>Column K: Packaging - This is an optional field</b>. This field is for vendors that need special instructions
+                  about packaging this product.
                 </p>
               </li>
             </ul>
@@ -561,16 +535,15 @@ export default function () {
             <ul>
               <li>
                 <p>
-                  The difference in this spreadsheet between a core and a variation is that the
-                  variation requires a virtual SKU and an attribute group {`{attribute}`}.
+                  The difference in this spreadsheet between a core and a variation is that the variation requires a virtual SKU
+                  and an attribute group {`{attribute}`}.
                 </p>
               </li>
               <li>
                 <p>
-                  For a variation, when the import catches a virtual SKU, it will list the first
-                  item with the virtual SKU in the spreadsheet and share that product details
-                  (everything but the attribute group {`{attribute}`} and master SKU) with the other
-                  products containing the same virtual SKU.
+                  For a variation, when the import catches a virtual SKU, it will list the first item with the virtual SKU in the
+                  spreadsheet and share that product details (everything but the attribute group {`{attribute}`} and master SKU)
+                  with the other products containing the same virtual SKU.
                 </p>
               </li>
             </ul>
@@ -583,12 +556,11 @@ export default function () {
               </li>
               <li>
                 <p>
-                  After entering your product information into the excel template, save the document
-                  and return to Extensiv Order Manager. Upload your saved document via the{' '}
-                  <b>Select</b> button. Choose whether you would like to update products already
-                  synced with Extensiv Order Manager. Press <b>continue</b> and wait for the upload
-                  to complete. When the file is finished uploading, Extensiv Order Manager will
-                  generate a short report summarizing your uploaded products.
+                  After entering your product information into the excel template, save the document and return to Extensiv Order
+                  Manager. Upload your saved document via the <b>Select</b> button. Choose whether you would like to update
+                  products already synced with Extensiv Order Manager. Press <b>continue</b> and wait for the upload to complete.
+                  When the file is finished uploading, Extensiv Order Manager will generate a short report summarizing your
+                  uploaded products.
                 </p>
               </li>
             </ul>

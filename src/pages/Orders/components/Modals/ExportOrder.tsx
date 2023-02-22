@@ -39,10 +39,7 @@ const ExportOrderModal: React.FC<IExportOrderModal> = ({ isOpen, onClose, onSave
       ]}
     >
       <>
-        <p>
-          Skubana allows you to export any of the available order information in CSV, Excel, or
-          plain text format.
-        </p>
+        <p>Skubana allows you to export any of the available order information in CSV, Excel, or plain text format.</p>
         <p>
           {`To export the selected orders, select one of your pre-configured export settings and click
           the 'Export Orders' button. If you haven't created any export settings yet, click on the

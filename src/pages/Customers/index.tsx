@@ -15,13 +15,8 @@ import RightPanel from './components/RightPanel';
 import SearchCustomer from './components/SidePanel/SearchCustomer';
 
 const CustomerManagement: React.FC = () => {
-  const {
-    customerList,
-    selectedCustomer,
-    setSelectedCustomer,
-    initialCustomerList,
-    onGetSelectedCustomer,
-  } = useModel('customer');
+  const { customerList, selectedCustomer, setSelectedCustomer, initialCustomerList, onGetSelectedCustomer } =
+    useModel('customer');
   const [modalOpen, setModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
@@ -117,10 +112,7 @@ const CustomerManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <SearchCustomer />
           </div>
@@ -135,11 +127,7 @@ const CustomerManagement: React.FC = () => {
                 <Card size="small" title="Customers">
                   <Space size={4} className="mb-10">
                     <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
-                    <OButton
-                      btnText="History"
-                      disabled={!selectedCustomer}
-                      onClick={() => setModal(modalType.History)}
-                    />
+                    <OButton btnText="History" disabled={!selectedCustomer} onClick={() => setModal(modalType.History)} />
                     <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />
                   </Space>
                   <OTable
@@ -154,10 +142,7 @@ const CustomerManagement: React.FC = () => {
             </Row>
             <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
             <Row>
-              <div
-                className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-                style={{ width: RightW }}
-              >
+              <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>
                 <div className="">
                   <RightPanel />
                 </div>
@@ -165,15 +150,8 @@ const CustomerManagement: React.FC = () => {
             </Row>
           </div>
 
-          <SampleSplitter
-            dir={'horizontal'}
-            isDragging={isBottomDragging}
-            {...bottomDragBarProps}
-          />
-          <div
-            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
-            style={{ height: bottomH }}
-          >
+          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+          <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
             <div className="w-full">
               <BottomPanel />
             </div>
@@ -187,10 +165,7 @@ const CustomerManagement: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <CreateCustomerModal
-        isOpen={modalOpen === modalType.New}
-        onClose={() => setModal(modalType.Close)}
-      />
+      <CreateCustomerModal isOpen={modalOpen === modalType.New} onClose={() => setModal(modalType.Close)} />
     </PageContainer>
   );
 };

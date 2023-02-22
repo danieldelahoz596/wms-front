@@ -40,13 +40,7 @@ const NewProductModal: React.FC<INewProductModal> = ({ isOpen, onClose, handleCl
         <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {buttons.map((btn, index) => (
-            <OButton
-              key={index}
-              btnText={btn.btnText}
-              size="large"
-              onClick={btn.onClick}
-              style={{ width: '100%' }}
-            />
+            <OButton key={index} btnText={btn.btnText} size="large" onClick={btn.onClick} style={{ width: '100%' }} />
           ))}
         </Space>
         <br />

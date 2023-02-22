@@ -10,11 +10,7 @@ interface IShipmentImportMappings {
   onAdd: () => void;
 }
 
-const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({
-  isOpen,
-  onClose,
-  onAdd,
-}) => {
+const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({ isOpen, onClose, onAdd }) => {
   const mappings = [];
   return (
     <OModal

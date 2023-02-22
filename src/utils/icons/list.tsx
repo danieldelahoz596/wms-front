@@ -6,8 +6,6 @@ const ListSvg = () => (
   </svg>
 );
 
-const ListIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ListSvg} {...props} />
-);
+const ListIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ListSvg} {...props} />;
 
 export default ListIcon;

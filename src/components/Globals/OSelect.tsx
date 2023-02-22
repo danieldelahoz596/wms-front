@@ -28,7 +28,7 @@ export const OSelect: React.FC<IOSelect> = ({
   defaultValue,
   value,
   style,
-  showPlaceholder = true, 
+  showPlaceholder = true,
   hidden = false,
   className,
 }) => {
@@ -45,7 +45,7 @@ export const OSelect: React.FC<IOSelect> = ({
       style={{ width: '100%', ...style }}
       className={className}
     >
-      { showPlaceholder && <Select.Option value="0">Select...</Select.Option> }
+      {showPlaceholder && <Select.Option value="0">Select...</Select.Option>}
       {options?.map((option, index) => (
         <Select.Option key={`option-${index}`} value={option.value}>
           {option.text}

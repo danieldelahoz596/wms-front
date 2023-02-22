@@ -45,15 +45,13 @@ const WarehouseTotalGraph: React.FC = () => {
                   key: 'download_png',
                   label: 'Download PNG image',
                   disabled: !warehouseTotalChartInstance,
-                  onClick: () =>
-                    warehouseTotalChartInstance.downloadImage('trending-inventory', 'image/png'),
+                  onClick: () => warehouseTotalChartInstance.downloadImage('trending-inventory', 'image/png'),
                 },
                 {
                   key: 'download_jpeg',
                   label: 'Download JPEG image',
                   disabled: !warehouseTotalChartInstance,
-                  onClick: () =>
-                    warehouseTotalChartInstance.downloadImage('trending-inventory', 'image/jpeg'),
+                  onClick: () => warehouseTotalChartInstance.downloadImage('trending-inventory', 'image/jpeg'),
                 },
                 {
                   key: 'download_pdf',

@@ -61,12 +61,7 @@ const PaymentTerm: React.FC<IPaymentTerm> = ({ inputField }) => {
       >
         <Form>
           <Form.Item>
-            <OInput
-              type="text"
-              onChange={() => {}}
-              name={'paymentTerm'}
-              placeholder="Payment Term"
-            />
+            <OInput type="text" onChange={() => {}} name={'paymentTerm'} placeholder="Payment Term" />
           </Form.Item>
         </Form>
       </OModal>

@@ -15,12 +15,7 @@ interface INewVendorProductModal {
   initialVendorProduct: any;
 }
 
-const NewVendorProductModal: React.FC<INewVendorProductModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  initialVendorProduct,
-}) => {
+const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClose, onSave, initialVendorProduct }) => {
   const { initialState } = useModel('@@initialState');
 
   const [newVendorProduct, setNewVendorProduct] = useState({
@@ -241,11 +236,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({
       key: 'action',
       title: '',
       render: (_, record) => (
-        <span
-          onClick={() =>
-            setPricingTiersDataRows(pricingTiersDataRows.filter((item) => item.key !== record.key))
-          }
-        >
+        <span onClick={() => setPricingTiersDataRows(pricingTiersDataRows.filter((item) => item.key !== record.key))}>
           <CloseOutlined style={{ color: 'blue' }} />
         </span>
       ),
@@ -276,11 +267,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => (
-        <span
-          onClick={() =>
-            setUnitMeasureDataRows(unitMeasureDataRows.filter((item) => item.key !== record.key))
-          }
-        >
+        <span onClick={() => setUnitMeasureDataRows(unitMeasureDataRows.filter((item) => item.key !== record.key))}>
           <CloseOutlined style={{ color: 'blue' }} />
         </span>
       ),
@@ -325,25 +312,14 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({
             <Card title="Pricing Tiers">
               <div style={{ display: 'flex', gap: '0.3rem', marginBottom: '1rem' }}>
                 {pricingTiersInputsFields?.map((inputItem, index) => (
-                  <div
-                    key={`pricingTiers-${index}`}
-                    style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}
-                  >
+                  <div key={`pricingTiers-${index}`} style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
                     <div>{inputItem.label}</div>
                     <OInput {...inputItem} />
                   </div>
                 ))}
-                <OButton
-                  btnText={'Add'}
-                  style={{ border: '1px solid blue', height: 31 }}
-                  onClick={handlePricingTiersAdd}
-                />
+                <OButton btnText={'Add'} style={{ border: '1px solid blue', height: 31 }} onClick={handlePricingTiersAdd} />
               </div>
-              <Table
-                columns={pricingTiersDataColumns}
-                dataSource={pricingTiersDataRows}
-                pagination={false}
-              />
+              <Table columns={pricingTiersDataColumns} dataSource={pricingTiersDataRows} pagination={false} />
             </Card>
             <Card title="Units of Measure">
               <EditableTable

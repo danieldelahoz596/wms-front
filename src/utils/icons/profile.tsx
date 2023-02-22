@@ -6,8 +6,6 @@ const ProfileSvg = () => (
   </svg>
 );
 
-const ProfileIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ProfileSvg} {...props} />
-);
+const ProfileIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ProfileSvg} {...props} />;
 
 export default ProfileIcon;

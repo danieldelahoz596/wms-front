@@ -47,9 +47,7 @@ const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) 
         columns={TColumns}
         dataSource={brands.map((brand) => ({ ...brand, key: brand.id }))}
         handleSave={(key: any, name: any, value: any) => {
-          setBrands((prev) =>
-            prev.map((item) => (item.id === key ? { ...item, name: value } : item)),
-          );
+          setBrands((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
         }}
       />
     </OModal>

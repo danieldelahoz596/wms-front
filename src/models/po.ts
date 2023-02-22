@@ -93,8 +93,7 @@ export default () => {
   };
 
   // Add po product item
-  const addPoItem = (item: any) =>
-    setSelectedPO((prevState: any) => ({ ...prevState, poItems: [...prevState.poItems, item] }));
+  const addPoItem = (item: any) => setSelectedPO((prevState: any) => ({ ...prevState, poItems: [...prevState.poItems, item] }));
 
   const addPoItems = (items: any[]) =>
     setSelectedPO((prevState: any) => ({
@@ -113,9 +112,7 @@ export default () => {
   const updatePoItem = (index: any, name: any, value: any) => {
     setSelectedPO((prevState: any) => ({
       ...prevState,
-      poItems: prevState.poItems.map((item: any, curIndex: any) =>
-        curIndex === index ? { ...item, [name]: value } : item,
-      ),
+      poItems: prevState.poItems.map((item: any, curIndex: any) => (curIndex === index ? { ...item, [name]: value } : item)),
     }));
   };
 
@@ -137,9 +134,7 @@ export default () => {
   };
 
   const getTotalUnitQuantity = (poData: any) =>
-    poData?.poItems
-      ?.map((item: any) => parseInt(item.quantity))
-      .reduce((acc: any, curValue: any) => acc + curValue, 0);
+    poData?.poItems?.map((item: any) => parseInt(item.quantity)).reduce((acc: any, curValue: any) => acc + curValue, 0);
 
   return {
     poList,

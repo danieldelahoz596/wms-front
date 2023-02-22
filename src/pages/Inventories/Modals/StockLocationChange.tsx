@@ -11,13 +11,7 @@ interface IStockLocationChangeModal {
   onSave: (name: string) => void;
 }
 
-const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({
-  isOpen,
-  vendorName,
-  locationName,
-  onClose,
-  onSave,
-}) => {
+const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({ isOpen, vendorName, locationName, onClose, onSave }) => {
   const [name, setName] = useState('');
 
   useEffect(() => {

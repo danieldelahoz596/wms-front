@@ -9,11 +9,7 @@ interface IVendorProductImportAtOnceModal {
   onSave: () => void;
 }
 
-const VendorProductImportAtOnceModal: React.FC<IVendorProductImportAtOnceModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const VendorProductImportAtOnceModal: React.FC<IVendorProductImportAtOnceModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title="Global Vendor Product Import"
@@ -37,19 +33,11 @@ const VendorProductImportAtOnceModal: React.FC<IVendorProductImportAtOnceModal> 
       ]}
     >
       <>
-        <p>
-          Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.
-        </p>
-        <a
-          className="download-link"
-          href={`${BACKEND_URL}/template/template_for_global_vendor_product_import.xlsx`}
-        >
+        <p>Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.</p>
+        <a className="download-link" href={`${BACKEND_URL}/template/template_for_global_vendor_product_import.xlsx`}>
           <u>Download the Excel Template for Global Vendor Product Import</u>
         </a>
-        <p>
-          To associate your product Master SKUs with Vendor Names and SKUs, simply use the provided
-          template.
-        </p>
+        <p>To associate your product Master SKUs with Vendor Names and SKUs, simply use the provided template.</p>
         <p>
           <b>Vendor name</b> must be <b>unique</b> for each vendor and are not case sensitive.
           <b>

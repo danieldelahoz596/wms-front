@@ -51,10 +51,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
     >
       <Card title="Vendor">
         <Form form={form}>
-          <Form.Item
-            name="vendor"
-            rules={[{ required: true, message: 'Please select the vendor!' }]}
-          >
+          <Form.Item name="vendor" rules={[{ required: true, message: 'Please select the vendor!' }]}>
             <Select placeholder="Select..." options={selectVendorOptions} />
           </Form.Item>
         </Form>

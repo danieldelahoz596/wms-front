@@ -210,9 +210,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                     },
                   };
                 }}
-                rowClassName={(record) =>
-                  record.key === selectedLocation?.key ? `ant-table-row-selected` : ''
-                }
+                rowClassName={(record) => (record.key === selectedLocation?.key ? `ant-table-row-selected` : '')}
                 style={{ marginTop: 5, marginBottom: 10 }}
                 pagination={{ hideOnSinglePage: true }}
               />
@@ -237,10 +235,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                             key: '2',
                             label: (
                               <span onClick={() => setModal(modalType.StockDeactive)}>
-                                <StopOutlined
-                                  rotate={90}
-                                  style={{ fontSize: 15, marginRight: 10 }}
-                                />
+                                <StopOutlined rotate={90} style={{ fontSize: 15, marginRight: 10 }} />
                                 {showActive ? 'Deactivate' : 'Activate'}
                               </span>
                             ),
@@ -249,8 +244,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                             key: '3',
                             label: (
                               <span onClick={() => setModal(modalType.StockDrawRank)}>
-                                <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw
-                                Rank
+                                <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw Rank
                               </span>
                             ),
                           },
@@ -274,8 +268,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                             key: '6',
                             label: (
                               <span onClick={() => setModal(modalType.StockAdjust)}>
-                                <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
-                                Adjust
+                                <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Adjust
                               </span>
                             ),
                           },
@@ -288,8 +281,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                                   setActionType('Remove');
                                 }}
                               >
-                                <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} />{' '}
-                                Remove
+                                <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Remove
                               </span>
                             ),
                           },
@@ -337,8 +329,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         isOpen={modal === modalType.StockHistory}
         title={
           <>
-            {"In-House Warehouse Stock Edit History For 1234 At '"}{' '}
-            <BarCodeIcon style={{ fontSize: 15 }} />
+            {"In-House Warehouse Stock Edit History For 1234 At '"} <BarCodeIcon style={{ fontSize: 15 }} />
             <StockIcon style={{ fontSize: 15 }} />
             {"Location1234234234'"}
           </>
@@ -353,9 +344,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         active={showActive}
         onSave={() => {
           setLocationList(
-            locationList.map((item) =>
-              item.key === selectedLocation?.key ? { ...item, status: !item.status } : item,
-            ),
+            locationList.map((item) => (item.key === selectedLocation?.key ? { ...item, status: !item.status } : item)),
           );
           setModal(modalType.Close);
           setSelectedLocation(null);
@@ -382,9 +371,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         onSave={(name) => {
           setLocationList(
             locationList.map((location) =>
-              location.key === selectedLocation.key
-                ? { ...selectedLocation, location: name }
-                : location,
+              location.key === selectedLocation.key ? { ...selectedLocation, location: name } : location,
             ),
           );
           setSelectedLocation(null);
@@ -420,9 +407,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         initialData={selectedLocation}
         onSave={(data) => {
           setLocationList(
-            locationList.map((location) =>
-              location.key === selectedLocation.key ? { ...location, ...data } : location,
-            ),
+            locationList.map((location) => (location.key === selectedLocation.key ? { ...location, ...data } : location)),
           );
           setSelectedLocation(null);
           setModal(modalType.Close);
@@ -439,8 +424,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
           setLocationList(
             locationList.map((location) => {
               if (location.key === selectedLocation.key) {
-                if (actionType === 'Add')
-                  return { ...location, available: location.available + count };
+                if (actionType === 'Add') return { ...location, available: location.available + count };
                 else return { ...location, available: location.available - count };
               }
               return location;

@@ -35,11 +35,7 @@ const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose }
       ]}
     >
       <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
-        <Form.Item
-          label="Phone Number"
-          name="phonenumber"
-          rules={[{ required: true, message: 'Please input Phone Number!' }]}
-        >
+        <Form.Item label="Phone Number" name="phonenumber" rules={[{ required: true, message: 'Please input Phone Number!' }]}>
           <Input placeholder="Phone Number" />
         </Form.Item>
         <Form.Item

@@ -42,8 +42,6 @@ const ShieldDeniedSvg = () => (
   </svg>
 );
 
-const ShieldDeniedIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ShieldDeniedSvg} {...props} />
-);
+const ShieldDeniedIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ShieldDeniedSvg} {...props} />;
 
 export default ShieldDeniedIcon;

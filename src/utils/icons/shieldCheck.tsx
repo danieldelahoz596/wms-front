@@ -42,8 +42,6 @@ const ShieldCheckSvg = () => (
   </svg>
 );
 
-const ShieldCheckIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ShieldCheckSvg} {...props} />
-);
+const ShieldCheckIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ShieldCheckSvg} {...props} />;
 
 export default ShieldCheckIcon;

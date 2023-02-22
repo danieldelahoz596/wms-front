@@ -80,9 +80,7 @@ const ImportExportSummaryModal: React.FC<IImportExportSummaryModal> = ({
       ]}
     >
       <>
-        <p style={{ borderBottom: '1px dashed black', marginBottom: '1rem', textAlign: 'center' }}>
-          {info}
-        </p>
+        <p style={{ borderBottom: '1px dashed black', marginBottom: '1rem', textAlign: 'center' }}>{info}</p>
         <div
           style={{
             margin: '1rem 0',

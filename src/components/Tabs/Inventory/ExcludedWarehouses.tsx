@@ -46,24 +46,18 @@ const ExcludedWarehouses: React.FC = () => {
             />
           </Form.Item>
 
-          <Table
-            columns={TColumns}
-            dataSource={columns}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={columns} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Form>
       </Col>
       <Col span={8}>
         <p>
-          If you would like Skubana to prevent a warehouse stock for this product from being
-          included in the available inventory totals pushed to your sales channels, simply add those
-          warehouses to the exclusion list.
+          If you would like Skubana to prevent a warehouse stock for this product from being included in the available inventory
+          totals pushed to your sales channels, simply add those warehouses to the exclusion list.
         </p>
         <p>
-          Please note that adding a warehouse to this list is the equivalent of telling the channel
-          you have zero stock for this product within that warehouse. This is particularly useful if
-          you have FBA inventory, but you do not do any multi-channel fulillment.
+          Please note that adding a warehouse to this list is the equivalent of telling the channel you have zero stock for this
+          product within that warehouse. This is particularly useful if you have FBA inventory, but you do not do any
+          multi-channel fulillment.
         </p>
       </Col>
     </Row>

@@ -85,8 +85,8 @@ const RankOrderModal: React.FC<IRankOrderModal> = ({ isOpen, onSave, onClose }) 
       <>
         <Card title="INTERNATIONAL RANK ORDER">
           <div style={{ marginBottom: '1rem' }}>
-            International orders will be assigned to the warehouse set as Rank 1. Orderbots can
-            override this assignment automatically.
+            International orders will be assigned to the warehouse set as Rank 1. Orderbots can override this assignment
+            automatically.
           </div>
           <SortableContainer onSortEnd={onSortEnd}>
             {items.map((item, index) => (
@@ -96,9 +96,7 @@ const RankOrderModal: React.FC<IRankOrderModal> = ({ isOpen, onSave, onClose }) 
                 value={
                   <div style={{ display: 'flex', alignItems: 'center', margin: '0.2rem 0' }}>
                     <div>{index + 1}.</div>
-                    <div style={{ border: '1px solid #ccc', padding: '0.5rem', flex: '1' }}>
-                      {item.name}
-                    </div>
+                    <div style={{ border: '1px solid #ccc', padding: '0.5rem', flex: '1' }}>{item.name}</div>
                   </div>
                 }
               />

@@ -37,12 +37,7 @@ const Tcolumns = [
   },
 ];
 
-const StockHistoryModal: React.FC<IStockHistoryModal> = ({
-  isOpen,
-  title,
-  dataSource,
-  onClose,
-}) => {
+const StockHistoryModal: React.FC<IStockHistoryModal> = ({ isOpen, title, dataSource, onClose }) => {
   return (
     <OModal
       title={title}

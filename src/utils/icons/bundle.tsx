@@ -18,8 +18,6 @@ const BundleSvg = () => (
   </svg>
 );
 
-const BundleIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={BundleSvg} {...props} />
-);
+const BundleIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={BundleSvg} {...props} />;
 
 export default BundleIcon;

@@ -60,16 +60,10 @@ const BottomPanel: React.FC = () => {
         <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
           <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
           <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-          <MessageOutlined
-            style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
-          />
+          <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }} />
         </div>
       ),
-      order_number: (
-        <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
-          markashippmenttest
-        </span>
-      ),
+      order_number: <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>markashippmenttest</span>,
       order_date: '12/8/2020',
       order_total: '$0.00',
       items: 1,

@@ -75,10 +75,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             {
               required: true,
               message: (
-                <FormattedMessage
-                  id="pages.searchTable.updateForm.ruleName.nameRules"
-                  defaultMessage="请输入规则名称！"
-                />
+                <FormattedMessage id="pages.searchTable.updateForm.ruleName.nameRules" defaultMessage="请输入规则名称！" />
               ),
             },
           ]}

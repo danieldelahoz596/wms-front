@@ -6,8 +6,6 @@ const ArrowCircleUpSvg = () => (
   </svg>
 );
 
-const ArrowCircleUpIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ArrowCircleUpSvg} {...props} />
-);
+const ArrowCircleUpIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ArrowCircleUpSvg} {...props} />;
 
 export default ArrowCircleUpIcon;

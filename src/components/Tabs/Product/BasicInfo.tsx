@@ -49,9 +49,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                     borderRadius: 5,
                   }}
                 >
-                  <i style={{ textTransform: 'uppercase' }}>
-                    {editableProduct?.status === 1 ? 'Active' : 'Inactive'}
-                  </i>
+                  <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
                 </div>
               </div>
             </Row>
@@ -61,18 +59,10 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
       <Form form={form} labelCol={{ span: 3 }}>
         {!editableProduct && (
           <>
-            <Form.Item
-              label="Master SKU"
-              name="master_sku"
-              rules={[{ required: true, message: 'Please input Master SKU' }]}
-            >
+            <Form.Item label="Master SKU" name="master_sku" rules={[{ required: true, message: 'Please input Master SKU' }]}>
               <Input placeholder="Required" />
             </Form.Item>
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: 'Please input Product Name' }]}
-            >
+            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input Product Name' }]}>
               <Input placeholder="Required" />
             </Form.Item>
           </>
@@ -81,11 +71,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <Form.Item label="Buy | Brand *" name="buyer" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
-          <Form.Item
-            name="brand"
-            style={{ flex: '1' }}
-            rules={[{ required: true, message: 'Please input Brand' }]}
-          >
+          <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
             <Select
               placeholder="Select..."
               options={brands.map((brand) => ({
@@ -95,10 +81,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined
-            className="setting-button"
-            onClick={() => setCurrentModal(modalType.Edit)}
-          />
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
@@ -111,10 +94,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined
-            className="setting-button"
-            onClick={() => setCurrentModal(modalType.Edit)}
-          />
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
@@ -127,10 +107,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined
-            className="setting-button"
-            onClick={() => setCurrentModal(modalType.Edit)}
-          />
+          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
         </div>
 
         <Form.Item label="Description" name="description">
@@ -144,59 +121,25 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             <Col span={8}>
               <Form.Item label="Weight" labelCol={{ span: 6 }} className="custom-form-item">
                 <Input.Group compact>
-                  <Form.Item
-                    label="lb."
-                    name="lb"
-                    colon={false}
-                    labelCol={{ offset: 1 }}
-                    style={{ width: '50%' }}
-                  >
+                  <Form.Item label="lb." name="lb" colon={false} labelCol={{ offset: 1 }} style={{ width: '50%' }}>
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item
-                    label="oz."
-                    name="oz"
-                    colon={false}
-                    labelCol={{ offset: 1 }}
-                    style={{ width: '50%' }}
-                  >
+                  <Form.Item label="oz." name="oz" colon={false} labelCol={{ offset: 1 }} style={{ width: '50%' }}>
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
                 </Input.Group>
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                label="H/W/L"
-                labelCol={{ span: 4, offset: 1 }}
-                className="custom-form-item"
-              >
+              <Form.Item label="H/W/L" labelCol={{ span: 4, offset: 1 }} className="custom-form-item">
                 <Input.Group compact>
-                  <Form.Item
-                    label="x"
-                    name="height"
-                    style={{ width: '33%', margin: 0 }}
-                    colon={false}
-                    labelCol={{ offset: 1 }}
-                  >
+                  <Form.Item label="x" name="height" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item
-                    label="y"
-                    name="width"
-                    style={{ width: '33%', margin: 0 }}
-                    colon={false}
-                    labelCol={{ offset: 1 }}
-                  >
+                  <Form.Item label="y" name="width" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item
-                    label="z"
-                    name="length"
-                    style={{ width: '33%', margin: 0 }}
-                    colon={false}
-                    labelCol={{ offset: 1 }}
-                  >
+                  <Form.Item label="z" name="length" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
                 </Input.Group>

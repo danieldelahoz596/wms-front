@@ -6,8 +6,6 @@ const InventorySvg = () => (
   </svg>
 );
 
-const InventoryIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={InventorySvg} {...props} />
-);
+const InventoryIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={InventorySvg} {...props} />;
 
 export default InventoryIcon;

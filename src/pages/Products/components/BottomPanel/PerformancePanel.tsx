@@ -88,15 +88,13 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
                   key: 'download_png',
                   label: 'Download PNG image',
                   disabled: !yoyChartInstance,
-                  onClick: () =>
-                    yoyChartInstance.downloadImage('Year-Over-Year-chart', 'image/png'),
+                  onClick: () => yoyChartInstance.downloadImage('Year-Over-Year-chart', 'image/png'),
                 },
                 {
                   key: 'download_jpeg',
                   label: 'Download JPEG image',
                   disabled: !yoyChartInstance,
-                  onClick: () =>
-                    yoyChartInstance.downloadImage('Year-Over-Year-chart', 'image/jpeg'),
+                  onClick: () => yoyChartInstance.downloadImage('Year-Over-Year-chart', 'image/jpeg'),
                 },
                 {
                   key: 'download_pdf',

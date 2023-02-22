@@ -50,10 +50,7 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
   const [productRows, setProductRows] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const products = useMemo(
-    () => productList.map((item) => ({ text: item.name, value: item.id })),
-    [productList],
-  );
+  const products = useMemo(() => productList.map((item) => ({ text: item.name, value: item.id })), [productList]);
 
   useEffect(() => {
     setProductRows(initialItems);
@@ -161,11 +158,7 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
       </Row>
       <Row style={{ marginTop: '0.5rem' }}>
         <Col span={24}>
-          <EditableTable
-            columns={productColumns}
-            dataSource={productRows}
-            handleSave={handleRowEdit}
-          />
+          <EditableTable columns={productColumns} dataSource={productRows} handleSave={handleRowEdit} />
         </Col>
       </Row>
     </>

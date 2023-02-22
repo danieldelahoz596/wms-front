@@ -5,13 +5,7 @@ import AddNewItem from '@/pages/PurchaseOrders/components/Modals/AddNewItem';
 import EditItemModal from '@/pages/PurchaseOrders/components/Modals/EditItem';
 import ReceiveItemModal from '@/pages/PurchaseOrders/components/Modals/ReceiveItem';
 import { modalType } from '@/utils/helpers/types';
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  MinusCircleFilled,
-  PlayCircleFilled,
-  StopOutlined,
-} from '@ant-design/icons';
+import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled, StopOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space, Table } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -121,8 +115,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
   const [poItems, setPoItems] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const [manageOrdersModalData, setManageOrdersModalData] =
-    useState<IManagePurchaseOrdersModal>(null);
+  const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
 
   useEffect(() => {
     setPoItems(data);
@@ -133,8 +126,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
     {
       onClick: () => setShowModal(modalType.New),
       btnText: 'Add Item',
-      hidden:
-        selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
       // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
@@ -229,8 +221,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         originalCost: poItem.originalCost,
         discount: poItem.discount,
         tax: poItem.tax,
-        totalCost:
-          parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
+        totalCost: parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
       })),
     [poItems],
   );
@@ -251,9 +242,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
                 }, // click row
               };
             }}
-            rowClassName={(record) =>
-              record.id === selectedRow?.id ? `ant-table-row-selected` : ''
-            }
+            rowClassName={(record) => (record.id === selectedRow?.id ? `ant-table-row-selected` : '')}
           />
         </Col>
         <Col span={2}>
@@ -320,10 +309,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         onCancel={() => setShowModal(modalType.Close)}
       />
 
-      <ManageItemsModal
-        isOpen={showModal === modalType.ManagePurchaseOrders}
-        {...manageOrdersModalData}
-      />
+      <ManageItemsModal isOpen={showModal === modalType.ManagePurchaseOrders} {...manageOrdersModalData} />
     </>
   );
 };

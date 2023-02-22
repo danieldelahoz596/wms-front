@@ -48,15 +48,11 @@ export default () => {
 
   const updatePOExportSettings = (_updatedSetting) => {
     console.log(_updatedSetting);
-    setPOExportSettings((prevState) =>
-      prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)),
-    );
+    setPOExportSettings((prevState) => prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)));
   };
 
   const removePOExportSettings = (_index) => {
-    setPOExportSettings((prevState) =>
-      prevState.filter((_item, _curIndex) => _index !== _curIndex),
-    );
+    setPOExportSettings((prevState) => prevState.filter((_item, _curIndex) => _index !== _curIndex));
   };
 
   return {

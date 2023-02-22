@@ -1,32 +1,60 @@
 import { Card, Row, Col } from 'antd';
 
 export default function () {
-
   return (
     <>
-      <h2>Analytics {'>'} Purchase Orders {'>'} Historical Exports</h2>
+      <h2>
+        Analytics {'>'} Purchase Orders {'>'} Historical Exports
+      </h2>
       <Row>
         <Col span={24}>
           <Card>
-          <h2>Overview</h2>
-            <p>This feature is a CSV data export tool meant for large exports of <b>historical data</b>. Historical data exports are not the same as grid exports which are customizable exports for <b>live data</b> that Extensiv Order Manager already offers in the Orders Module.</p>
-            
+            <h2>Overview</h2>
+            <p>
+              This feature is a CSV data export tool meant for large exports of <b>historical data</b>. Historical data exports
+              are not the same as grid exports which are customizable exports for <b>live data</b> that Extensiv Order Manager
+              already offers in the Orders Module.
+            </p>
+
             <h2>Limitations of historical exports:</h2>
             <ul>
               <li>Not real-time data - the data available for exports can be delayed for up to 24 hours.</li>
-              <li>Each generated CSV file is available for download for 24 hours. After that period, the entry from the export grid is deleted (from the bottom half of the screen). You can always regenerate the same request later by using the filters to submit your previous request. The link to the file also expires after 24 hours.</li>
-              <li>The columns that are exported are <b>not</b> customizable. Instead, the export will include ALL columns available (see the list below for reference). You can edit your export once downloaded to delete/hide/rearrange columns you do not want.</li>
+              <li>
+                Each generated CSV file is available for download for 24 hours. After that period, the entry from the export grid
+                is deleted (from the bottom half of the screen). You can always regenerate the same request later by using the
+                filters to submit your previous request. The link to the file also expires after 24 hours.
+              </li>
+              <li>
+                The columns that are exported are <b>not</b> customizable. Instead, the export will include ALL columns available
+                (see the list below for reference). You can edit your export once downloaded to delete/hide/rearrange columns you
+                do not want.
+              </li>
               <li>The export does not include the Total Cost column found in the Items tab.</li>
-              <li>Parameters/filters to export by are limited to the destination warehouse, milestones, status, vendor, as well as created, received, and delivered date ranges.</li>
+              <li>
+                Parameters/filters to export by are limited to the destination warehouse, milestones, status, vendor, as well as
+                created, received, and delivered date ranges.
+              </li>
               <li>Each row represents a purchase order item.</li>
             </ul>
 
             <h2>How to Access this Feature</h2>
-            <p>Go to the Analytics Module and view the Purchase Orders subsection in the left-side panel. Then select the Historical Exports tab.</p>
-            <p>Use the available filters to narrow down your export parameters. From there, click the Generate Export button and wait while your report is generated.</p>
-            <p>You should be able to see your new request in the bottom section - when the Status column says "Succeeded", you can click the Download button in the Action column.</p>
-            <img src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/image-20210310-152558.png" style={{ width: 600 }}/>
-            
+            <p>
+              Go to the Analytics Module and view the Purchase Orders subsection in the left-side panel. Then select the
+              Historical Exports tab.
+            </p>
+            <p>
+              Use the available filters to narrow down your export parameters. From there, click the Generate Export button and
+              wait while your report is generated.
+            </p>
+            <p>
+              You should be able to see your new request in the bottom section - when the Status column says "Succeeded", you can
+              click the Download button in the Action column.
+            </p>
+            <img
+              src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/image-20210310-152558.png"
+              style={{ width: 600 }}
+            />
+
             <h2>Columns Available for Export for Historical Data</h2>
             <ul>
               <li>Row Number</li>
@@ -93,10 +121,14 @@ export default function () {
               <li>Product Description</li>
               <li>Product Attributes</li>
             </ul>
-            <p style={{ color: 'red'}}>For each row, refer to Item Quantity Ordered & Item Status together to understand Units Received (or any other status). Purchase Order Status will tell you the overall status for the PO, but the Item Status will tell you the specific status of the items belonging to a PO.</p>
+            <p style={{ color: 'red' }}>
+              For each row, refer to Item Quantity Ordered & Item Status together to understand Units Received (or any other
+              status). Purchase Order Status will tell you the overall status for the PO, but the Item Status will tell you the
+              specific status of the items belonging to a PO.
+            </p>
           </Card>
         </Col>
       </Row>
     </>
   );
-};
+}

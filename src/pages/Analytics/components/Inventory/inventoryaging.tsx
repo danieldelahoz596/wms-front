@@ -233,8 +233,7 @@ const InventoryAging: React.FC = () => {
           <Col>
             <Space size={10} align="center">
               <h2 style={{ textTransform: 'uppercase' }}>
-                This report is only available|Aged Inventory only apples To inventory received after
-                4/26/2018.
+                This report is only available|Aged Inventory only apples To inventory received after 4/26/2018.
               </h2>
               <QuestionCircleFilled style={{ fontSize: 20 }} />
               <span onClick={() => setShowModal(true)}>
@@ -256,29 +255,17 @@ const InventoryAging: React.FC = () => {
                   </Col>
                   <Col span={6}>
                     <Form.Item label="Brand" style={{ margin: 0 }}>
-                      <Select
-                        defaultValue="No brands selected..."
-                        style={{ width: 200 }}
-                        size="small"
-                      />
+                      <Select defaultValue="No brands selected..." style={{ width: 200 }} size="small" />
                     </Form.Item>
                   </Col>
                   <Col span={6}>
                     <Form.Item label="Buyer" style={{ margin: 0 }}>
-                      <Select
-                        defaultValue="No buyers selected"
-                        style={{ width: 200 }}
-                        size="small"
-                      />
+                      <Select defaultValue="No buyers selected" style={{ width: 200 }} size="small" />
                     </Form.Item>
                   </Col>
                   <Col span={6}>
                     <Form.Item label="Product" style={{ margin: 0 }}>
-                      <Select
-                        defaultValue="No products selected"
-                        style={{ width: 200 }}
-                        size="small"
-                      />
+                      <Select defaultValue="No products selected" style={{ width: 200 }} size="small" />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -291,12 +278,7 @@ const InventoryAging: React.FC = () => {
               </Col>
             </Row>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

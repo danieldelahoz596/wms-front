@@ -19,13 +19,13 @@ export interface IOInput {
   checked?: boolean;
   hidden?: boolean;
   showPlaceholder?: boolean;
-  className?: string,
+  className?: string;
 }
 const { TextArea } = Input;
 
 export const OInput: React.FC<IOInput> = ({
   type = 'text',
-  onChange = () => { },
+  onChange = () => {},
   name,
   placeholder,
   defaultValue,
@@ -91,9 +91,7 @@ export const OInput: React.FC<IOInput> = ({
       />
     );
   } else if (type === 'checkbox') {
-    inputField = (
-      <Checkbox name={name} onChange={(e) => onChange(name, e.target.checked)} checked={checked} />
-    );
+    inputField = <Checkbox name={name} onChange={(e) => onChange(name, e.target.checked)} checked={checked} />;
   } else {
     inputField = (
       <Input
@@ -127,24 +125,14 @@ export const OTextArea: React.FC<IOTextArea> = (label, vertical = 0, rows = 6, m
         <Row className="pb-3">
           <Col span={4}>{label}:</Col>
           <Col span={20}>
-            <TextArea
-              rows={rows}
-              placeholder="maxLength is 6"
-              maxLength={maxLength}
-              showCount={false}
-            />
+            <TextArea rows={rows} placeholder="maxLength is 6" maxLength={maxLength} showCount={false} />
           </Col>
         </Row>
       )}
       {vertical == 1 && (
         <div>
           <span>{label}</span>
-          <TextArea
-            rows={rows}
-            placeholder="maxLength is 6"
-            maxLength={maxLength}
-            showCount={false}
-          />
+          <TextArea rows={rows} placeholder="maxLength is 6" maxLength={maxLength} showCount={false} />
         </div>
       )}
     </>

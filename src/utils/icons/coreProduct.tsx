@@ -16,8 +16,6 @@ const CoreProductsSvg = () => (
   </svg>
 );
 
-const CoreProductsIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={CoreProductsSvg} {...props} />
-);
+const CoreProductsIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={CoreProductsSvg} {...props} />;
 
 export default CoreProductsIcon;

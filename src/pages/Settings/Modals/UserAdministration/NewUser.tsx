@@ -99,8 +99,7 @@ const userAdministration = [
   {
     id: 'bulk_inventory_reconciliation',
     title: 'Bulk Inventory Reconciliation',
-    content:
-      'Ability to use the bulk inventory reconciliation feature found in the Inventory Module.',
+    content: 'Ability to use the bulk inventory reconciliation feature found in the Inventory Module.',
   },
 ];
 
@@ -111,9 +110,7 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleCheckboxClick = (id) => {
-    setPermissions(
-      permissions.includes(id) ? permissions.filter((_item) => _item !== id) : [...permissions, id],
-    );
+    setPermissions(permissions.includes(id) ? permissions.filter((_item) => _item !== id) : [...permissions, id]);
   };
 
   const handleSave = () => {
@@ -198,26 +195,15 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
         width={700}
         forceRender
       >
-        <Form
-          form={form}
-          initialValues={{ full_name: selectedUser?.full_name, username: selectedUser?.username }}
-        >
+        <Form form={form} initialValues={{ full_name: selectedUser?.full_name, username: selectedUser?.username }}>
           <Row style={{ marginTop: 10 }} align="middle" gutter={10}>
             <Col span={12}>
               <Card title="Login Info">
-                <Form.Item
-                  label="Full Name"
-                  name="full_name"
-                  rules={[{ required: true, message: 'Please input Name!' }]}
-                >
+                <Form.Item label="Full Name" name="full_name" rules={[{ required: true, message: 'Please input Name!' }]}>
                   <Input />
                 </Form.Item>
 
-                <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[{ required: true, message: 'Please input the Username!' }]}
-                >
+                <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input the Username!' }]}>
                   <Input />
                 </Form.Item>
 
@@ -236,9 +222,8 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
               <div style={{ display: 'flex', gap: 5 }}>
                 <InfoCircleFilled style={{ color: '#8C8A8C', fontSize: '12px', paddingTop: 4 }} />
                 <h3>
-                  To add a user to your company account, simply enter their name, password, and
-                  assign proper access permissions. Skubana will then send the new user an e-mail to
-                  activate their account.
+                  To add a user to your company account, simply enter their name, password, and assign proper access permissions.
+                  Skubana will then send the new user an e-mail to activate their account.
                 </h3>
               </div>
             </Col>

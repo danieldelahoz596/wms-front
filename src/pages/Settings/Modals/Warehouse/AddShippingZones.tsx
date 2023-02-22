@@ -26,10 +26,7 @@ const AddShippingZonesModal: React.FC<IAddShippingZonesModal> = ({ isOpen, onClo
     >
       <>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p>
-            Click and drag each U.S state or territory to the desired warehouse that will service
-            it.
-          </p>
+          <p>Click and drag each U.S state or territory to the desired warehouse that will service it.</p>
           <Link to={'#'} style={{ textDecoration: 'underline' }}>
             {`What's this`}
             <QuestionCircleTwoTone />
@@ -55,14 +52,7 @@ const AddShippingZonesModal: React.FC<IAddShippingZonesModal> = ({ isOpen, onClo
             }
             style={{ marginTop: '1.5rem', borderColor: `${_item.id_color}` }}
           >
-            <Select
-              mode="tags"
-              size="small"
-              style={{ width: '100%' }}
-              onChange={handleChange}
-              bordered={false}
-              options={[]}
-            />
+            <Select mode="tags" size="small" style={{ width: '100%' }} onChange={handleChange} bordered={false} options={[]} />
           </Card>
         ))}
       </>

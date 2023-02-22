@@ -54,10 +54,7 @@ export async function updatePetWithForm(
     const item = (body as any)[ele];
 
     if (item !== undefined && item !== null) {
-      formData.append(
-        ele,
-        typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item,
-      );
+      formData.append(ele, typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item);
     }
   });
 
@@ -106,10 +103,7 @@ export async function uploadFile(
     const item = (body as any)[ele];
 
     if (item !== undefined && item !== null) {
-      formData.append(
-        ele,
-        typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item,
-      );
+      formData.append(ele, typeof item === 'object' && !(item instanceof File) ? JSON.stringify(item) : item);
     }
   });
 

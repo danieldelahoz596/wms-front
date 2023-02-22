@@ -41,12 +41,7 @@ const StockRequiringAttention: React.FC<IStockRequiringAttention> = ({ stock }) 
   return (
     <>
       <Card title="Stock Requiring Attention">
-        <Table
-          columns={Tcolumns}
-          dataSource={rows}
-          scroll={{ y: 200 }}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        <Table columns={Tcolumns} dataSource={rows} scroll={{ y: 200 }} pagination={{ hideOnSinglePage: true }} />
       </Card>
     </>
   );

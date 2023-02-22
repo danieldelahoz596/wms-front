@@ -10,8 +10,6 @@ const GraphLineUpSvg = () => (
   </svg>
 );
 
-const GraphLineUpIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={GraphLineUpSvg} {...props} />
-);
+const GraphLineUpIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={GraphLineUpSvg} {...props} />;
 
 export default GraphLineUpIcon;

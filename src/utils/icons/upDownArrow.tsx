@@ -7,8 +7,6 @@ const UpDownArrowSvg = () => (
   </svg>
 );
 
-const UpDownArrowIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={UpDownArrowSvg} {...props} />
-);
+const UpDownArrowIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={UpDownArrowSvg} {...props} />;
 
 export default UpDownArrowIcon;

@@ -22,10 +22,7 @@ const columns = [
   },
 ];
 
-const UserAdministrationHistoryModal: React.FC<IUserAdministrationHistoryModal> = ({
-  isOpen,
-  onClose,
-}) => {
+const UserAdministrationHistoryModal: React.FC<IUserAdministrationHistoryModal> = ({ isOpen, onClose }) => {
   return (
     <OModal
       title="User Administration History"

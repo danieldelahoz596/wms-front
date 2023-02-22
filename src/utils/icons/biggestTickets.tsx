@@ -7,8 +7,6 @@ const BiggestTicketsSvg = () => (
   </svg>
 );
 
-const BiggestTicketsIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={BiggestTicketsSvg} {...props} />
-);
+const BiggestTicketsIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={BiggestTicketsSvg} {...props} />;
 
 export default BiggestTicketsIcon;

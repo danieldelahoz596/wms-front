@@ -119,12 +119,7 @@ const SKUProfitability: React.FC = () => {
               </Col>
             </Row>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

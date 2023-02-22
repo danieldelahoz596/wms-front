@@ -44,9 +44,7 @@ export default () => {
         .post('/api/customers/id/' + _id, _values)
         .then((response) => {
           const updatedCustomer = response.data.customer;
-          setCustomerList((prevState) =>
-            prevState.map((_item) => (_item.id === updatedCustomer.id ? updatedCustomer : _item)),
-          );
+          setCustomerList((prevState) => prevState.map((_item) => (_item.id === updatedCustomer.id ? updatedCustomer : _item)));
           setSelectedCustomer(updatedCustomer);
         })
         .catch((error) => console.log(error));

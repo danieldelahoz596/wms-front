@@ -12,13 +12,8 @@ interface IOrderImportSettingsModal {
   onAddOrderImportSettings: () => void;
 }
 
-const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
-  isOpen,
-  onClose,
-  onAddOrderImportSettings,
-}) => {
-  const { orderImportSettings, removeOrderImportSettings, setEditableImportSetting } =
-    useModel('orderImportSettings');
+const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({ isOpen, onClose, onAddOrderImportSettings }) => {
+  const { orderImportSettings, removeOrderImportSettings, setEditableImportSetting } = useModel('orderImportSettings');
 
   const handleEdit = (_item) => {
     setEditableImportSetting(_item);
@@ -28,14 +23,8 @@ const OrderImportSettingsModal: React.FC<IOrderImportSettingsModal> = ({
     setting: _item.settingName,
     actions: (
       <div style={{ display: 'flex', gap: '0.2rem' }}>
-        <ToolOutlined
-          onClick={() => handleEdit(_item)}
-          style={{ color: 'blue', cursor: 'pointer', marginRight: '0.5rem' }}
-        />
-        <CloseOutlined
-          onClick={() => removeOrderImportSettings(_index)}
-          style={{ color: 'blue', cursor: 'pointer' }}
-        />
+        <ToolOutlined onClick={() => handleEdit(_item)} style={{ color: 'blue', cursor: 'pointer', marginRight: '0.5rem' }} />
+        <CloseOutlined onClick={() => removeOrderImportSettings(_index)} style={{ color: 'blue', cursor: 'pointer' }} />
       </div>
     ),
   }));

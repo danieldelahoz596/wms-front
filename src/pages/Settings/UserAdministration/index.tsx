@@ -35,15 +35,7 @@ const TColumns = [
 
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const {
-    userList,
-    selectedUser,
-    showInactive,
-    setSelectedUser,
-    setShowInactive,
-    getUsers,
-    updateUser,
-  } = useModel('user');
+  const { userList, selectedUser, showInactive, setSelectedUser, setShowInactive, getUsers, updateUser } = useModel('user');
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -82,10 +74,7 @@ export default function () {
             }}
           />
           <OButton btnText={'History'} onClick={() => setModal(modalType.History)} />
-          <OButton
-            btnText={showInactive ? 'Show Inactive' : 'Show Active'}
-            onClick={() => setShowInactive((prev) => !prev)}
-          />
+          <OButton btnText={showInactive ? 'Show Inactive' : 'Show Active'} onClick={() => setShowInactive((prev) => !prev)} />
         </Space>
         <Table
           columns={TColumns}
@@ -114,10 +103,7 @@ export default function () {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <UserAdministrationHistoryModal
-        isOpen={modalOpen === modalType.History}
-        onClose={() => setModal(modalType.Close)}
-      />
+      <UserAdministrationHistoryModal isOpen={modalOpen === modalType.History} onClose={() => setModal(modalType.Close)} />
     </>
   );
 }

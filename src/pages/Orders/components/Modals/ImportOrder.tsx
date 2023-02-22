@@ -15,12 +15,7 @@ interface IImportOrderModal {
   handleConfigureSettings: (value: any) => void;
 }
 
-const ImportOrderModal: React.FC<IImportOrderModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  handleConfigureSettings,
-}) => {
+const ImportOrderModal: React.FC<IImportOrderModal> = ({ isOpen, onClose, onSave, handleConfigureSettings }) => {
   const { orderImportSettings } = useModel('orderImportSettings');
   const [selectedSettings, setSelectedSettings] = useState();
 
@@ -28,9 +23,7 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({
     if (_value == 0) {
       setSelectedSettings(null);
     } else {
-      const _selectedFullSettings = orderImportSettings.find(
-        (_item, _index) => _index + 1 == _value,
-      );
+      const _selectedFullSettings = orderImportSettings.find((_item, _index) => _index + 1 == _value);
       setSelectedSettings(_selectedFullSettings);
     }
   };
@@ -67,10 +60,9 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({
     >
       <>
         <p>
-          All orders for your manual channels can be imported into Skubana using as many custom
-          format files as your workflow demands. Manually imported orders go through the same
-          process as all others, including validation, assignment of a default fulfillment source,
-          Orderbots, and detarmination of inventory availability.
+          All orders for your manual channels can be imported into Skubana using as many custom format files as your workflow
+          demands. Manually imported orders go through the same process as all others, including validation, assignment of a
+          default fulfillment source, Orderbots, and detarmination of inventory availability.
         </p>
         <Row gutter={32}>
           <Col span={16}>
@@ -83,9 +75,8 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({
               }}
             >
               <p>
-                All manual order for your imports into Skubana must be performed using a
-                pre-configured setting of the file format (CSV, EXCEL, TEXT) and column structure of
-                your choice.
+                All manual order for your imports into Skubana must be performed using a pre-configured setting of the file format
+                (CSV, EXCEL, TEXT) and column structure of your choice.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
                 <OButton btnText="Configure" bordered={true} onClick={onConfigureSettings} />

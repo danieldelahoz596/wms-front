@@ -7,8 +7,6 @@ const ClipboardSvg = () => (
   </svg>
 );
 
-const ClipboardIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ClipboardSvg} {...props} />
-);
+const ClipboardIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ClipboardSvg} {...props} />;
 
 export default ClipboardIcon;

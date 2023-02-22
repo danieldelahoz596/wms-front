@@ -10,14 +10,13 @@ export default function () {
         <Col span={24}>
           <Card>
             <p>
-              When you open Extensiv Order Manager's <strong>Analytics</strong> module, you will
-              notice important information about your account displayed right on the Analytics
-              landing page.
+              When you open Extensiv Order Manager's <strong>Analytics</strong> module, you will notice important information
+              about your account displayed right on the Analytics landing page.
             </p>
             <p>
               <strong>
-                Please keep in mind most of the information on this page will not be accurate until
-                your vendor costs are in the system.
+                Please keep in mind most of the information on this page will not be accurate until your vendor costs are in the
+                system.
               </strong>
             </p>
             <br />
@@ -29,17 +28,15 @@ export default function () {
             <br />
             <br />
             <p>
-              At the top, you will see summary information about your account's performance in terms
-              of items sold, total sales, net profit earned, as well as your profit and unit
-              margins.
+              At the top, you will see summary information about your account's performance in terms of items sold, total sales,
+              net profit earned, as well as your profit and unit margins.
             </p>
             <Divider />
             <h1>Opportunities Found by Extensiv Order Manager</h1>
             <p>
-              Immediately below the summary is the{' '}
-              <strong>Opportunities Found by Extensiv Order Manager</strong>, which identifies, as
-              the name implies, opportunities for improving your company's bottom line. You can find
-              more information about this report{' '}
+              Immediately below the summary is the <strong>Opportunities Found by Extensiv Order Manager</strong>, which
+              identifies, as the name implies, opportunities for improving your company's bottom line. You can find more
+              information about this report{' '}
               <a href="" className="helplink">
                 here
               </a>
@@ -48,10 +45,9 @@ export default function () {
             <Divider />
             <h1>Inventory Movement Forensics</h1>
             <p>
-              On the left-bottom side of the landing page is the{' '}
-              <strong>Inventory Movement Forensics</strong> chart, which summarizes your inventory
-              movement for the week, month and the selected date range. The chart shows the number
-              and percentage of the following:
+              On the left-bottom side of the landing page is the <strong>Inventory Movement Forensics</strong> chart, which
+              summarizes your inventory movement for the week, month and the selected date range. The chart shows the number and
+              percentage of the following:
             </p>
             <ul>
               <li>
@@ -79,9 +75,8 @@ export default function () {
             <Divider />
             <h1>Changing the Date Range for the Displayed Information</h1>
             <p>
-              By default, the information displayed is for the last 30 days. To see your account's
-              performance for the past 60 and 90 days, respectively, click the icon to the right,
-              then select the appropriate option.
+              By default, the information displayed is for the last 30 days. To see your account's performance for the past 60 and
+              90 days, respectively, click the icon to the right, then select the appropriate option.
             </p>
             <br />
             <img

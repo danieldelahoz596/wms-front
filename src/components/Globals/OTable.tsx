@@ -74,15 +74,7 @@ export const OTable: React.FC<IOTable> = ({
       })}
       bordered={bordered}
       columns={columns}
-      scroll={
-        scrollx
-          ? scrolly
-            ? { x: scrollx, y: scrolly }
-            : { x: scrollx }
-          : scrolly
-          ? { y: scrolly }
-          : {}
-      }
+      scroll={scrollx ? (scrolly ? { x: scrollx, y: scrolly } : { x: scrollx }) : scrolly ? { y: scrolly } : {}}
       dataSource={rows}
       size={'small'}
       pagination={

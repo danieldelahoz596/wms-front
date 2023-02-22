@@ -38,21 +38,12 @@ interface IAddNewItemModal {
   onCancel: () => void;
 }
 
-const AddNewItemModal: React.FC<IAddNewItemModal> = ({
-  isOpen,
-  poNumber,
-  items,
-  onSave,
-  onCancel,
-}) => {
+const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, poNumber, items, onSave, onCancel }) => {
   const { productList } = useModel('product');
   const [form] = Form.useForm();
   const [poItems, setPoItems] = useState([]);
 
-  const productOptions = useMemo(
-    () => productList.map((item) => ({ value: item.id, label: item.name })),
-    [productList],
-  );
+  const productOptions = useMemo(() => productList.map((item) => ({ value: item.id, label: item.name })), [productList]);
 
   const AddNewItemTableColumns = [
     {
@@ -211,12 +202,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({
         <Form form={form} style={{ marginBottom: 10 }}>
           <Space size={4}>
             <Form.Item name="product">
-              <Select
-                placeholder="Select a product..."
-                options={productOptions}
-                onChange={() => {}}
-                style={{ width: 250 }}
-              />
+              <Select placeholder="Select a product..." options={productOptions} onChange={() => {}} style={{ width: 250 }} />
             </Form.Item>
             <Form.Item label="Quantity" name="quantity">
               <Input type="number" style={{ width: 70 }} min={1} />
@@ -227,12 +213,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({
             <OButton btnText={'Add'} size="large" onClick={handleAdd} />
           </Space>
         </Form>
-        <EditableTable
-          columns={AddNewItemTableColumns}
-          dataSource={tableRows}
-          pagination={false}
-          handleSave={handleItemSave}
-        />
+        <EditableTable columns={AddNewItemTableColumns} dataSource={tableRows} pagination={false} handleSave={handleItemSave} />
       </>
     </OModal>
   );

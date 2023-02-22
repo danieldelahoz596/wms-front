@@ -15,11 +15,7 @@ interface IConfigureFieldTypesModal {
   onSave: () => void;
 }
 
-const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen, onClose, onSave }) => {
   const { fieldTypes, setFieldTypes } = useModel('customProductFields');
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -49,9 +45,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
           checked={value}
           onClick={() =>
             setFieldTypes(
-              fieldTypes.map((field) =>
-                field.id === record.id ? { ...field, show_on_grid: !field.show_on_grid } : field,
-              ),
+              fieldTypes.map((field) => (field.id === record.id ? { ...field, show_on_grid: !field.show_on_grid } : field)),
             )
           }
         />
@@ -66,11 +60,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
         <Checkbox
           checked={value}
           onClick={() =>
-            setFieldTypes(
-              fieldTypes.map((field) =>
-                field.id === record.id ? { ...field, required: !field.required } : field,
-              ),
-            )
+            setFieldTypes(fieldTypes.map((field) => (field.id === record.id ? { ...field, required: !field.required } : field)))
           }
         />
       ),
@@ -89,11 +79,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
   };
 
   const handleDeactive = () => {
-    setFieldTypes(
-      fieldTypes.map((field) =>
-        field.id === selectedItemId ? { ...field, active: !field.active } : field,
-      ),
-    );
+    setFieldTypes(fieldTypes.map((field) => (field.id === selectedItemId ? { ...field, active: !field.active } : field)));
   };
 
   return (
@@ -123,11 +109,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
           <Col>
             <Space size={10}>
               <OButton btnText="New Field Type" onClick={handleAddNewType} />
-              <OButton
-                btnText={showActive ? 'Deactivate' : 'Activate'}
-                disabled={!selectedItemId}
-                onClick={handleDeactive}
-              />
+              <OButton btnText={showActive ? 'Deactivate' : 'Activate'} disabled={!selectedItemId} onClick={handleDeactive} />
             </Space>
           </Col>
           <Col>
@@ -148,9 +130,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
               .filter((field) => field.active === showActive)
               .map((fields) => ({ key: fields.id, ...fields }))}
             handleSave={(key: any, name: any, value: any) => {
-              setFieldTypes(
-                fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)),
-              );
+              setFieldTypes(fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)));
             }}
             props={{
               onRow: (record) => {
@@ -161,8 +141,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({
                   },
                 };
               },
-              rowClassName: (record) =>
-                record.id === selectedItemId ? `ant-table-row-selected` : '',
+              rowClassName: (record) => (record.id === selectedItemId ? `ant-table-row-selected` : ''),
             }}
           />
         </div>

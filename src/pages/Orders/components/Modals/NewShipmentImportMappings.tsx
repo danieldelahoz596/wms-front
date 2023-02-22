@@ -10,11 +10,7 @@ interface INewShipmentImportMappings {
   onClose: () => void;
 }
 
-const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
-  isOpen,
-  onSave,
-  onClose,
-}) => {
+const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({ isOpen, onSave, onClose }) => {
   const importFieldsColumns = [
     {
       key: 'sl',
@@ -118,11 +114,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
         <Row gutter={12}>
           <Col span={8}>
             <Card title="Sales Channel Mappings" style={{ padding: '0.5rem' }}>
-              <OTable
-                pagination={false}
-                columns={importFieldsColumns}
-                rows={preparedImportFieldsRows}
-              />
+              <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />
             </Card>
           </Col>
           <Col span={16}>
@@ -132,11 +124,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({
                   <OInput type="select" placeholder="Select..." options={[]} />
                 </Form.Item>
               </Form>
-              <OTable
-                pagination={false}
-                columns={importFieldsColumns}
-                rows={preparedImportFieldsRows}
-              />
+              <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />
             </Card>
           </Col>
         </Row>

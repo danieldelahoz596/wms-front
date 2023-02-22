@@ -9,11 +9,7 @@ interface IExportStockDetailsModal {
   onSave: () => void;
 }
 
-const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({ isOpen, onClose, onSave }) => {
   const { initialState } = useModel('@@initialState');
 
   return (

@@ -338,9 +338,7 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                     </Form.Item>
                     <Form.Item
                       noStyle
-                      shouldUpdate={(prevValues, currentValues) =>
-                        prevValues.filters[name] !== currentValues.filters[name]
-                      }
+                      shouldUpdate={(prevValues, currentValues) => prevValues.filters[name] !== currentValues.filters[name]}
                     >
                       {({ getFieldValue }) => (
                         <Form.Item

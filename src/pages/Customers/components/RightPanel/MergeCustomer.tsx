@@ -18,9 +18,7 @@ export default function MergeCustomer() {
         placeholder="Select a person"
         size="small"
         optionFilterProp="children"
-        filterOption={(input, option) =>
-          (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-        }
+        filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
         options={[
           { value: 'jack', label: 'Jack' },
           { value: 'lucy', label: 'Lucy' },
@@ -29,11 +27,7 @@ export default function MergeCustomer() {
       />
       <p>Child Customer</p>
       <DropTarget targetKey="merge" onDragEnter={onDrop}>
-        <List
-          bordered
-          dataSource={mergeData}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
-        />
+        <List bordered dataSource={mergeData} renderItem={(item) => <List.Item>{item}</List.Item>} />
       </DropTarget>
     </Card>
   );

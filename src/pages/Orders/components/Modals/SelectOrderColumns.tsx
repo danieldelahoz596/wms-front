@@ -23,19 +23,12 @@ const defaultShowColumns = [
   'Item Names',
 ];
 
-const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({ isOpen, onClose, onSave }) => {
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
   const [hideColumns, setHideColumns] = useState([]);
   const [search, setSearch] = useState('');
 
-  const filterColumns = useMemo(
-    () => hideColumns.filter((column) => column.includes(search)),
-    [hideColumns, search],
-  );
+  const filterColumns = useMemo(() => hideColumns.filter((column) => column.includes(search)), [hideColumns, search]);
 
   return (
     <OModal
@@ -93,9 +86,7 @@ const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({
                           icon={<MinusOutlined />}
                           size="small"
                           onClick={() => {
-                            setShowColumns((prev) =>
-                              prev.filter((column) => column !== record.name),
-                            );
+                            setShowColumns((prev) => prev.filter((column) => column !== record.name));
                             setHideColumns([...hideColumns, record.name]);
                           }}
                         />
@@ -145,9 +136,7 @@ const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({
                           icon={<PlusOutlined />}
                           size="small"
                           onClick={() => {
-                            setHideColumns((prev) =>
-                              prev.filter((column) => column !== record.name),
-                            );
+                            setHideColumns((prev) => prev.filter((column) => column !== record.name));
                             setShowColumns([...showColumns, record.name]);
                           }}
                         />

@@ -6,8 +6,6 @@ const NewPasswordSvg = () => (
   </svg>
 );
 
-const NewPasswordIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={NewPasswordSvg} {...props} />
-);
+const NewPasswordIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={NewPasswordSvg} {...props} />;
 
 export default NewPasswordIcon;

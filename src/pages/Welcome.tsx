@@ -44,8 +44,7 @@ const InfoCard: React.FC<{
             padding: '8px 16px 16px 12px',
             color: '#FFF',
             fontWeight: 'bold',
-            backgroundImage:
-              "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
+            backgroundImage: "url('https://gw.alipayobjects.com/zos/bmw-prod/daaf8d50-8e6d-4251-905d-676a24ddfa12.svg')",
           }}
         >
           {index}
@@ -86,8 +85,7 @@ const Welcome: React.FC = () => {
           borderRadius: 8,
         }}
         bodyStyle={{
-          backgroundImage:
-            'radial-gradient(circle at 97% 10%, #EBF2FF 0%, #F5F8FF 28%, #EBF1FF 124%)',
+          backgroundImage: 'radial-gradient(circle at 97% 10%, #EBF2FF 0%, #F5F8FF 28%, #EBF1FF 124%)',
         }}
       >
         <div>
@@ -97,7 +95,7 @@ const Welcome: React.FC = () => {
               color: '#1A1A1A',
             }}
           >
-            Sample Page                    
+            Sample Page
           </div>
         </div>
       </Card>

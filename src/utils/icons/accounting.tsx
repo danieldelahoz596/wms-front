@@ -6,8 +6,6 @@ const AccountingSvg = () => (
   </svg>
 );
 
-const AccountingIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={AccountingSvg} {...props} />
-);
+const AccountingIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={AccountingSvg} {...props} />;
 
 export default AccountingIcon;

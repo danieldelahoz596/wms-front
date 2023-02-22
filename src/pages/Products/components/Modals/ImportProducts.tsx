@@ -35,13 +35,8 @@ const ImportProductModal: React.FC<IImportProductModal> = ({ isOpen, onClose, on
       ]}
     >
       <>
-        <p>
-          All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.
-        </p>
-        <a
-          className="download-link"
-          href={`${BACKEND_URL}/template/template_for_product_import.xlsx`}
-        >
+        <p>All batch imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
+        <a className="download-link" href={`${BACKEND_URL}/template/template_for_product_import.xlsx`}>
           <u>Download the Excel Template for Product Import</u>
         </a>
         <p>
@@ -54,10 +49,9 @@ const ImportProductModal: React.FC<IImportProductModal> = ({ isOpen, onClose, on
           is regarded the same as <i>{`'SKU123'`}</i> by the system.
         </p>
         <p>
-          If Skubana encounters duplicate SKU values in your Excel file, it will process the first
-          encounter of that product with that SKU and disregard all remaining products with that SKU
-          and log them in the <b>Import Summary</b> that is generated at the end, which you can use
-          to correct duplicate values and re-submit.
+          If Skubana encounters duplicate SKU values in your Excel file, it will process the first encounter of that product with
+          that SKU and disregard all remaining products with that SKU and log them in the <b>Import Summary</b> that is generated
+          at the end, which you can use to correct duplicate values and re-submit.
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
           <span>Products File: &nbsp;</span>

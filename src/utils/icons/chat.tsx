@@ -7,8 +7,6 @@ const ChatSvg = () => (
   </svg>
 );
 
-const ChatIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ChatSvg} {...props} />
-);
+const ChatIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ChatSvg} {...props} />;
 
 export default ChatIcon;

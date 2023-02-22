@@ -100,19 +100,11 @@ const OrderCustomFields: React.FC = () => {
           style: { marginTop: 10, height: 400 },
         }}
         handleSave={(index, name, value) => {
-          setCustomFields(
-            customFields.map((field) =>
-              field.field_id === index ? { ...field, [name]: value } : field,
-            ),
-          );
+          setCustomFields(customFields.map((field) => (field.field_id === index ? { ...field, [name]: value } : field)));
         }}
       />
 
-      <ConfigureFieldTypesModal
-        isOpen={showModal}
-        onSave={() => setShowModal(false)}
-        onClose={() => setShowModal(false)}
-      />
+      <ConfigureFieldTypesModal isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
     </>
   );
 };

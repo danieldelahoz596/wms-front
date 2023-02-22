@@ -10,8 +10,6 @@ const LaunchSvg = () => (
   </svg>
 );
 
-const LaunchIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={LaunchSvg} {...props} />
-);
+const LaunchIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={LaunchSvg} {...props} />;
 
 export default LaunchIcon;

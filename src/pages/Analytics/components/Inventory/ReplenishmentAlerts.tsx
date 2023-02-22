@@ -71,12 +71,7 @@ const ReplenishmentAlerts: React.FC = () => {
               <Select defaultValue="18 Selected" style={{ width: 200 }} size="small" />
             </Form.Item>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

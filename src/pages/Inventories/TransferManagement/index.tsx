@@ -126,9 +126,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
                     value: warehouse.id,
                     label: warehouse.name,
                   }))}
-                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
-                    (warehouse) => warehouse.id,
-                  )}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
                   type="Source Warehouse"
                   style={{ width: '220px' }}
                   size={'middle'}
@@ -138,9 +136,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
                     value: warehouse.id,
                     label: warehouse.name,
                   }))}
-                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
-                    (warehouse) => warehouse.id,
-                  )}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
                   type="Dest. Warehouse"
                   style={{ width: '220px' }}
                   size={'middle'}
@@ -150,9 +146,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
                     value: warehouse.id,
                     label: warehouse.name,
                   }))}
-                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
-                    (warehouse) => warehouse.id,
-                  )}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
                   type="STO Statuse"
                   style={{ width: '220px' }}
                   size={'middle'}
@@ -171,10 +165,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
               size="small"
               style={{ width: 300 }}
             />
-            <OButton
-              btnText="Receive"
-              disabled={!(selectedTransfer?.status === 'pending_receiving')}
-            />
+            <OButton btnText="Receive" disabled={!(selectedTransfer?.status === 'pending_receiving')} />
             <OButton btnText="History" disabled={!selectedTransfer} onClick={showHistory} />
           </Space>
 
@@ -190,17 +181,12 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
                 },
               };
             }}
-            rowClassName={(record) =>
-              record.key === selectedTransfer?.key ? `ant-table-row-selected` : ''
-            }
+            rowClassName={(record) => (record.key === selectedTransfer?.key ? `ant-table-row-selected` : '')}
           />
         </Card>
       </div>
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
-      <div
-        className={cn('shrink-0 contents', isRightDragging && 'dragging')}
-        style={{ width: RightW }}
-      >
+      <div className={cn('shrink-0 contents', isRightDragging && 'dragging')} style={{ width: RightW }}>
         <div className="w-full">{selectedTransfer && <TransferDetails />}</div>
       </div>
 

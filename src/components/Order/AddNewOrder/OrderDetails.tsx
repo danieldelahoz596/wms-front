@@ -120,10 +120,7 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
             ) : (
               <Form.Item>
                 {item.map((groupItem, groupIndex) => (
-                  <Form.Item
-                    key={groupIndex}
-                    style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-                  >
+                  <Form.Item key={groupIndex} style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
                     <div>{groupItem.label}:</div>
                     <OInput type={groupItem.type} placeholder={groupItem.placeholder} />
                   </Form.Item>
@@ -131,12 +128,7 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
               </Form.Item>
             )
           ) : (
-            <Form.Item
-              key={index}
-              label={item.label}
-              name={item.name}
-              style={{ justifyContent: 'flex-end' }}
-            >
+            <Form.Item key={index} label={item.label} name={item.name} style={{ justifyContent: 'flex-end' }}>
               <OInput {...item} />
             </Form.Item>
           ),

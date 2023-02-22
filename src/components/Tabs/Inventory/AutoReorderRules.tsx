@@ -7,10 +7,7 @@ const AutoReorderRules: React.FC = () => {
   const { warehouseList } = useModel('warehouse');
   const { vendorList } = useModel('vendor');
 
-  const vendorOptions = useMemo(
-    () => vendorList.map((vendor) => ({ value: vendor.id, label: vendor.name })),
-    [vendorList],
-  );
+  const vendorOptions = useMemo(() => vendorList.map((vendor) => ({ value: vendor.id, label: vendor.name })), [vendorList]);
 
   const warehouseOptions = useMemo(
     () => warehouseList.map((warehouse) => ({ value: warehouse.id, label: warehouse.name })),
@@ -111,12 +108,11 @@ const AutoReorderRules: React.FC = () => {
           <b>Forecasted Growth</b> - Expected % change in velocity.
         </p>
         <p>
-          <b>Reorder Quantity</b> = Sales Velocity x (Days in Stock + Lead Time + Reorder Buffer) x
-          (1 + Forecasted Growth) - Incoming Units.
+          <b>Reorder Quantity</b> = Sales Velocity x (Days in Stock + Lead Time + Reorder Buffer) x (1 + Forecasted Growth) -
+          Incoming Units.
         </p>
         <p>
-          <b>Minimum Level</b> = Sales Velocity x (Lead Time + Reorder Buffer) x (1 + Forecasted
-          Growth).
+          <b>Minimum Level</b> = Sales Velocity x (Lead Time + Reorder Buffer) x (1 + Forecasted Growth).
         </p>
       </Col>
     </Row>

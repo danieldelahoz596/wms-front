@@ -96,29 +96,11 @@ const AggregateCostTable: React.FC = () => {
         </Col>
       </Row>
 
-      <OModal
-        title="Add New Cost"
-        width={250}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
+      <OModal title="Add New Cost" width={250} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <>
-          <OInput
-            type="text"
-            name="name"
-            onChange={handleChange}
-            placeholder="Title"
-            value={newCost.name}
-          />
+          <OInput type="text" name="name" onChange={handleChange} placeholder="Title" value={newCost.name} />
           <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
-          <OInput
-            type="number"
-            name="cost"
-            onChange={handleChange}
-            placeholder="amount"
-            value={newCost.cost}
-          />
+          <OInput type="number" name="cost" onChange={handleChange} placeholder="amount" value={newCost.cost} />
         </>
       </OModal>
     </>

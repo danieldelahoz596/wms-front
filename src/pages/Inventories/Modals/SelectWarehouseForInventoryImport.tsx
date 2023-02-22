@@ -56,10 +56,7 @@ const SelectWarehouseForInventoryImportModal: React.FC<ISelectWarehouseForInvent
     >
       <Card title="Warehouse">
         <Form form={form}>
-          <Form.Item
-            rules={[{ required: true, message: 'Please select warehouse.' }]}
-            name="warehouse"
-          >
+          <Form.Item rules={[{ required: true, message: 'Please select warehouse.' }]} name="warehouse">
             <Select options={warehouseOptions} style={{ width: '100%' }} />
           </Form.Item>
         </Form>

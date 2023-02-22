@@ -55,20 +55,10 @@ const BasicInfo: React.FC = () => {
             <Form.Item label="Address" name={['recipient', 'address1']} labelCol={{ span: 6 }}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label=" "
-              name={['recipient', 'address2']}
-              labelCol={{ span: 6 }}
-              colon={false}
-            >
+            <Form.Item label=" " name={['recipient', 'address2']} labelCol={{ span: 6 }} colon={false}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label=" "
-              name={['recipient', 'address3']}
-              labelCol={{ span: 6 }}
-              colon={false}
-            >
+            <Form.Item label=" " name={['recipient', 'address3']} labelCol={{ span: 6 }} colon={false}>
               <Input />
             </Form.Item>
             <Form.Item label="City" name={['recipient', 'city']} labelCol={{ span: 6 }}>

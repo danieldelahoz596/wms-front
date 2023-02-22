@@ -160,11 +160,7 @@ const InventoryValue: React.FC = () => {
               </Col>
               <Col span={6}>
                 <Form.Item label="Vendor" style={{ margin: 0 }}>
-                  <Select
-                    defaultValue="No vendor selected..."
-                    style={{ width: '100%' }}
-                    size="small"
-                  />
+                  <Select defaultValue="No vendor selected..." style={{ width: '100%' }} size="small" />
                 </Form.Item>
               </Col>
               <Col span={6}>
@@ -174,49 +170,28 @@ const InventoryValue: React.FC = () => {
               </Col>
               <Col span={6}>
                 <Form.Item label="Label" style={{ margin: 0 }}>
-                  <Select
-                    defaultValue="No label selected..."
-                    style={{ width: '100%' }}
-                    size="small"
-                  />
+                  <Select defaultValue="No label selected..." style={{ width: '100%' }} size="small" />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Category" style={{ margin: 0 }}>
-                  <Select
-                    defaultValue="No category selected..."
-                    style={{ width: '100%' }}
-                    size="small"
-                  />
+                  <Select defaultValue="No category selected..." style={{ width: '100%' }} size="small" />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Brand" style={{ margin: 0 }}>
-                  <Select
-                    defaultValue="No brand selected..."
-                    style={{ width: '100%' }}
-                    size="small"
-                  />
+                  <Select defaultValue="No brand selected..." style={{ width: '100%' }} size="small" />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Group By" style={{ margin: 0 }}>
-                  <Select
-                    defaultValue="Product Group By"
-                    style={{ width: '80%', marginRight: 10 }}
-                    size="small"
-                  />
+                  <Select defaultValue="Product Group By" style={{ width: '80%', marginRight: 10 }} size="small" />
                   <QuestionCircleOutlined style={{ color: 'blue', fontSize: 15 }} />
                 </Form.Item>
               </Col>
             </Row>
           </Form>
-          <Table
-            columns={TColumns}
-            dataSource={dataSource}
-            pagination={{ hideOnSinglePage: true }}
-            style={{ marginTop: 10 }}
-          />
+          <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
         </Card>
       </div>
 

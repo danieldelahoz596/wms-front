@@ -1,11 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Button, Col, Row } from 'antd';
-import {
-  CloseCircleFilled,
-  PlusCircleFilled,
-  PlusOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Fragment, useState } from 'react';
 import { OInput } from '@/components/Globals/OInput';
 import AddAttributeGroupModal from './AddAttributeGroup';

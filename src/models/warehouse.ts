@@ -26,9 +26,7 @@ export default () => {
     httpClient
       .post('/api/warehouses/' + id, values)
       .then((response: any) =>
-        setWarehouseList((prev) =>
-          prev.map((_item) => (_item.id === id ? response.data.warehouse : _item)),
-        ),
+        setWarehouseList((prev) => prev.map((_item) => (_item.id === id ? response.data.warehouse : _item))),
       )
       .catch((error) => console.log(error));
   }, []);
@@ -37,9 +35,7 @@ export default () => {
     httpClient
       .post('/api/warehouses/' + id + '/return-location', values)
       .then((response: any) =>
-        setWarehouseList((prev) =>
-          prev.map((_item) => (_item.id === id ? response.data.warehouse : _item)),
-        ),
+        setWarehouseList((prev) => prev.map((_item) => (_item.id === id ? response.data.warehouse : _item))),
       )
       .catch((error) => console.log(error));
   }, []);

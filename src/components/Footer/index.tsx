@@ -1,8 +1,8 @@
 import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
 
-const Footer: React.FC = () => {  
-  const defaultMessage = "Copyright 2022 SKUBANA";
+const Footer: React.FC = () => {
+  const defaultMessage = 'Copyright 2022 SKUBANA';
 
   const currentYear = new Date().getFullYear();
 

@@ -16,12 +16,7 @@ interface ISelectDropdown {
   style: React.CSSProperties;
 }
 
-const SelectDropdown: React.FC<ISelectDropdown> = ({
-  options,
-  defaultSelectedItems,
-  type,
-  ...props
-}) => {
+const SelectDropdown: React.FC<ISelectDropdown> = ({ options, defaultSelectedItems, type, ...props }) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
@@ -29,8 +24,7 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({
   }, [defaultSelectedItems]);
 
   const handleSelectItem = (value) => {
-    if (selectedItems.includes(value))
-      setSelectedItems(selectedItems.filter((item) => item !== value));
+    if (selectedItems.includes(value)) setSelectedItems(selectedItems.filter((item) => item !== value));
     else setSelectedItems([...selectedItems, value]);
   };
 
@@ -42,10 +36,7 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({
           <>
             <Row align="middle" gutter={10}>
               <Col>
-                <Checkbox
-                  checked={selectedItems?.includes(option.value)}
-                  onClick={() => handleSelectItem(option.value)}
-                />
+                <Checkbox checked={selectedItems?.includes(option.value)} onClick={() => handleSelectItem(option.value)} />
               </Col>
               <Col>
                 <h3>{option.label}</h3>
@@ -57,10 +48,7 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({
       dropdownRender={(menu) => (
         <>
           <Space style={{ marginTop: 10, marginLeft: 5 }}>
-            <Button
-              icon={<CheckOutlined />}
-              onClick={() => setSelectedItems(options.map((option) => option.value))}
-            >
+            <Button icon={<CheckOutlined />} onClick={() => setSelectedItems(options.map((option) => option.value))}>
               Check all
             </Button>
             <Button icon={<CloseOutlined />} onClick={() => setSelectedItems([])}>

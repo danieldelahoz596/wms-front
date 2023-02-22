@@ -15,9 +15,7 @@ function formatter(routes: any, parentPath = ''): string[] {
       result.push(`${item.path}`.replace(/\/{1,}/g, '/'));
     }
     if (item.routes) {
-      result = result.concat(
-        formatter(item.routes, item.path ? `${fixedParentPath}/${item.path}` : parentPath),
-      );
+      result = result.concat(formatter(item.routes, item.path ? `${fixedParentPath}/${item.path}` : parentPath));
     }
   });
   return [...new Set(result.filter((item) => !!item))];

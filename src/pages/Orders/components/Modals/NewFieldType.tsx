@@ -44,18 +44,10 @@ const NewFieldTypeModal: React.FC<INewFieldTypeModal> = ({ isOpen, onClose, onSa
       ]}
     >
       <Form form={form}>
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: 'Name is required' }]}
-        >
+        <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Name is required' }]}>
           <Input />
         </Form.Item>
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[{ required: true, message: 'Description is required' }]}
-        >
+        <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Description is required' }]}>
           <Input />
         </Form.Item>
       </Form>

@@ -31,8 +31,7 @@ const SideFilterTree: React.FC = () => {
       key: `${statusItem.po_status.id}`,
       title: (
         <span>
-          {statusItem.po_status.name}{' '}
-          <span className="tree-badge"> {statusItem.po_status.num} </span>
+          {statusItem.po_status.name} <span className="tree-badge"> {statusItem.po_status.num} </span>
         </span>
       ),
       children: [
@@ -54,14 +53,7 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return (
-    <Tree
-      treeData={preparePoFiltersForTree}
-      showLine={true}
-      onSelect={onSelect}
-      defaultSelectedKeys={['1']}
-    />
-  );
+  return <Tree treeData={preparePoFiltersForTree} showLine={true} onSelect={onSelect} defaultSelectedKeys={['1']} />;
 };
 
 export default SideFilterTree;

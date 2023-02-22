@@ -1,13 +1,7 @@
 import Icon, { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 const VectorSvg = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    version="1.1"
-    viewBox="0, 0, 400,400"
-    width="1em"
-    height="1em"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0, 0, 400,400" width="1em" height="1em">
     <g id="svgg">
       <path
         id="path0"
@@ -48,8 +42,6 @@ const VectorSvg = () => (
   </svg>
 );
 
-const VectorIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={VectorSvg} {...props} />
-);
+const VectorIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={VectorSvg} {...props} />;
 
 export default VectorIcon;

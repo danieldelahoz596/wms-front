@@ -128,13 +128,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const EditableTable: React.FC<ITable> = ({
-  dataSource,
-  columns,
-  handleSave,
-  pagination = false,
-  props,
-}) => {
+export const EditableTable: React.FC<ITable> = ({ dataSource, columns, handleSave, pagination = false, props }) => {
   const components = {
     body: {
       row: EditableRow,

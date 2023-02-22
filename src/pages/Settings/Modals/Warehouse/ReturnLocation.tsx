@@ -59,19 +59,11 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
             span: 16,
           }}
         >
-          <Form.Item
-            label="Location Name"
-            name={'name'}
-            initialValue={selectedWarehouse?.return_location?.name}
-          >
+          <Form.Item label="Location Name" name={'name'} initialValue={selectedWarehouse?.return_location?.name}>
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Attention"
-            name={'attention'}
-            initialValue={selectedWarehouse?.return_location?.attention}
-          >
+          <Form.Item label="Attention" name={'attention'} initialValue={selectedWarehouse?.return_location?.attention}>
             <Input />
           </Form.Item>
 
@@ -89,46 +81,26 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
             </Input.Group>
           </Form.Item>
 
-          <Form.Item
-            label="City"
-            name={'city'}
-            initialValue={selectedWarehouse?.return_location?.city}
-          >
+          <Form.Item label="City" name={'city'} initialValue={selectedWarehouse?.return_location?.city}>
             <Input />
           </Form.Item>
 
           <Form.Item label="State/Province, Zip">
             <Input.Group>
-              <Form.Item
-                name={'state'}
-                noStyle
-                initialValue={selectedWarehouse?.return_location?.state}
-              >
+              <Form.Item name={'state'} noStyle initialValue={selectedWarehouse?.return_location?.state}>
                 <Input style={{ width: '49%', marginRight: '1%' }} />
               </Form.Item>
-              <Form.Item
-                name={'zip'}
-                noStyle
-                initialValue={selectedWarehouse?.return_location?.zip}
-              >
+              <Form.Item name={'zip'} noStyle initialValue={selectedWarehouse?.return_location?.zip}>
                 <Input style={{ width: '50%' }} />
               </Form.Item>
             </Input.Group>
           </Form.Item>
           <Form.Item label="Contact Phone">
             <Input.Group>
-              <Form.Item
-                name={'phone'}
-                noStyle
-                initialValue={selectedWarehouse?.return_location?.phone}
-              >
+              <Form.Item name={'phone'} noStyle initialValue={selectedWarehouse?.return_location?.phone}>
                 <Input style={{ width: '89%', marginRight: '1%' }} />
               </Form.Item>
-              <Form.Item
-                name={'ext'}
-                noStyle
-                initialValue={selectedWarehouse?.return_location?.ext}
-              >
+              <Form.Item name={'ext'} noStyle initialValue={selectedWarehouse?.return_location?.ext}>
                 <Input style={{ width: '10%' }} placeholder="Ext." />
               </Form.Item>
             </Input.Group>

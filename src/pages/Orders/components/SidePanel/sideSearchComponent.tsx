@@ -5,8 +5,7 @@ import { Form, Space } from 'antd';
 import React from 'react';
 
 const SideSearch: React.FC = () => {
-  const { onChangeOrderSearchQuery, onOrderSearch, clearOrderSearchQuery } =
-    useModel('orderSearch');
+  const { onChangeOrderSearchQuery, onOrderSearch, clearOrderSearchQuery } = useModel('orderSearch');
   const { initialState } = useModel('@@initialState');
   const { initialData } = initialState;
 

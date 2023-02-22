@@ -189,21 +189,13 @@ const TrendingInventory: React.FC = () => {
                       key: 'download_png',
                       label: 'Download PNG image',
                       disabled: !trendingInventoryChartInstance,
-                      onClick: () =>
-                        trendingInventoryChartInstance.downloadImage(
-                          'trending-inventory',
-                          'image/png',
-                        ),
+                      onClick: () => trendingInventoryChartInstance.downloadImage('trending-inventory', 'image/png'),
                     },
                     {
                       key: 'download_jpeg',
                       label: 'Download JPEG image',
                       disabled: !trendingInventoryChartInstance,
-                      onClick: () =>
-                        trendingInventoryChartInstance.downloadImage(
-                          'trending-inventory',
-                          'image/jpeg',
-                        ),
+                      onClick: () => trendingInventoryChartInstance.downloadImage('trending-inventory', 'image/jpeg'),
                     },
                     {
                       key: 'download_pdf',

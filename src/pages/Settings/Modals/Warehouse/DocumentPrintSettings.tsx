@@ -8,11 +8,7 @@ interface IDocumentPrintSettingsModal {
   onClose: () => void;
 }
 
-const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
-  isOpen,
-  onSave,
-  onClose,
-}) => {
+const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({ isOpen, onSave, onClose }) => {
   return (
     <OModal
       title="Document Print Settings For In House"
@@ -46,23 +42,19 @@ const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
                 <>
                   <Card title="LABEL PRINT FORMAT">
                     <p>
-                      Select the format you prefer for printing labels. You can optionally select to
-                      include packing slips inline with your labels.
+                      Select the format you prefer for printing labels. You can optionally select to include packing slips inline
+                      with your labels.
                     </p>
                   </Card>
                   <Card title="LABEL PRINT OPTIONS">
                     <Form>
                       <Form.Item label="Order Labels By">
-                        <Select
-                          size="small"
-                          defaultValue="0"
-                          options={[{ value: 0, label: 'None - as selected' }]}
-                        />
+                        <Select size="small" defaultValue="0" options={[{ value: 0, label: 'None - as selected' }]} />
                       </Form.Item>
                       <Form.Item label="Label Messages">
                         <p>
-                          You can define up to three custom messages to print on your shipping
-                          labels, including information about the order.
+                          You can define up to three custom messages to print on your shipping labels, including information about
+                          the order.
                         </p>
                         <Input.Group compact style={{ display: 'flex', alignItems: 'center' }}>
                           <Form.Item noStyle>
@@ -84,16 +76,10 @@ const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
                             <Checkbox />
                           </Col>
                           <Col span={16}>
-                            <div>
-                              Set the Ship Date to the next day if the current time is after:
-                            </div>
+                            <div>Set the Ship Date to the next day if the current time is after:</div>
                           </Col>
                           <Col span={6}>
-                            <Select
-                              size="small"
-                              defaultValue="12am"
-                              options={[{ value: '12am', label: '12:00 AM' }]}
-                            />
+                            <Select size="small" defaultValue="12am" options={[{ value: '12am', label: '12:00 AM' }]} />
                           </Col>
                         </Row>
                       </Form.Item>
@@ -116,11 +102,7 @@ const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
                   <Card title="PACKING SLIP OPTIONS">
                     <Form labelCol={{ span: 16 }} wrapperCol={{ span: 8 }}>
                       <Form.Item label="Order Items By">
-                        <Select
-                          size="small"
-                          defaultValue="0"
-                          options={[{ value: 0, label: 'Master SKU' }]}
-                        />
+                        <Select size="small" defaultValue="0" options={[{ value: 0, label: 'Master SKU' }]} />
                       </Form.Item>
                       <Form.Item label="Use Label Ordering when Printing Packing Slips Independently">
                         <Checkbox />
@@ -154,11 +136,7 @@ const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
                   <Card title="PACKING SLIP OPTIONS">
                     <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
                       <Form.Item label="Order Items By">
-                        <Select
-                          size="small"
-                          defaultValue="0"
-                          options={[{ value: 0, label: 'Master SKU' }]}
-                        />
+                        <Select size="small" defaultValue="0" options={[{ value: 0, label: 'Master SKU' }]} />
                       </Form.Item>
                       <Form.Item label="Product Images">
                         <Checkbox defaultChecked /> Print product image on Pick Lists
@@ -167,8 +145,7 @@ const DocumentPrintSettingsModal: React.FC<IDocumentPrintSettingsModal> = ({
                         <Checkbox defaultChecked /> Include order numbers for each product
                       </Form.Item>
                       <Form.Item label="Bundles/Kits">
-                        <Checkbox /> Sort non-assembled bundles and kits Master Sku with Core
-                        Products
+                        <Checkbox /> Sort non-assembled bundles and kits Master Sku with Core Products
                       </Form.Item>
                       <Form.Item label="Product UPC">
                         <Checkbox defaultChecked /> Include UPC for each product

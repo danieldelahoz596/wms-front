@@ -23,8 +23,7 @@ const Gallery: React.FC = () => {
     setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
   };
 
-  const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
+  const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
 
   const handleCancel = () => setModal(modalType.Close);
 
@@ -37,9 +36,7 @@ const Gallery: React.FC = () => {
 
   return (
     <>
-      <p>
-        Manage images by adding, removing and/or dragging each image to create an ordered gallery.
-      </p>
+      <p>Manage images by adding, removing and/or dragging each image to create an ordered gallery.</p>
       <Upload
         accept="image/png, image/jpeg, image/jpg"
         multiple={true}
@@ -51,12 +48,7 @@ const Gallery: React.FC = () => {
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
-      <Modal
-        open={modalOpen == modalType.Preview}
-        title={previewTitle}
-        footer={null}
-        onCancel={handleCancel}
-      >
+      <Modal open={modalOpen == modalType.Preview} title={previewTitle} footer={null} onCancel={handleCancel}>
         <img alt="example" style={{ width: '100%' }} src={previewImage} />
       </Modal>
     </>

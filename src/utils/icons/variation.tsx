@@ -6,8 +6,6 @@ const VariationSvg = () => (
   </svg>
 );
 
-const VariationIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={VariationSvg} {...props} />
-);
+const VariationIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={VariationSvg} {...props} />;
 
 export default VariationIcon;

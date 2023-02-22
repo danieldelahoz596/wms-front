@@ -23,11 +23,7 @@ const InventoryManagement: React.FC = () => {
   const tabButtons = useMemo(
     () => (
       <>
-        <Radio.Group
-          onChange={(e) => handleChangeTarget(e.target.value)}
-          style={{ marginBottom: 8 }}
-          value={selectedTab}
-        >
+        <Radio.Group onChange={(e) => handleChangeTarget(e.target.value)} style={{ marginBottom: 8 }} value={selectedTab}>
           <Radio.Button value="stock">Stock</Radio.Button>
           <Radio.Button value="transfer">Transfer</Radio.Button>
         </Radio.Group>

@@ -18,13 +18,7 @@ interface IStockDrawRankModal {
   onSave: (items: any[]) => void;
 }
 
-const StockDrawRankModal: React.FC<IStockDrawRankModal> = ({
-  isOpen,
-  vendorName,
-  locations,
-  onClose,
-  onSave,
-}) => {
+const StockDrawRankModal: React.FC<IStockDrawRankModal> = ({ isOpen, vendorName, locations, onClose, onSave }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -79,8 +73,8 @@ const StockDrawRankModal: React.FC<IStockDrawRankModal> = ({
               fontSize: '12px',
             }}
           >
-            This stock is currently the only active warehouse stock for this product. skubana will
-            therefore assign it the primary draw rank. <a>Tell me more.</a>
+            This stock is currently the only active warehouse stock for this product. skubana will therefore assign it the primary
+            draw rank. <a>Tell me more.</a>
           </Typography.Paragraph>
         </Typography>
 

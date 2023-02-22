@@ -38,8 +38,7 @@ export default {
   'app.settings.security.email': 'Backup Email',
   'app.settings.security.email-description': 'Bound Email',
   'app.settings.security.mfa': 'MFA Device',
-  'app.settings.security.mfa-description':
-    'Unbound MFA device, after binding, can be confirmed twice',
+  'app.settings.security.mfa-description': 'Unbound MFA device, after binding, can be confirmed twice',
   'app.settings.security.modify': 'Modify',
   'app.settings.security.set': 'Set',
   'app.settings.security.bind': 'Bind',
@@ -51,20 +50,16 @@ export default {
   'app.settings.binding.dingding-description': 'Currently unbound DingTalk account',
   'app.settings.binding.bind': 'Bind',
   'app.settings.notification.password': 'Account Password',
-  'app.settings.notification.password-description':
-    'Messages from other users will be notified in the form of a station letter',
+  'app.settings.notification.password-description': 'Messages from other users will be notified in the form of a station letter',
   'app.settings.notification.messages': 'System Messages',
-  'app.settings.notification.messages-description':
-    'System messages will be notified in the form of a station letter',
+  'app.settings.notification.messages-description': 'System messages will be notified in the form of a station letter',
   'app.settings.notification.todo': 'To-do Notification',
-  'app.settings.notification.todo-description':
-    'The to-do list will be notified in the form of a letter from the station',
+  'app.settings.notification.todo-description': 'The to-do list will be notified in the form of a letter from the station',
   'app.settings.open': 'Open',
   'app.settings.close': 'Close',
   'app.settings.profile.change-password.title': 'CHANGE PASSWORD',
   'app.settings.profile.change-password.current-password': 'Current Password',
-  'app.settings.profile.change-password.current-password-message':
-    'Please input your current password!',
+  'app.settings.profile.change-password.current-password-message': 'Please input your current password!',
   'app.settings.profile.change-password.new-password': 'New Password!',
   'app.settings.profile.change-password.new-password-message': 'Please input your password!',
   'app.settings.profile.change-password.confirm-password': 'Confirm Password',

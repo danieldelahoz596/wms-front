@@ -42,8 +42,6 @@ const SettingSvg = () => (
   </svg>
 );
 
-const SettingIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={SettingSvg} {...props} />
-);
+const SettingIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={SettingSvg} {...props} />;
 
 export default SettingIcon;

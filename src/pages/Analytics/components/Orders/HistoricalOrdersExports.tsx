@@ -95,14 +95,7 @@ const HistoricalOrdersExports: React.FC = () => {
         <h2 className="page-title">Orders {'>'} Historical Exports</h2>
 
         <Card>
-          <Form
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 18 }}
-            labelAlign="left"
-            labelWrap
-            form={form}
-            onFinish={handleSubmit}
-          >
+          <Form labelCol={{ span: 5 }} wrapperCol={{ span: 18 }} labelAlign="left" labelWrap form={form} onFinish={handleSubmit}>
             <Row>
               <Col span={7}>
                 <Form.Item name="warehouses" label="Warehouses">
@@ -135,11 +128,7 @@ const HistoricalOrdersExports: React.FC = () => {
             </Row>
             <Row>
               <Col span={4}>
-                <Form.Item
-                  name="shipped_date_from"
-                  label="Shipped Date From"
-                  labelCol={{ span: 9 }}
-                >
+                <Form.Item name="shipped_date_from" label="Shipped Date From" labelCol={{ span: 9 }}>
                   <DatePicker size="small" />
                 </Form.Item>
               </Col>
@@ -159,11 +148,7 @@ const HistoricalOrdersExports: React.FC = () => {
                 </Form.Item>
               </Col>
               <Col span={3}>
-                <Form.Item
-                  name="order_date_to"
-                  label="To"
-                  initialValue={moment().subtract(1, 'year').endOf('year')}
-                >
+                <Form.Item name="order_date_to" label="To" initialValue={moment().subtract(1, 'year').endOf('year')}>
                   <DatePicker size="small" />
                 </Form.Item>
               </Col>
@@ -180,8 +165,8 @@ const HistoricalOrdersExports: React.FC = () => {
 
         <Card>
           <h3>
-            Note: This data from Historical Exports might be delayed for up to 24 hours, the exports
-            do not reflect the most up-to-date state of the orders.
+            Note: This data from Historical Exports might be delayed for up to 24 hours, the exports do not reflect the most
+            up-to-date state of the orders.
           </h3>
           <OTable columns={Tcolumns} rows={exportRows} bordered={false} />
         </Card>

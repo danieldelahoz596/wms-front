@@ -64,9 +64,7 @@ const OrderItems: React.FC = () => {
     if (value || value === 0) {
       setEditableOrder((prevState) => ({
         ...prevState,
-        orderItems: prevState.orderItems.map((_item) =>
-          _item.key === item.key ? { ..._item, [name]: value } : _item,
-        ),
+        orderItems: prevState.orderItems.map((_item) => (_item.key === item.key ? { ..._item, [name]: value } : _item)),
       }));
     }
   };
@@ -77,12 +75,7 @@ const OrderItems: React.FC = () => {
         const totalAmount = subTotal - item.discount;
 
         return {
-          action: (
-            <CloseOutlined
-              onClick={() => handleOrderProductRemove(item)}
-              style={{ color: '#5F5FFF' }}
-            />
-          ),
+          action: <CloseOutlined onClick={() => handleOrderProductRemove(item)} style={{ color: '#5F5FFF' }} />,
           product: (
             <div>
               <div>Listing Name: {item.listingName}</div>
@@ -105,9 +98,7 @@ const OrderItems: React.FC = () => {
                 type="number"
                 name="unitQty"
                 defaultValue={item.unitQty}
-                onChange={(_name: string, _value: any) =>
-                  handleOrderItemChange(item, _name, parseInt(_value))
-                }
+                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseInt(_value))}
               />
             </div>
           ),
@@ -118,9 +109,7 @@ const OrderItems: React.FC = () => {
                 type="number"
                 name="unitAmount"
                 defaultValue={item.unitAmount}
-                onChange={(_name: string, _value: any) =>
-                  handleOrderItemChange(item, _name, _value)
-                }
+                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, _value)}
               />
             </div>
           ),
@@ -132,9 +121,7 @@ const OrderItems: React.FC = () => {
                 type="number"
                 name="discount"
                 defaultValue={item.discount}
-                onChange={(_name: string, _value: any) =>
-                  handleOrderItemChange(item, _name, parseFloat(_value))
-                }
+                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseFloat(_value))}
               />
             </div>
           ),
@@ -149,9 +136,7 @@ const OrderItems: React.FC = () => {
   }));
 
   if (!!search) {
-    productOptions = productOptions.filter((_item) =>
-      _item.label?.toLowerCase().includes(search?.toLowerCase()),
-    );
+    productOptions = productOptions.filter((_item) => _item.label?.toLowerCase().includes(search?.toLowerCase()));
   }
 
   return (

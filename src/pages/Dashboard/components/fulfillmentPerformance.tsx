@@ -1,9 +1,4 @@
-import {
-  CheckCircleOutlined,
-  ClockCircleOutlined,
-  PauseOutlined,
-  WarningOutlined,
-} from '@ant-design/icons';
+import { CheckCircleOutlined, ClockCircleOutlined, PauseOutlined, WarningOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 
 interface IFulfillmentPerformance {
@@ -15,7 +10,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
     <>
       <div style={{ fontSize: 25 }}>Fulfillment Performance</div>
       {!!data ? (
-        <Row gutter={[30, 30]} className='mt-10'>
+        <Row gutter={[30, 30]} className="mt-10">
           <Col span={12}>
             <div
               style={{
@@ -35,11 +30,11 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <WarningOutlined className='mr-10'/>
+                  <WarningOutlined className="mr-10" />
                   Unresolved
                 </Col>
               </Row>
-              <Row className='ml-10'>
+              <Row className="ml-10">
                 <Col span={24}>
                   <Row justify="space-between">
                     <Col>Missing Product Info:</Col>
@@ -87,7 +82,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <PauseOutlined style={{ marginRight: 10 }}/>
+                  <PauseOutlined style={{ marginRight: 10 }} />
                   PAUSED
                 </Col>
               </Row>
@@ -131,7 +126,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <ClockCircleOutlined style={{ marginRight: 10 }}/>
+                  <ClockCircleOutlined style={{ marginRight: 10 }} />
                   AWAITING FULFILLMENT
                 </Col>
               </Row>
@@ -183,7 +178,7 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
                 }}
               >
                 <Col>
-                  <CheckCircleOutlined style={{ marginRight: 10 }}/>
+                  <CheckCircleOutlined style={{ marginRight: 10 }} />
                   SHIPPED
                 </Col>
               </Row>

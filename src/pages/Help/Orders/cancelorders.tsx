@@ -18,8 +18,7 @@ export default function () {
               </li>
               <li>
                 <p>
-                  Search for the order you want to cancel using the <b>Search/Filter</b> panel on
-                  the left.
+                  Search for the order you want to cancel using the <b>Search/Filter</b> panel on the left.
                   <br />
                   For more details on how to search for orders, see{' '}
                   <a href="" className="helplink">
@@ -37,8 +36,8 @@ export default function () {
               </li>
               <li>
                 <p>
-                  In the <b>Orders</b> panel in the middle section, select the order to be canceled.
-                  Then click the Edit dropdown menu, then <b>Cancel Order</b>.
+                  In the <b>Orders</b> panel in the middle section, select the order to be canceled. Then click the Edit dropdown
+                  menu, then <b>Cancel Order</b>.
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/cancel2.png"
@@ -50,8 +49,7 @@ export default function () {
               </li>
               <li>
                 <p>
-                  In the <b>Cancel Orders</b> window, select the reason for cancellation from the
-                  list.
+                  In the <b>Cancel Orders</b> window, select the reason for cancellation from the list.
                 </p>
                 <img
                   src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/direct/cancel3.PNG"
@@ -63,11 +61,10 @@ export default function () {
               </li>
               <li>
                 <p>
-                  Check the <b>Notify sales channel?</b> checkbox to prompt Extensiv Order Manager
-                  to cancel the order on the sales channel as well. If this box is selected, then
-                  you can also choose to Refund the order in the sales channel. The yellow
-                  information details box will list the sales channel(s) that currently support this
-                  specific refund functionality.
+                  Check the <b>Notify sales channel?</b> checkbox to prompt Extensiv Order Manager to cancel the order on the
+                  sales channel as well. If this box is selected, then you can also choose to Refund the order in the sales
+                  channel. The yellow information details box will list the sales channel(s) that currently support this specific
+                  refund functionality.
                 </p>
                 <Alert
                   message="Note"

@@ -9,11 +9,7 @@ interface IImportVendorProductsModal {
   onClick: (value: any) => void;
 }
 
-const ImportVendorProductsModal: React.FC<IImportVendorProductsModal> = ({
-  isOpen,
-  onClose,
-  onClick,
-}) => {
+const ImportVendorProductsModal: React.FC<IImportVendorProductsModal> = ({ isOpen, onClose, onClick }) => {
   return (
     <OModal
       title="Select How To Import Vendor Products"
@@ -32,9 +28,8 @@ const ImportVendorProductsModal: React.FC<IImportVendorProductsModal> = ({
     >
       <>
         <p>
-          Skubana gives you the option to import your vendor products by uploading an individial
-          file for each vendor, or by importing one global file that contains all your vendor
-          products.
+          Skubana gives you the option to import your vendor products by uploading an individial file for each vendor, or by
+          importing one global file that contains all your vendor products.
         </p>
 
         <Row gutter={10}>

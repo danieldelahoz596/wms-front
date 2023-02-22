@@ -17,12 +17,8 @@ interface IAddImportSettingsModal {
 const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
 
-  const {
-    editableImportSetting,
-    setEditableImportSetting,
-    addOrderImportSettings,
-    updateOrderImportSettings,
-  } = useModel('orderImportSettings');
+  const { editableImportSetting, setEditableImportSetting, addOrderImportSettings, updateOrderImportSettings } =
+    useModel('orderImportSettings');
 
   const initialState = {
     settingName: '',
@@ -30,13 +26,9 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
     fileFormat: 'csv',
     structure: 'fixed',
   };
-  const [selectedImportFields, setSelectedImportFields] = useState(
-    editableImportSetting?.optionalFields ?? [],
-  );
+  const [selectedImportFields, setSelectedImportFields] = useState(editableImportSetting?.optionalFields ?? []);
 
-  const [newSettings, setNewSettings] = useState(
-    editableImportSetting ? { ...editableImportSetting } : { ...initialState },
-  );
+  const [newSettings, setNewSettings] = useState(editableImportSetting ? { ...editableImportSetting } : { ...initialState });
 
   const optionalFields = [
     {
@@ -122,9 +114,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
   };
 
   const handleColumnNameChange = (item, value) => {
-    setSelectedImportFields((prevState) =>
-      prevState.map((cur) => (cur.key == item.key ? { ...cur, name: value } : cur)),
-    );
+    setSelectedImportFields((prevState) => prevState.map((cur) => (cur.key == item.key ? { ...cur, name: value } : cur)));
   };
 
   const handleSave = () => {
@@ -158,12 +148,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
   const preparedImportFieldsRows = selectedImportFields.map((item, index) => ({
     sl: index + 1,
     dataField: item.field.toUpperCase(),
-    columnName: (
-      <Input
-        defaultValue={item.name}
-        onChange={(e) => handleColumnNameChange(item, e.target.value)}
-      />
-    ),
+    columnName: <Input defaultValue={item.name} onChange={(e) => handleColumnNameChange(item, e.target.value)} />,
     remove: (
       <span onClick={() => handleRemoveField(item.key)}>
         <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
@@ -174,7 +159,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
   return (
     <OModal
       title="New import settings"
-      helpLink='/help/orders/general'
+      helpLink="/help/orders/general"
       width={1000}
       isOpen={isOpen}
       handleCancel={onClose}
@@ -198,12 +183,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
           <Form form={form}>
             <Form.Item style={{ padding: '0.5rem', marginBottom: '1rem' }}>
               <span>Settings Name</span>
-              <OInput
-                type="text"
-                defaultValue={newSettings.settingName}
-                name="settingName"
-                onChange={handleNewSettingsChange}
-              />
+              <OInput type="text" defaultValue={newSettings.settingName} name="settingName" onChange={handleNewSettingsChange} />
             </Form.Item>
             <Card title="FILE CONFIGURATION" style={{ padding: '0.5rem' }}>
               <Form.Item name={'fileFormat'} label="File Format">
@@ -231,12 +211,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
               </Form.Item>
 
               <Form.Item name={'date'} label="Date Format ">
-                <OInput
-                  type="date"
-                  name="date"
-                  defaultValue={newSettings.date}
-                  onChange={handleNewSettingsChange}
-                />
+                <OInput type="date" name="date" defaultValue={newSettings.date} onChange={handleNewSettingsChange} />
               </Form.Item>
             </Card>
           </Form>
@@ -271,11 +246,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
                 />
               </Form.Item>
             </Form>
-            <OTable
-              pagination={false}
-              columns={importFieldsColumns}
-              rows={preparedImportFieldsRows}
-            />
+            <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />
           </Card>
         </Col>
       </Row>

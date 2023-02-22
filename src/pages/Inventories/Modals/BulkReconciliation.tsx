@@ -9,11 +9,7 @@ interface IBulkReconciliationModal {
   onSave: () => void;
 }
 
-const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({ isOpen, onClose, onSave }) => {
   const { vendorList } = useModel('vendor');
   return (
     <OModal
@@ -39,9 +35,8 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
     >
       <>
         <p>
-          By confirming to bulk reconcile your inventory, all inventory across all your active
-          warehouses will reflect in the queue with default costs. Please confer with your account
-          manager before making this change.
+          By confirming to bulk reconcile your inventory, all inventory across all your active warehouses will reflect in the
+          queue with default costs. Please confer with your account manager before making this change.
         </p>
         <OInput className="mr-10" type="checkbox" /> &nbsp;&nbsp;Yes, I understand
         <br />
@@ -50,9 +45,7 @@ const BulkReconciliationModal: React.FC<IBulkReconciliationModal> = ({
         <OInput
           type="select"
           placeholder="Select..."
-          options={vendorList
-            .filter((item) => item.status === 1)
-            .map((vendor) => ({ value: vendor.id, text: vendor.name }))}
+          options={vendorList.filter((item) => item.status === 1).map((vendor) => ({ value: vendor.id, text: vendor.name }))}
           style={{ flex: 1, width: '100%', marginTop: 5 }}
         />
       </>

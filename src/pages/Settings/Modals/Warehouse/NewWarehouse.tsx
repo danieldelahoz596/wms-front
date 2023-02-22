@@ -122,10 +122,7 @@ const NewWarehouseModal: React.FC<INewWarehouseModal> = ({ isOpen, onSave, onClo
             <Input />
           </Form.Item>
           <Form.Item colon={false} name={'is_backup_warehouse'} style={{ textAlign: 'right' }}>
-            Add as Backup Warehouse{' '}
-            <Checkbox
-              onChange={(_e) => form.setFieldValue('is_backup_warehouse', _e.target.checked)}
-            />
+            Add as Backup Warehouse <Checkbox onChange={(_e) => form.setFieldValue('is_backup_warehouse', _e.target.checked)} />
           </Form.Item>
           <div>
             <Card

@@ -7,8 +7,7 @@ import { useModel } from '@umijs/max';
 import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, setEditableVendor, getVendorHistory, updateNewVendor } =
-    useModel('vendor');
+  const { selectedVendor, setEditableVendor, getVendorHistory, updateVendor } = useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { poTemplateList } = useModel('poTemplate');
 
@@ -18,11 +17,8 @@ const VendorDetails = ({ setModal }) => {
       ...selectedVendor,
       po_default: {
         ...selectedVendor.po_default,
-        template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)
-          ?.value,
-        payment_term: paymentTermList.find(
-          (_item) => _item.id == selectedVendor.po_default?.payment_term,
-        )?.value,
+        template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.value,
+        payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.value,
       },
     };
   }
@@ -35,7 +31,7 @@ const VendorDetails = ({ setModal }) => {
   return vendorDetails ? (
     <>
       <Card title={'Vendor Details'}>
-        <Space size={4} wrap>
+        <Space size={4}>
           <OButton btnText="Edit" onClick={handleEditVendor} />
           <OButton
             btnText="History"
@@ -47,7 +43,7 @@ const VendorDetails = ({ setModal }) => {
           <Popconfirm
             title="Sure to deactivate?"
             onConfirm={() => {
-              updateNewVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+              updateVendor({ id: selectedVendor.id, status: !selectedVendor.status });
             }}
           >
             <OButton btnText={selectedVendor.status ? 'Deactivate' : 'Activate'} />
@@ -119,19 +115,13 @@ const VendorDetails = ({ setModal }) => {
           </Card>
           <Card title="P.O. Defaults" size="small">
             <Descriptions>
-              <Descriptions.Item label="P.O. Template">
-                {vendorDetails.po_default.template}
-              </Descriptions.Item>
+              <Descriptions.Item label="P.O. Template">{vendorDetails.po_default.template}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="P.O. Format">
-                {vendorDetails.po_default.format}
-              </Descriptions.Item>
+              <Descriptions.Item label="P.O. Format">{vendorDetails.po_default.format}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Payment Term">
-                {vendorDetails.po_default.payment_term}
-              </Descriptions.Item>
+              <Descriptions.Item label="Payment Term">{vendorDetails.po_default.payment_term}</Descriptions.Item>
             </Descriptions>
           </Card>
         </Space>

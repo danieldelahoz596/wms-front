@@ -11,13 +11,7 @@ interface IStockDeactiveModal {
   onSave: () => void;
 }
 
-const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
-  isOpen,
-  subTitle,
-  active,
-  onClose,
-  onSave,
-}) => {
+const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({ isOpen, subTitle, active, onClose, onSave }) => {
   return (
     <OModal
       title="In-House Warehouse - Deactive Stock"
@@ -58,8 +52,8 @@ const StockDeactiveModal: React.FC<IStockDeactiveModal> = ({
               paddingBottom: 5,
             }}
           >
-            {active ? 'Deactivating' : 'Activating'} this stock will subtract all of its available
-            inventory from associated product listings
+            {active ? 'Deactivating' : 'Activating'} this stock will subtract all of its available inventory from associated
+            product listings
           </Typography.Paragraph>
         </Typography>
 

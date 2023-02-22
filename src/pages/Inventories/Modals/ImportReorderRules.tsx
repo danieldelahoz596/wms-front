@@ -9,11 +9,7 @@ interface IImportReorderRulesModal {
   onSave: () => void;
 }
 
-const ImportReorderRulesModal: React.FC<IImportReorderRulesModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ImportReorderRulesModal: React.FC<IImportReorderRulesModal> = ({ isOpen, onClose, onSave }) => {
   return (
     <OModal
       title="Product Auto-Reorder Rules Import"
@@ -38,15 +34,14 @@ const ImportReorderRulesModal: React.FC<IImportReorderRulesModal> = ({
     >
       <>
         <div style={{ fontSize: 14 }}>
-          Batch imports of P.O. Auto-Reorder Rules are down through the Microsoft Excel spreadsheet
-          format.
+          Batch imports of P.O. Auto-Reorder Rules are down through the Microsoft Excel spreadsheet format.
         </div>
         <a style={{ color: '#5f5fff', fontSize: 14 }}>
           <u>Download the Excel Template for Auto-Reorder Rules Import</u>
         </a>
         <div style={{ fontSize: 14, marginTop: 10 }}>
-          All products are uniquely identified by the <b>Master SKU, </b> and those {`SKU's`} are{' '}
-          <b>not</b> case sensitive. For example,{' '}
+          All products are uniquely identified by the <b>Master SKU, </b> and those {`SKU's`} are <b>not</b> case sensitive. For
+          example,{' '}
           {`'sku123' is regarded the same as 'SKU123' by the system. All of the following columns are required for each product:`}
         </div>
         <div style={{ marginTop: 10, marginBottom: 5, fontSize: 14 }}>

@@ -9,12 +9,7 @@ interface IWarehouseDeactivateModal {
   activate: boolean;
 }
 
-const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({
-  isOpen,
-  onSave,
-  onClose,
-  activate,
-}) => {
+const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({ isOpen, onSave, onClose, activate }) => {
   const comment = `${activate ? 'Activating' : 'Deactivating'} this warehouse will also ${
     activate ? 'Activate' : 'Deactivate'
   } all of its product stock and subtract all of its available inventory from associated product listings.`;
@@ -45,9 +40,7 @@ const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({
     >
       <>
         <Typography style={{ marginTop: '5px' }}>
-          <Typography.Paragraph
-            style={{ backgroundColor: '#DEE0FF', color: 'black', fontSize: '12px' }}
-          >
+          <Typography.Paragraph style={{ backgroundColor: '#DEE0FF', color: 'black', fontSize: '12px' }}>
             {comment}
           </Typography.Paragraph>
         </Typography>

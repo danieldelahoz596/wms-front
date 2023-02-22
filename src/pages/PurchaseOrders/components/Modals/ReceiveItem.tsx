@@ -88,13 +88,7 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
               <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
                 <Input
                   type="number"
-                  addonBefore={
-                    <Select
-                      defaultValue="$"
-                      style={{ width: 40 }}
-                      options={[{ value: '$', label: '$' }]}
-                    />
-                  }
+                  addonBefore={<Select defaultValue="$" style={{ width: 40 }} options={[{ value: '$', label: '$' }]} />}
                   value={0.0}
                 />
               </Form.Item>

@@ -13,12 +13,7 @@ interface IImportOrderShipmentModal {
   onConfigure: () => void;
 }
 
-const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  onConfigure,
-}) => {
+const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen, onClose, onSave, onConfigure }) => {
   const updateShipmentOptions = [
     {
       value: '1',
@@ -53,10 +48,9 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({
     >
       <>
         <p>
-          External shipments are any shipments that were not processed through Skubana shipping
-          module. This includes shipments for orders that were fulfilled by a channel (e.g. Amazon
-          FBA), a 3PL, a dropship vendor, or any other source outside of Skubana. This is the batch
-          import equivalent of <b>{`marking orders as "Shipped".`}</b>
+          External shipments are any shipments that were not processed through Skubana shipping module. This includes shipments
+          for orders that were fulfilled by a channel (e.g. Amazon FBA), a 3PL, a dropship vendor, or any other source outside of
+          Skubana. This is the batch import equivalent of <b>{`marking orders as "Shipped".`}</b>
         </p>
         <Row gutter={32}>
           <Col span={14}>
@@ -69,20 +63,15 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({
               }}
             >
               <p>
-                All import of external shipments into Skubana are preformed using the Microsoft
-                Excel spreadsheet format. In order to generate the appropriate template to use for
-                your imports and ensure there is no ambiguity as to which channels and carriers.
-                Please note that mappings are not case sensitive.
+                All import of external shipments into Skubana are preformed using the Microsoft Excel spreadsheet format. In order
+                to generate the appropriate template to use for your imports and ensure there is no ambiguity as to which channels
+                and carriers. Please note that mappings are not case sensitive.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
                 <OButton btnText="Configure" bordered={true} onClick={onConfigure} />
                 <span>Import Settings:</span>
                 <OInput type="select" placeholder="Select..." options={[]} style={{ flex: 1 }} />
-                <Button
-                  type="primary"
-                  size="small"
-                  style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}
-                >
+                <Button type="primary" size="small" style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}>
                   <VerticalAlignBottomOutlined size={16} />
                 </Button>
               </div>

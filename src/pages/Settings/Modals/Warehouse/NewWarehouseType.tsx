@@ -8,11 +8,7 @@ interface INewWarehouseTypeModal {
   onClose: () => void;
 }
 
-const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({
-  isOpen,
-  onClose,
-  handleOpenNew,
-}) => {
+const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({ isOpen, onClose, handleOpenNew }) => {
   return (
     <OModal
       title="New Warehouse"
@@ -38,16 +34,8 @@ const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({
           padding: '1rem',
         }}
       >
-        <OButton
-          btnText={'Direct (In-House) Fulfillment'}
-          style={{ border: '1px solid #5F5FFF' }}
-          onClick={handleOpenNew}
-        />
-        <OButton
-          btnText={'Third Party Logistics'}
-          style={{ border: '1px solid #5F5FFF' }}
-          onClick={onClose}
-        />
+        <OButton btnText={'Direct (In-House) Fulfillment'} style={{ border: '1px solid #5F5FFF' }} onClick={handleOpenNew} />
+        <OButton btnText={'Third Party Logistics'} style={{ border: '1px solid #5F5FFF' }} onClick={onClose} />
         <a href="#">
           {"What's the the difference"} <QuestionCircleTwoTone />
         </a>

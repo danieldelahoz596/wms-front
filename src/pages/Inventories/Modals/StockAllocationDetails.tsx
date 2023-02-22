@@ -36,11 +36,7 @@ const Tcolumns = [
   },
 ];
 
-const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({
-  isOpen,
-  onClose,
-  dataSource,
-}) => {
+const StockAllocationDetailsModal: React.FC<IStockAllocationDetailsModal> = ({ isOpen, onClose, dataSource }) => {
   return (
     <OModal
       title="Stock allocation details"

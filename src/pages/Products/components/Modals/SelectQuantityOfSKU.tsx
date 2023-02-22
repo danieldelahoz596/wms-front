@@ -16,11 +16,7 @@ interface DataType {
   quantity: string;
 }
 
-const SelectQuantityOfSKUModal: React.FC<ISelectQuantityOfSKUModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const SelectQuantityOfSKUModal: React.FC<ISelectQuantityOfSKUModal> = ({ isOpen, onClose, onSave }) => {
   const { selectedProducts, setSelectedProducts } = useModel('product');
 
   const tableData = useMemo(
@@ -34,11 +30,7 @@ const SelectQuantityOfSKUModal: React.FC<ISelectQuantityOfSKUModal> = ({
   );
 
   const handleQuantityChange = (id, value) => {
-    setSelectedProducts(
-      selectedProducts.map((product) =>
-        product.id === id ? { ...product, quantity: value } : product,
-      ),
-    );
+    setSelectedProducts(selectedProducts.map((product) => (product.id === id ? { ...product, quantity: value } : product)));
   };
 
   const columns: ColumnsType<DataType> = [

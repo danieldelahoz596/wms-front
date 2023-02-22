@@ -50,7 +50,7 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
 
   return (
     <OModal
-      title='NEW ATTRIBUTE GROUPINGS'
+      title="NEW ATTRIBUTE GROUPINGS"
       helpLink="/help/products/create/productvariations"
       width={600}
       centered
@@ -74,8 +74,8 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
       <>
         <div style={{ padding: '1rem' }}>
           <h3>
-            Enter your attribute group names to begin adding attributes for use in product creation.
-            (blank attributes will not be saved)
+            Enter your attribute group names to begin adding attributes for use in product creation. (blank attributes will not be
+            saved)
           </h3>
           <Input
             placeholder="Enter a valid attribute group name"
@@ -99,14 +99,8 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
                 extra={
                   <>
                     <Space size={50}>
-                      <OButton
-                        btnText={<CloseOutlined />}
-                        onClick={() => handleRemoveGroup(_group.name)}
-                      />
-                      <OButton
-                        btnText={<PlusOutlined />}
-                        onClick={(e) => handleAddAttribute(e, _group.id)}
-                      />
+                      <OButton btnText={<CloseOutlined />} onClick={() => handleRemoveGroup(_group.name)} />
+                      <OButton btnText={<PlusOutlined />} onClick={(e) => handleAddAttribute(e, _group.id)} />
                     </Space>
                   </>
                 }

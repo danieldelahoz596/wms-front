@@ -63,8 +63,7 @@ export const historyData = [
     key: 3,
     edit_time: '10/27/2020 3:56 PM',
     user: 'JENNIFER.MALISE@SKUBANA',
-    description:
-      "Stock transfer shippped, from Jeff's warehouse to Alex's Warehouse, item[pink water bottle:30]",
+    description: "Stock transfer shippped, from Jeff's warehouse to Alex's Warehouse, item[pink water bottle:30]",
   },
 ];
 

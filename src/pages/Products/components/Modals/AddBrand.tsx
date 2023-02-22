@@ -60,13 +60,7 @@ const AddBrandModal: React.FC<IAddBrandModal> = ({ isOpen, onClose, onSave }) =>
           dataSource={brands}
           renderItem={(item) => (
             <List.Item
-              actions={[
-                <CloseOutlined
-                  key="list-edit"
-                  onClick={() => handleDelete(item.id)}
-                  style={{ color: 'blue' }}
-                />,
-              ]}
+              actions={[<CloseOutlined key="list-edit" onClick={() => handleDelete(item.id)} style={{ color: 'blue' }} />]}
             >
               <List.Item.Meta title={<>{item.name}</>} />
             </List.Item>

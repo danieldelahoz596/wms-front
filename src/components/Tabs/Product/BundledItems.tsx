@@ -71,11 +71,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
       <h3>Manage cord products and their respective quantities within this bundle/kit</h3>
       <Space size={4} style={{ marginBottom: 5 }}>
         <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
-        <OButton
-          btnText="Edit Quantity"
-          onClick={handleEditCoreProductClick}
-          disabled={!selectedItem}
-        />
+        <OButton btnText="Edit Quantity" onClick={handleEditCoreProductClick} disabled={!selectedItem} />
         <OButton btnText="Remove" onClick={handleRemoveClick} disabled={!selectedItem} />
       </Space>
       <Table
@@ -87,9 +83,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
             onClick: () => handleRowClick(record), // click row
           };
         }}
-        rowClassName={(record) =>
-          record.id === selectedItem ? `data-row active-row pb-3` : 'data-row'
-        }
+        rowClassName={(record) => (record.id === selectedItem ? `data-row active-row pb-3` : 'data-row')}
       />
 
       <AddCoreProductModal

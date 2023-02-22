@@ -42,8 +42,6 @@ const ShieldAdmirationSvg = () => (
   </svg>
 );
 
-const ShieldAdmirationIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={ShieldAdmirationSvg} {...props} />
-);
+const ShieldAdmirationIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={ShieldAdmirationSvg} {...props} />;
 
 export default ShieldAdmirationIcon;

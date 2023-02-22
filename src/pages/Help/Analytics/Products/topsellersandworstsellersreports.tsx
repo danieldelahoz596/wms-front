@@ -11,14 +11,14 @@ export default function () {
           <Card>
             <h1>Overview</h1>
             <p>
-              The Top Sellers & Worst Sellers reports reveal the quantity sold and revenue earned
-              for your top-selling products and worst-selling products.
+              The Top Sellers & Worst Sellers reports reveal the quantity sold and revenue earned for your top-selling products
+              and worst-selling products.
             </p>
             <Alert description="These reports will only show data for shipped orders." />
             <br />
             <p>
-              You can find both the Top Sellers & Worst Sellers reports in the{' '}
-              <strong>Analytics</strong> module under the <strong>Products</strong> section.
+              You can find both the Top Sellers & Worst Sellers reports in the <strong>Analytics</strong> module under the{' '}
+              <strong>Products</strong> section.
             </p>
             <br />
             <img
@@ -38,9 +38,8 @@ export default function () {
               </li>
               <li>
                 <p>
-                  The date range (the default date range is 1 year - i.e. FROM date is Sept 1, 2021
-                  and TO date is Sept 1, 2022). Please keep in mind that the report will show data
-                  based on orders that were shipped within this date range.
+                  The date range (the default date range is 1 year - i.e. FROM date is Sept 1, 2021 and TO date is Sept 1, 2022).
+                  Please keep in mind that the report will show data based on orders that were shipped within this date range.
                 </p>
               </li>
             </ul>
@@ -68,25 +67,20 @@ export default function () {
               </li>
               <li>
                 <p>
-                  <strong>Listing SKU:</strong> Selecting listing SKU instead of master SKU will
-                  show data for the original orders that were downloaded from the sales channel
-                  rather than what was shipped in the order. Bundle SKUs will show Units Sold and
-                  Revenue based on the number of bundles that were ordered regardless of whether
-                  they were shipped as prepackaged inventory or broken down into core components
-                  prior to shipping.
+                  <strong>Listing SKU:</strong> Selecting listing SKU instead of master SKU will show data for the original orders
+                  that were downloaded from the sales channel rather than what was shipped in the order. Bundle SKUs will show
+                  Units Sold and Revenue based on the number of bundles that were ordered regardless of whether they were shipped
+                  as prepackaged inventory or broken down into core components prior to shipping.
                 </p>
               </li>
               <li>
                 <p>
-                  <strong>Master SKU:</strong> Selecting master SKU instead of listing SKUs will
-                  show data for orders based on what was shipped within the order rather what was
-                  included in the original order from the sales channel. Units Sold and Revenue is
-                  on the Master SKUs that were shipped to fulfill the order. If you break down
-                  bundles into core components, or ship bundles/kits using core components,
-                  selecting master SKUs will provide accurate information on what was shipped within
-                  each order. If you do not use bundle breakdown and instead ship bundles using
-                  prepackaged inventory, then selecting master SKU will produce the same data as
-                  selecting listing SKU.
+                  <strong>Master SKU:</strong> Selecting master SKU instead of listing SKUs will show data for orders based on
+                  what was shipped within the order rather what was included in the original order from the sales channel. Units
+                  Sold and Revenue is on the Master SKUs that were shipped to fulfill the order. If you break down bundles into
+                  core components, or ship bundles/kits using core components, selecting master SKUs will provide accurate
+                  information on what was shipped within each order. If you do not use bundle breakdown and instead ship bundles
+                  using prepackaged inventory, then selecting master SKU will produce the same data as selecting listing SKU.
                 </p>
               </li>
             </ul>
@@ -96,8 +90,7 @@ export default function () {
               <a href="/help/analytics/general/exportingreports" className="helplink">
                 export
               </a>{' '}
-              them, click on the <strong>Export</strong> button in the top right corner of the
-              report.
+              them, click on the <strong>Export</strong> button in the top right corner of the report.
             </p>
             <br />
             <img
@@ -110,20 +103,16 @@ export default function () {
             <h1>Notes:</h1>
             <ul>
               <li>
-                <p>
-                  These reports will not show data for external orders (orders that do not exist in
-                  Extensiv Order Manager).
-                </p>
+                <p>These reports will not show data for external orders (orders that do not exist in Extensiv Order Manager).</p>
               </li>
               <li>
                 <p>These reports will not show data from stock transfers or FBA workflows.</p>
               </li>
               <li>
                 <p>
-                  Previously, the Top Seller & Worst Seller reports only displayed the Units Sold
-                  and Revenue based on the listings that were sold for each product. If you still
-                  want to view this data based on listings, select the Listing SKU option for either
-                  of these reports.
+                  Previously, the Top Seller & Worst Seller reports only displayed the Units Sold and Revenue based on the
+                  listings that were sold for each product. If you still want to view this data based on listings, select the
+                  Listing SKU option for either of these reports.
                 </p>
               </li>
             </ul>

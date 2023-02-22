@@ -39,10 +39,7 @@ const ExportPOModal: React.FC<IExportPOModal> = ({ isOpen, onClose, onSave }) =>
       ]}
     >
       <>
-        <p>
-          Skubana allows you to export any of the available P.O information in CSV, Excel, or plain
-          text format.
-        </p>
+        <p>Skubana allows you to export any of the available P.O information in CSV, Excel, or plain text format.</p>
         <p>
           {`To export the selected purchase orders, select one of your pre-configured export settings and click the 'Export Purchase Orders' button. If you haven't created any export settings yet, click on the 'Configure Settings' button to set up which order data to export, the arrangement of columns and the file formt.`}
         </p>

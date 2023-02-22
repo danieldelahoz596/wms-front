@@ -78,9 +78,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
     {
       title: 'Quantity',
       dataIndex: 'quantity',
-      render: (text, record, index) => (
-        <Input onChange={(event) => handleQuantityChange(index, event)} />
-      ),
+      render: (text, record, index) => <Input onChange={(event) => handleQuantityChange(index, event)} />,
     },
   ];
 

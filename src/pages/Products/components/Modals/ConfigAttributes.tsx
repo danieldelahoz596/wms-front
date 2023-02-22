@@ -11,12 +11,7 @@ interface IConfigAttributesModal {
   attributes: any[];
 }
 
-const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  attributes,
-}) => {
+const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClose, onSave, attributes }) => {
   const [items, setItems] = useState([]);
   const [attribute, setAttribute] = useState(null);
 

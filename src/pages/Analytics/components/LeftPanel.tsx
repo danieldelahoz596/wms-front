@@ -18,14 +18,7 @@ import ArrowCircleUpIcon from '@/utils/icons/arrowCircleUp';
 import ArrowCircleDownIcon from '@/utils/icons/arrowCircleDown';
 import GraphLineUpIcon from '@/utils/icons/graphLineUp';
 
-const rootSubmenuKeys = [
-  'products',
-  'inventory',
-  'orders',
-  'purchaseorders',
-  'customers',
-  'accounting',
-];
+const rootSubmenuKeys = ['products', 'inventory', 'orders', 'purchaseorders', 'customers', 'accounting'];
 
 const LeftPanel: React.FC = () => {
   const location = useLocation();
@@ -76,16 +69,12 @@ const LeftPanel: React.FC = () => {
               {
                 key: '/analytics/products/listingprofitability',
                 icon: <LeafIcon style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/products/trendingprofitability">Listing Profitability</Link>
-                ),
+                label: <Link to="/analytics/products/trendingprofitability">Listing Profitability</Link>,
               },
               {
                 key: '/analytics/products/trendingprofitability',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/products/trendingprofitability">Trending Profitability</Link>
-                ),
+                label: <Link to="/analytics/products/trendingprofitability">Trending Profitability</Link>,
               },
             ],
           },
@@ -97,34 +86,22 @@ const LeftPanel: React.FC = () => {
               {
                 key: '/analytics/inventory/replenishmentalerts',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/inventory/replenishmentalerts">
-                    Inventory Replenishment Alerts
-                  </Link>
-                ),
+                label: <Link to="/analytics/inventory/replenishmentalerts">Inventory Replenishment Alerts</Link>,
               },
               {
                 key: '/analytics/inventory/snapshotinventory',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/inventory/snapshotinventory">Snapshot Inventory Value</Link>
-                ),
+                label: <Link to="/analytics/inventory/snapshotinventory">Snapshot Inventory Value</Link>,
               },
               {
                 key: '/analytics/inventory/trendinginventory',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/inventory/trendinginventory">Trending Inventory Value</Link>
-                ),
+                label: <Link to="/analytics/inventory/trendinginventory">Trending Inventory Value</Link>,
               },
               {
                 key: '/analytics/inventory/criticalinventorylevels',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/inventory/criticalinventorylevels">
-                    Critical Inventory Levels
-                  </Link>
-                ),
+                label: <Link to="/analytics/inventory/criticalinventorylevels">Critical Inventory Levels</Link>,
               },
               {
                 key: '/analytics/inventory/inventoryaging',
@@ -168,9 +145,7 @@ const LeftPanel: React.FC = () => {
               {
                 key: '/analytics/purchaseorders/historicalexports',
                 icon: <SalesIcon style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/purchaseorders/historicalexports">Historical Exports</Link>
-                ),
+                label: <Link to="/analytics/purchaseorders/historicalexports">Historical Exports</Link>,
               },
             ],
           },
@@ -192,18 +167,12 @@ const LeftPanel: React.FC = () => {
               {
                 key: '/analytics/customers/mostfrequentcustomers',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/customers/mostfrequentcustomers">
-                    Most Frequent Customers
-                  </Link>
-                ),
+                label: <Link to="/analytics/customers/mostfrequentcustomers">Most Frequent Customers</Link>,
               },
               {
                 key: '/analytics/customers/mostrecentcustomers',
                 icon: <UserOutlined style={{ fontSize: 16 }} />,
-                label: (
-                  <Link to="/analytics/customers/mostrecentcustomers">Most Recent Customers</Link>
-                ),
+                label: <Link to="/analytics/customers/mostrecentcustomers">Most Recent Customers</Link>,
               },
             ],
           },

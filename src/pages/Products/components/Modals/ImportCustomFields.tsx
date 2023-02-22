@@ -8,11 +8,7 @@ interface IImportCustomFieldsModal {
   onSave: () => void;
 }
 
-const ImportCustomFieldsModal: React.FC<IImportCustomFieldsModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ImportCustomFieldsModal: React.FC<IImportCustomFieldsModal> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
 
   return (
@@ -38,20 +34,14 @@ const ImportCustomFieldsModal: React.FC<IImportCustomFieldsModal> = ({
       ]}
     >
       <>
-        <p>
-          All custom field imports into Skubana are done through the Microsoft Excel spreadsheet
-          format.
-        </p>
-        <a
-          className="download-link"
-          href={`${BACKEND_URL}/template/template_for_custom_field_import.xlsx`}
-        >
+        <p>All custom field imports into Skubana are done through the Microsoft Excel spreadsheet format.</p>
+        <a className="download-link" href={`${BACKEND_URL}/template/template_for_custom_field_import.xlsx`}>
           <u>Download the Excel Template for the Custom Field Import</u>
         </a>
         <p>
-          Please note that a given product can only have up to 20 custom fields. If there are any
-          issues, Skubana will take note of that SKU and log them in the <b>Import Summary</b> that
-          is generated at the end, which you can use to correct any errors and re-submit.
+          Please note that a given product can only have up to 20 custom fields. If there are any issues, Skubana will take note
+          of that SKU and log them in the <b>Import Summary</b> that is generated at the end, which you can use to correct any
+          errors and re-submit.
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
           <span>Custom File Import File: &nbsp;</span>

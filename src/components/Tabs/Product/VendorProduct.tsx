@@ -156,15 +156,12 @@ const VendorProduct: React.FC = () => {
           onRow={(record) => {
             return {
               onClick: () => {
-                if (selectedVendorProductKey !== record.key)
-                  setSelectedVendorProductKey(record.key);
+                if (selectedVendorProductKey !== record.key) setSelectedVendorProductKey(record.key);
                 else setSelectedVendorProductKey(null);
               },
             };
           }}
-          rowClassName={(record) =>
-            record.key === selectedVendorProductKey ? `ant-table-row-selected` : ''
-          }
+          rowClassName={(record) => (record.key === selectedVendorProductKey ? `ant-table-row-selected` : '')}
           style={{ marginTop: '1rem', minHeight: 200 }}
         />
       </div>
@@ -174,9 +171,7 @@ const VendorProduct: React.FC = () => {
         onSave={(item: any) => {
           if (selectedVendorProductKey) {
             setVendorProductList(
-              vendorProductList.map((vendorProduct) =>
-                vendorProduct.key === selectedVendorProductKey ? item : vendorProduct,
-              ),
+              vendorProductList.map((vendorProduct) => (vendorProduct.key === selectedVendorProductKey ? item : vendorProduct)),
             );
           } else {
             setVendorProductList([...vendorProductList, { ...item, key: uuidv4() }]);
@@ -186,9 +181,7 @@ const VendorProduct: React.FC = () => {
         }}
         onClose={() => setModal(modalType.Close)}
         initialVendorProduct={
-          buttonType === 'edit'
-            ? vendorProductList.find((item) => item.key === selectedVendorProductKey)
-            : null
+          buttonType === 'edit' ? vendorProductList.find((item) => item.key === selectedVendorProductKey) : null
         }
       />
     </>

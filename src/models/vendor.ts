@@ -16,7 +16,7 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const createNewVendor = useCallback((data) => {
+  const createVendor = useCallback((data) => {
     httpClient
       .post('/api/vendors', data)
       .then((response) => {
@@ -25,14 +25,12 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const updateNewVendor = useCallback(
+  const updateVendor = useCallback(
     (_item) => {
       httpClient
         .put('/api/vendors/' + _item.id, _item)
         .then((response) => {
-          setVendorList((prev) =>
-            prev.map((_vendor) => (_vendor.id === _item.id ? response.data.vendor : _vendor)),
-          );
+          setVendorList((prev) => prev.map((_vendor) => (_vendor.id === _item.id ? response.data.vendor : _vendor)));
         })
         .catch((error) => console.log(error));
     },
@@ -72,8 +70,8 @@ export default () => {
     getVendorList,
     setSelectedVendor,
     setVendorList,
-    createNewVendor,
-    updateNewVendor,
+    createVendor,
+    updateVendor,
     deleteVendor,
     getVendorHistory,
   };

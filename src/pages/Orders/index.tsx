@@ -303,9 +303,7 @@ const OrderManagement: React.FC = () => {
               [3, 4].includes(selectedOrderStatus?.status.id)
                 ? {
                     key: 'cancel_order',
-                    label: (
-                      <span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>
-                    ),
+                    label: <span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>,
                     icon: <StopOutlined />,
                     disabled: selectedRows.length == 0,
                   }
@@ -337,9 +335,7 @@ const OrderManagement: React.FC = () => {
               },
               {
                 key: 'duplicate_order',
-                label: (
-                  <span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>
-                ),
+                label: <span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>,
                 icon: <PlusCircleOutlined />,
               },
               // {
@@ -413,11 +409,7 @@ const OrderManagement: React.FC = () => {
               },
               {
                 key: '2',
-                label: (
-                  <span onClick={() => setModal(modalType.ImportOrderShipments)}>
-                    Import Shipments
-                  </span>
-                ),
+                label: <span onClick={() => setModal(modalType.ImportOrderShipments)}>Import Shipments</span>,
                 icon: <VerticalAlignTopOutlined />,
               },
               {
@@ -425,11 +417,7 @@ const OrderManagement: React.FC = () => {
               },
               {
                 key: '4',
-                label: (
-                  <span onClick={() => setModal(modalType.ExportOrder)}>
-                    Export Selected Orders
-                  </span>
-                ),
+                label: <span onClick={() => setModal(modalType.ExportOrder)}>Export Selected Orders</span>,
                 icon: <VerticalAlignBottomOutlined />,
                 disabled: selectedRows.length == 0,
               },
@@ -448,9 +436,7 @@ const OrderManagement: React.FC = () => {
 
   //order list table columns
   const orderTableColumns = useMemo(() => {
-    const staticColumns = defaultOrderTableColumns.filter((item) =>
-      showColumns.includes(item.title),
-    );
+    const staticColumns = defaultOrderTableColumns.filter((item) => showColumns.includes(item.title));
 
     const customColumns = fieldTypes
       .filter((field) => field.show_on_grid && field.active)
@@ -487,18 +473,14 @@ const OrderManagement: React.FC = () => {
               }}
             >
               <FileOutlined />{' '}
-              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
-                {item.order_number}
-              </span>
+              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{item.order_number}</span>
             </div>
           ),
           notes: (
             <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'space-around' }}>
               <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
               <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-              <MessageOutlined
-                style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }}
-              />
+              <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }} />
             </div>
           ),
           order_date: moment(item.order_date).format('Y-M-D'),
@@ -526,10 +508,7 @@ const OrderManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <SidePanel />
           </div>
@@ -570,11 +549,7 @@ const OrderManagement: React.FC = () => {
                     selectedRows={selectedRows}
                     setSelectedRows={handleSelectedRows}
                   />
-                  <div
-                    className="choose-column"
-                    style={{ position: 'absolute', bottom: 20 }}
-                    hidden={!showChooseColumn}
-                  >
+                  <div className="choose-column" style={{ position: 'absolute', bottom: 20 }} hidden={!showChooseColumn}>
                     <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
                     <OButton
                       icon={<BorderHorizontalOutlined />}
@@ -593,24 +568,14 @@ const OrderManagement: React.FC = () => {
               </Row>
             </Card>
           </div>
-          <SampleSplitter
-            dir={'horizontal'}
-            isDragging={isBottomDragging}
-            {...bottomDragBarProps}
-          />
-          <div
-            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
-            style={{ height: bottomH }}
-          >
+          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+          <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
             <div className="w-full">{selectedRows.length == 1 && <OrderItems />}</div>
           </div>
         </div>
 
         <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: RightW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>
           <div className="w-full">
             {' '}
             <RightPanel />
@@ -728,9 +693,7 @@ const OrderManagement: React.FC = () => {
         onSave={(item) => {
           const newOrderList = [];
           orderList.forEach((order) =>
-            order.id === item.id
-              ? newOrderList.push(order, { ...item, id: uuidv4() })
-              : newOrderList.push(order),
+            order.id === item.id ? newOrderList.push(order, { ...item, id: uuidv4() }) : newOrderList.push(order),
           );
           setOrderList(newOrderList);
           setModal(modalType.Close);

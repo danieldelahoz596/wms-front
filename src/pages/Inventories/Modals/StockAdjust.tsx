@@ -12,13 +12,7 @@ interface IStockAdjustModal {
   onSave: (data: any) => void;
 }
 
-const StockAdjustModal: React.FC<IStockAdjustModal> = ({
-  isOpen,
-  vendorName,
-  initialData,
-  onClose,
-  onSave,
-}) => {
+const StockAdjustModal: React.FC<IStockAdjustModal> = ({ isOpen, vendorName, initialData, onClose, onSave }) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {

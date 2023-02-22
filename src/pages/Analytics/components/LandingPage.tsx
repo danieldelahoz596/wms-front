@@ -265,18 +265,13 @@ const LandingPage: React.FC = () => {
                             key: 'download_png',
                             label: 'Download PNG image',
                             disabled: !pastSolidChartInstance,
-                            onClick: () =>
-                              pastSolidChartInstance.downloadImage('past-solid-chart', 'image/png'),
+                            onClick: () => pastSolidChartInstance.downloadImage('past-solid-chart', 'image/png'),
                           },
                           {
                             key: 'download_jpeg',
                             label: 'Download JPEG image',
                             disabled: !pastSolidChartInstance,
-                            onClick: () =>
-                              pastSolidChartInstance.downloadImage(
-                                'past-solid-chart',
-                                'image/jpeg',
-                              ),
+                            onClick: () => pastSolidChartInstance.downloadImage('past-solid-chart', 'image/jpeg'),
                           },
                           {
                             key: 'download_pdf',
@@ -338,21 +333,13 @@ const LandingPage: React.FC = () => {
                             key: 'download_png',
                             label: 'Download PNG image',
                             disabled: !futureSolidChartInstance,
-                            onClick: () =>
-                              futureSolidChartInstance.downloadImage(
-                                'future-solid-chart',
-                                'image/png',
-                              ),
+                            onClick: () => futureSolidChartInstance.downloadImage('future-solid-chart', 'image/png'),
                           },
                           {
                             key: 'download_jpeg',
                             label: 'Download JPEG image',
                             disabled: !futureSolidChartInstance,
-                            onClick: () =>
-                              futureSolidChartInstance.downloadImage(
-                                'future-solid-chart',
-                                'image/jpeg',
-                              ),
+                            onClick: () => futureSolidChartInstance.downloadImage('future-solid-chart', 'image/jpeg'),
                           },
                           {
                             key: 'download_pdf',

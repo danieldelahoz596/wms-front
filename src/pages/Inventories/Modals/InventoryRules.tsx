@@ -13,12 +13,7 @@ interface IInventoryRulesModal {
   stockData: any;
 }
 
-const InventoryRulesModal: React.FC<IInventoryRulesModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  stockData,
-}) => {
+const InventoryRulesModal: React.FC<IInventoryRulesModal> = ({ isOpen, onClose, onSave, stockData }) => {
   const tabItems: TabsProps['items'] = [
     {
       key: '1',

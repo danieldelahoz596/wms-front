@@ -26,8 +26,7 @@ const TColumns = [
 ];
 
 const OrderBots: React.FC = () => {
-  const { orderbotList, selectedOrderbot, setSelectedOrderbot, setOrderbotList } =
-    useModel('orderbots');
+  const { orderbotList, selectedOrderbot, setSelectedOrderbot, setOrderbotList } = useModel('orderbots');
   const [showActive, setShowActive] = useState<boolean>(true);
   const [activeModal, setActiveModal] = useState<modalType>(modalType.Close);
 
@@ -64,10 +63,7 @@ const OrderBots: React.FC = () => {
   );
 
   const TRows = useMemo(
-    () =>
-      orderbotList
-        .filter((item) => item.status === showActive)
-        .map((item) => ({ key: item.id, ...item })),
+    () => orderbotList.filter((item) => item.status === showActive).map((item) => ({ key: item.id, ...item })),
     [orderbotList, showActive],
   );
 
@@ -83,10 +79,7 @@ const OrderBots: React.FC = () => {
             </div>
           </Space>
           <div>
-            <OButton
-              btnText={`${showActive ? 'Show Inactive' : 'Show Active'}`}
-              onClick={() => setShowActive((prev) => !prev)}
-            />
+            <OButton btnText={`${showActive ? 'Show Inactive' : 'Show Active'}`} onClick={() => setShowActive((prev) => !prev)} />
           </div>
         </div>
 
@@ -103,9 +96,7 @@ const OrderBots: React.FC = () => {
               },
             };
           }}
-          rowClassName={(record) =>
-            record.id === selectedOrderbot?.id ? `ant-table-row-selected` : ''
-          }
+          rowClassName={(record) => (record.id === selectedOrderbot?.id ? `ant-table-row-selected` : '')}
         />
       </Card>
 
@@ -115,9 +106,7 @@ const OrderBots: React.FC = () => {
         onSave={() => {
           setActiveModal(modalType.Close);
           setOrderbotList((prev) =>
-            prev.map((item) =>
-              item.id === selectedOrderbot.id ? { ...item, status: !item.status } : item,
-            ),
+            prev.map((item) => (item.id === selectedOrderbot.id ? { ...item, status: !item.status } : item)),
           );
           setSelectedOrderbot(null);
         }}

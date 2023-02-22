@@ -7,7 +7,7 @@ declare const ButtonTypes: ['default', 'primary', 'ghost', 'dashed', 'link', 'te
 
 interface IOModalButton {
   key?: string;
-  type: (typeof ButtonTypes)[number];
+  type: typeof ButtonTypes[number];
   btnLabel: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick: () => void;
@@ -42,13 +42,7 @@ export const OModal: React.FC<IOmodal & ModalProps> = ({
       className="OModal"
       centered
       footer={buttons?.map((btn) => (
-        <Button
-          key={btn.key}
-          type={btn.type}
-          onClick={btn.onClick}
-          htmlType={btn.htmlType}
-          size="large"
-        >
+        <Button key={btn.key} type={btn.type} onClick={btn.onClick} htmlType={btn.htmlType} size="large">
           {btn.btnLabel}
         </Button>
       ))}

@@ -3,8 +3,7 @@ import { Tree } from 'antd';
 import { useModel } from 'umi';
 
 const SideFilterTree: React.FC = () => {
-  const { orderStatusList, changeSelectedOrderStatus, initialOrderStatus } =
-    useModel('orderStatus');
+  const { orderStatusList, changeSelectedOrderStatus, initialOrderStatus } = useModel('orderStatus');
   const [selectedKeys, setSelectedKeys] = useState(['3']);
 
   useEffect(() => {
@@ -57,8 +56,7 @@ const SideFilterTree: React.FC = () => {
       title: (
         <span>
           <i className="fa-solid fa-house" />
-          {statusItem.order_status.name}{' '}
-          <span className="tree-badge"> {statusItem.order_status.num} </span>
+          {statusItem.order_status.name} <span className="tree-badge"> {statusItem.order_status.num} </span>
         </span>
       ),
       children: [
@@ -82,9 +80,7 @@ const SideFilterTree: React.FC = () => {
                       key: `${statusItem.order_status.id}-${filter.filter.id}-${_child.filter.id}`,
                       title: (
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                          {_child.filter.icon && (
-                            <img src={_child.filter.icon} style={{ width: '1.2rem' }} />
-                          )}
+                          {_child.filter.icon && <img src={_child.filter.icon} style={{ width: '1.2rem' }} />}
                           {_child.filter.name} <span className="tree-badge"> {_child.num} </span>
                         </div>
                       ),
@@ -98,14 +94,7 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return (
-    <Tree
-      treeData={prepareOrderFiltersForTree}
-      showLine={true}
-      onSelect={onSelect}
-      selectedKeys={selectedKeys}
-    />
-  );
+  return <Tree treeData={prepareOrderFiltersForTree} showLine={true} onSelect={onSelect} selectedKeys={selectedKeys} />;
 };
 
 export default SideFilterTree;

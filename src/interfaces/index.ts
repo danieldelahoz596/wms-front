@@ -1,1 +1,1 @@
-export * from './IPO'
+export * from './IPO';

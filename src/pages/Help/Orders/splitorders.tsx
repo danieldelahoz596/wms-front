@@ -9,15 +9,14 @@ export default function () {
           <Card>
             <h1>How to Split Orders</h1>
             <p>
-              In Extensiv Order Manager when you split an order, you divide a single order into two.
-              You can choose to handle the resulting two orders similarly or fulfill them from
-              different warehouses, at different times. You can choose to manually split an order or
-              automate the process for new orders via orderbots.
+              In Extensiv Order Manager when you split an order, you divide a single order into two. You can choose to handle the
+              resulting two orders similarly or fulfill them from different warehouses, at different times. You can choose to
+              manually split an order or automate the process for new orders via orderbots.
             </p>
             <p>
               <i>
-                NOTE: An Orderbot may require a multi-item order to be split. An order for a single
-                unit of a single Master SKU cannot be split.
+                NOTE: An Orderbot may require a multi-item order to be split. An order for a single unit of a single Master SKU
+                cannot be split.
               </i>
             </p>
             <p>Please see below for instructions for how to split an order.</p>
@@ -33,10 +32,7 @@ export default function () {
             <br />
             <br />
             <h1>Step 2</h1>
-            <p>
-              Search for the order you want to split. Use the Search Panel on the left-hand side to
-              locate the order.{' '}
-            </p>
+            <p>Search for the order you want to split. Use the Search Panel on the left-hand side to locate the order. </p>
             <br />
             <img
               src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2505666/orders__44_.PNG"
@@ -46,8 +42,8 @@ export default function () {
             <br />
             <h1>Step 3</h1>
             <p>
-              Once you have found the order, select it and click the “Edit” button. You will find
-              the “Split Order” option in the dropdown.{' '}
+              Once you have found the order, select it and click the “Edit” button. You will find the “Split Order” option in the
+              dropdown.{' '}
             </p>
             <br />
             <img
@@ -67,8 +63,8 @@ export default function () {
               </li>
             </ul>
             <p>
-              This is what is going to be split. Enter the quantity of items for the new order which
-              will be deducted from the Original Order.{' '}
+              This is what is going to be split. Enter the quantity of items for the new order which will be deducted from the
+              Original Order.{' '}
             </p>
             <br />
             <img
@@ -79,8 +75,8 @@ export default function () {
             <br />
             <h1>Step 5</h1>
             <p>
-              Once you have made the appropriate adjustments, click Save. You will now see in the
-              main orders window that the order has been split into two separate orders.{' '}
+              Once you have made the appropriate adjustments, click Save. You will now see in the main orders window that the
+              order has been split into two separate orders.{' '}
             </p>
             <Alert
               message="Note"

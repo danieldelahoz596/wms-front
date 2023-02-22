@@ -23,8 +23,7 @@ const rows = [
     key: 1,
     editTime: '09/22/2020 9:37 AM',
     user: 'DANIEL.LEVIN@SKUBANA.com',
-    changedValues:
-      'P.O. Created and Authorized by Daniel Levin, then sent to vendor for confirmation.',
+    changedValues: 'P.O. Created and Authorized by Daniel Levin, then sent to vendor for confirmation.',
   },
   {
     key: 2,

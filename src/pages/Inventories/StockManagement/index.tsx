@@ -130,10 +130,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         dataIndex: 'allocated',
         key: 'allocated',
         render: (text: any) => (
-          <span
-            style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
-          >
+          <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.StockAllocationDetails)}>
             <u>{text}</u>
           </span>
         ),
@@ -143,10 +140,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         dataIndex: 'in_transfer',
         key: 'in_transfer',
         render: (text: any) => (
-          <span
-            style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => setCurrentModal(modalType.IncomingUnits)}
-          >
+          <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.IncomingUnits)}>
             <u>{text}</u>
           </span>
         ),
@@ -161,10 +155,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         dataIndex: 'discrepation',
         key: 'discrepation',
         render: (text: any) => (
-          <span
-            style={{ cursor: 'pointer', color: 'blue' }}
-            onClick={() => setCurrentModal(modalType.StockAllocationDetails)}
-          >
+          <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.StockAllocationDetails)}>
             <u>{text}</u>
           </span>
         ),
@@ -218,9 +209,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                     value: warehouse.id,
                     label: warehouse.name,
                   }))}
-                  defaultSelectedItems={initialState?.initialData?.warehouses.map(
-                    (warehouse) => warehouse.id,
-                  )}
+                  defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
                   type="warehouse"
                   style={{ width: '220px' }}
                   size={'middle'}
@@ -233,13 +222,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                     { value: 'inTransite', label: 'In Transit' },
                     { value: 'availableQuantities', label: 'Available quantities' },
                   ]}
-                  defaultSelectedItems={[
-                    'onHand',
-                    'locked',
-                    'allocated',
-                    'inTransite',
-                    'availableQuantities',
-                  ]}
+                  defaultSelectedItems={['onHand', 'locked', 'allocated', 'inTransite', 'availableQuantities']}
                   type="item"
                   style={{ width: '220px' }}
                   size={'middle'}
@@ -264,51 +247,37 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 items: [
                   {
                     key: '1',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.StockHistory)}>History</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.StockHistory)}>History</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '2',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Deactivate</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Deactivate</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '3',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Draw Rank</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Draw Rank</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '4',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Location</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Location</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '5',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Transfer</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Transfer</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '6',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Adjust</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Adjust</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '7',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Remove</span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ManualOrder)}>Remove</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
@@ -332,20 +301,14 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   {
                     key: '1',
                     label: (
-                      <span
-                        onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}
-                      >
-                        Import Inventory
-                      </span>
+                      <span onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}>Import Inventory</span>
                     ),
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
                     key: '2',
                     label: (
-                      <span
-                        onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}
-                      >
+                      <span onClick={() => setCurrentModal(modalType.SelectWarehouseForInventoryImport)}>
                         Import Stock Minimums
                       </span>
                     ),
@@ -353,11 +316,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   },
                   {
                     key: '3',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ImportReorderRules)}>
-                        Import Reorder Rules
-                      </span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ImportReorderRules)}>Import Reorder Rules</span>,
                     icon: <VerticalAlignTopOutlined />,
                   },
                   {
@@ -365,28 +324,18 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   },
                   {
                     key: '4',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ExportInventory)}>
-                        Export Inventory
-                      </span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ExportInventory)}>Export Inventory</span>,
                     icon: <VerticalAlignBottomOutlined />,
                   },
                   {
                     key: '5',
-                    label: (
-                      <span onClick={() => setCurrentModal(modalType.ExportStockDetails)}>
-                        Export Stock Details
-                      </span>
-                    ),
+                    label: <span onClick={() => setCurrentModal(modalType.ExportStockDetails)}>Export Stock Details</span>,
                     icon: <VerticalAlignBottomOutlined />,
                   },
                   {
                     key: '6',
                     label: (
-                      <span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>
-                        Export Stock Edit History
-                      </span>
+                      <span onClick={() => setCurrentModal(modalType.ExportStockEditHistory)}>Export Stock Edit History</span>
                     ),
                     icon: <VerticalAlignBottomOutlined />,
                   },
@@ -400,10 +349,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
               </Button>
             </Dropdown>
 
-            <OButton
-              btnText="Bulk Reconciliation"
-              onClick={() => setCurrentModal(modalType.BulkReconciliation)}
-            />
+            <OButton btnText="Bulk Reconciliation" onClick={() => setCurrentModal(modalType.BulkReconciliation)} />
           </Space>
 
           <Table
@@ -418,9 +364,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                 },
               };
             }}
-            rowClassName={(record) =>
-              record.key === selectedStockId ? `ant-table-row-selected` : ''
-            }
+            rowClassName={(record) => (record.key === selectedStockId ? `ant-table-row-selected` : '')}
             expandIcon={(props) => {
               if (props.expandable) {
                 if (props.expanded) {
@@ -454,16 +398,9 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
-      <div
-        className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')}
-        style={{ width: RightW }}
-      >
+      <div className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')} style={{ width: RightW }}>
         <div className="w-full">
-          {selectedStockId && (
-            <StockDetailsPanel
-              vendorData={dataSource.find((item) => item.key === selectedStockId)}
-            />
-          )}
+          {selectedStockId && <StockDetailsPanel vendorData={dataSource.find((item) => item.key === selectedStockId)} />}
         </div>
       </div>
 
@@ -543,10 +480,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
         onClose={() => setCurrentModal(modalType.Close)}
       />
 
-      <IncomingUnitsModal
-        isOpen={currentModal === modalType.IncomingUnits}
-        onClose={() => setCurrentModal(modalType.Close)}
-      />
+      <IncomingUnitsModal isOpen={currentModal === modalType.IncomingUnits} onClose={() => setCurrentModal(modalType.Close)} />
     </>
   );
 };

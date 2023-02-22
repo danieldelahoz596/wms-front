@@ -27,12 +27,7 @@ const Tcolumns = [
   },
 ];
 
-const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({
-  isOpen,
-  onClose,
-  dataSource,
-  title,
-}) => {
+const TransferHistoryModal: React.FC<ITransferHistoryModal> = ({ isOpen, onClose, dataSource, title }) => {
   return (
     <OModal
       title={title}

@@ -9,8 +9,6 @@ const NoteEditSvg = () => (
   </svg>
 );
 
-const NoteEditIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={NoteEditSvg} {...props} />
-);
+const NoteEditIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={NoteEditSvg} {...props} />;
 
 export default NoteEditIcon;

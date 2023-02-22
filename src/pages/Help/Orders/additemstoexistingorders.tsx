@@ -14,8 +14,8 @@ export default function () {
             />
             <br />
             <p>
-              Navigate to the <strong>Orders</strong> Module. Click on the order number of the order
-              you want to edit, and go to the <strong>Order Items</strong> tab:
+              Navigate to the <strong>Orders</strong> Module. Click on the order number of the order you want to edit, and go to
+              the <strong>Order Items</strong> tab:
             </p>
             <br />
             <img
@@ -26,8 +26,7 @@ export default function () {
             <br />
             <p>Click on the Add a product... dropdown to select the item you want to add to the</p>
             <p>
-              order. If you do not see a search result for your desired product, it likely does not
-              have a{' '}
+              order. If you do not see a search result for your desired product, it likely does not have a{' '}
               <a href="" className="helplink">
                 Listing SKU for this channel.
               </a>
@@ -40,8 +39,7 @@ export default function () {
             <br />
             <br />
             <p>
-              Enter the item quantity, unit price, and discount amounts, then click{' '}
-              <strong>Save</strong>:
+              Enter the item quantity, unit price, and discount amounts, then click <strong>Save</strong>:
             </p>
             <br />
             <img

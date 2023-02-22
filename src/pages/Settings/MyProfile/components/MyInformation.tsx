@@ -15,10 +15,7 @@ const MyInformation: React.FC = () => {
         httpClient
           .post('/auth/update-account-info', values)
           .then((response) => {
-            localStorage.setItem(
-              'authdata',
-              JSON.stringify({ ...initialState.currentUser, user: response.data }),
-            );
+            localStorage.setItem('authdata', JSON.stringify({ ...initialState.currentUser, user: response.data }));
             messageApi.open({
               type: 'success',
               content: 'Username is updated successfully!',
@@ -38,15 +35,15 @@ const MyInformation: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Card
-        title={<FormattedMessage id="app.settings.basic.title" />}
-        style={{ width: 600 }}
-      >
+      <Card title={<FormattedMessage id="app.settings.basic.title" />} style={{ width: 600 }}>
         <Form
           name="my_info"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ full_name: initialState?.currentUser?.user.full_name, username: initialState?.currentUser?.user.username}}
+          initialValues={{
+            full_name: initialState?.currentUser?.user.full_name,
+            username: initialState?.currentUser?.user.username,
+          }}
           autoComplete="off"
           form={form}
           labelAlign="left"

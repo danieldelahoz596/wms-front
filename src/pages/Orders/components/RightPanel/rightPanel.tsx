@@ -62,9 +62,8 @@ const RightPanel: FC = () => {
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
-              <b style={strongStyle}>{selectedOrders?.length} orders</b> selected requesting{' '}
-              <b style={strongStyle}>STANDARD</b> from <b style={strongStyle}>2</b> different
-              countries.
+              <b style={strongStyle}>{selectedOrders?.length} orders</b> selected requesting <b style={strongStyle}>STANDARD</b>{' '}
+              from <b style={strongStyle}>2</b> different countries.
             </div>
           }
           showIcon
@@ -72,16 +71,8 @@ const RightPanel: FC = () => {
         />
         <div>
           <Form>
-            <Form.Item
-              label="Bulk Update"
-              style={{ margin: '1rem 0', paddingBottom: '1rem', borderBottom: '1px dashed black' }}
-            >
-              <OInput
-                type="select"
-                name="bulkUpdateType"
-                defaultValue={'fulfillmentType'}
-                options={bulkUpdateTypes}
-              />
+            <Form.Item label="Bulk Update" style={{ margin: '1rem 0', paddingBottom: '1rem', borderBottom: '1px dashed black' }}>
+              <OInput type="select" name="bulkUpdateType" defaultValue={'fulfillmentType'} options={bulkUpdateTypes} />
             </Form.Item>
 
             <Form.Item>

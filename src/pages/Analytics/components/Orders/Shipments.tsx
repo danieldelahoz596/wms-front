@@ -698,21 +698,13 @@ const Shipments: React.FC = () => {
                           key: 'download_png',
                           label: 'Download PNG image',
                           disabled: !shipmentByCarrierChartInstance,
-                          onClick: () =>
-                            shipmentByCarrierChartInstance.downloadImage(
-                              'shipments-by-carrier',
-                              'image/png',
-                            ),
+                          onClick: () => shipmentByCarrierChartInstance.downloadImage('shipments-by-carrier', 'image/png'),
                         },
                         {
                           key: 'download_jpeg',
                           label: 'Download JPEG image',
                           disabled: !shipmentByCarrierChartInstance,
-                          onClick: () =>
-                            shipmentByCarrierChartInstance.downloadImage(
-                              'shipments-by-carrier',
-                              'image/jpeg',
-                            ),
+                          onClick: () => shipmentByCarrierChartInstance.downloadImage('shipments-by-carrier', 'image/jpeg'),
                         },
                         {
                           key: 'download_pdf',

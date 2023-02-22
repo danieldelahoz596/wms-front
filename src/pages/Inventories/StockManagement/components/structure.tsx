@@ -338,8 +338,7 @@ export const location_history = [
     edit_time: '04/01/2021 10:50 AM',
     user: 'Skubana',
     edit_type: 'Remove',
-    description:
-      'Quantity Duducted: 1\n New On Hand: 1000012\n Initial On Hand: 1000013\n New On Hand: 1000013\n ',
+    description: 'Quantity Duducted: 1\n New On Hand: 1000012\n Initial On Hand: 1000013\n New On Hand: 1000013\n ',
     notes: '',
   },
   {

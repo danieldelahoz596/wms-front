@@ -74,9 +74,7 @@ export default () => {
   };
 
   const removeCustomBundleKitExportSettings = (_index) => {
-    setCustomBundleKitExportSettings((prevState) =>
-      prevState.filter((_item, _curIndex) => _index !== _curIndex),
-    );
+    setCustomBundleKitExportSettings((prevState) => prevState.filter((_item, _curIndex) => _index !== _curIndex));
   };
 
   return {

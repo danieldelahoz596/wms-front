@@ -44,8 +44,7 @@ import LeftPanel from './components/LeftPanel/sidePanel';
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
   const [showActivate, setShowActivate] = useState(true);
-  const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } =
-    useModel('product');
+  const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
@@ -193,23 +192,17 @@ const ProductManagement: React.FC = () => {
     },
     {
       key: '2',
-      label: (
-        <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>
-      ),
+      label: <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>,
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '3',
-      label: (
-        <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>
-      ),
+      label: <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>,
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '4',
-      label: (
-        <span onClick={() => setModal(modalType.ImportCustomFields)}>Import Custom Fields</span>
-      ),
+      label: <span onClick={() => setModal(modalType.ImportCustomFields)}>Import Custom Fields</span>,
       icon: <VerticalAlignTopOutlined />,
     },
     {
@@ -222,9 +215,7 @@ const ProductManagement: React.FC = () => {
     },
     {
       key: '6',
-      label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>
-      ),
+      label: <span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>,
       icon: <VerticalAlignBottomOutlined />,
     },
     {
@@ -232,19 +223,13 @@ const ProductManagement: React.FC = () => {
     },
     {
       key: '7',
-      label: (
-        <span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>
-      ),
+      label: <span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>,
       icon: <VerticalAlignBottomOutlined />,
       disabled: true,
     },
     {
       key: '8',
-      label: (
-        <span onClick={() => setModal(modalType.ExportCustomBundleKit)}>
-          Custom Bundle/Kit Export
-        </span>
-      ),
+      label: <span onClick={() => setModal(modalType.ExportCustomBundleKit)}>Custom Bundle/Kit Export</span>,
       icon: <VerticalAlignBottomOutlined />,
     },
   ];
@@ -252,10 +237,7 @@ const ProductManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div
-          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
-          style={{ width: LeftW }}
-        >
+        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
             <LeftPanel />
           </div>
@@ -286,11 +268,7 @@ const ProductManagement: React.FC = () => {
               </Row>
               <Card style={{ width: '100%' }}>
                 <Space size={4}>
-                  <OButton
-                    btnText="Adjust Sku"
-                    onClick={() => setModal(modalType.AdjustMasterSKU)}
-                    disabled={!editableProduct}
-                  />
+                  <OButton btnText="Adjust Sku" onClick={() => setModal(modalType.AdjustMasterSKU)} disabled={!editableProduct} />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
                     onConfirm={() => {
@@ -303,9 +281,7 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Bundle/Kit"
-                      disabled={
-                        !editableProduct || !(editableProduct?.type === productType.CoreProduct)
-                      }
+                      disabled={!editableProduct || !(editableProduct?.type === productType.CoreProduct)}
                     />
                   </Popconfirm>
                   <Popconfirm
@@ -320,9 +296,7 @@ const ProductManagement: React.FC = () => {
                   >
                     <OButton
                       btnText="Convert To Core"
-                      disabled={
-                        !editableProduct || !(editableProduct?.type === productType.Variations)
-                      }
+                      disabled={!editableProduct || !(editableProduct?.type === productType.Variations)}
                     />
                   </Popconfirm>
                   <Popconfirm
@@ -330,25 +304,15 @@ const ProductManagement: React.FC = () => {
                     onConfirm={() => {
                       setProductList(
                         productList.map((_product) =>
-                          _product.id === editableProduct.id
-                            ? { ..._product, status: !showActivate }
-                            : _product,
+                          _product.id === editableProduct.id ? { ..._product, status: !showActivate } : _product,
                         ),
                       );
                       setEditableProduct(null);
                     }}
                   >
-                    <OButton
-                      btnText={showActivate ? 'Deactivate' : 'Activate'}
-                      disabled={!editableProduct}
-                    />
+                    <OButton btnText={showActivate ? 'Deactivate' : 'Activate'} disabled={!editableProduct} />
                   </Popconfirm>
-                  <OButton
-                    type="primary"
-                    onClick={() => console.log('History')}
-                    disabled={!editableProduct}
-                    btnText="History"
-                  />
+                  <OButton type="primary" onClick={() => console.log('History')} disabled={!editableProduct} btnText="History" />
                   <OButton btnText={'New Product'} onClick={() => setModal(modalType.Variation)} />
                   <Dropdown menu={{ items: importExportMenuItems }}>
                     <Button size="small">
@@ -371,9 +335,7 @@ const ProductManagement: React.FC = () => {
                       },
                     };
                   }}
-                  rowClassName={(record) =>
-                    record.id === editableProduct?.id ? `ant-table-row-selected` : ''
-                  }
+                  rowClassName={(record) => (record.id === editableProduct?.id ? `ant-table-row-selected` : '')}
                   expandIcon={(props) => {
                     if (props.expandable) {
                       if (props.expanded) {
@@ -405,15 +367,8 @@ const ProductManagement: React.FC = () => {
               </Card>
             </div>
           </div>
-          <SampleSplitter
-            dir={'horizontal'}
-            isDragging={isBottomDragging}
-            {...bottomDragBarProps}
-          />
-          <div
-            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
-            style={{ height: bottomH }}
-          >
+          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+          <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
             <div className="w-full">
               <BottomPanel height={bottomH} />
             </div>

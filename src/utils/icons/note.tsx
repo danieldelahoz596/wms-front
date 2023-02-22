@@ -7,14 +7,7 @@ const NoteSvg = () => (
       <stop offset="0" stopColor="#fff" />
       <stop offset="1" stopColor="#fff" stopOpacity="0" />
     </linearGradient>
-    <linearGradient
-      id="b"
-      gradientUnits="userSpaceOnUse"
-      x1="36.357143"
-      x2="36.357143"
-      y1="6"
-      y2="63.893143"
-    />
+    <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="36.357143" x2="36.357143" y1="6" y2="63.893143" />
     <radialGradient
       id="c"
       cx="48"
@@ -112,29 +105,14 @@ const NoteSvg = () => (
         d="m23.90625 22.0625a.93307872.93307872 0 0 0 -.84375.9375v4a.93307872.93307872 0 0 0 .9375.9375h48a.93307872.93307872 0 0 0 .9375-.9375v-4a.93307872.93307872 0 0 0 -.9375-.9375h-48a.93307872.93307872 0 0 0 -.09375 0zm0 12a.93307872.93307872 0 0 0 -.84375.9375v4a.93307872.93307872 0 0 0 .9375.9375h48a.93307872.93307872 0 0 0 .9375-.9375v-4a.93307872.93307872 0 0 0 -.9375-.9375h-48a.93307872.93307872 0 0 0 -.09375 0zm0 12a.93307872.93307872 0 0 0 -.84375.9375v4a.93307872.93307872 0 0 0 .9375.9375h48a.93307872.93307872 0 0 0 .9375-.9375v-4a.93307872.93307872 0 0 0 -.9375-.9375h-48a.93307872.93307872 0 0 0 -.09375 0zm0 12a.93307872.93307872 0 0 0 -.84375.9375v4a.93307872.93307872 0 0 0 .9375.9375h48a.93307872.93307872 0 0 0 .9375-.9375v-4a.93307872.93307872 0 0 0 -.9375-.9375h-48a.93307872.93307872 0 0 0 -.09375 0zm0 12a.93307872.93307872 0 0 0 -.84375.9375v4a.93307872.93307872 0 0 0 .9375.9375h48a.93307872.93307872 0 0 0 .9375-.9375v-4a.93307872.93307872 0 0 0 -.9375-.9375h-48a.93307872.93307872 0 0 0 -.09375 0z"
         opacity=".15"
       />
-      <path
-        d="m24 23v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4z"
-        opacity=".3"
-      />
-      <path
-        d="m24 22v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4z"
-        fill="url(#g)"
-      />
-      <path
-        d="m24 22v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1z"
-        fill="#fff"
-        opacity=".75"
-      />
-      <path
-        d="m24 25v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1z"
-        opacity=".15"
-      />
+      <path d="m24 23v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4z" opacity=".3" />
+      <path d="m24 22v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4zm0 12v4h48v-4z" fill="url(#g)" />
+      <path d="m24 22v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1z" fill="#fff" opacity=".75" />
+      <path d="m24 25v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1zm0 12v1h48v-1z" opacity=".15" />
     </g>
   </svg>
 );
 
-const NoteIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={NoteSvg} {...props} />
-);
+const NoteIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={NoteSvg} {...props} />;
 
 export default NoteIcon;

@@ -68,6 +68,50 @@ export default [
     access: 'routeFilter',
   },
   {
+    path: '/settings',
+    component: './Settings',
+    title: 'menu.settings',
+    key: 'user_administration',
+    access: 'routeFilter',
+    routes: [
+      {
+        hideInMenu: true,
+        path: '/settings/myprofile',
+        component: './Settings/MyProfile',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/warehouses',
+        component: './Settings/Warehouses',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/vendors',
+        component: './Settings/Vendors',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/orderbots',
+        component: './Settings/Orderbots',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/potemplates',
+        component: './Settings/POTemplates',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/useradministration',
+        component: './Settings/UserAdministration',
+      },
+      {
+        hideInMenu: true,
+        path: '/settings/companyinfo',
+        component: './Settings/CompanyInfo',
+      },
+    ],
+  },
+  {
     path: '/analytics',
     component: './Analytics',
     title: 'menu.analytics',
@@ -192,50 +236,6 @@ export default [
     ],
   },
   {
-    path: '/settings',
-    component: './Settings',
-    title: 'menu.settings',
-    key: 'user_administration',
-    access: 'routeFilter',
-    routes: [
-      {
-        hideInMenu: true,
-        path: '/settings/myprofile',
-        component: './Settings/MyProfile',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/warehouses',
-        component: './Settings/Warehouses',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/vendors',
-        component: './Settings/Vendors',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/orderbots',
-        component: './Settings/Orderbots',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/potemplates',
-        component: './Settings/POTemplates',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/useradministration',
-        component: './Settings/UserAdministration',
-      },
-      {
-        hideInMenu: true,
-        path: '/settings/companyinfo',
-        component: './Settings/CompanyInfo',
-      },
-    ],
-  },
-  {
     path: '/help',
     component: './Help',
     title: 'menu.help',
@@ -252,7 +252,6 @@ export default [
         path: '/help/dashboard/skualerts',
         component: './Help/Dashboard/skualerts',
       },
-
       // Orders
       {
         hideInMenu: true,
@@ -269,7 +268,6 @@ export default [
         path: '/help/orders/exportorders',
         component: './Help/Orders/exportorders',
       },
-
       // Customers
       {
         hideInMenu: true,
@@ -286,7 +284,6 @@ export default [
         path: '/help/customers/exportphonenumbers',
         component: './Help/Customers/exportcustomerphonenumbers',
       },
-
       // Products
       {
         hideInMenu: true,
@@ -358,6 +355,23 @@ export default [
         path: '/help/products/customproductfields',
         component: './Help/Products/customproductfields',
       },
+      // Settings
+      {
+        hideInMenu: true,
+        path: '/help/settings/myprofile',
+        component: './Help/Settings/myprofile',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/useradministration',
+        component: './Help/Settings/useradministration',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/companyinfo',
+        component: './Help/Settings/companyinfo',
+      },
+      // Analytics
       {
         hideInMenu: true,
         path: '/help/analytics/suborders/historicalsexports',
@@ -457,21 +471,6 @@ export default [
         hideInMenu: true,
         path: '/help/analytics/subpurchaseorders/historicalexports',
         component: './Help/Analytics/PurchaseOrders/historicalpurchaseordersexports',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/settings/myprofile',
-        component: './Help/Settings/myprofile',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/settings/useradministration',
-        component: './Help/Settings/useradministration',
-      },
-      {
-        hideInMenu: true,
-        path: '/help/settings/companyinfo',
-        component: './Help/Settings/companyinfo',
       },
     ],
   },

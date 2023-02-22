@@ -55,19 +55,14 @@ const AddCoreProductModal: React.FC<IAddCoreProductModal> = ({
   const handleSave = () => {
     if (type === 'add') {
       const item = productList.find((product) => product.id === newCoreProduct.product);
-      setCoreProductList([
-        ...coreProductList,
-        { ...item, masterSKU: item.master_sku, quantity: newCoreProduct.quantity },
-      ]);
+      setCoreProductList([...coreProductList, { ...item, masterSKU: item.master_sku, quantity: newCoreProduct.quantity }]);
       setSelectedItemKey(null);
     }
     if (type === 'edit') {
       const product = productList.find((item) => item.id === newCoreProduct.product);
       setCoreProductList(
         coreProductList.map((item) =>
-          item.id === selectedItemKey
-            ? { ...item, masterSKU: product.master_sku, quantity: newCoreProduct.quantity }
-            : item,
+          item.id === selectedItemKey ? { ...item, masterSKU: product.master_sku, quantity: newCoreProduct.quantity } : item,
         ),
       );
       setSelectedItemKey(null);

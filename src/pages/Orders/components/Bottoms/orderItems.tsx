@@ -102,9 +102,7 @@ const OrderItems: FC = () => {
                   <div style={{ textTransform: 'uppercase' }}>Unit Weight: {item.unitWeight}</div>
                   <div style={{ textTransform: 'uppercase' }}>Unit H/W/L: {item.unitHWL}</div>
                   <div style={{ textTransform: 'uppercase' }}>Warehouse: {item.warehouse}</div>
-                  <div style={{ textTransform: 'uppercase' }}>
-                    Pick Location: {item.pickLocation}
-                  </div>
+                  <div style={{ textTransform: 'uppercase' }}>Pick Location: {item.pickLocation}</div>
                 </Col>
               </Row>
             </div>

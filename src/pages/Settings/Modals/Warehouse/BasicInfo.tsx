@@ -86,25 +86,13 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Address Line 1"
-            name={'address1'}
-            initialValue={selectedWarehouse?.address1}
-          >
+          <Form.Item label="Address Line 1" name={'address1'} initialValue={selectedWarehouse?.address1}>
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Address Line 2"
-            name={'address2'}
-            initialValue={selectedWarehouse?.address2}
-          >
+          <Form.Item label="Address Line 2" name={'address2'} initialValue={selectedWarehouse?.address2}>
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
-          <Form.Item
-            label="Address Line 3"
-            name={'address3'}
-            initialValue={selectedWarehouse?.address3}
-          >
+          <Form.Item label="Address Line 3" name={'address3'} initialValue={selectedWarehouse?.address3}>
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
 
@@ -139,11 +127,7 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
             <Input />
           </Form.Item>
           <Form.Item label="Timezone" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
-            <Select
-              placeholder="Select..."
-              size="small"
-              options={[{ value: 'est', label: 'EST' }]}
-            />
+            <Select placeholder="Select..." size="small" options={[{ value: 'est', label: 'EST' }]} />
           </Form.Item>
           <Form.Item label="Inventory Allocation Shipping Zone I.D Color" name={'id_color'}>
             <div style={{ textAlign: 'right' }}>

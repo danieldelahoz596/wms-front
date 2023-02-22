@@ -1,15 +1,14 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
 import { useModel } from '@umijs/max';
-import { Row, Col } from 'antd';
 
-interface IEditHistoryModal {
+interface IHistoryModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
 }
 
-const EditHistoryModal: React.FC<IEditHistoryModal> = ({ isOpen, onSave, onClose }) => {
+const HistoryModal: React.FC<IHistoryModal> = ({ isOpen, onSave, onClose }) => {
   const { vendorHistory } = useModel('vendor');
 
   const THistoryColumns = [
@@ -31,24 +30,10 @@ const EditHistoryModal: React.FC<IEditHistoryModal> = ({ isOpen, onSave, onClose
   ];
 
   return (
-    <OModal
-      title="Vendor Edit History"
-      helpLink=""
-      isOpen={isOpen}
-      onOk={onSave}
-      onCancel={onClose}
-      width={800}
-    >
-      <Row>
-        <Col span={24}>
-          <OTable
-            columns={THistoryColumns}
-            rows={vendorHistory.map((_item) => ({ ..._item, key: _item.id }))}
-          />
-        </Col>
-      </Row>
+    <OModal title="Vendor Edit History" isOpen={isOpen} onOk={onSave} onCancel={onClose} width={800}>
+      <OTable columns={THistoryColumns} rows={vendorHistory.map((_item) => ({ ..._item, key: _item.id }))} />
     </OModal>
   );
 };
 
-export default EditHistoryModal;
+export default HistoryModal;

@@ -57,8 +57,7 @@ const SnapshotInventory: React.FC = () => {
             <Col flex="auto">
               <Row justify="center">
                 <h2>
-                  Total Inventory Value:{' '}
-                  <span style={{ color: 'lightblue' }}>$119,123,135.403</span>
+                  Total Inventory Value: <span style={{ color: 'lightblue' }}>$119,123,135.403</span>
                 </h2>
               </Row>
             </Col>
@@ -79,21 +78,13 @@ const SnapshotInventory: React.FC = () => {
                       key: 'download_png',
                       label: 'Download PNG image',
                       disabled: !snapshotInventoryChartInstance,
-                      onClick: () =>
-                        snapshotInventoryChartInstance.downloadImage(
-                          'snapshot-inventory',
-                          'image/png',
-                        ),
+                      onClick: () => snapshotInventoryChartInstance.downloadImage('snapshot-inventory', 'image/png'),
                     },
                     {
                       key: 'download_jpeg',
                       label: 'Download JPEG image',
                       disabled: !snapshotInventoryChartInstance,
-                      onClick: () =>
-                        snapshotInventoryChartInstance.downloadImage(
-                          'snapshot-inventory',
-                          'image/jpeg',
-                        ),
+                      onClick: () => snapshotInventoryChartInstance.downloadImage('snapshot-inventory', 'image/jpeg'),
                     },
                     {
                       key: 'download_pdf',

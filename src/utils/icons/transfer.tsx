@@ -7,8 +7,6 @@ const TransferSvg = () => (
   </svg>
 );
 
-const TransferIcon = (props: Partial<CustomIconComponentProps>) => (
-  <Icon component={TransferSvg} {...props} />
-);
+const TransferIcon = (props: Partial<CustomIconComponentProps>) => <Icon component={TransferSvg} {...props} />;
 
 export default TransferIcon;

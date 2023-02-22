@@ -10,11 +10,7 @@ interface IImportVendorProductsByVendorModal {
   onSave: () => void;
 }
 
-const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-}) => {
+const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorModal> = ({ isOpen, onClose, onSave }) => {
   const { initialState } = useModel('@@initialState');
 
   return (
@@ -40,26 +36,20 @@ const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorM
       ]}
     >
       <>
-        <p>
-          Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.
-        </p>
-        <a
-          className="download-link"
-          href={`${BACKEND_URL}/template/template_for_vendor_product_import_by_vendor.xlsx`}
-        >
+        <p>Batch import of Vendor products is done through the Microsoft Excel spreadsheet format.</p>
+        <a className="download-link" href={`${BACKEND_URL}/template/template_for_vendor_product_import_by_vendor.xlsx`}>
           <u>Download the Excel Template for Vendor Product Import By Vendor</u>
         </a>
         <p>
-          To associate your product Master SKUs with Vendor SKUs, simply use the provided template
-          and upload the data for each vendor.
+          To associate your product Master SKUs with Vendor SKUs, simply use the provided template and upload the data for each
+          vendor.
         </p>
         <p>
           <b>
             Vendor SKUs, are <i>not</i> case sensitive.
           </b>{' '}
           For example, <i>{`'sku123' `}</i>
-          <b>is regarded the same as</b> <i>{`'SKU123'`}</i>{' '}
-          {`by the system. The same applies for product's Master SKU's.`}
+          <b>is regarded the same as</b> <i>{`'SKU123'`}</i> {`by the system. The same applies for product's Master SKU's.`}
         </p>
 
         <Row style={{ display: 'flex', alignItems: 'center' }}>

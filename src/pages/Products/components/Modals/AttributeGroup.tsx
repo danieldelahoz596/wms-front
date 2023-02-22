@@ -13,13 +13,7 @@ interface IAttributeGroup {
   setAttributeGroups: (item: any) => void;
 }
 
-const AttributeGroup: React.FC<IAttributeGroup> = ({
-  isOpen,
-  onClose,
-  onSave,
-  attributeGroups,
-  setAttributeGroups,
-}) => {
+const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave, attributeGroups, setAttributeGroups }) => {
   const [groupName, setGroupName] = useState<string>('');
   const [attribute, setattribute] = useState<string>('');
   const [showInput, setShowInput] = useState(false);
@@ -70,8 +64,8 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
     >
       <>
         <h3>
-          Enter your attribute group names to begin adding attributes for use in product creation.
-          (blank attributes will not be saved)
+          Enter your attribute group names to begin adding attributes for use in product creation. (blank attributes will not be
+          saved)
         </h3>
         <Input
           placeholder="Enter a valid attribute group name"
@@ -96,15 +90,8 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
               key={_group.name}
               extra={
                 <>
-                  <OButton
-                    btnText={<CloseOutlined />}
-                    style={{ marginRight: '50px' }}
-                    onClick={() => handleRemoveType(_group)}
-                  />
-                  <OButton
-                    btnText={<PlusOutlined />}
-                    onClick={(e) => handleAddType(e, _group.name)}
-                  />
+                  <OButton btnText={<CloseOutlined />} style={{ marginRight: '50px' }} onClick={() => handleRemoveType(_group)} />
+                  <OButton btnText={<PlusOutlined />} onClick={(e) => handleAddType(e, _group.name)} />
                 </>
               }
             >
@@ -125,9 +112,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({
                     onPressEnter={() => {
                       setAttributeGroups(
                         attributeGroups.map((item) =>
-                          item.name === _group.name
-                            ? { ...item, attributes: [...item.attributes, attribute] }
-                            : item,
+                          item.name === _group.name ? { ...item, attributes: [...item.attributes, attribute] } : item,
                         ),
                       );
                       setattribute('');

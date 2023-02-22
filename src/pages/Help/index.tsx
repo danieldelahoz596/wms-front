@@ -95,10 +95,7 @@ const rootSubmenuKeys = [
 
 const Help: React.FC = () => {
   const location = useLocation();
-  const [openKeys, setOpenKeys] = useState([
-    location.pathname.split('/')[2],
-    location.pathname.split('/')[3],
-  ]);
+  const [openKeys, setOpenKeys] = useState([location.pathname.split('/')[2], location.pathname.split('/')[3]]);
 
   const {
     isDragging: isLeftDragging,
@@ -287,9 +284,7 @@ const Help: React.FC = () => {
                       {
                         key: '/help/orders/manage/makeorders',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/manage/makeorders">Mark Orders as Shipped</Link>
-                        ),
+                        label: <Link to="/help/orders/manage/makeorders">Mark Orders as Shipped</Link>,
                       },
                     ],
                   },
@@ -302,9 +297,7 @@ const Help: React.FC = () => {
                       {
                         key: '/help/orders/edit/add',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/edit/add">Add an item to an existing order</Link>
-                        ),
+                        label: <Link to="/help/orders/edit/add">Add an item to an existing order</Link>,
                       },
                     ],
                   },
@@ -323,36 +316,22 @@ const Help: React.FC = () => {
                       {
                         key: '/help/orders/resolve/missingorderinfo',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/resolve/missingorderinfo">Missing Order Info</Link>
-                        ),
+                        label: <Link to="/help/orders/resolve/missingorderinfo">Missing Order Info</Link>,
                       },
                       {
                         key: '/help/orders/resolve/missingproductinfo',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/resolve/missingproductinfo">
-                            Missing Product Info
-                          </Link>
-                        ),
+                        label: <Link to="/help/orders/resolve/missingproductinfo">Missing Product Info</Link>,
                       },
                       {
                         key: '/help/orders/resolve/missingfulfillmentsource',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/resolve/missingfulfillmentsource">
-                            Missing Fulfillment Source
-                          </Link>
-                        ),
+                        label: <Link to="/help/orders/resolve/missingfulfillmentsource">Missing Fulfillment Source</Link>,
                       },
                       {
                         key: '/help/orders/resolve/missingstocklocation',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/orders/resolve/missingstocklocation">
-                            Missing Stock Location
-                          </Link>
-                        ),
+                        label: <Link to="/help/orders/resolve/missingstocklocation">Missing Stock Location</Link>,
                       },
                       {
                         key: '/help/orders/resolve/outofstock',
@@ -426,9 +405,7 @@ const Help: React.FC = () => {
                     key: '/help/customers/exportphonenumbers',
                     icon: <AccountingIcon />,
                     label: (
-                      <Link to="/help/customers/exportphonenumbers">
-                        Exporting Customer Phone Numbers from the Orders Module
-                      </Link>
+                      <Link to="/help/customers/exportphonenumbers">Exporting Customer Phone Numbers from the Orders Module</Link>
                     ),
                   },
                 ],
@@ -460,25 +437,17 @@ const Help: React.FC = () => {
                       {
                         key: '/help/products/create/coreproduct',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/create/coreproduct">Create Core Products</Link>
-                        ),
+                        label: <Link to="/help/products/create/coreproduct">Create Core Products</Link>,
                       },
                       {
                         key: '/help/products/create/bundlekit',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/create/bundlekit">Create Bundles/Kits</Link>
-                        ),
+                        label: <Link to="/help/products/create/bundlekit">Create Bundles/Kits</Link>,
                       },
                       {
                         key: '/help/products/create/productvariations',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/create/productvariations">
-                            Create Product Variations
-                          </Link>
-                        ),
+                        label: <Link to="/help/products/create/productvariations">Create Product Variations</Link>,
                       },
                     ],
                   },
@@ -497,20 +466,12 @@ const Help: React.FC = () => {
                       {
                         key: '/help/products/import/vendorproducts',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/import/vendorproducts">
-                            Import Vendor Products
-                          </Link>
-                        ),
+                        label: <Link to="/help/products/import/vendorproducts">Import Vendor Products</Link>,
                       },
                       {
                         key: '/help/products/import/skuadjustments',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/import/skuadjustments">
-                            Import SKU Adjustments
-                          </Link>
-                        ),
+                        label: <Link to="/help/products/import/skuadjustments">Import SKU Adjustments</Link>,
                       },
                     ],
                   },
@@ -529,20 +490,12 @@ const Help: React.FC = () => {
                       {
                         key: '/help/products/export/vendorproducts',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/export/vendorproducts">
-                            Export Vendor Products
-                          </Link>
-                        ),
+                        label: <Link to="/help/products/export/vendorproducts">Export Vendor Products</Link>,
                       },
                       {
                         key: '/help/products/export/custombundlekit',
                         icon: <AccountingIcon />,
-                        label: (
-                          <Link to="/help/products/export/custombundlekit">
-                            Export Custom Bundle/Kit
-                          </Link>
-                        ),
+                        label: <Link to="/help/products/export/custombundlekit">Export Custom Bundle/Kit</Link>,
                       },
                     ],
                   },
@@ -558,11 +511,7 @@ const Help: React.FC = () => {
                   {
                     key: '/help/products/customproductfields',
                     icon: <AccountingIcon />,
-                    label: (
-                      <Link to="/help/products/customproductfields">
-                        How to Create Custom Product Fields
-                      </Link>
-                    ),
+                    label: <Link to="/help/products/customproductfields">How to Create Custom Product Fields</Link>,
                   },
                 ],
               },
@@ -583,37 +532,25 @@ const Help: React.FC = () => {
                         key: '/help/analytics/general/theanalyticsmodules',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/theanalyticsmodules">
-                            {"The Analytics Module's Landing Page"}
-                          </Link>
+                          <Link to="/help/analytics/general/theanalyticsmodules">{"The Analytics Module's Landing Page"}</Link>
                         ),
                       },
                       {
                         key: '/help/analytics/general/analyticsreports',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/general/analyticsreports">
-                            Analytics Reports
-                          </Link>
-                        ),
+                        label: <Link to="/help/analytics/general/analyticsreports">Analytics Reports</Link>,
                       },
                       {
                         key: '/help/analytics/general/printingchartsfromanalytics',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/general/printingchartsfromanalytics">
-                            Printing Charts from Analytics
-                          </Link>
+                          <Link to="/help/analytics/general/printingchartsfromanalytics">Printing Charts from Analytics</Link>
                         ),
                       },
                       {
                         key: '/help/analytics/general/exportingreports',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/general/exportingreports">
-                            Exporting Reports
-                          </Link>
-                        ),
+                        label: <Link to="/help/analytics/general/exportingreports">Exporting Reports</Link>,
                       },
                     ],
                   },
@@ -627,25 +564,17 @@ const Help: React.FC = () => {
                       {
                         key: '/help/analytics/suborders/historicalsexports',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/suborders/historicalsexports">
-                            Historical Exports
-                          </Link>
-                        ),
+                        label: <Link to="/help/analytics/suborders/historicalsexports">Historical Exports</Link>,
                       },
                       {
                         key: '/help/analytics/suborders/salesoverview',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/suborders/salesoverview">Sales Overview</Link>
-                        ),
+                        label: <Link to="/help/analytics/suborders/salesoverview">Sales Overview</Link>,
                       },
                       {
                         key: '/help/analytics/suborders/biggesttickets',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/suborders/biggesttickets">Biggest Tickets</Link>
-                        ),
+                        label: <Link to="/help/analytics/suborders/biggesttickets">Biggest Tickets</Link>,
                       },
                       {
                         key: '/help/analytics/suborders/shipments',
@@ -664,11 +593,7 @@ const Help: React.FC = () => {
                       {
                         key: '/help/analytics/subpurchaseorders/historicalexports',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/subpurchaseorders/historicalexports">
-                            Historical Exports
-                          </Link>
-                        ),
+                        label: <Link to="/help/analytics/subpurchaseorders/historicalexports">Historical Exports</Link>,
                       },
                     ],
                   },
@@ -683,9 +608,7 @@ const Help: React.FC = () => {
                         key: '/help/analytics/subproducts/analyticsskuprofitability',
                         icon: <SalesIcon />,
                         label: (
-                          <Link to="/help/analytics/subproducts/analyticsskuprofitability">
-                            Analytics - SKU Profitability
-                          </Link>
+                          <Link to="/help/analytics/subproducts/analyticsskuprofitability">Analytics - SKU Profitability</Link>
                         ),
                       },
                       {
@@ -786,11 +709,7 @@ const Help: React.FC = () => {
                       {
                         key: '/help/analytics/subinventory/analyticsinventoryaging',
                         icon: <SalesIcon />,
-                        label: (
-                          <Link to="/help/analytics/subinventory/analyticsinventoryaging">
-                            Analytics - Inventory Aging
-                          </Link>
-                        ),
+                        label: <Link to="/help/analytics/subinventory/analyticsinventoryaging">Analytics - Inventory Aging</Link>,
                       },
                     ],
                   },

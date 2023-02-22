@@ -33,8 +33,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
   const [showModal, setShowModal] = useState(false);
 
   const locationOptions = useMemo(
-    () =>
-      locations.map((location) => ({ key: location.id, value: location.id, label: location.name })),
+    () => locations.map((location) => ({ key: location.id, value: location.id, label: location.name })),
     [locations],
   );
 
@@ -159,13 +158,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
               <Form.Item label="Discount" name="discount">
                 <Input
                   type="number"
-                  addonBefore={
-                    <Select
-                      defaultValue="$"
-                      style={{ width: 40 }}
-                      options={[{ value: '$', label: '$' }]}
-                    />
-                  }
+                  addonBefore={<Select defaultValue="$" style={{ width: 40 }} options={[{ value: '$', label: '$' }]} />}
                   value={0.0}
                 />
               </Form.Item>
