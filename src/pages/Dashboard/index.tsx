@@ -1,4 +1,4 @@
-import { Card, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import React from 'react';
 import { useModel } from '@umijs/max';
 import OrderAgingByWarehouse from './components/orderAgingByWarehouse';

@@ -1,4 +1,5 @@
 import { CheckCircleOutlined, ClockCircleOutlined, PauseOutlined, WarningOutlined } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 import { Row, Col } from 'antd';
 
 interface IFulfillmentPerformance {
@@ -8,7 +9,9 @@ interface IFulfillmentPerformance {
 const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => {
   return (
     <>
-      <div style={{ fontSize: 25 }}>Fulfillment Performance</div>
+      <div style={{ fontSize: 25 }}>
+        <FormattedMessage id="pages.dashboard.fulfillmentPerformance" />
+      </div>
       {!!data ? (
         <Row gutter={[30, 30]} className="mt-10">
           <Col span={12}>
@@ -31,28 +34,36 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
               >
                 <Col>
                   <WarningOutlined className="mr-10" />
-                  Unresolved
+                  <FormattedMessage id="pages.dashboard.unresolved" />
                 </Col>
               </Row>
               <Row className="ml-10">
                 <Col span={24}>
                   <Row justify="space-between">
-                    <Col>Missing Product Info:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.missingProductInfo" />:
+                    </Col>
                     <Col>{data.unresolved.missing_product_info}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>Missing Stock Location:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.missingStockLocation" />:
+                    </Col>
                     <Col>{data.unresolved.missing_stock_location}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>Out of Stock:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.outOfStock" />:
+                    </Col>
                     <Col>{data.unresolved.out_of_stock}</Col>
                   </Row>
                   <Row>
                     <hr style={{ width: '100%' }} />
                   </Row>
                   <Row justify="space-between">
-                    <Col>Total:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.total" />:
+                    </Col>
                     <Col>
                       {data.unresolved.out_of_stock +
                         data.unresolved.missing_product_info +
@@ -83,24 +94,30 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
               >
                 <Col>
                   <PauseOutlined style={{ marginRight: 10 }} />
-                  PAUSED
+                  <FormattedMessage id="pages.dashboard.paused" />
                 </Col>
               </Row>
               <Row style={{ marginLeft: 10, marginRight: 10 }}>
                 <Col span={24}>
                   <Row justify="space-between">
-                    <Col>Awaiting Payment:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.awaitingPayment" />:
+                    </Col>
                     <Col>{data.paused.awaiting_payment}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>On Hold:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.onHold" />:
+                    </Col>
                     <Col>{data.paused.on_hold}</Col>
                   </Row>
                   <Row>
                     <hr style={{ width: '100%' }} />
                   </Row>
                   <Row justify="space-between">
-                    <Col>Total:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.total" />:
+                    </Col>
                     <Col>{data.paused.awaiting_payment + data.paused.on_hold}</Col>
                   </Row>
                 </Col>
@@ -127,28 +144,36 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
               >
                 <Col>
                   <ClockCircleOutlined style={{ marginRight: 10 }} />
-                  AWAITING FULFILLMENT
+                  <FormattedMessage id="pages.dashboard.awaitingFulfillment" />
                 </Col>
               </Row>
               <Row style={{ marginLeft: 10, marginRight: 10 }}>
                 <Col span={24}>
                   <Row justify="space-between">
-                    <Col>Awaiting Shipment:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.awaitingShipment" />:
+                    </Col>
                     <Col>{data.awaiting_fulfillment.awaiting_shipment}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>Awaiting Export:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.awaitingExport" />:
+                    </Col>
                     <Col>{data.awaiting_fulfillment.awaiting_export}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>Pending Fulfillment:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.pendingFulfillment" />:
+                    </Col>
                     <Col>{data.awaiting_fulfillment.pending_fulfillment}</Col>
                   </Row>
                   <Row>
                     <hr style={{ width: '100%' }} />
                   </Row>
                   <Row justify="space-between">
-                    <Col>Total:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.total" />:
+                    </Col>
                     <Col>
                       {data.awaiting_fulfillment.awaiting_shipment +
                         data.awaiting_fulfillment.awaiting_export +
@@ -179,25 +204,33 @@ const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => 
               >
                 <Col>
                   <CheckCircleOutlined style={{ marginRight: 10 }} />
-                  SHIPPED
+                  <FormattedMessage id="pages.dashboard.shipped" />
                 </Col>
               </Row>
               <Row style={{ marginLeft: 10, marginRight: 10 }}>
                 <Col span={24}>
                   <Row justify="space-between">
-                    <Col>Today:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.today" />:
+                    </Col>
                     <Col>{data.shipped.today}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>This Week:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.thisWeek" />:
+                    </Col>
                     <Col>{data.shipped.this_week}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>This Month:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.thisMonth" />:
+                    </Col>
                     <Col>{data.shipped.this_month}</Col>
                   </Row>
                   <Row justify="space-between">
-                    <Col>This Year:</Col>
+                    <Col>
+                      <FormattedMessage id="pages.dashboard.thisYear" />:
+                    </Col>
                     <Col>{data.shipped.this_year}</Col>
                   </Row>
                 </Col>
