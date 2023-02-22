@@ -8,10 +8,10 @@ import { useModel } from '@umijs/max';
 import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
 import { useResizable } from 'react-resizable-layout';
-import EditVendorModal from './components/Modals/EditVendor';
 import HistoryModal from './components/Modals/History';
 import NewVendorModal from './components/Modals/NewVendor';
 import RightPanel from './components/RightPanel';
+import type IVendors from '@/interfaces/Ivendors';
 
 const { Search } = Input;
 
@@ -87,8 +87,17 @@ const TColumns = [
 
 export default function () {
   const [modalOpen, setModal] = useState('');
-  const { vendorList, selectedVendor, showActive, getVendorList, setSelectedVendor, setEditableVendor, setShowActive } =
-    useModel('vendor');
+  const {
+    vendorList,
+    selectedVendor,
+    showActive,
+    createVendor,
+    updateVendor,
+    getVendor,
+    getVendorList,
+    setSelectedVendor,
+    setShowActive,
+  } = useModel('vendor');
   const [searchText, setSearchText] = useState('');
 
   const {
@@ -142,6 +151,7 @@ export default function () {
               btnText="New Vendor"
               onClick={() => {
                 setModal(modalType.New);
+                setSelectedVendor(null);
               }}
             />
             <OButton
@@ -159,7 +169,7 @@ export default function () {
               return {
                 onClick: () => {
                   if (record.id === selectedVendor?.id) setSelectedVendor(null);
-                  else setSelectedVendor(record);
+                  else getVendor(record.id);
                 }, // click row
               };
             }}
@@ -178,21 +188,18 @@ export default function () {
 
       {/* Modals */}
       <NewVendorModal
-        isOpen={modalOpen === modalType.New}
-        onSave={() => setModal(modalType.Close)}
+        isOpen={modalOpen === modalType.New || modalOpen === modalType.Edit}
+        onSave={(values: IVendors) => {
+          if (modalOpen === modalType.New) {
+            createVendor(values);
+            getVendorList();
+          } else if (modalOpen === modalType.Edit) {
+            updateVendor({ id: selectedVendor.id, ...values });
+            setSelectedVendor(null);
+          }
+          setModal(modalType.Close);
+        }}
         onClose={() => setModal(modalType.Close)}
-      />
-
-      <EditVendorModal
-        isOpen={modalOpen === modalType.Edit}
-        onSave={() => {
-          setEditableVendor(null);
-          setModal(modalType.Close);
-        }}
-        onClose={() => {
-          setEditableVendor(null);
-          setModal(modalType.Close);
-        }}
       />
 
       <HistoryModal

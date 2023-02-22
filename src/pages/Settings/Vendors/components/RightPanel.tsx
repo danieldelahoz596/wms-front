@@ -4,27 +4,28 @@ import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
 import { useModel } from '@umijs/max';
 import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
+import { useEffect, useState } from 'react';
 
 const VendorDetails = ({ setModal }) => {
-  const { selectedVendor, setEditableVendor, setSelectedVendor, getVendorHistory, updateVendor, getVendorList } =
-    useModel('vendor');
+  const { selectedVendor, setSelectedVendor, getVendorHistory, updateVendor, getVendorList } = useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
   const { poTemplateList } = useModel('poTemplate');
+  const [vendorDetails, setVendorDetails] = useState(null);
 
-  let vendorDetails = null;
-  if (selectedVendor) {
-    vendorDetails = {
-      ...selectedVendor,
-      po_default: {
-        ...selectedVendor.po_default,
-        template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.value,
-        payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.value,
-      },
-    };
-  }
+  useEffect(() => {
+    if (!selectedVendor) setVendorDetails(null);
+    else
+      setVendorDetails({
+        ...selectedVendor,
+        po_default: {
+          ...selectedVendor.po_default,
+          template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.value,
+          payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.value,
+        },
+      });
+  }, [selectedVendor]);
 
   const handleEditVendor = () => {
-    setEditableVendor(selectedVendor);
     setModal(modalType.Edit);
   };
 
@@ -43,12 +44,12 @@ const VendorDetails = ({ setModal }) => {
           <Popconfirm
             title="Sure to deactivate?"
             onConfirm={() => {
-              updateVendor({ id: selectedVendor.id, status: !selectedVendor.status });
+              updateVendor({ ...selectedVendor, status: !selectedVendor.status });
               getVendorList();
               setSelectedVendor(null);
             }}
           >
-            <OButton btnText={selectedVendor.status ? 'Deactivate' : 'Activate'} />
+            <OButton btnText={vendorDetails.status ? 'Deactivate' : 'Activate'} />
           </Popconfirm>
         </Space>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>

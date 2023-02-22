@@ -2,12 +2,13 @@ import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
 import { useCallback, useEffect, useState } from 'react';
 import qs from 'qs';
+import type IVendors from '@/interfaces/Ivendors';
+import type IVendorsHistory from '@/interfaces/IvendorsHisotry';
 
 export default () => {
-  const [vendorList, setVendorList] = useState<any[]>([]);
-  const [selectedVendor, setSelectedVendor] = useState(null);
-  const [editableVendor, setEditableVendor] = useState(null);
-  const [vendorHistory, setVendorHistory] = useState([]);
+  const [vendorList, setVendorList] = useState<IVendors[]>([]);
+  const [selectedVendor, setSelectedVendor] = useState<IVendors>(null);
+  const [vendorHistory, setVendorHistory] = useState<IVendorsHistory[]>([]);
   const [showActive, setShowActive] = useState(true);
   const { initialState } = useModel('@@initialState');
 
@@ -52,6 +53,15 @@ export default () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const getVendor = useCallback((id) => {
+    httpClient
+      .get('/api/vendors/' + id)
+      .then((response) => {
+        setSelectedVendor(response.data.vendor);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const getVendorHistory = useCallback((id) => {
     httpClient
       .get('/api/vendors/' + id + '/history')
@@ -70,14 +80,13 @@ export default () => {
   return {
     vendorList,
     selectedVendor,
-    editableVendor,
     vendorHistory,
     showActive,
-    setEditableVendor,
     getVendorList,
     setSelectedVendor,
     setVendorList,
     setShowActive,
+    getVendor,
     createVendor,
     updateVendor,
     deleteVendor,
