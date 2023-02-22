@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Pie } from '@ant-design/charts';
 import { Row, Col, Card } from 'antd';
 
@@ -17,7 +17,7 @@ const OrderAgingByWarehouse: React.FC = () => {
 
   return (
     <>
-      <Card title="Order Aging By Warehouse">
+      <Card title={<FormattedMessage id="pages.dashboard.orderAgingByWarehouse" />}>
         <Row>
           <Col span={24}>
             <Pie

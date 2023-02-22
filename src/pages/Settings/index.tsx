@@ -39,7 +39,7 @@ const OrderManagement: React.FC = () => {
   } else if (activeMenu === 'orderbots') {
     mainContent = <OrderBots />;
   } else {
-    mainContent = <Vendors />;
+    mainContent = <MyProfile />;
   }
 
   const {

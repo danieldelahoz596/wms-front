@@ -1,3 +1,4 @@
+import { FormattedMessage } from '@umijs/max';
 import { Card, Table } from 'antd';
 import { useMemo } from 'react';
 
@@ -8,27 +9,27 @@ interface IStockRequiringAttention {
 const StockRequiringAttention: React.FC<IStockRequiringAttention> = ({ stock }) => {
   const Tcolumns = [
     {
-      title: 'Product',
+      title: <FormattedMessage id="component.table.column.product" />,
       dataIndex: 'product',
       key: 'product',
     },
     {
-      title: '# BELOW MIN.',
+      title: <FormattedMessage id="component.table.column.belowMin" />,
       dataIndex: 'below_min',
       key: 'below_min',
     },
     {
-      title: 'EST.RUNOUT',
+      title: <FormattedMessage id="component.table.column.estRunout" />,
       dataIndex: 'est_runout',
       key: 'est_runout',
     },
     {
-      title: 'WAREHOUSE',
+      title: <FormattedMessage id="component.table.column.warehouse" />,
       dataIndex: 'warehouse',
       key: 'warehouse',
     },
     {
-      title: 'INC. P.O',
+      title: <FormattedMessage id="component.table.column.incPO" />,
       dataIndex: 'inc_po',
       key: 'inc_po',
     },
@@ -40,7 +41,7 @@ const StockRequiringAttention: React.FC<IStockRequiringAttention> = ({ stock }) 
 
   return (
     <>
-      <Card title="Stock Requiring Attention">
+      <Card title={<FormattedMessage id="pages.dashboard.stockRequiringAttention" />}>
         <Table columns={Tcolumns} dataSource={rows} scroll={{ y: 200 }} pagination={{ hideOnSinglePage: true }} />
       </Card>
     </>

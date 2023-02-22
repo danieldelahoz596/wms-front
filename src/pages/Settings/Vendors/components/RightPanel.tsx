@@ -6,6 +6,11 @@ import { useModel } from '@umijs/max';
 import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
+const poFormats = [
+  { value: 1, label: 'PDF Attachment' },
+  { value: 2, label: 'HTML Attachment' },
+];
+
 const VendorDetails = ({ setModal }) => {
   const { selectedVendor, setSelectedVendor, getVendorHistory, updateVendor, getVendorList } = useModel('vendor');
   const { paymentTermList } = useModel('paymentTerm');
@@ -19,8 +24,9 @@ const VendorDetails = ({ setModal }) => {
         ...selectedVendor,
         po_default: {
           ...selectedVendor.po_default,
-          template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.value,
-          payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.value,
+          template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.name,
+          format: poFormats.find((_item) => _item.value === selectedVendor.po_default?.format).label,
+          payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.name,
         },
       });
   }, [selectedVendor]);
@@ -32,7 +38,7 @@ const VendorDetails = ({ setModal }) => {
   return vendorDetails ? (
     <>
       <Card title={'Vendor Details'}>
-        <Space size={4}>
+        <Space size={SPACE_SIZE}>
           <OButton btnText="Edit" onClick={handleEditVendor} />
           <OButton
             btnText="History"

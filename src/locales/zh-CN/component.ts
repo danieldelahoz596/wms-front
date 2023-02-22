@@ -9,4 +9,14 @@ export default {
   'component.table.column.name': '名字',
   'component.table.column.created': '已创建',
   'component.table.column.modified': '调整',
+
+  'component.table.column.product': 'Product',
+  'component.table.column.belowMin': '# Below Min.',
+  'component.table.column.estRunout': 'EST.RUNOUT',
+  'component.table.column.warehouse': 'Warehouse',
+  'component.table.column.incPO': 'INC. P.O',
+  'component.table.column.units': 'Units',
+  'component.table.column.value': 'Value',
+  'component.table.column.arriving': 'Arriving',
+  'component.table.column.poNumber': 'P.O. #',
 };

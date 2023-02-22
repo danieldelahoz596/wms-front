@@ -55,7 +55,7 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
 
   return (
     <OModal
-      title="New Vendor"
+      title={`${!selectedVendor ? 'New' : 'Edit'} Vendor`}
       helpLink=""
       isOpen={isOpen}
       handleCancel={onClose}
@@ -73,7 +73,7 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
           onClick: handleSave,
         },
       ]}
-      width={800}
+      width={MODAL_WIDTH}
     >
       <Form form={form} style={{ width: '100%' }} labelCol={{ span: 6 }}>
         <Row gutter={10}>
@@ -87,7 +87,7 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
               </Form.Item>
               <Form.Item label="City, State">
                 <Input.Group compact>
-                  <Form.Item name="City">
+                  <Form.Item name="city">
                     <Input placeholder="City" />
                   </Form.Item>
                   <Form.Item name="state">
@@ -153,8 +153,8 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
                   placeholder="Please select"
                   style={{ width: '100%' }}
                   options={[
-                    { value: 'PDF', label: 'PDF Attachment' },
-                    { value: 'HTML', label: 'HTML Attachment' },
+                    { value: 1, label: 'PDF Attachment' },
+                    { value: 2, label: 'HTML Attachment' },
                   ]}
                 />
               </Form.Item>
