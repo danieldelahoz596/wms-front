@@ -6,9 +6,6 @@ export default interface IVendors {
   address: string;
   city: string;
   state: string;
-  zip: string;
-  country: string;
-  email: string;
   phone1: string;
   phone2: string;
   website: string;

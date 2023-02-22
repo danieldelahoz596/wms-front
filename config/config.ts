@@ -10,6 +10,8 @@ const { REACT_APP_ENV, REACT_APP_BACKEND_URL } = process.env;
 export default defineConfig({
   define: {
     BACKEND_URL: REACT_APP_BACKEND_URL || '',
+    MODAL_WIDTH: 800,
+    SPACE_SIZE: 4,
   },
   /**
    * @name 开启 hash 模式
