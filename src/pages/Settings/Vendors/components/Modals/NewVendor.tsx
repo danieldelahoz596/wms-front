@@ -86,12 +86,7 @@ const NewVendorModal: React.FC<INewVendorModal> = ({ isOpen, onSave, onClose }) 
                   <Input placeholder="City" onChange={(e) => handleInputChange('city', e.target.value)} />
                 </Col>
                 <Col span={10}>
-                  <Select
-                    size="small"
-                    style={{ width: '100%' }}
-                    onChange={(value) => handleInputChange('state', value)}
-                    options={[]}
-                  />
+                  <Select size="small" style={{ width: '100%' }} onChange={(value) => handleInputChange('state', value)} options={[]} />
                 </Col>
               </Row>
               <Row>
