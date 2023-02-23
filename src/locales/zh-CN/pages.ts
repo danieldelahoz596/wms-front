@@ -147,4 +147,57 @@ export default {
   'pages.settings.orderbots.manageItems.active.description': '激活此订单机器人将阻止它针对进入系统的<b>所有</b> 新订单运行。',
   'pages.settings.orderbots.manageItems.deactive.description': '停用此订单机器人将阻止它针对进入系统的<b>所有</b> 新订单运行。',
   'pages.settings.orderbots.neworderbot.title': '新订单机器人',
+
+  'pages.settings.userAdministration.updated.content': '用户更新成功',
+  'pages.settings.userAdministration.created.content': '用户更新成功',
+  'pages.settings.userAdministration.permissionDenied.content': '没有权限',
+  'pages.settings.userAdministration.newUser.title': '新用户',
+  'pages.settings.userAdministration.newUser.orders.title': '命令',
+  'pages.settings.userAdministration.newUser.orders.content':
+    '能够通过直接运输、多渠道履行、3PL 出口或直接运输处理来自所有销售渠道的订单。 这包括所有手动订单以及取消订单。',
+  'pages.settings.userAdministration.newUser.shipments.title': '出货量',
+  'pages.settings.userAdministration.newUser.shipments.content':
+    '能够查看所有装运、批次和退货。 这包括跟踪或作废装运的能力，以及打印标签、提货单和装箱单的能力。',
+  'pages.settings.userAdministration.newUser.customers.title': '顾客',
+  'pages.settings.userAdministration.newUser.customers.content':
+    '能够查看和管理所有客户数据，Skubana 会自动导入来自销售渠道的传入订单。 这还包括手动创建客户。',
+  'pages.settings.userAdministration.newUser.inventory.title': '存货',
+  'pages.settings.userAdministration.newUser.inventory.content':
+    '能够全面管理所有内部、FBA、3PL 和直销仓库的库存。 这包括设置最低库存水平和渠道分配规则。',
+  'pages.settings.userAdministration.newUser.purchaseOrders.title': '订单',
+  'pages.settings.userAdministration.newUser.purchaseOrders.content':
+    '能够在整个采购生命周期中创建、编辑和跟踪供应商采购订单。 这包括取消采购订单。',
+  'pages.settings.userAdministration.newUser.purchaseOrderAuthorization.title': '采购订单授权',
+  'pages.settings.userAdministration.newUser.purchaseOrderAuthorization.content':
+    '能够批准和授权新创建的采购订单。 具有此权限的用户有效地发出采购订单。',
+  'pages.settings.userAdministration.newUser.products.title': '产品',
+  'pages.settings.userAdministration.newUser.products.content':
+    '能够管理您的核心产品、套件、捆绑包和变体。 这包括创建和编辑基本产品信息、图库、列出 SKU、供应商产品和海关。',
+  'pages.settings.userAdministration.newUser.analytics.title': '分析',
+  'pages.settings.userAdministration.newUser.analytics.content':
+    '能够运行和查看所有报告和分析，包括临时报告、商业智能和预测报告。 这包括报告的自动生成和电子邮件发送。',
+  'pages.settings.userAdministration.newUser.warehouses.title': '仓库',
+  'pages.settings.userAdministration.newUser.warehouses.content':
+    '能够创建和修改贵公司履行订单的内部仓库和 3PL，包括文档打印设置（内部仓库）和 FTP 设置（3PL）。',
+  'pages.settings.userAdministration.newUser.templates.title': '模板',
+  'pages.settings.userAdministration.newUser.templates.content':
+    '能够创建和修改所有模板，包括装运电子邮件通知、装箱单和采购订单模板。',
+  'pages.settings.userAdministration.newUser.vendors.title': '供应商',
+  'pages.settings.userAdministration.newUser.vendors.content':
+    '能够创建和修改供应和/或制造贵公司销售产品的供应商。 这包括为符合条件的供应商配置直销能力的能力。',
+  'pages.settings.userAdministration.newUser.orderbots.title': '订单机器人',
+  'pages.settings.userAdministration.newUser.orderbots.content':
+    '能够创建和修改订单机器人，用于过滤和自动化来自市场和购物车的客户订单。',
+  'pages.settings.userAdministration.newUser.userAdministration.title': '用户管理',
+  'pages.settings.userAdministration.newUser.userAdministration.content':
+    '能够创建新用户，修改其他用户的权限，以及在 Skubana 中激活和停用用户。 此权限应仅授予管理员。',
+  'pages.settings.userAdministration.newUser.inventoryReconciliation.title': '库存核对',
+  'pages.settings.userAdministration.newUser.inventoryReconciliation.content':
+    '能够使用库存模块中的单个库存核对功能。 此功能与 Analytics 报告中使用的数据有关。',
+  'pages.settings.userAdministration.newUser.bulkInventoryReconciliation.title': '大宗库存核对',
+  'pages.settings.userAdministration.newUser.bulkInventoryReconciliation.content': '能够使用库存模块中的批量库存核对功能。',
+  'pages.settings.userAdministration.newUser.description':
+    '要将用户添加到您的公司帐户，只需输入他们的姓名、密码并分配适当的访问权限即可。 Skubana 随后将向新用户发送一封电子邮件以激活他们的帐户。',
+  'pages.settings.userAdministration.newUser.permission': '允许',
+  'pages.settings.userAdministration.newUser.allow': '允许？',
 };

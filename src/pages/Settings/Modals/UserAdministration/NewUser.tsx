@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { InfoCircleFilled } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Row, List, message } from 'antd';
 import { useState, useEffect } from 'react';
 import styles from './index.less';
@@ -14,92 +14,78 @@ interface INewUserModal {
 const userAdministration = [
   {
     id: 'orders',
-    title: 'Orders',
-    content:
-      'Ability to process orders from all sales channels through direct shipping, multi-channel fulfillment, 3PL exports, or dropshipping. This includes all manual orders, as well as canceling of orders.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.orders.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.orders.content" />,
   },
   {
     id: 'shipments',
-    title: 'Shipments',
-    content:
-      'Ability to view all shipments, batches, and returns. This includes the ability to track or void shipments, as well as print labels, pick lists, and packing slips.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.shipments.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.shipments.content" />,
   },
   {
     id: 'customers',
-    title: 'Customers',
-    content:
-      'Ability to view and manage all customer data Skubana automatically imports with incoming orders from sales channels. This also includes manual creation of customers.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.customers.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.customers.content" />,
   },
   {
     id: 'inventory',
-    title: 'Inventory',
-    content:
-      'Ability to fully manage inventory across all in-house, FBA, 3PL, and dropship warehouses. This includes setting minimum inventory levels and channel allocation rules.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.inventory.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.inventory.content" />,
   },
   {
     id: 'purchase_orders',
-    title: 'Purchase Orders',
-    content:
-      'Ability to create, edit, and track vendor purchase orders throughout the procurement life cycle. This includes the canceling of purchase orders.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.purchaseOrders.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.purchaseOrders.content" />,
   },
   {
     id: 'purchase_order_authorization',
-    title: 'Purchase Order Authorization',
-    content:
-      'Ability to approve and authorize newly created purchase orders. Users with this permission effectively issue purchase orders.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.purchaseOrderAuthorization.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.purchaseOrderAuthorization.content" />,
   },
   {
     id: 'products',
-    title: 'Products',
-    content:
-      'Ability to manage your core products, kits, bundles, and variations. This includes the creation and editing of basic product info, image gallery, listing SKUs, vendor products, and customs.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.products.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.products.content" />,
   },
   {
     id: 'analytics',
-    title: 'Analytics',
-    content:
-      'Ability to run and view all reporting and analysis, including ad hoc, business intelligence, and forecasting reports. This includes auto-generation and e-mailing of reports.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.analytics.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.analytics.content" />,
   },
   {
     id: 'warehouses',
-    title: 'Warehouses',
-    content:
-      'Ability to create and modify in-house warehouses and 3PLs from which your company fulfills orders, including document print settings (in-house warehouses) and FTP settings (3PLs).',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.warehouses.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.warehouses.content" />,
   },
   {
     id: 'templates',
-    title: 'Templates',
-    content:
-      'Ability to create and modify all of your templates, including shipment e-mail notifications, packing slips, and purchase order templates.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.templates.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.templates.content" />,
   },
   {
     id: 'vendors',
-    title: 'Vendors',
-    content:
-      'Ability to create and modify vendors that supply and/or manufacture the products your company sells. This includes the ability to configure dropshipping capabilities for eligible vendors.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.vendors.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.vendors.content" />,
   },
   {
     id: 'orderbots',
-    title: 'Orderbots',
-    content:
-      'Ability to create and modify orderbots used for filtering and workflow automation of customer orders from marketplaces and shopping carts.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.orderbots.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.orderbots.content" />,
   },
   {
     id: 'user_administration',
-    title: 'User Administration',
-    content:
-      "Ability to create new users, modify other users' permissions, as well as activate and deactivate users in Skubana. This permission should be given to administrators only.",
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.userAdministration.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.userAdministration.content" />,
   },
   {
     id: 'inventory_reconciliation',
-    title: 'Inventory Reconciliation',
-    content:
-      'Ability to use the individual inventory reconciliation feature found in the Inventory Module. This feature relates to data used in Analytics reports.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.inventoryReconciliation.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.inventoryReconciliation.content" />,
   },
   {
     id: 'bulk_inventory_reconciliation',
-    title: 'Bulk Inventory Reconciliation',
-    content: 'Ability to use the bulk inventory reconciliation feature found in the Inventory Module.',
+    title: <FormattedMessage id="pages.settings.userAdministration.newUser.bulkInventoryReconciliation.title" />,
+    content: <FormattedMessage id="pages.settings.userAdministration.newUser.bulkInventoryReconciliation.content" />,
   },
 ];
 
@@ -122,7 +108,7 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
             .then(() => {
               messageApi.open({
                 type: 'success',
-                content: 'User created successfully',
+                content: <FormattedMessage id="pages.settings.userAdministration.created.content" />,
               });
 
               onSave();
@@ -139,7 +125,7 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
             .then(() => {
               messageApi.open({
                 type: 'success',
-                content: 'User updated successfully',
+                content: <FormattedMessage id="pages.settings.userAdministration.updated.content" />,
               });
 
               onSave();
@@ -148,7 +134,7 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
               if (response.status === 403) {
                 messageApi.open({
                   type: 'error',
-                  content: 'Permission Denied',
+                  content: <FormattedMessage id="pages.settings.userAdministration.permissionDenied.content" />,
                 });
 
                 onSave();
@@ -174,7 +160,7 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
     <>
       {contextHolder}
       <OModal
-        title="New User"
+        title={<FormattedMessage id="pages.settings.userAdministration.newUser.title" />}
         helpLink="http://localhost:8001/help/settings/useradministration"
         isOpen={isOpen}
         handleCancel={onClose}
@@ -182,13 +168,13 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
           {
             key: 'back',
             type: 'default',
-            btnLabel: 'Cancel',
+            btnLabel: <FormattedMessage id="component.button.cancel" />,
             onClick: onClose,
           },
           {
             key: 'submit',
             type: 'primary',
-            btnLabel: 'Save',
+            btnLabel: <FormattedMessage id="component.button.save" />,
             onClick: handleSave,
           },
         ]}
@@ -198,20 +184,28 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
         <Form form={form} initialValues={{ full_name: selectedUser?.full_name, username: selectedUser?.username }}>
           <Row style={{ marginTop: 10 }} align="middle" gutter={10}>
             <Col span={12}>
-              <Card title="Login Info">
-                <Form.Item label="Full Name" name="full_name" rules={[{ required: true, message: 'Please input Name!' }]}>
+              <Card title={<FormattedMessage id="component.card.title.loginInfo" />}>
+                <Form.Item
+                  label={<FormattedMessage id="component.form.label.fullName" />}
+                  name="full_name"
+                  rules={[{ required: true, message: <FormattedMessage id="component.form.label.fullName.required" /> }]}
+                >
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input the Username!' }]}>
+                <Form.Item
+                  label={<FormattedMessage id="component.form.label.userName" />}
+                  name="username"
+                  rules={[{ required: true, message: <FormattedMessage id="component.form.label.userName.required" /> }]}
+                >
                   <Input />
                 </Form.Item>
 
                 {!selectedUser && (
                   <Form.Item
-                    label="Password"
+                    label={<FormattedMessage id="component.form.label.password" />}
                     name="password"
-                    rules={[{ required: true, message: 'Please inpute the password!' }]}
+                    rules={[{ required: true, message: <FormattedMessage id="component.form.label.password.required" /> }]}
                   >
                     <Input.Password />
                   </Form.Item>
@@ -222,23 +216,26 @@ const NewUserModal: React.FC<INewUserModal> = ({ isOpen, onSave, onClose }) => {
               <div style={{ display: 'flex', gap: 5 }}>
                 <InfoCircleFilled style={{ color: '#8C8A8C', fontSize: '12px', paddingTop: 4 }} />
                 <h3>
-                  To add a user to your company account, simply enter their name, password, and assign proper access permissions.
-                  Skubana will then send the new user an e-mail to activate their account.
+                  <FormattedMessage id="pages.settings.userAdministration.newUser.description" />
                 </h3>
               </div>
             </Col>
           </Row>
 
-          <Card title="Access Permissions" style={{ marginTop: 30 }}>
+          <Card title={<FormattedMessage id="component.card.title.accessPermissions" />} style={{ marginTop: 30 }}>
             <List
               size="small"
               header={
                 <Row className={styles.row} style={{ color: 'blue' }}>
                   <Col>
-                    <span>Permission</span>
+                    <span>
+                      <FormattedMessage id="pages.settings.userAdministration.newUser.permission" />
+                    </span>
                   </Col>
                   <Col>
-                    <span>Allow?</span>
+                    <span>
+                      <FormattedMessage id="pages.settings.userAdministration.newUser.allow" />
+                    </span>
                   </Col>
                 </Row>
               }

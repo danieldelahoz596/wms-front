@@ -1,6 +1,7 @@
 import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Table } from 'antd';
+import { FormattedMessage } from '@umijs/max';
 
 interface IUserAdministrationHistoryModal {
   isOpen: boolean;
@@ -9,15 +10,15 @@ interface IUserAdministrationHistoryModal {
 
 const columns = [
   {
-    title: 'EDIT TIME',
+    title: <FormattedMessage id="component.table.column.editTime" />,
     dataIndex: 'time',
   },
   {
-    title: 'USER',
+    title: <FormattedMessage id="component.table.column.user" />,
     dataIndex: 'user',
   },
   {
-    title: 'CHANGED VALUES',
+    title: <FormattedMessage id="component.table.column.changedValues" />,
     dataIndex: 'value',
   },
 ];

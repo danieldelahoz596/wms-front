@@ -23,6 +23,8 @@ export default {
   'component.button.activate': '启用',
   'component.button.deactivate': '停用',
   'component.button.newOrderBot': '新订单机器人',
+  'component.button.newUser': '新用户',
+  'component.button.editUser': '编辑用户',
 
   'component.table.column.name': '名字',
   'component.table.column.created': '已创建',
@@ -47,6 +49,7 @@ export default {
   'component.table.column.pendingUnits': '待定单位',
   'component.table.column.pendingValue': '待定值',
   'component.table.column.rank': '秩',
+  'component.table.column.lastLogin': '上次登录',
 
   'component.form.label.warehouseName': '仓库名称',
   'component.form.label.addressLine1': '地址第一行',
@@ -87,6 +90,12 @@ export default {
   'component.form.label.cityState': '市，州',
   'component.form.label.poltr': 'P.O L.T.R',
   'component.form.label.rank': '秩',
+  'component.form.label.fullName': '全名',
+  'component.form.label.fullName.required': '请输入全名！',
+  'component.form.label.userName': '用户名',
+  'component.form.label.userName.required': '请输入用户名！',
+  'component.form.label.password': '密码',
+  'component.form.label.password.required': '请输入密码！',
 
   'component.tab.shippingLabels': '运输标签',
   'component.tab.packingSlips': '装箱单',
@@ -102,6 +111,8 @@ export default {
   'component.card.title.services': '服务',
   'component.card.title.basicInfo': '基本信息',
   'component.card.title.poDefaults': '邮政信箱 默认值',
+  'component.card.title.loginInfo': '登录信息',
+  'component.card.title.accessPermissions': '访问权限',
 
   'component.select.placeholder.Select': '选择...',
 

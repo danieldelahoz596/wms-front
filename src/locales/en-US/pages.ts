@@ -153,4 +153,58 @@ export default {
   'pages.settings.orderbots.manageItems.deactive.description':
     'Deacticating this orderbot will stop it from running against <b>all</b> new orders coming into the system.',
   'pages.settings.orderbots.neworderbot.title': 'New Orderbot',
+
+  'pages.settings.userAdministration.updated.content': 'User updated successfully',
+  'pages.settings.userAdministration.created.content': 'User updated successfully',
+  'pages.settings.userAdministration.permissionDenied.content': 'Permission Denied',
+  'pages.settings.userAdministration.newUser.title': 'New User',
+  'pages.settings.userAdministration.newUser.orders.title': 'Orders',
+  'pages.settings.userAdministration.newUser.orders.content':
+    'Ability to process orders from all sales channels through direct shipping, multi-channel fulfillment, 3PL exports, or dropshipping. This includes all manual orders, as well as canceling of orders.',
+  'pages.settings.userAdministration.newUser.shipments.title': 'Shipments',
+  'pages.settings.userAdministration.newUser.shipments.content':
+    'Ability to view all shipments, batches, and returns. This includes the ability to track or void shipments, as well as print labels, pick lists, and packing slips.',
+  'pages.settings.userAdministration.newUser.customers.title': 'Customers',
+  'pages.settings.userAdministration.newUser.customers.content':
+    'Ability to view and manage all customer data Skubana automatically imports with incoming orders from sales channels. This also includes manual creation of customers.',
+  'pages.settings.userAdministration.newUser.inventory.title': 'Inventory',
+  'pages.settings.userAdministration.newUser.inventory.content':
+    'Ability to fully manage inventory across all in-house, FBA, 3PL, and dropship warehouses. This includes setting minimum inventory levels and channel allocation rules.',
+  'pages.settings.userAdministration.newUser.purchaseOrders.title': 'Purchase Orders',
+  'pages.settings.userAdministration.newUser.purchaseOrders.content':
+    'Ability to create, edit, and track vendor purchase orders throughout the procurement life cycle. This includes the canceling of purchase orders.',
+  'pages.settings.userAdministration.newUser.purchaseOrderAuthorization.title': 'Purchase Order Authorization',
+  'pages.settings.userAdministration.newUser.purchaseOrderAuthorization.content':
+    'Ability to approve and authorize newly created purchase orders. Users with this permission effectively issue purchase orders.',
+  'pages.settings.userAdministration.newUser.products.title': 'Products',
+  'pages.settings.userAdministration.newUser.products.content':
+    'Ability to manage your core products, kits, bundles, and variations. This includes the creation and editing of basic product info, image gallery, listing SKUs, vendor products, and customs.',
+  'pages.settings.userAdministration.newUser.analytics.title': 'Analytics',
+  'pages.settings.userAdministration.newUser.analytics.content':
+    'Ability to run and view all reporting and analysis, including ad hoc, business intelligence, and forecasting reports. This includes auto-generation and e-mailing of reports.',
+  'pages.settings.userAdministration.newUser.warehouses.title': 'Warehouses',
+  'pages.settings.userAdministration.newUser.warehouses.content':
+    'Ability to create and modify in-house warehouses and 3PLs from which your company fulfills orders, including document print settings (in-house warehouses) and FTP settings (3PLs).',
+  'pages.settings.userAdministration.newUser.templates.title': 'Templates',
+  'pages.settings.userAdministration.newUser.templates.content':
+    'Ability to create and modify all of your templates, including shipment e-mail notifications, packing slips, and purchase order templates.',
+  'pages.settings.userAdministration.newUser.vendors.title': 'Vendors',
+  'pages.settings.userAdministration.newUser.vendors.content':
+    'Ability to create and modify vendors that supply and/or manufacture the products your company sells. This includes the ability to configure dropshipping capabilities for eligible vendors.',
+  'pages.settings.userAdministration.newUser.orderbots.title': 'Orderbots',
+  'pages.settings.userAdministration.newUser.orderbots.content':
+    'Ability to create and modify orderbots used for filtering and workflow automation of customer orders from marketplaces and shopping carts.',
+  'pages.settings.userAdministration.newUser.userAdministration.title': 'User Administration',
+  'pages.settings.userAdministration.newUser.userAdministration.content':
+    "Ability to create new users, modify other users' permissions, as well as activate and deactivate users in Skubana. This permission should be given to administrators only.",
+  'pages.settings.userAdministration.newUser.inventoryReconciliation.title': 'Inventory Reconciliation',
+  'pages.settings.userAdministration.newUser.inventoryReconciliation.content':
+    'Ability to use the individual inventory reconciliation feature found in the Inventory Module. This feature relates to data used in Analytics reports.',
+  'pages.settings.userAdministration.newUser.bulkInventoryReconciliation.title': 'Bulk Inventory Reconciliation',
+  'pages.settings.userAdministration.newUser.bulkInventoryReconciliation.content':
+    'Ability to use the bulk inventory reconciliation feature found in the Inventory Module.',
+  'pages.settings.userAdministration.newUser.description':
+    'To add a user to your company account, simply enter their name, password, and assign proper access permissions. Skubana will then send the new user an e-mail to activate their account.',
+  'pages.settings.userAdministration.newUser.permission': 'Permission',
+  'pages.settings.userAdministration.newUser.allow': 'Allow?',
 };

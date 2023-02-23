@@ -23,6 +23,8 @@ export default {
   'component.button.activate': 'Activate',
   'component.button.deactivate': 'Deactivate',
   'component.button.newOrderBot': 'New OrderBot',
+  'component.button.newUser': 'New User',
+  'component.button.editUser': 'Edit User',
 
   'component.table.column.name': 'Name',
   'component.table.column.created': 'Created',
@@ -47,6 +49,7 @@ export default {
   'component.table.column.pendingUnits': 'Pending Units',
   'component.table.column.pendingValue': 'Pending Value',
   'component.table.column.rank': 'Rank',
+  'component.table.column.lastLogin': 'Last Login',
 
   'component.form.label.warehouseName': 'Warehouse Name',
   'component.form.label.addressLine1': 'Address Line 1',
@@ -87,6 +90,12 @@ export default {
   'component.form.label.cityState': 'City, State',
   'component.form.label.poltr': 'P.O L.T.R',
   'component.form.label.rank': 'Rank',
+  'component.form.label.fullName': 'Full Name',
+  'component.form.label.fullName.required': 'Please input Full Name!',
+  'component.form.label.userName': 'User Name',
+  'component.form.label.userName.required': 'Please input the Username!',
+  'component.form.label.password': 'Password',
+  'component.form.label.password.required': 'Please inpute the password!',
 
   'component.tab.shippingLabels': 'SHIPPING LABELS',
   'component.tab.packingSlips': 'PACKING SLIPS',
@@ -102,6 +111,8 @@ export default {
   'component.card.title.services': 'Services',
   'component.card.title.basicInfo': 'Basic Info',
   'component.card.title.poDefaults': 'P.O. Defaults',
+  'component.card.title.loginInfo': 'Login Info',
+  'component.card.title.accessPermissions': 'Access Permissions',
 
   'component.select.placeholder.Select': 'Select...',
 
