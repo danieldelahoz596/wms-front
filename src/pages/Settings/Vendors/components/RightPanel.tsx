@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Descriptions, Popconfirm, Row, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -34,51 +34,69 @@ const VendorDetails = ({ setModal }) => {
 
   return vendorDetails ? (
     <>
-      <h2 style={{ marginLeft: '10px' }}>Vendor Details</h2>
+      <h2 style={{ marginLeft: '10px' }}>
+        <FormattedMessage id="pages.settings.vendors.details" />
+      </h2>
       <Card style={{ padding: 3 }}>
         <Space size={HORIZONTAL_SPACE_SIZE}>
-          <OButton btnText="Edit" onClick={handleEditVendor} />
+          <OButton btnText={<FormattedMessage id="component.button.edit" />} onClick={handleEditVendor} />
           <OButton
-            btnText="History"
+            btnText={<FormattedMessage id="component.button.history" />}
             onClick={() => {
               getVendorHistory(vendorDetails.id);
               setModal(modalType.History);
             }}
           />
           <Popconfirm
-            title="Sure to deactivate?"
+            title={<FormattedMessage id="component.popconfirm.sureDeactivate" />}
             onConfirm={() => {
               updateVendor({ ...selectedVendor, status: !selectedVendor.status });
               getVendorList();
               setSelectedVendor(null);
             }}
           >
-            <OButton btnText={vendorDetails.status ? 'Deactivate' : 'Activate'} />
+            <OButton
+              btnText={
+                vendorDetails.status ? (
+                  <FormattedMessage id="component.button.deactivate" />
+                ) : (
+                  <FormattedMessage id="component.button.activate" />
+                )
+              }
+            />
           </Popconfirm>
         </Space>
         <Space direction="vertical" size={15} style={{ display: 'flex', marginTop: 20 }}>
-          <Card title="Basic Info">
+          <Card title={<FormattedMessage id="component.card.title.basicInfo" />}>
             <Descriptions>
-              <Descriptions.Item label="Name">{vendorDetails.name}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.name" />}>
+                {vendorDetails.name}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Address">
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.address" />}>
                 {vendorDetails.address}
                 <br />
                 {vendorDetails.city}, {vendorDetails.state}
               </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Phone 1">{vendorDetails.phone1}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.phone1" />}>
+                {vendorDetails.phone1}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Phone 2">{vendorDetails.phone2}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.phone2" />}>
+                {vendorDetails.phone2}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Website">{vendorDetails.website}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.website" />}>
+                {vendorDetails.website}
+              </Descriptions.Item>
             </Descriptions>
           </Card>
-          <Card title="Services">
+          <Card title={<FormattedMessage id="component.card.title.services" />}>
             {vendorDetails.is_supplier ? (
               <Row align="middle">
                 <Col span={4}>
@@ -87,7 +105,9 @@ const VendorDetails = ({ setModal }) => {
                   </Row>
                 </Col>
                 <Col span={20}>
-                  <div style={{ fontSize: '10px' }}>This vendor is a supplier.</div>
+                  <div style={{ fontSize: '10px' }}>
+                    <FormattedMessage id="pages.settings.vendors.supplier.description" />
+                  </div>
                 </Col>
               </Row>
             ) : (
@@ -101,22 +121,30 @@ const VendorDetails = ({ setModal }) => {
                   </Row>
                 </Col>
                 <Col span={20}>
-                  <div style={{ fontSize: '10px' }}>This vendor manufactures products.</div>
+                  <div style={{ fontSize: '10px' }}>
+                    <FormattedMessage id="pages.settings.vendors.manufacturer.description" />
+                  </div>
                 </Col>
               </Row>
             ) : (
               ''
             )}
           </Card>
-          <Card title="P.O. Defaults">
+          <Card title={<FormattedMessage id="component.card.title.poDefaults" />}>
             <Descriptions>
-              <Descriptions.Item label="P.O. Template">{vendorDetails.template}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.poTemplate" />}>
+                {vendorDetails.template}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="P.O. Format">{vendorDetails.format}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.poFormat" />}>
+                {vendorDetails.format}
+              </Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Payment Term">{vendorDetails.payment_term}</Descriptions.Item>
+              <Descriptions.Item label={<FormattedMessage id="component.form.label.paymentTerm" />}>
+                {vendorDetails.payment_term}
+              </Descriptions.Item>
             </Descriptions>
           </Card>
         </Space>

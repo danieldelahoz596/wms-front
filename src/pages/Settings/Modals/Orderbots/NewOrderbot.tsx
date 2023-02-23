@@ -3,7 +3,7 @@ import { OModal } from '@/components/Globals/OModal';
 import { Form, Input, InputNumber, Space, Select } from 'antd';
 import { CloseOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface INewOrderbotModal {
   isOpen: boolean;
@@ -268,7 +268,7 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
 
   return (
     <OModal
-      title="New Orderbot"
+      title={<FormattedMessage id="pages.settings.orderbots.neworderbot.title" />}
       helpLink=""
       width={1000}
       isOpen={isOpen}
@@ -277,23 +277,23 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
         {
           key: 'cancel',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Save',
+          btnLabel: <FormattedMessage id="component.button.save" />,
           onClick: handleSave,
         },
       ]}
     >
       <>
         <Form layout="inline" form={form}>
-          <Form.Item label="Name" name="name">
+          <Form.Item label={<FormattedMessage id="component.form.label.name" />} name="name">
             <Input style={{ width: 750 }} />
           </Form.Item>
-          <Form.Item label="Rank" name="rank">
+          <Form.Item label={<FormattedMessage id="component.form.label.rank" />} name="rank">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <InputNumber style={{ marginRight: 10 }} />
               <QuestionCircleOutlined style={{ fontSize: 20, color: 'blue' }} />

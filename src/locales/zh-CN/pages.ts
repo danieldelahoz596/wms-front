@@ -131,4 +131,20 @@ export default {
     '停用该仓库也将停用其所有产品库存，并从相关产品列表中减去所有可用库存。',
   'pages.settings.warehouses.warehouseDeactivate.question': '您确定要继续吗？',
   'pages.settings.warehouses.warehouseHistory.title': 'In_House 仓库编辑历史',
+
+  'pages.settings.vendors.details': '供应商详情',
+  'pages.settings.vendors.supplier.description': '该供应商供应产品。',
+  'pages.settings.vendors.manufacturer.description': '该供应商制造产品。',
+  'pages.settings.vendors.history.title': '供应商编辑历史',
+  'pages.settings.vendors.vendor.new.title': '新供应商',
+  'pages.settings.vendors.vendor.edit.title': '编辑供应商',
+  'pages.settings.vendors.supplier.title': '该供应商是供应商',
+  'pages.settings.vendors.manufacturer.title': '这个供应商是制造商',
+
+  'pages.settings.orderbots.manageItems.active.title': '积极的',
+  'pages.settings.orderbots.manageItems.deactive.title': '停用',
+  'pages.settings.orderbots.manageItems.confirmMessage': '您确定要继续吗？',
+  'pages.settings.orderbots.manageItems.active.description': '激活此订单机器人将阻止它针对进入系统的<b>所有</b> 新订单运行。',
+  'pages.settings.orderbots.manageItems.deactive.description': '停用此订单机器人将阻止它针对进入系统的<b>所有</b> 新订单运行。',
+  'pages.settings.orderbots.neworderbot.title': '新订单机器人',
 };

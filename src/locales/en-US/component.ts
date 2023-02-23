@@ -2,7 +2,7 @@ export default {
   'component.tagSelect.expand': 'Expand',
   'component.tagSelect.collapse': 'Collapse',
   'component.tagSelect.all': 'All',
-  
+
   'component.button.new-template': 'New Template',
   'component.button.edit': 'Edit',
   'component.button.copy': 'Copy',
@@ -18,6 +18,11 @@ export default {
   'component.button.thirdPartyLogistics': 'Third Party Logistics',
   'component.button.yActivate': 'Yes-Actiavte',
   'component.button.yDeactivate': 'Yes-Deactivate',
+  'component.button.newVendor': 'New Vendor',
+  'component.button.history': 'History',
+  'component.button.activate': 'Activate',
+  'component.button.deactivate': 'Deactivate',
+  'component.button.newOrderBot': 'New OrderBot',
 
   'component.table.column.name': 'Name',
   'component.table.column.created': 'Created',
@@ -35,6 +40,13 @@ export default {
   'component.table.column.editTime': 'EDIT TIME',
   'component.table.column.user': 'User',
   'component.table.column.changedValues': 'Changed Values',
+  'component.table.column.vendor': 'Vendor',
+  'component.table.column.services': 'Services',
+  'component.table.column.status': 'Status',
+  'component.table.column.openPos': "Open P.O.'s",
+  'component.table.column.pendingUnits': 'Pending Units',
+  'component.table.column.pendingValue': 'Pending Value',
+  'component.table.column.rank': 'Rank',
 
   'component.form.label.warehouseName': 'Warehouse Name',
   'component.form.label.addressLine1': 'Address Line 1',
@@ -65,6 +77,16 @@ export default {
   'component.form.label.addWarehouse': 'Add Warehouse',
   'component.form.label.locationName': 'Location Name',
   'component.form.label.attention': 'Attention',
+  'component.form.label.name': 'Name',
+  'component.form.label.phone1': 'Phone 1',
+  'component.form.label.phone2': 'Phone 2',
+  'component.form.label.website': 'Website',
+  'component.form.label.poTemplate': 'P.O. Template',
+  'component.form.label.poFormat': 'P.O. Format',
+  'component.form.label.paymentTerm': 'Payment Term',
+  'component.form.label.cityState': 'City, State',
+  'component.form.label.poltr': 'P.O L.T.R',
+  'component.form.label.rank': 'Rank',
 
   'component.tab.shippingLabels': 'SHIPPING LABELS',
   'component.tab.packingSlips': 'PACKING SLIPS',
@@ -77,6 +99,12 @@ export default {
   'component.card.title.packingSlipOptions': 'Packing Slip Options',
   'component.card.title.domesticBackupWarehouses': 'DOMESTIC BACKUP WAREHOUSES(Drag up/down to order)',
   'component.card.title.internationalRankOrder': 'INTERNATIONAL RANK ORDER',
+  'component.card.title.services': 'Services',
+  'component.card.title.basicInfo': 'Basic Info',
+  'component.card.title.poDefaults': 'P.O. Defaults',
 
   'component.select.placeholder.Select': 'Select...',
+
+  'component.popconfirm.sureDeactivate': 'Sure to Deactivate?',
+  'component.popconfirm.surActivate': 'Sure to Activate?',
 };

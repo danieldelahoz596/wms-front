@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Space, Table, Card } from 'antd';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import ManageItemsModal from '@/components/ManageItems';
 import { modalType } from '@/utils/helpers/types';
 import NewOrderbotModal from '../Modals/Orderbots/NewOrderbot';
@@ -10,17 +10,17 @@ const TColumns = [
   {
     key: 'rank',
     dataIndex: 'rank',
-    title: 'Rank',
+    title: <FormattedMessage id="component.table.column.rank" />,
   },
   {
     key: 'name',
     dataIndex: 'name',
-    title: 'Name',
+    title: <FormattedMessage id="component.table.column.name" />,
   },
   {
     key: 'status',
     dataIndex: 'status',
-    title: 'Status',
+    title: <FormattedMessage id="component.table.column.status" />,
     render: (status) => (status ? 'Active' : 'Deactive'),
   },
 ];
@@ -34,28 +34,32 @@ const OrderBots: React.FC = () => {
     () => [
       {
         key: 'new',
-        btnText: 'New OrderBot',
+        btnText: <FormattedMessage id="component.button.newOrderBot" />,
         onClick: () => setActiveModal(modalType.New),
       },
       {
         key: 'edit',
-        btnText: 'Edit',
+        btnText: <FormattedMessage id="component.button.edit" />,
         disabled: !selectedOrderbot,
       },
       {
         key: 'copy',
-        btnText: 'Copy',
+        btnText: <FormattedMessage id="component.button.copy" />,
         disabled: !selectedOrderbot,
       },
       {
         key: 'deactivate',
-        btnText: `${showActive ? 'Deactivate' : 'Activate'}`,
+        btnText: showActive ? (
+          <FormattedMessage id="component.button.deactivate" />
+        ) : (
+          <FormattedMessage id="component.button.activate" />
+        ),
         disabled: !selectedOrderbot,
         onClick: () => setActiveModal(modalType.Activate),
       },
       {
         key: 'history',
-        btnText: 'History',
+        btnText: <FormattedMessage id="component.button.history" />,
         disabled: !selectedOrderbot,
       },
     ],
@@ -79,7 +83,16 @@ const OrderBots: React.FC = () => {
             </div>
           </Space>
           <div>
-            <OButton btnText={`${showActive ? 'Show Inactive' : 'Show Active'}`} onClick={() => setShowActive((prev) => !prev)} />
+            <OButton
+              btnText={
+                showActive ? (
+                  <FormattedMessage id="component.button.showInactive" />
+                ) : (
+                  <FormattedMessage id="component.button.showActive" />
+                )
+              }
+              onClick={() => setShowActive((prev) => !prev)}
+            />
           </div>
         </div>
 
@@ -100,23 +113,46 @@ const OrderBots: React.FC = () => {
         />
       </Card>
 
-      <ManageItemsModal
-        isOpen={activeModal === modalType.Activate}
-        onClose={() => setActiveModal(modalType.Close)}
-        onSave={() => {
-          setActiveModal(modalType.Close);
-          setOrderbotList((prev) =>
-            prev.map((item) => (item.id === selectedOrderbot.id ? { ...item, status: !item.status } : item)),
-          );
-          setSelectedOrderbot(null);
-        }}
-        description={`${
-          showActive ? 'Deacticating' : 'Acticating'
-        } this orderbot will stop it from running against <b>all</b> new orders coming into the system.`}
-        confirmMessage="Are you sure you wawnt to proceed?"
-        title={`${showActive ? 'Deactive' : 'Active'} ${selectedOrderbot?.name}`}
-        submitBtnText={`Yes-${showActive ? 'Deactivate' : 'Activate'}`}
-      />
+      <FormattedMessage
+        id={
+          showActive
+            ? 'pages.settings.orderbots.manageItems.deactive.description'
+            : 'pages.settings.orderbots.manageItems.active.description'
+        }
+      >
+        {(description: string) => (
+          <ManageItemsModal
+            isOpen={activeModal === modalType.Activate}
+            onClose={() => setActiveModal(modalType.Close)}
+            onSave={() => {
+              setActiveModal(modalType.Close);
+              setOrderbotList((prev) =>
+                prev.map((item) => (item.id === selectedOrderbot.id ? { ...item, status: !item.status } : item)),
+              );
+              setSelectedOrderbot(null);
+            }}
+            description={description}
+            confirmMessage={<FormattedMessage id="pages.settings.orderbots.manageItems.confirmMessage" />}
+            title={
+              <>
+                {showActive ? (
+                  <FormattedMessage id="pages.settings.orderbots.manageItems.deactive.title" />
+                ) : (
+                  <FormattedMessage id="pages.settings.orderbots.manageItems.deactive.title" />
+                )}{' '}
+                ${selectedOrderbot?.name}
+              </>
+            }
+            submitBtnText={
+              showActive ? (
+                <FormattedMessage id="component.button.yDeactivate" />
+              ) : (
+                <FormattedMessage id="component.button.yActivate" />
+              )
+            }
+          />
+        )}
+      </FormattedMessage>
 
       <NewOrderbotModal
         isOpen={activeModal === modalType.New}

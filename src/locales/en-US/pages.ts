@@ -135,4 +135,22 @@ export default {
     'Deactivating this warehouse will also Deactivate all of its product stock and subtract all of its available inventory from associated product listings.',
   'pages.settings.warehouses.warehouseDeactivate.question': 'Are you sure you want to proceed?',
   'pages.settings.warehouses.warehouseHistory.title': 'In_House Warehouse Edit History',
+
+  'pages.settings.vendors.details': 'Vendor Details',
+  'pages.settings.vendors.supplier.description': 'This vendor suppliers products.',
+  'pages.settings.vendors.manufacturer.description': 'This vendor manufactures products.',
+  'pages.settings.vendors.history.title': 'Vendor Edit History',
+  'pages.settings.vendors.vendor.new.title': 'New Vendor',
+  'pages.settings.vendors.vendor.edit.title': 'Edit Vendor',
+  'pages.settings.vendors.supplier.title': 'This vendor is a supplier',
+  'pages.settings.vendors.manufacturer.title': 'This vendor is a manufacturer',
+
+  'pages.settings.orderbots.manageItems.active.title': 'Active',
+  'pages.settings.orderbots.manageItems.deactive.title': 'Deactive',
+  'pages.settings.orderbots.manageItems.confirmMessage': 'Are you sure you wawnt to proceed?',
+  'pages.settings.orderbots.manageItems.active.description':
+    'Acticating this orderbot will stop it from running against <b>all</b> new orders coming into the system.',
+  'pages.settings.orderbots.manageItems.deactive.description':
+    'Deacticating this orderbot will stop it from running against <b>all</b> new orders coming into the system.',
+  'pages.settings.orderbots.neworderbot.title': 'New Orderbot',
 };
