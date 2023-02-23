@@ -4,7 +4,7 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
 import { useResizable } from 'react-resizable-layout';
@@ -17,13 +17,13 @@ const { Search } = Input;
 
 const TColumns = [
   {
-    title: 'Vendor',
+    title: <FormattedMessage id="component.table.column.vendor" />,
     dataIndex: 'name',
     key: 'name',
     render: (name: string) => name.toUpperCase(),
   },
   {
-    title: 'Services',
+    title: <FormattedMessage id="component.table.column.services" />,
     key: 'services',
     render: (_, record) => (
       <div style={{ display: 'flex', gap: '0.1rem', justifyContent: 'center', alignItems: 'center' }}>
@@ -33,23 +33,23 @@ const TColumns = [
     ),
   },
   {
-    title: 'Status',
+    title: <FormattedMessage id="component.table.column.status" />,
     dataIndex: 'status',
     key: 'status',
     render: (status) => (status ? 'ACTIVE' : 'INACTIVE'),
   },
   {
-    title: "Open P.O.'s",
+    title: <FormattedMessage id="component.table.column.openPos" />,
     dataIndex: 'open_pos',
     key: 'openPos',
   },
   {
-    title: 'Pending Units',
+    title: <FormattedMessage id="component.table.column.pendingUnits" />,
     dataIndex: 'pending_units',
     key: 'pendingUnits',
   },
   {
-    title: 'Pending Value',
+    title: <FormattedMessage id="component.table.column.pendingValue" />,
     dataIndex: 'pending_value',
     key: 'pendingValue',
   },
@@ -118,14 +118,20 @@ export default function () {
               style={{ width: 200 }}
             />
             <OButton
-              btnText="New Vendor"
+              btnText={<FormattedMessage id="component.button.newVendor" />}
               onClick={() => {
                 setModal(modalType.New);
                 setSelectedVendor(null);
               }}
             />
             <OButton
-              btnText={showActive ? 'Show Active' : 'Show Inactive'}
+              btnText={
+                showActive ? (
+                  <FormattedMessage id="component.button.showActive" />
+                ) : (
+                  <FormattedMessage id="component.button.showInactive" />
+                )
+              }
               onClick={() => {
                 setShowActive((prev) => !prev);
                 setSelectedVendor(null);

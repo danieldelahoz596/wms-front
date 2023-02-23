@@ -7,8 +7,8 @@ declare const ButtonTypes: ['default', 'primary', 'ghost', 'dashed', 'link', 'te
 
 interface IOModalButton {
   key?: string;
-  type: typeof ButtonTypes[number];
-  btnLabel: string;
+  type: (typeof ButtonTypes)[number];
+  btnLabel: string | React.ReactNode;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick: () => void;
 }

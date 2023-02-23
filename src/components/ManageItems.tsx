@@ -1,14 +1,15 @@
 import { OModal } from '@/components/Globals/OModal';
+import { FormattedMessage } from '@umijs/max';
 import { Alert } from 'antd';
 import React from 'react';
 
 export interface IManageItemsModal {
   isOpen: boolean;
-  title: string;
-  cancelBtnText?: string;
-  submitBtnText: string;
+  title: string | React.ReactNode;
+  cancelBtnText?: string | React.ReactNode;
+  submitBtnText: string | React.ReactNode;
   description: string;
-  confirmMessage: string;
+  confirmMessage: string | React.ReactNode;
   onClose: () => void;
   onSave: () => void;
 }
@@ -16,7 +17,7 @@ export interface IManageItemsModal {
 const ManageItemsModal: React.FC<IManageItemsModal> = ({
   isOpen,
   title,
-  cancelBtnText = 'Cancel',
+  cancelBtnText = <FormattedMessage id="component.button.close" />,
   submitBtnText,
   description,
   confirmMessage,

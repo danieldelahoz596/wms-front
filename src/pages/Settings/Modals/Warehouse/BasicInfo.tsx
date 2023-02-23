@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Form, Input, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { SketchPicker } from 'react-color';
@@ -52,7 +52,7 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
 
   return (
     <OModal
-      title="In-House warehouse"
+      title={<FormattedMessage id="pages.settings.warehouses.basicInfo.title" />}
       helpLink=""
       width={600}
       isOpen={isOpen}
@@ -61,13 +61,13 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Close',
+          btnLabel: <FormattedMessage id="component.button.close" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Save',
+          btnLabel: <FormattedMessage id="component.button.save" />,
           onClick: handleSave,
         },
       ]}
@@ -82,25 +82,45 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
             span: 16,
           }}
         >
-          <Form.Item label="Warehouse Name" name={'name'} initialValue={selectedWarehouse?.name}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.warehouseName" />}
+            name={'name'}
+            initialValue={selectedWarehouse?.name}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Address Line 1" name={'address1'} initialValue={selectedWarehouse?.address1}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.addressLine1" />}
+            name={'address1'}
+            initialValue={selectedWarehouse?.address1}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Address Line 2" name={'address2'} initialValue={selectedWarehouse?.address2}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.addressLine2" />}
+            name={'address2'}
+            initialValue={selectedWarehouse?.address2}
+          >
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
-          <Form.Item label="Address Line 3" name={'address3'} initialValue={selectedWarehouse?.address3}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.addressLine3" />}
+            name={'address3'}
+            initialValue={selectedWarehouse?.address3}
+          >
             <Input style={{ marginTop: '0.2rem' }} />
           </Form.Item>
 
-          <Form.Item label="City" name={'city'} initialValue={selectedWarehouse?.city}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.city" />}
+            name={'city'}
+            initialValue={selectedWarehouse?.city}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="State/Province, Zip">
+          <Form.Item label={<FormattedMessage id="component.form.label.stateProvinceZip" />}>
             <Input.Group>
               <Form.Item name={'state'} noStyle initialValue={selectedWarehouse?.state}>
                 <Input style={{ width: '49%', marginRight: '1%' }} />
@@ -110,7 +130,7 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Contact Phone">
+          <Form.Item label={<FormattedMessage id="component.form.label.contactPhone" />}>
             <Input.Group>
               <Form.Item name={'phone'} noStyle initialValue={selectedWarehouse?.phone}>
                 <Input style={{ width: '89%', marginRight: '1%' }} />
@@ -120,16 +140,28 @@ const BasicInfoModal: React.FC<IBasicInfoModal> = ({ isOpen, onSave, onClose }) 
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Fax Number" name={'fax'} initialValue={selectedWarehouse?.fax}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.faxNumber" />}
+            name={'fax'}
+            initialValue={selectedWarehouse?.fax}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Contact E-Mail" name={'email'} initialValue={selectedWarehouse?.email}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.contactEMail" />}
+            name={'email'}
+            initialValue={selectedWarehouse?.email}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Timezone" name={'timezone'} initialValue={selectedWarehouse?.timezone}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.timezone" />}
+            name={'timezone'}
+            initialValue={selectedWarehouse?.timezone}
+          >
             <Select placeholder="Select..." size="small" options={[{ value: 'est', label: 'EST' }]} />
           </Form.Item>
-          <Form.Item label="Inventory Allocation Shipping Zone I.D Color" name={'id_color'}>
+          <Form.Item label={<FormattedMessage id="component.form.label.inventoryAllocationShippingZone" />} name={'id_color'}>
             <div style={{ textAlign: 'right' }}>
               <div
                 style={{

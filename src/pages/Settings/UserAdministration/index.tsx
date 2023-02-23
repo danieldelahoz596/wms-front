@@ -2,31 +2,31 @@ import { OButton } from '@/components/Globals/OButton';
 import NewUserModal from '@/pages/Settings/Modals/UserAdministration/NewUser';
 import UserAdministrationHistoryModal from '@/pages/Settings/Modals/UserAdministration/UserAdministrationHistory';
 import { modalType } from '@/utils/helpers/types';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, message, Space, Table } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 const TColumns = [
   {
-    title: 'Name',
+    title: <FormattedMessage id="component.table.column.name" />,
     dataIndex: 'full_name',
     key: 'name',
   },
   {
-    title: 'Status',
+    title: <FormattedMessage id="component.table.column.status" />,
     dataIndex: 'is_active',
     key: 'status',
     render: (status) => <>{status ? 'ACTIVE' : 'INACTIVE'}</>,
   },
   {
-    title: 'Created',
+    title: <FormattedMessage id="component.table.column.created" />,
     dataIndex: 'created_at',
     key: 'created',
     render: (created_at) => <>{moment(created_at).format('M/D/Y')}</>,
   },
   {
-    title: 'Last Login',
+    title: <FormattedMessage id="component.table.column.lastLogin" />,
     dataIndex: 'updated_at',
     key: 'lastlogin',
     render: (updated_at) => <>{moment(updated_at).format('M/D/Y')}</>,
@@ -48,33 +48,48 @@ export default function () {
       <Card style={{ width: '100%' }}>
         <Space size={HORIZONTAL_SPACE_SIZE}>
           <OButton
-            btnText={'New User'}
+            btnText={<FormattedMessage id="component.button.newUser" />}
             onClick={() => {
               setSelectedUser(null);
               setModal(modalType.New);
             }}
           />
           <OButton
-            btnText={'Edit User'}
+            btnText={<FormattedMessage id="component.button.editUser" />}
             onClick={() => {
               setModal(modalType.New);
             }}
             disabled={!selectedUser}
           />
           <OButton
-            btnText={'Deactivate / Activate'}
+            btnText={
+              showInactive ? (
+                <FormattedMessage id="component.button.deactivate" />
+              ) : (
+                <FormattedMessage id="component.button.activate" />
+              )
+            }
             disabled={!selectedUser}
             onClick={() => {
               updateUser({ ...selectedUser, is_active: !selectedUser.is_active }).then(() => {
                 messageApi.open({
                   type: 'success',
-                  content: 'User updated successfully',
+                  content: <FormattedMessage id="pages.settings.userAdministration.updated.content" />,
                 });
               });
             }}
           />
-          <OButton btnText={'History'} onClick={() => setModal(modalType.History)} />
-          <OButton btnText={showInactive ? 'Show Inactive' : 'Show Active'} onClick={() => setShowInactive((prev) => !prev)} />
+          <OButton btnText={<FormattedMessage id="component.button.history" />} onClick={() => setModal(modalType.History)} />
+          <OButton
+            btnText={
+              showInactive ? (
+                <FormattedMessage id="component.button.showInactive" />
+              ) : (
+                <FormattedMessage id="component.button.showActive" />
+              )
+            }
+            onClick={() => setShowInactive((prev) => !prev)}
+          />
         </Space>
         <Table
           columns={TColumns}

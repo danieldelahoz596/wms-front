@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface IHistoryModal {
   isOpen: boolean;
@@ -13,24 +13,30 @@ const HistoryModal: React.FC<IHistoryModal> = ({ isOpen, onSave, onClose }) => {
 
   const THistoryColumns = [
     {
-      title: 'Edit Time',
+      title: <FormattedMessage id="component.table.column.editTime" />,
       dataIndex: 'time',
       key: 'editTime',
     },
     {
-      title: 'Vendor',
+      title: <FormattedMessage id="component.table.column.vendor" />,
       dataIndex: 'vendor',
       key: 'vendor',
     },
     {
-      title: 'Changed Values',
+      title: <FormattedMessage id="component.table.column.changedValues" />,
       dataIndex: 'value',
       key: 'changedValues',
     },
   ];
 
   return (
-    <OModal title="Vendor Edit History" isOpen={isOpen} onOk={onSave} onCancel={onClose} width={800}>
+    <OModal
+      title={<FormattedMessage id="pages.settings.vendors.history.title" />}
+      isOpen={isOpen}
+      onOk={onSave}
+      onCancel={onClose}
+      width={800}
+    >
       <OTable columns={THistoryColumns} rows={vendorHistory.map((_item) => ({ ..._item, key: _item.id }))} />
     </OModal>
   );

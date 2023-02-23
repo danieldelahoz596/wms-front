@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import React from 'react';
 
 interface IOTableColumn {
-  title?: string;
+  title?: string | React.ReactNode;
   dataIndex?: string;
   key?: string;
   align?: string;

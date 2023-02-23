@@ -3,7 +3,7 @@ import type IVendors from '@/interfaces/IVendors';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Row, Select } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { useEffect, useMemo } from 'react';
@@ -27,7 +27,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
     } else {
       form.setFieldsValue(selectedVendor);
     }
-  }, [isOpen]);
+  }, [isOpen, selectedVendor, form]);
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -55,7 +55,13 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
 
   return (
     <OModal
-      title={`${!selectedVendor ? 'New' : 'Edit'} Vendor`}
+      title={
+        !selectedVendor ? (
+          <FormattedMessage id="pages.settings.vendors.vendor.new.title" />
+        ) : (
+          <FormattedMessage id="pages.settings.vendors.vendor.edit.title" />
+        )
+      }
       helpLink=""
       isOpen={isOpen}
       handleCancel={onClose}
@@ -63,13 +69,13 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Save',
+          btnLabel: <FormattedMessage id="component.button.save" />,
           onClick: handleSave,
         },
       ]}
@@ -78,14 +84,22 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
       <Form form={form} labelCol={{ span: 6 }} labelAlign="left">
         <Row gutter={8}>
           <Col span={12}>
-            <Card title="Basic Info">
-              <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input Name' }]}>
-                <Input placeholder="Name" />
+            <Card title={<FormattedMessage id="component.card.title.basicInfo" />}>
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.name" />}
+                name="name"
+                rules={[{ required: true, message: 'Please input Name' }]}
+              >
+                <Input />
               </Form.Item>
-              <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input Address' }]}>
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.address" />}
+                name="address"
+                rules={[{ required: true, message: 'Please input Address' }]}
+              >
                 <TextArea rows={3} />
               </Form.Item>
-              <Form.Item label="City, State">
+              <Form.Item label={<FormattedMessage id="component.form.label.cityState" />}>
                 <Input.Group compact>
                   <Form.Item name="city">
                     <Input placeholder="City" />
@@ -95,28 +109,34 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                   </Form.Item>
                 </Input.Group>
               </Form.Item>
-              <Form.Item label="Phone 1" name="phone1" rules={[{ required: true, message: 'Please input Phone1' }]}>
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.phone1" />}
+                name="phone1"
+                rules={[{ required: true, message: 'Please input Phone1' }]}
+              >
                 <Input placeholder="Phone 1" />
               </Form.Item>
-              <Form.Item label="Phone 2" name="phone2">
+              <Form.Item label={<FormattedMessage id="component.form.label.phone2" />} name="phone2">
                 <Input placeholder="Phone 2" />
               </Form.Item>
-              <Form.Item label="Website" name="website">
+              <Form.Item label={<FormattedMessage id="component.form.label.website" />} name="website">
                 <Input placeholder="Website" />
               </Form.Item>
             </Card>
           </Col>
           <Col span={12}>
-            <Card title="Services">
+            <Card title={<FormattedMessage id="component.card.title.services" />}>
               <Form.Item
                 label={<TrainIcon style={{ fontSize: 15 }} />}
                 name="is_supplier"
                 labelCol={{ span: 2 }}
                 colon={false}
                 valuePropName="checked"
-                labelAlign='right'
+                labelAlign="right"
               >
-                <Checkbox onChange={() => form.validateFields()}>This vendor is a supplier</Checkbox>
+                <Checkbox onChange={() => form.validateFields()}>
+                  <FormattedMessage id="pages.settings.vendors.supplier.title" />
+                </Checkbox>
               </Form.Item>
               <Form.Item
                 label={<ManufacturerIcon style={{ fontSize: 15 }} />}
@@ -124,7 +144,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                 labelCol={{ span: 2 }}
                 colon={false}
                 valuePropName="checked"
-                labelAlign='right'
+                labelAlign="right"
                 rules={[
                   {
                     validator: async () => {
@@ -135,24 +155,28 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                   },
                 ]}
               >
-                <Checkbox>This vendor is a manufacturer</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.settings.vendors.manufacturer.title" />
+                </Checkbox>
               </Form.Item>
             </Card>
-            <Card title="P.O. Defaults" style={{ marginTop: '1rem', padding: '0.5rem' }}>
+            <Card
+              title={<FormattedMessage id="component.card.title.poDefaults" />}
+              style={{ marginTop: '1rem', padding: '0.5rem' }}
+            >
               <Form.Item
-                label="P.O. Template"
-                name={['po_default', 'template']}
+                label={<FormattedMessage id="component.form.label.poTemplate" />}
+                name="template"
                 rules={[{ required: true, message: 'Please select P.O. template' }]}
               >
                 <Select placeholder="Select..." style={{ width: '100%' }} options={poTemplateOptions} />
               </Form.Item>
               <Form.Item
-                label="P.O. Format"
-                name={['po_default', 'format']}
+                label={<FormattedMessage id="component.form.label.poFormat" />}
+                name="format"
                 rules={[{ required: true, message: 'Please select P.O. format' }]}
               >
                 <Select
-                  placeholder="Please select"
                   style={{ width: '100%' }}
                   options={[
                     { value: 1, label: 'PDF Attachment' },
@@ -160,16 +184,18 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                   ]}
                 />
               </Form.Item>
-              <Form.Item label="Payment term" name={['po_default', 'payment_term']}>
+              <Form.Item label={<FormattedMessage id="component.form.label.paymentTerm" />}>
                 <div style={{ display: 'flex', gap: 4 }}>
-                  <Select placeholder="Please select" style={{ flex: '1' }} options={paymentTermOptions} />
+                  <Form.Item name="payment_term" style={{ flex: 1 }}>
+                    <Select placeholder="Please select" options={paymentTermOptions} />
+                  </Form.Item>
                   <>
                     <PlusOutlined className="plus-button" />
                     <SettingOutlined className="setting-button" />
                   </>
                 </div>
               </Form.Item>
-              <Form.Item label="P.O L.T.R" name={['po_default', 'ltr']} valuePropName="checked">
+              <Form.Item label={<FormattedMessage id="component.form.label.poltr" />} name="ltr" valuePropName="checked">
                 <Checkbox />
               </Form.Item>
             </Card>

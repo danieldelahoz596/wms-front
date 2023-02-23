@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Form, Input } from 'antd';
 import { useEffect } from 'react';
 
@@ -29,7 +29,7 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
 
   return (
     <OModal
-      title="Edit Return Location For In-House Warehouse"
+      title={<FormattedMessage id="pages.settings.warehouses.returnLocation.title" />}
       helpLink=""
       width={600}
       isOpen={isOpen}
@@ -38,13 +38,13 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'SAVE CHANGES',
+          btnLabel: <FormattedMessage id="component.button.saveChanges" />,
           onClick: handleSave,
         },
       ]}
@@ -59,15 +59,23 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
             span: 16,
           }}
         >
-          <Form.Item label="Location Name" name={'name'} initialValue={selectedWarehouse?.return_location?.name}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.locationName" />}
+            name={'name'}
+            initialValue={selectedWarehouse?.return_location?.name}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Attention" name={'attention'} initialValue={selectedWarehouse?.return_location?.attention}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.attention" />}
+            name={'attention'}
+            initialValue={selectedWarehouse?.return_location?.attention}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Address">
+          <Form.Item label={<FormattedMessage id="component.form.label.address" />}>
             <Input.Group>
               <Form.Item name={'address1'} noStyle>
                 <Input />
@@ -81,11 +89,15 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
             </Input.Group>
           </Form.Item>
 
-          <Form.Item label="City" name={'city'} initialValue={selectedWarehouse?.return_location?.city}>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.city" />}
+            name={'city'}
+            initialValue={selectedWarehouse?.return_location?.city}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="State/Province, Zip">
+          <Form.Item label={<FormattedMessage id="component.form.label.stateProvinceZip" />}>
             <Input.Group>
               <Form.Item name={'state'} noStyle initialValue={selectedWarehouse?.return_location?.state}>
                 <Input style={{ width: '49%', marginRight: '1%' }} />
@@ -95,7 +107,7 @@ const ReturnLocationModal: React.FC<IReturnLocationModal> = ({ isOpen, onSave, o
               </Form.Item>
             </Input.Group>
           </Form.Item>
-          <Form.Item label="Contact Phone">
+          <Form.Item label={<FormattedMessage id="component.form.label.contactPhone" />}>
             <Input.Group>
               <Form.Item name={'phone'} noStyle initialValue={selectedWarehouse?.return_location?.phone}>
                 <Input style={{ width: '89%', marginRight: '1%' }} />

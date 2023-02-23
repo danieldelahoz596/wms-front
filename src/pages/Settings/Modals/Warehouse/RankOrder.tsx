@@ -3,6 +3,7 @@ import { Card } from 'antd';
 import { useState } from 'react';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { moveInArray } from '@/utils/common';
+import { FormattedMessage } from '@umijs/max';
 
 interface IRankOrderModal {
   isOpen: boolean;
@@ -62,7 +63,7 @@ const RankOrderModal: React.FC<IRankOrderModal> = ({ isOpen, onSave, onClose }) 
 
   return (
     <OModal
-      title="International Shipping Warehouse Order"
+      title={<FormattedMessage id="pages.settings.warehouses.rankOrder.title" />}
       helpLink=""
       width={600}
       isOpen={isOpen}
@@ -71,22 +72,21 @@ const RankOrderModal: React.FC<IRankOrderModal> = ({ isOpen, onSave, onClose }) 
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'SAVE CHANGES',
+          btnLabel: <FormattedMessage id="component.button.saveChanges" />,
           onClick: onSave,
         },
       ]}
     >
       <>
-        <Card title="INTERNATIONAL RANK ORDER">
+        <Card title={<FormattedMessage id="component.card.title.internationalRankOrder" />}>
           <div style={{ marginBottom: '1rem' }}>
-            International orders will be assigned to the warehouse set as Rank 1. Orderbots can override this assignment
-            automatically.
+            <FormattedMessage id="pages.settings.warehouses.rankOrder.description" />
           </div>
           <SortableContainer onSortEnd={onSortEnd}>
             {items.map((item, index) => (

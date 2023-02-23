@@ -1,6 +1,7 @@
 import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Typography, Row } from 'antd';
+import { FormattedMessage } from '@umijs/max';
 
 interface IWarehouseDeactivateModal {
   isOpen: boolean;
@@ -10,15 +11,15 @@ interface IWarehouseDeactivateModal {
 }
 
 const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({ isOpen, onSave, onClose, activate }) => {
-  const comment = `${activate ? 'Activating' : 'Deactivating'} this warehouse will also ${
-    activate ? 'Activate' : 'Deactivate'
-  } all of its product stock and subtract all of its available inventory from associated product listings.`;
-
-  const title = `${activate ? 'Activate' : 'Deactivate'} In-House Warehouse`;
-
   return (
     <OModal
-      title={title}
+      title={
+        activate ? (
+          <FormattedMessage id="pages.settings.warehouses.warehouseDeactivate.title.activate" />
+        ) : (
+          <FormattedMessage id="pages.settings.warehouses.warehouseDeactivate.title.deactivate" />
+        )
+      }
       helpLink=""
       width={400}
       isOpen={isOpen}
@@ -33,7 +34,11 @@ const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({ isOpen,
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: `Yes-${activate ? 'Actiavte' : 'Deactivate'}`,
+          btnLabel: activate ? (
+            <FormattedMessage id="component.button.yActivate" />
+          ) : (
+            <FormattedMessage id="component.button.yDeactivate" />
+          ),
           onClick: onSave,
         },
       ]}
@@ -41,12 +46,18 @@ const WarehouseDeactivateModal: React.FC<IWarehouseDeactivateModal> = ({ isOpen,
       <>
         <Typography style={{ marginTop: '5px' }}>
           <Typography.Paragraph style={{ backgroundColor: '#DEE0FF', color: 'black', fontSize: '12px' }}>
-            {comment}
+            {activate ? (
+              <FormattedMessage id="pages.settings.warehouses.warehouseDeactivate.comment.activate" />
+            ) : (
+              <FormattedMessage id="pages.settings.warehouses.warehouseDeactivate.comment.deactivate" />
+            )}
           </Typography.Paragraph>
         </Typography>
         <Row justify="end">
           <Typography>
-            <Typography.Title level={5}>Are you sure you want to proceed?</Typography.Title>
+            <Typography.Title level={5}>
+              <FormattedMessage id="pages.settings.warehouses.warehouseDeactivate.question" />
+            </Typography.Title>
           </Typography>
         </Row>
       </>

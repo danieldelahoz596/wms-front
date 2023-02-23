@@ -1,5 +1,3 @@
-import type IPoDefault from './IPoDefault';
-
 export default interface IVendors {
   id: number;
   name: string;
@@ -15,6 +13,8 @@ export default interface IVendors {
   open_pos: number;
   pending_units: number;
   pending_value: string;
-  po_default: IPoDefault;
-  edit_history: any[];
+  template: number;
+  format: number;
+  payment_term: number;
+  ltr: boolean;
 }
