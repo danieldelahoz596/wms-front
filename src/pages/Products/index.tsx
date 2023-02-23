@@ -8,7 +8,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Row, Select, Space } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import { OTable } from '@/components/Globals/OTable';
@@ -243,11 +243,11 @@ const ProductManagement: React.FC = () => {
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        <div className="w-full flex flex-column h-screen">
+        <div className="w-full flex flex-column h-screen main-panel">
           <div className="horizon-content" style={{ overflow: 'scroll' }}>
             <div style={{ width: '100%' }}>
               <Row style={{ marginLeft: '10px', marginTop: '10px' }}>
-                <div style={{ fontSize: '15px' }}>Products :: </div>
+                <h1 className="page-title">Products :: </h1>
                 <div>
                   <Select
                     options={[
@@ -261,13 +261,13 @@ const ProductManagement: React.FC = () => {
                       setShowActivate(value === 'active' ? true : false);
                       setEditableProduct(null);
                     }}
-                    value={showActivate ? 'active' : 'inactive'}
+                    value={showActivate ? 'ACTIVE' : 'INACTIVE'}
                   />
                   <Button icon={<RetweetOutlined />} />
                 </div>
               </Row>
-              <Card style={{ width: '100%' }}>
-                <Space size={4}>
+              <Card>
+                <Space size={HORIZONTAL_SPACE_SIZE} style={{margin: '8px 10px'}}>
                   <OButton btnText="Adjust Sku" onClick={() => setModal(modalType.AdjustMasterSKU)} disabled={!editableProduct} />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
@@ -323,10 +323,9 @@ const ProductManagement: React.FC = () => {
                   </Dropdown>
                 </Space>
 
-                <OTable
+                <Table
                   columns={TColumns}
-                  rows={productTableRows}
-                  style={{ marginTop: 10 }}
+                  dataSource={productTableRows}
                   onRow={(record) => {
                     return {
                       onClick: () => {

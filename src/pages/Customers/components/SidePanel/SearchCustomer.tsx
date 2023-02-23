@@ -75,7 +75,7 @@ export default function SearchCustomer() {
   return (
     <Card title="Search Customers" className="left-panel">
       <Form>
-        <Space direction="vertical" size={3}>
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
           {inputFields.map((_inputField, _index) => (
             <div key={_index}>
               <span>{_inputField.label}:</span>

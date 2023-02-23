@@ -83,7 +83,7 @@ const SearchByProductPanel: React.FC = () => {
 
   return (
     <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
-      <Space direction="vertical" size={3} style={{ display: 'flex' }}>
+      <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
         {formInputs?.map((inputItem, index) => {
           return index !== 2 ? (
             <Form.Item key={index} label={inputItem.label}>

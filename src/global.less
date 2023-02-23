@@ -89,6 +89,12 @@ header.ant-layout-header {
   padding: 0px !important;
 }
 
+.main-panel {
+  .ant-card-body {
+    padding: 0;
+  }
+}
+
 .bottom-panel,
 .right-panel,
 .left-panel {
@@ -189,6 +195,10 @@ header.ant-layout-header {
     }
   }
 
+  .ant-tabs-tab {
+    text-transform: uppercase;
+  }
+
   .ant-space-vertical,
   .ant-space-horizontal,
   .ant-form-vertical {
@@ -258,7 +268,7 @@ header.ant-layout-header {
 }
 
 // Custom Class
-.page-title {
+h1.page-title {
   color: #a2a2a2;
   font-weight: 700;
   font-size: 1rem;
@@ -343,6 +353,32 @@ header.ant-layout-header {
   }
 }
 
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-value-wrap {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell-value-wrap {
+  padding: 4px 11px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
+
+.custom-form-item {
+  .ant-row{
+    .ant-form-item-row {
+      flex-direction: row-reverse;
+        .ant-form-item-label {
+          width: 30px !important
+        }
+    }
+   }
+}
+
 // Commons spacing utilites
 .mb-10 {
   margin-bottom: 10px;
@@ -369,20 +405,7 @@ header.ant-layout-header {
   margin-left: 5px;
 }
 
-.editable-cell {
-  position: relative;
-}
 
-.editable-cell-value-wrap {
-  padding: 5px 12px;
-  cursor: pointer;
-}
-
-.editable-row:hover .editable-cell-value-wrap {
-  padding: 4px 11px;
-  border: 1px solid #d9d9d9;
-  border-radius: 2px;
-}
 
 // html,
 // body,
@@ -514,16 +537,7 @@ header.ant-layout-header {
 //   }
 // }
 
-// .custom-form-item {
-//   .ant-row{
-//     .ant-form-item-row {
-//       flex-direction: row-reverse;
-//         .ant-form-item-label {
-//           width: 30px !important
-//         }
-//     }
-//    }
-// }
+
 
 // .split-order-form {
 //   .ant-form-item {

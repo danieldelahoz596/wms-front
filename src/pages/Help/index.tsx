@@ -45,6 +45,7 @@ import Customproductfields from './Products/customproductfields';
 import Exportcustombundlekit from './Products/exportcustombundlekit';
 import Exportproducts from './Products/exportproducts';
 import Exportvendorproducts from './Products/exportvendorproducts';
+import FAQ from './Products/faq';
 import Importproducts from './Products/importproducts';
 import ImportSkuAdjustments from './Products/importskuadjustments';
 import ImportVendorProducts from './Products/importvendorproducts';
@@ -53,26 +54,26 @@ import Products from './Products/products';
 import Searchproducts from './Products/searchproducts';
 
 // Analytics
+import Opportunitiesfoundbyextensivordermanager from './Analytics/Dashboard/opportunitiesfoundbyextensivordermanager';
 import Analyticsreports from './Analytics/General/analyticsreports';
 import Exportingreports from './Analytics/General/exportingreports';
 import Printingchartsfromanalytics from './Analytics/General/printingchartsfromanalytics';
 import Theanalyticsmodules from './Analytics/General/theanalyticsmodules';
+import Analyticscriticalinventorylevels from './Analytics/Inventory/analyticscriticalinventorylevels';
+import Analyticsinventoryaging from './Analytics/Inventory/analyticsinventoryaging';
+import Analyticsinventoryreplenishmentalerts from './Analytics/Inventory/analyticsinventoryreplenishmentalerts';
+import Analyticssnapshotinventoryvalue from './Analytics/Inventory/analyticssnapshotinventoryvalue';
+import Analyticstrendinginventoryvalue from './Analytics/Inventory/analyticstrendinginventoryvalue';
 import Biggesttickets from './Analytics/Orders/biggesttickets';
 import Historicalordersexports from './Analytics/Orders/historicalordersexports';
 import Salesoverview from './Analytics/Orders/salesoverview';
 import Shipments from './Analytics/Orders/shipments';
 import Analyticslistingprofitability from './Analytics/Products/analyticslistingprofitability';
 import Analyticsskuprofitability from './Analytics/Products/analyticsskuprofitability';
-import Yoygrowth from './Analytics/Products/yoygrowth';
-import Topsellersandworstsellersreports from './Analytics/Products/topsellersandworstsellersreports';
 import Analyticstrendingprofitability from './Analytics/Products/analyticstrendingprofitability';
+import Topsellersandworstsellersreports from './Analytics/Products/topsellersandworstsellersreports';
+import Yoygrowth from './Analytics/Products/yoygrowth';
 import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historicalpurchaseordersexports';
-import Opportunitiesfoundbyextensivordermanager from './Analytics/Dashboard/opportunitiesfoundbyextensivordermanager';
-import Analyticsinventoryreplenishmentalerts from './Analytics/Inventory/analyticsinventoryreplenishmentalerts';
-import Analyticssnapshotinventoryvalue from './Analytics/Inventory/analyticssnapshotinventoryvalue';
-import Analyticstrendinginventoryvalue from './Analytics/Inventory/analyticstrendinginventoryvalue';
-import Analyticscriticalinventorylevels from './Analytics/Inventory/analyticscriticalinventorylevels';
-import Analyticsinventoryaging from './Analytics/Inventory/analyticsinventoryaging';
 
 // Settings
 import Companyinfo from './Settings/companyinfo';
@@ -163,6 +164,9 @@ const Help: React.FC = () => {
         return <Searchproducts />;
       case '/help/products/customproductfields':
         return <Customproductfields />;
+      case '/help/products/faq':
+        return <FAQ />;
+      // Analytics
       case '/help/analytics/general/theanalyticsmodules':
         return <Theanalyticsmodules />;
       case '/help/analytics/general/analyticsreports':
@@ -203,6 +207,7 @@ const Help: React.FC = () => {
         return <Analyticsinventoryaging />;
       case '/help/analytics/subpurchaseorders/historicalexports':
         return <Historicalpurchaseordersexports />;
+      // Settings
       case '/help/settings/myprofile':
         return <Myprofile />;
       case '/help/settings/useradministration':
@@ -410,9 +415,7 @@ const Help: React.FC = () => {
                   },
                 ],
               },
-
-              // Products
-              {
+              { // Products
                 key: 'products',
                 icon: <AccountingIcon />,
                 label: 'Products',
@@ -427,9 +430,7 @@ const Help: React.FC = () => {
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/manage">How to Manage Products</Link>,
                   },
-
-                  // Product - Create
-                  {
+                  { // Create
                     key: 'create',
                     icon: <AccountingIcon />,
                     label: 'How to Create Through the UI',
@@ -451,9 +452,7 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-
-                  // Product - Import
-                  {
+                  { // Import
                     key: 'import',
                     icon: <AccountingIcon />,
                     label: 'How to Import',
@@ -475,9 +474,7 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-
-                  // Product - Export
-                  {
+                  { // Export
                     key: 'export',
                     icon: <AccountingIcon />,
                     label: 'How to Export',
@@ -499,19 +496,21 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-
-                  // Product - Search
-                  {
+                  { // Search
                     key: '/help/products/searchproducts',
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/searchproducts">How to Search Products</Link>,
                   },
-
-                  // Product - Custom Product Fields
-                  {
+                  { // Custom Product Fields
                     key: '/help/products/customproductfields',
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/customproductfields">How to Create Custom Product Fields</Link>,
+                  },
+                  
+                  { // FAQ
+                    key: '/help/products/faq',
+                    icon: <AccountingIcon />,
+                    label: <Link to="/help/products/faq">FAQ</Link>,
                   },
                 ],
               },

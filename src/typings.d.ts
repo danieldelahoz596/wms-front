@@ -25,4 +25,5 @@ declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 
 declare const BACKEND_URL: string;
 declare const MODAL_WIDTH: number;
-declare const SPACE_SIZE: number;
+declare const HORIZONTAL_SPACE_SIZE: number;
+declare const VERTICAL_SPACE_SIZE: number;

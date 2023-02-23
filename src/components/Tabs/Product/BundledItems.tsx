@@ -69,7 +69,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
   return (
     <>
       <h3>Manage cord products and their respective quantities within this bundle/kit</h3>
-      <Space size={4} style={{ marginBottom: 5 }}>
+      <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 5 }}>
         <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
         <OButton btnText="Edit Quantity" onClick={handleEditCoreProductClick} disabled={!selectedItem} />
         <OButton btnText="Remove" onClick={handleRemoveClick} disabled={!selectedItem} />

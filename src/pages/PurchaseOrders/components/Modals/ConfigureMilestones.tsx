@@ -58,7 +58,7 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
       ]}
     >
       <>
-        <Space size={4}>
+        <Space size={HORIZONTAL_SPACE_SIZE}>
           <OButton btnText="New Milestone" onClick={() => setShowModal(true)} />
           <OButton
             btnText="Delete Selected"

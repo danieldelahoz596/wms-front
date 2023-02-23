@@ -11,7 +11,8 @@ export default defineConfig({
   define: {
     BACKEND_URL: REACT_APP_BACKEND_URL || '',
     MODAL_WIDTH: 800,
-    SPACE_SIZE: 4,
+    HORIZONTAL_SPACE_SIZE: 4,
+    VERTICAL_SPACE_SIZE: 3,
   },
   /**
    * @name 开启 hash 模式

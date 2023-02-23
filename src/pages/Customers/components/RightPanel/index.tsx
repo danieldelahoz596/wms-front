@@ -35,7 +35,7 @@ const RightPanel: React.FC = () => {
             <Input />
           </Form.Item>
           <Form.Item>
-            <Space size={4}>
+            <Space size={HORIZONTAL_SPACE_SIZE}>
               <OButton btnText={'Update'} />
               <OButton btnText={'Delete'} onClick={handleDeleteCustomer} />
             </Space>

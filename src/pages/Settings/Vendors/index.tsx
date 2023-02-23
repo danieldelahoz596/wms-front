@@ -9,9 +9,9 @@ import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
 import { useResizable } from 'react-resizable-layout';
 import HistoryModal from './components/Modals/History';
-import NewVendorModal from './components/Modals/NewVendor';
+import VendorModal from './components/Modals/Vendor';
 import RightPanel from './components/RightPanel';
-import type IVendors from '@/interfaces/Ivendors';
+import type IVendors from '@/interfaces/IVendors';
 
 const { Search } = Input;
 
@@ -20,15 +20,15 @@ const TColumns = [
     title: 'Vendor',
     dataIndex: 'name',
     key: 'name',
-    render: (name: string) => <div style={{ width: '10rem' }}>{name.toUpperCase()}</div>,
+    render: (name: string) => name.toUpperCase(),
   },
   {
     title: 'Services',
     key: 'services',
     render: (_, record) => (
-      <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'center', alignItems: 'center' }}>
-        {record.is_supplier ? <TrainIcon style={{ fontSize: 20 }} /> : ''}
-        {record.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 20 }} /> : ''}
+      <div style={{ display: 'flex', gap: '0.1rem', justifyContent: 'center', alignItems: 'center' }}>
+        {record.is_supplier ? <TrainIcon style={{ fontSize: 15 }} /> : ''}
+        {record.is_manufacturer ? <ManufacturerIcon style={{ fontSize: 15 }} /> : ''}
       </div>
     ),
   },
@@ -107,7 +107,7 @@ export default function () {
     <>
       <div className="w-full flex flex-column h-screen">
         <Card>
-          <Space size={4} className="mb-5">
+          <Space size={HORIZONTAL_SPACE_SIZE} className="mb-5">
             <Search
               placeholder="Search vendors by name..."
               allowClear
@@ -150,14 +150,14 @@ export default function () {
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
-      <div className={cn('shrink-0 contents', isRightDragging && 'dragging')} style={{ width: RightW }}>
+      <div className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')} style={{ width: RightW }}>
         <div className="w-full">
           <RightPanel setModal={setModal} />
         </div>
       </div>
 
       {/* Modals */}
-      <NewVendorModal
+      <VendorModal
         isOpen={modalOpen === modalType.New || modalOpen === modalType.Edit}
         onSave={(values: IVendors) => {
           if (modalOpen === modalType.New) {

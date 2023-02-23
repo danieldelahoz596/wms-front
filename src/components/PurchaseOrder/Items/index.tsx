@@ -246,7 +246,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
           />
         </Col>
         <Col span={2}>
-          <Space size={4} direction={'vertical'} style={{ display: 'flex' }}>
+          <Space size={VERTICAL_SPACE_SIZE} direction={'vertical'} style={{ display: 'flex' }}>
             {actionButtons.map((btn, index) => (
               <OButton key={index} {...btn} style={{ width: '100%' }} />
             ))}

@@ -64,7 +64,7 @@ const SideSearch: React.FC = () => {
 
   return (
     <Form layout="vertical" style={{ marginLeft: 5, marginRight: 5 }}>
-      <Space direction="vertical" size={3}>
+      <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
         {formInputs?.map((inputItem, index) => (
           <Form.Item key={index} label={inputItem.label}>
             <OInput {...inputItem} />

@@ -22,8 +22,10 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
     <>
       {!!editableProduct && (
         <Row align="bottom" style={{ marginBottom: 5 }}>
-          <Col span={4}>Name</Col>
-          <Col span={18}>
+          <Col span={3}>
+            <span>Name :</span>
+          </Col>
+          <Col span={19}>
             <OInput
               type="text"
               onChange={onChangeSelectedProduct}
@@ -56,7 +58,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </Col>
         </Row>
       )}
-      <Form form={form} labelCol={{ span: 3 }}>
+      <Form form={form} labelCol={{ span: 3 }} labelAlign="left">
         {!editableProduct && (
           <>
             <Form.Item label="Master SKU" name="master_sku" rules={[{ required: true, message: 'Please input Master SKU' }]}>
@@ -68,7 +70,8 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           </>
         )}
         <div style={{ display: 'flex', gap: 4 }}>
-          <Form.Item label="Buy | Brand *" name="buyer" style={{ flex: '1' }}>
+          <span style={{ width: 93 }}>* Buy | Brand :</span>
+          <Form.Item name="buyer" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
           <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
@@ -84,6 +87,8 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
+          {/* <span>Categories</span> */}
+          &nbsp;&nbsp;
           <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
             <Select
               placeholder="Select..."
@@ -97,6 +102,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
+          &nbsp;&nbsp;
           <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
             <Select
               placeholder="Select..."

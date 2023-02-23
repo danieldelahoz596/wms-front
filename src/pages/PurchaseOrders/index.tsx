@@ -410,13 +410,13 @@ const CustomerManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content">
             <Card style={{ width: '100%' }}>
-              <p className="page-title">
+              <h1 className="page-title">
                 Purchase Orders ::{' '}
                 {selectedPOStatus
                   ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name
                   : ''}
-              </p>
-              <Space size={4} style={{ marginBottom: 10 }}>
+              </h1>
+              <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn) => (
                   <OButton key={btn.key} {...btn} />
                 ))}

@@ -28,7 +28,7 @@ export default function () {
 
   return (
     <Card style={{ width: '100%' }}>
-      <Space size={4}>
+      <Space size={HORIZONTAL_SPACE_SIZE}>
         <Button>
           <FormattedMessage id="component.button.new-template" />
         </Button>

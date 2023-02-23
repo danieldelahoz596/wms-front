@@ -1,4 +1,4 @@
-import { Row, Col, Card } from 'antd';
+import { Col, Row } from 'antd';
 import PerformancePanel from './PerformancePanel';
 import ProductDetailsPanel from './ProductDetailsPanel';
 
@@ -8,16 +8,14 @@ interface IBottomPanel {
 
 const BottomPanel: React.FC<IBottomPanel> = ({ height }) => {
   return (
-    <Card style={{ height }}>
-      <Row gutter={10}>
-        <Col span={12}>
-          <PerformancePanel height={height} />
-        </Col>
-        <Col span={12}>
-          <ProductDetailsPanel height={height} />
-        </Col>
-      </Row>
-    </Card>
+    <Row gutter={10} style={{ padding: 5}}>
+      <Col span={12}>
+        <PerformancePanel height={height} />
+      </Col>
+      <Col span={12}>
+        <ProductDetailsPanel height={height} />
+      </Col>
+    </Row>
   );
 };
 

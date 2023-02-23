@@ -46,7 +46,7 @@ export default function () {
     <>
       {contextHolder}
       <Card style={{ width: '100%' }}>
-        <Space size={4}>
+        <Space size={HORIZONTAL_SPACE_SIZE}>
           <OButton
             btnText={'New User'}
             onClick={() => {

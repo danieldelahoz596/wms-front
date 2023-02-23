@@ -92,7 +92,7 @@ const HistoricalOrdersExports: React.FC = () => {
   return (
     <>
       <div style={{ margin: '10px' }}>
-        <h2 className="page-title">Orders {'>'} Historical Exports</h2>
+        <h1 className="page-title">Orders {'>'} Historical Exports</h1>
 
         <Card>
           <Form labelCol={{ span: 5 }} wrapperCol={{ span: 18 }} labelAlign="left" labelWrap form={form} onFinish={handleSubmit}>

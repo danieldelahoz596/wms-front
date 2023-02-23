@@ -38,13 +38,13 @@ const NewProductModal: React.FC<INewProductModal> = ({ isOpen, onClose, handleCl
     >
       <div style={{ textAlign: 'center' }}>
         <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
-        <Space direction="vertical" size="small" style={{ display: 'flex' }}>
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
           {buttons.map((btn, index) => (
             <OButton key={index} btnText={btn.btnText} size="large" onClick={btn.onClick} style={{ width: '100%' }} />
           ))}
         </Space>
         <br />
-        <a href="#" className="help-link">
+        <a href="/help/products/create/coreproduct#difference_product_types" className="help-link" target="_blank">
           <span>{"What's the difference"}</span> <QuestionCircleOutlined />
         </a>
       </div>

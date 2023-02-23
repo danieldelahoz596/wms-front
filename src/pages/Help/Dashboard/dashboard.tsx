@@ -3,7 +3,7 @@ import { Card, Row, Col } from 'antd';
 export default function () {
   return (
     <>
-      <h2 className="page-title">Dashboard</h2>
+      <h1 className="page-title">Dashboard</h1>
       <Row>
         <Col span={24}>
           <Card>

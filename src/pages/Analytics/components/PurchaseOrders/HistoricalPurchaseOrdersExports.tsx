@@ -93,7 +93,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
     <>
       <div style={{ margin: '10px' }}>
         {/* Make this dynamic */}
-        <h2 className="page-title">Purchase Orders {'>'} Historical Exports</h2>
+        <h1 className="page-title">Purchase Orders {'>'} Historical Exports</h1>
         <Card>
           <Form labelCol={{ span: 5 }} wrapperCol={{ span: 18 }} labelAlign="left" labelWrap form={form} onFinish={handleSubmit}>
             <Row>

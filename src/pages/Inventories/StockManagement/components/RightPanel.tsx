@@ -217,7 +217,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
 
               <Row>
                 <Col span={17}>
-                  <Space size={4}>
+                  <Space size={HORIZONTAL_SPACE_SIZE}>
                     <OButton btnText={'New Stock'} onClick={() => setModal(modalType.NewStock)} />
                     <Dropdown
                       disabled={!selectedLocation}

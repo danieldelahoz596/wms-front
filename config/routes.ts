@@ -355,6 +355,11 @@ export default [
         path: '/help/products/customproductfields',
         component: './Help/Products/customproductfields',
       },
+      {
+        hideInMenu: true,
+        path: '/help/products/faq',
+        component: './Help/Products/faq',
+      },
       // Settings
       {
         hideInMenu: true,

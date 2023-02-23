@@ -125,7 +125,7 @@ const CustomerManagement: React.FC = () => {
             <Row style={{ width: '100%' }}>
               <Col span={24}>
                 <Card size="small" title="Customers">
-                  <Space size={4} className="mb-10">
+                  <Space size={HORIZONTAL_SPACE_SIZE} className="mb-10">
                     <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
                     <OButton btnText="History" disabled={!selectedCustomer} onClick={() => setModal(modalType.History)} />
                     <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />

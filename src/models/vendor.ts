@@ -2,8 +2,8 @@ import httpClient from '@/utils/http-client';
 import { useModel } from '@umijs/max';
 import { useCallback, useEffect, useState } from 'react';
 import qs from 'qs';
-import type IVendors from '@/interfaces/Ivendors';
-import type IVendorsHistory from '@/interfaces/IvendorsHisotry';
+import type IVendors from '@/interfaces/IVendors';
+import type IVendorsHistory from '@/interfaces/IVendorsHisotry';
 
 export default () => {
   const [vendorList, setVendorList] = useState<IVendors[]>([]);

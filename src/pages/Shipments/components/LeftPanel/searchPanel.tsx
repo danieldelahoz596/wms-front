@@ -118,7 +118,7 @@ const SearchPanel: React.FC = () => {
         onSelect={(value) => setSelectedType(value)}
       />
       <Form layout="vertical" style={{ marginTop: 10 }}>
-        <Space direction="vertical" size={3} style={{ display: 'flex' }}>
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
           {selectedType === 'shipments' &&
             shipmentFormInputs.map((formInput, index) => (
               <Form.Item key={index} label={formInput.label} name={formInput.value}>

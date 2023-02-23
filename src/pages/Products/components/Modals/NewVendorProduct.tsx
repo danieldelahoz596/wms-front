@@ -117,7 +117,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'select',
       onChange: handleNewVendorProductChange,
-      label: 'Vendor',
+      label: 'Vendor :',
       name: 'vendor',
       placeholer: 'Select...',
       defaultValue: newVendorProduct.vendor,
@@ -130,7 +130,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'text',
       onChange: handleNewVendorProductChange,
-      label: 'Vendor SKU',
+      label: 'Vendor SKU :',
       name: 'vendorSku',
       defaultValue: newVendorProduct.vendorSku,
       value: newVendorProduct.vendorSku,
@@ -138,7 +138,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'number',
       onChange: handleNewVendorProductChange,
-      label: 'Minimum Order Qty',
+      label: 'Minimum Order Qty :',
       name: 'minOrderQty',
       defaultValue: newVendorProduct.minOrderQty,
       value: newVendorProduct.minOrderQty,
@@ -151,7 +151,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'number',
       onChange: handleNewVendorProductChange,
-      label: 'Lead Time',
+      label: 'Lead Time :',
       name: 'leadTime',
       defaultValue: newVendorProduct.leadTime,
       value: newVendorProduct.leadTime,
@@ -164,7 +164,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'select',
       onChange: handleNewVendorProductChange,
-      label: 'Auto-P.O. Rounding',
+      label: 'Auto-P.O. Rounding :',
       name: 'autoPoRounding',
       defaultValue: newVendorProduct.autoPoRounding,
       value: newVendorProduct.autoPoRounding,
@@ -178,7 +178,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
     {
       type: 'text',
       onChange: handleNewVendorProductChange,
-      label: 'Packaging',
+      label: 'Packaging :',
       name: 'packaging',
       defaultValue: newVendorProduct.packaging,
       value: newVendorProduct.packaging,
@@ -297,7 +297,7 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
       ]}
     >
       <Form>
-        <Row gutter={20}>
+        <Row gutter={10}>
           <Col span={8}>
             <Card title="Product Details">
               {productDetailsInputFields?.map((inputItem, index) => (

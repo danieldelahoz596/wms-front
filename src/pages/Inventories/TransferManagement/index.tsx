@@ -120,7 +120,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
           </Col>
           <Col span={18}>
             <div style={{ textAlign: 'right', marginRight: 10 }}>
-              <Space size={4}>
+              <Space size={HORIZONTAL_SPACE_SIZE}>
                 <SelectDropdown
                   options={initialState?.initialData?.warehouses.map((warehouse) => ({
                     value: warehouse.id,
@@ -157,7 +157,7 @@ const TransferManagement: React.FC<ITransferManagement> = ({ tabButtons }) => {
         </Row>
 
         <Card style={{ borderRadius: 5, marginLeft: 10, marginRight: 10 }}>
-          <Space size={4}>
+          <Space size={HORIZONTAL_SPACE_SIZE}>
             <Search
               placeholder="Enter Order#, SKU or product name..."
               onSearch={() => console.log('Search in Transfers tab on the orders module')}

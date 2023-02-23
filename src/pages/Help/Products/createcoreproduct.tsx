@@ -50,7 +50,7 @@ export default function () {
 
             {/* Core Products */}
             <h1>Core Products</h1>
-            <p>
+            <p id="difference_product_types">
               A core product is a single unique product that may be added into a{' '}
               <a href="/help/products/createbundlekit" className="helplink">
                 bundle or kit

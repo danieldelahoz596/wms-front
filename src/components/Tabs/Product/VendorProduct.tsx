@@ -132,7 +132,7 @@ const VendorProduct: React.FC = () => {
         <p>Add vendor SKUs associated with this product.</p>
         <Row>
           <Col span={18}>
-            <Space size={4}>
+            <Space size={HORIZONTAL_SPACE_SIZE}>
               {actionButtons.map((btn) => (
                 <OButton {...btn} />
               ))}

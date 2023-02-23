@@ -519,7 +519,7 @@ const OrderManagement: React.FC = () => {
             <Card style={{ width: '100%' }}>
               <Row>
                 <Col span={12}>
-                  <p className="page-title">Orders :: {selectedOrderStatus?.status.name}</p>
+                  <h1 className="page-title">Orders :: {selectedOrderStatus?.status.name}</h1>
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
                   {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
@@ -535,7 +535,7 @@ const OrderManagement: React.FC = () => {
                   {/* )} */}
                 </Col>
               </Row>
-              <Space size={4} style={{ marginBottom: 10 }}>
+              <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 10 }}>
                 {actionButtons.map((btn, index) => (
                   <OButton key={index} {...btn} />
                 ))}
