@@ -84,4 +84,55 @@ export default {
   'pages.dashboard.thisYear': 'This Year',
   'pages.dashboard.stockRequiringAttention': 'Stock Requiring Attention',
   'pages.dashboard.incomingStock': 'Incoming Stock',
+
+  'pages.settings.warehouses.newWarehouse': 'New Warehouse',
+  'pages.settings.warehouses.basicInfo': 'Basic Info & I.D Color',
+  'pages.settings.warehouses.returnLocation': 'Return Location',
+  'pages.settings.warehouses.secondaryAddresses': 'Secondary Addresses',
+  'pages.settings.warehouses.documentPrintSettings': 'Document Print Settings',
+  'pages.settings.warehouses.internationalRank': 'International Rank',
+  'pages.settings.warehouses.domesticBackupOrder': 'Domestic Backup Order',
+  'pages.settings.warehouses.inventoryDependents': 'Inventory Dependents',
+  'pages.settings.warehouses.history': 'History',
+  'pages.settings.warehouses.activate': 'Activate',
+  'pages.settings.warehouses.deactivate': 'Deactivate',
+  'pages.settings.warehouses.inventoryAllocationShippingZones': 'Inventory Allocation Shipping Zones',
+  'pages.settings.warehouses.inventoryAllocationShippingZones.description':
+    'Click and drag each U.S state or territory to the desired warehouse that will service it.',
+  'pages.settings.warehouses.inventoryAllocationShippingZones.question': "What's this",
+  'pages.settings.warehouses.basicInfo.title': 'In-House warehouse',
+  'pages.settings.warehouses.documentPrintSettings.title': 'Document Print Settings For In House',
+  'pages.settings.warehouses.documentPrintSettings.labelPrintFormat.description':
+    'Select the format you prefer for printing labels. You can optionally select to include packing slips inline with your labels.',
+  'pages.settings.warehouses.documentPrintSettings.labelMessages.description':
+    'You can define up to three custom messages to print on your shipping labels, including information about the order.',
+  'pages.settings.warehouses.documentPrintSettings.shippingCutoff.description':
+    'Set the Ship Date to the next day if the current time is after',
+  'pages.settings.warehouses.documentPrintSettings.cutoffTimezone.description': 'America/New York',
+  'pages.settings.warehouses.documentPrintSettings.packingSlipFormat.description':
+    'Select the format you prefer for packing slips.',
+  'pages.settings.warehouses.documentPrintSettings.packingSlipOptions.description': `Selecting this will break down your bundles/kits to the core products on your packing slips. This will allow you to get accurate picking location if needed BUT will reflect information from the core products per line as opposed to the bundles itself. We suggest you do NOT use 'PRICE' as a tag if you choose this. For bundles, we can break down the unit price per core, but for kits we will only display "-,-" as we cannot know the individual breakdown. The order total will still remain the full price.`,
+  'pages.settings.warehouses.documentPrintSettings.productImages.description': 'Print product image on Pick Lists',
+  'pages.settings.warehouses.documentPrintSettings.orderNumbers.description': 'Include order numbers for each product',
+  'pages.settings.warehouses.documentPrintSettings.bundlesKits.description':
+    'Sort non-assembled bundles and kits Master Sku with Core Products',
+  'pages.settings.warehouses.documentPrintSettings.productUPC.description': 'Include UPC for each product',
+  'pages.settings.warehouses.documentPrintSettings.fnsku.description': 'Include FNSKU for each product',
+  'pages.settings.warehouses.documentPrintSettings.otherItemNotes.description': 'Include order item notes for each product',
+  'pages.settings.warehouses.newWarehouses.title': 'New Direct Fulfillment Warehouse',
+  'pages.settings.warehouses.isBackupWarehouse.description': 'Add as Backup Warehouse',
+  'pages.settings.warehouses.newWarehouseType.title': 'New Warehouse',
+  'pages.settings.warehouses.newWarehouseType.question': "What's the the difference",
+  'pages.settings.warehouses.rankOrder.title': 'International Shipping Warehouse Order',
+  'pages.settings.warehouses.rankOrder.description':
+    'International orders will be assigned to the warehouse set as Rank 1. Orderbots can override this assignment automatically.',
+  'pages.settings.warehouses.returnLocation.title': 'Edit Return Location For In-House Warehouse',
+  'pages.settings.warehouses.warehouseDeactivate.title.activate': 'Activate In-House Warehouse',
+  'pages.settings.warehouses.warehouseDeactivate.title.deactivate': 'Deactivate In-House Warehouse',
+  'pages.settings.warehouses.warehouseDeactivate.comment.activate':
+    'Activating this warehouse will also Activate all of its product stock and subtract all of its available inventory from associated product listings.',
+  'pages.settings.warehouses.warehouseDeactivate.comment.deactivate':
+    'Deactivating this warehouse will also Deactivate all of its product stock and subtract all of its available inventory from associated product listings.',
+  'pages.settings.warehouses.warehouseDeactivate.question': 'Are you sure you want to proceed?',
+  'pages.settings.warehouses.warehouseHistory.title': 'In_House Warehouse Edit History',
 };

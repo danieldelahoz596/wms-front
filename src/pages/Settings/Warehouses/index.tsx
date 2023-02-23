@@ -24,7 +24,7 @@ import {
   StopOutlined,
   ToolFilled,
 } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Dropdown, Row, Space } from 'antd';
 import { useState } from 'react';
 
@@ -36,18 +36,26 @@ export default function () {
   return (
     <div className="w-full">
       <Card>
-        <Row gutter={5}>
-          <Col span={24}>
-            <OButton btnText={'New Warehouse'} onClick={() => setModalOpen(modalType.Void)} style={{ marginRight: '5px' }} />
-            <OButton
-              btnText={showInactive ? 'Show Active' : 'Show Inactive'}
-              onClick={() => {
-                setShowInactive((prev) => !prev);
-              }}
-              style={{ marginRight: '5px' }}
-            />
-          </Col>
-        </Row>
+        <Space size={HORIZONTAL_SPACE_SIZE}>
+          <OButton
+            btnText={<FormattedMessage id="pages.settings.warehouses.newWarehouse" />}
+            onClick={() => setModalOpen(modalType.Void)}
+            style={{ marginRight: '5px' }}
+          />
+          <OButton
+            btnText={
+              showInactive ? (
+                <FormattedMessage id="component.button.showActive" />
+              ) : (
+                <FormattedMessage id="component.button.showInactive" />
+              )
+            }
+            onClick={() => {
+              setShowInactive((prev) => !prev);
+            }}
+            style={{ marginRight: '5px' }}
+          />
+        </Space>
         <Row gutter={5} style={{ marginTop: '1rem' }}>
           <Col span={12}>
             {warehouseList
@@ -78,7 +86,10 @@ export default function () {
                                     setModalOpen(modalType.WarehouseBasicInfo);
                                   }}
                                 >
-                                  <HomeOutlined /> Basic Info & I.D Color
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <HomeOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.basicInfo" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -91,7 +102,10 @@ export default function () {
                                     setModalOpen(modalType.WarehouseReturnLocation);
                                   }}
                                 >
-                                  <ArrowLeftOutlined /> Return Location{' '}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <ArrowLeftOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.returnLocation" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -99,8 +113,10 @@ export default function () {
                               key: '3',
                               label: (
                                 <span>
-                                  <DatabaseOutlined />
-                                  Secondary Addresses
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <DatabaseOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.secondaryAddresses" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -113,7 +129,10 @@ export default function () {
                                     setModalOpen(modalType.DocumentPrintSettings);
                                   }}
                                 >
-                                  <FileOutlined /> Document Print Settings{' '}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <FileOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.documentPrintSettings" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -126,7 +145,10 @@ export default function () {
                                     setModalOpen(modalType.RankOrder);
                                   }}
                                 >
-                                  <FlagOutlined /> International Rank{' '}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <FlagOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.internationalRank" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -134,7 +156,10 @@ export default function () {
                               key: '6',
                               label: (
                                 <span>
-                                  <ColumnHeightOutlined /> Domestic Backup Order{' '}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <ColumnHeightOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.domesticBackupOrder" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -142,7 +167,10 @@ export default function () {
                               key: '7',
                               label: (
                                 <span>
-                                  <PaperClipOutlined /> Inventory Dependents{' '}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <PaperClipOutlined />
+                                    <FormattedMessage id="pages.settings.warehouses.inventoryDependents" />
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -155,7 +183,14 @@ export default function () {
                                     setModalOpen(modalType.WarehouseDeactivate);
                                   }}
                                 >
-                                  <StopOutlined /> {showInactive ? 'Activate' : 'Deactivate'}
+                                  <Space size={HORIZONTAL_SPACE_SIZE}>
+                                    <StopOutlined />
+                                    {showInactive ? (
+                                      <FormattedMessage id="pages.settings.warehouses.activate" />
+                                    ) : (
+                                      <FormattedMessage id="pages.settings.warehouses.deactivate" />
+                                    )}
+                                  </Space>
                                 </span>
                               ),
                             },
@@ -168,7 +203,7 @@ export default function () {
                                     setModalOpen(modalType.WarehouseHistory);
                                   }}
                                 >
-                                  <CarryOutOutlined /> History
+                                  <CarryOutOutlined /> <FormattedMessage id="pages.settings.warehouses.history" />
                                 </span>
                               ),
                             },

@@ -2,7 +2,7 @@ import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Table } from 'antd';
 import { uuidv4 } from '@antv/xflow-core';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface IWarehouseHistoryModal {
   isOpen: boolean;
@@ -11,15 +11,15 @@ interface IWarehouseHistoryModal {
 
 const columns = [
   {
-    title: 'EDIT TIME',
+    title: <FormattedMessage id="component.table.column.editTime" />,
     dataIndex: 'time',
   },
   {
-    title: 'USER',
+    title: <FormattedMessage id="component.table.column.user" />,
     dataIndex: 'user',
   },
   {
-    title: 'CHANGED VALUES',
+    title: <FormattedMessage id="component.table.column.changedValues" />,
     dataIndex: 'value',
   },
 ];
@@ -29,7 +29,7 @@ const WarehouseHistoryModal: React.FC<IWarehouseHistoryModal> = ({ isOpen, onClo
 
   return (
     <OModal
-      title="In_House Warehouse Edit History"
+      title={<FormattedMessage id="pages.settings.warehouses.warehouseHistory.title" />}
       helpLink=""
       width={1000}
       isOpen={isOpen}
@@ -38,7 +38,7 @@ const WarehouseHistoryModal: React.FC<IWarehouseHistoryModal> = ({ isOpen, onClo
         {
           key: 'cancel',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
       ]}

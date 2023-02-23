@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { HomeOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
-import { Link, useModel } from '@umijs/max';
+import { FormattedMessage, Link, useModel } from '@umijs/max';
 import { Card, Select } from 'antd';
 
 interface IAddShippingZonesModal {
@@ -17,7 +17,7 @@ const AddShippingZonesModal: React.FC<IAddShippingZonesModal> = ({ isOpen, onClo
 
   return (
     <OModal
-      title="Inventory Allocation Shipping Zones"
+      title={<FormattedMessage id="pages.settings.warehouses.inventoryAllocationShippingZones" />}
       helpLink=""
       width={600}
       isOpen={isOpen}
@@ -26,9 +26,11 @@ const AddShippingZonesModal: React.FC<IAddShippingZonesModal> = ({ isOpen, onClo
     >
       <>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p>Click and drag each U.S state or territory to the desired warehouse that will service it.</p>
+          <p>
+            <FormattedMessage id="pages.settings.warehouses.inventoryAllocationShippingZones.description" />
+          </p>
           <Link to={'#'} style={{ textDecoration: 'underline' }}>
-            {`What's this`}
+            <FormattedMessage id="pages.settings.warehouses.inventoryAllocationShippingZones.question" />
             <QuestionCircleTwoTone />
           </Link>
         </div>

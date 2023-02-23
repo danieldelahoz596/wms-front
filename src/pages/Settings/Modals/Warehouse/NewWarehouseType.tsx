@@ -1,6 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { QuestionCircleTwoTone } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 
 interface INewWarehouseTypeModal {
   isOpen: boolean;
@@ -11,7 +12,7 @@ interface INewWarehouseTypeModal {
 const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({ isOpen, onClose, handleOpenNew }) => {
   return (
     <OModal
-      title="New Warehouse"
+      title={<FormattedMessage id="pages.settings.warehouses.newWarehouseType.title" />}
       helpLink=""
       width={300}
       isOpen={isOpen}
@@ -20,7 +21,7 @@ const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({ isOpen, onClo
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
       ]}
@@ -34,10 +35,18 @@ const NewWarehouseTypeModal: React.FC<INewWarehouseTypeModal> = ({ isOpen, onClo
           padding: '1rem',
         }}
       >
-        <OButton btnText={'Direct (In-House) Fulfillment'} style={{ border: '1px solid #5F5FFF' }} onClick={handleOpenNew} />
-        <OButton btnText={'Third Party Logistics'} style={{ border: '1px solid #5F5FFF' }} onClick={onClose} />
+        <OButton
+          btnText={<FormattedMessage id="component.button.directInHouseFulfillment" />}
+          style={{ border: '1px solid #5F5FFF' }}
+          onClick={handleOpenNew}
+        />
+        <OButton
+          btnText={<FormattedMessage id="component.button.thirdPartyLogistics" />}
+          style={{ border: '1px solid #5F5FFF' }}
+          onClick={onClose}
+        />
         <a href="#">
-          {"What's the the difference"} <QuestionCircleTwoTone />
+          <FormattedMessage id="pages.settings.warehouses.newWarehouseType.question" /> <QuestionCircleTwoTone />
         </a>
       </div>
     </OModal>
