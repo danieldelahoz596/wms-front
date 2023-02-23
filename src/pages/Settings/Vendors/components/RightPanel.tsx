@@ -22,14 +22,11 @@ const VendorDetails = ({ setModal }) => {
     else
       setVendorDetails({
         ...selectedVendor,
-        po_default: {
-          ...selectedVendor.po_default,
-          template: poTemplateList.find((_item) => _item.id == selectedVendor.po_default?.template)?.name,
-          // format: poFormats.find((_item) => _item.value === selectedVendor.po_default?.format).label,
-          payment_term: paymentTermList.find((_item) => _item.id == selectedVendor.po_default?.payment_term)?.name,
-        },
+        template: poTemplateList?.find((_item) => _item.id == selectedVendor?.template)?.name,
+        format: poFormats?.find((_item) => _item.value === selectedVendor?.format).label,
+        payment_term: paymentTermList?.find((_item) => _item.id == selectedVendor?.payment_term)?.name,
       });
-  }, [selectedVendor]);
+  }, [selectedVendor, poTemplateList, paymentTermList]);
 
   const handleEditVendor = () => {
     setModal(modalType.Edit);
@@ -113,13 +110,13 @@ const VendorDetails = ({ setModal }) => {
           </Card>
           <Card title="P.O. Defaults">
             <Descriptions>
-              <Descriptions.Item label="P.O. Template">{vendorDetails.po_default.template}</Descriptions.Item>
+              <Descriptions.Item label="P.O. Template">{vendorDetails.template}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="P.O. Format">{vendorDetails.po_default.format}</Descriptions.Item>
+              <Descriptions.Item label="P.O. Format">{vendorDetails.format}</Descriptions.Item>
             </Descriptions>
             <Descriptions>
-              <Descriptions.Item label="Payment Term">{vendorDetails.po_default.payment_term}</Descriptions.Item>
+              <Descriptions.Item label="Payment Term">{vendorDetails.payment_term}</Descriptions.Item>
             </Descriptions>
           </Card>
         </Space>

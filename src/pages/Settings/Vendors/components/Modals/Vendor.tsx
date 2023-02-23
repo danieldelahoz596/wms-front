@@ -27,7 +27,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
     } else {
       form.setFieldsValue(selectedVendor);
     }
-  }, [isOpen]);
+  }, [isOpen, selectedVendor, form]);
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -114,7 +114,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                 labelCol={{ span: 2 }}
                 colon={false}
                 valuePropName="checked"
-                labelAlign='right'
+                labelAlign="right"
               >
                 <Checkbox onChange={() => form.validateFields()}>This vendor is a supplier</Checkbox>
               </Form.Item>
@@ -124,7 +124,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                 labelCol={{ span: 2 }}
                 colon={false}
                 valuePropName="checked"
-                labelAlign='right'
+                labelAlign="right"
                 rules={[
                   {
                     validator: async () => {
@@ -141,16 +141,12 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
             <Card title="P.O. Defaults" style={{ marginTop: '1rem', padding: '0.5rem' }}>
               <Form.Item
                 label="P.O. Template"
-                name={['po_default', 'template']}
+                name="template"
                 rules={[{ required: true, message: 'Please select P.O. template' }]}
               >
                 <Select placeholder="Select..." style={{ width: '100%' }} options={poTemplateOptions} />
               </Form.Item>
-              <Form.Item
-                label="P.O. Format"
-                name={['po_default', 'format']}
-                rules={[{ required: true, message: 'Please select P.O. format' }]}
-              >
+              <Form.Item label="P.O. Format" name="format" rules={[{ required: true, message: 'Please select P.O. format' }]}>
                 <Select
                   placeholder="Please select"
                   style={{ width: '100%' }}
@@ -160,16 +156,18 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
                   ]}
                 />
               </Form.Item>
-              <Form.Item label="Payment term" name={['po_default', 'payment_term']}>
+              <Form.Item label="Payment term">
                 <div style={{ display: 'flex', gap: 4 }}>
-                  <Select placeholder="Please select" style={{ flex: '1' }} options={paymentTermOptions} />
+                  <Form.Item name="payment_term" style={{ flex: 1 }}>
+                    <Select placeholder="Please select" options={paymentTermOptions} />
+                  </Form.Item>
                   <>
                     <PlusOutlined className="plus-button" />
                     <SettingOutlined className="setting-button" />
                   </>
                 </div>
               </Form.Item>
-              <Form.Item label="P.O L.T.R" name={['po_default', 'ltr']} valuePropName="checked">
+              <Form.Item label="P.O L.T.R" name="ltr" valuePropName="checked">
                 <Checkbox />
               </Form.Item>
             </Card>
