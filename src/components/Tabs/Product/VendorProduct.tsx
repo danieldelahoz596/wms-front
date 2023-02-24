@@ -111,7 +111,7 @@ const VendorProduct: React.FC = () => {
             );
           }}
         >
-          <OButton disabled={!selectedVendorProductKey} btnText={`${showActive ? 'Deactivate' : 'Activate'}`}></OButton>
+          <OButton disabled={!selectedVendorProductKey} btnText={`${showActive ? 'Deactivate' : 'Activate'}`} />
         </Popconfirm>
       ),
     },
@@ -124,7 +124,7 @@ const VendorProduct: React.FC = () => {
             handleDefaultClick;
           }}
         >
-          <OButton disabled={!selectedVendorProductKey} btnText="Default"></OButton>
+          <OButton disabled={!selectedVendorProductKey} btnText="Default" />
         </Popconfirm>
       ),
     },
