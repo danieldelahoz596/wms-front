@@ -25,6 +25,7 @@ const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }
 
   return (
     <OModal
+      forceRender
       title={`Split Order ${editableOrder?.order_number}`}
       helpLink="/help/orders/manage/split"
       width={1200}
