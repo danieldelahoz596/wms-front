@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Tabs, Form } from 'antd';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
-import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
-import ProductCustomFields from '@/components/Tabs/Product/ProductCustomFields';
+import BasicInfoTab from '@/pages/Products/components/BasicInfo';
+import GalleryTab from '@/pages/Products/components/Gallery';
+import VendorProductTab from '@/pages/Products/components/VendorProduct';
+import ProductCustomFields from '@/pages/Products/components/ProductCustomFields';
 import { useModel } from '@umijs/max';
 
 interface ICoreProductModal {

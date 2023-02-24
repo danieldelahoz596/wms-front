@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import POItemsFromCSVModal from '@/pages/PurchaseOrders/components/Modals/POItemsFromCSV';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Form, Space } from 'antd';

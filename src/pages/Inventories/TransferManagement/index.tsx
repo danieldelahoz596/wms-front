@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import SelectDropdown from '@/components/Globals/selectDropdown';
 import TransferHistoryModal from '../Modals/TransferHistory';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';

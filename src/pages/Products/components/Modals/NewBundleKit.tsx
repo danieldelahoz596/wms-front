@@ -1,10 +1,10 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
-import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
-import BundledItemsTab from '@/components/Tabs/Product/BundledItems';
+import BasicInfoTab from '@/pages/Products/components/BasicInfo';
+import GalleryTab from '@/pages/Products/components/Gallery';
+import VendorProductTab from '@/pages/Products/components/VendorProduct';
+import BundledItemsTab from '@/pages/Products/components/BundledItems';
 
 interface INewBundleKitModal {
   isOpen: boolean;

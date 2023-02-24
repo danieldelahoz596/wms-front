@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Row, Col, Form } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
-import RecipientForm from '@/components/Order/AddNewOrder/Recipient';
-import OrderDetailsForm from '@/components/Order/AddNewOrder/OrderDetails';
-import AddNewOrderItemTable from '@/components/Order/AddNewOrder/AddNewOrderItemTable';
+import RecipientForm from '@/pages/Orders/components/AddNewOrder/Recipient';
+import OrderDetailsForm from '@/pages/Orders/components/AddNewOrder/OrderDetails';
+import AddNewOrderItemTable from '@/pages/Orders/components/AddNewOrder/AddNewOrderItemTable';
 import { useModel } from '@umijs/max';
 import { uuidv4 } from '@antv/xflow-core';
 

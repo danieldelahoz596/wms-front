@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { ToolFilled } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import { useMemo, useState } from 'react';

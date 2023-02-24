@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, Form } from 'antd';
-import PurchaseOrderDetail from '@/components/PurchaseOrder/PurchaseOrderDetail';
-import AggregateCosts from '@/components/PurchaseOrder/AggregateCosts';
-import POCommunication from '@/components/PurchaseOrder/POCommunication';
-import AddNewPOItemTable from '@/components/PurchaseOrder/AddNew/AddNewPOItemTable';
+import PurchaseOrderDetail from '@/pages/PurchaseOrders/components/PurchaseOrderDetail';
+import AggregateCosts from '@/pages/PurchaseOrders/components/AggregateCosts';
+import POCommunication from '@/pages/PurchaseOrders/components/POCommunication';
+import AddNewPOItemTable from '@/pages/PurchaseOrders/components/AddNew/AddNewPOItemTable';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { uuidv4 } from '@antv/xflow-core';

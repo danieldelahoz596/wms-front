@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Col, Row, Select } from 'antd';

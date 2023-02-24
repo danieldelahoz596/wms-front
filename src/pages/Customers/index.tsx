@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import CreateCustomerModal from '@/pages/Customers/components/Modals/CreateCustomer';
 import EditHistoryModal from '@/pages/Customers/components/Modals/EditHistory';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
