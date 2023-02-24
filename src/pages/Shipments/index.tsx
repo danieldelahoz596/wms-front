@@ -1,8 +1,8 @@
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
 import { useResizable } from 'react-resizable-layout';
-import LeftPanel from './components/LeftPanel';
 import MainPanel from './components/mainPanel';
+import SidePanel from './components/SidePanel';
 
 const ShipmentManagement: React.FC = () => {
   const {
@@ -20,13 +20,15 @@ const ShipmentManagement: React.FC = () => {
       <div className={'flex grow'}>
         <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
-            <LeftPanel />
+            <SidePanel />
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
-            <MainPanel />
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
+            <div className="main-panel">
+              <MainPanel />
+            </div>
           </div>
         </div>
       </div>

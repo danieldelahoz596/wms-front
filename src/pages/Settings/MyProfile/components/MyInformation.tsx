@@ -35,7 +35,7 @@ const MyInformation: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Card title={<FormattedMessage id="app.settings.basic.title" />} style={{ width: 600 }}>
+      <Card title={<FormattedMessage id="app.settings.basic.title" />} className="content-box" style={{ width: 600 }}>
         <Form
           name="my_info"
           labelCol={{ span: 8 }}

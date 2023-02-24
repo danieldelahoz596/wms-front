@@ -23,7 +23,7 @@ const VendorDetails = ({ setModal }) => {
       setVendorDetails({
         ...selectedVendor,
         template: poTemplateList?.find((_item) => _item.id == selectedVendor?.template)?.name,
-        format: poFormats?.find((_item) => _item.value === selectedVendor?.format).label,
+        // format: poFormats?.find((_item) => _item.value === selectedVendor?.format).label,
         payment_term: paymentTermList?.find((_item) => _item.id == selectedVendor?.payment_term)?.name,
       });
   }, [selectedVendor, poTemplateList, paymentTermList]);

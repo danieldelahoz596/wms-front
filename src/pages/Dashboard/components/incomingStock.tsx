@@ -46,7 +46,12 @@ const IncomingStock: React.FC<IIncomingStock> = ({ stock }) => {
 
   return (
     <>
-      <Card title={<FormattedMessage id="pages.dashboard.incomingStock" />}>
+      <div className="title-row">
+        <h1 className="page-title">
+          <FormattedMessage id="pages.dashboard.incomingStock" />
+        </h1>
+      </div>
+      <Card className="content-box">
         <Table columns={Tcolumns} dataSource={rows} scroll={{ y: 200 }} pagination={{ hideOnSinglePage: true }} />
       </Card>
     </>

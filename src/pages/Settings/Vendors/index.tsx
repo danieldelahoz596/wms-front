@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
+import type IVendors from '@/interfaces/IVendors';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
@@ -7,11 +7,11 @@ import TrainIcon from '@/utils/icons/train';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
+import { useEffect, useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import HistoryModal from './components/Modals/History';
 import VendorModal from './components/Modals/Vendor';
 import RightPanel from './components/RightPanel';
-import type IVendors from '@/interfaces/IVendors';
 
 const { Search } = Input;
 
@@ -105,54 +105,55 @@ export default function () {
 
   return (
     <>
-      <div className="w-full flex flex-column h-screen">
-        <Card>
-          <Space size={HORIZONTAL_SPACE_SIZE} className="mb-5">
-            <Search
-              placeholder="Search vendors by name..."
-              allowClear
-              onSearch={(value) => handleSearch(value)}
-              onChange={(event) => setSearchText(event.target.value)}
-              value={searchText}
-              size="small"
-              style={{ width: 200 }}
-            />
-            <OButton
-              btnText={<FormattedMessage id="component.button.newVendor" />}
-              onClick={() => {
-                setModal(modalType.New);
-                setSelectedVendor(null);
-              }}
-            />
-            <OButton
-              btnText={
-                showActive ? (
-                  <FormattedMessage id="component.button.showActive" />
-                ) : (
-                  <FormattedMessage id="component.button.showInactive" />
-                )
-              }
-              onClick={() => {
-                setShowActive((prev) => !prev);
-                setSelectedVendor(null);
-              }}
-            />
-          </Space>
-          <Table
-            columns={TColumns}
-            dataSource={vendorListRows}
-            onRow={(record) => {
-              return {
-                onClick: () => {
-                  if (record.id === selectedVendor?.id) setSelectedVendor(null);
-                  else getVendor(record.id);
-                }, // click row
-              };
-            }}
-            rowClassName={(record) => (record.id === selectedVendor?.id ? `ant-table-row-selected` : '')}
-          />
-        </Card>
+      <div className="title-row">
+        <h1 className="page-title">Vendors</h1>
       </div>
+      <Card className="content-box">
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+          <Search
+            placeholder="Search vendors by name..."
+            allowClear
+            onSearch={(value) => handleSearch(value)}
+            onChange={(event) => setSearchText(event.target.value)}
+            value={searchText}
+            size="small"
+            style={{ width: 200 }}
+          />
+          <OButton
+            btnText={<FormattedMessage id="component.button.newVendor" />}
+            onClick={() => {
+              setModal(modalType.New);
+              setSelectedVendor(null);
+            }}
+          />
+          <OButton
+            btnText={
+              showActive ? (
+                <FormattedMessage id="component.button.showActive" />
+              ) : (
+                <FormattedMessage id="component.button.showInactive" />
+              )
+            }
+            onClick={() => {
+              setShowActive((prev) => !prev);
+              setSelectedVendor(null);
+            }}
+          />
+        </Space>
+        <Table
+          columns={TColumns}
+          dataSource={vendorListRows}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                if (record.id === selectedVendor?.id) setSelectedVendor(null);
+                else getVendor(record.id);
+              }, // click row
+            };
+          }}
+          rowClassName={(record) => (record.id === selectedVendor?.id ? `ant-table-row-selected` : '')}
+        />
+      </Card>
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 

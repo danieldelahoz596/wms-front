@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Tree } from 'antd';
+import { Card, Tree } from 'antd';
 import { useModel } from 'umi';
 
-const SideFilterTree: React.FC = () => {
+const FilterByPanel: React.FC = () => {
   const { changeSelectedPOStatus, poStatusList, initialPOStatus } = useModel('poStatus');
 
   useEffect(() => {
@@ -53,7 +53,11 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return <Tree treeData={preparePoFiltersForTree} showLine={true} onSelect={onSelect} defaultSelectedKeys={['1']} />;
+  return (
+    <Card>
+      <Tree treeData={preparePoFiltersForTree} showLine={true} onSelect={onSelect} defaultSelectedKeys={['1']} />
+    </Card>
+  );
 };
 
-export default SideFilterTree;
+export default FilterByPanel;

@@ -29,14 +29,14 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
 
   return (
     <>
-      <div className="space-between">
+      <div className="title-row space-between">
         <h1 className="page-title">Performance</h1>
         <Space size={HORIZONTAL_SPACE_SIZE}>
           <OButton type="primary" btnText={'Year-Over-Year'} />
           <OButton type="primary" btnText={'Recent Orders'} />
         </Space>
       </div>
-      <Card style={{ height, padding: 5 }}>
+      <Card className="content-box" style={{ height, padding: '5px 10px' }}>
         <Form style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
           <Space size={HORIZONTAL_SPACE_SIZE}>
             <Form.Item>

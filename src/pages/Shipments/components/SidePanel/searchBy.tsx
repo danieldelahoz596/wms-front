@@ -1,8 +1,8 @@
 import { OButton } from '@/components/Globals/OButton';
-import { Form, Input, Select, Space } from 'antd';
+import { Card, Form, Input, Select, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
-const SearchPanel: React.FC = () => {
+const SearchByPanel: React.FC = () => {
   const [selectedType, setSelectedType] = useState<'shipments' | 'batches' | 'returns'>(null);
 
   const shipmentFormInputs = useMemo(
@@ -104,7 +104,7 @@ const SearchPanel: React.FC = () => {
   );
 
   return (
-    <div style={{ margin: 3, height: 800 }}>
+    <Card>
       <span>Search Type:</span>
       <Select
         placeholder="Select..."
@@ -138,10 +138,13 @@ const SearchPanel: React.FC = () => {
               </Form.Item>
             ))}
         </Space>
-        <OButton btnText={'Search'} className={'mt-10'} />
+        <div className="search-button-row space-between">
+          <OButton btnText={'Clear'} />
+          <OButton btnText={'Search'} />
+        </div>
       </Form>
-    </div>
+    </Card>
   );
 };
 
-export default SearchPanel;
+export default SearchByPanel;

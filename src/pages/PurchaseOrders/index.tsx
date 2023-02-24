@@ -1,12 +1,11 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import AddNewPOModal from './components/Modals/AddNewPO';
-import ExportPOModal from './components/Modals/ExportPO';
 import ManageItemsModal from '@/components/ManageItems';
-import VendorModal from './components/Modals/Vendor';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
+import ChatIcon from '@/utils/icons/chat';
+import NoteEditIcon from '@/utils/icons/noteEdit';
 import { CheckSquareFilled, DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Button, Card, Dropdown, message, Space } from 'antd';
@@ -14,10 +13,11 @@ import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import TabComponent from './components/Bottoms/tabcomponent';
-import SidePanel from './components/SidePanel/sidePanel';
-import NoteEditIcon from '@/utils/icons/noteEdit';
-import ChatIcon from '@/utils/icons/chat';
+import AddNewPOModal from './components/Modals/AddNewPO';
+import ExportPOModal from './components/Modals/ExportPO';
 import ReceivePOModal from './components/Modals/ReceivePO';
+import VendorModal from './components/Modals/Vendor';
+import SidePanel from './components/SidePanel';
 
 export const TColumns = [
   {
@@ -408,21 +408,25 @@ const CustomerManagement: React.FC = () => {
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
-            <Card style={{ width: '100%' }}>
-              <h1 className="page-title">
-                Purchase Orders ::{' '}
-                {selectedPOStatus
-                  ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name
-                  : ''}
-              </h1>
-              <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 10 }}>
-                {actionButtons.map((btn) => (
-                  <OButton key={btn.key} {...btn} />
-                ))}
-              </Space>
-              <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
-            </Card>
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
+            <div className="main-panel">
+              <div className="title-row">
+                <h1 className="page-title">
+                  Purchase Orders ::{' '}
+                  {selectedPOStatus
+                    ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name
+                    : ''}
+                </h1>
+              </div>
+              <Card className="content-box">
+                <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+                  {actionButtons.map((btn) => (
+                    <OButton key={btn.key} {...btn} />
+                  ))}
+                </Space>
+                <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
+              </Card>
+            </div>
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
           <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>

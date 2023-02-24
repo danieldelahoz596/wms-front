@@ -2,8 +2,8 @@ import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import React from 'react';
 
-import SideFilterTree from './sideFilterTree';
-import SideSearch from './sideSearchComponent';
+import FilterByPanel from './filterBy';
+import SearchByPanel from './searchBy';
 
 const SidePanel: React.FC = () => {
   const items = [
@@ -15,7 +15,7 @@ const SidePanel: React.FC = () => {
           Filter By
         </span>
       ),
-      children: <SideFilterTree />,
+      children: <FilterByPanel />,
     },
     {
       key: '2',
@@ -25,13 +25,13 @@ const SidePanel: React.FC = () => {
           Search By
         </span>
       ),
-      children: <SideSearch />,
+      children: <SearchByPanel />,
     },
   ];
 
   return (
-    <div className="left-panel" style={{ padding: 2 }}>
-      <Tabs size="small" defaultActiveKey="1" items={items} />
+    <div className="left-panel">
+      <Tabs defaultActiveKey="1" items={items} />
     </div>
   );
 };

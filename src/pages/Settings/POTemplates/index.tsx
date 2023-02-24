@@ -1,5 +1,6 @@
+import { OButton } from '@/components/Globals/OButton';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Button, Card, Space, Table } from 'antd';
+import { Card, Space, Table } from 'antd';
 import { useMemo } from 'react';
 
 const TColumns = [
@@ -27,23 +28,19 @@ export default function () {
   const TRows = useMemo(() => poTemplateList?.map((item) => ({ key: item.id, ...item })), [poTemplateList]);
 
   return (
-    <Card style={{ width: '100%' }}>
-      <Space size={HORIZONTAL_SPACE_SIZE}>
-        <Button>
-          <FormattedMessage id="component.button.new-template" />
-        </Button>
-        <Button>
-          <FormattedMessage id="component.button.edit" />
-        </Button>
-        <Button>
-          <FormattedMessage id="component.button.copy" />
-        </Button>
-        <Button>
-          <FormattedMessage id="component.button.delete" />
-        </Button>
-      </Space>
-
-      <Table columns={TColumns} dataSource={TRows} style={{ marginTop: 10 }} />
-    </Card>
+    <>
+      <div className="title-row">
+        <h1 className="page-title">P.O. Templates</h1>
+      </div>
+      <Card className="content-box">
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+          <OButton btnText={<FormattedMessage id="component.button.new-template" />} />
+          <OButton btnText={<FormattedMessage id="component.button.edit" />} />
+          <OButton btnText={<FormattedMessage id="component.button.copy" />} />
+          <OButton btnText={<FormattedMessage id="component.button.delete" />} />
+        </Space>
+        <Table columns={TColumns} dataSource={TRows} style={{ marginTop: 10 }} />
+      </Card>
+    </>
   );
 }

@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import { Space, Table, Card } from 'antd';
 import { OButton } from '@/components/Globals/OButton';
-import { FormattedMessage, useModel } from '@umijs/max';
 import ManageItemsModal from '@/components/ManageItems';
 import { modalType } from '@/utils/helpers/types';
+import { FormattedMessage, useModel } from '@umijs/max';
+import { Card, Space, Table } from 'antd';
+import { useMemo, useState } from 'react';
 import NewOrderbotModal from '../Modals/Orderbots/NewOrderbot';
 
 const TColumns = [
@@ -73,34 +73,31 @@ const OrderBots: React.FC = () => {
 
   return (
     <>
-      <Card style={{ width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Space size={10}>
-            <div style={{ gap: 5, display: 'flex' }}>
-              {actionButtons.map((item) => (
-                <OButton key={item.key} {...item} />
-              ))}
-            </div>
+      <div className="title-row">
+        <h1 className="page-title">Order Bots</h1>
+      </div>
+      <Card className="content-box">
+        <div className="button-row space-between">
+          <Space size={HORIZONTAL_SPACE_SIZE}>
+            {actionButtons.map((item) => (
+              <OButton key={item.key} {...item} />
+            ))}
           </Space>
-          <div>
-            <OButton
-              btnText={
-                showActive ? (
-                  <FormattedMessage id="component.button.showInactive" />
-                ) : (
-                  <FormattedMessage id="component.button.showActive" />
-                )
-              }
-              onClick={() => setShowActive((prev) => !prev)}
-            />
-          </div>
+          <OButton
+            btnText={
+              showActive ? (
+                <FormattedMessage id="component.button.showInactive" />
+              ) : (
+                <FormattedMessage id="component.button.showActive" />
+              )
+            }
+            onClick={() => setShowActive((prev) => !prev)}
+          />
         </div>
-
         <Table
           columns={TColumns}
           dataSource={TRows}
           pagination={{ hideOnSinglePage: true }}
-          style={{ marginTop: 10 }}
           onRow={(record) => {
             return {
               onClick: () => {

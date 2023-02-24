@@ -1,11 +1,11 @@
+import LaunchIcon from '@/utils/icons/launch';
+import ProductsIcon from '@/utils/icons/products';
+import WarehouseIcon from '@/utils/icons/warehouse';
+import { GlobalOutlined } from '@ant-design/icons';
 import { FormattedMessage } from '@umijs/max';
 import { Card, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
-import ProductsIcon from '@/utils/icons/products';
-import WarehouseIcon from '@/utils/icons/warehouse';
-import LaunchIcon from '@/utils/icons/launch';
-import { GlobalOutlined } from '@ant-design/icons';
 
 interface IShipmentItem {
   key: number;
@@ -26,7 +26,7 @@ interface IOrderItem {
   value: string;
 }
 
-const LeftPanel: React.FC = () => {
+const MainPanel: React.FC = () => {
   const TColumns: ColumnsType<IShipmentItem> = [
     {
       title: 'Type',
@@ -135,25 +135,15 @@ const LeftPanel: React.FC = () => {
   ];
 
   return (
-    <Card
-      size="small"
-      title={
-        <span
-          style={{
-            fontSize: '1rem',
-            textTransform: 'uppercase',
-            fontWeight: '700',
-            color: '#A2A2A2',
-          }}
-        >
-          <FormattedMessage id="menu.shipments" />
-        </span>
-      }
-      style={{ width: '100%' }}
-    >
-      <Table columns={TColumns} dataSource={shipments} />
-    </Card>
+    <>
+      <div className="title-row">
+        <h1><FormattedMessage id="menu.shipments" /></h1>
+      </div>
+      <Card className="content-box">
+        <Table columns={TColumns} dataSource={shipments} />
+      </Card>
+    </>
   );
 };
 
-export default LeftPanel;
+export default MainPanel;

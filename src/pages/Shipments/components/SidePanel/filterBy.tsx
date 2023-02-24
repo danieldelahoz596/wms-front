@@ -1,8 +1,8 @@
 import { GlobalOutlined, HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Tree } from 'antd';
+import { Card, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 
-const FilterPanel: React.FC = () => {
+const FilterByPanel: React.FC = () => {
   const treeData: DataNode[] = [
     {
       title: 'Shipments',
@@ -55,7 +55,11 @@ const FilterPanel: React.FC = () => {
     },
   ];
 
-  return <Tree showIcon treeData={treeData} />;
+  return (
+    <Card>
+      <Tree showIcon treeData={treeData} />
+    </Card>
+  );
 };
 
-export default FilterPanel;
+export default FilterByPanel;

@@ -1,10 +1,10 @@
 import BookIcon from '@/utils/icons/book';
 import { CaretDownOutlined } from '@ant-design/icons';
-import { Tree } from 'antd';
+import { Card, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 import React, { useState } from 'react';
 
-const SearchByCategoriesPanel: React.FC = () => {
+const FilterByPanel: React.FC = () => {
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const treeCategoryData: DataNode[] = [
     {
@@ -103,8 +103,8 @@ const SearchByCategoriesPanel: React.FC = () => {
   };
 
   return (
-    <div>
-      <h3>{`Hold 'Ctrl' or '' Key to select multiple.`}</h3>
+    <Card>
+      <h3>&nbsp;&nbsp;<i>Hold 'Ctrl' or '' Key to select multiple.</i></h3>
       <Tree
         showIcon
         defaultExpandAll
@@ -127,8 +127,8 @@ const SearchByCategoriesPanel: React.FC = () => {
         onSelect={onSelect}
         multiple
       />
-    </div>
+    </Card>
   );
 };
 
-export default SearchByCategoriesPanel;
+export default FilterByPanel;

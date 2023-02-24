@@ -1,10 +1,10 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
-import { Form, Space } from 'antd';
+import { Card, Form, Space } from 'antd';
 import React from 'react';
 
-const SideSearch: React.FC = () => {
+const SearchByPanel: React.FC = () => {
   const { onChangeOrderSearchQuery, onOrderSearch, clearOrderSearchQuery } = useModel('orderSearch');
   const { initialState } = useModel('@@initialState');
   const { initialData } = initialState;
@@ -63,43 +63,44 @@ const SideSearch: React.FC = () => {
   ];
 
   return (
-    <Form layout="vertical" style={{ marginLeft: 5, marginRight: 5 }}>
-      <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
-        {formInputs?.map((inputItem, index) => (
-          <Form.Item key={index} label={inputItem.label}>
-            <OInput {...inputItem} />
+    <Card>
+      <Form layout="vertical">
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
+          {formInputs?.map((inputItem, index) => (
+            <Form.Item key={index} label={inputItem.label}>
+              <OInput {...inputItem} />
+            </Form.Item>
+          ))}
+          <Form.Item label={'Order Date'}>
+            <Space size={3} align={'baseline'}>
+              <Form.Item>
+                <OInput type="date" name="fromorder_date" onChange={onChangeOrderSearchQuery} />
+              </Form.Item>
+              <span>to</span>
+              <Form.Item>
+                <OInput type="date" name="toorder_date" onChange={onChangeOrderSearchQuery} />
+              </Form.Item>
+            </Space>
           </Form.Item>
-        ))}
-
-        <Form.Item label={'Order Date'}>
-          <Space size={3} align={'baseline'}>
-            <Form.Item>
-              <OInput type="date" name="fromorder_date" onChange={onChangeOrderSearchQuery} />
-            </Form.Item>
-            <span>to</span>
-            <Form.Item>
-              <OInput type="date" name="toorder_date" onChange={onChangeOrderSearchQuery} />
-            </Form.Item>
-          </Space>
-        </Form.Item>
-        <Form.Item label={'Ship Date'}>
-          <Space size={3} align={'baseline'}>
-            <Form.Item>
-              <OInput type="date" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
-            </Form.Item>
-            <span>to</span>
-            <Form.Item>
-              <OInput type="date" name="toShipDate" onChange={onChangeOrderSearchQuery} />
-            </Form.Item>
-          </Space>
-        </Form.Item>
-      </Space>
-      <div className="space-between" style={{ marginTop: 10 }}>
-        <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
-        <OButton btnText={'Search'} onClick={onOrderSearch} />
-      </div>
-    </Form>
+          <Form.Item label={'Ship Date'}>
+            <Space size={3} align={'baseline'}>
+              <Form.Item>
+                <OInput type="date" name="fromShipDate" onChange={onChangeOrderSearchQuery} />
+              </Form.Item>
+              <span>to</span>
+              <Form.Item>
+                <OInput type="date" name="toShipDate" onChange={onChangeOrderSearchQuery} />
+              </Form.Item>
+            </Space>
+          </Form.Item>
+        </Space>
+        <div className="search-button-row space-between">
+          <OButton btnText={'Clear'} onClick={clearOrderSearchQuery} />
+          <OButton btnText={'Search'} onClick={onOrderSearch} />
+        </div>
+      </Form>
+    </Card>
   );
 };
 
-export default SideSearch;
+export default SearchByPanel;

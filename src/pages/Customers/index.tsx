@@ -6,13 +6,13 @@ import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Card, Col, Row, Space } from 'antd';
+import { Card, Row, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { DragDropContainer } from 'react-drag-drop-container-typescript';
 import { useResizable } from 'react-resizable-layout';
 import BottomPanel from './components/Bottom';
 import RightPanel from './components/RightPanel';
-import SearchCustomer from './components/SidePanel/SearchCustomer';
+import SidePanel from './components/SidePanel';
 
 const CustomerManagement: React.FC = () => {
   const { customerList, selectedCustomer, setSelectedCustomer, initialCustomerList, onGetSelectedCustomer } =
@@ -114,32 +114,31 @@ const CustomerManagement: React.FC = () => {
       <div className={'flex grow'}>
         <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
-            <SearchCustomer />
+            <SidePanel />
           </div>
         </div>
-
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
-            <Row style={{ width: '100%' }}>
-              <Col span={24}>
-                <Card size="small" title="Customers">
-                  <Space size={HORIZONTAL_SPACE_SIZE} className="mb-10">
-                    <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
-                    <OButton btnText="History" disabled={!selectedCustomer} onClick={() => setModal(modalType.History)} />
-                    <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />
-                  </Space>
-                  <OTable
-                    columns={Tcolumns}
-                    rows={prepareCustomersTableData}
-                    type="radio"
-                    selectedRows={selectedRows}
-                    setSelectedRows={setSelectedRows}
-                  />
-                </Card>
-              </Col>
-            </Row>
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
+            <div className="main-panel">
+              <div className="title-row">
+                <h1 className="page-title">Customers</h1>
+              </div>
+              <Card className="content-box">
+                <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+                  <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
+                  <OButton btnText="History" disabled={!selectedCustomer} onClick={() => setModal(modalType.History)} />
+                  <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />
+                </Space>
+                <OTable
+                  columns={Tcolumns}
+                  rows={prepareCustomersTableData}
+                  type="radio"
+                  selectedRows={selectedRows}
+                  setSelectedRows={setSelectedRows}
+                />
+              </Card>
+            </div>
             <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
             <Row>
               <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>

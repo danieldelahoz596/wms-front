@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import AddCoreProductModal from '@/pages/Products/components/Modals/AddCoreProduct';
 import { modalType } from '@/utils/helpers/types';
 import { useModel } from '@umijs/max';
-import { Space, Table } from 'antd';
+import { Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 
 interface IBundleItems {}
@@ -50,7 +50,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
       key: 'id',
     },
     {
-      title: 'MASTER SKU',
+      title: 'Master SKU',
       dataIndex: 'masterSKU',
       key: 'masterSKU',
     },
@@ -60,7 +60,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
       key: 'name',
     },
     {
-      title: 'QUANTITY',
+      title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
     },
@@ -68,11 +68,18 @@ const BundledItems: React.FC<IBundleItems> = () => {
 
   return (
     <>
-      <h3>Manage cord products and their respective quantities within this bundle/kit</h3>
-      <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 5 }}>
+      <h2>Manage cord products and their respective quantities within this bundle/kit</h2>
+      <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
         <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
         <OButton btnText="Edit Quantity" onClick={handleEditCoreProductClick} disabled={!selectedItem} />
-        <OButton btnText="Remove" onClick={handleRemoveClick} disabled={!selectedItem} />
+        <Popconfirm
+          title={'Sure to Remove?'}
+          onConfirm={() => {
+            handleRemoveClick;
+          }}
+        >
+          <OButton disabled={!selectedItem} btnText="Remove" />
+        </Popconfirm>
       </Space>
       <Table
         columns={tableColumns}
@@ -83,7 +90,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
             onClick: () => handleRowClick(record), // click row
           };
         }}
-        rowClassName={(record) => (record.id === selectedItem ? `data-row active-row pb-3` : 'data-row')}
+        rowClassName={(record) => (record.id === selectedItem ? `data-row active-row` : 'data-row')}
       />
 
       <AddCoreProductModal

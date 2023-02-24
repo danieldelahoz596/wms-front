@@ -38,7 +38,7 @@ const ChanagePassword: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Card title={<FormattedMessage id="app.settings.profile.change-password.title" />} style={{ width: 600, marginTop: 10 }}>
+      <Card title={<FormattedMessage id="app.settings.profile.change-password.title" />} className="content-box" style={{ width: 600, marginTop: 10 }}>
         <Form
           name="change_password"
           labelCol={{ span: 8 }}

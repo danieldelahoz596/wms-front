@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import SearchPanel from './searchPanel';
-import FilterPanel from './filterPanel';
+import SearchByPanel from './searchBy';
+import FilterByPanel from './filterBy';
 
-const LeftPanel: React.FC = () => {
+const SidePanel: React.FC = () => {
   const tabItems = useMemo(
     () => [
       {
@@ -15,27 +15,27 @@ const LeftPanel: React.FC = () => {
           </span>
         ),
         key: '1',
-        children: <FilterPanel />,
+        children: <FilterByPanel />,
       },
       {
         label: (
           <span>
             <SearchOutlined />
-            Search Shipment
+            Search By
           </span>
         ),
         key: '2',
-        children: <SearchPanel />,
+        children: <SearchByPanel />,
       },
     ],
     [],
   );
 
   return (
-    <div className="left-panel" style={{ padding: 2 }}>
-      <Tabs size="small" defaultActiveKey="1" items={tabItems} />
+    <div className="left-panel">
+      <Tabs defaultActiveKey="1" items={tabItems} />
     </div>
   );
 };
 
-export default LeftPanel;
+export default SidePanel;

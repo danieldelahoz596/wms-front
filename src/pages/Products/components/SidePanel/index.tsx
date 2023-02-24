@@ -1,7 +1,7 @@
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import SearchByProductPanel from './searchByProductPanel';
-import SearchByCategoriesPanel from './searchByCategoriesPanel';
+import FilterByPanel from './filterBy';
+import SearchByPanel from './searchBy';
 
 const SidePanel: React.FC = () => {
   const items = [
@@ -13,7 +13,7 @@ const SidePanel: React.FC = () => {
         </span>
       ),
       key: '1',
-      children: <SearchByCategoriesPanel />,
+      children: <FilterByPanel />,
     },
     {
       label: (
@@ -23,13 +23,13 @@ const SidePanel: React.FC = () => {
         </span>
       ),
       key: '2',
-      children: <SearchByProductPanel />,
+      children: <SearchByPanel />,
     },
   ];
 
   return (
-    <div className="left-panel" style={{ padding: 2 }}>
-      <Tabs size="small" defaultActiveKey="1" items={items} />
+    <div className="left-panel">
+      <Tabs defaultActiveKey="1" items={items} />
     </div>
   );
 };

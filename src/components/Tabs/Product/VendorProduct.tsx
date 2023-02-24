@@ -3,7 +3,7 @@ import NewVendorProductModal from '@/pages/Products/components/Modals/NewVendorP
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
-import { Col, Popconfirm, Row, Space, Table } from 'antd';
+import { Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 
 const vendorProductsTableColumns = [
@@ -111,60 +111,58 @@ const VendorProduct: React.FC = () => {
             );
           }}
         >
-          <OButton
-            size="small"
-            disabled={!selectedVendorProductKey}
-            btnText={`${showActive ? 'Deactivate' : 'Activate'}`}
-          ></OButton>
+          <OButton disabled={!selectedVendorProductKey} btnText={`${showActive ? 'Deactivate' : 'Activate'}`}></OButton>
         </Popconfirm>
       ),
     },
     {
       onClick: handleDefaultClick,
-      btnText: 'Default',
-      disabled: !selectedVendorProductKey,
+      btnText: (
+        <Popconfirm
+          title={'Sure to Set it as default?'}
+          onConfirm={() => {
+            handleDefaultClick;
+          }}
+        >
+          <OButton disabled={!selectedVendorProductKey} btnText="Default"></OButton>
+        </Popconfirm>
+      ),
     },
   ];
 
   return (
     <>
-      <div>
-        <p>Add vendor SKUs associated with this product.</p>
-        <Row>
-          <Col span={18}>
-            <Space size={HORIZONTAL_SPACE_SIZE}>
-              {actionButtons.map((btn) => (
-                <OButton {...btn} />
-              ))}
-            </Space>
-          </Col>
-          <Col span={6} style={{ textAlign: 'right' }}>
-            <OButton
-              btnText={`${showActive ? 'Show InActive' : 'Show Active'}`}
-              disabled={vendorProductList.length == 0}
-              onClick={() => {
-                setShowActive((prev) => !prev);
-                setSelectedVendorProductKey(null);
-              }}
-            />
-          </Col>
-        </Row>
-        <Table
-          columns={vendorProductsTableColumns}
-          dataSource={vendorProductsTableRows}
-          pagination={{ hideOnSinglePage: true }}
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                if (selectedVendorProductKey !== record.key) setSelectedVendorProductKey(record.key);
-                else setSelectedVendorProductKey(null);
-              },
-            };
+      <h2>Add vendor SKUs associated with this product.</h2>
+      <div className="button-row space-between">
+        <Space size={HORIZONTAL_SPACE_SIZE}>
+          {actionButtons.map((btn) => (
+            <OButton {...btn} />
+          ))}
+        </Space>
+        <OButton
+          btnText={`${showActive ? 'Show InActive' : 'Show Active'}`}
+          disabled={vendorProductList.length == 0}
+          onClick={() => {
+            setShowActive((prev) => !prev);
+            setSelectedVendorProductKey(null);
           }}
-          rowClassName={(record) => (record.key === selectedVendorProductKey ? `ant-table-row-selected` : '')}
-          style={{ marginTop: '1rem', minHeight: 200 }}
         />
       </div>
+      <Table
+        columns={vendorProductsTableColumns}
+        dataSource={vendorProductsTableRows}
+        pagination={{ hideOnSinglePage: true }}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              if (selectedVendorProductKey !== record.key) setSelectedVendorProductKey(record.key);
+              else setSelectedVendorProductKey(null);
+            },
+          };
+        }}
+        rowClassName={(record) => (record.key === selectedVendorProductKey ? `ant-table-row-selected` : '')}
+        style={{ minHeight: 200 }}
+      />
 
       <NewVendorProductModal
         isOpen={modalOpen == modalType.NewVendorProduct}

@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { FormattedMessage, useModel } from '@umijs/max';
 import { Pie } from '@ant-design/charts';
-import { Row, Col, Card } from 'antd';
+import { FormattedMessage, useModel } from '@umijs/max';
+import { Card } from 'antd';
+import { useMemo } from 'react';
 
 const OrderAgingByWarehouse: React.FC = () => {
   const { warehouseList } = useModel('warehouse');
@@ -17,33 +17,34 @@ const OrderAgingByWarehouse: React.FC = () => {
 
   return (
     <>
-      <Card title={<FormattedMessage id="pages.dashboard.orderAgingByWarehouse" />}>
-        <Row>
-          <Col span={24}>
-            <Pie
-              data={pieData}
-              angleField="days"
-              colorField="name"
-              radius={0.75}
-              interactions={[
-                {
-                  type: 'element-selected',
-                },
-                {
-                  type: 'element-active',
-                },
-              ]}
-              legend={{
-                position: 'bottom-left',
-                maxRow: 5,
-                flipPage: false,
-                marker: { symbol: 'square' },
-                offsetX: 100,
-              }}
-              label={false}
-            />
-          </Col>
-        </Row>
+      <div className="title-row">
+        <h1 className="page-title">
+          <FormattedMessage id="pages.dashboard.orderAgingByWarehouse" />
+        </h1>
+      </div>
+      <Card className="content-box">
+        <Pie
+          data={pieData}
+          angleField="days"
+          colorField="name"
+          radius={0.75}
+          interactions={[
+            {
+              type: 'element-selected',
+            },
+            {
+              type: 'element-active',
+            },
+          ]}
+          legend={{
+            position: 'bottom-left',
+            maxRow: 5,
+            flipPage: false,
+            marker: { symbol: 'square' },
+            offsetX: 100,
+          }}
+          label={false}
+        />
       </Card>
     </>
   );

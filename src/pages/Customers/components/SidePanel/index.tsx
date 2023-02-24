@@ -15,7 +15,7 @@ const initailState = {
   country: '',
 };
 
-export default function SearchCustomer() {
+export default function SidePanel() {
   const [searchQuery, setSearchQuery] = useState(initailState);
   const { setCustomerList } = useModel('customer');
 
@@ -73,26 +73,31 @@ export default function SearchCustomer() {
   ];
 
   return (
-    <Card title="Search Customers" className="left-panel">
-      <Form>
-        <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
-          {inputFields.map((_inputField, _index) => (
-            <div key={_index}>
-              <span>{_inputField.label}:</span>
-              <OInput
-                type={_inputField.type}
-                name={_inputField.name}
-                value={searchQuery[_inputField.name]}
-                onChange={handleSearchQueryChange}
-              />
-            </div>
-          ))}
-        </Space>
-      </Form>
-      <div className="space-between" style={{ marginTop: 10 }}>
-        <OButton btnText={'Clear'} onClick={clearSearchQuery} />
-        <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
+    <div className="left-panel">
+      <div className="title-row">
+        <h1>Search Customers</h1>
       </div>
-    </Card>
+      <Card>
+        <Form>
+          <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
+            {inputFields.map((_inputField, _index) => (
+              <div key={_index}>
+                <span>{_inputField.label}:</span>
+                <OInput
+                  type={_inputField.type}
+                  name={_inputField.name}
+                  value={searchQuery[_inputField.name]}
+                  onChange={handleSearchQueryChange}
+                />
+              </div>
+            ))}
+          </Space>
+        </Form>
+        <div className="search-button-row space-between">
+          <OButton btnText={'Clear'} onClick={clearSearchQuery} />
+          <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
+        </div>
+      </Card>
+    </div>
   );
 }

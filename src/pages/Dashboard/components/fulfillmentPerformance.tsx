@@ -9,11 +9,13 @@ interface IFulfillmentPerformance {
 const FulfillmentPerformance: React.FC<IFulfillmentPerformance> = ({ data }) => {
   return (
     <>
-      <div style={{ fontSize: 25 }}>
+      <div className="title-row">
+        <h1 className="page-title">
         <FormattedMessage id="pages.dashboard.fulfillmentPerformance" />
+        </h1>
       </div>
       {!!data ? (
-        <Row gutter={[30, 30]} className="mt-10">
+        <Row gutter={[20, 20]}>
           <Col span={12}>
             <div
               style={{

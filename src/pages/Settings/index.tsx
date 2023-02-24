@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { PageContainer } from '@ant-design/pro-components';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
-import { useResizable } from 'react-resizable-layout';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { ContainerOutlined, RobotFilled, SnippetsFilled } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-components';
 import { Layout, Menu } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useResizable } from 'react-resizable-layout';
 const { Sider } = Layout;
 
+import CompanyIcon from '@/utils/icons/company';
+import CustomersIcon from '@/utils/icons/customers';
+import ProfileIcon from '@/utils/icons/profile';
+import VendorIcon from '@/utils/icons/vendor';
+import WarehouseIcon from '@/utils/icons/warehouse';
+import { history } from '@umijs/max';
+import CompanyInfo from './CompanyInfo';
+import MyProfile from './MyProfile';
+import OrderBots from './Orderbots';
+import POTemplates from './POTemplates';
+import UserAdministration from './UserAdministration';
 import Vendors from './Vendors';
 import Warehouses from './Warehouses';
-import MyProfile from './MyProfile';
-import CompanyInfo from './CompanyInfo';
-import UserAdministration from './UserAdministration';
-import POTemplates from './POTemplates';
-import { history } from '@umijs/max';
-import ProfileIcon from '@/utils/icons/profile';
-import CustomersIcon from '@/utils/icons/customers';
-import CompanyIcon from '@/utils/icons/company';
-import WarehouseIcon from '@/utils/icons/warehouse';
-import VendorIcon from '@/utils/icons/vendor';
-import OrderBots from './Orderbots';
 
 const OrderManagement: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<string>('Warehouses');
@@ -61,11 +61,11 @@ const OrderManagement: React.FC = () => {
   };
 
   return (
-    <PageContainer title={false} className={'flex flex-column overflow-hidden'} header={{ breadcrumb: {} }}>
+    <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
         <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
-            <Sider width={220} trigger={null}>
+            <Sider>
               <Menu
                 defaultSelectedKeys={[activeMenu]}
                 onClick={(_item) => setActiveMenu(_item.key)}
@@ -125,7 +125,11 @@ const OrderManagement: React.FC = () => {
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        {mainContent}
+        <div className="w-full flex flex-column h-screen">
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
+            <div className="main-panel">{mainContent}</div>
+          </div>
+        </div>
       </div>
     </PageContainer>
   );

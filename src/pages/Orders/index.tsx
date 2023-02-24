@@ -22,16 +22,16 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Badge, Button, Card, Col, Dropdown, Modal, Row, Space } from 'antd';
+import { Badge, Button, Card, Dropdown, Modal, Space } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import OrderItems from './components/Bottoms/orderItems';
 import RightPanel from './components/RightPanel/rightPanel';
-import SidePanel from './components/SidePanel/sidePanel';
+import SidePanel from './components/SidePanel';
 
 // modals
 import ImportExportSummaryModal from '@/components/ImportExportSummary';
@@ -50,11 +50,11 @@ import OrderImportSettingsModal from './components/Modals/OrderImportSettings';
 import RestoreOrderModal from './components/Modals/RestoreOrder';
 import ShipmentImportMappingsModal from './components/Modals/ShipmentImportMappings';
 
+import { uuidv4 } from '@antv/xflow-core';
+import moment from 'moment';
 import DuplicateOrderModal from './components/Modals/DuplicateOrder';
 import SelectOrderColumnsModal from './components/Modals/SelectOrderColumns';
 import SplitOrderModal from './components/Modals/SplitOrder';
-import { uuidv4 } from '@antv/xflow-core';
-import moment from 'moment';
 
 const { confirm } = Modal;
 
@@ -515,58 +515,52 @@ const OrderManagement: React.FC = () => {
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
-            <Card style={{ width: '100%' }}>
-              <Row>
-                <Col span={12}>
-                  <h1 className="page-title">Orders :: {selectedOrderStatus?.status.name}</h1>
-                </Col>
-                <Col span={12} style={{ textAlign: 'right' }}>
-                  {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
-                  <Button style={{ paddingTop: '0', paddingBottom: '0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span>
-                        {' '}
-                        <DownOutlined /> {selectedOrderStatus?.status.name} Queue
-                      </span>{' '}
-                      <Badge count={3} color="#5F5FFF" />
-                    </div>
-                  </Button>
-                  {/* )} */}
-                </Col>
-              </Row>
-              <Space size={HORIZONTAL_SPACE_SIZE} style={{ marginBottom: 10 }}>
-                {actionButtons.map((btn, index) => (
-                  <OButton key={index} {...btn} />
-                ))}
-              </Space>
-              <Row>
-                <Col span={24} style={{ position: 'relative' }}>
-                  <OTable
-                    type="checkbox"
-                    columns={orderTableColumns}
-                    rows={orderTableRows}
-                    selectedRows={selectedRows}
-                    setSelectedRows={handleSelectedRows}
-                  />
-                  <div className="choose-column" style={{ position: 'absolute', bottom: 20 }} hidden={!showChooseColumn}>
-                    <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
-                    <OButton
-                      icon={<BorderHorizontalOutlined />}
-                      btnText={''}
-                      onClick={() => setModal(modalType.SelectOrderColumns)}
-                      style={{ color: 'gray' }}
-                    />
-                    <OButton
-                      icon={<CloseOutlined />}
-                      btnText={''}
-                      onClick={() => setShowChooseColumn(false)}
-                      style={{ color: 'gray' }}
-                    />
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
+            <div className="main-panel">
+              <div className="title-row space-between">
+                <h1 className="page-title">Orders :: {selectedOrderStatus?.status.name}</h1>
+                {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
+                <Button style={{ paddingTop: '0', paddingBottom: '0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span>
+                      {' '}
+                      <DownOutlined /> {selectedOrderStatus?.status.name} Queue
+                    </span>{' '}
+                    <Badge count={3} color="#5F5FFF" />
                   </div>
-                </Col>
-              </Row>
-            </Card>
+                </Button>
+                {/* )} */}
+              </div>
+              <Card className="content-box">
+                <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+                  {actionButtons.map((btn, index) => (
+                    <OButton key={index} {...btn} />
+                  ))}
+                </Space>
+                <OTable
+                  type="checkbox"
+                  columns={orderTableColumns}
+                  rows={orderTableRows}
+                  selectedRows={selectedRows}
+                  setSelectedRows={handleSelectedRows}
+                />
+                <div className="choose-column" style={{ position: 'absolute', bottom: 20 }} hidden={!showChooseColumn}>
+                  <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
+                  <OButton
+                    icon={<BorderHorizontalOutlined />}
+                    btnText={''}
+                    onClick={() => setModal(modalType.SelectOrderColumns)}
+                    style={{ color: 'gray' }}
+                  />
+                  <OButton
+                    icon={<CloseOutlined />}
+                    btnText={''}
+                    onClick={() => setShowChooseColumn(false)}
+                    style={{ color: 'gray' }}
+                  />
+                </div>
+              </Card>
+            </div>
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
           <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>

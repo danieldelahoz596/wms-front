@@ -8,7 +8,7 @@ interface IBottomPanel {
 
 const BottomPanel: React.FC<IBottomPanel> = ({ height }) => {
   return (
-    <Row gutter={10} style={{ padding: 5}}>
+    <Row>
       <Col span={12}>
         <PerformancePanel height={height} />
       </Col>

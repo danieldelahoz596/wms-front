@@ -3,7 +3,7 @@ import ConfigureFieldTypes from '@/pages/Products/components/Modals/ConfigFieldT
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Select } from 'antd';
+import { Popconfirm, Select, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
 interface IProductCustomFields {
@@ -64,13 +64,9 @@ const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, set
 
   return (
     <>
-      <Row align="middle" gutter={10}>
-        <Col span={24}>
-          <p>
-            <b>Manage Custom Fields</b>
-          </p>
-        </Col>
-        <Col span={7}>
+      <h2>Manage Custom Fields</h2>
+      <div className="button-row space-between">
+        <Space size={HORIZONTAL_SPACE_SIZE}>
           <Select
             showSearch
             placeholder="Add Fields"
@@ -82,29 +78,23 @@ const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, set
               setCustomFields([...customFields, { field_id: id, value: 'Any value you want' }]);
             }}
           />
-        </Col>
-        <Col span={10}>
-          <OButton
-            btnText={'Remove Field'}
-            onClick={() => {
+          <Popconfirm
+            title={'Sure to Remove?'}
+            onConfirm={() => {
               setCustomFields(customFields.filter((field) => field.field_id !== selectedItemId));
               setSelectedItemId(null);
             }}
-            disabled={!selectedItemId}
-          />
-        </Col>
-        <Col span={7}>
-          <Row justify="end">
-            <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
-          </Row>
-        </Col>
-      </Row>
-
+          >
+            <OButton btnText={'Remove Field'} disabled={!selectedItemId} />
+          </Popconfirm>
+        </Space>
+        <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
+      </div>
       <EditableTable
         columns={TColumns}
         dataSource={dataSource}
         props={{
-          style: { marginTop: 10, height: 400 },
+          style: { height: 400 },
           onRow: (record) => {
             return {
               onClick: () => {

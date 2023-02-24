@@ -45,8 +45,11 @@ export default function () {
   return (
     <>
       {contextHolder}
-      <Card style={{ width: '100%' }}>
-        <Space size={HORIZONTAL_SPACE_SIZE}>
+      <div className="title-row">
+        <h1 className="page-title">User Administration</h1>
+      </div>
+      <Card className="content-box">
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
           <OButton
             btnText={<FormattedMessage id="component.button.newUser" />}
             onClick={() => {
@@ -112,6 +115,7 @@ export default function () {
         />
       </Card>
 
+      {/* Modals */}
       <NewUserModal
         isOpen={modalOpen === modalType.New}
         onSave={() => setModal(modalType.Close)}

@@ -108,7 +108,7 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
 
   return (
     <>
-      <div className="space-between">
+      <div className="title-row space-between">
         <h1 className="page-title">Product Details</h1>
         <Space size={HORIZONTAL_SPACE_SIZE}>
           <OButton btnText={'Fields'} onClick={() => setShowProductDetailType('fields')} disabled={!editableProduct} />
@@ -120,7 +120,7 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
           <OButton btnText={'Gallery'} onClick={() => setShowProductDetailType('gallery')} disabled={!editableProduct} />
         </Space>
       </div>
-      <Card style={{ height: height - 20 }}>
+      <Card className="content-box" style={{ height: height - 20 }}>
         {showProductDetailType === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : showProductDetailType === 'vendorProduct' ? (

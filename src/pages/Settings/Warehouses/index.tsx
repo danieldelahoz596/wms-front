@@ -1,13 +1,4 @@
 import { OButton } from '@/components/Globals/OButton';
-import AddShippingZonesModal from '../Modals/Warehouse/AddShippingZones';
-import BasicInfoModal from '../Modals/Warehouse/BasicInfo';
-import DocumentPrintSettingsModal from '../Modals/Warehouse/DocumentPrintSettings';
-import NewWarehouseModal from '../Modals/Warehouse/NewWarehouse';
-import NewWarehouseTypeModal from '../Modals/Warehouse/NewWarehouseType';
-import RankOrderModal from '../Modals/Warehouse/RankOrder';
-import ReturnLocationModal from '../Modals/Warehouse/ReturnLocation';
-import WarehouseDeactivateModal from '../Modals/Warehouse/WarehouseDeactivate';
-import WarehouseHistoryModal from '../Modals/Warehouse/WarehouseHistory';
 import { modalType } from '@/utils/helpers/types';
 import {
   ArrowLeftOutlined,
@@ -22,11 +13,20 @@ import {
   PaperClipOutlined,
   QuestionCircleTwoTone,
   StopOutlined,
-  ToolFilled,
+  ToolFilled
 } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Dropdown, Row, Space } from 'antd';
 import { useState } from 'react';
+import AddShippingZonesModal from '../Modals/Warehouse/AddShippingZones';
+import BasicInfoModal from '../Modals/Warehouse/BasicInfo';
+import DocumentPrintSettingsModal from '../Modals/Warehouse/DocumentPrintSettings';
+import NewWarehouseModal from '../Modals/Warehouse/NewWarehouse';
+import NewWarehouseTypeModal from '../Modals/Warehouse/NewWarehouseType';
+import RankOrderModal from '../Modals/Warehouse/RankOrder';
+import ReturnLocationModal from '../Modals/Warehouse/ReturnLocation';
+import WarehouseDeactivateModal from '../Modals/Warehouse/WarehouseDeactivate';
+import WarehouseHistoryModal from '../Modals/Warehouse/WarehouseHistory';
 
 export default function () {
   const [modalOpen, setModalOpen] = useState('');
@@ -34,13 +34,15 @@ export default function () {
   const { warehouseList, setSelectedWarehouse, selectedWarehouse, updateWarehouse, getWarehouseHistory } = useModel('warehouse');
 
   return (
-    <div className="w-full">
-      <Card>
-        <Space size={HORIZONTAL_SPACE_SIZE}>
+    <div className="w-full main-panel">
+      <div className="title-row">
+        <h1 className="page-title">Warehouses</h1>
+      </div>
+      <Card className="content-box">
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
           <OButton
             btnText={<FormattedMessage id="pages.settings.warehouses.newWarehouse" />}
             onClick={() => setModalOpen(modalType.Void)}
-            style={{ marginRight: '5px' }}
           />
           <OButton
             btnText={
@@ -53,10 +55,9 @@ export default function () {
             onClick={() => {
               setShowInactive((prev) => !prev);
             }}
-            style={{ marginRight: '5px' }}
           />
         </Space>
-        <Row gutter={5} style={{ marginTop: '1rem' }}>
+        <Row gutter={5}>
           <Col span={12}>
             {warehouseList
               ?.filter((_item) => Boolean(_item.status) == !showInactive)

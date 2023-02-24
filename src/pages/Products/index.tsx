@@ -6,13 +6,21 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Row, Select, Space, Table } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Select, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
 
-import { OTable } from '@/components/Globals/OTable';
 import ImportExportSummaryModal from '@/components/ImportExportSummary';
+import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import BundleIcon from '@/utils/icons/bundle';
+import CoreProductsIcon from '@/utils/icons/coreProduct';
+import VariationIcon from '@/utils/icons/variation';
+import VectorIcon from '@/utils/icons/vector';
+import { PageContainer } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
+import { useResizable } from 'react-resizable-layout';
+import BottomPanel from './components/BottomPanel';
 import AdjustMasterSKUModal from './components/Modals/AdjustMasterSKU';
 import CoreProductModal from './components/Modals/CoreProduct';
 import EditProductModal from './components/Modals/EditProduct';
@@ -30,16 +38,7 @@ import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 import ProductVariantsModal from './components/Modals/ProductVariants';
 import SelectCoreProductModal from './components/Modals/SelectCoreProduct';
 import SelectQuantityOfSKUModal from './components/Modals/SelectQuantityOfSKU';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
-import BundleIcon from '@/utils/icons/bundle';
-import CoreProductsIcon from '@/utils/icons/coreProduct';
-import VariationIcon from '@/utils/icons/variation';
-import VectorIcon from '@/utils/icons/vector';
-import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
-import { useResizable } from 'react-resizable-layout';
-import BottomPanel from './components/BottomPanel';
-import LeftPanel from './components/LeftPanel/sidePanel';
+import SidePanel from './components/SidePanel';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -239,14 +238,14 @@ const ProductManagement: React.FC = () => {
       <div className={'flex grow'}>
         <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
           <div className="w-full">
-            <LeftPanel />
+            <SidePanel />
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        <div className="w-full flex flex-column h-screen main-panel">
+        <div className="w-full flex flex-column h-screen">
           <div className="horizon-content" style={{ overflow: 'scroll' }}>
-            <div style={{ width: '100%' }}>
-              <Row style={{ marginLeft: '10px', marginTop: '10px' }}>
+            <div className="main-panel">
+              <div className="title-row">
                 <h1 className="page-title">Products :: </h1>
                 <div>
                   <Select
@@ -265,9 +264,9 @@ const ProductManagement: React.FC = () => {
                   />
                   <Button icon={<RetweetOutlined />} />
                 </div>
-              </Row>
-              <Card>
-                <Space size={HORIZONTAL_SPACE_SIZE} style={{margin: '8px 10px'}}>
+              </div>
+              <Card className="content-box">
+                <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
                   <OButton btnText="Adjust Sku" onClick={() => setModal(modalType.AdjustMasterSKU)} disabled={!editableProduct} />
                   <Popconfirm
                     title="Sure to convert to bundle/kit?"
@@ -322,7 +321,6 @@ const ProductManagement: React.FC = () => {
                     </Button>
                   </Dropdown>
                 </Space>
-
                 <Table
                   columns={TColumns}
                   dataSource={productTableRows}

@@ -4,7 +4,7 @@ import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space } from 'antd';
+import { Popconfirm, Space } from 'antd';
 import Checkbox from 'antd/es/checkbox';
 import React, { useState } from 'react';
 import NewFieldType from './NewFieldType';
@@ -105,46 +105,44 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
       ]}
     >
       <>
-        <Row justify="space-between">
-          <Col>
-            <Space size={10}>
-              <OButton btnText="New Field Type" onClick={handleAddNewType} />
-              <OButton btnText={showActive ? 'Deactivate' : 'Activate'} disabled={!selectedItemId} onClick={handleDeactive} />
-            </Space>
-          </Col>
-          <Col>
-            <OButton
-              btnText={showActive ? 'Show Inactive' : 'Show Active'}
-              onClick={() => {
-                setSelectedItemId(null);
-                setShowActive((prev) => !prev);
+        <div className="button-row space-between">
+          <Space size={HORIZONTAL_SPACE_SIZE}>
+            <OButton btnText="New Field Type" onClick={handleAddNewType} />
+            <Popconfirm
+              title={'Sure to Deactivate?'}
+              onConfirm={() => {
+                handleDeactive;
               }}
-            />
-          </Col>
-        </Row>
-
-        <div style={{ marginTop: 10 }}>
-          <EditableTable
-            columns={TColumns}
-            dataSource={fieldTypes
-              .filter((field) => field.active === showActive)
-              .map((fields) => ({ key: fields.id, ...fields }))}
-            handleSave={(key: any, name: any, value: any) => {
-              setFieldTypes(fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)));
-            }}
-            props={{
-              onRow: (record) => {
-                return {
-                  onClick: () => {
-                    if (selectedItemId === record.id) setSelectedItemId(null);
-                    else setSelectedItemId(record.id);
-                  },
-                };
-              },
-              rowClassName: (record) => (record.id === selectedItemId ? `ant-table-row-selected` : ''),
+            >
+              <OButton disabled={!selectedItemId} btnText={showActive ? 'Deactivate' : 'Activate'} />
+            </Popconfirm>
+          </Space>
+          <OButton
+            btnText={showActive ? 'Show Inactive' : 'Show Active'}
+            onClick={() => {
+              setSelectedItemId(null);
+              setShowActive((prev) => !prev);
             }}
           />
         </div>
+        <EditableTable
+          columns={TColumns}
+          dataSource={fieldTypes.filter((field) => field.active === showActive).map((fields) => ({ key: fields.id, ...fields }))}
+          handleSave={(key: any, name: any, value: any) => {
+            setFieldTypes(fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)));
+          }}
+          props={{
+            onRow: (record) => {
+              return {
+                onClick: () => {
+                  if (selectedItemId === record.id) setSelectedItemId(null);
+                  else setSelectedItemId(record.id);
+                },
+              };
+            },
+            rowClassName: (record) => (record.id === selectedItemId ? `ant-table-row-selected` : ''),
+          }}
+        />
 
         <NewFieldType
           isOpen={showModal}

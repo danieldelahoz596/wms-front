@@ -1,8 +1,8 @@
+import { Card, Tree } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Tree } from 'antd';
 import { useModel } from 'umi';
 
-const SideFilterTree: React.FC = () => {
+const FilterByPanel: React.FC = () => {
   const { orderStatusList, changeSelectedOrderStatus, initialOrderStatus } = useModel('orderStatus');
   const [selectedKeys, setSelectedKeys] = useState(['3']);
 
@@ -94,7 +94,11 @@ const SideFilterTree: React.FC = () => {
     };
   });
 
-  return <Tree treeData={prepareOrderFiltersForTree} showLine={true} onSelect={onSelect} selectedKeys={selectedKeys} />;
+  return (
+    <Card>
+      <Tree treeData={prepareOrderFiltersForTree} showLine={true} onSelect={onSelect} selectedKeys={selectedKeys} />
+    </Card>
+  );
 };
 
-export default SideFilterTree;
+export default FilterByPanel;

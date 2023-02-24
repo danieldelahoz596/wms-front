@@ -2,10 +2,10 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { useModel } from '@umijs/max';
-import { Form, Space } from 'antd';
+import { Card, Form, Space } from 'antd';
 import React from 'react';
 
-const SideSearch: React.FC = () => {
+const SearchByPanel: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const { initialData } = initialState;
 
@@ -86,20 +86,22 @@ const SideSearch: React.FC = () => {
   ];
 
   return (
-    <Form layout="vertical" style={{ margin: '0% 5% 0% 5%' }}>
-      <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
-        {formInputs?.map((inputItem, index) => (
-          <Form.Item key={index} label={inputItem.label}>
-            <OInput {...inputItem} style={{ width: '100%' }} />
-          </Form.Item>
-        ))}
-      </Space>
-      <div className="space-between" style={{ marginTop: 10 }}>
-        <OButton btnText={'Clear'} />
-        <OButton btnText={'Search'} />
-      </div>
-    </Form>
+    <Card>
+      <Form layout="vertical">
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
+          {formInputs?.map((inputItem, index) => (
+            <Form.Item key={index} label={inputItem.label}>
+              <OInput {...inputItem} />
+            </Form.Item>
+          ))}
+        </Space>
+        <div className="search-button-row space-between">
+          <OButton btnText={'Clear'} />
+          <OButton btnText={'Search'} />
+        </div>
+      </Form>
+    </Card>
   );
 };
 
-export default SideSearch;
+export default SearchByPanel;
