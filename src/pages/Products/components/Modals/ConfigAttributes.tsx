@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { Input } from 'antd';
 import { useEffect, useState } from 'react';
 

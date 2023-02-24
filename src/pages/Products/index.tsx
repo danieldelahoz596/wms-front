@@ -12,7 +12,7 @@ import { Button, Card, Dropdown, Popconfirm, Select, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import ImportExportSummaryModal from '@/components/ImportExportSummary';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import BundleIcon from '@/utils/icons/bundle';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import VariationIcon from '@/utils/icons/variation';

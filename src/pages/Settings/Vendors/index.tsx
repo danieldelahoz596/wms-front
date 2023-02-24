@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import type IVendors from '@/interfaces/IVendors';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';

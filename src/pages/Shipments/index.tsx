@@ -1,4 +1,4 @@
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
 import { useResizable } from 'react-resizable-layout';
 import MainPanel from './components/mainPanel';

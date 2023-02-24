@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Col, message, Row } from 'antd';

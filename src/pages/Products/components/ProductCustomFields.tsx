@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import ConfigureFieldTypes from '@/pages/Products/components/Modals/ConfigFieldTypes';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Select, Space } from 'antd';

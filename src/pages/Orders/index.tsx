@@ -1,7 +1,7 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import {
   BorderHorizontalOutlined,
@@ -22,7 +22,7 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
@@ -176,7 +176,7 @@ const OrderManagement: React.FC = () => {
   const {
     isDragging: isBottomDragging,
     position: bottomH,
-    splitterProps: bottomDragBarProps,
+    separatorProps: bottomDragBarProps,
   } = useResizable({
     axis: 'y',
     initial: 200,
@@ -187,7 +187,7 @@ const OrderManagement: React.FC = () => {
   const {
     isDragging: isLeftDragging,
     position: LeftW,
-    splitterProps: leftDragBarProps,
+    separatorProps: leftDragBarProps,
   } = useResizable({
     axis: 'x',
     initial: 220,
@@ -197,7 +197,7 @@ const OrderManagement: React.FC = () => {
   const {
     isDragging: isRightDragging,
     position: RightW,
-    splitterProps: rightDragBarProps,
+    separatorProps: rightDragBarProps,
   } = useResizable({
     axis: 'x',
     initial: 280,
@@ -216,11 +216,6 @@ const OrderManagement: React.FC = () => {
       btnText: 'Ship',
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
-    // {
-    //   onClick: () => console.log('Canceled'),
-    //   btnText: 'Cancel',
-    //   hidden: ![3, 6, 7].includes(selectedOrderStatus?.status.id),
-    // },
     {
       btnText: (
         <Dropdown

@@ -12,7 +12,7 @@ import InventoryRulesModal from '../Modals/InventoryRules';
 import SelectWarehouseForInventoryImportModal from '../Modals/SelectWarehouseForInventoryImport';
 import StockAllocationDetailsModal from '../Modals/StockAllocationDetails';
 import StockHistoryModal from '../Modals/StockHistory';
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType, productStatus, productType } from '@/utils/helpers/types';
 import BundleIcon from '@/utils/icons/bundle';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
