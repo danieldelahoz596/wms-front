@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Select, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import CustomBundleKitExportSettings from './CustomBundleKitExportSettings';
 
 interface IExportCustomBundleKitModal {
@@ -14,6 +14,15 @@ interface IExportCustomBundleKitModal {
 const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { customBundleKitExportSettings } = useModel('customBundleKitExportSettings');
+
+  const customBundleKitExportSettingOptions = useMemo(
+    () =>
+      customBundleKitExportSettings.map((_item) => ({
+        value: _item.id,
+        label: _item.settingName,
+      })),
+    [customBundleKitExportSettings],
+  );
 
   return (
     <OModal
@@ -52,10 +61,7 @@ const ExportCustomBundleKitModal: React.FC<IExportCustomBundleKitModal> = ({ isO
               placeholder="Select..."
               size="small"
               style={{ width: 200, textAlign: 'left' }}
-              options={customBundleKitExportSettings.map((_item) => ({
-                value: _item.id,
-                label: _item.settingName,
-              }))}
+              options={customBundleKitExportSettingOptions}
             />
             <OButton btnText="Configure Settings" onClick={() => setShowModal(true)} />
           </Space>

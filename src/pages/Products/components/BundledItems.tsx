@@ -72,12 +72,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
       <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
         <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
         <OButton btnText="Edit Quantity" onClick={handleEditCoreProductClick} disabled={!selectedItem} />
-        <Popconfirm
-          title={'Sure to Remove?'}
-          onConfirm={() => {
-            handleRemoveClick;
-          }}
-        >
+        <Popconfirm title={'Sure to Remove?'} onConfirm={() => handleRemoveClick()}>
           <OButton disabled={!selectedItem} btnText="Remove" />
         </Popconfirm>
       </Space>

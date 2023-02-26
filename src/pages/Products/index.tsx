@@ -39,6 +39,7 @@ import ProductVariantsModal from './components/Modals/ProductVariants';
 import SelectCoreProductModal from './components/Modals/SelectCoreProduct';
 import SelectQuantityOfSKUModal from './components/Modals/SelectQuantityOfSKU';
 import SidePanel from './components/SidePanel';
+import type { ItemType } from 'antd/es/menu/hooks/useItems';
 
 const ProductManagement: React.FC = () => {
   const [modalOpen, setModal] = useState('');
@@ -183,7 +184,7 @@ const ProductManagement: React.FC = () => {
     [productList, showActivate],
   );
 
-  const importExportMenuItems = [
+  const importExportMenuItems: ItemType[] = [
     {
       key: '1',
       label: <span onClick={() => setModal(modalType.Import)}> Import Products </span>,
@@ -358,7 +359,7 @@ const ProductManagement: React.FC = () => {
                           </a>
                         );
                       }
-                    }
+                    } else return <></>;
                   }}
                 />
               </Card>

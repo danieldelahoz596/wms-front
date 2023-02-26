@@ -1,7 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Button, Col, Row } from 'antd';
 import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Fragment, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { OInput } from '@/components/Globals/OInput';
 import AddAttributeGroupModal from './AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
@@ -53,6 +53,15 @@ const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose
     },
   ];
 
+  const attributeGroupOptions = useMemo(
+    () =>
+      attributeGroups.map((item) => ({
+        value: item.name,
+        text: item.name,
+      })),
+    [attributeGroups],
+  );
+
   return (
     <OModal
       title="NEW VIRTUAL PRODUCT"
@@ -89,10 +98,7 @@ const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose
                     onChange={(name, value) => setSelectedAttributeGroup(value)}
                     name="attributes"
                     placeholder="Select the attribute groups you want to work with ..."
-                    options={attributeGroups.map((item) => ({
-                      value: item.name,
-                      text: item.name,
-                    }))}
+                    options={attributeGroupOptions}
                     value={selectedAttributeGroup}
                   />
                 </Col>

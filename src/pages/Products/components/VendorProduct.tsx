@@ -118,12 +118,7 @@ const VendorProduct: React.FC = () => {
     {
       onClick: handleDefaultClick,
       btnText: (
-        <Popconfirm
-          title={'Sure to Set it as default?'}
-          onConfirm={() => {
-            handleDefaultClick;
-          }}
-        >
+        <Popconfirm title={'Sure to Set it as default?'} onConfirm={() => handleDefaultClick()}>
           <OButton disabled={!selectedVendorProductKey} btnText="Default" />
         </Popconfirm>
       ),
@@ -135,8 +130,8 @@ const VendorProduct: React.FC = () => {
       <h2>Add vendor SKUs associated with this product.</h2>
       <div className="button-row space-between">
         <Space size={HORIZONTAL_SPACE_SIZE}>
-          {actionButtons.map((btn) => (
-            <OButton {...btn} />
+          {actionButtons.map((btn, index) => (
+            <OButton key={index} {...btn} />
           ))}
         </Space>
         <OButton
