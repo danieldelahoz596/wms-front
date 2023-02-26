@@ -12,6 +12,10 @@ export default () => {
   const [showActive, setShowActive] = useState(true);
   const { initialState } = useModel('@@initialState');
 
+  const initialVendorList = useCallback(() => {
+    if (initialState?.initialData) setVendorList(initialState.initialData.vendors);
+  }, [initialState?.initialData]);
+
   const getVendorList = useCallback(
     (query = '') => {
       const queryString = qs.stringify({
@@ -73,9 +77,9 @@ export default () => {
 
   useEffect(() => {
     if (initialState?.currentUser) {
-      getVendorList();
+      initialVendorList();
     }
-  }, [getVendorList, initialState?.currentUser]);
+  }, [initialVendorList, initialState?.currentUser]);
 
   return {
     vendorList,

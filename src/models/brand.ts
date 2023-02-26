@@ -6,7 +6,7 @@ export default () => {
   const { initialState } = useModel('@@initialState');
 
   const getBrands = useCallback(() => {
-    setBrands(initialState?.initialData?.brands);
+    if (initialState?.initialData) setBrands(initialState?.initialData?.brands);
   }, [initialState?.initialData]);
 
   useEffect(() => {

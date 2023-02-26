@@ -6,7 +6,7 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Dropdown, Popconfirm, Select, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';

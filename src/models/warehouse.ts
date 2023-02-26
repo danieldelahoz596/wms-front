@@ -9,11 +9,8 @@ export default () => {
   const { initialState } = useModel('@@initialState');
 
   const initialWarehouseList = useCallback(() => {
-    httpClient
-      .get('/api/warehouses')
-      .then((response: any) => setWarehouseList(response.data.warehouses))
-      .catch((error) => console.log(error));
-  }, []);
+    if (initialState?.initialData) setWarehouseList(initialState.initialData.warehouses);
+  }, [initialState?.initialData]);
 
   const createWarehouse = useCallback((values) => {
     httpClient
@@ -59,7 +56,6 @@ export default () => {
     warehouseList,
     selectedWarehouse,
     warehouseHistoryList,
-    initialWarehouseList,
     createWarehouse,
     updateWarehouse,
     updateReturnLocation,
