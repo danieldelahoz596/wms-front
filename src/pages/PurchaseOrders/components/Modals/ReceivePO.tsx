@@ -51,6 +51,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
 
   return (
     <OModal
+      forceRender
       title={"Receive Item '" + item?.ponumber + "'"}
       helpLink=""
       width={1000}

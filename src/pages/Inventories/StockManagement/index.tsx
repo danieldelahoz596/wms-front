@@ -391,6 +391,8 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
                   );
                 }
               }
+
+              return <></>;
             }}
           />
         </Card>
