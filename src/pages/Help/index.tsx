@@ -96,6 +96,7 @@ const rootSubmenuKeys = [
 
 const Help: React.FC = () => {
   const location = useLocation();
+  console.log('location: ', location);
   const [openKeys, setOpenKeys] = useState([location.pathname.split('/')[2], location.pathname.split('/')[3]]);
 
   const {
@@ -213,6 +214,8 @@ const Help: React.FC = () => {
       case '/help/settings/useradministration':
         return <Useradministration />;
       case '/help/settings/companyinfo':
+        return <Companyinfo />;
+      case '/help/settings/companyinfo/':
         return <Companyinfo />;
       default:
         return <></>;
@@ -415,7 +418,8 @@ const Help: React.FC = () => {
                   },
                 ],
               },
-              { // Products
+              {
+                // Products
                 key: 'products',
                 icon: <AccountingIcon />,
                 label: 'Products',
@@ -430,7 +434,8 @@ const Help: React.FC = () => {
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/manage">How to Manage Products</Link>,
                   },
-                  { // Create
+                  {
+                    // Create
                     key: 'create',
                     icon: <AccountingIcon />,
                     label: 'How to Create Through the UI',
@@ -452,7 +457,8 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-                  { // Import
+                  {
+                    // Import
                     key: 'import',
                     icon: <AccountingIcon />,
                     label: 'How to Import',
@@ -474,7 +480,8 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-                  { // Export
+                  {
+                    // Export
                     key: 'export',
                     icon: <AccountingIcon />,
                     label: 'How to Export',
@@ -496,18 +503,21 @@ const Help: React.FC = () => {
                       },
                     ],
                   },
-                  { // Search
+                  {
+                    // Search
                     key: '/help/products/searchproducts',
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/searchproducts">How to Search Products</Link>,
                   },
-                  { // Custom Product Fields
+                  {
+                    // Custom Product Fields
                     key: '/help/products/customproductfields',
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/customproductfields">How to Create Custom Product Fields</Link>,
                   },
-                  
-                  { // FAQ
+
+                  {
+                    // FAQ
                     key: '/help/products/faq',
                     icon: <AccountingIcon />,
                     label: <Link to="/help/products/faq">FAQ</Link>,

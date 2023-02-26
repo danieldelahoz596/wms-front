@@ -1,6 +1,15 @@
+import { useLocation } from '@umijs/max';
 import { Card, Row, Col } from 'antd';
+import { useEffect, useRef } from 'react';
 
 export default function () {
+  const productSettingSectionRef = useRef(null);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash === '#Product_Settings_Section') productSettingSectionRef.current.scrollIntoView();
+  }, [hash]);
+
   return (
     <>
       <h2>Settings {'>'} Company Info</h2>
@@ -123,16 +132,18 @@ export default function () {
               </li>
             </ul>
 
-            <h2 id="Product_Settings_Section">Product Settings Section</h2>
-            <img
-              src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504843/Screen_Shot_2021-05-06_at_10.32.45_AM.png"
-              style={{ width: 600 }}
-            />
-            <p>
-              <b>Automatically update product weight and dimensions from shipped orders?:</b> Checking this setting will
-              automatically update the weight and dimensions of a product based on the weight and dimensions of the most recent
-              shipped order that contained a single unit of the product.
-            </p>
+            <div ref={productSettingSectionRef}>
+              <h2 id="Product_Settings_Section">Product Settings Section</h2>
+              <img
+                src="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504843/Screen_Shot_2021-05-06_at_10.32.45_AM.png"
+                style={{ width: 600 }}
+              />
+              <p>
+                <b>Automatically update product weight and dimensions from shipped orders?:</b> Checking this setting will
+                automatically update the weight and dimensions of a product based on the weight and dimensions of the most recent
+                shipped order that contained a single unit of the product.
+              </p>
+            </div>
 
             <h2>Inventory Settings Section</h2>
             <p>
