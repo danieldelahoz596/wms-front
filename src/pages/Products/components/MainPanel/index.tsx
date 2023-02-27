@@ -35,6 +35,7 @@ import ProductVariationsDetailsModal from './Modals/ProductVariationsDetails';
 import ProductVariationsModal from './Modals/ProductVariations';
 import NewProductSelectTypeModal from './Modals/NewProductSelectType';
 import ReturnDownForwardIcon from '@/utils/icons/returnDownForward';
+import VirtualProductEditModal from './Modals/VirtualProductEdit';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
@@ -42,14 +43,14 @@ const MainPanel: React.FC = () => {
   const [modalOpen, setModal] = useState('');
   const [showActivate, setShowActivate] = useState(true);
   const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } = useModel('product');
-  console.log("productList: ", productList);
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
 
   const handleMasterSkuClick = (event, record) => {
     event.stopPropagation();
-    setModal(modalType.CoreProduct);
+    if (record.type === productType.VirtualProduct) setModal(modalType.VirtualProductEdit);
+    else setModal(modalType.CoreProduct);
     setEditableProduct(record);
   };
 
@@ -357,6 +358,12 @@ const MainPanel: React.FC = () => {
         isOpen={modalOpen == modalType.CoreProduct}
         title={editableProduct?.master_sku}
         onSave={(value: any) => setModal(value)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <VirtualProductEditModal
+        isOpen={modalOpen == modalType.VirtualProductEdit}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
 
