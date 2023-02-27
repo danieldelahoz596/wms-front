@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { CloseOutlined, PlusCircleFilled } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { Card, Col, Form, Row, Table } from 'antd';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
-import PurchaseOrderDetail from '@/components/PurchaseOrder/PurchaseOrderDetail';
-import AggregateCosts from '@/components/PurchaseOrder/AggregateCosts';
-import MilestonesCard from '@/components/PurchaseOrder/MilestonesCard';
+import PurchaseOrderDetail from '@/pages/PurchaseOrders/components/PurchaseOrderDetail';
+import AggregateCosts from '@/pages/PurchaseOrders/components/AggregateCosts';
+import MilestonesCard from '@/pages/PurchaseOrders/components/MilestonesCard';
 import { useModel } from '@umijs/max';
 import moment from 'moment';
 

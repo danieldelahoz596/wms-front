@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
 import { useLocation } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import { SampleSplitter, cn } from '@/utils/components/SampleSplitter';
+import { SampleSplitter, cn } from '@/components/Globals/SampleSplitter';
 import LeftPanel from './components/LeftPanel';
 import LandingPage from './components/LandingPage';
 import HistoricalOrdersExports from './components/Orders/HistoricalOrdersExports';

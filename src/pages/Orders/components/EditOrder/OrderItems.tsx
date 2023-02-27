@@ -69,66 +69,65 @@ const OrderItems: React.FC = () => {
     }
   };
 
-  const orderProducts = editableOrder?.orderItems
-    ? editableOrder.orderItems.map((item: any) => {
-        const subTotal = item.unitQty * item.unitAmount;
-        const totalAmount = subTotal - item.discount;
+  const orderProducts = editableOrder?.orderItems.map((item: any) => {
+    const subTotal = item.unitQty * item.unitAmount;
+    const totalAmount = subTotal - item.discount;
 
-        return {
-          action: <CloseOutlined onClick={() => handleOrderProductRemove(item)} style={{ color: '#5F5FFF' }} />,
-          product: (
-            <div>
-              <div>Listing Name: {item.listingName}</div>
-              <div>Master SKU: {item.masterSku}</div>
-              <div>Product Attributes: {item.productAttributes}</div>
-            </div>
-          ),
-          notes: (
-            <OInput
-              type="text"
-              name="notes"
-              defaultValue={editableOrder.notes}
-              onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, _value)}
-            />
-          ),
-          quantity: (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span>$</span>
-              <OInput
-                type="number"
-                name="unitQty"
-                defaultValue={item.unitQty}
-                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseInt(_value))}
-              />
-            </div>
-          ),
-          uniPrice: (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span>$</span>
-              <OInput
-                type="number"
-                name="unitAmount"
-                defaultValue={item.unitAmount}
-                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, _value)}
-              />
-            </div>
-          ),
-          subtotal: `$${subTotal}`,
-          discount: (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span>$</span>
-              <OInput
-                type="number"
-                name="discount"
-                defaultValue={item.discount}
-                onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseFloat(_value))}
-              />
-            </div>
-          ),
-          totalCost: `$${totalAmount}`,
-        };
-      })
-    : [];
+    return {
+      key: item.id,
+      action: <CloseOutlined onClick={() => handleOrderProductRemove(item)} style={{ color: '#5F5FFF' }} />,
+      product: (
+        <div>
+          <div>Listing Name: {item.listingName}</div>
+          <div>Master SKU: {item.masterSku}</div>
+          <div>Product Attributes: {item.productAttributes}</div>
+        </div>
+      ),
+      notes: (
+        <OInput
+          type="text"
+          name="notes"
+          defaultValue={editableOrder.notes}
+          onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, _value)}
+        />
+      ),
+      quantity: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>$</span>
+          <OInput
+            type="number"
+            name="unitQty"
+            defaultValue={item.unitQty}
+            onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseInt(_value))}
+          />
+        </div>
+      ),
+      uniPrice: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>$</span>
+          <OInput
+            type="number"
+            name="unitAmount"
+            defaultValue={item.unitAmount}
+            onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, _value)}
+          />
+        </div>
+      ),
+      subtotal: `$${subTotal}`,
+      discount: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span>$</span>
+          <OInput
+            type="number"
+            name="discount"
+            defaultValue={item.discount}
+            onChange={(_name: string, _value: any) => handleOrderItemChange(item, _name, parseFloat(_value))}
+          />
+        </div>
+      ),
+      totalCost: `$${totalAmount}`,
+    };
+  });
 
   let productOptions = productList.map((_item) => ({
     value: _item.key,

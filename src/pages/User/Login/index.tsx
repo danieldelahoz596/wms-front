@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   const { setInitialState } = useModel('@@initialState');
   const { login } = useModel('auth');
 
-  const fetchIinitialData = () => {
+  const fetchInitialData = () => {
     httpClient.get('/api/initial-data').then((response) => {
       localStorage.setItem('initialData', JSON.stringify(response.data));
       console.log(response.data);
@@ -43,6 +43,7 @@ const Login: React.FC = () => {
     try {
       // 登录
       const userData = await login({ ...values, type });
+      setUserLoginState(userData);
       if (!!userData) {
         // Sent login success notification
         const defaultLoginSuccessMessage = 'Login Success';
@@ -57,14 +58,13 @@ const Login: React.FC = () => {
           currentUser: userData,
         }));
 
-        fetchIinitialData();
+        fetchInitialData();
 
         // Redirect user to dashboard
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/dashboard');
       }
       // 如果失败去设置用户错误信息
-      setUserLoginState(userData);
     } catch (error) {
       const defaultLoginFailureMessage = 'Login Fault';
       console.log(error);

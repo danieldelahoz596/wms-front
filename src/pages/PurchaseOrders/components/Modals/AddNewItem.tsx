@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';

@@ -4,7 +4,7 @@ import { modalType } from '@/utils/helpers/types';
 import ListIcon from '@/utils/icons/list';
 import { BellOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, history, useModel } from '@umijs/max';
-import { Avatar, Menu, Spin, Badge, Row, Col } from 'antd';
+import { Spin, Badge, Row, Col } from 'antd';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
@@ -131,11 +131,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     },
   ];
 
-  const menuHeaderDropdown = <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick} items={menuItems} />;
-
   return (
     <>
-      <HeaderDropdown overlay={menuHeaderDropdown}>
+      <HeaderDropdown menu={{ items: menuItems, selectedKeys: [], onClick: onMenuClick, className: styles.menu }}>
         <span className={`${styles.action} ${styles.account}`}>
           <Badge count={skualerts.length} size="small">
             {/* <Avatar

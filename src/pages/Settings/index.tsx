@@ -1,4 +1,4 @@
-import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
+import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { ContainerOutlined, RobotFilled, SnippetsFilled } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
 import { Layout, Menu } from 'antd';

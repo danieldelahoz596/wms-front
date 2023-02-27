@@ -26,7 +26,9 @@ export const OButton: React.FC<IOButton> = ({
   bordered,
   icon,
 }) => {
-  return hidden ? null : (
+  return hidden ? null : btnText.type?.name === 'Dropdown' ? (
+    btnText
+  ) : (
     <Button
       type={type}
       size={size}
@@ -43,23 +45,4 @@ export const OButton: React.FC<IOButton> = ({
       {btnText}
     </Button>
   );
-  // return hidden ? null : typeof btnText === 'string' ? (
-  //   <Button
-  //     type={type}
-  //     size={size}
-  //     onClick={onClick}
-  //     style={{
-  //       border: bordered ? '1px solid #AFB4FF' : '',
-  //       color: '#5F5FFF !important',
-  //       ...style,
-  //     }}
-  //     disabled={disabled}
-  //     className={className}
-  //     icon={icon}
-  //   >
-  //     {btnText}
-  //   </Button>
-  // ) : (
-  //   btnText
-  // );
 };

@@ -1,6 +1,6 @@
-import PODetailsBottom from '@/components/PurchaseOrder/Details';
-import PoItemHistoryModal from '@/components/PurchaseOrder/History';
-import ItemsManagement from '@/components/PurchaseOrder/Items';
+import PODetailsBottom from '@/pages/PurchaseOrders/components/Details';
+import PoItemHistoryModal from '@/pages/PurchaseOrders/components/History';
+import ItemsManagement from '@/pages/PurchaseOrders/components/Items';
 import { useModel } from '@umijs/max';
 import type { RadioChangeEvent } from 'antd';
 import { Card, Radio, Space } from 'antd';

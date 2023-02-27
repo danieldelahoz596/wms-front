@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { EditableTable } from '@/utils/components/EditableTable';
+import { EditableTable } from '@/components/Globals/EditableTable';
 import { useMemo } from 'react';
 
 interface IEditBrandModal {
