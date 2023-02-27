@@ -34,7 +34,7 @@ export default [
   },
   {
     path: '/inventory',
-    component: './Inventories',
+    component: './Inventory',
     title: 'menu.inventory',
     key: 'inventory',
     access: 'routeFilter',
