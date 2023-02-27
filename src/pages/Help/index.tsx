@@ -96,7 +96,6 @@ const rootSubmenuKeys = [
 
 const Help: React.FC = () => {
   const location = useLocation();
-  console.log('location: ', location);
   const [openKeys, setOpenKeys] = useState([location.pathname.split('/')[2], location.pathname.split('/')[3]]);
 
   const {

@@ -72,6 +72,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
 
   return (
     <OModal
+      forceRender
       title="New Core Product"
       helpLink="/help/products/create/coreproduct"
       width={800}
