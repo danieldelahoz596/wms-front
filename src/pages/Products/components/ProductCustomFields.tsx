@@ -1,11 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
-<<<<<<<< HEAD:src/pages/Products/components/MainPanel/Modals/Tabs/CustomFields.tsx
 import CustomFieldsConfigureModal from '@/pages/Products/components/MainPanel/Modals/CustomFieldsConfigure';
-import { EditableTable } from '@/utils/components/EditableTable';
-========
-import ConfigureFieldTypes from '@/pages/Products/components/Modals/ConfigFieldTypes';
 import { EditableTable } from '@/components/Globals/EditableTable';
->>>>>>>> origin/develop:src/pages/Products/components/ProductCustomFields.tsx
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Select, Space } from 'antd';
