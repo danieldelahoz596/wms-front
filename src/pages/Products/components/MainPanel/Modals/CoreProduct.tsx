@@ -10,14 +10,17 @@ import { useModel } from '@umijs/max';
 
 interface ICoreProductModal {
   isOpen: boolean;
+  title?: string;
   onClose: () => void;
   onSave: (value: any) => void;
 }
 
-const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave }) => {
+const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Core Product', onClose, onSave }) => {
   const { editableProduct, handleUpdateProduct } = useModel('product');
   const [form] = Form.useForm();
   const [customFields, setCustomFields] = useState([]);
+  const [vendorProductList, setVendorProductList] = useState([]);
+  const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -52,7 +55,14 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
     {
       key: 'tab-3',
       label: 'Vendor Products',
-      children: <VendorProductsTab />,
+      children: (
+        <VendorProductsTab
+          vendorProductList={vendorProductList}
+          setVendorProductList={setVendorProductList}
+          defaultVendorProductKey={defaultVendorProductKey}
+          setDefaultVendorProductKey={setDefaultVendorProductKey}
+        />
+      ),
     },
     {
       key: 'tab-4',
@@ -64,7 +74,12 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
   const handleSave = () => {
     form.validateFields().then(() => {
       if (!!editableProduct) {
-        handleUpdateProduct({ ...editableProduct, custom_fields: customFields });
+        handleUpdateProduct({
+          ...editableProduct,
+          custom_fields: customFields,
+          vendor_products: vendorProductList,
+          default_vendor_product: defaultVendorProductKey,
+        });
       }
       onSave(null);
     });
@@ -73,7 +88,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
   return (
     <OModal
       forceRender
-      title="New Core Product"
+      title={title}
       helpLink="/help/products/create/coreproduct"
       width={800}
       isOpen={isOpen}

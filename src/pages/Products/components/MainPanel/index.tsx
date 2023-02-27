@@ -42,13 +42,14 @@ const MainPanel: React.FC = () => {
   const [modalOpen, setModal] = useState('');
   const [showActivate, setShowActivate] = useState(true);
   const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } = useModel('product');
+  console.log("productList: ", productList);
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
 
-  const handleMasterSKUClick = (event, record) => {
+  const handleMasterSkuClick = (event, record) => {
     event.stopPropagation();
-    setModal(modalType.New);
+    setModal(modalType.CoreProduct);
     setEditableProduct(record);
   };
 
@@ -139,7 +140,7 @@ const MainPanel: React.FC = () => {
       dataIndex: 'master_sku',
       key: 'master_sku',
       render: (master_sku, record) => (
-        <a onClick={(event) => handleMasterSKUClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
+        <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
           {record.type === productType.Variations && <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />}
           <u>{master_sku}</u>
         </a>
@@ -354,6 +355,7 @@ const MainPanel: React.FC = () => {
 
       <CoreProductModal
         isOpen={modalOpen == modalType.CoreProduct}
+        title={editableProduct?.master_sku}
         onSave={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />

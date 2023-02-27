@@ -1,10 +1,18 @@
 import { OButton } from '@/components/Globals/OButton';
 import VendorProductModal from '@/pages/Products/components/MainPanel/Modals/VendorProduct';
 import { modalType } from '@/utils/helpers/types';
-import { CheckCircleOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
 import { Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
+
+interface IVendorProduct {
+  vendorProductList: any[];
+  setVendorProductList: (value: any[]) => void;
+  defaultVendorProductKey: any;
+  setDefaultVendorProductKey: (value: any) => void;
+}
 
 const vendorProductsTableColumns = [
   {
@@ -39,13 +47,23 @@ const vendorProductsTableColumns = [
   },
 ];
 
-const VendorProducts: React.FC = () => {
+const VendorProducts: React.FC<IVendorProduct> = ({
+  vendorProductList,
+  setVendorProductList,
+  defaultVendorProductKey,
+  setDefaultVendorProductKey,
+}) => {
   const [modalOpen, setModal] = useState('');
   const [vendorProductsTableRows, setVendorProductsTableRows] = useState([]);
-  const [vendorProductList, setVendorProductList] = useState([]);
   const [selectedVendorProductKey, setSelectedVendorProductKey] = useState(null);
   const [buttonType, setButtonType] = useState('');
   const [showActive, setShowActive] = useState(true);
+  const { vendorList } = useModel('vendor');
+
+  useEffect(() => {
+    if (vendorProductList.filter((item) => item.active === true).length === 1)
+      setDefaultVendorProductKey(vendorProductList[0].key);
+  }, [vendorProductList, setDefaultVendorProductKey]);
 
   useEffect(() => {
     setVendorProductsTableRows(
@@ -55,25 +73,31 @@ const VendorProducts: React.FC = () => {
           key: vendorProduct.key,
           id: (
             <span>
-              <CheckCircleOutlined color="blue" />
+              <PlusOutlined />
             </span>
           ),
-          vendor: vendorProduct.vendor,
+          vendor: (
+            <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+              {defaultVendorProductKey === vendorProduct.key && <CheckCircleFilled />}
+              <div>{vendorList.find((vendor) => vendor.id === vendorProduct.vendor).name}</div>
+            </div>
+          ),
           vendorSku: vendorProduct.vendorSku,
           minOrderQty: vendorProduct.minOrderQty,
           leadTime: vendorProduct.leadTime,
           uom: <UnorderedListOutlined />,
         })),
     );
-  }, [vendorProductList, showActive]);
+  }, [vendorProductList, showActive, vendorList, defaultVendorProductKey]);
 
   const handleDefaultClick = () => {
-    setVendorProductList(
-      vendorProductList.map((_item) =>
-        _item.key === selectedVendorProductKey ? { ..._item, vendorSku: 'Default Vendor' } : _item,
-      ),
-    );
-    setSelectedVendorProductKey(null);
+    // setVendorProductList(
+    //   vendorProductList.map((_item) =>
+    //     _item.key === selectedVendorProductKey ? { ..._item, vendorSku: 'Default Vendor' } : _item,
+    //   ),
+    // );
+    // setSelectedVendorProductKey(null);
+    setDefaultVendorProductKey(selectedVendorProductKey);
   };
 
   const handleNewVendorProductClick = () => {
@@ -119,7 +143,10 @@ const VendorProducts: React.FC = () => {
       onClick: handleDefaultClick,
       btnText: (
         <Popconfirm title={'Sure to Set it as default?'} onConfirm={() => handleDefaultClick()}>
-          <OButton disabled={!selectedVendorProductKey} btnText="Default" />
+          <OButton
+            disabled={!selectedVendorProductKey || defaultVendorProductKey === selectedVendorProductKey}
+            btnText="Default"
+          />
         </Popconfirm>
       ),
     },

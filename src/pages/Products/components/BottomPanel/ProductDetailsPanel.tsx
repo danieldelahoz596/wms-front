@@ -1,8 +1,8 @@
-import { OButton } from '@/components/Globals/OButton';
-import { CheckOutlined, CloseOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, CheckOutlined, CloseOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Card, Image, Space, Table } from 'antd';
+import { Card, Image, Space, Table, Radio } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import type { RadioChangeEvent } from 'antd';
 
 interface IProductDetailsPanel {
   height: number;
@@ -46,7 +46,7 @@ const TVendorProductColumns = [
   },
   {
     title: 'Vendor SKU',
-    dataIndex: 'vendorSKU',
+    dataIndex: 'vendorSku',
     key: 'vendorSKU',
   },
   {
@@ -61,35 +61,16 @@ const TVendorProductColumns = [
   },
   {
     title: 'U.O.M',
-    dataIndex: 'uom',
     key: 'uom',
     render: () => <UnorderedListOutlined />,
   },
 ];
 
-const vendorProductTableRows = [
-  {
-    key: 1,
-    id: 1,
-    vendor: 'vendor',
-    vendorSKU: 'vendorSKU',
-    minOrderQty: 10,
-    leadTime: 10,
-  },
-  {
-    key: 2,
-    id: 2,
-    vendor: 'vendor',
-    vendorSKU: 'vendorSKU',
-    minOrderQty: 20,
-    leadTime: 10,
-  },
-];
-
 const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
-  const { editableProduct, productList, setEditableProduct, handleUpdateProduct } = useModel('product');
+  const { editableProduct } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
-  const [showProductDetailType, setShowProductDetailType] = useState(null);
+  const [selectedMode, setSelectedMode] = useState<'vendorProduct' | 'fields' | 'gallery'>('vendorProduct');
+  const { vendorList } = useModel('vendor');
 
   const fieldTableRows = useMemo(
     () =>
@@ -101,28 +82,47 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
     [editableProduct, fieldTypes],
   );
 
+  const vendorProductTableRows = useMemo(
+    () =>
+      editableProduct?.vendor_products?.map((item) => ({
+        key: item.key,
+        vendor: (
+          <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+            {editableProduct?.default_vendor_product === item.key && <CheckCircleFilled />}
+            <div>{vendorList.find((vendor) => vendor.id === item.vendor).name}</div>
+          </div>
+        ),
+        vendorSku: item.vendorSku,
+        minOrderQty: item.minOrderQty,
+        leadTime: item.leadTime,
+      })),
+    [editableProduct, vendorList],
+  );
+
   useEffect(() => {
-    setShowProductDetailType(null);
+    if (!editableProduct) setSelectedMode('vendorProduct');
   }, [editableProduct]);
+
+  const handleTabSelect = (e: RadioChangeEvent) => {
+    setSelectedMode(e.target.value);
+  };
 
   return (
     <>
       <div className="title-row space-between">
         <h1 className="page-title">Product Details</h1>
-        <Space size={HORIZONTAL_SPACE_SIZE}>
-          <OButton btnText={'Fields'} onClick={() => setShowProductDetailType('fields')} disabled={!editableProduct} />
-          <OButton
-            btnText={'Vendor Products'}
-            onClick={() => setShowProductDetailType('vendorProduct')}
-            disabled={!editableProduct}
-          />
-          <OButton btnText={'Gallery'} onClick={() => setShowProductDetailType('gallery')} disabled={!editableProduct} />
-        </Space>
+        <Radio.Group size="small" buttonStyle="solid" value={selectedMode} onChange={handleTabSelect}>
+          <Space size={HORIZONTAL_SPACE_SIZE}>
+            <Radio.Button value="fields">Fields</Radio.Button>
+            <Radio.Button value="vendorProduct">Vendor Products</Radio.Button>
+            <Radio.Button value="gallery">Gallery</Radio.Button>
+          </Space>
+        </Radio.Group>
       </div>
       <Card className="content-box" style={{ height: height - 20 }}>
-        {showProductDetailType === 'fields' ? (
+        {selectedMode === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
-        ) : showProductDetailType === 'gallery' ? (
+        ) : selectedMode === 'gallery' ? (
           <Image width={200} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
         ) : (
           <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
