@@ -59,7 +59,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
 
   return (
     <OModal
-      title="CONFIG ATTRIBUTE GROUPS"
+      title="Configure Attribute Groups"
       helpLink="/help/products/create/productvariations"
       width={400}
       isOpen={isOpen}

@@ -1,6 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { EditableTable } from '@/utils/components/EditableTable';
+import { useMemo } from 'react';
 
 interface IEditBrandModal {
   isOpen: boolean;
@@ -19,6 +20,8 @@ const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) 
       editable: true,
     },
   ];
+
+  const brandRows = useMemo(() => brands.map((brand) => ({ ...brand, key: brand.id })), [brands]);
 
   return (
     <OModal
@@ -45,7 +48,7 @@ const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) 
     >
       <EditableTable
         columns={TColumns}
-        dataSource={brands.map((brand) => ({ ...brand, key: brand.id }))}
+        dataSource={brandRows}
         handleSave={(key: any, name: any, value: any) => {
           setBrands((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
         }}

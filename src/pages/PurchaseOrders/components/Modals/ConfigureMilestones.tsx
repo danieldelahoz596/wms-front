@@ -5,7 +5,7 @@ import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Space } from 'antd';
 import React, { useState } from 'react';
-import NewMilestone from './NewMilestone';
+import NewMilestoneModal from './NewMilestone';
 
 export interface IConfigureMilestonesModal {
   isOpen: boolean;
@@ -58,7 +58,7 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
       ]}
     >
       <>
-        <Space size={HORIZONTAL_SPACE_SIZE}>
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
           <OButton btnText="New Milestone" onClick={() => setShowModal(true)} />
           <OButton
             btnText="Delete Selected"
@@ -76,10 +76,9 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
           pagination={false}
           setSelectedRows={setSelectedMilestone}
           selectedRows={selectedMilestone}
-          style={{ marginTop: 5 }}
         />
 
-        <NewMilestone
+        <NewMilestoneModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onSave={(value) => {

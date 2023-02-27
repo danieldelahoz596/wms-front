@@ -1,20 +1,20 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Button, Col, Row } from 'antd';
 import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Fragment, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { OInput } from '@/components/Globals/OInput';
 import AddAttributeGroupModal from './AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
 import { uuidv4 } from '@antv/xflow-core';
-import ConfigAttributeGroups from './ConfigAttributeGroups';
+import ConfigAttributeGroups from '../../Modals/ConfigAttributeGroups';
 
-interface IProductVariantsModal {
+interface IProductVariationsDetailsModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose, onSave }) => {
+const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = ({ isOpen, onClose, onSave }) => {
   const [currentModal, setCurrentModal] = useState('');
   const [attributeGroups, setAttributeGroups] = useState<any[]>([]);
   const [variationDetailsGroup, setVariationDetailsGroup] = useState([{ key: uuidv4() }]);
@@ -53,9 +53,18 @@ const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose
     },
   ];
 
+  const attributeGroupOptions = useMemo(
+    () =>
+      attributeGroups.map((item) => ({
+        value: item.name,
+        text: item.name,
+      })),
+    [attributeGroups],
+  );
+
   return (
     <OModal
-      title="NEW VIRTUAL PRODUCT"
+      title="New Virtual Product"
       helpLink="/help/products/create/productvariations"
       width={800}
       isOpen={isOpen}
@@ -89,10 +98,7 @@ const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose
                     onChange={(name, value) => setSelectedAttributeGroup(value)}
                     name="attributes"
                     placeholder="Select the attribute groups you want to work with ..."
-                    options={attributeGroups.map((item) => ({
-                      value: item.name,
-                      text: item.name,
-                    }))}
+                    options={attributeGroupOptions}
                     value={selectedAttributeGroup}
                   />
                 </Col>
@@ -271,4 +277,4 @@ const ProductVariantsModal: React.FC<IProductVariantsModal> = ({ isOpen, onClose
   );
 };
 
-export default ProductVariantsModal;
+export default ProductVariationsDetailsModal;

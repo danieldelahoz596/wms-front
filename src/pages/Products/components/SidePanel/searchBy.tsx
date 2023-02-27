@@ -29,12 +29,6 @@ const SearchByPanel: React.FC = () => {
     },
     {
       type: 'text',
-      label: 'Listing SKU',
-      name: 'listingSku',
-      placeholder: 'SKU',
-    },
-    {
-      type: 'text',
       label: 'Vendor SKU',
       name: 'vendorSku',
       placeholder: 'SKU',

@@ -4,13 +4,13 @@ import { CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Row, Select, Space } from 'antd';
 import { useEffect, useState } from 'react';
-interface IAddExportSettingsModal {
+interface IExportSettingsEditModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
 }
 
-const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
+const ExportSettingsEditModal: React.FC<IExportSettingsEditModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const [selectedExportFields, setSelectedExportFields] = useState([]);
 
@@ -246,4 +246,4 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
   );
 };
 
-export default AddExportSettingsModal;
+export default ExportSettingsEditModal;

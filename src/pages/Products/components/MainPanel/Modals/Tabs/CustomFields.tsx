@@ -1,12 +1,12 @@
 import { OButton } from '@/components/Globals/OButton';
-import ConfigureFieldTypes from '@/pages/Products/components/Modals/ConfigFieldTypes';
+import CustomFieldsConfigureModal from '@/pages/Products/components/MainPanel/Modals/CustomFieldsConfigure';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Select, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
-interface IProductCustomFields {
+interface ICustomFields {
   customFields: any[];
   setCustomFields: (value: any) => void;
 }
@@ -40,7 +40,7 @@ const TColumns = [
   },
 ];
 
-const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, setCustomFields }) => {
+const CustomFields: React.FC<ICustomFields> = ({ customFields, setCustomFields }) => {
   const { fieldTypes } = useModel('customProductFields');
   const [showModal, setShowModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -110,9 +110,9 @@ const ProductCustomFields: React.FC<IProductCustomFields> = ({ customFields, set
         }}
       />
 
-      <ConfigureFieldTypes isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
+      <CustomFieldsConfigureModal isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
     </>
   );
 };
 
-export default ProductCustomFields;
+export default CustomFields;

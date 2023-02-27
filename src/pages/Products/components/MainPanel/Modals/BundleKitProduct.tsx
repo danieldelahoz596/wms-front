@@ -1,16 +1,16 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Select } from 'antd';
 import { useModel } from '@umijs/max';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { productType } from '@/utils/helpers/types';
 
-interface ISelectCoreProductModal {
+interface IBundleKitProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onClose, onSave }) => {
+const BundleKitProductModal: React.FC<IBundleKitProductModal> = ({ isOpen, onClose, onSave }) => {
   const { productList, setSelectedProducts } = useModel('product');
   const [selectedProductIds, setSelectedProductIds] = useState([]);
 
@@ -26,6 +26,16 @@ const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onC
     setSelectedProducts(productList.filter((product) => selectedProductIds.includes(product.id)));
     onSave();
   };
+
+  const productListOptions = useMemo(
+    () =>
+      productList.map((product) => ({
+        value: product.id,
+        label: `${product.master_sku} - ${product.name}`,
+        type: product.type,
+      })),
+    [productList],
+  );
 
   return (
     <OModal
@@ -60,11 +70,7 @@ const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onC
           style={{ width: '100%' }}
           placeholder="Searcy by Master SKU or Name..."
           onChange={handleProductSelect}
-          options={productList.map((product) => ({
-            value: product.id,
-            label: `${product.master_sku} - ${product.name}`,
-            type: product.type,
-          }))}
+          options={productListOptions}
           filterOption={(input, option) =>
             (option.type === productType.CoreProduct || option.type === productType.Variations) && option.label.includes(input)
           }
@@ -75,4 +81,4 @@ const SelectCoreProductModal: React.FC<ISelectCoreProductModal> = ({ isOpen, onC
   );
 };
 
-export default SelectCoreProductModal;
+export default BundleKitProductModal;

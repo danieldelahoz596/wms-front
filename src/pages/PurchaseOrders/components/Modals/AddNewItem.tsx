@@ -199,8 +199,8 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, poNumber, items, 
       ]}
     >
       <>
-        <Form form={form} style={{ marginBottom: 10 }}>
-          <Space size={HORIZONTAL_SPACE_SIZE}>
+        <Form form={form}>
+          <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
             <Form.Item name="product">
               <Select placeholder="Select a product..." options={productOptions} onChange={() => {}} style={{ width: 250 }} />
             </Form.Item>

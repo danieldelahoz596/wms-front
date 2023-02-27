@@ -42,11 +42,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     }
   };
   const { initialState, setInitialState } = useModel('@@initialState');
-  const [alerts, setAlerts] = useState([]);
-
-  useEffect(() => {
-    if (initialState && initialState.initialData) setAlerts(initialState.initialData.sku_alerts);
-  }, [initialState]);
+  const { skualerts, setSkuAlerts } = useModel('skuAlerts');
 
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
@@ -123,7 +119,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
             <FormattedMessage id="menu.account.sku-alerts" />{' '}
           </Col>
           <Col>
-            <Badge count={alerts.length} size="small" />
+            <Badge count={skualerts.length} size="small" />
           </Col>
         </Row>
       ),
@@ -141,7 +137,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     <>
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <Badge count={alerts.length} size="small">
+          <Badge count={skualerts.length} size="small">
             {/* <Avatar
             shape="square"
             size="large"
@@ -158,8 +154,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       <SKUAlertsModal
         isOpen={modalOpen === modalType.SKUAlerts}
         onClose={() => setModalOpen(modalType.Close)}
-        alerts={alerts}
-        setAlerts={setAlerts}
+        alerts={skualerts}
+        setAlerts={setSkuAlerts}
       />
     </>
   );

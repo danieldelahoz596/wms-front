@@ -26,7 +26,7 @@ const NewMilestoneModal: React.FC<INewMilestoneModal> = ({ isOpen, onClose, onSa
     <OModal
       title="New Milestone"
       helpLink=""
-      width={500}
+      width={350}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

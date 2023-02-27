@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import ManageItemsModal from '@/components/ManageItems';
+import ManageItemsModal from '@/components/Modals/ManageItems';
 import { modalType } from '@/utils/helpers/types';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space, Table } from 'antd';

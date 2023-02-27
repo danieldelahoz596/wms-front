@@ -4,7 +4,7 @@ import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { Collapse, Input, List, Space } from 'antd';
 import { useState } from 'react';
-import AddAttributeModal from './AddAttribute';
+import AddAttributeModal from '../../Modals/AddAttribute';
 const { Panel } = Collapse;
 
 interface IAddAttributeGroupModal {
@@ -50,7 +50,7 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
 
   return (
     <OModal
-      title="NEW ATTRIBUTE GROUPINGS"
+      title="New Attribute Groupings"
       helpLink="/help/products/create/productvariations"
       width={600}
       centered
@@ -73,10 +73,10 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
     >
       <>
         <div style={{ padding: '1rem' }}>
-          <h3>
+          <h2>
             Enter your attribute group names to begin adding attributes for use in product creation. (blank attributes will not be
             saved)
-          </h3>
+          </h2>
           <Input
             placeholder="Enter a valid attribute group name"
             addonAfter={<OButton btnText="Add" onClick={handleAddGroup} style={{ height: 30 }} />}
@@ -87,7 +87,7 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
             onChange={(key) => setSelectedPanel(key)}
             expandIconPosition="end"
             expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
-            style={{ marginTop: '5px', overflowY: 'scroll', overflowX: 'hidden', height: '600px' }}
+            style={{ marginTop: '5px', overflowY: 'scroll', overflowX: 'hidden', height: '200px' }}
             activeKey={selectedPanel}
             accordion
             ghost

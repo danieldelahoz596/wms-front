@@ -5,25 +5,25 @@ import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
 
-interface INewProductModal {
+interface INewProductSelectTypeModal {
   isOpen: boolean;
   onClose: () => void;
   handleClick: (value: any) => void;
 }
 
-const NewProductModal: React.FC<INewProductModal> = ({ isOpen, onClose, handleClick }) => {
+const NewProductSelectTypeModal: React.FC<INewProductSelectTypeModal> = ({ isOpen, onClose, handleClick }) => {
   const buttons: IOButton[] = [
     {
       btnText: 'Core Product',
-      onClick: () => handleClick(modalType.New),
+      onClick: () => handleClick(modalType.CoreProduct),
     },
     {
       btnText: 'Bundle/Kit',
-      onClick: () => handleClick(modalType.SelectCoreProduct),
+      onClick: () => handleClick(modalType.BundleKitProduct),
     },
     {
       btnText: 'Product Variations',
-      onClick: () => handleClick(modalType.NewVirtualProduct),
+      onClick: () => handleClick(modalType.ProductVariations),
     },
   ];
 
@@ -52,4 +52,4 @@ const NewProductModal: React.FC<INewProductModal> = ({ isOpen, onClose, handleCl
   );
 };
 
-export default NewProductModal;
+export default NewProductSelectTypeModal;

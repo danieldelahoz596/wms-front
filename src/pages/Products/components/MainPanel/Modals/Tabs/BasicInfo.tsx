@@ -6,7 +6,7 @@ import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 interface IBasicInfo {
   form: any;
@@ -17,6 +17,33 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { initialState } = useModel('@@initialState');
   const { brands } = useModel('brand');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
+
+  const brandOptions = useMemo(
+    () =>
+      brands.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [brands],
+  );
+
+  const categoryOptions = useMemo(
+    () =>
+      initialState?.initialData?.categories.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [initialState?.initialData?.categories],
+  );
+
+  const labelOptions = useMemo(
+    () =>
+      initialState?.initialData?.labels.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [initialState?.initialData?.labels],
+  );
 
   return (
     <>
@@ -75,13 +102,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
           <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
-            <Select
-              placeholder="Select..."
-              options={brands.map((brand) => ({
-                value: brand.id,
-                label: brand.name,
-              }))}
-            />
+            <Select placeholder="Select..." options={brandOptions} />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
           <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
@@ -90,13 +111,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           {/* <span>Categories</span> */}
           &nbsp;&nbsp;
           <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
-            <Select
-              placeholder="Select..."
-              options={initialState?.initialData?.categories.map((brand) => ({
-                value: brand.id,
-                label: brand.name,
-              }))}
-            />
+            <Select placeholder="Select..." options={categoryOptions} />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
           <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
@@ -104,13 +119,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
-            <Select
-              placeholder="Select..."
-              options={initialState?.initialData?.labels.map((brand) => ({
-                value: brand.id,
-                label: brand.name,
-              }))}
-            />
+            <Select placeholder="Select..." options={labelOptions} />
           </Form.Item>
           <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
           <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />

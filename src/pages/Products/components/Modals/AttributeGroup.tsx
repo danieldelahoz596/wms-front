@@ -42,7 +42,7 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave, at
 
   return (
     <OModal
-      title="New attribute groupings"
+      title="New Attribute Grouping"
       helpLink="/help/products/create/productvariations"
       width={500}
       isOpen={isOpen}

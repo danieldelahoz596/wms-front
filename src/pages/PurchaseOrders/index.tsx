@@ -1,7 +1,7 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import ManageItemsModal from '@/components/ManageItems';
+import ManageItemsModal from '@/components/Modals/ManageItems';
 import { cn, SampleSplitter } from '@/utils/components/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import ChatIcon from '@/utils/icons/chat';

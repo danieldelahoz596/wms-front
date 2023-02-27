@@ -21,17 +21,17 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
 
   return (
     <>
-      <div className="space-between" style={{ margin: '5px 5px 0 5px' }}>
-        <h2>P.O. #{selectedPO?.ponumber}</h2>
+      <div className="title-row space-between">
+        <h1 className="page-title">P.O. #{selectedPO?.ponumber}</h1>
         <Radio.Group size="small" buttonStyle="solid" value={selectedMode} onChange={handleChange}>
-          <Space size={2}>
+          <Space size={HORIZONTAL_SPACE_SIZE}>
             <Radio.Button value="items">Items</Radio.Button>
             <Radio.Button value="details">Details</Radio.Button>
             <Radio.Button value="history">History</Radio.Button>
           </Space>
         </Radio.Group>
       </div>
-      <Card>
+      <Card className="content-box">
         {selectedMode === 'items' ? (
           <ItemsManagement data={POProductItems} />
         ) : selectedMode === 'details' ? (

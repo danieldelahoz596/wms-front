@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import { useModel } from '@umijs/max';
 
-interface ISelectQuantityOfSKUModal {
+interface IBundleKitQuantityModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -16,7 +16,7 @@ interface DataType {
   quantity: string;
 }
 
-const SelectQuantityOfSKUModal: React.FC<ISelectQuantityOfSKUModal> = ({ isOpen, onClose, onSave }) => {
+const BundleKitQuantityModal: React.FC<IBundleKitQuantityModal> = ({ isOpen, onClose, onSave }) => {
   const { selectedProducts, setSelectedProducts } = useModel('product');
 
   const tableData = useMemo(
@@ -86,4 +86,4 @@ const SelectQuantityOfSKUModal: React.FC<ISelectQuantityOfSKUModal> = ({ isOpen,
   );
 };
 
-export default SelectQuantityOfSKUModal;
+export default BundleKitQuantityModal;

@@ -8,14 +8,14 @@ import { Card, Col, Form, Row, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useModel } from 'umi';
 
-interface INewVendorProductModal {
+interface IVendorProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (item: any) => void;
   initialVendorProduct: any;
 }
 
-const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClose, onSave, initialVendorProduct }) => {
+const VendorProductModal: React.FC<IVendorProductModal> = ({ isOpen, onClose, onSave, initialVendorProduct }) => {
   const { initialState } = useModel('@@initialState');
 
   const [newVendorProduct, setNewVendorProduct] = useState({
@@ -336,4 +336,4 @@ const NewVendorProductModal: React.FC<INewVendorProductModal> = ({ isOpen, onClo
   );
 };
 
-export default NewVendorProductModal;
+export default VendorProductModal;

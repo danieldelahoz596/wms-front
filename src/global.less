@@ -92,18 +92,12 @@ header.ant-layout-header {
 .main-panel {
   width: 100%;
 
-  .ant-card-body {
-    padding: 0;
-  }
-}
-
-.left-panel {
-  .ant-tabs .ant-tabs-nav {
-    margin-bottom: 0px;
-  }
-
   .ant-card {
-    padding-top: 8px;
+    border-radius: 4px;
+
+    .ant-card-body {
+      padding: 0;
+    }
   }
 }
 
@@ -111,6 +105,8 @@ header.ant-layout-header {
 .right-panel,
 .left-panel {
   .ant-card {
+    border-radius: 4px;
+    
     .ant-card-head {
       position: absolute;
       top: -10px;
@@ -149,6 +145,27 @@ header.ant-layout-header {
       .ant-form-item-label {
         padding: 0;
       }
+    }
+  }
+}
+
+.left-panel {
+  .ant-tabs .ant-tabs-nav {
+    margin-bottom: 0px;
+  }
+
+  .ant-card {
+    padding-top: 8px;
+  }
+}
+
+.bottom-panel {
+
+  .ant-card {
+    border-radius: 4px;
+ 
+    .ant-card-body {
+      padding: 0;
     }
   }
 }

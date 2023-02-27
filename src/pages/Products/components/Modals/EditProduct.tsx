@@ -1,8 +1,8 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Form, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
+import BasicInfoTab from '@/pages/Products/components/MainPanel/Modals/Tabs/BasicInfo';
+import GalleryTab from '@/pages/Products/components/MainPanel/Modals/Tabs/Gallery';
 interface IEditProductModal {
   isOpen: boolean;
   onClose: () => void;

@@ -6,16 +6,16 @@ import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Space } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import React, { useState } from 'react';
-import NewFieldType from './NewFieldType';
+import React, { useMemo, useState } from 'react';
+import CustomFieldsNewModal from './CustomFieldsNew';
 
-interface IConfigureFieldTypesModal {
+interface ICustomFieldsConfigureModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen, onClose, onSave }) => {
+const CustomFieldsConfigureModal: React.FC<ICustomFieldsConfigureModal> = ({ isOpen, onClose, onSave }) => {
   const { fieldTypes, setFieldTypes } = useModel('customProductFields');
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -74,6 +74,11 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
     },
   ];
 
+  const fieldTypeRows = useMemo(
+    () => fieldTypes.filter((field) => field.active === showActive).map((fields) => ({ key: fields.id, ...fields })),
+    [fieldTypes, showActive],
+  );
+
   const handleAddNewType = () => {
     setShowModal(true);
   };
@@ -108,12 +113,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
         <div className="button-row space-between">
           <Space size={HORIZONTAL_SPACE_SIZE}>
             <OButton btnText="New Field Type" onClick={handleAddNewType} />
-            <Popconfirm
-              title={'Sure to Deactivate?'}
-              onConfirm={() => {
-                handleDeactive;
-              }}
-            >
+            <Popconfirm title={'Sure to Deactivate?'} onConfirm={() => handleDeactive()}>
               <OButton disabled={!selectedItemId} btnText={showActive ? 'Deactivate' : 'Activate'} />
             </Popconfirm>
           </Space>
@@ -127,7 +127,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
         </div>
         <EditableTable
           columns={TColumns}
-          dataSource={fieldTypes.filter((field) => field.active === showActive).map((fields) => ({ key: fields.id, ...fields }))}
+          dataSource={fieldTypeRows}
           handleSave={(key: any, name: any, value: any) => {
             setFieldTypes(fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)));
           }}
@@ -144,7 +144,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
           }}
         />
 
-        <NewFieldType
+        <CustomFieldsNewModal
           isOpen={showModal}
           onSave={(values) => {
             setFieldTypes([
@@ -167,4 +167,4 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
   );
 };
 
-export default ConfigureFieldTypesModal;
+export default CustomFieldsConfigureModal;

@@ -1,9 +1,8 @@
 import { OButton } from '@/components/Globals/OButton';
 import { CheckOutlined, CloseOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Card, Image, Space, Switch, Table } from 'antd';
+import { Card, Image, Space, Table } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
-import styles from '../../index.less';
 
 interface IProductDetailsPanel {
   height: number;
@@ -123,50 +122,10 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
       <Card className="content-box" style={{ height: height - 20 }}>
         {showProductDetailType === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
-        ) : showProductDetailType === 'vendorProduct' ? (
-          <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : showProductDetailType === 'gallery' ? (
           <Image width={200} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
         ) : (
-          editableProduct && (
-            <Table
-              columns={[
-                {
-                  key: 'pushInventory',
-                  dataIndex: 'pushInventory',
-                  title: 'Push Inventory',
-                  render: (pushInventory, record) => (
-                    <>
-                      <Switch
-                        size="small"
-                        className={pushInventory ? styles.checked : styles.unchecked}
-                        onClick={() => {
-                          handleUpdateProduct({
-                            ...productList.find((_item) => _item.id === record.key),
-                            push_inventory: !pushInventory,
-                          });
-                          setEditableProduct((prev) => ({
-                            ...prev,
-                            push_inventory: !prev.push_inventory,
-                          }));
-                        }}
-                        checked={!pushInventory}
-                      />
-                      {pushInventory ? 'YES' : 'NO'}
-                    </>
-                  ),
-                },
-              ]}
-              dataSource={[
-                {
-                  key: editableProduct?.id,
-                  pushInventory: editableProduct?.push_inventory,
-                },
-              ]}
-              scroll={{ y: 150 }}
-              pagination={{ hideOnSinglePage: true }}
-            />
-          )
+          <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
         )}
       </Card>
     </>

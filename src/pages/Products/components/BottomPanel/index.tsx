@@ -8,7 +8,7 @@ interface IBottomPanel {
 
 const BottomPanel: React.FC<IBottomPanel> = ({ height }) => {
   return (
-    <Row>
+    <Row className="bottom-panel">
       <Col span={12}>
         <PerformancePanel height={height} />
       </Col>

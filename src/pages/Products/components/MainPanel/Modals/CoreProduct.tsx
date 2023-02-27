@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Tabs, Form } from 'antd';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
-import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
-import ProductCustomFields from '@/components/Tabs/Product/ProductCustomFields';
+import BasicInfoTab from './Tabs/BasicInfo';
+import GalleryTab from './Tabs/Gallery';
+import VendorProductsTab from './Tabs/VendorProducts';
+import CustomFieldsTab from './Tabs/CustomFields';
 import { useModel } from '@umijs/max';
 
 interface ICoreProductModal {
@@ -52,12 +52,12 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, onClose, onSave
     {
       key: 'tab-3',
       label: 'Vendor Products',
-      children: <VendorProductTab />,
+      children: <VendorProductsTab />,
     },
     {
       key: 'tab-4',
       label: 'Fields',
-      children: <ProductCustomFields customFields={customFields} setCustomFields={setCustomFields} />,
+      children: <CustomFieldsTab customFields={customFields} setCustomFields={setCustomFields} />,
     },
   ];
 

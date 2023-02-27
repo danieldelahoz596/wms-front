@@ -1,18 +1,21 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
-import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
-import BundledItemsTab from '@/components/Tabs/Product/BundledItems';
+import { Tabs } from 'antd';
+import { useState } from 'react';
+import BasicInfoTab from './Tabs/BasicInfo';
+import BundledItemsTab from './Tabs/BundledItems';
+import GalleryTab from './Tabs/Gallery';
+import CustomFieldsTab from './Tabs/CustomFields';
+import VendorProductsTab from './Tabs/VendorProducts';
 
-interface INewBundleKitModal {
+interface IBundleKitModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const NewBundleKitModal: React.FC<INewBundleKitModal> = ({ isOpen, onClose, onSave }) => {
+const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) => {
+  const [customFields, setCustomFields] = useState([]);
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
@@ -32,12 +35,12 @@ const NewBundleKitModal: React.FC<INewBundleKitModal> = ({ isOpen, onClose, onSa
     {
       key: 'tab-4',
       label: 'Vendor Products',
-      children: <VendorProductTab />,
+      children: <VendorProductsTab />,
     },
     {
       key: 'tab-5',
       label: 'Fields',
-      children: '',
+      children: <CustomFieldsTab customFields={customFields} setCustomFields={setCustomFields} />,
     },
   ];
 
@@ -71,4 +74,4 @@ const NewBundleKitModal: React.FC<INewBundleKitModal> = ({ isOpen, onClose, onSa
   );
 };
 
-export default NewBundleKitModal;
+export default BundleKitModal;

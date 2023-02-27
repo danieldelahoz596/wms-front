@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import SearchByPanel from './searchBy';
+import { useMemo } from 'react';
 import FilterByPanel from './filterBy';
+import SearchByPanel from './searchBy';
 
 const SidePanel: React.FC = () => {
   const tabItems = useMemo(
@@ -31,11 +31,7 @@ const SidePanel: React.FC = () => {
     [],
   );
 
-  return (
-    <div className="left-panel">
-      <Tabs defaultActiveKey="1" items={tabItems} />
-    </div>
-  );
+  return <Tabs defaultActiveKey="1" items={tabItems} />;
 };
 
 export default SidePanel;

@@ -5,14 +5,14 @@ import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Space } from 'antd';
 import React, { useState } from 'react';
-import AddExportSettingsModal from './AddExportSettings';
+import ExportSettingsEditModal from './ExportSettingsEdit';
 
-interface ICustomBundleKitExportSettingsModal {
+interface IExportSettingsModal {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSettingsModal> = ({ isOpen, onClose }) => {
+const ExportSettingsModal: React.FC<IExportSettingsModal> = ({ isOpen, onClose }) => {
   const { customBundleKitExportSettings, removeCustomBundleKitExportSettings, setEditableBundleKitExportSetting } =
     useModel('customBundleKitExportSettings');
   const [showModal, setShowModal] = useState(false);
@@ -84,10 +84,10 @@ const CustomBundleKitExportSettingsModal: React.FC<ICustomBundleKitExportSetting
           style={{ marginTop: 10 }}
         />
 
-        <AddExportSettingsModal isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
+        <ExportSettingsEditModal isOpen={showModal} onSave={() => setShowModal(false)} onClose={() => setShowModal(false)} />
       </>
     </OModal>
   );
 };
 
-export default CustomBundleKitExportSettingsModal;
+export default ExportSettingsModal;

@@ -34,6 +34,7 @@ const SelectWarehouseForInventoryImportModal: React.FC<ISelectWarehouseForInvent
 
   return (
     <OModal
+      forceRender
       title="Select Warehouse For Inventory Import"
       helpLink=""
       width={400}

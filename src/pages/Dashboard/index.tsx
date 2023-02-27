@@ -10,7 +10,7 @@ const Dashboard: React.FC = () => {
   const { dashboardData } = useModel('dashboard');
 
   return (
-    <Row gutter={[10, 10]}>
+    <Row gutter={[10, 10]} className="main-panel">
       <Col span={16}>
         <OrderAgingByWarehouse />
       </Col>

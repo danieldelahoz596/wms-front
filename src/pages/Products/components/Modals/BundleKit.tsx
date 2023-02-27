@@ -4,10 +4,10 @@ import type { ColumnsType } from 'antd/es/table';
 import { useModel } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import type { TabsProps } from 'antd';
-import BasicInfoTab from '@/components/Tabs/Product/BasicInfo';
-import GalleryTab from '@/components/Tabs/Product/Gallery';
-import VendorProductTab from '@/components/Tabs/Product/VendorProduct';
-import BundledItemsTab from '@/components/Tabs/Product/BundledItems';
+import BasicInfoTab from '@/pages/Products/components/MainPanel/Modals/Tabs/BasicInfo';
+import GalleryTab from '@/pages/Products/components/MainPanel/Modals/Tabs/Gallery';
+import VendorProductTab from '@/pages/Products/components/MainPanel/Modals/Tabs/VendorProducts';
+import BundledItemsTab from '@/pages/Products/components/MainPanel/Modals/Tabs/BundledItems';
 
 interface IBundleKitModal {
   isOpen: boolean;

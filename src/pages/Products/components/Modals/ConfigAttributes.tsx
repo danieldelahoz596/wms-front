@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { EditableTable } from '@/utils/components/EditableTable';
 import { Input } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 interface IConfigAttributesModal {
   isOpen: boolean;
@@ -27,6 +27,8 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
       editable: true,
     },
   ];
+
+  const itemRows = useMemo(() => items.map((item, index) => ({ key: index, name: item })), [items]);
 
   return (
     <OModal
@@ -69,7 +71,7 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
         />
         <EditableTable
           columns={TColumns}
-          dataSource={items.map((item, index) => ({ key: index, name: item }))}
+          dataSource={itemRows}
           handleSave={(key: any, name: any, value: any) => {
             setItems(items.map((item, index) => (index === key ? value : item)));
           }}

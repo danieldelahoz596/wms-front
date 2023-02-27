@@ -1,7 +1,7 @@
 import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
-import ManageItemsModal from '@/components/ManageItems';
-import AddNewItem from '@/pages/PurchaseOrders/components/Modals/AddNewItem';
+import ManageItemsModal from '@/components/Modals/ManageItems';
+import AddNewItemModal from '@/pages/PurchaseOrders/components/Modals/AddNewItem';
 import EditItemModal from '@/pages/PurchaseOrders/components/Modals/EditItem';
 import ReceiveItemModal from '@/pages/PurchaseOrders/components/Modals/ReceiveItem';
 import { modalType } from '@/utils/helpers/types';
@@ -254,7 +254,7 @@ const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
         </Col>
       </Row>
 
-      <AddNewItem
+      <AddNewItemModal
         isOpen={showModal === modalType.New}
         poNumber={selectedPO?.ponumber}
         items={data}
