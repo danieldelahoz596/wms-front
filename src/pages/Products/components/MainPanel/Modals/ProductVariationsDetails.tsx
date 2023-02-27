@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Select } from 'antd';
 import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { Fragment, useMemo, useState } from 'react';
 import { OInput } from '@/components/Globals/OInput';
@@ -7,6 +7,7 @@ import AddAttributeGroupModal from './AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
 import { uuidv4 } from '@antv/xflow-core';
 import ConfigAttributeGroups from '../../Modals/ConfigAttributeGroups';
+import SelectDropdown from '@/components/Globals/selectDropdown';
 
 interface IProductVariationsDetailsModal {
   isOpen: boolean;
@@ -93,13 +94,20 @@ const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = 
             <Col span={20}>
               <Row gutter={10}>
                 <Col flex="auto">
-                  <OInput
-                    type="select"
+                  {/* <SelectDropdown
+                    options={attributeGroupOptions}
+                    defaultSelectedItems={selectedAttributeGroup}
+                    type="attribute group"
+                    style={{ width: '100%' }}
+                    size={'middle'}
+                    showCheckAll={false}
+                  /> */}
+                  <Select
                     onChange={(name, value) => setSelectedAttributeGroup(value)}
-                    name="attributes"
                     placeholder="Select the attribute groups you want to work with ..."
                     options={attributeGroupOptions}
                     value={selectedAttributeGroup}
+                    style={{ width: '100%' }}
                   />
                 </Col>
                 <Col>

@@ -115,6 +115,7 @@ export enum productType {
   CoreProduct = 'Core Product',
   VariationCoreProduct = 'Variation Core Product',
   BundleOrKit = 'Bundle or Kit',
+  VirtualProduct = 'Virtual Product',
   Variations = 'Variations',
 }
 
