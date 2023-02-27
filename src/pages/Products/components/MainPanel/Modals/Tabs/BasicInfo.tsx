@@ -165,32 +165,32 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <Card title="Special" style={{ marginTop: 20 }}>
           <Row>
             <Col span={4}>
-              <Form.Item name="has_Barcode">
+              <Form.Item name="has_Barcode" valuePropName="checked">
                 <Checkbox>Has Barcode</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name="hazmat">
+              <Form.Item name="hazmat" valuePropName="checked">
                 <Checkbox>Hazmat</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name="own_box">
+              <Form.Item name="own_box" valuePropName="checked">
                 <Checkbox>Own Box</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name="allow_backorders">
+              <Form.Item name="allow_backorders" valuePropName="checked">
                 <Checkbox>Allow Backorders</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name="gift_card">
+              <Form.Item name="gift_card" valuePropName="checked">
                 <Checkbox>Gift Card</Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name="digital">
+              <Form.Item name="digital" valuePropName="checked">
                 <Checkbox>Digital</Checkbox>
               </Form.Item>
             </Col>

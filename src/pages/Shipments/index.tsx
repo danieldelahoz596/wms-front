@@ -1,7 +1,7 @@
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
 import { useResizable } from 'react-resizable-layout';
-import MainPanel from './components/MainPanel';
+import MainPanel from './components/mainPanel';
 import SidePanel from './components/SidePanel';
 
 const ShipmentManagement: React.FC = () => {
@@ -27,7 +27,7 @@ const ShipmentManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content main-panel" style={{ overflow: 'scroll' }}>
             <div className="main-panel">
-              <MainPanel/>
+              <MainPanel />
             </div>
           </div>
         </div>

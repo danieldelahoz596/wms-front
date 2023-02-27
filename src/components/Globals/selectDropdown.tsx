@@ -1,7 +1,7 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Select, Row, Col, Checkbox, Divider, Button, Space } from 'antd';
-import type { SizeType } from 'antd/es/config-provider/SizeContext';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { SelectProps } from 'antd';
 
 interface ISelectOption {
   label: string;
@@ -12,25 +12,33 @@ interface ISelectDropdown {
   options: ISelectOption[];
   defaultSelectedItems: any[];
   type: string;
-  size: SizeType;
-  style: React.CSSProperties;
+  showCheckAll?: boolean;
 }
 
-const SelectDropdown: React.FC<ISelectDropdown> = ({ options, defaultSelectedItems, type, ...props }) => {
+const SelectDropdown: React.FC<ISelectDropdown & SelectProps> = ({
+  options,
+  defaultSelectedItems,
+  type,
+  showCheckAll = true,
+  ...props
+}) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     setSelectedItems(defaultSelectedItems);
   }, [defaultSelectedItems]);
 
-  const handleSelectItem = (value) => {
-    if (selectedItems.includes(value)) setSelectedItems(selectedItems.filter((item) => item !== value));
-    else setSelectedItems([...selectedItems, value]);
-  };
+  const handleSelectItem = useCallback(
+    (value) => {
+      if (selectedItems.includes(value)) setSelectedItems(selectedItems.filter((item) => item !== value));
+      else setSelectedItems([...selectedItems, value]);
+    },
+    [selectedItems],
+  );
 
-  return (
-    <Select
-      options={options?.map((option) => ({
+  const selectOptions = useMemo(
+    () =>
+      options?.map((option) => ({
         value: option.value,
         label: (
           <>
@@ -44,18 +52,28 @@ const SelectDropdown: React.FC<ISelectDropdown> = ({ options, defaultSelectedIte
             </Row>
           </>
         ),
-      }))}
+      })),
+    [options, handleSelectItem, selectedItems],
+  );
+
+  return (
+    <Select
+      options={selectOptions}
       dropdownRender={(menu) => (
         <>
-          <Space style={{ marginTop: 10, marginLeft: 5 }}>
-            <Button icon={<CheckOutlined />} onClick={() => setSelectedItems(options.map((option) => option.value))}>
-              Check all
-            </Button>
-            <Button icon={<CloseOutlined />} onClick={() => setSelectedItems([])}>
-              Uncheck all
-            </Button>
-          </Space>
-          <Divider style={{ margin: '8px 0' }} />
+          {showCheckAll && (
+            <>
+              <Space style={{ marginTop: 10, marginLeft: 5 }}>
+                <Button icon={<CheckOutlined />} onClick={() => setSelectedItems(options.map((option) => option.value))}>
+                  Check all
+                </Button>
+                <Button icon={<CloseOutlined />} onClick={() => setSelectedItems([])}>
+                  Uncheck all
+                </Button>
+              </Space>
+              <Divider style={{ margin: '8px 0' }} />
+            </>
+          )}
           {menu}
         </>
       )}

@@ -36,7 +36,7 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
     setGroupName('');
   };
 
-  const handleRemoveGroup = (name) => {
+  const handleRemoveGroup = (event, name) => {
     event.stopPropagation();
     setAttributeGroups(attributeGroups.filter((_item) => _item.name !== name));
   };
@@ -97,12 +97,10 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
                 header={<h3>{_group.name}</h3>}
                 key={_group.id}
                 extra={
-                  <>
-                    <Space size={50}>
-                      <OButton btnText={<CloseOutlined />} onClick={() => handleRemoveGroup(_group.name)} />
-                      <OButton btnText={<PlusOutlined />} onClick={(e) => handleAddAttribute(e, _group.id)} />
-                    </Space>
-                  </>
+                  <Space size={50}>
+                    <OButton btnText="" icon={<CloseOutlined />} onClick={(e) => handleRemoveGroup(e, _group.name)} />
+                    <OButton btnText="" icon={<PlusOutlined />} onClick={(e) => handleAddAttribute(e, _group.id)} />
+                  </Space>
                 }
                 className="custom"
               >

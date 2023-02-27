@@ -55,6 +55,7 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
 
   return (
     <OModal
+      forceRender
       title={
         !selectedVendor ? (
           <FormattedMessage id="pages.settings.vendors.vendor.new.title" />

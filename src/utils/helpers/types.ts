@@ -35,6 +35,7 @@ export enum modalType {
   BundleKitProduct = 'BundleKitProduct',
   SelectQuantityOfSKU = 'SelectQuantityOfSKU',
   ExportCustomBundleKit = 'ExportCustomBundleKit',
+  VirtualProductEdit = 'VirtualProductEdit',
 
   // order
   ManualOrder = 'Manual Order',
@@ -115,6 +116,7 @@ export enum productType {
   CoreProduct = 'Core Product',
   VariationCoreProduct = 'Variation Core Product',
   BundleOrKit = 'Bundle or Kit',
+  VirtualProduct = 'Virtual Product',
   Variations = 'Variations',
 }
 

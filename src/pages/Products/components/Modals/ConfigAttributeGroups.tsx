@@ -21,6 +21,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
   const [enteredRow, setEnteredRow] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editableGroup, setEditableGroup] = useState(null);
+  
   const TColumns = [
     {
       title: '',

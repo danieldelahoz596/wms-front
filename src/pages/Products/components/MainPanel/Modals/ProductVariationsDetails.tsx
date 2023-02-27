@@ -1,12 +1,13 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Select } from 'antd';
 import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { OInput } from '@/components/Globals/OInput';
 import AddAttributeGroupModal from './AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
 import { uuidv4 } from '@antv/xflow-core';
 import ConfigAttributeGroups from '../../Modals/ConfigAttributeGroups';
+import { useModel } from '@umijs/max';
 
 interface IProductVariationsDetailsModal {
   isOpen: boolean;
@@ -16,9 +17,9 @@ interface IProductVariationsDetailsModal {
 
 const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = ({ isOpen, onClose, onSave }) => {
   const [currentModal, setCurrentModal] = useState('');
-  const [attributeGroups, setAttributeGroups] = useState<any[]>([]);
   const [variationDetailsGroup, setVariationDetailsGroup] = useState([{ key: uuidv4() }]);
   const [selectedAttributeGroup, setSelectedAttributeGroup] = useState(null);
+  const { getAttributeGroups, attributeGroups, setAttributeGroups } = useModel('attributeGroups');
 
   const handleAddVariantDetails = () => {
     setVariationDetailsGroup([...variationDetailsGroup, { key: uuidv4() }]);
@@ -57,10 +58,25 @@ const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = 
     () =>
       attributeGroups.map((item) => ({
         value: item.name,
-        text: item.name,
+        label: item.name,
       })),
     [attributeGroups],
   );
+
+  const attributeOptions = useMemo(
+    () =>
+      attributeGroups
+        .find((item) => item.name === selectedAttributeGroup)
+        ?.items.map((item) => ({
+          value: item,
+          text: item,
+        })),
+    [attributeGroups, selectedAttributeGroup],
+  );
+
+  useEffect(() => {
+    getAttributeGroups();
+  }, []);
 
   return (
     <OModal
@@ -93,13 +109,12 @@ const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = 
             <Col span={20}>
               <Row gutter={10}>
                 <Col flex="auto">
-                  <OInput
-                    type="select"
-                    onChange={(name, value) => setSelectedAttributeGroup(value)}
-                    name="attributes"
+                  <Select
+                    onChange={(value) => setSelectedAttributeGroup(value)}
                     placeholder="Select the attribute groups you want to work with ..."
                     options={attributeGroupOptions}
                     value={selectedAttributeGroup}
+                    style={{ width: '100%' }}
                   />
                 </Col>
                 <Col>
@@ -190,12 +205,7 @@ const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = 
                   name="attributes"
                   onChange={() => {}}
                   placeholder="Selected..."
-                  options={attributeGroups
-                    .find((item) => item.name === selectedAttributeGroup)
-                    ?.items.map((item) => ({
-                      value: item,
-                      text: item,
-                    }))}
+                  options={attributeOptions}
                 />
               </Col>
             </Row>

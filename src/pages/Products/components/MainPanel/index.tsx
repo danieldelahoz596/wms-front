@@ -6,7 +6,7 @@ import {
   DownOutlined,
   RetweetOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Dropdown, Popconfirm, Select, Space, Table } from 'antd';
 import React, { useMemo, useState } from 'react';
@@ -34,6 +34,8 @@ import ImportVendorProductsByVendorModal from './Modals/ImportVendorProductsByVe
 import ProductVariationsDetailsModal from './Modals/ProductVariationsDetails';
 import ProductVariationsModal from './Modals/ProductVariations';
 import NewProductSelectTypeModal from './Modals/NewProductSelectType';
+import ReturnDownForwardIcon from '@/utils/icons/returnDownForward';
+import VirtualProductEditModal from './Modals/VirtualProductEdit';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
@@ -45,9 +47,10 @@ const MainPanel: React.FC = () => {
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
 
-  const handleMasterSKUClick = (event, record) => {
+  const handleMasterSkuClick = (event, record) => {
     event.stopPropagation();
-    setModal(modalType.New);
+    if (record.type === productType.VirtualProduct) setModal(modalType.VirtualProductEdit);
+    else setModal(modalType.CoreProduct);
     setEditableProduct(record);
   };
 
@@ -118,8 +121,10 @@ const MainPanel: React.FC = () => {
             <CoreProductsIcon style={{ fontSize: 24 }} />
           ) : text === productType.BundleOrKit ? (
             <BundleIcon style={{ fontSize: 24 }} />
-          ) : text === productType.Variations ? (
+          ) : text === productType.VirtualProduct ? (
             <VariationIcon style={{ fontSize: 24 }} />
+          ) : text === productType.Variations ? (
+            <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
           ) : (
             <span style={{ position: 'relative' }}>
               <CoreProductsIcon style={{ fontSize: 24 }} />
@@ -136,7 +141,8 @@ const MainPanel: React.FC = () => {
       dataIndex: 'master_sku',
       key: 'master_sku',
       render: (master_sku, record) => (
-        <a onClick={(event) => handleMasterSKUClick(event, record)}>
+        <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
+          {record.type === productType.Variations && <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />}
           <u>{master_sku}</u>
         </a>
       ),
@@ -350,7 +356,14 @@ const MainPanel: React.FC = () => {
 
       <CoreProductModal
         isOpen={modalOpen == modalType.CoreProduct}
+        title={editableProduct?.master_sku}
         onSave={(value: any) => setModal(value)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <VirtualProductEditModal
+        isOpen={modalOpen == modalType.VirtualProductEdit}
+        onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
 
