@@ -9,7 +9,8 @@ import { Card, Input, Space, Table } from 'antd';
 import qs from 'qs';
 import { useEffect, useMemo, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
-import HistoryModal from './components/Modals/History';
+// import HistoryModal from './components/Modals/History';
+import HistoryModal from '@/components/History';
 import VendorModal from './components/Modals/Vendor';
 import RightPanel from './components/RightPanel';
 
@@ -55,11 +56,30 @@ const TColumns = [
   },
 ];
 
+const THistoryColumns = [
+  {
+    title: <FormattedMessage id="component.table.column.editTime" />,
+    dataIndex: 'time',
+    key: 'editTime',
+  },
+  {
+    title: <FormattedMessage id="component.table.column.vendor" />,
+    dataIndex: 'vendor',
+    key: 'vendor',
+  },
+  {
+    title: <FormattedMessage id="component.table.column.changedValues" />,
+    dataIndex: 'value',
+    key: 'changedValues',
+  },
+];
+
 export default function () {
   const [modalOpen, setModal] = useState('');
   const {
     vendorList,
     selectedVendor,
+    vendorHistory,
     showActive,
     createVendor,
     updateVendor,
@@ -89,6 +109,8 @@ export default function () {
       })),
     [vendorList],
   );
+
+  const vendorHistoryRows = useMemo(() => vendorHistory.map((_item) => ({ ..._item, key: _item.id })), [vendorHistory]);
 
   useEffect(() => {
     setSearchText('');
@@ -179,9 +201,17 @@ export default function () {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <HistoryModal
+      {/* <HistoryModal
         isOpen={modalOpen === modalType.History}
         onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      /> */}
+
+      <HistoryModal
+        isOpen={modalOpen === modalType.History}
+        TColumns={THistoryColumns}
+        TRows={vendorHistoryRows}
+        title={<FormattedMessage id="pages.settings.vendors.history.title" />}
         onClose={() => setModal(modalType.Close)}
       />
     </>
