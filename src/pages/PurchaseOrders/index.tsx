@@ -116,6 +116,7 @@ const CustomerManagement: React.FC = () => {
   const { poList, initialSelectedPO, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
   const { initialMilestonesList } = useModel('milestones');
   const { initialShippingTermList } = useModel('shippingTerm');
+  const { getProductList } = useModel('product');
   const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
 
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
@@ -381,6 +382,10 @@ const CustomerManagement: React.FC = () => {
   useEffect(() => {
     changeSelectedPOStatus({ poStatus: 1, warehouse: null });
   }, []);
+
+  useEffect(() => {
+    getProductList();
+  }, [getProductList]);
 
   useEffect(() => {
     setSelectedRows([]);
