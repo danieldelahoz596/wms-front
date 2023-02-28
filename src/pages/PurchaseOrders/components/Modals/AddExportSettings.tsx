@@ -4,13 +4,48 @@ import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, Radio, Row, Select, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 interface IAddExportSettingsModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
 }
+
+const exportFields = [
+  { key: 1, field: 'Authorizer' },
+  { key: 2, field: 'Billed Item Cost' },
+  { key: 3, field: 'Blank/Empty' },
+  { key: 4, field: 'Buyer Name' },
+  { key: 5, field: 'Company City' },
+  { key: 6, field: 'Company City State Zip' },
+  { key: 7, field: 'Company Country' },
+  { key: 8, field: 'Company Email' },
+  { key: 9, field: 'Company Phone' },
+];
+
+const exportFieldsColumns = [
+  {
+    key: 'sl',
+    dataIndex: 'sl',
+    title: '',
+  },
+  {
+    key: 'dataField',
+    dataIndex: 'dataField',
+    title: 'Data Field',
+  },
+  {
+    key: 'columnName',
+    dataIndex: 'columnName',
+    title: 'Column Name',
+  },
+  {
+    key: 'remove',
+    dataIndex: 'remove',
+    title: '',
+  },
+];
 
 const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
@@ -23,41 +58,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
 
   const { editableExportSetting, setEditableExportSetting, addPOExportSettings, updatePOExportSettings } =
     useModel('poExportSettings');
-
-  const exportFields = [
-    { key: 1, field: 'Authorizer' },
-    { key: 2, field: 'Billed Item Cost' },
-    { key: 3, field: 'Blank/Empty' },
-    { key: 4, field: 'Buyer Name' },
-    { key: 5, field: 'Company City' },
-    { key: 6, field: 'Company City State Zip' },
-    { key: 7, field: 'Company Country' },
-    { key: 8, field: 'Company Email' },
-    { key: 9, field: 'Company Phone' },
-  ];
-
-  const exportFieldsColumns = [
-    {
-      key: 'sl',
-      dataIndex: 'sl',
-      title: '',
-    },
-    {
-      key: 'dataField',
-      dataIndex: 'dataField',
-      title: 'Data Field',
-    },
-    {
-      key: 'columnName',
-      dataIndex: 'columnName',
-      title: 'Column Name',
-    },
-    {
-      key: 'remove',
-      dataIndex: 'remove',
-      title: '',
-    },
-  ];
 
   const handleAddField = (value) => {
     // check if is already added
@@ -103,17 +103,6 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
     onClose();
   };
 
-  const preparedImportFieldsRows = selectedExportFields?.map((item, index) => ({
-    sl: index + 1,
-    dataField: item.field.toUpperCase(),
-    columnName: <Input defaultValue={item.field.toUpperCase()} onChange={(e) => handleColumnNameChange(item, e.target.value)} />,
-    remove: (
-      <span onClick={() => handleRemoveField(item.key)}>
-        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-      </span>
-    ),
-  }));
-
   useEffect(() => {
     if (editableExportSetting) {
       form.setFieldsValue(editableExportSetting);
@@ -123,6 +112,25 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
       setSelectedExportFields(editableExportSetting?.exportFields);
     }
   }, [editableExportSetting, form]);
+
+  const preparedImportFieldsRows = useMemo(
+    () =>
+      selectedExportFields?.map((item, index) => ({
+        sl: index + 1,
+        dataField: item.field.toUpperCase(),
+        columnName: (
+          <Input defaultValue={item.field.toUpperCase()} onChange={(e) => handleColumnNameChange(item, e.target.value)} />
+        ),
+        remove: (
+          <span onClick={() => handleRemoveField(item.key)}>
+            <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+          </span>
+        ),
+      })),
+    [selectedExportFields],
+  );
+
+  const exportFieldOptions = useMemo(() => exportFields.map((item) => ({ value: item.key, label: item.field })), []);
 
   return (
     <OModal
@@ -204,7 +212,7 @@ const AddExportSettingsModal: React.FC<IAddExportSettingsModal> = ({ isOpen, onS
                   placeholder="Select..."
                   size="small"
                   onChange={(_val) => handleAddField(_val)}
-                  options={exportFields.map((item) => ({ value: item.key, label: item.field }))}
+                  options={exportFieldOptions}
                 />
               </Form.Item>
               <OTable pagination={false} columns={exportFieldsColumns} rows={preparedImportFieldsRows} />

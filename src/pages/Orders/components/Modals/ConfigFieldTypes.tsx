@@ -6,7 +6,7 @@ import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import NewFieldType from './NewFieldType';
 
 interface IConfigureFieldTypesModal {
@@ -59,6 +59,11 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
       render: (active) => (active ? <CheckOutlined /> : <CloseOutlined />),
     },
   ];
+
+  const datasource = useMemo(
+    () => fieldTypes.filter((field) => field.active === showActive).map((fields) => ({ key: fields.id, ...fields })),
+    [fieldTypes, showActive],
+  );
 
   const handleAddNewType = () => {
     setShowModal(true);
@@ -118,9 +123,7 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
         <div className="mt-10">
           <EditableTable
             columns={TColumns}
-            dataSource={fieldTypes
-              .filter((field) => field.active === showActive)
-              .map((fields) => ({ key: fields.id, ...fields }))}
+            dataSource={datasource}
             handleSave={(key: any, name: any, value: any) => {
               setFieldTypes(fieldTypes.map((field) => (field.id === key ? { ...field, [name]: value } : field)));
             }}

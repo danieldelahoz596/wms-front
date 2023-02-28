@@ -6,40 +6,40 @@ import { useModel } from '@umijs/max';
 import { OTable } from '@/components/Globals/OTable';
 import { uuidv4 } from '@antv/xflow-core';
 
+const productList = [
+  {
+    key: uuidv4(),
+    listingName: 'Toys',
+    masterSku: 'rudysku_4',
+    productAttributes: '',
+    name: 'Toys',
+    stock: 30,
+    unitAmount: 3.0,
+    discount: 0,
+    warehouse: 'warehouse 1',
+    weight: '',
+    height: '',
+    unitQty: 1,
+  },
+  {
+    key: uuidv4(),
+    listingName: 'Toys',
+    masterSku: 'rudysku_4',
+    productAttributes: '',
+    name: "Rudy's Test Product 3",
+    stock: 85,
+    unitAmount: 3.0,
+    discount: 0,
+    warehouse: 'warehouse 1',
+    weight: '',
+    height: '',
+    unitQty: 1,
+  },
+];
+
 const OrderItems: React.FC = () => {
   const { editableOrder, setEditableOrder } = useModel('order');
   const [search, setSearch] = useState('');
-
-  const productList = [
-    {
-      key: uuidv4(),
-      listingName: 'Toys',
-      masterSku: 'rudysku_4',
-      productAttributes: '',
-      name: 'Toys',
-      stock: 30,
-      unitAmount: 3.0,
-      discount: 0,
-      warehouse: 'warehouse 1',
-      weight: '',
-      height: '',
-      unitQty: 1,
-    },
-    {
-      key: uuidv4(),
-      listingName: 'Toys',
-      masterSku: 'rudysku_4',
-      productAttributes: '',
-      name: "Rudy's Test Product 3",
-      stock: 85,
-      unitAmount: 3.0,
-      discount: 0,
-      warehouse: 'warehouse 1',
-      weight: '',
-      height: '',
-      unitQty: 1,
-    },
-  ];
 
   const handleOrderProductAdd = (_key) => {
     const selectedProduct = productList.find((_item) => _item.key === _key);

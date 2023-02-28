@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
 import { Card, Col, Form, Input, Row } from 'antd';
@@ -13,6 +13,72 @@ interface IAddImportSettingsModal {
   onSave: () => void;
   onClose: () => void;
 }
+
+const optionalFields = [
+  {
+    key: 1,
+    field: 'Order Number',
+    name: 'Order Number',
+  },
+  {
+    key: 2,
+    field: 'Order Date',
+    name: 'Order Date',
+  },
+  {
+    key: 3,
+    field: 'Payment Date',
+    name: 'Payment Date',
+  },
+  {
+    key: 4,
+    field: 'Ship To Name',
+    name: 'Ship To Name',
+  },
+  {
+    key: 5,
+    field: 'Ship To Address 1',
+    name: 'Ship To Address 1',
+  },
+  {
+    key: 6,
+    field: 'Ship To City',
+    name: 'Ship To City',
+  },
+  {
+    key: 7,
+    field: 'Ship To State',
+    name: 'Ship To State',
+  },
+  {
+    key: 8,
+    field: 'Ship To Zip Code',
+    name: 'Ship To Zip Code',
+  },
+];
+
+const importFieldsColumns = [
+  {
+    key: 'sl',
+    dataIndex: 'sl',
+    title: '',
+  },
+  {
+    key: 'dataField',
+    dataIndex: 'dataField',
+    title: 'DATA FIELD',
+  },
+  {
+    key: 'columnName',
+    dataIndex: 'columnName',
+    title: 'COLUMN NAME',
+  },
+  {
+    key: 'remove',
+    dataIndex: 'remove',
+    title: '',
+  },
+];
 
 const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
@@ -29,72 +95,6 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
   const [selectedImportFields, setSelectedImportFields] = useState(editableImportSetting?.optionalFields ?? []);
 
   const [newSettings, setNewSettings] = useState(editableImportSetting ? { ...editableImportSetting } : { ...initialState });
-
-  const optionalFields = [
-    {
-      key: 1,
-      field: 'Order Number',
-      name: 'Order Number',
-    },
-    {
-      key: 2,
-      field: 'Order Date',
-      name: 'Order Date',
-    },
-    {
-      key: 3,
-      field: 'Payment Date',
-      name: 'Payment Date',
-    },
-    {
-      key: 4,
-      field: 'Ship To Name',
-      name: 'Ship To Name',
-    },
-    {
-      key: 5,
-      field: 'Ship To Address 1',
-      name: 'Ship To Address 1',
-    },
-    {
-      key: 6,
-      field: 'Ship To City',
-      name: 'Ship To City',
-    },
-    {
-      key: 7,
-      field: 'Ship To State',
-      name: 'Ship To State',
-    },
-    {
-      key: 8,
-      field: 'Ship To Zip Code',
-      name: 'Ship To Zip Code',
-    },
-  ];
-
-  const importFieldsColumns = [
-    {
-      key: 'sl',
-      dataIndex: 'sl',
-      title: '',
-    },
-    {
-      key: 'dataField',
-      dataIndex: 'dataField',
-      title: 'DATA FIELD',
-    },
-    {
-      key: 'columnName',
-      dataIndex: 'columnName',
-      title: 'COLUMN NAME',
-    },
-    {
-      key: 'remove',
-      dataIndex: 'remove',
-      title: '',
-    },
-  ];
 
   const handleNewSettingsChange = (name, value) => {
     setNewSettings((prevState) => ({ ...prevState, [name]: value }));
@@ -145,16 +145,22 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
     onSave();
   };
 
-  const preparedImportFieldsRows = selectedImportFields.map((item, index) => ({
-    sl: index + 1,
-    dataField: item.field.toUpperCase(),
-    columnName: <Input defaultValue={item.name} onChange={(e) => handleColumnNameChange(item, e.target.value)} />,
-    remove: (
-      <span onClick={() => handleRemoveField(item.key)}>
-        <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
-      </span>
-    ),
-  }));
+  const preparedImportFieldsRows = useMemo(
+    () =>
+      selectedImportFields.map((item, index) => ({
+        sl: index + 1,
+        dataField: item.field.toUpperCase(),
+        columnName: <Input defaultValue={item.name} onChange={(e) => handleColumnNameChange(item, e.target.value)} />,
+        remove: (
+          <span onClick={() => handleRemoveField(item.key)}>
+            <CloseOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />
+          </span>
+        ),
+      })),
+    [selectedImportFields],
+  );
+
+  const fieldOptions = useMemo(() => optionalFields.map((item) => ({ value: item.key, text: item.field })), []);
 
   return (
     <OModal
@@ -237,13 +243,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
           >
             <Form>
               <Form.Item name={'add_field'} label="Add Optional Field">
-                <OInput
-                  name="add_field"
-                  type="select"
-                  placeholder="Select..."
-                  options={optionalFields.map((item) => ({ value: item.key, text: item.field }))}
-                  onChange={handleAddField}
-                />
+                <OInput name="add_field" type="select" placeholder="Select..." options={fieldOptions} onChange={handleAddField} />
               </Form.Item>
             </Form>
             <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />

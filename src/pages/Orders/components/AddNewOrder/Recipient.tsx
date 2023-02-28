@@ -5,66 +5,47 @@ interface IRecipient {
   form: any;
 }
 
-const Recipient: React.FC<IRecipient> = ({ form }) => {
-  const formInputs = [
-    {
-      type: 'text',
-      name: 'name',
-      label: 'Name',
-      placeholder: 'Required',
-    },
-    {
-      type: 'text',
-      name: 'company',
-      label: 'Company',
-    },
-    {
-      type: 'text',
-      name: 'address',
-      label: 'Address',
-      placeholder: 'Required',
-    },
-    {
-      type: 'text',
-      label: ' ',
-      name: 'address2',
-      colon: false,
-    },
-    {
-      type: 'text',
-      label: ' ',
-      name: 'address3',
-      colon: false,
-    },
-    {
-      type: 'text',
-      name: 'city',
-      label: 'City',
-      placeholder: 'Required',
-    },
-    [
-      {
-        type: 'select',
-        label: 'State, Zip',
-        name: 'state',
-        placeholder: 'Select..',
-        options: [
-          {
-            value: 'lucy',
-            label: 'lucky',
-          },
-        ],
-      },
-      {
-        type: 'text',
-        name: 'zip',
-        placeholder: 'Required',
-      },
-    ],
+const formInputs = [
+  {
+    type: 'text',
+    name: 'name',
+    label: 'Name',
+    placeholder: 'Required',
+  },
+  {
+    type: 'text',
+    name: 'company',
+    label: 'Company',
+  },
+  {
+    type: 'text',
+    name: 'address',
+    label: 'Address',
+    placeholder: 'Required',
+  },
+  {
+    type: 'text',
+    label: ' ',
+    name: 'address2',
+    colon: false,
+  },
+  {
+    type: 'text',
+    label: ' ',
+    name: 'address3',
+    colon: false,
+  },
+  {
+    type: 'text',
+    name: 'city',
+    label: 'City',
+    placeholder: 'Required',
+  },
+  [
     {
       type: 'select',
-      name: 'Country',
-      label: 'Country',
+      label: 'State, Zip',
+      name: 'state',
       placeholder: 'Select..',
       options: [
         {
@@ -75,15 +56,35 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
     },
     {
       type: 'text',
-      name: 'phone',
-      label: 'Phone',
+      name: 'zip',
+      placeholder: 'Required',
     },
-    {
-      type: 'text',
-      name: 'email',
-      label: 'E-Mail',
-    },
-  ];
+  ],
+  {
+    type: 'select',
+    name: 'Country',
+    label: 'Country',
+    placeholder: 'Select..',
+    options: [
+      {
+        value: 'lucy',
+        label: 'lucky',
+      },
+    ],
+  },
+  {
+    type: 'text',
+    name: 'phone',
+    label: 'Phone',
+  },
+  {
+    type: 'text',
+    name: 'email',
+    label: 'E-Mail',
+  },
+];
+
+const Recipient: React.FC<IRecipient> = ({ form }) => {
 
   const onFinish = (values: any) => {
     console.log('Success:', values);

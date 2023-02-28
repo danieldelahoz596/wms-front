@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Select, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import OrderExportSettingsModal from './OrderExportSettings';
 
 interface IExportOrderModal {
@@ -15,6 +15,15 @@ interface IExportOrderModal {
 const ExportOrderModal: React.FC<IExportOrderModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const { orderExportSettings } = useModel('orderExportSettings');
+
+  const orderExportSettingOptions = useMemo(
+    () =>
+      orderExportSettings.map((_item) => ({
+        value: _item.id,
+        label: _item.settingName,
+      })),
+    [orderExportSettings],
+  );
 
   return (
     <OModal
@@ -53,10 +62,7 @@ const ExportOrderModal: React.FC<IExportOrderModal> = ({ isOpen, onClose, onSave
               placeholder="Select..."
               size="small"
               style={{ width: 200, textAlign: 'left' }}
-              options={orderExportSettings.map((_item) => ({
-                value: _item.id,
-                label: _item.settingName,
-              }))}
+              options={orderExportSettingOptions}
             />
             <OButton btnText="Configure Settings" onClick={() => setShowModal(true)} />
           </Space>
