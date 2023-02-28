@@ -15,6 +15,39 @@ const initailState = {
   country: '',
 };
 
+const inputFields = [
+  {
+    type: 'text',
+    name: 'phonenumber',
+    label: 'Phone Number',
+  },
+  {
+    type: 'text',
+    name: 'card_number',
+    label: 'Card ID Number',
+  },
+  {
+    type: 'text',
+    name: 'name',
+    label: 'Name',
+  },
+  {
+    type: 'text',
+    name: 'city',
+    label: 'City',
+  },
+  {
+    type: 'text',
+    name: 'state',
+    label: 'State/Province',
+  },
+  {
+    type: 'text',
+    name: 'country',
+    label: 'Country',
+  },
+];
+
 export default function SidePanel() {
   const [searchQuery, setSearchQuery] = useState(initailState);
   const { setCustomerList } = useModel('customer');
@@ -38,39 +71,6 @@ export default function SidePanel() {
     setSearchQuery(initailState);
     onSearch(initailState);
   };
-
-  const inputFields = [
-    {
-      type: 'text',
-      name: 'phonenumber',
-      label: 'Phone Number',
-    },
-    {
-      type: 'text',
-      name: 'card_number',
-      label: 'Card ID Number',
-    },
-    {
-      type: 'text',
-      name: 'name',
-      label: 'Name',
-    },
-    {
-      type: 'text',
-      name: 'city',
-      label: 'City',
-    },
-    {
-      type: 'text',
-      name: 'state',
-      label: 'State/Province',
-    },
-    {
-      type: 'text',
-      name: 'country',
-      label: 'Country',
-    },
-  ];
 
   return (
     <div className="left-panel">

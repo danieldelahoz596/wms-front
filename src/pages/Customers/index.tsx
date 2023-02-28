@@ -7,12 +7,45 @@ import { modalType } from '@/utils/helpers/types';
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Card, Row, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { DragDropContainer } from 'react-drag-drop-container-typescript';
 import { useResizable } from 'react-resizable-layout';
 import BottomPanel from './components/Bottom';
 import RightPanel from './components/RightPanel';
 import SidePanel from './components/SidePanel';
+
+const Tcolumns = [
+  {
+    title: 'Phone Number',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'Card ID Number',
+    dataIndex: 'cardNumber',
+    key: 'cardNumber',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: (text: any) => (
+      <DragDropContainer targetKey="merge" dragData={text}>
+        {text}
+      </DragDropContainer>
+    ),
+  },
+  {
+    title: 'Orders',
+    dataIndex: 'orders',
+    key: 'orders',
+  },
+  {
+    title: 'Total Sales',
+    dataIndex: 'totalsales',
+    key: 'totalsales',
+  },
+];
 
 const CustomerManagement: React.FC = () => {
   const { customerList, selectedCustomer, setSelectedCustomer, initialCustomerList, onGetSelectedCustomer } =
@@ -52,48 +85,19 @@ const CustomerManagement: React.FC = () => {
     reverse: true,
   });
 
-  const Tcolumns = [
-    {
-      title: 'Phone Number',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Card ID Number',
-      dataIndex: 'cardNumber',
-      key: 'cardNumber',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text: any) => (
-        <DragDropContainer targetKey="merge" dragData={text}>
-          {text}
-        </DragDropContainer>
-      ),
-    },
-    {
-      title: 'Orders',
-      dataIndex: 'orders',
-      key: 'orders',
-    },
-    {
-      title: 'Total Sales',
-      dataIndex: 'totalsales',
-      key: 'totalsales',
-    },
-  ];
-
-  const prepareCustomersTableData = customerList?.map((item) => ({
-    key: item.id,
-    phone: item.phonenumber,
-    cardNumber: item.card_number,
-    name: item.name,
-    address: item.address,
-    orders: 1,
-    totalsales: '$0.00',
-  }));
+  const prepareCustomersTableData = useMemo(
+    () =>
+      customerList?.map((item) => ({
+        key: item.id,
+        phone: item.phonenumber,
+        cardNumber: item.card_number,
+        name: item.name,
+        address: item.address,
+        orders: 1,
+        totalsales: '$0.00',
+      })),
+    [customerList],
+  );
 
   // fetch initial customer list
   useEffect(() => {
