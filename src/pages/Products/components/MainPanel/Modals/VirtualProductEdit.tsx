@@ -17,6 +17,7 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
   const [vendorProductList, setVendorProductList] = useState([]);
   const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
   const [variationForm] = Form.useForm();
+  const [basicForm] = Form.useForm();
   const { editableProduct } = useModel('product');
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
     {
       key: 'tab-1',
       label: 'Basic Info',
-      children: <BasicInfoTab />,
+      children: <BasicInfoTab form={basicForm} />,
     },
     {
       key: 'tab-2',
@@ -64,6 +65,7 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
 
   return (
     <OModal
+      forceRender
       title="Virtual Product Edit"
       width={800}
       centered

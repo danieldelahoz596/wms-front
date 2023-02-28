@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { OInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
@@ -10,7 +10,16 @@ interface IExportStockDetailsModal {
 }
 
 const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({ isOpen, onClose, onSave }) => {
-  const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
+
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList.map((_item) => ({
+        text: _item.name,
+        value: _item.id,
+      })),
+    [warehouseList],
+  );
 
   return (
     <OModal
@@ -51,15 +60,7 @@ const ExportStockDetailsModal: React.FC<IExportStockDetailsModal> = ({ isOpen, o
             marginLeft: 'auto',
           }}
         >
-          <OInput
-            type="select"
-            placeholder="Select..."
-            options={initialState?.initialData?.warehouses.map((_item) => ({
-              text: _item.name,
-              value: _item.id,
-            }))}
-            style={{ flex: 1 }}
-          />
+          <OInput type="select" placeholder="Select..." options={warehouseOptions} style={{ flex: 1 }} />
         </div>
       </>
     </OModal>

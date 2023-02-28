@@ -26,15 +26,52 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
 interface IStockDetails {
   vendorData: any;
 }
 
+const Scolumns = [
+  {
+    title: 'Location',
+    dataIndex: 'location',
+    key: 'location',
+    render: (location) => (
+      <>
+        <BarCodeIcon style={{ fontSize: 15 }} />
+        <StockIcon style={{ fontSize: 15 }} />
+        {location}
+      </>
+    ),
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
+    title: 'Rank',
+    dataIndex: 'rank',
+    key: 'rank',
+  },
+  {
+    title: 'Min. Level',
+    dataIndex: 'min_level',
+    key: 'min_level',
+  },
+  {
+    title: 'Available',
+    dataIndex: 'available',
+    key: 'available',
+    render: (text) => <a>{text}</a>,
+  },
+];
+
 const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
   const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
   const [modal, setModal] = useState('');
   const [locationHistory] = useState(location_history);
   const [locationList, setLocationList] = useState(stock_data);
@@ -42,47 +79,13 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
   const [showActive, setShowActive] = useState(true);
   const [actionType, setActionType] = useState('Add');
 
-  const Scolumns = [
-    {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location',
-      render: (location) => (
-        <>
-          <BarCodeIcon style={{ fontSize: 15 }} />
-          <StockIcon style={{ fontSize: 15 }} />
-          {location}
-        </>
-      ),
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: 'Rank',
-      dataIndex: 'rank',
-      key: 'rank',
-    },
-    {
-      title: 'Min. Level',
-      dataIndex: 'min_level',
-      key: 'min_level',
-    },
-    {
-      title: 'Available',
-      dataIndex: 'available',
-      key: 'available',
-      render: (text) => <a>{text}</a>,
-    },
-  ];
+  const stockTableRows = useMemo(() => locationList.filter((item) => item.status === showActive), [locationList, showActive]);
 
   return (
     <div style={{ width: '100%' }}>
       <h2 style={{ marginLeft: '10px' }}>Stock Details</h2>
       <Collapse defaultActiveKey={initialState?.initialData?.warehouses[0].id}>
-        {initialState?.initialData?.warehouses.map((_warehouse) => (
+        {warehouseList.map((_warehouse) => (
           <Collapse.Panel
             header={
               <h3>
@@ -201,7 +204,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
 
               <Table
                 columns={Scolumns}
-                dataSource={locationList.filter((item) => item.status === showActive)}
+                dataSource={stockTableRows}
                 onRow={(record) => {
                   return {
                     onClick() {

@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Row, Col, Input, Select, Form, InputNumber } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 const { TextArea } = Input;
 
 interface IStockLocationTransferModal {
@@ -31,6 +31,14 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   useEffect(() => {
     form.setFieldsValue({ available: 0, destination: '' });
   }, [isOpen]);
+
+  const locationOptions = useMemo(
+    () =>
+      locations
+        .filter((location) => location.key !== selectedLocation?.key)
+        .map((item) => ({ label: item.location, value: item.key })),
+    [locations, selectedLocation],
+  );
 
   return (
     <OModal
@@ -66,11 +74,7 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
             <InputNumber max={selectedLocation?.available} min={0} />
           </Form.Item>
           <Form.Item label="To Location" name="destination">
-            <Select
-              options={locations
-                .filter((location) => location.key !== selectedLocation?.key)
-                .map((item) => ({ label: item.location, value: item.key }))}
-            />
+            <Select options={locationOptions} />
           </Form.Item>
         </Form>
 

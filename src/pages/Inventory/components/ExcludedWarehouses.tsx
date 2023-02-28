@@ -7,22 +7,25 @@ const ExcludedWarehouses: React.FC = () => {
   const { warehouseList } = useModel('warehouse');
   const [columns, setColumns] = useState([]);
 
-  const TColumns = [
-    {
-      key: 'warehouse',
-      dataIndex: 'name',
-      title: 'Excluded Warehouses',
-    },
-    {
-      key: 'action',
-      dataIndex: 'id',
-      render: (id) => (
-        <span onClick={() => setColumns(columns.filter((column) => column.id !== id))}>
-          <CloseOutlined style={{ color: 'gray' }} />
-        </span>
-      ),
-    },
-  ];
+  const TColumns = useMemo(
+    () => [
+      {
+        key: 'warehouse',
+        dataIndex: 'name',
+        title: 'Excluded Warehouses',
+      },
+      {
+        key: 'action',
+        dataIndex: 'id',
+        render: (id) => (
+          <span onClick={() => setColumns(columns.filter((column) => column.id !== id))}>
+            <CloseOutlined style={{ color: 'gray' }} />
+          </span>
+        ),
+      },
+    ],
+    [columns],
+  );
 
   const warehouseOptions = useMemo(
     () =>

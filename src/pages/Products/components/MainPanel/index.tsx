@@ -339,7 +339,7 @@ const MainPanel: React.FC = () => {
         isOpen={modalOpen == modalType.AdjustMasterSKU}
         onSave={(master_sku) => {
           handleUpdateProduct({ ...editableProduct, master_sku });
-          setEditableProduct([]);
+          setEditableProduct(null);
           setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
