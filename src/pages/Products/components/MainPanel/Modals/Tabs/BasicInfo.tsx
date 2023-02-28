@@ -1,6 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
-import AddBrandModal from '@/pages/Products/components/Modals/AddBrand';
-import EditBrandModal from '@/pages/Products/components/Modals/EditBrand';
+import AddItemModal from '@/pages/Products/components/Modals/AddItem';
+import ConfigureItemModal from '@/pages/Products/components/Modals/ConfigItem';
 import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
@@ -12,11 +12,19 @@ interface IBasicInfo {
   form: any;
 }
 
+interface INewItemModalData {
+  title: string;
+  items: any[];
+  setItems: (value: any) => void;
+}
+
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct, onChangeSelectedProduct } = useModel('product');
-  const { initialState } = useModel('@@initialState');
-  const { brands } = useModel('brand');
+  const { brands, setBrands } = useModel('brand');
+  const { categories, setCategories } = useModel('category');
+  const { labels, setLabels } = useModel('label');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
+  const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
 
   const brandOptions = useMemo(
     () =>
@@ -29,20 +37,20 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
 
   const categoryOptions = useMemo(
     () =>
-      initialState?.initialData?.categories.map((brand) => ({
+      categories.map((brand) => ({
         value: brand.id,
         label: brand.name,
       })),
-    [initialState?.initialData?.categories],
+    [categories],
   );
 
   const labelOptions = useMemo(
     () =>
-      initialState?.initialData?.labels.map((brand) => ({
+      labels.map((brand) => ({
         value: brand.id,
         label: brand.name,
       })),
-    [initialState?.initialData?.labels],
+    [labels],
   );
 
   return (
@@ -104,8 +112,20 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
             <Select placeholder="Select..." options={brandOptions} />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
+          <PlusOutlined
+            className="plus-button"
+            onClick={() => {
+              setCurrentModal(modalType.New);
+              setItemModalData({ title: 'Add New Brand', items: brands, setItems: setBrands });
+            }}
+          />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => {
+              setCurrentModal(modalType.Edit);
+              setItemModalData({ title: 'Configure Brand', items: brands, setItems: setBrands });
+            }}
+          />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           {/* <span>Categories</span> */}
@@ -113,16 +133,40 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={categoryOptions} />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
+          <PlusOutlined
+            className="plus-button"
+            onClick={() => {
+              setCurrentModal(modalType.New);
+              setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories });
+            }}
+          />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => {
+              setCurrentModal(modalType.Edit);
+              setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories });
+            }}
+          />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={labelOptions} />
           </Form.Item>
-          <PlusOutlined className="plus-button" onClick={() => setCurrentModal(modalType.New)} />
-          <SettingOutlined className="setting-button" onClick={() => setCurrentModal(modalType.Edit)} />
+          <PlusOutlined
+            className="plus-button"
+            onClick={() => {
+              setCurrentModal(modalType.New);
+              setItemModalData({ title: 'Add New Label', items: labels, setItems: setLabels });
+            }}
+          />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => {
+              setCurrentModal(modalType.Edit);
+              setItemModalData({ title: 'Configure Label', items: labels, setItems: setLabels });
+            }}
+          />
         </div>
 
         <Form.Item label="Description" name="description">
@@ -198,16 +242,18 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         </Card>
       </Form>
 
-      <AddBrandModal
+      <AddItemModal
         isOpen={currentModal === modalType.New}
         onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
+        {...itemModalData}
       />
 
-      <EditBrandModal
+      <ConfigureItemModal
         isOpen={currentModal === modalType.Edit}
         onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
+        {...itemModalData}
       />
     </>
   );
