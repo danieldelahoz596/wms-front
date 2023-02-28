@@ -1,7 +1,8 @@
 import { OModal } from '@/components/Globals/OModal';
+import { useModel } from '@umijs/max';
 import type { TabsProps } from 'antd';
-import { Tabs } from 'antd';
-import { useState } from 'react';
+import { Tabs, Form } from 'antd';
+import React, { useState, useEffect } from 'react';
 import BasicInfoTab from './Tabs/BasicInfo';
 import VariationDetailsTab from './Tabs/VariationDetails';
 import VendorProductsTab from './Tabs/VendorProducts';
@@ -13,9 +14,23 @@ interface IVirtualProductEditModal {
 }
 
 const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, onClose, onSave }) => {
-  const [customFields, setCustomFields] = useState([]);
   const [vendorProductList, setVendorProductList] = useState([]);
   const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
+  const [variationForm] = Form.useForm();
+  const { editableProduct } = useModel('product');
+
+  useEffect(() => {
+    const items = [];
+    if (editableProduct?.children) {
+      editableProduct.children.forEach((product) => {
+        items.push({
+          master_sku: product.master_sku,
+          attribute: product.attribute,
+        });
+      });
+    }
+    variationForm.setFieldsValue({ variationDetailsGroup: items });
+  }, [editableProduct, variationForm]);
 
   const tabItems: TabsProps['items'] = [
     {
@@ -26,7 +41,12 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
     {
       key: 'tab-2',
       label: 'Variation Details',
-      children: <VariationDetailsTab />,
+      children: (
+        <VariationDetailsTab
+          form={variationForm}
+          attributeGroup={editableProduct?.children ? editableProduct.children[0].attribute_group : null}
+        />
+      ),
     },
     {
       key: 'tab-3',

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 interface IVendorProduct {
   vendorProductList: any[];
-  setVendorProductList: (value: any[]) => void;
+  setVendorProductList: (value: any) => void;
   defaultVendorProductKey: any;
   setDefaultVendorProductKey: (value: any) => void;
 }
