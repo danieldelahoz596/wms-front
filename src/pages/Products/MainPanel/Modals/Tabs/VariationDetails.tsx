@@ -3,7 +3,7 @@ import { CloseCircleFilled, PlusCircleFilled, PlusOutlined, SettingOutlined } fr
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import AddAttributeGroupModal from '../AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
-import ConfigAttributeGroups from '../../../Modals/ConfigAttributeGroups';
+import ConfigAttributeGroups from '../ConfigAttributeGroups';
 import { useModel } from '@umijs/max';
 
 interface IVariationDetails {

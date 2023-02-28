@@ -1,6 +1,6 @@
 import { OInput } from '@/components/Globals/OInput';
-import AddItemModal from '@/pages/Products/components/Modals/AddItem';
-import ConfigureItemModal from '@/pages/Products/components/Modals/ConfigItem';
+import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
+import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
 import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';

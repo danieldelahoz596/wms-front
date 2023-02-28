@@ -4,7 +4,7 @@ import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { Collapse, Input, List, Space } from 'antd';
 import { useState } from 'react';
-import AddAttributeModal from '../../Modals/AddAttribute';
+import AddAttributeModal from './AddAttribute';
 const { Panel } = Collapse;
 
 interface IAddAttributeGroupModal {
