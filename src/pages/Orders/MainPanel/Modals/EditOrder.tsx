@@ -3,9 +3,9 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import OrderItems from '@/pages/Orders/components/EditOrder/OrderItems';
-import OrderCustomFields from '@/pages/Orders/components/EditOrder/OrderCustomFields';
-import BasicInfo from '@/pages/Orders/components/EditOrder/BasicInfo';
+import OrderItems from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderItems';
+import OrderCustomFields from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderCustomFields';
+import BasicInfo from '@/pages/Orders/MainPanel/Modals/EditOrder/BasicInfo';
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;

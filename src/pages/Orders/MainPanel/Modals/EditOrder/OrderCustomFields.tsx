@@ -4,7 +4,7 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Button, Col, Row, Select } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
-import ConfigureFieldTypesModal from '@/pages/Orders/components/Modals/ConfigFieldTypes';
+import ConfigureFieldTypesModal from '@/pages/Orders/MainPanel/Modals/ConfigFieldTypes';
 
 const TColumns = [
   {
