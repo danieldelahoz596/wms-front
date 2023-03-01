@@ -1,11 +1,12 @@
 import { Button, Card, Row, Col, DatePicker, Form, Table, Space, InputNumber, Select } from 'antd';
 import React, { useState } from 'react';
-import { QuestionCircleFilled, RetweetOutlined } from '@ant-design/icons';
+import { QuestionCircleFilled, QuestionCircleOutlined, RetweetOutlined } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/pages/Analytics/components/Modals/Export';
+import ExportModal from '@/pages/Analytics/MainPanel/Modals/Export';
 import tableExport from 'antd-table-export';
+import ShippingIcon from '@/utils/icons/shipping';
 
-const MostFrequentCustomers: React.FC = () => {
+const WorstSellers: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const TColumns = [
@@ -15,27 +16,20 @@ const MostFrequentCustomers: React.FC = () => {
       title: '',
     },
     {
-      key: 'customer',
-      dataIndex: 'customer',
-      title: 'Customer',
+      key: 'product',
+      dataIndex: 'product',
+      title: 'Product',
     },
     {
-      key: 'company',
-      dataIndex: 'company',
-      title: 'Company',
+      key: 'master_sku',
+      dataIndex: 'master_sku',
+      title: 'Master SKU',
     },
     {
-      key: 'total_orders',
-      dataIndex: 'total_orders',
-      title: 'Total Orders',
+      key: 'units_sold',
+      dataIndex: 'units_sold',
+      title: 'Units Sold',
       align: 'right',
-    },
-    {
-      key: 'total_sales',
-      dataIndex: 'total_sales',
-      title: 'Total Sales',
-      align: 'right',
-      render: (value) => <>{`$${Number(value).toFixed(2)}`}</>,
     },
   ];
 
@@ -43,74 +37,30 @@ const MostFrequentCustomers: React.FC = () => {
     {
       key: 1,
       id: 1,
-      customer: 'Hermione Granger',
-      company: '',
-      total_sales: 74,
-      total_orders: 29,
+      product: 'blue shirt',
+      master_sku: 'shirt3',
+      units_sold: 0,
     },
     {
       key: 2,
       id: 2,
-      customer: 'Hermione Granger',
-      company: '',
-      total_sales: 25,
-      total_orders: 23,
+      product: '10820',
+      master_sku: '10820',
+      units_sold: 10,
     },
     {
       key: 3,
       id: 3,
-      customer: 'Trudy Vanderift',
-      company: '',
-      total_sales: 76,
-      total_orders: 15,
+      product: 'shirt1',
+      master_sku: 'shirt1',
+      units_sold: 15,
     },
     {
       key: 4,
       id: 4,
-      customer: 'John Ashley',
-      company: '',
-      total_sales: 60,
-      total_orders: 12,
-    },
-    {
-      key: 5,
-      id: 5,
-      customer: 'Test Name',
-      company: '',
-      total_sales: 0,
-      total_orders: 8,
-    },
-    {
-      key: 6,
-      id: 6,
-      customer: 'Daniel Levin',
-      company: '',
-      total_sales: 0,
-      total_orders: 8,
-    },
-    {
-      key: 7,
-      id: 7,
-      customer: 'Jen',
-      company: '',
-      total_sales: 15,
-      total_orders: 7,
-    },
-    {
-      key: 8,
-      id: 8,
-      customer: 'Danny L',
-      company: '',
-      total_sales: 15,
-      total_orders: 6,
-    },
-    {
-      key: 9,
-      id: 9,
-      customer: 'sandi',
-      company: '',
-      total_sales: 16,
-      total_orders: 6,
+      product: 'shirt2',
+      master_sku: 'shirt2',
+      units_sold: 20,
     },
   ];
 
@@ -119,10 +69,12 @@ const MostFrequentCustomers: React.FC = () => {
       <div style={{ margin: '10px' }}>
         <Row justify="space-between" style={{ marginTop: 10 }}>
           <Col>
-            <h2>Most Frequent Customers</h2>
+            <h2>Worst Sellers</h2>
           </Col>
           <Col>
             <Space size={10} align="center">
+              <h2 style={{ textTransform: 'uppercase' }}>This report is only available in utc</h2>
+              <ShippingIcon style={{ fontSize: 20 }} />
               <QuestionCircleFilled style={{ fontSize: 20 }} />
               <span onClick={() => setShowModal(true)}>
                 <LaunchIcon style={{ fontSize: 20 }} />
@@ -135,11 +87,11 @@ const MostFrequentCustomers: React.FC = () => {
           <Form>
             <Space size={10}>
               <Form.Item label="Top" style={{ margin: 0 }}>
-                <InputNumber defaultValue={1000} size="small" />
+                <InputNumber defaultValue={100} size="small" />
               </Form.Item>
               <Button icon={<RetweetOutlined />} />
               <Form.Item label="Sales Channels" style={{ margin: 0 }}>
-                <Select defaultValue="46 Selected" style={{ width: 200 }} size="small" />
+                <Select defaultValue="6 Selected" style={{ width: 200 }} size="small" />
               </Form.Item>
               <Form.Item label="From" style={{ margin: 0 }}>
                 <DatePicker size="small" />
@@ -147,6 +99,19 @@ const MostFrequentCustomers: React.FC = () => {
               <Form.Item label="To" style={{ margin: 0 }}>
                 <DatePicker size="small" />
               </Form.Item>
+              <Form.Item label="By" style={{ margin: 0 }}>
+                <Space size={10}>
+                  <Button>Units Sold</Button>
+                  <Button>Revenue</Button>
+                </Space>
+              </Form.Item>
+              <Form.Item label="SKU" style={{ margin: 0 }}>
+                <Space size={10}>
+                  <Button>Listing SKU</Button>
+                  <Button>Master SKU</Button>
+                </Space>
+              </Form.Item>
+              <QuestionCircleOutlined style={{ fontSize: 20, color: 'blue' }} />
             </Space>
           </Form>
           <Table columns={TColumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} style={{ marginTop: 10 }} />
@@ -155,17 +120,17 @@ const MostFrequentCustomers: React.FC = () => {
 
       <ExportModal
         isOpen={showModal}
-        title="Most Frequent Customers"
-        helpLink="/analytics/customers/mostfrequentcustomers"
+        title="Worst Sellers"
+        helpLink="/help/analytics/subproducts/topsellersandworstsellersreports"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);
           const exportInstance = new tableExport(dataSource, TColumns);
-          exportInstance.download('Most Frequent Customers', 'xlsx');
+          exportInstance.download('Worst Sellers', 'xlsx');
         }}
       />
     </>
   );
 };
 
-export default MostFrequentCustomers;
+export default WorstSellers;

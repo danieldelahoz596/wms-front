@@ -1,11 +1,11 @@
-import { Button, Card, Row, Col, DatePicker, Form, Table, Space, InputNumber, Select } from 'antd';
+import { Card, Row, Col, DatePicker, Form, Table, Space, Select } from 'antd';
 import React, { useState } from 'react';
-import { QuestionCircleFilled, RetweetOutlined } from '@ant-design/icons';
+import { QuestionCircleFilled } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/pages/Analytics/components/Modals/Export';
+import ExportModal from '@/pages/Analytics/MainPanel/Modals/Export';
 import tableExport from 'antd-table-export';
 
-const BiggestTickets: React.FC = () => {
+const MostRecentCustomers: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const TColumns = [
@@ -20,9 +20,15 @@ const BiggestTickets: React.FC = () => {
       title: 'Customer',
     },
     {
-      key: 'order_number',
-      dataIndex: 'order_number',
-      title: 'Order Number',
+      key: 'company',
+      dataIndex: 'company',
+      title: 'Company',
+    },
+    {
+      key: 'order_date',
+      dataIndex: 'order_date',
+      title: 'Order Date',
+      align: 'center',
     },
     {
       key: 'order_total',
@@ -37,30 +43,74 @@ const BiggestTickets: React.FC = () => {
     {
       key: 1,
       id: 1,
-      customer: 'John Ashley',
-      order_number: 'TESTABC123',
+      customer: 'Hermione Granger',
+      company: '',
+      order_date: '12/28/2020',
       order_total: 30,
     },
     {
       key: 2,
       id: 2,
-      customer: 'Trudy Vanderdrift',
-      order_number: '884',
-      order_total: 30,
+      customer: 'Hermione Granger',
+      company: '',
+      order_date: '12/28/2020',
+      order_total: 0,
     },
     {
       key: 3,
       id: 3,
-      customer: 'Trudy Vanderdrift',
-      order_number: '885',
+      customer: 'Trudy Vanderift',
+      company: '',
+      order_date: '12/15/2020',
       order_total: 30,
     },
     {
       key: 4,
       id: 4,
+      customer: 'John Ashley',
+      company: '',
+      order_date: '12/08/2020',
+      order_total: 0,
+    },
+    {
+      key: 5,
+      id: 5,
       customer: 'Test Name',
-      order_number: '12345bb',
+      company: '',
+      order_date: '12/01/2020',
       order_total: 30,
+    },
+    {
+      key: 6,
+      id: 6,
+      customer: 'Daniel Levin',
+      company: '',
+      order_date: '12/24/2020',
+      order_total: 0,
+    },
+    {
+      key: 7,
+      id: 7,
+      customer: 'Jen',
+      company: '',
+      order_date: '12/22/2020',
+      order_total: 0,
+    },
+    {
+      key: 8,
+      id: 8,
+      customer: 'Danny L',
+      company: '',
+      order_date: '11/06/2020',
+      order_total: 0,
+    },
+    {
+      key: 9,
+      id: 9,
+      customer: 'sandi',
+      company: '',
+      order_date: '11/04/2020',
+      order_total: 2,
     },
   ];
 
@@ -69,7 +119,7 @@ const BiggestTickets: React.FC = () => {
       <div style={{ margin: '10px' }}>
         <Row justify="space-between" style={{ marginTop: 10 }}>
           <Col>
-            <h2>Biggest Tickets</h2>
+            <h2>Most Recent Customers</h2>
           </Col>
           <Col>
             <Space size={10} align="center">
@@ -84,17 +134,10 @@ const BiggestTickets: React.FC = () => {
         <Card>
           <Form>
             <Space size={10}>
-              <Form.Item label="Top" style={{ margin: 0 }}>
-                <InputNumber defaultValue={100} size="small" />
-              </Form.Item>
-              <Button icon={<RetweetOutlined />} />
               <Form.Item label="Sales Channels" style={{ margin: 0 }}>
                 <Select defaultValue="46 Selected" style={{ width: 200 }} size="small" />
               </Form.Item>
-              <Form.Item label="From" style={{ margin: 0 }}>
-                <DatePicker size="small" />
-              </Form.Item>
-              <Form.Item label="To" style={{ margin: 0 }}>
+              <Form.Item label="Oldest Order Date" style={{ margin: 0 }}>
                 <DatePicker size="small" />
               </Form.Item>
             </Space>
@@ -105,17 +148,17 @@ const BiggestTickets: React.FC = () => {
 
       <ExportModal
         isOpen={showModal}
-        title="Biggest Tickets"
-        helpLink="/analytics/orders/biggesttickets"
+        title="Most Recent Customers"
+        helpLink="/analytics/customers/mostrecentcustomers"
         onClose={() => setShowModal(false)}
         onSave={() => {
           setShowModal(false);
           const exportInstance = new tableExport(dataSource, TColumns);
-          exportInstance.download('Biggest Tickets', 'xlsx');
+          exportInstance.download('Most Recent Customers', 'xlsx');
         }}
       />
     </>
   );
 };
 
-export default BiggestTickets;
+export default MostRecentCustomers;

@@ -2,7 +2,7 @@ import { Card, Row, Col, Form, Table, Space, Select } from 'antd';
 import React, { useState } from 'react';
 import { ExclamationCircleFilled, QuestionCircleFilled } from '@ant-design/icons';
 import LaunchIcon from '@/utils/icons/launch';
-import ExportModal from '@/pages/Analytics/components/Modals/Export';
+import ExportModal from '@/pages/Analytics/MainPanel/Modals/Export';
 import tableExport from 'antd-table-export';
 
 const ReplenishmentAlerts: React.FC = () => {
