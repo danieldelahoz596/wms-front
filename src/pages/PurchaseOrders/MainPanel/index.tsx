@@ -9,11 +9,11 @@ import { useEffect, useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
-import VendorModal from '../components/Modals/Vendor';
-import AddNewPOModal from '../components/Modals/AddNewPO';
-import ReceivePOModal from '../components/Modals/ReceivePO';
+import VendorModal from './Modals/Vendor';
+import AddNewPOModal from './Modals/AddNewPO';
+import ReceivePOModal from './Modals/ReceivePO';
 import ManageItemsModal from '@/components/Modals/ManageItems';
-import ExportPOModal from '../components/Modals/ExportPO';
+import ExportPOModal from './Modals/ExportPO';
 
 interface IManagePurchaseOrdersModal {
   title: string;

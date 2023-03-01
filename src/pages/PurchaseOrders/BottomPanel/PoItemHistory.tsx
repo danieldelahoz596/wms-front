@@ -39,7 +39,7 @@ const rows = [
   },
 ];
 
-const PoItemHistoryModal: React.FC = () => {
+const PoItemHistory: React.FC = () => {
   return (
     <>
       <OTable columns={TColumns} rows={rows} pagination={false} />
@@ -47,4 +47,4 @@ const PoItemHistoryModal: React.FC = () => {
   );
 };
 
-export default PoItemHistoryModal;
+export default PoItemHistory;

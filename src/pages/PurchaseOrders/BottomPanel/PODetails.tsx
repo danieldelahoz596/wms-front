@@ -1,14 +1,14 @@
 import React from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
-import PurchaseOrderDetail from '@/pages/PurchaseOrders/components/PurchaseOrderDetail';
-import AggregateCosts from '@/pages/PurchaseOrders/components/AggregateCosts';
-import MilestonesCard from '@/pages/PurchaseOrders/components/MilestonesCard';
+import PurchaseOrderDetail from '@/pages/PurchaseOrders/MainPanel/components/PurchaseOrderDetail';
+import AggregateCosts from '@/pages/PurchaseOrders/MainPanel/components/AggregateCosts';
+import MilestonesCard from '@/pages/PurchaseOrders/MainPanel/components/MilestonesCard';
 import { useModel } from '@umijs/max';
 import moment from 'moment';
 
 const { TextArea } = Input;
 
-const PODetailsBottom: React.FC = () => {
+const PODetails: React.FC = () => {
   const { selectedPO, setPoList, getTotalItemCost } = useModel('po');
   const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
@@ -112,4 +112,4 @@ const PODetailsBottom: React.FC = () => {
   );
 };
 
-export default PODetailsBottom;
+export default PODetails;

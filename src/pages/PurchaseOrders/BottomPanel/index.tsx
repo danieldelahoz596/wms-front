@@ -1,17 +1,17 @@
-import PODetailsBottom from '@/pages/PurchaseOrders/components/Details';
-import PoItemHistoryModal from '@/pages/PurchaseOrders/components/History';
-import ItemsManagement from '@/pages/PurchaseOrders/components/Items';
+import PODetails from '@/pages/PurchaseOrders/BottomPanel/PODetails';
+import PoItemHistory from '@/pages/PurchaseOrders/BottomPanel/PoItemHistory';
+import ItemsManagement from '@/pages/PurchaseOrders/BottomPanel/ItemsManagement';
 import { useModel } from '@umijs/max';
 import type { RadioChangeEvent } from 'antd';
 import { Card, Radio, Space } from 'antd';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-interface ITabComponent {
+interface IBottomPanel {
   POProductItems: any[];
 }
 
-const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
+const BottomPanel: FC<IBottomPanel> = ({ POProductItems }) => {
   const [selectedMode, setSelectedMode] = useState('items');
   const { selectedPO } = useModel('po');
 
@@ -35,13 +35,13 @@ const TabComponent: FC<ITabComponent> = ({ POProductItems }) => {
         {selectedMode === 'items' ? (
           <ItemsManagement data={POProductItems} />
         ) : selectedMode === 'details' ? (
-          <PODetailsBottom />
+          <PODetails />
         ) : (
-          <PoItemHistoryModal />
+          <PoItemHistory />
         )}
       </Card>
     </>
   );
 };
 
-export default TabComponent;
+export default BottomPanel;

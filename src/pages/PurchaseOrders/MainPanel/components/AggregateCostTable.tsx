@@ -5,7 +5,7 @@ import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
-import { OModal } from '../../../components/Globals/OModal';
+import { OModal } from '../../../../components/Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
   const { selectedPO, setSelectedPO } = useModel('po');
@@ -96,7 +96,7 @@ const AggregateCostTable: React.FC = () => {
         </Col>
       </Row>
 
-      <OModal title="Add New Cost" width={250} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <OModal title="Add New Cost" width={250} isOpen={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <>
           <OInput type="text" name="name" onChange={handleChange} placeholder="Title" value={newCost.name} />
           <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
