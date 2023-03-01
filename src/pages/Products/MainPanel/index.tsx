@@ -8,7 +8,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Select, Space, Table } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -36,6 +36,7 @@ import ProductVariationsModal from './Modals/ProductVariations';
 import NewProductSelectTypeModal from './Modals/NewProductSelectType';
 import ReturnDownForwardIcon from '@/utils/icons/returnDownForward';
 import VirtualProductEditModal from './Modals/VirtualProductEdit';
+import VectorXIcon from '@/utils/icons/vectorX';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
@@ -115,26 +116,30 @@ const MainPanel: React.FC = () => {
       dataIndex: 'type',
       key: 'type',
       align: 'center',
-      render: (text: any) => (
-        <>
-          {text === productType.CoreProduct ? (
-            <CoreProductsIcon style={{ fontSize: 24 }} />
-          ) : text === productType.BundleOrKit ? (
-            <BundleIcon style={{ fontSize: 24 }} />
-          ) : text === productType.VirtualProduct ? (
-            <VariationIcon style={{ fontSize: 24 }} />
-          ) : text === productType.Variations ? (
-            <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
-          ) : (
-            <span style={{ position: 'relative' }}>
+      render: (text: any, record) => {
+        return (
+          <>
+            {text === productType.Variations || (text === productType.CoreProduct && record.children_item) ? (
+              <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
+            ) : text === productType.BundleOrKit ? (
+              <Tooltip placement="bottomLeft" title="Bundle/Kit">
+                <BundleIcon style={{ fontSize: 24 }} />
+              </Tooltip>
+            ) : text === productType.VirtualProduct ? (
+              <VariationIcon style={{ fontSize: 24 }} />
+            ) : text === productType.CoreProduct ? (
               <CoreProductsIcon style={{ fontSize: 24 }} />
-              <div style={{ position: 'absolute', top: 3, left: 12 }}>
-                <VectorIcon style={{ fontSize: 14 }} />
-              </div>
-            </span>
-          )}
-        </>
-      ),
+            ) : (
+              <span style={{ position: 'relative' }}>
+                <CoreProductsIcon style={{ fontSize: 24 }} />
+                <div style={{ position: 'absolute', top: 3, left: 12 }}>
+                  <VectorIcon style={{ fontSize: 14 }} />
+                </div>
+              </span>
+            )}
+          </>
+        );
+      },
     },
     {
       title: 'Master SKU',
@@ -142,7 +147,14 @@ const MainPanel: React.FC = () => {
       key: 'master_sku',
       render: (master_sku, record) => (
         <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
-          {record.type === productType.Variations && <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />}
+          {record.type === productType.Variations && (
+            <Tooltip placement="bottomLeft" title="Variation Core Product">
+              <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />
+            </Tooltip>
+          )}
+          {record.type === productType.CoreProduct && record.children_item && (
+            <VectorXIcon style={{ fontSize: 14, marginRight: 5 }} />
+          )}
           <u>{master_sku}</u>
         </a>
       ),
@@ -209,7 +221,11 @@ const MainPanel: React.FC = () => {
         .filter((_item) => _item.status == showActivate)
         .map((_item) => {
           const row = { ..._item, key: _item.id };
-          _item.custom_fields.forEach((item) => (row[item.field_id] = item.value));
+          if (_item.children) row.children = _item.children.map((childrenItem) => ({ ...childrenItem, children_item: true }));
+
+          _item.custom_fields.forEach((item) => {
+            row[item.field_id] = item.value;
+          });
           return row;
         }),
     [productList, showActivate],

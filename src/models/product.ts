@@ -11,14 +11,17 @@ export default () => {
   }, []);
 
   // change selected product
-  const onChangeSelectedProduct = (name: any, value: any) => {
+  const onChangeSelectedProduct = useCallback((name: any, value: any) => {
     setEditableProduct((prevState: any) => ({ ...prevState, [name]: value }));
-  };
+  }, []);
 
   //updated selected product
-  const handleUpdateProduct = (product) => {
-    setProductList(productList.map((_item) => (_item.id === product.id ? product : _item)));
-  };
+  const handleUpdateProduct = useCallback(
+    (product) => {
+      setProductList(productList.map((_item) => (_item.id === product.id ? product : _item)));
+    },
+    [productList],
+  );
 
   return {
     productList,

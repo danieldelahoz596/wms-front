@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useModel } from 'umi';
 // import httpClient from '@/utils/http-client';
 
@@ -192,16 +192,17 @@ export default () => {
   const [orderSearchQuery, setOrderSearchQuery] = useState(initialSearchQueryState);
 
   //when change order search query, we need to update the Order List
-  const onChangeOrderSearchQuery = (name: any, value: any) =>
-    setOrderSearchQuery((prevState) => ({ ...prevState, [name]: value }));
+  const onChangeOrderSearchQuery = useCallback(
+    (name: any, value: any) => setOrderSearchQuery((prevState) => ({ ...prevState, [name]: value })),
+    [],
+  );
 
   // fetch searched order from api
-  const onOrderSearch = () => {
+  const onOrderSearch = useCallback(() => {
     setOrderList(orderTableRow);
-    console.log('orderSearchQuery: ', orderSearchQuery);
-  };
+  }, [setOrderList]);
 
-  const clearOrderSearchQuery = () => setOrderSearchQuery(initialSearchQueryState);
+  const clearOrderSearchQuery = useCallback(() => setOrderSearchQuery(initialSearchQueryState), []);
 
   return {
     orderSearchQuery,
