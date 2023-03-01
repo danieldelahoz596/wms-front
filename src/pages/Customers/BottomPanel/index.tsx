@@ -4,7 +4,7 @@ import { useModel } from '@umijs/max';
 import { Card } from 'antd';
 import { useMemo } from 'react';
 
-const TOrdercolumns = [
+const TOrderColumns = [
   {
     title: 'Labels',
     dataIndex: 'labels',
@@ -82,7 +82,7 @@ const BottomPanel: React.FC = () => {
   return (
     selectedCustomer && (
       <Card title="Customer Orders">
-        <OTable columns={TOrdercolumns} rows={rows} />
+        <OTable columns={TOrderColumns} rows={rows} />
       </Card>
     )
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card, Col, Form, Row } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
@@ -10,73 +10,77 @@ interface INewShipmentImportMappings {
   onClose: () => void;
 }
 
+const importFieldsColumns = [
+  {
+    key: 'sl',
+    dataIndex: 'sl',
+    title: '',
+  },
+  {
+    key: 'dataField',
+    dataIndex: 'dataField',
+    title: 'DATA FIELD',
+  },
+  {
+    key: 'columnName',
+    dataIndex: 'columnName',
+    title: 'COLUMN NAME',
+  },
+];
+
+const importFieldsRows = [
+  {
+    sl: 1,
+    dataField: 'order number',
+    columnName: 'order number',
+  },
+  {
+    sl: 2,
+    dataField: 'order date',
+    columnName: 'order date',
+  },
+  {
+    sl: 3,
+    dataField: 'payment date',
+    columnName: 'payment date',
+  },
+  {
+    sl: 4,
+    dataField: 'ship to name',
+    columnName: 'ship to name',
+  },
+  {
+    sl: 5,
+    dataField: 'ship to address 1',
+    columnName: 'ship to address 1',
+  },
+  {
+    sl: 6,
+    dataField: 'ship to city',
+    columnName: 'ship to city',
+  },
+  {
+    sl: 7,
+    dataField: 'ship to state',
+    columnName: 'ship to state',
+  },
+  {
+    sl: 8,
+    dataField: 'ship to zip code',
+    columnName: 'ship to zip code',
+  },
+];
+
 const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({ isOpen, onSave, onClose }) => {
-  const importFieldsColumns = [
-    {
-      key: 'sl',
-      dataIndex: 'sl',
-      title: '',
-    },
-    {
-      key: 'dataField',
-      dataIndex: 'dataField',
-      title: 'DATA FIELD',
-    },
-    {
-      key: 'columnName',
-      dataIndex: 'columnName',
-      title: 'COLUMN NAME',
-    },
-  ];
-
-  const importFieldsRows = [
-    {
-      sl: 1,
-      dataField: 'order number',
-      columnName: 'order number',
-    },
-    {
-      sl: 2,
-      dataField: 'order date',
-      columnName: 'order date',
-    },
-    {
-      sl: 3,
-      dataField: 'payment date',
-      columnName: 'payment date',
-    },
-    {
-      sl: 4,
-      dataField: 'ship to name',
-      columnName: 'ship to name',
-    },
-    {
-      sl: 5,
-      dataField: 'ship to address 1',
-      columnName: 'ship to address 1',
-    },
-    {
-      sl: 6,
-      dataField: 'ship to city',
-      columnName: 'ship to city',
-    },
-    {
-      sl: 7,
-      dataField: 'ship to state',
-      columnName: 'ship to state',
-    },
-    {
-      sl: 8,
-      dataField: 'ship to zip code',
-      columnName: 'ship to zip code',
-    },
-  ];
-
-  const preparedImportFieldsRows = importFieldsRows.map((item) => ({
-    ...item,
-    dataField: item.dataField.toUpperCase(),
-    columnName: item.columnName.toUpperCase(),
-  }));
+  const preparedImportFieldsRows = useMemo(
+    () =>
+      importFieldsRows.map((item) => ({
+        ...item,
+        dataField: item.dataField.toUpperCase(),
+        columnName: item.columnName.toUpperCase(),
+      })),
+    [],
+  );
 
   return (
     <OModal

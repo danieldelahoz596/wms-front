@@ -4,7 +4,7 @@ import { OTable } from '@/components/Globals/OTable';
 import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Popconfirm, Space } from 'antd';
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import AddExportSettingsModal from './AddExportSettings';
 
 interface IOrderExportSettingsModal {
@@ -17,30 +17,36 @@ const OrderExportSettingsModal: React.FC<IOrderExportSettingsModal> = ({ isOpen,
   const [showModal, setShowModal] = useState(false);
   const { orderExportSettings, removeOrderExportSettings, setEditableExportSetting } = useModel('orderExportSettings');
 
-  const handleEdit = (_item) => {
-    console.log(_item);
-    setEditableExportSetting(_item);
-    setShowModal(true);
-  };
+  const handleEdit = useCallback(
+    (_item) => {
+      setEditableExportSetting(_item);
+      setShowModal(true);
+    },
+    [setEditableExportSetting],
+  );
 
-  const settings = orderExportSettings.map((_item, _index) => ({
-    setting: _item.settingName.toUpperCase(),
-    actions: (
-      <div style={{ textAlign: 'center' }}>
-        <Space>
-          <ToolOutlined onClick={() => handleEdit(_item)} style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
-          <Popconfirm
-            title={'Sure to remove?'}
-            onConfirm={() => {
-              removeOrderExportSettings(_index);
-            }}
-          >
-            <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
-          </Popconfirm>
-        </Space>
-      </div>
-    ),
-  }));
+  const settings = useMemo(
+    () =>
+      orderExportSettings.map((_item, _index) => ({
+        setting: _item.settingName.toUpperCase(),
+        actions: (
+          <div style={{ textAlign: 'center' }}>
+            <Space>
+              <ToolOutlined onClick={() => handleEdit(_item)} style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+              <Popconfirm
+                title={'Sure to remove?'}
+                onConfirm={() => {
+                  removeOrderExportSettings(_index);
+                }}
+              >
+                <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+              </Popconfirm>
+            </Space>
+          </div>
+        ),
+      })),
+    [orderExportSettings, handleEdit, removeOrderExportSettings],
+  );
 
   return (
     <OModal

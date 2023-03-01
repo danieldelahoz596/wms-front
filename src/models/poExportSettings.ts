@@ -1,5 +1,5 @@
 import { uuidv4 } from '@antv/xflow-core';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export default () => {
   const [poExportSettings, setPOExportSettings] = useState<any[]>([
@@ -37,23 +37,26 @@ export default () => {
   ]);
   const [editableExportSetting, setEditableExportSetting] = useState(null);
 
-  const addPOExportSettings = (_newSettings) =>
-    setPOExportSettings((prevState) => [
-      {
-        id: uuidv4(),
-        ..._newSettings,
-      },
-      ...prevState,
-    ]);
+  const addPOExportSettings = useCallback(
+    (_newSettings) =>
+      setPOExportSettings((prevState) => [
+        {
+          id: uuidv4(),
+          ..._newSettings,
+        },
+        ...prevState,
+      ]),
+    [],
+  );
 
-  const updatePOExportSettings = (_updatedSetting) => {
+  const updatePOExportSettings = useCallback((_updatedSetting) => {
     console.log(_updatedSetting);
     setPOExportSettings((prevState) => prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)));
-  };
+  }, []);
 
-  const removePOExportSettings = (_index) => {
+  const removePOExportSettings = useCallback((_index) => {
     setPOExportSettings((prevState) => prevState.filter((_item, _curIndex) => _index !== _curIndex));
-  };
+  }, []);
 
   return {
     poExportSettings,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Row, Col, Form } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import RecipientForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/Recipient';
@@ -28,6 +28,20 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
       paidOn: editableOrder ? editableOrder.order_paid : '',
     });
   }, [isOpen]);
+
+  const initialItems = useMemo(() => {
+    if (editableOrder) {
+      return editableOrder.orderItems.map((item) => ({
+        key: uuidv4(),
+        product: item.name,
+        notes: '',
+        available: '',
+        quantity: item.unitQty,
+        uniPrice: item.unitAmount,
+        totalDiscount: item.discount,
+      }));
+    } else return [];
+  }, [editableOrder]);
 
   return (
     <OModal
@@ -62,21 +76,7 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
           </Col>
         </Row>
         <div>
-          <AddNewOrderItemTable
-            initialItems={
-              editableOrder
-                ? editableOrder.orderItems.map((item) => ({
-                    key: uuidv4(),
-                    product: item.name,
-                    notes: '',
-                    available: '',
-                    quantity: item.unitQty,
-                    uniPrice: item.unitAmount,
-                    totalDiscount: item.discount,
-                  }))
-                : []
-            }
-          />
+          <AddNewOrderItemTable initialItems={initialItems} />
         </div>
       </>
     </OModal>

@@ -14,22 +14,25 @@ export default () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const createUser = (data) => {
+  const createUser = useCallback((data) => {
     return httpClient.post('/api/users', data).then((response) => {
       if (showInactive === response.data.is_active) setUserList((prev) => [...prev, response.data]);
     });
-  };
+  }, []);
 
-  const updateUser = (_user) => {
-    return httpClient.put('/api/users/' + _user.id, _user).then((response) => {
-      if (showInactive === !!response.data.is_active) {
-        setUserList(userList.map((_item) => (_item.id === response.data.id ? response.data : _item)));
-      } else {
-        setUserList(userList.filter((_item) => _item.id !== response.data.id));
-      }
-      setSelectedUser(null);
-    });
-  };
+  const updateUser = useCallback(
+    (_user) => {
+      return httpClient.put('/api/users/' + _user.id, _user).then((response) => {
+        if (showInactive === !!response.data.is_active) {
+          setUserList(userList.map((_item) => (_item.id === response.data.id ? response.data : _item)));
+        } else {
+          setUserList(userList.filter((_item) => _item.id !== response.data.id));
+        }
+        setSelectedUser(null);
+      });
+    },
+    [showInactive, userList],
+  );
 
   useEffect(() => {
     getUsers({ is_active: showInactive });

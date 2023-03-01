@@ -1,5 +1,5 @@
 import { uuidv4 } from '@antv/xflow-core';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export default () => {
   const [orderExportSettings, setOrderExportSettings] = useState<any[]>([
@@ -70,23 +70,26 @@ export default () => {
   ]);
   const [editableExportSetting, setEditableExportSetting] = useState(null);
 
-  const addOrderExportSettings = (_newSettings) =>
-    setOrderExportSettings((prevState) => [
-      {
-        id: uuidv4(),
-        ..._newSettings,
-      },
-      ...prevState,
-    ]);
+  const addOrderExportSettings = useCallback(
+    (_newSettings) =>
+      setOrderExportSettings((prevState) => [
+        {
+          id: uuidv4(),
+          ..._newSettings,
+        },
+        ...prevState,
+      ]),
+    [],
+  );
 
-  const updateOrderExportSettings = (_updatedSetting) => {
+  const updateOrderExportSettings = useCallback((_updatedSetting) => {
     console.log(_updatedSetting);
     setOrderExportSettings((prevState) => prevState.map((_item) => (_item.id === _updatedSetting.id ? _updatedSetting : _item)));
-  };
+  }, []);
 
-  const removeOrderExportSettings = (_index) => {
+  const removeOrderExportSettings = useCallback((_index) => {
     setOrderExportSettings((prevState) => prevState.filter((_item, _curIndex) => _index !== _curIndex));
-  };
+  }, []);
 
   return {
     orderExportSettings,

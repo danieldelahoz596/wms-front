@@ -21,44 +21,47 @@ const ConfigureFieldTypesModal: React.FC<IConfigureFieldTypesModal> = ({ isOpen,
   const [showModal, setShowModal] = useState(false);
   const [showActive, setShowActive] = useState(true);
 
-  const TColumns = [
-    {
-      key: 'name',
-      dataIndex: 'name',
-      title: 'Name',
-      editable: true,
-    },
-    {
-      key: 'description',
-      dataIndex: 'description',
-      title: 'Description',
-      align: 'center',
-      editable: true,
-    },
-    {
-      key: 'show_on_grid',
-      dataIndex: 'show_on_grid',
-      title: 'Show On Grid',
-      align: 'center',
-      render: (value, record) => (
-        <Checkbox
-          checked={value}
-          onClick={() =>
-            setFieldTypes(
-              fieldTypes.map((field) => (field.id === record.id ? { ...field, show_on_grid: !field.show_on_grid } : field)),
-            )
-          }
-        />
-      ),
-    },
-    {
-      key: 'active',
-      dataIndex: 'active',
-      title: 'Active',
-      align: 'right',
-      render: (active) => (active ? <CheckOutlined /> : <CloseOutlined />),
-    },
-  ];
+  const TColumns = useMemo(
+    () => [
+      {
+        key: 'name',
+        dataIndex: 'name',
+        title: 'Name',
+        editable: true,
+      },
+      {
+        key: 'description',
+        dataIndex: 'description',
+        title: 'Description',
+        align: 'center',
+        editable: true,
+      },
+      {
+        key: 'show_on_grid',
+        dataIndex: 'show_on_grid',
+        title: 'Show On Grid',
+        align: 'center',
+        render: (value, record) => (
+          <Checkbox
+            checked={value}
+            onClick={() =>
+              setFieldTypes(
+                fieldTypes.map((field) => (field.id === record.id ? { ...field, show_on_grid: !field.show_on_grid } : field)),
+              )
+            }
+          />
+        ),
+      },
+      {
+        key: 'active',
+        dataIndex: 'active',
+        title: 'Active',
+        align: 'right',
+        render: (active) => (active ? <CheckOutlined /> : <CloseOutlined />),
+      },
+    ],
+    [fieldTypes, setFieldTypes],
+  );
 
   const datasource = useMemo(
     () => fieldTypes.filter((field) => field.active === showActive).map((fields) => ({ key: fields.id, ...fields })),

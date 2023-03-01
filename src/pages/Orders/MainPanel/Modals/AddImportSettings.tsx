@@ -92,6 +92,7 @@ const AddImportSettingsModal: React.FC<IAddImportSettingsModal> = ({ isOpen, onS
     fileFormat: 'csv',
     structure: 'fixed',
   };
+  
   const [selectedImportFields, setSelectedImportFields] = useState(editableImportSetting?.optionalFields ?? []);
 
   const [newSettings, setNewSettings] = useState(editableImportSetting ? { ...editableImportSetting } : { ...initialState });

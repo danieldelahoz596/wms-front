@@ -19,9 +19,9 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const updateOrderItem = (orderItem) => {
+  const updateOrderItem = useCallback((orderItem) => {
     setOrderList((prevState) => prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)));
-  };
+  }, []);
 
   return {
     orderList,

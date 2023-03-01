@@ -22,9 +22,9 @@ export default () => {
   }, []);
 
   //when change order status, we need to update the Order List
-  const changeSelectedOrderStatus = (data: any) => {
+  const changeSelectedOrderStatus = useCallback((data: any) => {
     setSelectedOrderStatus(data);
-  };
+  }, []);
 
   useEffect(() => {
     initialOrderList({
