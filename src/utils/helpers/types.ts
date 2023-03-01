@@ -106,7 +106,7 @@ export enum EPOStatus {
   ADelivered = '4',
   PDelivery = '5',
   PDelivered = '6',
-  Fullfilled = '7',
+  Fulfilled = '7',
   Closed = '8',
   Voided = '9',
   Canceled = '10',
