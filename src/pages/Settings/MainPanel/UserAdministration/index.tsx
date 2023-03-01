@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
-import NewUserModal from '@/pages/Settings/Modals/UserAdministration/NewUser';
-import UserAdministrationHistoryModal from '@/pages/Settings/Modals/UserAdministration/UserAdministrationHistory';
+import NewUserModal from '@/pages/Settings/MainPanel/Modals/UserAdministration/NewUser';
+import UserAdministrationHistoryModal from '@/pages/Settings/MainPanel/Modals/UserAdministration/UserAdministrationHistory';
 import { modalType } from '@/utils/helpers/types';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, message, Space, Table } from 'antd';
