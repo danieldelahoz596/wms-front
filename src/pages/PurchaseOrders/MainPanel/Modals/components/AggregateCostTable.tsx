@@ -5,7 +5,7 @@ import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row } from 'antd';
 import React, { useMemo, useState } from 'react';
-import { OModal } from '../../../../components/Globals/OModal';
+import { OModal } from '../../../../../components/Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
   const { selectedPO, setSelectedPO } = useModel('po');

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button } from 'antd';
 import { useModel } from '@umijs/max';
 import { CheckSquareFilled } from '@ant-design/icons';
-import { OTable } from '../../../../components/Globals/OTable';
+import { OTable } from '../../../../../components/Globals/OTable';
 import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
 
 const TColumns = [

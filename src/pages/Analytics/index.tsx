@@ -4,7 +4,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useLocation } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
 import { SampleSplitter, cn } from '@/components/Globals/SampleSplitter';
-import LeftPanel from './LeftPanel';
+import LeftPanel from './SidePanel';
 import LandingPage from './MainPanel/LandingPage';
 import HistoricalOrdersExports from './MainPanel/Orders/HistoricalOrdersExports';
 import HistoricalPurchaseOrdersExports from './MainPanel/PurchaseOrders/HistoricalPurchaseOrdersExports';

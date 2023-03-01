@@ -1,4 +1,4 @@
-import AggregateCostTable from '@/pages/PurchaseOrders/MainPanel/components/AggregateCostTable';
+import AggregateCostTable from '@/pages/PurchaseOrders/MainPanel/Modals/components/AggregateCostTable';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input } from 'antd';
 import React, { useEffect } from 'react';
