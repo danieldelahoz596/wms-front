@@ -74,7 +74,7 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
 
   const fieldTableRows = useMemo(
     () =>
-      editableProduct?.custom_fields.map((customField) => ({
+      editableProduct?.custom_fields?.map((customField) => ({
         key: customField.field_id,
         value: customField.value,
         ...fieldTypes.find((item) => item.id === customField.field_id),

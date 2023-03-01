@@ -3,13 +3,13 @@ import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload } from 'antd';
 
-interface IImportSKUAdjustment {
+interface IImportSKUAdjustmentModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, onSave }) => {
+const ImportSKUAdjustmentModal: React.FC<IImportSKUAdjustmentModal> = ({ isOpen, onClose, onSave }) => {
   const handleSave = () => onSave();
 
   return (
@@ -60,4 +60,4 @@ const ImportSKUAdjustment: React.FC<IImportSKUAdjustment> = ({ isOpen, onClose, 
   );
 };
 
-export default ImportSKUAdjustment;
+export default ImportSKUAdjustmentModal;

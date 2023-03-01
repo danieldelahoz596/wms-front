@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import VendorProductModal from '@/pages/Products/components/MainPanel/Modals/VendorProduct';
+import VendorProductModal from '@/pages/Products/MainPanel/Modals/VendorProduct';
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 interface IVendorProduct {
   vendorProductList: any[];
-  setVendorProductList: (value: any[]) => void;
+  setVendorProductList: (value: any) => void;
   defaultVendorProductKey: any;
   setDefaultVendorProductKey: (value: any) => void;
 }

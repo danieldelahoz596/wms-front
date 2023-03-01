@@ -5,80 +5,79 @@ import { Card, Col, Form, Row } from 'antd';
 interface IOrderDetails {
   form: any;
 }
+const formInputs = [
+  {
+    type: 'text',
+    name: 'order',
+    label: 'Order #',
+    placeholder: 'Required',
+  },
+  [
+    {
+      type: 'date',
+      name: 'order_date',
+      label: 'Order Date',
+    },
+    {
+      type: 'date',
+      name: 'paidOn',
+      label: 'Paid On',
+    },
+  ],
+  [
+    {
+      type: 'date',
+      name: 'shipBy',
+      label: 'Ship By',
+    },
+    {
+      type: 'date',
+      name: 'deliverBy',
+      label: 'Deliver By',
+    },
+  ],
+  {
+    type: 'select',
+    name: 'paymentType',
+    label: 'Payment Type',
+    placeholder: 'Select..',
+    options: [{ key: 'credit', value: 'Credit' }],
+    render: (inputField: any) => <PaymentTerm inputField={inputField} />,
+  },
+  [
+    [
+      {
+        type: 'text',
+        name: 'amountPaid',
+        label: 'Amount Paid',
+      },
+      {
+        type: 'text',
+        name: 'discount',
+        label: 'Discount',
+      },
+      {
+        type: 'text',
+        name: 'shippingPaid',
+        label: 'Shipping Paid',
+      },
+      {
+        type: 'text',
+        name: 'taxAmount',
+        label: 'Tax Amount',
+      },
+    ],
+    [
+      {
+        type: 'textarea',
+        name: 'internalNotes',
+        label: 'Internal Notes',
+      },
+    ],
+  ],
+];
 
 const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
-  const formInputs = [
-    {
-      type: 'text',
-      name: 'order',
-      label: 'Order #',
-      placeholder: 'Required',
-    },
-    [
-      {
-        type: 'date',
-        name: 'order_date',
-        label: 'Order Date',
-      },
-      {
-        type: 'date',
-        name: 'paidOn',
-        label: 'Paid On',
-      },
-    ],
-    [
-      {
-        type: 'date',
-        name: 'shipBy',
-        label: 'Ship By',
-      },
-      {
-        type: 'date',
-        name: 'deliverBy',
-        label: 'Deliver By',
-      },
-    ],
-    {
-      type: 'select',
-      name: 'paymentType',
-      label: 'Payment Type',
-      placeholder: 'Select..',
-      options: [{ key: 'credit', value: 'Credit' }],
-      render: (inputField: any) => <PaymentTerm inputField={inputField} />,
-    },
-    [
-      [
-        {
-          type: 'text',
-          name: 'amountPaid',
-          label: 'Amount Paid',
-        },
-        {
-          type: 'text',
-          name: 'discount',
-          label: 'Discount',
-        },
-        {
-          type: 'text',
-          name: 'shippingPaid',
-          label: 'Shipping Paid',
-        },
-        {
-          type: 'text',
-          name: 'taxAmount',
-          label: 'Tax Amount',
-        },
-      ],
-      [
-        {
-          type: 'textarea',
-          name: 'internalNotes',
-          label: 'Internal Notes',
-        },
-      ],
-    ],
-  ];
-
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };

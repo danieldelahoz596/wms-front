@@ -45,27 +45,27 @@ const historyData = [
   },
 ];
 
-const EditHistory: React.FC = () => {
-  const TColumns = [
-    {
-      key: 'edit_time',
-      dataIndex: 'editTime',
-      title: 'Edit Time',
-      sorter: (a, b) => Date.parse(a.editTime) < Date.parse(b.editTime),
-      align: 'center',
-    },
-    {
-      key: 'user',
-      dataIndex: 'user',
-      title: 'User',
-    },
-    {
-      key: 'description',
-      dataIndex: 'description',
-      title: 'Description',
-    },
-  ];
+const TColumns = [
+  {
+    key: 'edit_time',
+    dataIndex: 'editTime',
+    title: 'Edit Time',
+    sorter: (a, b) => Date.parse(a.editTime) < Date.parse(b.editTime),
+    align: 'center',
+  },
+  {
+    key: 'user',
+    dataIndex: 'user',
+    title: 'User',
+  },
+  {
+    key: 'description',
+    dataIndex: 'description',
+    title: 'Description',
+  },
+];
 
+const EditHistory: React.FC = () => {
   return <Table columns={TColumns} dataSource={historyData} />;
 };
 

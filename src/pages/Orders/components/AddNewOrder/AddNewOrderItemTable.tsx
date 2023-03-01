@@ -46,7 +46,7 @@ const productColumns = [
 
 const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems }) => {
   const { productList } = useModel('product');
-  const { newOrder, setNewOrder } = useModel('order');
+  const { setNewOrder } = useModel('order');
   const [productRows, setProductRows] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -94,8 +94,6 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
   };
 
   const handleRowEdit = (index, name, value) => {
-    console.log(index, name, value);
-    console.log(productRows);
     setProductRows(productRows.map((row) => (row.key === index ? { ...row, [name]: value } : row)));
     // setNewOrder((prevState) => ({
     //   ...prevState,

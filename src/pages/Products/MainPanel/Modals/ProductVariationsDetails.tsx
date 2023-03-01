@@ -6,7 +6,7 @@ import { OInput } from '@/components/Globals/OInput';
 import AddAttributeGroupModal from './AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
 import { uuidv4 } from '@antv/xflow-core';
-import ConfigAttributeGroups from '../../Modals/ConfigAttributeGroups';
+import ConfigAttributeGroups from './ConfigAttributeGroups';
 import { useModel } from '@umijs/max';
 
 interface IProductVariationsDetailsModal {

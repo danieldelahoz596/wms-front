@@ -5,7 +5,7 @@ import { Collapse, Input, List } from 'antd';
 import { useState } from 'react';
 const { Panel } = Collapse;
 
-interface IAttributeGroup {
+interface IAttributeGroupModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
@@ -13,7 +13,13 @@ interface IAttributeGroup {
   setAttributeGroups: (item: any) => void;
 }
 
-const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave, attributeGroups, setAttributeGroups }) => {
+const AttributeGroupModal: React.FC<IAttributeGroupModal> = ({
+  isOpen,
+  onClose,
+  onSave,
+  attributeGroups,
+  setAttributeGroups,
+}) => {
   const [groupName, setGroupName] = useState<string>('');
   const [attribute, setattribute] = useState<string>('');
   const [showInput, setShowInput] = useState(false);
@@ -130,4 +136,4 @@ const AttributeGroup: React.FC<IAttributeGroup> = ({ isOpen, onClose, onSave, at
   );
 };
 
-export default AttributeGroup;
+export default AttributeGroupModal;

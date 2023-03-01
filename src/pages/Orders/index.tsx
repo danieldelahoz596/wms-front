@@ -142,6 +142,7 @@ const showConfirm = () => {
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
+  const { getProductList } = useModel('product');
   const { userList, getUsers } = useModel('user');
   const { fieldTypes } = useModel('customOrderFields');
   const { selectedOrderStatus } = useModel('orderStatus');
@@ -153,7 +154,8 @@ const OrderManagement: React.FC = () => {
 
   useEffect(() => {
     getUsers({ permission: 'orders' });
-  }, [getUsers]);
+    getProductList();
+  }, [getUsers, getProductList]);
 
   const handleProductEdit = useCallback(
     (item: any) => {

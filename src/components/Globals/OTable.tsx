@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import React from 'react';
 
-interface IOTableColumn {
+export interface IOTableColumn {
   title?: string | React.ReactNode;
   dataIndex?: string;
   key?: string;

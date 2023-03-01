@@ -44,6 +44,7 @@ interface IStockManagement {
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [dataSource] = useState(data);
   const [stockHistorySource] = useState(stock_history);
@@ -183,6 +184,15 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
     [],
   );
 
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList.map((warehouse) => ({
+        value: warehouse.id,
+        label: warehouse.name,
+      })),
+    [warehouseList],
+  );
+
   const {
     isDragging: isRightDragging,
     position: RightW,
@@ -205,10 +215,7 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
             <div style={{ textAlign: 'right', marginRight: 10 }}>
               <Space size={5}>
                 <SelectDropdown
-                  options={initialState?.initialData?.warehouses.map((warehouse) => ({
-                    value: warehouse.id,
-                    label: warehouse.name,
-                  }))}
+                  options={warehouseOptions}
                   defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
                   type="warehouse"
                   style={{ width: '220px' }}

@@ -1,22 +1,14 @@
 import httpClient from '@/utils/http-client';
-import { useModel } from '@umijs/max';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export default () => {
   const [productList, setProductList] = useState<any[]>([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [editableProduct, setEditableProduct] = useState(null);
-  const { initialState } = useModel('@@initialState');
 
-  const initialProductList = useCallback(() => {
+  const getProductList = useCallback(() => {
     httpClient.get('/api/products').then((response) => setProductList(response.data));
   }, []);
-
-  useEffect(() => {
-    if (initialState?.currentUser) {
-      initialProductList();
-    }
-  }, [initialProductList, initialState?.currentUser]);
 
   // change selected product
   const onChangeSelectedProduct = (name: any, value: any) => {
@@ -32,7 +24,7 @@ export default () => {
     productList,
     selectedProducts,
     editableProduct,
-    initialProductList,
+    getProductList,
     setProductList,
     setSelectedProducts,
     setEditableProduct,

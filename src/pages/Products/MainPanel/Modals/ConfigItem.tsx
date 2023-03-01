@@ -1,17 +1,17 @@
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { useMemo } from 'react';
 
-interface IEditBrandModal {
+interface IConfigureItemModal {
   isOpen: boolean;
+  title: string;
+  items: any[];
+  setItems: (value: any) => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) => {
-  const { brands, setBrands } = useModel('brand');
-
+const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], setItems, onClose, onSave }) => {
   const TColumns = [
     {
       title: '',
@@ -21,11 +21,11 @@ const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) 
     },
   ];
 
-  const brandRows = useMemo(() => brands.map((brand) => ({ ...brand, key: brand.id })), [brands]);
+  const itemRows = useMemo(() => items.map((item) => ({ ...item, key: item.id })), [items]);
 
   return (
     <OModal
-      title="Config Brand"
+      title={title}
       helpLink=""
       width={600}
       centered
@@ -48,13 +48,13 @@ const EditBrandModal: React.FC<IEditBrandModal> = ({ isOpen, onClose, onSave }) 
     >
       <EditableTable
         columns={TColumns}
-        dataSource={brandRows}
+        dataSource={itemRows}
         handleSave={(key: any, name: any, value: any) => {
-          setBrands((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
+          setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
         }}
       />
     </OModal>
   );
 };
 
-export default EditBrandModal;
+export default ConfigureItemModal;

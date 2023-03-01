@@ -1,5 +1,5 @@
 import { OButton } from '@/components/Globals/OButton';
-import CustomFieldsConfigureModal from '@/pages/Products/components/MainPanel/Modals/CustomFieldsConfigure';
+import CustomFieldsConfigureModal from '@/pages/Products/MainPanel/Modals/CustomFieldsConfigure';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';

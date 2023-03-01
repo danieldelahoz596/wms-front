@@ -2,32 +2,33 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
-import { useModel } from '@umijs/max';
 import { Input, List } from 'antd';
 import { useState } from 'react';
 
-interface IAddBrandModal {
+interface IAddItemModal {
   isOpen: boolean;
+  title: string;
+  items: any[];
+  setItems: (value: any) => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-const AddBrandModal: React.FC<IAddBrandModal> = ({ isOpen, onClose, onSave }) => {
-  const { brands, setBrands } = useModel('brand');
+const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, setItems, onClose, onSave }) => {
   const [name, setName] = useState(null);
 
   const handleAdd = () => {
-    setBrands((prev) => [...prev, { id: uuidv4(), name }]);
+    setItems((prev) => [...prev, { id: uuidv4(), name }]);
     setName(null);
   };
 
   const handleDelete = (id) => {
-    setBrands((prev) => prev.filter((item) => item.id !== id));
+    setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
     <OModal
-      title="Add New Brand"
+      title={title}
       helpLink=""
       width={600}
       centered
@@ -50,14 +51,14 @@ const AddBrandModal: React.FC<IAddBrandModal> = ({ isOpen, onClose, onSave }) =>
     >
       <>
         <Input
-          placeholder="Enter a valid attribute group name"
+          placeholder="Enter a valid name"
           addonAfter={<OButton btnText="Add" style={{ height: 30 }} onClick={() => handleAdd()} />}
           value={name}
           onChange={(e) => setName(e.target.value)}
           onPressEnter={() => handleAdd()}
         />
         <List
-          dataSource={brands}
+          dataSource={items}
           renderItem={(item) => (
             <List.Item
               actions={[<CloseOutlined key="list-edit" onClick={() => handleDelete(item.id)} style={{ color: 'blue' }} />]}
@@ -77,4 +78,4 @@ const AddBrandModal: React.FC<IAddBrandModal> = ({ isOpen, onClose, onSave }) =>
   );
 };
 
-export default AddBrandModal;
+export default AddItemModal;

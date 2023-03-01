@@ -1,23 +1,34 @@
-import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
+import type { IOButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import ManageItemsModal from '@/components/Modals/ManageItems';
-import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
-import { modalType } from '@/utils/helpers/types';
-import ChatIcon from '@/utils/icons/chat';
-import NoteEditIcon from '@/utils/icons/noteEdit';
 import { CheckSquareFilled, DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
-import { PageContainer } from '@ant-design/pro-components';
-import { Button, Card, Dropdown, message, Space } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { useResizable } from 'react-resizable-layout';
-import { useModel } from 'umi';
-import TabComponent from './BottomPanel/tabcomponent';
-import AddNewPOModal from './components/Modals/AddNewPO';
-import ExportPOModal from './components/Modals/ExportPO';
-import ReceivePOModal from './components/Modals/ReceivePO';
-import VendorModal from './components/Modals/Vendor';
-import SidePanel from './SidePanel';
+import { useModel } from '@umijs/max';
+import { Card, Space, Button, message } from 'antd';
+import Dropdown from 'antd/es/dropdown';
+import { useEffect, useState } from 'react';
+import { modalType } from '@/utils/helpers/types';
+import NoteEditIcon from '@/utils/icons/noteEdit';
+import ChatIcon from '@/utils/icons/chat';
+import VendorModal from '../components/Modals/Vendor';
+import AddNewPOModal from '../components/Modals/AddNewPO';
+import ReceivePOModal from '../components/Modals/ReceivePO';
+import ManageItemsModal from '@/components/Modals/ManageItems';
+import ExportPOModal from '../components/Modals/ExportPO';
+
+interface IManagePurchaseOrdersModal {
+  title: string;
+  cancelBtnText?: string;
+  submitBtnText: string;
+  description: string;
+  confirmMessage: string;
+  onClose: () => void;
+  onSave: () => void;
+}
+
+interface IMainPanel {
+  selectedRows: any[];
+  setSelectedRows: (value: any) => void;
+}
 
 export const TColumns = [
   {
@@ -102,48 +113,20 @@ export const TColumns = [
   },
 ];
 
-interface IManagePurchaseOrdersModal {
-  title: string;
-  cancelBtnText?: string;
-  submitBtnText: string;
-  description: string;
-  confirmMessage: string;
-  onClose: () => void;
-  onSave: () => void;
-}
-
-const CustomerManagement: React.FC = () => {
+const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const { poList, initialSelectedPO, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
-  const { initialMilestonesList } = useModel('milestones');
-  const { initialShippingTermList } = useModel('shippingTerm');
-  const { getProductList } = useModel('product');
-  const { selectedPOStatus, poStatusList, changeSelectedPOStatus } = useModel('poStatus');
+  const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
 
   const [modalOpen, setModal] = useState('');
 
-  const {
-    isDragging: isBottomDragging,
-    position: bottomH,
-    splitterProps: bottomDragBarProps,
-  } = useResizable({
-    axis: 'y',
-    initial: 200,
-    min: 50,
-    reverse: true,
-  });
-
-  const {
-    isDragging: isLeftDragging,
-    position: LeftW,
-    splitterProps: leftDragBarProps,
-  } = useResizable({
-    axis: 'x',
-    initial: 220,
-    min: 50,
-  });
+  useEffect(() => {
+    if (selectedRows && selectedRows[0]) {
+      const _selectedPo = poList.find((poItem) => poItem.key === selectedRows[0]);
+      setSelectedPO(_selectedPo);
+    }
+  }, [selectedRows, poList, setSelectedPO]);
 
   const handleNewPOModalOpen = () => {
     initialSelectedPO();
@@ -368,10 +351,6 @@ const CustomerManagement: React.FC = () => {
     },
   ];
 
-  // get selected po product items
-  const selectedFullPO = poList.find((poItem) => poItem.key === selectedRows[0]);
-  const POProductItems = selectedFullPO ? selectedFullPO.poItems : [];
-
   // prepare po list table rows
   const poListTableRows = poList.map((poItem) => ({
     ...poItem,
@@ -379,65 +358,23 @@ const CustomerManagement: React.FC = () => {
     totalUnits: getTotalUnitQuantity(poItem),
   }));
 
-  useEffect(() => {
-    changeSelectedPOStatus({ poStatus: 1, warehouse: null });
-  }, []);
-
-  useEffect(() => {
-    getProductList();
-  }, [getProductList]);
-
-  useEffect(() => {
-    setSelectedRows([]);
-  }, [selectedPOStatus]);
-
-  useEffect(() => {
-    initialMilestonesList();
-    initialShippingTermList();
-  }, [initialMilestonesList, initialShippingTermList]);
-
-  useEffect(() => {
-    if (selectedRows && selectedRows[0]) {
-      const _selectedPo = poList.find((poItem) => poItem.key === selectedRows[0]);
-      setSelectedPO(_selectedPo);
-    }
-  }, [selectedRows, poList, setSelectedPO]);
-
   return (
-    <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
-      <div className={'flex grow'}>
-        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
-          <div className="w-full">
-            <SidePanel />
-          </div>
+    <>
+      <div className="main-panel">
+        <div className="title-row">
+          <h1 className="page-title">
+            Purchase Orders ::{' '}
+            {selectedPOStatus ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name : ''}
+          </h1>
         </div>
-        <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content" style={{ overflow: 'scroll' }}>
-            <div className="main-panel">
-              <div className="title-row">
-                <h1 className="page-title">
-                  Purchase Orders ::{' '}
-                  {selectedPOStatus
-                    ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name
-                    : ''}
-                </h1>
-              </div>
-              <Card className="content-box">
-                <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-                  {actionButtons.map((btn) => (
-                    <OButton key={btn.key} {...btn} />
-                  ))}
-                </Space>
-                <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
-              </Card>
-            </div>
-          </div>
-          <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
-          <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
-            <div className="w-full">{selectedRows.length == 1 && <TabComponent POProductItems={POProductItems} />}</div>
-          </div>
-        </div>
+        <Card className="content-box">
+          <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+            {actionButtons.map((btn) => (
+              <OButton key={btn.key} {...btn} />
+            ))}
+          </Space>
+          <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
+        </Card>
       </div>
 
       <VendorModal
@@ -483,8 +420,8 @@ const CustomerManagement: React.FC = () => {
         handleConfigureSettings={(value: any) => setModal(value)}
         onClose={() => setModal(modalType.Close)}
       />
-    </PageContainer>
+    </>
   );
 };
 
-export default CustomerManagement;
+export default MainPanel;

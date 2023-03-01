@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 
 export interface IOSelectOption {
-  value: string;
+  value: string | number;
   text: string;
 }
 
