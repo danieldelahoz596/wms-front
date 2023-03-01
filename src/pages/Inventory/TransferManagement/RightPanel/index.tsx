@@ -2,7 +2,25 @@ import { useState } from 'react';
 import { OTable } from '@/components/Globals/OTable';
 import { EditTwoTone, LikeFilled, PlayCircleFilled } from '@ant-design/icons';
 import { Card } from 'antd';
-import { recieveData } from './structure';
+
+export const recieveData = [
+  {
+    key: 1,
+    status: 'Complete',
+    master_sku: '123323',
+    notes: 'This order is changes',
+    quantity: '2',
+    recieved_location: 'Rejected Item',
+  },
+  {
+    key: 2,
+    status: 'In progress',
+    master_sku: '124354',
+    notes: 'This order is changes',
+    quantity: '25',
+    recieved_location: 'Not Received Yet',
+  },
+];
 
 const Rcolumns = [
   {

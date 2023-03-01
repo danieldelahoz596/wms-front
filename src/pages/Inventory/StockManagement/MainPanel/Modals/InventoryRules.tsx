@@ -2,9 +2,9 @@ import React from 'react';
 import { OModal } from '@/components/Globals/OModal';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import AutoReorderRules from '@/pages/Inventory/components/AutoReorderRules';
-import ExcludedWarehouses from '@/pages/Inventory/components/ExcludedWarehouses';
-import EditHistory from '@/pages/Inventory/components/EditHistory';
+import AutoReorderRules from '@/pages/Inventory/StockManagement/MainPanel/Modals/Tabs/AutoReorderRules';
+import ExcludedWarehouses from '@/pages/Inventory/StockManagement/MainPanel/Modals/Tabs/ExcludedWarehouses';
+import EditHistory from '@/pages/Inventory/StockManagement/MainPanel/Modals/Tabs/EditHistory';
 
 interface IInventoryRulesModal {
   isOpen: boolean;

@@ -1,12 +1,4 @@
 import { OButton } from '@/components/Globals/OButton';
-import NewStockModal from '../../Modals/NewStock';
-import StockAdjustModal from '../../Modals/StockAdjust';
-import StockDeactiveModal from '../../Modals/StockDeactive';
-import StockDrawRankModal from '../../Modals/StockDrawLRank';
-import StockEditModal from '../../Modals/StockEdit';
-import StockHistoryModal from '../../Modals/StockHistory';
-import StockLocationChangeModal from '../../Modals/StockLocationChange';
-import StockLocationTransferModal from '../../Modals/StockLocationTransfer';
 import { modalType } from '@/utils/helpers/types';
 import BarCodeIcon from '@/utils/icons/barcode';
 import ClipboardIcon from '@/utils/icons/clipboard';
@@ -27,11 +19,102 @@ import {
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
 import { useState, useMemo } from 'react';
-import { location_history, stock_data } from './structure';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
+
+// Modals
+import NewStockModal from './Modals/NewStock';
+import StockAdjustModal from './Modals/StockAdjust';
+import StockDeactiveModal from './Modals/StockDeactive';
+import StockDrawRankModal from './Modals/StockDrawLRank';
+import StockEditModal from './Modals/StockEdit';
+import StockHistoryModal from './Modals/StockHistory';
+import StockLocationChangeModal from './Modals/StockLocationChange';
+import StockLocationTransferModal from './Modals/StockLocationTransfer';
+
 interface IStockDetails {
   vendorData: any;
 }
+
+export const location_history = [
+  {
+    key: 1,
+    edit_time: '04/01/2021 10:49 AM',
+    user: 'support@skubana.com',
+    edit_type: 'Adjust',
+    description:
+      'Initial On Hand: 1000011 \nNew on Hand: 1000011 \n Initial Locked: 180 \nNew Locked: 0\nInitial Min. Stock:2\nNew Min.Stock:2',
+    notes: '',
+  },
+  {
+    key: 2,
+    edit_time: '04/01/2021 10:49 AM',
+    user: 'support@test.com',
+    edit_type: 'Adjust',
+    description:
+      'Initial On Hand: 1000011 \nNew on Hand: 1000011 \n New Locked: 0\nInitial Locked: 180 \nInitial Min. Stock:2\nNew Min.Stock:2',
+    notes: '',
+  },
+  {
+    key: 3,
+    edit_time: '04/01/2021 10:50 AM',
+    user: 'Skubana',
+    edit_type: 'Remove',
+    description: 'Initial On Hand: 1000012 \nQuantity Duducted: 1\n New On Hand: 1000011',
+    notes: '',
+  },
+  {
+    key: 4,
+    edit_time: '04/01/2021 10:50 AM',
+    user: 'Skubana',
+    edit_type: 'Remove',
+    description: 'Quantity Duducted: 1\n New On Hand: 1000012\n Initial On Hand: 1000013\n New On Hand: 1000013\n ',
+    notes: '',
+  },
+  {
+    key: 5,
+    edit_time: '04/01/2021 10:50 AM',
+    user: '',
+    edit_type: 'Adjust',
+    description: 'Initial On Hand: 1000013\n New On Hand: 1000013\n Initial Locked: 0',
+    notes: 'Order IP25chardot Shipped',
+  },
+];
+
+export const stock_data = [
+  {
+    key: 1,
+    location: 'Location 1',
+    status: true,
+    rank: 1,
+    min_level: '2',
+    available: 100,
+    on_hand: 25,
+    locked: 3,
+    min: 0,
+  },
+  {
+    key: 2,
+    location: 'Location 2',
+    status: true,
+    rank: 2,
+    min_level: '3',
+    available: 200,
+    on_hand: 0,
+    locked: 0,
+    min: 0,
+  },
+  {
+    key: 3,
+    location: 'Location 3',
+    status: true,
+    rank: 3,
+    min_level: '2',
+    available: 200,
+    on_hand: 0,
+    locked: 0,
+    min: 0,
+  },
+];
 
 const Scolumns = [
   {
@@ -388,13 +471,13 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         vendorName={vendorData.name}
         selectedLocation={selectedLocation}
         locations={locationList}
-        onSave={(data) => {
+        onSave={(values) => {
           setLocationList(
             locationList.map((location) =>
               location.key === selectedLocation.key
-                ? { ...location, available: location.available - data.available }
-                : location.key === data.destination
-                ? { ...location, available: location.available + data.available }
+                ? { ...location, available: location.available - values.available }
+                : location.key === values.destination
+                ? { ...location, available: location.available + values.available }
                 : location,
             ),
           );
@@ -408,9 +491,9 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         isOpen={modal === modalType.StockAdjust}
         vendorName={vendorData.name}
         initialData={selectedLocation}
-        onSave={(data) => {
+        onSave={(values) => {
           setLocationList(
-            locationList.map((location) => (location.key === selectedLocation.key ? { ...location, ...data } : location)),
+            locationList.map((location) => (location.key === selectedLocation.key ? { ...location, ...values } : location)),
           );
           setSelectedLocation(null);
           setModal(modalType.Close);
