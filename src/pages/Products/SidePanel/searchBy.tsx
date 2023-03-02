@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Checkbox, Form, Space } from 'antd';
 import React from 'react';
 
@@ -12,30 +12,30 @@ const SearchByPanel: React.FC = () => {
   const formInputs = [
     {
       type: 'text',
-      label: 'Product Name',
+      label: <FormattedMessage id="component.form.label.productName" />,
       name: 'productName',
       placeholder: 'Name',
     },
     {
       type: 'text',
-      label: 'SKU',
+      label: <FormattedMessage id="component.form.label.sku" />,
       name: 'sku',
       placeholder: 'SKU',
     },
     {
       type: 'checkbox',
-      label: 'Include related bundles',
+      label: <FormattedMessage id="component.form.label.includeRelatedBundles" />,
       name: 'includeRelatedBundles',
     },
     {
       type: 'text',
-      label: 'Vendor SKU',
+      label: <FormattedMessage id="component.form.label.vendorSku" />,
       name: 'vendorSku',
       placeholder: 'SKU',
     },
     {
       type: 'select',
-      label: 'Cutom Field Name',
+      label: <FormattedMessage id="component.form.label.customFieldName" />,
       placeholder: 'Select...',
       name: 'custom_field_name',
       options: fieldTypes.map((item) => ({
@@ -45,7 +45,7 @@ const SearchByPanel: React.FC = () => {
     },
     {
       type: 'select',
-      label: 'Brand',
+      label: <FormattedMessage id="component.form.label.brand" />,
       placeholder: 'Select...',
       name: 'brand',
       options: initialData?.brands?.map((item) => ({
@@ -55,7 +55,7 @@ const SearchByPanel: React.FC = () => {
     },
     {
       type: 'select',
-      label: 'Categories',
+      label: <FormattedMessage id="component.form.label.categories" />,
       placeholder: 'Select...',
       name: 'categories',
       options: initialData?.categories?.map((item) => ({
@@ -65,7 +65,7 @@ const SearchByPanel: React.FC = () => {
     },
     {
       type: 'select',
-      label: 'Labels',
+      label: <FormattedMessage id="component.form.label.labels" />,
       placeholder: 'Select...',
       name: 'labels',
       options: initialData?.labels?.map((item) => ({
@@ -86,14 +86,16 @@ const SearchByPanel: React.FC = () => {
               </Form.Item>
             ) : (
               <Form.Item>
-                <Checkbox>Include related bundles</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.sidepanel.searchBy.description" />
+                </Checkbox>
               </Form.Item>
             );
           })}
         </Space>
         <div className="search-button-row space-between">
-          <OButton btnText={'Clear'} />
-          <OButton btnText={'Search'} />
+          <OButton btnText={<FormattedMessage id="component.button.clear" />} />
+          <OButton btnText={<FormattedMessage id="component.button.search" />} />
         </div>
       </Form>
     </Card>

@@ -1,6 +1,6 @@
 import BookIcon from '@/utils/icons/book';
 import { CaretDownOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -65,7 +65,10 @@ const FilterByPanel: React.FC = () => {
   return (
     <Card>
       <h3>
-        &nbsp;&nbsp;<i>{"Hold 'Ctrl' or '' Key to select multiple."}</i>
+        &nbsp;&nbsp;
+        <i>
+          <FormattedMessage id="pages.products.sidepanel.filterBy.description" />
+        </i>
       </h3>
       <Tree
         showIcon

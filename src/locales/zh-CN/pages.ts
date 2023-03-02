@@ -227,4 +227,12 @@ export default {
   'pages.customers.bottomPanel.title': '客户订单',
   'pages.customers.new.title': '创建新客户',
   'pages.customers.history.title': '客户编辑历史',
+
+  'pages.products.sidepanel.filterBy.title': '过滤',
+  'pages.products.sidepanel.searchBy.title': '搜索依据',
+  'pages.products.sidepanel.searchBy.description': '包括相关的包',
+  'pages.products.sidepanel.filterBy.description': "按住 'Ctrl' 或 '' 键选择多个。",
+  'pages.products.bottomPanel.performance.title': '表现',
+  'pages.products.bottomPanel.performance.description': '选择产品以查看性能',
+  'pages.products.bottomPanel.productDetails.title': '产品详情',
 };

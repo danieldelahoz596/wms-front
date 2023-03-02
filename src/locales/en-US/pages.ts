@@ -234,4 +234,12 @@ export default {
   'pages.customers.bottomPanel.title': 'Customer Orders',
   'pages.customers.new.title': 'Create New Customer',
   'pages.customers.history.title': 'CUSTOMER EDIT HISTORY',
+
+  'pages.products.sidepanel.filterBy.title': 'Filter By',
+  'pages.products.sidepanel.searchBy.title': 'Search By',
+  'pages.products.sidepanel.searchBy.description': 'Include related bundles',
+  'pages.products.sidepanel.filterBy.description': "Hold 'Ctrl' or '' Key to select multiple.",
+  'pages.products.bottomPanel.performance.title': 'Performance',
+  'pages.products.bottomPanel.performance.description': 'Select a product to view performance',
+  'pages.products.bottomPanel.productDetails.title': 'Product Details',
 };

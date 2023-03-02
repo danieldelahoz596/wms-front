@@ -5,7 +5,7 @@ import { Card, Col, Dropdown, Form, Row, Space, Radio } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import type { RadioChangeEvent } from 'antd';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface IPerformancePanel {
   height: number;
@@ -41,11 +41,17 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
   return (
     <>
       <div className="title-row space-between">
-        <h1 className="page-title">Performance</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.products.bottomPanel.performance.title" />
+        </h1>
         <Radio.Group size="small" buttonStyle="solid" value={selectedMode} onChange={handleTabSelect}>
           <Space size={HORIZONTAL_SPACE_SIZE}>
-            <Radio.Button value="yearOverYear">Year-Over-Year</Radio.Button>
-            <Radio.Button value="recentOrders">Recent Orders</Radio.Button>
+            <Radio.Button value="yearOverYear">
+              <FormattedMessage id="component.button.yearOverYear" />
+            </Radio.Button>
+            <Radio.Button value="recentOrders">
+              <FormattedMessage id="component.button.recentOrders" />
+            </Radio.Button>
           </Space>
         </Radio.Group>
       </div>
@@ -161,7 +167,9 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
           </>
         )}
         {!editableProduct && (
-          <h2 style={{ textAlign: 'center', marginTop: height / 2.0 - 50 }}>Select a product to view performance</h2>
+          <h2 style={{ textAlign: 'center', marginTop: height / 2.0 - 50 }}>
+            <FormattedMessage id="pages.products.bottomPanel.performance.description" />
+          </h2>
         )}
       </Card>
     </>

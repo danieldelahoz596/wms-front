@@ -1,5 +1,5 @@
 import { CheckCircleFilled, CheckOutlined, CloseOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Image, Space, Table, Radio } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import type { RadioChangeEvent } from 'antd';
@@ -12,23 +12,23 @@ const TFieldColumns = [
   {
     key: 'name',
     dataIndex: 'name',
-    title: 'Name',
+    title: <FormattedMessage id="component.table.column.name" />,
   },
   {
     key: 'value',
     dataIndex: 'value',
-    title: 'Value',
+    title: <FormattedMessage id="component.table.column.value" />,
   },
   {
     key: 'show_on_grid',
     dataIndex: 'show_on_grid',
-    title: 'Show On Grid',
+    title: <FormattedMessage id="component.table.column.showOnGrid" />,
     render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
   },
   {
     key: 'required',
     dataIndex: 'required',
-    title: 'Required',
+    title: <FormattedMessage id="component.table.column.required" />,
     render: (value) => (value ? <CheckOutlined /> : <CloseOutlined />),
   },
 ];
@@ -40,27 +40,27 @@ const TVendorProductColumns = [
     key: 'id',
   },
   {
-    title: 'Vendor',
+    title: <FormattedMessage id="component.table.column.vendor" />,
     dataIndex: 'vendor',
     key: 'vendor',
   },
   {
-    title: 'Vendor SKU',
+    title: <FormattedMessage id="component.table.column.vendorSku" />,
     dataIndex: 'vendorSku',
     key: 'vendorSKU',
   },
   {
-    title: 'Min Order Qty',
+    title: <FormattedMessage id="component.table.column.minOrderQty" />,
     dataIndex: 'minOrderQty',
     key: 'minOrderQty',
   },
   {
-    title: 'Lead Time',
+    title: <FormattedMessage id="component.table.column.leadTime" />,
     dataIndex: 'leadTime',
     key: 'leadTime',
   },
   {
-    title: 'U.O.M',
+    title: <FormattedMessage id="component.table.column.uom" />,
     key: 'uom',
     render: () => <UnorderedListOutlined />,
   },
@@ -110,12 +110,20 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   return (
     <>
       <div className="title-row space-between">
-        <h1 className="page-title">Product Details</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.products.bottomPanel.productDetails.title" />
+        </h1>
         <Radio.Group size="small" buttonStyle="solid" value={selectedMode} onChange={handleTabSelect}>
           <Space size={HORIZONTAL_SPACE_SIZE}>
-            <Radio.Button value="fields">Fields</Radio.Button>
-            <Radio.Button value="vendorProduct">Vendor Products</Radio.Button>
-            <Radio.Button value="gallery">Gallery</Radio.Button>
+            <Radio.Button value="fields">
+              <FormattedMessage id="component.button.fields" />
+            </Radio.Button>
+            <Radio.Button value="vendorProduct">
+              <FormattedMessage id="component.button.vendorProducts" />
+            </Radio.Button>
+            <Radio.Button value="gallery">
+              <FormattedMessage id="component.button.gallery" />
+            </Radio.Button>
           </Space>
         </Radio.Group>
       </div>
