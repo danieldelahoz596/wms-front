@@ -219,4 +219,13 @@ export default {
   'pages.settings.companyInfo.inventoryValue.title': 'Inventory Value Reconciliation Settings',
   'pages.settings.companyInfo.returnSettings.title': 'Returns Settings',
   'pages.settings.companyInfo.returnSettings.placeholder': 'No Overriding Returns Warehouse',
+
+  'pages.settings.menu.myProfile': 'My Profile',
+  'pages.settings.menu.warehouses': 'Warehouses',
+  'pages.settings.menu.vendors': 'Vendors',
+  'pages.settings.menu.orderBots': 'Order Bots',
+  'pages.settings.menu.packingSlipTemplates': 'Packing Slip Templates',
+  'pages.settings.menu.poTemplate': 'P.O. Template',
+  'pages.settings.menu.userAdministration': 'User Administration',
+  'pages.settings.menu.companyInfo': 'Company Info',
 };

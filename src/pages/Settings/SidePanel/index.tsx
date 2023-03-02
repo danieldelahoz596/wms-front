@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { history, useLocation } from '@umijs/max';
+import { FormattedMessage } from '@umijs/max';
 const { Sider } = Layout;
 
 import { ContainerOutlined, RobotFilled, SnippetsFilled } from '@ant-design/icons';
@@ -31,49 +32,49 @@ const SidePanel: React.FC = () => {
           {
             key: 'myprofile',
             icon: <ProfileIcon style={{ fontSize: 15 }} />,
-            label: 'My Profile',
+            label: <FormattedMessage id="pages.settings.menu.myProfile" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'warehouses',
             icon: <WarehouseIcon style={{ fontSize: 15 }} />,
-            label: 'Warehouses',
+            label: <FormattedMessage id="pages.settings.menu.warehouses" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'vendors',
             icon: <VendorIcon style={{ fontSize: 15 }} />,
-            label: 'Vendors',
+            label: <FormattedMessage id="pages.settings.menu.vendors" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'orderbots',
             icon: <RobotFilled style={{ fontSize: 15 }} />,
-            label: 'Orderbots',
+            label: <FormattedMessage id="pages.settings.menu.orderBots" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'packingsliptemplates',
             icon: <SnippetsFilled style={{ fontSize: 15 }} />,
-            label: 'Packing Slip Templates',
+            label: <FormattedMessage id="pages.settings.menu.packingSlipTemplates" />,
             disabled: true,
           },
           {
             key: 'potemplates',
             icon: <ContainerOutlined style={{ fontSize: 15 }} />,
-            label: 'P.O. Templates',
+            label: <FormattedMessage id="pages.settings.menu.poTemplate" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'useradministration',
             icon: <CustomersIcon style={{ fontSize: 15 }} />,
-            label: 'User Administration',
+            label: <FormattedMessage id="pages.settings.menu.userAdministration" />,
             onClick: handleMenuItemClick,
           },
           {
             key: 'companyinfo',
             icon: <CompanyIcon style={{ fontSize: 12 }} />,
-            label: 'Company Info',
+            label: <FormattedMessage id="pages.settings.menu.companyInfo" />,
             onClick: handleMenuItemClick,
           },
         ]}

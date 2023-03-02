@@ -212,4 +212,13 @@ export default {
   'pages.settings.companyInfo.inventoryValue.title': '库存价值调节设置',
   'pages.settings.companyInfo.returnSettings.title': '退货设置',
   'pages.settings.companyInfo.returnSettings.placeholder': '没有覆盖退货仓库',
+
+  'pages.settings.menu.myProfile': '我的简历',
+  'pages.settings.menu.warehouses': '仓库',
+  'pages.settings.menu.vendors': '供应商',
+  'pages.settings.menu.orderBots': '订单机器人',
+  'pages.settings.menu.packingSlipTemplates': '装箱单模板',
+  'pages.settings.menu.poTemplate': '邮政信箱 模板',
+  'pages.settings.menu.userAdministration': '用户管理',
+  'pages.settings.menu.companyInfo': '公司资料',
 };

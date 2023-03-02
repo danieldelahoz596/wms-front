@@ -13,7 +13,7 @@ import {
   PaperClipOutlined,
   QuestionCircleTwoTone,
   StopOutlined,
-  ToolFilled
+  ToolFilled,
 } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Dropdown, Row, Space } from 'antd';
@@ -36,7 +36,9 @@ export default function () {
   return (
     <div className="w-full main-panel">
       <div className="title-row">
-        <h1 className="page-title">Warehouses</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.settings.menu.warehouses" />
+        </h1>
       </div>
       <Card className="content-box">
         <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
