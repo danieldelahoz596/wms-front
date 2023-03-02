@@ -1,9 +1,11 @@
 import { OButton } from '@/components/Globals/OButton';
+import { useModel } from '@umijs/max';
 import { Card, Form, Input, Select, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
 const SearchByPanel: React.FC = () => {
-  const [selectedType, setSelectedType] = useState<'shipments' | 'batches' | 'returns'>(null);
+  // const [selectedType, setSelectedType] = useState<'shipments' | 'batches' | 'returns'>(null);
+  const { searchType, setSearchType } = useModel('shipment');
 
   const shipmentFormInputs = useMemo(
     () => [
@@ -115,23 +117,23 @@ const SearchByPanel: React.FC = () => {
           { value: 'returns', label: 'Returns ' },
         ]}
         size="middle"
-        onSelect={(value) => setSelectedType(value)}
+        onSelect={(value) => setSearchType(value)}
       />
       <Form layout="vertical" style={{ marginTop: 10 }}>
         <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
-          {selectedType === 'shipments' &&
+          {searchType === 'shipments' &&
             shipmentFormInputs.map((formInput, index) => (
               <Form.Item key={index} label={formInput.label} name={formInput.value}>
                 <Input style={{ width: '100%' }} />
               </Form.Item>
             ))}
-          {selectedType === 'batches' &&
+          {searchType === 'batches' &&
             batchFormInputs.map((formInput, index) => (
               <Form.Item key={index} label={formInput.label} name={formInput.value}>
                 <Input style={{ width: '100%' }} />
               </Form.Item>
             ))}
-          {selectedType === 'returns' &&
+          {searchType === 'returns' &&
             returnFormInputs.map((formInput, index) => (
               <Form.Item key={index} label={formInput.label} name={formInput.value}>
                 <Input style={{ width: '100%' }} />

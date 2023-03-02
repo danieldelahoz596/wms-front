@@ -1,8 +1,11 @@
 import { GlobalOutlined, HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
 import { Card, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 
 const FilterByPanel: React.FC = () => {
+  const { setSearchType } = useModel('shipment');
+
   const treeData: DataNode[] = [
     {
       title: 'Shipments',
@@ -117,7 +120,7 @@ const FilterByPanel: React.FC = () => {
 
   return (
     <Card>
-      <Tree showIcon treeData={treeData} />
+      <Tree showIcon treeData={treeData} onSelect={(selectedKeys) => setSearchType(selectedKeys[0])} />
     </Card>
   );
 };
