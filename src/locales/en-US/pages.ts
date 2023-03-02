@@ -228,4 +228,10 @@ export default {
   'pages.settings.menu.poTemplate': 'P.O. Template',
   'pages.settings.menu.userAdministration': 'User Administration',
   'pages.settings.menu.companyInfo': 'Company Info',
+
+  'pages.customers.title': 'Customers',
+  'pages.customers.leftPanel.title': 'Search Customers',
+  'pages.customers.bottomPanel.title': 'Customer Orders',
+  'pages.customers.new.title': 'Create New Customer',
+  'pages.customers.history.title': 'CUSTOMER EDIT HISTORY',
 };

@@ -221,4 +221,10 @@ export default {
   'pages.settings.menu.poTemplate': '邮政信箱 模板',
   'pages.settings.menu.userAdministration': '用户管理',
   'pages.settings.menu.companyInfo': '公司资料',
+
+  'pages.customers.title': '顾客',
+  'pages.customers.leftPanel.title': '搜索客户',
+  'pages.customers.bottomPanel.title': '客户订单',
+  'pages.customers.new.title': '创建新客户',
+  'pages.customers.history.title': '客户编辑历史',
 };

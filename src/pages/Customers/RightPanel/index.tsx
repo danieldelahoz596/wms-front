@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { OButton } from '@/components/Globals/OButton';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Form, Input, Space } from 'antd';
 
 const RightPanel: React.FC = () => {
@@ -22,22 +22,22 @@ const RightPanel: React.FC = () => {
     <Card title={selectedCustomer?.name}>
       <Space>
         <Form layout="vertical" form={form} onFinish={handleUpdate}>
-          <Form.Item name="phonenumber" label={'Phone *'}>
+          <Form.Item name="phonenumber" label={<FormattedMessage id="component.form.label.phone" />}>
             <Input />
           </Form.Item>
-          <Form.Item name="card_number" label={'Card ID Number *'}>
+          <Form.Item name="card_number" label={<FormattedMessage id="component.form.label.cardIdNumber" />}>
             <Input />
           </Form.Item>
-          <Form.Item name="name" label={'Name'}>
+          <Form.Item name="name" label={<FormattedMessage id="component.form.label.name" />}>
             <Input />
           </Form.Item>
-          <Form.Item name="address" label={'Address'}>
+          <Form.Item name="address" label={<FormattedMessage id="component.form.label.address" />}>
             <Input />
           </Form.Item>
           <Form.Item>
             <Space size={HORIZONTAL_SPACE_SIZE}>
-              <OButton btnText={'Update'} />
-              <OButton btnText={'Delete'} onClick={handleDeleteCustomer} />
+              <OButton btnText={<FormattedMessage id="component.button.update" />} />
+              <OButton btnText={<FormattedMessage id="component.button.delete" />} onClick={handleDeleteCustomer} />
             </Space>
           </Form.Item>
         </Form>
