@@ -21,40 +21,43 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
   const [enteredRow, setEnteredRow] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editableGroup, setEditableGroup] = useState(null);
-  
-  const TColumns = [
-    {
-      title: '',
-      key: 'id',
-      width: '16%',
-      align: 'center',
-    },
-    {
-      title: '',
-      dataIndex: 'name',
-      key: 'name',
-      editable: true,
-    },
-    {
-      title: '',
-      key: 'action',
-      width: '16%',
-      render: (_, record) => {
-        return record.name === enteredRow ? (
-          <Button
-            size="small"
-            icon={<ToolFilled style={{ color: 'blue' }} />}
-            onClick={() => {
-              setShowModal(true);
-              setEditableGroup(record);
-            }}
-          />
-        ) : (
-          <></>
-        );
+
+  const TColumns = useMemo(
+    () => [
+      {
+        title: '',
+        key: 'id',
+        width: '16%',
+        align: 'center',
       },
-    },
-  ];
+      {
+        title: '',
+        dataIndex: 'name',
+        key: 'name',
+        editable: true,
+      },
+      {
+        title: '',
+        key: 'action',
+        width: '16%',
+        render: (_, record) => {
+          return record.name === enteredRow ? (
+            <Button
+              size="small"
+              icon={<ToolFilled style={{ color: 'blue' }} />}
+              onClick={() => {
+                setShowModal(true);
+                setEditableGroup(record);
+              }}
+            />
+          ) : (
+            <></>
+          );
+        },
+      },
+    ],
+    [enteredRow],
+  );
 
   const dataSource = useMemo(() => attributeGroups.map((_item) => ({ ..._item, key: _item.id })), [attributeGroups]);
 
