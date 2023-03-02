@@ -200,4 +200,16 @@ export default {
     '要将用户添加到您的公司帐户，只需输入他们的姓名、密码并分配适当的访问权限即可。 Skubana 随后将向新用户发送一封电子邮件以激活他们的帐户。',
   'pages.settings.userAdministration.newUser.permission': '允许',
   'pages.settings.userAdministration.newUser.allow': '允许？',
+
+  'pages.settings.companyInfo.companyLogo.title': '公司标志',
+  'pages.settings.companyInfo.companyLogo.placeholder': 'SKUBANA',
+  'pages.settings.companyInfo.companyLogo.filePath': '图片文件路径：',
+  'pages.settings.companyInfo.orderSettings.title': '订单设置',
+  'pages.settings.companyInfo.purchaseOrderSettings.title': '采购订单设置',
+  'pages.settings.companyInfo.productSettings.title': '产品设置',
+  'pages.settings.companyInfo.inventorySettings.title': '库存设置',
+  'pages.settings.companyInfo.inventorySettings.days': '天',
+  'pages.settings.companyInfo.inventoryValue.title': '库存价值调节设置',
+  'pages.settings.companyInfo.returnSettings.title': '退货设置',
+  'pages.settings.companyInfo.returnSettings.placeholder': '没有覆盖退货仓库',
 };

@@ -207,4 +207,16 @@ export default {
     'To add a user to your company account, simply enter their name, password, and assign proper access permissions. Skubana will then send the new user an e-mail to activate their account.',
   'pages.settings.userAdministration.newUser.permission': 'Permission',
   'pages.settings.userAdministration.newUser.allow': 'Allow?',
+
+  'pages.settings.companyInfo.companyLogo.title': 'Company Logo',
+  'pages.settings.companyInfo.companyLogo.placeholder': 'SKUBANA',
+  'pages.settings.companyInfo.companyLogo.filePath': 'Image File Path:',
+  'pages.settings.companyInfo.orderSettings.title': 'Order Settings',
+  'pages.settings.companyInfo.purchaseOrderSettings.title': 'Purchase Order Settings',
+  'pages.settings.companyInfo.productSettings.title': 'Product Settings',
+  'pages.settings.companyInfo.inventorySettings.title': 'Inventory Settings',
+  'pages.settings.companyInfo.inventorySettings.days': 'day(s)',
+  'pages.settings.companyInfo.inventoryValue.title': 'Inventory Value Reconciliation Settings',
+  'pages.settings.companyInfo.returnSettings.title': 'Returns Settings',
+  'pages.settings.companyInfo.returnSettings.placeholder': 'No Overriding Returns Warehouse',
 };
