@@ -79,6 +79,12 @@ export default () => {
   //when click removePO button
   const removePO = useCallback((id: any) => setPoList(poList.filter((item) => item.id !== id)), [poList]);
 
+  //when click updatePO button
+  const updatePO = useCallback(
+    (poData: any) => setPoList(poList.map((item) => (item.key === poData.key ? poData : item))),
+    [poList],
+  );
+
   // add aggregate other cost
   const addOtherCost = useCallback((extraCost: any) => {
     setSelectedPO((prevState: any) => ({
@@ -160,6 +166,7 @@ export default () => {
     handleSelectedPOChange,
     addNewPO,
     removePO,
+    updatePO,
     addOtherCost,
     removeOtherCost,
     addPoItem,

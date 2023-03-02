@@ -51,6 +51,7 @@ const MainPanel: React.FC = () => {
   const handleMasterSkuClick = (event, record) => {
     event.stopPropagation();
     if (record.type === productType.VirtualProduct) setModal(modalType.VirtualProductEdit);
+    else if (record.type === productType.BundleOrKit) setModal(modalType.BundleKit);
     else setModal(modalType.CoreProduct);
     setEditableProduct(record);
   };

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 interface IBundleItems {}
 
 const BundledItems: React.FC<IBundleItems> = () => {
-  const { selectedProducts } = useModel('product');
+  const { selectedProducts, editableProduct } = useModel('product');
   const [modal, setModal] = useState('');
   const [coreProductList, setCoreProductList] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -17,6 +17,7 @@ const BundledItems: React.FC<IBundleItems> = () => {
   useEffect(() => {
     setCoreProductList(
       selectedProducts.map((product) => ({
+        key: product.id,
         id: product.id,
         masterSKU: product.master_sku,
         name: product.name,
@@ -24,6 +25,20 @@ const BundledItems: React.FC<IBundleItems> = () => {
       })),
     );
   }, [selectedProducts]);
+
+  useEffect(() => {
+    if (!!editableProduct) {
+      setCoreProductList(
+        editableProduct.children?.map((product) => ({
+          key: product.id,
+          id: product.id,
+          masterSKU: product.master_sku,
+          name: product.name,
+          quantity: product.quantity,
+        })),
+      );
+    }
+  }, [editableProduct]);
 
   const handleAddCoreProductClick = () => {
     setButtonType('add');

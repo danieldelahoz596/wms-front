@@ -42,7 +42,7 @@ import SelectOrderColumnsModal from './Modals/SelectOrderColumns';
 import SplitOrderModal from './Modals/SplitOrder';
 import DuplicateOrderModal from './Modals/DuplicateOrder';
 import { modalType } from '@/utils/helpers/types';
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import { useModel } from '@umijs/max';
 import moment from 'moment';
 import { uuidv4 } from '@antv/xflow-core';
@@ -136,7 +136,7 @@ const showConfirm = () => {
 };
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { orderList, setOrderList, setEditableOrder, setSelectedOrders } = useModel('order');
+  const { orderList, setOrderList, setEditableOrder, setSelectedOrders, initialOrderList } = useModel('order');
   const { userList } = useModel('user');
   const { fieldTypes } = useModel('customOrderFields');
   const { selectedOrderStatus } = useModel('orderStatus');
@@ -145,6 +145,12 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const [modalOpen, setModal] = useState('');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
+
+  useEffect(() => {
+    initialOrderList({
+      order_status: selectedOrderStatus?.status?.id,
+    });
+  }, [initialOrderList, selectedOrderStatus]);
 
   const handleProductEdit = useCallback(
     (item: any) => {

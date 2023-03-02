@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useModel } from 'umi';
+import { useCallback, useState } from 'react';
 import httpClient from '@/utils/http-client';
 
 export default () => {
-  const { initialOrderList } = useModel('order');
   const [orderStatusList, setOrderStatusList] = useState<any[]>([]);
   const [selectedOrderStatus, setSelectedOrderStatus] = useState({
     status: {
@@ -26,11 +24,11 @@ export default () => {
     setSelectedOrderStatus(data);
   }, []);
 
-  useEffect(() => {
-    initialOrderList({
-      order_status: selectedOrderStatus?.status?.id,
-    });
-  }, [initialOrderList, selectedOrderStatus]);
+  // useEffect(() => {
+  //   initialOrderList({
+  //     order_status: selectedOrderStatus?.status?.id,
+  //   });
+  // }, [initialOrderList, selectedOrderStatus]);
 
   return {
     selectedOrderStatus,
