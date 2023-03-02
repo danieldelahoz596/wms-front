@@ -8,7 +8,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip, Badge } from 'antd';
 import React, { useMemo, useState } from 'react';
 
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -36,7 +36,6 @@ import ProductVariationsModal from './Modals/ProductVariations';
 import NewProductSelectTypeModal from './Modals/NewProductSelectType';
 import ReturnDownForwardIcon from '@/utils/icons/returnDownForward';
 import VirtualProductEditModal from './Modals/VirtualProductEdit';
-import VectorXIcon from '@/utils/icons/vectorX';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
@@ -154,7 +153,7 @@ const MainPanel: React.FC = () => {
             </Tooltip>
           )}
           {record.type === productType.CoreProduct && record.children_item && (
-            <VectorXIcon style={{ fontSize: 14, marginRight: 5 }} />
+            <Badge count={`x${record.quantity}`} color="blue" size="small" style={{ marginRight: 5 }} />
           )}
           <u>{master_sku}</u>
         </a>
