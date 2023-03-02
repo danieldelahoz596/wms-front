@@ -290,7 +290,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         setModal(modalType.Receive);
       },
       btnText: 'Receive',
-      disabled: selectedRows.length === 0,
+      disabled: selectedRows.length !== 1,
       hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
       // Only in Pending Delivery or Partially Delivered
     },

@@ -1,9 +1,10 @@
+import { OButton } from '@/components/Globals/OButton';
 import LaunchIcon from '@/utils/icons/launch';
 import ProductsIcon from '@/utils/icons/products';
 import WarehouseIcon from '@/utils/icons/warehouse';
 import { GlobalOutlined } from '@ant-design/icons';
 import { FormattedMessage } from '@umijs/max';
-import { Card, Table } from 'antd';
+import { Card, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 
@@ -142,6 +143,16 @@ const MainPanel: React.FC = () => {
         </h1>
       </div>
       <Card className="content-box">
+        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+          <OButton btnText="Print Labels" />
+          <OButton btnText="Print Packing Slips" />
+          <OButton btnText="Print Pick List(s)" />
+          <OButton btnText="Print Global Pick List" />
+          <OButton btnText="Void Shipment(s)" />
+          <OButton btnText="Track Shipment(s)" />
+          <OButton btnText="Resend Confirmation Email(s)" />
+          <OButton btnText="Import/Export" />
+        </Space>
         <Table columns={TColumns} dataSource={shipments} />
       </Card>
     </>
