@@ -15,6 +15,8 @@ export enum modalType {
   Variation = 'Variation',
   ImportExportSummary = 'ImportExportSummary',
   Activate = 'Activate',
+  Add = 'Add',
+  Configure = 'Configure',
 
   // products
   AdjustMasterSKU = 'AdjustMasterSKU',

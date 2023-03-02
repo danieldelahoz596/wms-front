@@ -16,5 +16,5 @@ export default () => {
     }
   }, [initialPaymentTermList, initialState?.currentUser]);
 
-  return { paymentTermList, initialPaymentTermList };
+  return { paymentTermList, setPaymentTermList, initialPaymentTermList };
 };
