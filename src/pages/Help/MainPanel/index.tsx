@@ -14,6 +14,16 @@ import Orders from './Orders/orders';
 // Purchase Order
 
 // Shipments
+import SearchingForShipments from './Shipments/searchingForShipments';
+import PrintingShippingLabels from './Shipments/printingShippingLabels';
+import PrintEndOfDayForms from './Shipments/printEndOfDayForms';
+import TrackingShipments from './Shipments/trackingShipments';
+import RmaExports from './Shipments/rmaExports';
+import PrintForPackage from './Shipments/printForPackage';
+import ResendingConfirmationEmails from './Shipments/resendingConfirmationEmails';
+import VoidingShipments from './Shipments/voidingShipments';
+import PostalZones from './Shipments/postalZones';
+import ExportingShipments from './Shipments/exportingShipments';
 
 // Customers
 import Customersmodule from './Customers/customersmodule';
@@ -68,106 +78,130 @@ const MainPanel: React.FC = () => {
 
   return (
     <div className="help-content">
-      {location.pathname === '/help/dashboard/general' ? (
-        <SkuAlerts />
-      ) : location.pathname === '/help/dashboard/skualerts' ? (
-        <Dashboard />
-      ) : // Orders
-      location.pathname === '/help/orders/general' ? (
-        <Orders />
-      ) : location.pathname === '/help/orders/manage/cancel' ? (
-        <Cancelorders />
-      ) : location.pathname === '/help/orders/exportorders' ? (
-        <Exportorders />
-      ) : // Customers
-      location.pathname === '/help/customers/search' ? (
-        <Searchcustomers />
-      ) : location.pathname === '/help/customers/module' ? (
-        <Customersmodule />
-      ) : location.pathname === '/help/customers/exportphonenumbers' ? (
-        <Exportcustomerphonenumbers />
-      ) : // Products
-      location.pathname === '/help/products/general' ? (
-        <Products />
-      ) : location.pathname === '/help/products/manage' ? (
-        <Manageproducts />
-      ) : location.pathname === '/help/products/create/coreproduct' ? (
-        <CreateCoreProduct />
-      ) : location.pathname === '/help/products/create/bundlekit' ? (
-        <CreateBundleKit />
-      ) : location.pathname === '/help/products/create/productvariations' ? (
-        <CreateProductVariations />
-      ) : location.pathname === '/help/products/import/products' ? (
-        <Importproducts />
-      ) : location.pathname === '/help/products/import/vendorproducts' ? (
-        <ImportVendorProducts />
-      ) : location.pathname === '/help/products/import/skuadjustments' ? (
-        <ImportSkuAdjustments />
-      ) : location.pathname === '/help/products/export/products' ? (
-        <Exportproducts />
-      ) : location.pathname === '/help/products/export/vendorproducts' ? (
-        <Exportvendorproducts />
-      ) : location.pathname === '/help/products/export/custombundlekit' ? (
-        <Exportcustombundlekit />
-      ) : location.pathname === '/help/products/searchproducts' ? (
-        <Searchproducts />
-      ) : location.pathname === '/help/products/customproductfields' ? (
-        <Customproductfields />
-      ) : location.pathname === '/help/products/faq' ? (
-        <FAQ />
-      ) : // Analytics
-      location.pathname === '/help/analytics/general/theanalyticsmodules' ? (
-        <Theanalyticsmodules />
-      ) : location.pathname === '/help/analytics/general/analyticsreports' ? (
-        <Analyticsreports />
-      ) : location.pathname === '/help/analytics/general/printingchartsfromanalytics' ? (
-        <Printingchartsfromanalytics />
-      ) : location.pathname === '/help/analytics/general/exportingreports' ? (
-        <Exportingreports />
-      ) : location.pathname === '/help/analytics/suborders/historicalsexports' ? (
-        <Historicalordersexports />
-      ) : location.pathname === '/help/analytics/suborders/salesoverview' ? (
-        <Salesoverview />
-      ) : location.pathname === '/help/analytics/suborders/biggesttickets' ? (
-        <Biggesttickets />
-      ) : location.pathname === '/help/analytics/suborders/shipments' ? (
-        <Shipments />
-      ) : location.pathname === '/help/analytics/subproducts/analyticsskuprofitability' ? (
-        <Analyticsskuprofitability />
-      ) : location.pathname === '/help/analytics/subproducts/yoygrowth' ? (
-        <Yoygrowth />
-      ) : location.pathname === '/help/analytics/subproducts/analyticslistingprofitability' ? (
-        <Analyticslistingprofitability />
-      ) : location.pathname === '/help/analytics/subproducts/topsellersandworstsellersreports' ? (
-        <Topsellersandworstsellersreports />
-      ) : location.pathname === '/help/analytics/subproducts/analyticstrendingprofitability' ? (
-        <Analyticstrendingprofitability />
-      ) : location.pathname === '/help/analytics/subdashboard/opportunitiesfoundbyextensivordermanager' ? (
-        <Opportunitiesfoundbyextensivordermanager />
-      ) : location.pathname === '/help/analytics/subinventory/analyticsinventoryreplenishmentalerts' ? (
-        <Analyticsinventoryreplenishmentalerts />
-      ) : location.pathname === '/help/analytics/subinventory/analyticssnapshotinventoryvalue' ? (
-        <Analyticssnapshotinventoryvalue />
-      ) : location.pathname === '/help/analytics/subinventory/analyticstrendinginventoryvalue' ? (
-        <Analyticstrendinginventoryvalue />
-      ) : location.pathname === '/help/analytics/subinventory/analyticscriticalinventorylevels' ? (
-        <Analyticscriticalinventorylevels />
-      ) : location.pathname === '/help/analytics/subinventory/analyticsinventoryaging' ? (
-        <Analyticsinventoryaging />
-      ) : location.pathname === '/help/analytics/subpurchaseorders/historicalexports' ? (
-        <Historicalpurchaseordersexports />
-      ) : // Settings
-      location.pathname === '/help/settings/myprofile' ? (
-        <Myprofile />
-      ) : location.pathname === '/help/settings/useradministration' ? (
-        <Useradministration />
-      ) : location.pathname === '/help/settings/companyinfo' ? (
-        <Companyinfo />
-      ) : location.pathname === '/help/settings/companyinfo/' ? (
-        <Companyinfo />
-      ) : (
-        <></>
-      )}
+      {
+        // dashboard
+        location.pathname === '/help/dashboard/general' ? (
+          <SkuAlerts />
+        ) : location.pathname === '/help/dashboard/skualerts' ? (
+          <Dashboard />
+        ) : // Orders
+        location.pathname === '/help/orders/general' ? (
+          <Orders />
+        ) : location.pathname === '/help/orders/manage/cancel' ? (
+          <Cancelorders />
+        ) : location.pathname === '/help/orders/exportorders' ? (
+          <Exportorders />
+        ) : // Customers
+        location.pathname === '/help/customers/search' ? (
+          <Searchcustomers />
+        ) : location.pathname === '/help/customers/module' ? (
+          <Customersmodule />
+        ) : location.pathname === '/help/customers/exportphonenumbers' ? (
+          <Exportcustomerphonenumbers />
+        ) : // Products
+        location.pathname === '/help/products/general' ? (
+          <Products />
+        ) : location.pathname === '/help/products/manage' ? (
+          <Manageproducts />
+        ) : location.pathname === '/help/products/create/coreproduct' ? (
+          <CreateCoreProduct />
+        ) : location.pathname === '/help/products/create/bundlekit' ? (
+          <CreateBundleKit />
+        ) : location.pathname === '/help/products/create/productvariations' ? (
+          <CreateProductVariations />
+        ) : location.pathname === '/help/products/import/products' ? (
+          <Importproducts />
+        ) : location.pathname === '/help/products/import/vendorproducts' ? (
+          <ImportVendorProducts />
+        ) : location.pathname === '/help/products/import/skuadjustments' ? (
+          <ImportSkuAdjustments />
+        ) : location.pathname === '/help/products/export/products' ? (
+          <Exportproducts />
+        ) : location.pathname === '/help/products/export/vendorproducts' ? (
+          <Exportvendorproducts />
+        ) : location.pathname === '/help/products/export/custombundlekit' ? (
+          <Exportcustombundlekit />
+        ) : location.pathname === '/help/products/searchproducts' ? (
+          <Searchproducts />
+        ) : location.pathname === '/help/products/customproductfields' ? (
+          <Customproductfields />
+        ) : location.pathname === '/help/products/faq' ? (
+          <FAQ />
+        ) : // Analytics
+        location.pathname === '/help/analytics/general/theanalyticsmodules' ? (
+          <Theanalyticsmodules />
+        ) : location.pathname === '/help/analytics/general/analyticsreports' ? (
+          <Analyticsreports />
+        ) : location.pathname === '/help/analytics/general/printingchartsfromanalytics' ? (
+          <Printingchartsfromanalytics />
+        ) : location.pathname === '/help/analytics/general/exportingreports' ? (
+          <Exportingreports />
+        ) : location.pathname === '/help/analytics/suborders/historicalsexports' ? (
+          <Historicalordersexports />
+        ) : location.pathname === '/help/analytics/suborders/salesoverview' ? (
+          <Salesoverview />
+        ) : location.pathname === '/help/analytics/suborders/biggesttickets' ? (
+          <Biggesttickets />
+        ) : location.pathname === '/help/analytics/suborders/shipments' ? (
+          <Shipments />
+        ) : location.pathname === '/help/analytics/subproducts/analyticsskuprofitability' ? (
+          <Analyticsskuprofitability />
+        ) : location.pathname === '/help/analytics/subproducts/yoygrowth' ? (
+          <Yoygrowth />
+        ) : location.pathname === '/help/analytics/subproducts/analyticslistingprofitability' ? (
+          <Analyticslistingprofitability />
+        ) : location.pathname === '/help/analytics/subproducts/topsellersandworstsellersreports' ? (
+          <Topsellersandworstsellersreports />
+        ) : location.pathname === '/help/analytics/subproducts/analyticstrendingprofitability' ? (
+          <Analyticstrendingprofitability />
+        ) : location.pathname === '/help/analytics/subdashboard/opportunitiesfoundbyextensivordermanager' ? (
+          <Opportunitiesfoundbyextensivordermanager />
+        ) : location.pathname === '/help/analytics/subinventory/analyticsinventoryreplenishmentalerts' ? (
+          <Analyticsinventoryreplenishmentalerts />
+        ) : location.pathname === '/help/analytics/subinventory/analyticssnapshotinventoryvalue' ? (
+          <Analyticssnapshotinventoryvalue />
+        ) : location.pathname === '/help/analytics/subinventory/analyticstrendinginventoryvalue' ? (
+          <Analyticstrendinginventoryvalue />
+        ) : location.pathname === '/help/analytics/subinventory/analyticscriticalinventorylevels' ? (
+          <Analyticscriticalinventorylevels />
+        ) : location.pathname === '/help/analytics/subinventory/analyticsinventoryaging' ? (
+          <Analyticsinventoryaging />
+        ) : location.pathname === '/help/analytics/subpurchaseorders/historicalexports' ? (
+          <Historicalpurchaseordersexports />
+        ) : // Settings
+        location.pathname === '/help/settings/myprofile' ? (
+          <Myprofile />
+        ) : location.pathname === '/help/settings/useradministration' ? (
+          <Useradministration />
+        ) : location.pathname === '/help/settings/companyinfo' ? (
+          <Companyinfo />
+        ) : location.pathname === '/help/settings/companyinfo/' ? (
+          <Companyinfo />
+        ) : // Shipments
+        location.pathname === '/help/shipments/searchingForShipments' ? (
+          <SearchingForShipments />
+        ) : location.pathname === '/help/shipments/printingShippingLabels' ? (
+          <PrintingShippingLabels />
+        ) : location.pathname === '/help/shipments/printEndOfDayForms' ? (
+          <PrintEndOfDayForms />
+        ) : location.pathname === '/help/shipments/trackingShipments' ? (
+          <TrackingShipments />
+        ) : location.pathname === '/help/shipments/rmaExports' ? (
+          <RmaExports />
+        ) : location.pathname === '/help/shipments/printForUPSShipments' ? (
+          <PrintForPackage />
+        ) : location.pathname === '/help/shipments/resendingConfirmationEmails' ? (
+          <ResendingConfirmationEmails />
+        ) : location.pathname === '/help/shipments/voidingShipments' ? (
+          <VoidingShipments />
+        ) : location.pathname === '/help/shipments/postalZones' ? (
+          <PostalZones />
+        ) : location.pathname === '/help/shipments/exportingShipments' ? (
+          <ExportingShipments />
+        ) : (
+          <></>
+        )
+      }
     </div>
   );
 };

@@ -268,6 +268,57 @@ export default [
         path: '/help/orders/exportorders',
         component: './Help/MainPanel/Orders/exportorders',
       },
+      // Shipments
+      {
+        hideInMenu: true,
+        path: '/help/shipments/searchingForShipments',
+        component: './Help/MainPanel/Shipments/searchingForShipments',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/printingShippingLabels',
+        component: './Help/MainPanel/Shipments/printingShippingLabels',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/printEndOfDayForms',
+        component: './Help/MainPanel/Shipments/printEndOfDayForms',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/trackingShipments',
+        component: './Help/MainPanel/Shipments/trackingShipments',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/rmaExports',
+        component: './Help/MainPanel/Shipments/rmaExports',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/printForUPSShipments',
+        component: './Help/MainPanel/Shipments/printForPackage',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/resendingConfirmationEmails',
+        component: './Help/MainPanel/Shipments/resendingConfirmationEmails',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/voidingShipments',
+        component: './Help/MainPanel/Shipments/voidingShipments',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/postalZones',
+        component: './Help/MainPanel/Shipments/postalZones',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/shipments/exportingShipments',
+        component: './Help/MainPanel/Shipments/exportingShipments',
+      },
       // Customers
       {
         hideInMenu: true,

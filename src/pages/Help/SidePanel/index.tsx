@@ -200,9 +200,58 @@ const SidePanel = () => {
           label: 'Shipments',
           children: [
             {
-              key: '/help/shipments/test',
-              icon: <UserOutlined />,
-              label: <Link to="/help/shipments/test">Test</Link>,
+              key: '/help/shipments/searchingForShipments',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/searchingForShipments">Searching for Shipments</Link>,
+            },
+            {
+              key: '/help/shipments/printingShippingLabels',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/printingShippingLabels">Printing Shipping Labels</Link>,
+            },
+            {
+              key: '/help/shipments/printEndOfDayForms',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/printEndOfDayForms">How To Print End of Day Forms</Link>,
+            },
+            {
+              key: '/help/shipments/trackingShipments',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/trackingShipments">Tracking Shipments</Link>,
+            },
+            {
+              key: '/help/shipments/rmaExports',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/rmaExports">RMA Exports</Link>,
+            },
+            {
+              key: '/help/shipments/printForUPSShipments',
+              icon: <AccountingIcon />,
+              label: (
+                <Link to="/help/shipments/printForUPSShipments">
+                  How do I print an End of Day form or Package Level Detail report for UPS shipments?
+                </Link>
+              ),
+            },
+            {
+              key: '/help/shipments/resendingConfirmationEmails',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/resendingConfirmationEmails">Resending Confirmation Emails</Link>,
+            },
+            {
+              key: '/help/shipments/voidingShipments',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/voidingShipments">Voiding Shipments</Link>,
+            },
+            {
+              key: '/help/shipments/postalZones',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/postalZones">Postal Zones</Link>,
+            },
+            {
+              key: '/help/shipments/exportingShipments',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/shipments/exportingShipments">Exporting Shipments</Link>,
             },
           ],
         },
