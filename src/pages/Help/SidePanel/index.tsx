@@ -584,6 +584,29 @@ const SidePanel = () => {
           icon: <BiggestTicketsIcon />,
           label: 'Settings',
           children: [
+            // Vendors
+            {
+              key: 'vendors',
+              icon: <AccountingIcon />,
+              label: 'Vendors',
+              children: [
+                {
+                  key: '/help/settings/vendors/createOrUpdate',
+                  icon: <AccountingIcon />,
+                  label: <Link to="/help/settings/vendors/createOrUpdate">Creating or Updating Vendors</Link>,
+                },
+                {
+                  key: '/help/settings/vendors/search',
+                  icon: <AccountingIcon />,
+                  label: <Link to="/help/settings/vendors/search">Search for Vendors</Link>,
+                },
+              ],
+            },
+            {
+              key: '/help/settings/poTemplate',
+              icon: <SalesIcon />,
+              label: <Link to="/help/settings/poTemplate">PO Template</Link>,
+            },
             {
               key: '/help/settings/myprofile',
               icon: <SalesIcon />,

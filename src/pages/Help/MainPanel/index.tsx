@@ -72,6 +72,9 @@ import Historicalpurchaseordersexports from './Analytics/PurchaseOrders/historic
 import Companyinfo from './Settings/companyinfo';
 import Myprofile from './Settings/myprofile';
 import Useradministration from './Settings/useradministration';
+import CreateOrUpdate from './Settings/Vendors/createOrUpdate';
+import Search from './Settings/Vendors/search';
+import PoTemplate from './Settings/poTemplate';
 
 const MainPanel: React.FC = () => {
   const location = useLocation();
@@ -177,6 +180,12 @@ const MainPanel: React.FC = () => {
           <Companyinfo />
         ) : location.pathname === '/help/settings/companyinfo/' ? (
           <Companyinfo />
+        ) : location.pathname === '/help/settings/vendors/createOrUpdate' ? (
+          <CreateOrUpdate />
+        ) : location.pathname === '/help/settings/vendors/search' ? (
+          <Search />
+        ) : location.pathname === '/help/settings/poTemplate' ? (
+          <PoTemplate />
         ) : // Shipments
         location.pathname === '/help/shipments/searchingForShipments' ? (
           <SearchingForShipments />

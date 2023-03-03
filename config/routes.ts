@@ -427,6 +427,21 @@ export default [
         path: '/help/settings/companyinfo',
         component: './Help/MainPanel/Settings/companyinfo',
       },
+      {
+        hideInMenu: true,
+        path: '/help/settings/poTemplate',
+        component: './Help/MainPanel/Settings/poTemplate',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/vendors/createOrUpdate',
+        component: './Help/MainPanel/Settings/Vendors/createOrUpdate',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/vendors/search',
+        component: './Help/MainPanel/Settings/Vendors/search',
+      },
       // Analytics
       {
         hideInMenu: true,
