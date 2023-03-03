@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import { modalType } from '@/utils/helpers/types';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { DragDropContainer } from 'react-drag-drop-container-typescript';
@@ -10,17 +10,17 @@ import EditHistoryModal from './Modals/EditHistory';
 
 const TColumns = [
   {
-    title: 'Phone Number',
+    title: <FormattedMessage id="component.table.column.phoneNumber" />,
     dataIndex: 'phone',
     key: 'phone',
   },
   {
-    title: 'Card ID Number',
+    title: <FormattedMessage id="component.table.column.cardIdNumber" />,
     dataIndex: 'cardNumber',
     key: 'cardNumber',
   },
   {
-    title: 'Name',
+    title: <FormattedMessage id="component.table.column.name" />,
     dataIndex: 'name',
     key: 'name',
     render: (text: any) => (
@@ -30,12 +30,12 @@ const TColumns = [
     ),
   },
   {
-    title: 'Orders',
+    title: <FormattedMessage id="component.table.column.orders" />,
     dataIndex: 'orders',
     key: 'orders',
   },
   {
-    title: 'Total Sales',
+    title: <FormattedMessage id="component.table.column.totalSales" />,
     dataIndex: 'totalsales',
     key: 'totalsales',
   },
@@ -73,13 +73,19 @@ const MainPanel: React.FC = () => {
     <>
       <div className="main-panel">
         <div className="title-row">
-          <h1 className="page-title">Customers</h1>
+          <h1 className="page-title">
+            <FormattedMessage id="pages.customers.title" />
+          </h1>
         </div>
         <Card className="content-box">
           <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-            <OButton btnText="Merge" onClick={() => setModal(modalType.Merge)} />
-            <OButton btnText="History" disabled={!selectedCustomer} onClick={() => setModal(modalType.History)} />
-            <OButton btnText="New Customers" onClick={() => setModal(modalType.New)} />
+            <OButton btnText={<FormattedMessage id="component.button.merge" />} onClick={() => setModal(modalType.Merge)} />
+            <OButton
+              btnText={<FormattedMessage id="component.button.history" />}
+              disabled={!selectedCustomer}
+              onClick={() => setModal(modalType.History)}
+            />
+            <OButton btnText={<FormattedMessage id="component.button.newCustomers" />} onClick={() => setModal(modalType.New)} />
           </Space>
           <OTable
             columns={TColumns}

@@ -1,5 +1,5 @@
 import httpClient from '@/utils/http-client';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import qs from 'qs';
 
 export default () => {
@@ -14,11 +14,14 @@ export default () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const createUser = useCallback((data) => {
-    return httpClient.post('/api/users', data).then((response) => {
-      if (showInactive === response.data.is_active) setUserList((prev) => [...prev, response.data]);
-    });
-  }, []);
+  const createUser = useCallback(
+    (data) => {
+      return httpClient.post('/api/users', data).then((response) => {
+        if (showInactive === response.data.is_active) setUserList((prev) => [...prev, response.data]);
+      });
+    },
+    [showInactive],
+  );
 
   const updateUser = useCallback(
     (_user) => {
@@ -34,9 +37,9 @@ export default () => {
     [showInactive, userList],
   );
 
-  useEffect(() => {
-    getUsers({ is_active: showInactive });
-  }, [getUsers, showInactive]);
+  // useEffect(() => {
+  //   getUsers({ is_active: showInactive });
+  // }, [getUsers, showInactive]);
 
   return {
     userList,

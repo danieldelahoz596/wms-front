@@ -83,7 +83,9 @@ const MainPanel: React.FC<IMainPanel> = ({ setModal }) => {
   return (
     <>
       <div className="title-row">
-        <h1 className="page-title">Vendors</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.settings.menu.vendors" />
+        </h1>
       </div>
       <Card className="content-box">
         <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">

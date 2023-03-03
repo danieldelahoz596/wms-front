@@ -11,6 +11,15 @@ interface IConfigAttributesModal {
   attributes: any[];
 }
 
+const TColumns = [
+  {
+    title: '',
+    dataIndex: 'name',
+    key: 'name',
+    editable: true,
+  },
+];
+
 const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClose, onSave, attributes }) => {
   const [items, setItems] = useState([]);
   const [attribute, setAttribute] = useState(null);
@@ -18,15 +27,6 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
   useEffect(() => {
     setItems(attributes);
   }, [attributes]);
-
-  const TColumns = [
-    {
-      title: '',
-      dataIndex: 'name',
-      key: 'name',
-      editable: true,
-    },
-  ];
 
   const itemRows = useMemo(() => items.map((item, index) => ({ key: index, name: item })), [items]);
 

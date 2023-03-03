@@ -3,7 +3,7 @@ import { Card, Button } from 'antd';
 import { useModel } from '@umijs/max';
 import { CheckSquareFilled } from '@ant-design/icons';
 import { OTable } from '../../../../../components/Globals/OTable';
-import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
+import ManageMilestoneModal from '../ManageMilestone';
 
 const TColumns = [
   {
@@ -36,7 +36,9 @@ const MilestonesCard: React.FC = () => {
         </Button>
       </Card>
 
-      <ConfigureMilestonesModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {/* <ConfigureMilestonesModal isOpen={isOpen} onClose={() => setIsOpen(false)} /> */}
+
+      <ManageMilestoneModal isOpen={isOpen} onClose={() => setIsOpen(false)} onSave={() => setIsOpen(false)} />
     </>
   );
 };

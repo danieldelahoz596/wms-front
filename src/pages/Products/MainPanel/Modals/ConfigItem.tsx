@@ -10,17 +10,16 @@ interface IConfigureItemModal {
   onClose: () => void;
   onSave: () => void;
 }
+const TColumns = [
+  {
+    title: '',
+    dataIndex: 'name',
+    key: 'name',
+    editable: true,
+  },
+];
 
 const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], setItems, onClose, onSave }) => {
-  const TColumns = [
-    {
-      title: '',
-      dataIndex: 'name',
-      key: 'name',
-      editable: true,
-    },
-  ];
-
   const itemRows = useMemo(() => items.map((item) => ({ ...item, key: item.id })), [items]);
 
   return (

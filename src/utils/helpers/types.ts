@@ -15,6 +15,8 @@ export enum modalType {
   Variation = 'Variation',
   ImportExportSummary = 'ImportExportSummary',
   Activate = 'Activate',
+  Add = 'Add',
+  Configure = 'Configure',
 
   // products
   AdjustMasterSKU = 'AdjustMasterSKU',
@@ -83,6 +85,7 @@ export enum modalType {
   ManagePurchaseOrders = 'Manage',
   ExportPOSettings = 'ExportPOSetings',
   ConfigureMilestones = 'ConfigureMilestones',
+  ManageMilestones = 'ManageMilestones',
   AddNewPo = 'AddNewPo',
 
   // warehouse

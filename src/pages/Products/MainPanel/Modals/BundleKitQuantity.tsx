@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Table, InputNumber } from 'antd';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import { useModel } from '@umijs/max';
 
@@ -29,29 +29,35 @@ const BundleKitQuantityModal: React.FC<IBundleKitQuantityModal> = ({ isOpen, onC
     [selectedProducts],
   );
 
-  const handleQuantityChange = (id, value) => {
-    setSelectedProducts(selectedProducts.map((product) => (product.id === id ? { ...product, quantity: value } : product)));
-  };
+  const handleQuantityChange = useCallback(
+    (id, value) => {
+      setSelectedProducts(selectedProducts.map((product) => (product.id === id ? { ...product, quantity: value } : product)));
+    },
+    [selectedProducts, setSelectedProducts],
+  );
 
-  const columns: ColumnsType<DataType> = [
-    {
-      title: 'Bundled Product',
-      dataIndex: 'name',
-      width: 600,
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      render: (text, record) => (
-        <InputNumber
-          onChange={(value) => handleQuantityChange(record.key, value)}
-          style={{ width: '100%' }}
-          min={1}
-          value={text}
-        />
-      ),
-    },
-  ];
+  const columns: ColumnsType<DataType> = useMemo(
+    () => [
+      {
+        title: 'Bundled Product',
+        dataIndex: 'name',
+        width: 600,
+      },
+      {
+        title: 'Quantity',
+        dataIndex: 'quantity',
+        render: (text, record) => (
+          <InputNumber
+            onChange={(value) => handleQuantityChange(record.key, value)}
+            style={{ width: '100%' }}
+            min={1}
+            value={text}
+          />
+        ),
+      },
+    ],
+    [handleQuantityChange],
+  );
 
   return (
     <OModal

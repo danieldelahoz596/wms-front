@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import httpClient from '@/utils/http-client';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Form, Space } from 'antd';
 import qs from 'qs';
 import { useState } from 'react';
@@ -19,32 +19,32 @@ const inputFields = [
   {
     type: 'text',
     name: 'phonenumber',
-    label: 'Phone Number',
+    label: <FormattedMessage id="component.form.label.phoneNumber" />,
   },
   {
     type: 'text',
     name: 'card_number',
-    label: 'Card ID Number',
+    label: <FormattedMessage id="component.form.label.cardIdNumber" />,
   },
   {
     type: 'text',
     name: 'name',
-    label: 'Name',
+    label: <FormattedMessage id="component.form.label.name" />,
   },
   {
     type: 'text',
     name: 'city',
-    label: 'City',
+    label: <FormattedMessage id="component.form.label.city" />,
   },
   {
     type: 'text',
     name: 'state',
-    label: 'State/Province',
+    label: <FormattedMessage id="component.form.label.stateProvince" />,
   },
   {
     type: 'text',
     name: 'country',
-    label: 'Country',
+    label: <FormattedMessage id="component.form.label.country" />,
   },
 ];
 
@@ -75,7 +75,9 @@ export default function SidePanel() {
   return (
     <div className="left-panel">
       <div className="title-row">
-        <h1>Search Customers</h1>
+        <h1>
+          <FormattedMessage id="pages.customers.leftPanel.title" />
+        </h1>
       </div>
       <Card>
         <Form>
@@ -94,8 +96,8 @@ export default function SidePanel() {
           </Space>
         </Form>
         <div className="search-button-row space-between">
-          <OButton btnText={'Clear'} onClick={clearSearchQuery} />
-          <OButton btnText={'Search'} onClick={() => onSearch(searchQuery)} />
+          <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={clearSearchQuery} />
+          <OButton btnText={<FormattedMessage id="component.button.search" />} onClick={() => onSearch(searchQuery)} />
         </div>
       </Card>
     </div>

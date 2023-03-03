@@ -1,52 +1,52 @@
 import { OTable } from '@/components/Globals/OTable';
 import { FormOutlined, MessageOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card } from 'antd';
 import { useMemo } from 'react';
 
 const TOrderColumns = [
   {
-    title: 'Labels',
+    title: <FormattedMessage id="component.table.column.labels" />,
     dataIndex: 'labels',
     key: 'labels',
   },
   {
-    title: 'Notes',
+    title: <FormattedMessage id="component.table.column.notes" />,
     dataIndex: 'notes',
     key: 'notes',
   },
   {
-    title: 'Order Number',
+    title: <FormattedMessage id="component.table.column.orderNumber" />,
     dataIndex: 'order_number',
     key: 'order_number',
   },
   {
-    title: 'Order Date',
+    title: <FormattedMessage id="component.table.column.orderDate" />,
     dataIndex: 'order_date',
     key: 'order_date',
   },
   {
-    title: 'Order Total',
+    title: <FormattedMessage id="component.table.column.orderTotal" />,
     dataIndex: 'order_total',
     key: 'order_total',
   },
   {
-    title: 'Items',
+    title: <FormattedMessage id="component.table.column.items" />,
     dataIndex: 'items',
     key: 'items',
   },
   {
-    title: 'Item Names',
+    title: <FormattedMessage id="component.table.column.itemNames" />,
     dataIndex: 'item_names',
     key: 'item_names',
   },
   {
-    title: 'Item Skus',
+    title: <FormattedMessage id="component.table.column.itemSkus" />,
     dataIndex: 'item_skus',
     key: 'item_skus',
   },
   {
-    title: 'Status',
+    title: <FormattedMessage id="component.table.column.status" />,
     dataIndex: 'status',
     key: 'status',
   },
@@ -81,7 +81,7 @@ const BottomPanel: React.FC = () => {
 
   return (
     selectedCustomer && (
-      <Card title="Customer Orders">
+      <Card title={<FormattedMessage id="pages.customers.bottomPanel.title" />}>
         <OTable columns={TOrderColumns} rows={rows} />
       </Card>
     )

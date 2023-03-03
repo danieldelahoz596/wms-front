@@ -74,7 +74,9 @@ const OrderBots: React.FC = () => {
   return (
     <>
       <div className="title-row">
-        <h1 className="page-title">Order Bots</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.settings.menu.orderBots" />
+        </h1>
       </div>
       <Card className="content-box">
         <div className="button-row space-between">

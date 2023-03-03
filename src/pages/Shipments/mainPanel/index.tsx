@@ -1,11 +1,13 @@
 import { OButton } from '@/components/Globals/OButton';
+import { OTable } from '@/components/Globals/OTable';
 import LaunchIcon from '@/utils/icons/launch';
 import ProductsIcon from '@/utils/icons/products';
 import WarehouseIcon from '@/utils/icons/warehouse';
 import { GlobalOutlined } from '@ant-design/icons';
-import { FormattedMessage } from '@umijs/max';
-import { Card, Space, Table } from 'antd';
+import { FormattedMessage, useModel } from '@umijs/max';
+import { Card, Space } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { useState } from 'react';
 import moment from 'moment';
 
 interface IShipmentItem {
@@ -134,7 +136,114 @@ const shipments: IShipmentItem[] = [
   },
 ];
 
+const returnTColumns = [
+  {
+    title: 'Confirmation',
+    dataIndex: 'confirmation',
+    key: 'confirmation',
+  },
+  {
+    title: 'Created',
+    dataIndex: 'created',
+    key: 'created',
+    align: 'right',
+    render: (created) => <>{moment(created).format('MM/D/YYYY')}</>,
+  },
+  {
+    title: 'Issued',
+    dataIndex: 'issued',
+    key: 'issued',
+    align: 'right',
+    render: (issued) => <>{moment(issued).format('MM/D/YYYY')}</>,
+  },
+  {
+    title: 'Shipped',
+    dataIndex: 'shipped',
+    key: 'shipped',
+    align: 'right',
+    render: (shipped) => <>{moment(shipped).format('MM/D/YYYY')}</>,
+  },
+  {
+    title: 'Received',
+    dataIndex: 'received',
+    key: 'received',
+    align: 'center',
+    render: (received) => <>{moment(received).format('MM/D/YYYY')}</>,
+  },
+  {
+    title: 'Order Number',
+    dataIndex: 'order_number',
+    key: 'order_number',
+  },
+  {
+    title: 'RMA Number',
+    dataIndex: 'rma_number',
+    key: 'rma_number',
+    render: (rma_number) => (
+      <a>
+        <u>{rma_number}</u>
+      </a>
+    ),
+  },
+];
+
+const returnData = [
+  {
+    key: 1,
+    confirmation: 'Received',
+    created: new Date(2021, 2, 8),
+    issued: new Date(2021, 2, 8),
+    shipped: new Date(2021, 2, 8),
+    received: new Date(2021, 2, 8),
+    order_number: '111',
+    rma_number: 'RMA-111',
+  },
+  {
+    key: 2,
+    confirmation: 'Received',
+    created: new Date(2021, 1, 29),
+    issued: new Date(2021, 1, 29),
+    shipped: new Date(2021, 1, 29),
+    received: new Date(2021, 1, 29),
+    order_number: '887',
+    rma_number: 'RMA-887',
+  },
+  {
+    key: 3,
+    confirmation: 'Received',
+    created: new Date(2021, 1, 8),
+    issued: new Date(2021, 1, 7),
+    shipped: new Date(2021, 1, 8),
+    received: new Date(2021, 1, 8),
+    order_number: 'DL TestShippment',
+    rma_number: 'RMA-DL Test',
+  },
+  {
+    key: 4,
+    confirmation: 'Received',
+    created: new Date(2020, 7, 7),
+    issued: new Date(2020, 7, 7),
+    shipped: new Date(2020, 7, 7),
+    received: new Date(2020, 8, 21),
+    order_number: 'MO10',
+    rma_number: 'RMA-MO10',
+  },
+  {
+    key: 5,
+    confirmation: 'Received',
+    created: new Date(2020, 6, 18),
+    issued: new Date(2020, 6, 18),
+    shipped: new Date(2020, 6, 18),
+    received: new Date(2020, 6, 18),
+    order_number: 'DamToughE',
+    rma_number: 'RMA-DanToughE',
+  },
+];
+
 const MainPanel: React.FC = () => {
+  const { searchType } = useModel('shipment');
+  const [selectedRows, setSelectedRows] = useState([]);
+
   return (
     <>
       <div className="title-row">
@@ -153,7 +262,18 @@ const MainPanel: React.FC = () => {
           <OButton btnText="Resend Confirmation Email(s)" />
           <OButton btnText="Import/Export" />
         </Space>
-        <Table columns={TColumns} dataSource={shipments} />
+        {searchType === 'returns' ? (
+          <OTable
+            columns={returnTColumns}
+            rows={returnData}
+            type="checkbox"
+            pagination={false}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+          />
+        ) : (
+          <OTable columns={TColumns} rows={shipments} />
+        )}
       </Card>
     </>
   );

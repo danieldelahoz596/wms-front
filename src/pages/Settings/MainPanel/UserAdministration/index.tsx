@@ -46,7 +46,9 @@ export default function () {
     <>
       {contextHolder}
       <div className="title-row">
-        <h1 className="page-title">User Administration</h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.settings.menu.userAdministration" />
+        </h1>
       </div>
       <Card className="content-box">
         <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">

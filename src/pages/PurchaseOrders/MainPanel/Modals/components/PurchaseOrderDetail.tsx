@@ -1,10 +1,12 @@
 import { modalType } from '@/utils/helpers/types';
-import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
+import { PlusOutlined, QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
+import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
+import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
 // import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
@@ -14,8 +16,11 @@ interface IPurchaseOrderDetail {
 const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const { selectedVendor } = useModel('vendor');
   const { milestonesList } = useModel('milestones');
-  const { initialState } = useModel('@@initialState');
   const { selectedPO } = useModel('po');
+  const { warehouseList } = useModel('warehouse');
+  const { poTemplateList } = useModel('poTemplate');
+  const { shippingTermList } = useModel('shippingTerm');
+  const { paymentTermList, setPaymentTermList } = useModel('paymentTerm');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
   useEffect(() => {
@@ -33,6 +38,51 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     }
   }, [selectedPO, form]);
 
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [warehouseList],
+  );
+
+  const poTemplateOptions = useMemo(
+    () =>
+      poTemplateList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [poTemplateList],
+  );
+
+  const shippingTermOptions = useMemo(
+    () =>
+      shippingTermList.map((_item) => ({
+        label: _item.text,
+        value: _item.value,
+      })),
+    [shippingTermList],
+  );
+
+  const paymentTermOptions = useMemo(
+    () =>
+      paymentTermList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [paymentTermList],
+  );
+
+  const milestoneOptions = useMemo(
+    () =>
+      milestonesList?.map((_item) => ({
+        label: _item.text,
+        value: _item.id,
+      })),
+    [milestonesList],
+  );
+
   return (
     <>
       <Card title="P.O. Details">
@@ -43,23 +93,13 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
             </span>
           </Form.Item>
           <Form.Item label="To Destination" name="destination">
-            <Select
-              options={initialState?.initialData?.warehouses?.map((_item) => ({
-                label: _item.name,
-                value: _item.id,
-              }))}
-            />
+            <Select options={warehouseOptions} />
           </Form.Item>
           <Form.Item label="Custom P.O. Number" name="customPONumber">
             <Input />
           </Form.Item>
           <Form.Item label="P.O. Template" name="poTemplate">
-            <Select
-              options={initialState?.initialData?.poTemplates?.map((_item) => ({
-                label: _item.name,
-                value: _item.id,
-              }))}
-            />
+            <Select options={poTemplateOptions} />
           </Form.Item>
           <Form.Item label="P.O. Format" name="poFormat">
             <Select
@@ -71,20 +111,20 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
             />
           </Form.Item>
           <Form.Item label="Shipping Terms" name="shippingTerm">
-            <Select
-              options={initialState?.initialData?.shippingTerms?.map((_item) => ({
-                label: _item.name,
-                value: _item.id,
-              }))}
-            />
+            <Select options={shippingTermOptions} />
           </Form.Item>
-          <Form.Item label="Payment Terms" name="paymentTerm">
-            <Select
-              options={initialState?.initialData?.paymentTerms?.map((_item) => ({
-                label: _item.name,
-                value: _item.id,
-              }))}
-            />
+          <Form.Item label="Payment Terms">
+            <div style={{ display: 'flex', gap: HORIZONTAL_SPACE_SIZE }}>
+              <div style={{ flex: 1 }}>
+                <Form.Item name="paymentTerm">
+                  <Select options={paymentTermOptions} />
+                </Form.Item>
+              </div>
+              <div>
+                <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
+                <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
+              </div>
+            </div>
           </Form.Item>
           <Form.Item label="Confirm By" name="confirmBy">
             <DatePicker />
@@ -93,12 +133,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
             <div style={{ display: 'flex', gap: 3 }}>
               <div style={{ flex: '1' }}>
                 <Form.Item name="milestone">
-                  <Select
-                    options={milestonesList?.map((_item) => ({
-                      label: _item.text,
-                      value: _item.id,
-                    }))}
-                  />
+                  <Select options={milestoneOptions} />
                 </Form.Item>
               </div>
               <span onClick={() => setShowModal(modalType.ConfigureMilestones)}>
@@ -118,6 +153,24 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
       <ConfigureMilestonesModal
         isOpen={showModal === modalType.ConfigureMilestones}
         onClose={() => setShowModal(modalType.Close)}
+      />
+
+      <AddItemModal
+        isOpen={showModal === modalType.Add}
+        title="Add New Payment Term"
+        onSave={() => setShowModal(modalType.Close)}
+        onClose={() => setShowModal(modalType.Close)}
+        items={paymentTermList}
+        setItems={setPaymentTermList}
+      />
+
+      <ConfigureItemModal
+        isOpen={showModal === modalType.Configure}
+        title="Add New Payment Term"
+        onSave={() => setShowModal(modalType.Close)}
+        onClose={() => setShowModal(modalType.Close)}
+        items={paymentTermList}
+        setItems={setPaymentTermList}
       />
     </>
   );
