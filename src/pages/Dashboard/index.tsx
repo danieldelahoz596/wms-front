@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import React from 'react';
+import { useEffect } from 'react';
 import { useModel } from '@umijs/max';
 import OrderAgingByWarehouse from './components/orderAgingByWarehouse';
 import FulfillmentPerformance from './components/fulfillmentPerformance';
@@ -7,7 +7,9 @@ import StockRequiringAttention from './components/stockRequiringAttention';
 import IncomingStock from './components/incomingStock';
 
 const Dashboard: React.FC = () => {
-  const { dashboardData } = useModel('dashboard');
+  const { dashboardData, initialDashboardData } = useModel('dashboard');
+
+  useEffect(() => initialDashboardData(), []);
 
   return (
     <Row gutter={[10, 10]} className="main-panel">
