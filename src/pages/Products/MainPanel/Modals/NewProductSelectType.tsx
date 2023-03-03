@@ -3,6 +3,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { modalType } from '@/utils/helpers/types';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 import { Space } from 'antd';
 
 interface INewProductSelectTypeModal {
@@ -14,22 +15,22 @@ interface INewProductSelectTypeModal {
 const NewProductSelectTypeModal: React.FC<INewProductSelectTypeModal> = ({ isOpen, onClose, handleClick }) => {
   const buttons: IOButton[] = [
     {
-      btnText: 'Core Product',
+      btnText: <FormattedMessage id="component.button.coreProduct" />,
       onClick: () => handleClick(modalType.CoreProduct),
     },
     {
-      btnText: 'Bundle/Kit',
+      btnText: <FormattedMessage id="component.button.bundleKit" />,
       onClick: () => handleClick(modalType.BundleKitProduct),
     },
     {
-      btnText: 'Product Variations',
+      btnText: <FormattedMessage id="component.button.productVariations" />,
       onClick: () => handleClick(modalType.ProductVariations),
     },
   ];
 
   return (
     <OModal
-      title="New Product"
+      title={<FormattedMessage id="pages.products.newProductSelectType.title" />}
       helpLink="/help/products/create/coreproduct"
       width={300}
       isOpen={isOpen}
@@ -37,7 +38,9 @@ const NewProductSelectTypeModal: React.FC<INewProductSelectTypeModal> = ({ isOpe
       buttons={[]}
     >
       <div style={{ textAlign: 'center' }}>
-        <h2 style={{ textTransform: 'uppercase' }}>Select Type</h2>
+        <h2 style={{ textTransform: 'uppercase' }}>
+          <FormattedMessage id="pages.products.newProductSelectType.selectType" />
+        </h2>
         <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
           {buttons.map((btn, index) => (
             <OButton key={index} btnText={btn.btnText} size="large" onClick={btn.onClick} style={{ width: '100%' }} />
@@ -45,7 +48,10 @@ const NewProductSelectTypeModal: React.FC<INewProductSelectTypeModal> = ({ isOpe
         </Space>
         <br />
         <a href="/help/products/create/coreproduct#difference_product_types" className="help-link" target="_blank">
-          <span>{"What's the difference"}</span> <QuestionCircleOutlined />
+          <span>
+            <FormattedMessage id="pages.products.newProductSelectType.question" />
+          </span>{' '}
+          <QuestionCircleOutlined />
         </a>
       </div>
     </OModal>

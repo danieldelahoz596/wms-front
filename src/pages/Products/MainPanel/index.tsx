@@ -16,7 +16,7 @@ import BundleIcon from '@/utils/icons/bundle';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import VariationIcon from '@/utils/icons/variation';
 import VectorIcon from '@/utils/icons/vector';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import AdjustMasterSKUModal from './Modals/AdjustMasterSKU';
 import BundleKitModal from './Modals/BundleKit';
@@ -58,22 +58,38 @@ const MainPanel: React.FC = () => {
   const importExportMenuItems: ItemType[] = [
     {
       key: '1',
-      label: <span onClick={() => setModal(modalType.Import)}> Import Products </span>,
+      label: (
+        <span onClick={() => setModal(modalType.Import)}>
+          <FormattedMessage id="component.button.importProducts" />
+        </span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '2',
-      label: <span onClick={() => setModal(modalType.ImportVendorProducts)}>Import Vendor Products</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ImportVendorProducts)}>
+          <FormattedMessage id="component.button.importVendorProducts" />
+        </span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '3',
-      label: <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>Import SKU Adjustments</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ImportSKUAdjustment)}>
+          <FormattedMessage id="component.button.importSkuAdjustments" />
+        </span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
       key: '4',
-      label: <span onClick={() => setModal(modalType.ImportCustomFields)}>Import Custom Fields</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ImportCustomFields)}>
+          <FormattedMessage id="component.button.importCustomFields" />
+        </span>
+      ),
       icon: <VerticalAlignTopOutlined />,
     },
     {
@@ -81,12 +97,20 @@ const MainPanel: React.FC = () => {
     },
     {
       key: '5',
-      label: <span onClick={() => setModal(modalType.Export)}>Export Products</span>,
+      label: (
+        <span onClick={() => setModal(modalType.Export)}>
+          <FormattedMessage id="component.button.exportProducts" />
+        </span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
     },
     {
       key: '6',
-      label: <span onClick={() => setModal(modalType.ExportVendorProducts)}>Export Vendor Products</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+          <FormattedMessage id="component.button.exportVendorProducts" />
+        </span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
     },
     {
@@ -94,13 +118,21 @@ const MainPanel: React.FC = () => {
     },
     {
       key: '7',
-      label: <span onClick={() => setModal(modalType.ExportVendorProducts)}>Custom Product Export</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ExportVendorProducts)}>
+          <FormattedMessage id="component.button.customProductExport" />
+        </span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
       disabled: true,
     },
     {
       key: '8',
-      label: <span onClick={() => setModal(modalType.ExportCustomBundleKit)}>Custom Bundle/Kit Export</span>,
+      label: (
+        <span onClick={() => setModal(modalType.ExportCustomBundleKit)}>
+          <FormattedMessage id="component.button.cutomBundleKitExport" />
+        </span>
+      ),
       icon: <VerticalAlignBottomOutlined />,
     },
   ];
@@ -112,7 +144,7 @@ const MainPanel: React.FC = () => {
       width: 30,
     },
     {
-      title: 'Type',
+      title: <FormattedMessage id="component.table.column.type" />,
       dataIndex: 'type',
       key: 'type',
       align: 'center',
@@ -142,7 +174,7 @@ const MainPanel: React.FC = () => {
       },
     },
     {
-      title: 'Master SKU',
+      title: <FormattedMessage id="component.table.column.masterSku" />,
       dataIndex: 'master_sku',
       key: 'master_sku',
       render: (master_sku, record) => (
@@ -160,42 +192,42 @@ const MainPanel: React.FC = () => {
       ),
     },
     {
-      title: 'Name',
+      title: <FormattedMessage id="component.table.column.name" />,
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Vendor SKU(s)',
+      title: <FormattedMessage id="component.table.column.vendorSkus" />,
       dataIndex: 'vendor_skus',
       key: 'vendor_skus',
     },
     {
-      title: 'Desc.',
+      title: <FormattedMessage id="component.table.column.desc" />,
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Brand',
+      title: <FormattedMessage id="component.table.column.brand" />,
       dataIndex: 'brand',
       key: 'brand',
     },
     {
-      title: 'Categories',
+      title: <FormattedMessage id="component.table.column.categories" />,
       dataIndex: 'categories',
       key: 'categories',
     },
     {
-      title: 'Labels',
+      title: <FormattedMessage id="component.table.column.labels" />,
       dataIndex: 'labels',
       key: 'labels',
     },
     {
-      title: 'Weight',
+      title: <FormattedMessage id="component.table.column.weight" />,
       dataIndex: 'weight',
       key: 'weight',
     },
     {
-      title: 'H/W/L',
+      title: <FormattedMessage id="component.table.column.hwl" />,
       key: 'h/w/l',
       render: (value, record) => {
         return (
@@ -234,7 +266,9 @@ const MainPanel: React.FC = () => {
   return (
     <>
       <div className="title-row">
-        <h1 className="page-title">Products :: </h1>
+        <h1 className="page-title">
+          <FormattedMessage id="pages.products.mainPage.title" /> ::{' '}
+        </h1>
         <div>
           <Select
             options={[
@@ -255,9 +289,13 @@ const MainPanel: React.FC = () => {
       </div>
       <Card className="content-box">
         <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-          <OButton btnText="Adjust Sku" onClick={() => setModal(modalType.AdjustMasterSKU)} disabled={!editableProduct} />
+          <OButton
+            btnText={<FormattedMessage id="component.button.adjustSku" />}
+            onClick={() => setModal(modalType.AdjustMasterSKU)}
+            disabled={!editableProduct}
+          />
           <Popconfirm
-            title="Sure to convert to bundle/kit?"
+            title={<FormattedMessage id="pages.products.mainPag.convertToBundleKit.title" />}
             onConfirm={() => {
               handleUpdateProduct({
                 ...editableProduct,
@@ -267,12 +305,12 @@ const MainPanel: React.FC = () => {
             }}
           >
             <OButton
-              btnText="Convert To Bundle/Kit"
+              btnText={<FormattedMessage id="component.button.converrtToBundleKit" />}
               disabled={!editableProduct || !(editableProduct?.type === productType.CoreProduct)}
             />
           </Popconfirm>
           <Popconfirm
-            title="Sure to convert to Core?"
+            title={<FormattedMessage id="pages.products.mainPag.convertToCore.title" />}
             onConfirm={() => {
               handleUpdateProduct({
                 ...editableProduct,
@@ -282,12 +320,18 @@ const MainPanel: React.FC = () => {
             }}
           >
             <OButton
-              btnText="Convert To Core"
+              btnText={<FormattedMessage id="component.button.converrtToCore" />}
               disabled={!editableProduct || !(editableProduct?.type === productType.Variations)}
             />
           </Popconfirm>
           <Popconfirm
-            title={`Sure to Convert to ${showActivate ? 'Deactivate' : 'Activate'}`}
+            title={
+              showActivate ? (
+                <FormattedMessage id="pages.products.mainPag.deactivate.title" />
+              ) : (
+                <FormattedMessage id="pages.products.mainPag.activate.title" />
+              )
+            }
             onConfirm={() => {
               setProductList(
                 productList.map((_product) =>
@@ -297,14 +341,31 @@ const MainPanel: React.FC = () => {
               setEditableProduct(null);
             }}
           >
-            <OButton btnText={showActivate ? 'Deactivate' : 'Activate'} disabled={!editableProduct} />
+            <OButton
+              btnText={
+                showActivate ? (
+                  <FormattedMessage id="component.button.deactivate" />
+                ) : (
+                  <FormattedMessage id="component.button.activate" />
+                )
+              }
+              disabled={!editableProduct}
+            />
           </Popconfirm>
-          <OButton type="primary" onClick={() => console.log('History')} disabled={!editableProduct} btnText="History" />
-          <OButton btnText={'New Product'} onClick={() => setModal(modalType.Variation)} />
+          <OButton
+            type="primary"
+            onClick={() => console.log('History')}
+            disabled={!editableProduct}
+            btnText={<FormattedMessage id="component.button.history" />}
+          />
+          <OButton
+            btnText={<FormattedMessage id="component.button.newProduct" />}
+            onClick={() => setModal(modalType.Variation)}
+          />
           <Dropdown menu={{ items: importExportMenuItems }}>
             <Button size="small">
               <Space>
-                Import/Export <DownOutlined />
+                <FormattedMessage id="component.button.importExport" /> <DownOutlined />
               </Space>
             </Button>
           </Dropdown>
