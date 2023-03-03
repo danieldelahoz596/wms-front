@@ -1,12 +1,12 @@
+import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
+import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
+import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
 import { modalType } from '@/utils/helpers/types';
 import { PlusOutlined, QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import React, { useEffect, useState, useMemo } from 'react';
-import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
-import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
-import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
+import React, { useEffect, useMemo, useState } from 'react';
 // import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
@@ -115,15 +115,11 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
           <Form.Item label="Payment Terms">
             <div style={{ display: 'flex', gap: HORIZONTAL_SPACE_SIZE }}>
-              <div style={{ flex: 1 }}>
-                <Form.Item name="paymentTerm">
-                  <Select options={paymentTermOptions} />
-                </Form.Item>
-              </div>
-              <div>
-                <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
-                <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
-              </div>
+              <Form.Item name="paymentTerm" style={{ flex: 1 }}>
+                <Select options={paymentTermOptions} />
+              </Form.Item>
+              <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
+              <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
             </div>
           </Form.Item>
           <Form.Item label="Confirm By" name="confirmBy">
