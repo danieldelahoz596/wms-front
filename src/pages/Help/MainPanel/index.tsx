@@ -12,6 +12,24 @@ import Orders from './Orders/orders';
 // Inventory
 
 // Purchase Order
+import AvailableActions from './PurchaseOrders/availableActions';
+import Restoring from './PurchaseOrders/restoring';
+import UpdatePONumber from './PurchaseOrders/updatePONumber';
+import ReSending from './PurchaseOrders/reSending';
+import Receiving from './PurchaseOrders/receiving';
+import Printing from './PurchaseOrders/printing';
+import Canceling from './PurchaseOrders/canceling';
+import Authorizing from './PurchaseOrders/authorizing';
+import WorkingWithPOMilestones from './PurchaseOrders/workingWithPOMilestones';
+import Voiding from './PurchaseOrders/voiding';
+import SearchingForPOs from './PurchaseOrders/searchingForPOs';
+import AutoPoAndRecordRules from './PurchaseOrders/autoPoAndRecordRules';
+import CreateManualPO from './PurchaseOrders/createManualPO';
+import AutomatePurchaseOrders from './PurchaseOrders/automatePurchaseOrders';
+import DeleteLineItem from './PurchaseOrders/deleteLineItem';
+import PasteFromCSV from './PurchaseOrders/pasteFromCSV';
+import ExplanationPoStatus from './PurchaseOrders/explanationPoStatus';
+import ExportingPO from './PurchaseOrders/exportingPO';
 
 // Shipments
 import SearchingForShipments from './Shipments/searchingForShipments';
@@ -75,6 +93,37 @@ import Useradministration from './Settings/useradministration';
 import CreateOrUpdate from './Settings/Vendors/createOrUpdate';
 import Search from './Settings/Vendors/search';
 import PoTemplate from './Settings/poTemplate';
+import OrderPickOverview from './Settings/Warehouse/OrderPickingAndPacking/Information/orderPickOverview';
+import GuideOrderPick from './Settings/Warehouse/OrderPickingAndPacking/Information/guideOrderPick';
+import NonGuideOrderPick from './Settings/Warehouse/OrderPickingAndPacking/Information/nonGuideOrderPick';
+import OrderPacking from './Settings/Warehouse/OrderPickingAndPacking/Information/orderPacking';
+import PackingInMobile from './Settings/Warehouse/OrderPickingAndPacking/Information/packingInMobile';
+import GuidedOrderPickOnDevice from './Settings/Warehouse/OrderPickingAndPacking/PickingWithDevice/guidedOrderPickOnDevice';
+import NonGuidedOrderPickOnDevice from './Settings/Warehouse/OrderPickingAndPacking/PickingWithDevice/nonGuidedOrderPickOnDevice';
+import NoStock from './Settings/Warehouse/OrderPickingAndPacking/noStock';
+import PickToCarton from './Settings/Warehouse/OrderPickingAndPacking/pickToCarton';
+import PickItemWithPartSceanSettings from './Settings/Warehouse/OrderPickingAndPacking/pickItemWithPartSceanSettings';
+import Overview from './Settings/Warehouse/CustomerPortal/Info/overview';
+import Options from './Settings/Warehouse/CustomerPortal/Info/options';
+import Location from './Settings/Warehouse/CustomerPortal/SettingUp/location';
+import ClientPart from './Settings/Warehouse/CustomerPortal/SettingUp/clientPart';
+import Customer from './Settings/Warehouse/CustomerPortal/SettingUp/customer';
+import LoggingInto from './Settings/Warehouse/CustomerPortal/Using/loggingInto';
+import Customization from './Settings/Warehouse/CustomerPortal/Using/customization';
+import Type from './Settings/Warehouse/Barcoding/Info/type';
+import Hardware from './Settings/Warehouse/Barcoding/labelPrinting/hardware';
+import SelectingBarcodeLabelMedia from './Settings/Warehouse/Barcoding/labelPrinting/selectingBarcodeLabelMedia';
+import ConfigureZebra from './Settings/Warehouse/Barcoding/labelPrinting/configureZebra';
+import SettingUp from './Settings/Warehouse/Barcoding/labelPrinting/settingUp';
+import Template from './Settings/Warehouse/Barcoding/printingLabel/template';
+import MobileApp from './Settings/Warehouse/Barcoding/printingLabel/mobileApp';
+import GoogleChromeAddon from './Settings/Warehouse/Barcoding/printingLabel/googleChromeAddon';
+import AssetMove from './Settings/Warehouse/BinMove/assetMove';
+import InventoryMove from './Settings/Warehouse/BinMove/inventoryMove';
+import ChildBinMove from './Settings/Warehouse/BinMove/childBinMove';
+import MassBinMove from './Settings/Warehouse/BinMove/massBinMove';
+import ShippingInMobile from './Settings/Warehouse/MobileReceivingPicking/shippingInMobile';
+import Inventory from './Inventory';
 
 const MainPanel: React.FC = () => {
   const location = useLocation();
@@ -186,6 +235,73 @@ const MainPanel: React.FC = () => {
           <Search />
         ) : location.pathname === '/help/settings/poTemplate' ? (
           <PoTemplate />
+        ) : // Settings - Warehouse
+        location.pathname === '/help/settings/warehouse/orderPickingAndPacking/information/overview' ? (
+          <OrderPickOverview />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/information/guidedOrderPick' ? (
+          <GuideOrderPick />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick' ? (
+          <NonGuideOrderPick />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/information/orderPacking' ? (
+          <OrderPacking />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/information/packingInMobile' ? (
+          <PackingInMobile />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/guided' ? (
+          <GuidedOrderPickOnDevice />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided' ? (
+          <NonGuidedOrderPickOnDevice />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/noStock' ? (
+          <NoStock />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/pickToCarton' ? (
+          <PickToCarton />
+        ) : location.pathname === '/help/settings/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings' ? (
+          <PickItemWithPartSceanSettings />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/info/overview' ? (
+          <Overview />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/info/options' ? (
+          <Options />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/settingUp/overview' ? (
+          <Overview />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/settingUp/location' ? (
+          <Location />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/settingUp/clientPart' ? (
+          <ClientPart />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/settingUp/customer' ? (
+          <Customer />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/using/loggingInto' ? (
+          <LoggingInto />
+        ) : location.pathname === '/help/settings/warehouse/customerPortal/using/customization' ? (
+          <Customization />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/info/overview' ? (
+          <Overview />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/info/type' ? (
+          <Type />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/labelPrinting/hardware' ? (
+          <Hardware />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/labelPrinting/labelMedia' ? (
+          <SelectingBarcodeLabelMedia />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/labelPrinting/configureZebra' ? (
+          <ConfigureZebra />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/labelPrinting/settingUp' ? (
+          <SettingUp />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/printingLabel/template' ? (
+          <Template />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/printingLabel/mobileApp' ? (
+          <MobileApp />
+        ) : location.pathname === '/help/settings/warehouse/barcoding/printingLabel/googleChrome' ? (
+          <GoogleChromeAddon />
+        ) : location.pathname === '/help/settings/warehouse/bindMove/assetMove' ? (
+          <AssetMove />
+        ) : location.pathname === '/help/settings/warehouse/bindMove/inventoryMove' ? (
+          <InventoryMove />
+        ) : location.pathname === '/help/settings/warehouse/bindMove/childBinMove' ? (
+          <ChildBinMove />
+        ) : location.pathname === '/help/settings/warehouse/bindMove/massBinMove' ? (
+          <MassBinMove />
+        ) : location.pathname === '/help/settings/warehouse/mobileReceivingPicking/packingInMobile' ? (
+          <PackingInMobile />
+        ) : location.pathname === '/help/settings/warehouse/mobileReceivingPicking/shippingInMobile' ? (
+          <ShippingInMobile />
         ) : // Shipments
         location.pathname === '/help/shipments/searchingForShipments' ? (
           <SearchingForShipments />
@@ -207,6 +323,46 @@ const MainPanel: React.FC = () => {
           <PostalZones />
         ) : location.pathname === '/help/shipments/exportingShipments' ? (
           <ExportingShipments />
+        ) : // Purchase Orders
+        location.pathname === '/help/purchasing/availableActions' ? (
+          <AvailableActions />
+        ) : location.pathname === '/help/purchasing/restoringPO' ? (
+          <Restoring />
+        ) : location.pathname === '/help/purchasing/updatingPONumber' ? (
+          <UpdatePONumber />
+        ) : location.pathname === '/help/purchasing/reSendingPO' ? (
+          <ReSending />
+        ) : location.pathname === '/help/purchasing/receivingPO' ? (
+          <Receiving />
+        ) : location.pathname === '/help/purchasing/printingPO' ? (
+          <Printing />
+        ) : location.pathname === '/help/purchasing/cancelingPO' ? (
+          <Canceling />
+        ) : location.pathname === '/help/purchasing/authorizingPO' ? (
+          <Authorizing />
+        ) : location.pathname === '/help/purchasing/workingWithPOMilestone' ? (
+          <WorkingWithPOMilestones />
+        ) : location.pathname === '/help/purchasing/voidingPO' ? (
+          <Voiding />
+        ) : location.pathname === '/help/purchasing/searchingForPO' ? (
+          <SearchingForPOs />
+        ) : location.pathname === '/help/purchasing/autoPOAndReorderRules' ? (
+          <AutoPoAndRecordRules />
+        ) : location.pathname === '/help/purchasing/createManualPO' ? (
+          <CreateManualPO />
+        ) : location.pathname === '/help/purchasing/automatePurchaseOrders' ? (
+          <AutomatePurchaseOrders />
+        ) : location.pathname === '/help/purchasing/deleteLineItem' ? (
+          <DeleteLineItem />
+        ) : location.pathname === '/help/purchasing/pasteFromCSV' ? (
+          <PasteFromCSV />
+        ) : location.pathname === '/help/purchasing/explanationPOStatus' ? (
+          <ExplanationPoStatus />
+        ) : location.pathname === '/help/purchasing/exportingPO' ? (
+          <ExportingPO />
+        ) : // Purchase Orders
+        location.pathname === '/help/inventory/general' ? (
+          <Inventory />
         ) : (
           <></>
         )

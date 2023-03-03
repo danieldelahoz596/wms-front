@@ -268,6 +268,12 @@ export default [
         path: '/help/orders/exportorders',
         component: './Help/MainPanel/Orders/exportorders',
       },
+      // Inventory
+      {
+        hideInMenu: true,
+        path: '/help/inventory/general',
+        component: './Help/MainPanel',
+      },
       // Shipments
       {
         hideInMenu: true,
@@ -318,6 +324,97 @@ export default [
         hideInMenu: true,
         path: '/help/shipments/exportingShipments',
         component: './Help/MainPanel/Shipments/exportingShipments',
+      },
+      // Purchase Orders
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/availableActions',
+        component: './Help/MainPanel/PurchaseOrders/availableActions',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/restoringPO',
+        component: './Help/MainPanel/PurchaseOrders/restoring',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/updatingPONumber',
+        component: './Help/MainPanel/PurchaseOrders/updatePONumber',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/reSendingPO',
+        component: './Help/MainPanel/PurchaseOrders/reSending',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/receivingPO',
+        component: './Help/MainPanel/PurchaseOrders/receiving',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/printingPO',
+        component: './Help/MainPanel/PurchaseOrders/printing',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/cancelingPO',
+        component: './Help/MainPanel/PurchaseOrders/canceling',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/authorizingPO',
+        component: './Help/MainPanel/PurchaseOrders/authorizing',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/workingWithPOMilestone',
+        component: './Help/MainPanel/PurchaseOrders/workingWithPOMilestones',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/voidingPO',
+        component: './Help/MainPanel/PurchaseOrders/voiding',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/searchingForPO',
+        component: './Help/MainPanel/PurchaseOrders/searchingForPOs',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/autoPOAndReorderRules',
+        component: './Help/MainPanel/PurchaseOrders/autoPoAndRecordRules',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/createManualPO',
+        component: './Help/MainPanel/PurchaseOrders/createManualPO',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/automatePurchaseOrders',
+        component: './Help/MainPanel/PurchaseOrders/automatePurchaseOrders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/deleteLineItem',
+        component: './Help/MainPanel/PurchaseOrders/deleteLineItem',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/pasteFromCSV',
+        component: './Help/MainPanel/PurchaseOrders/pasteFromCSV',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/explanationPOStatus',
+        component: './Help/MainPanel/PurchaseOrders/explanationPoStatus',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/purchasing/exportingPO',
+        component: './Help/MainPanel/PurchaseOrders/exportingPO',
       },
       // Customers
       {
@@ -441,6 +538,172 @@ export default [
         hideInMenu: true,
         path: '/help/settings/vendors/search',
         component: './Help/MainPanel/Settings/Vendors/search',
+      },
+      // Settings - Warehouse
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/information/overview',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/information/guidedOrderPick',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/information/orderPacking',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/information/packingInMobile',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/guided',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/noStock',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/pickToCarton',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/info/overview',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/info/options',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/settingUp/overview',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/settingUp/location',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/settingUp/clientPart',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/settingUp/customer',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/using/loggingInto',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/customerPortal/using/customization',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/info/overview',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/info/type',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/labelPrinting/hardware',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/labelPrinting/labelMedia',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/labelPrinting/configureZebra',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/labelPrinting/settingUp',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/printingLabel/template',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/printingLabel/mobileApp',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/barcoding/printingLabel/googleChrome',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/bindMove/assetMove',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/bindMove/inventoryMove',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/bindMove/childBinMove',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/bindMove/massBinMove',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/mobileReceivingPicking/packingInMobile',
+        component: './Help/MainPanel',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/settings/warehouse/mobileReceivingPicking/shippingInMobile',
+        component: './Help/MainPanel',
       },
       // Analytics
       {
