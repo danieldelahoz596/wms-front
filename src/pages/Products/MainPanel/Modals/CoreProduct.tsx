@@ -6,7 +6,7 @@ import BasicInfoTab from './Tabs/BasicInfo';
 import GalleryTab from './Tabs/Gallery';
 import VendorProductsTab from './Tabs/VendorProducts';
 import CustomFieldsTab from './Tabs/CustomFields';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface ICoreProductModal {
   isOpen: boolean;
@@ -44,17 +44,17 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
-      label: 'Basic Info',
+      label: <FormattedMessage id="pages.products.coreProduct.basicInfo.title" />,
       children: <BasicInfoTab form={form} />,
     },
     {
       key: 'tab-2',
-      label: 'Gallery',
+      label: <FormattedMessage id="pages.products.coreProduct.gallery.title" />,
       children: <GalleryTab />,
     },
     {
       key: 'tab-3',
-      label: 'Vendor Products',
+      label: <FormattedMessage id="pages.products.coreProduct.vendorProduct.title" />,
       children: (
         <VendorProductsTab
           vendorProductList={vendorProductList}
@@ -66,7 +66,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
     },
     {
       key: 'tab-4',
-      label: 'Fields',
+      label: <FormattedMessage id="pages.products.coreProduct.fields.title" />,
       children: <CustomFieldsTab customFields={customFields} setCustomFields={setCustomFields} />,
     },
   ];
@@ -97,13 +97,13 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
         {
           key: 'back',
           type: 'default',
-          btnLabel: 'Cancel',
+          btnLabel: <FormattedMessage id="component.button.cancel" />,
           onClick: onClose,
         },
         {
           key: 'submit',
           type: 'primary',
-          btnLabel: 'Save',
+          btnLabel: <FormattedMessage id="component.button.save" />,
           onClick: handleSave,
         },
       ]}

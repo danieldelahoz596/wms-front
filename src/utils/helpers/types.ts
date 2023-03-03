@@ -88,6 +88,10 @@ export enum modalType {
   ManageMilestones = 'ManageMilestones',
   AddNewPo = 'AddNewPo',
 
+  // Shipments
+  ExportRmas = 'ExportRmas',
+  ExportShipments = 'ExportShipments',
+
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
   WarehouseReturnLocation = 'WarehouseReturnLocation',

@@ -4,7 +4,7 @@ import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
 import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
 import { useMemo, useState } from 'react';
 
@@ -58,7 +58,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
       {!!editableProduct && (
         <Row align="bottom" style={{ marginBottom: 5 }}>
           <Col span={3}>
-            <span>Name :</span>
+            <span>
+              <FormattedMessage id="pages.products.coreProduct.basicInfo.name" /> :
+            </span>
           </Col>
           <Col span={19}>
             <OInput
@@ -96,16 +98,24 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
       <Form form={form} labelCol={{ span: 3 }} labelAlign="left">
         {!editableProduct && (
           <>
-            <Form.Item label="Master SKU" name="master_sku" rules={[{ required: true, message: 'Please input Master SKU' }]}>
+            <Form.Item
+              label={<FormattedMessage id="component.form.label.masterSku" />}
+              name="master_sku"
+              rules={[{ required: true, message: 'Please input Master SKU' }]}
+            >
               <Input placeholder="Required" />
             </Form.Item>
-            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input Product Name' }]}>
+            <Form.Item
+              label={<FormattedMessage id="component.form.label.name" />}
+              name="name"
+              rules={[{ required: true, message: 'Please input Product Name' }]}
+            >
               <Input placeholder="Required" />
             </Form.Item>
           </>
         )}
         <div style={{ display: 'flex', gap: 4 }}>
-          <span style={{ width: 93 }}>* Buy | Brand :</span>
+          <span style={{ width: 93 }}>* {<FormattedMessage id="component.form.label.buyBrand" />} :</span>
           <Form.Item name="buyer" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
           </Form.Item>
@@ -130,7 +140,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           {/* <span>Categories</span> */}
           &nbsp;&nbsp;
-          <Form.Item label="Categories" name="categories" style={{ flex: '1' }}>
+          <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="categories" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={categoryOptions} />
           </Form.Item>
           <PlusOutlined
@@ -150,7 +160,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
-          <Form.Item label="Labels" name="labels" style={{ flex: '1' }}>
+          <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="labels" style={{ flex: '1' }}>
             <Select placeholder="Select..." options={labelOptions} />
           </Form.Item>
           <PlusOutlined
@@ -169,36 +179,74 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           />
         </div>
 
-        <Form.Item label="Description" name="description">
+        <Form.Item label={<FormattedMessage id="component.form.label.description" />} name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item label="Vendor Cost: $" name="vendor_cost" colon={false}>
+        <Form.Item label={<FormattedMessage id="component.form.label.vendorCost" />} name="vendor_cost" colon={false}>
           <Input />
         </Form.Item>
         <Card title="Measurements" style={{ marginTop: 20 }}>
           <Row>
             <Col span={8}>
-              <Form.Item label="Weight" labelCol={{ span: 6 }} className="custom-form-item">
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.weight" />}
+                labelCol={{ span: 6 }}
+                className="custom-form-item"
+              >
                 <Input.Group compact>
-                  <Form.Item label="lb." name="lb" colon={false} labelCol={{ offset: 1 }} style={{ width: '50%' }}>
+                  <Form.Item
+                    label={<FormattedMessage id="component.form.label.lb" />}
+                    name="lb"
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                    style={{ width: '50%' }}
+                  >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item label="oz." name="oz" colon={false} labelCol={{ offset: 1 }} style={{ width: '50%' }}>
+                  <Form.Item
+                    label={<FormattedMessage id="component.form.label.oz" />}
+                    name="oz"
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                    style={{ width: '50%' }}
+                  >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
                 </Input.Group>
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="H/W/L" labelCol={{ span: 4, offset: 1 }} className="custom-form-item">
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.hwl" />}
+                labelCol={{ span: 4, offset: 1 }}
+                className="custom-form-item"
+              >
                 <Input.Group compact>
-                  <Form.Item label="x" name="height" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
+                  <Form.Item
+                    label={<FormattedMessage id="component.form.label.x" />}
+                    name="height"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item label="y" name="width" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
+                  <Form.Item
+                    label={<FormattedMessage id="component.form.label.y" />}
+                    name="width"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
-                  <Form.Item label="z" name="length" style={{ width: '33%', margin: 0 }} colon={false} labelCol={{ offset: 1 }}>
+                  <Form.Item
+                    label={<FormattedMessage id="component.form.label.z" />}
+                    name="length"
+                    style={{ width: '33%', margin: 0 }}
+                    colon={false}
+                    labelCol={{ offset: 1 }}
+                  >
                     <InputNumber style={{ width: '100%' }} />
                   </Form.Item>
                 </Input.Group>
@@ -206,36 +254,48 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Col>
           </Row>
         </Card>
-        <Card title="Special" style={{ marginTop: 20 }}>
+        <Card title={<FormattedMessage id="component.card.title.special" />} style={{ marginTop: 20 }}>
           <Row>
             <Col span={4}>
               <Form.Item name="has_Barcode" valuePropName="checked">
-                <Checkbox>Has Barcode</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.hasBarcode" />
+                </Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item name="hazmat" valuePropName="checked">
-                <Checkbox>Hazmat</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.hazmat" />
+                </Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item name="own_box" valuePropName="checked">
-                <Checkbox>Own Box</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.ownBox" />
+                </Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item name="allow_backorders" valuePropName="checked">
-                <Checkbox>Allow Backorders</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.allowBackorders" />
+                </Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item name="gift_card" valuePropName="checked">
-                <Checkbox>Gift Card</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.giftCard" />
+                </Checkbox>
               </Form.Item>
             </Col>
             <Col span={4}>
               <Form.Item name="digital" valuePropName="checked">
-                <Checkbox>Digital</Checkbox>
+                <Checkbox>
+                  <FormattedMessage id="pages.products.coreProduct.basicInfo.digital" />
+                </Checkbox>
               </Form.Item>
             </Col>
           </Row>
