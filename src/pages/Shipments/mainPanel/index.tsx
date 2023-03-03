@@ -3,12 +3,15 @@ import { OTable } from '@/components/Globals/OTable';
 import LaunchIcon from '@/utils/icons/launch';
 import ProductsIcon from '@/utils/icons/products';
 import WarehouseIcon from '@/utils/icons/warehouse';
-import { GlobalOutlined } from '@ant-design/icons';
+import { DownOutlined, GlobalOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Space } from 'antd';
+import { Card, Space, Dropdown, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
+import type { ItemType } from 'antd/es/menu/hooks/useItems';
+import ExportSelectedRmasModal from './Modals/ExportSelectedRmas';
+import { modalType } from '@/utils/helpers/types';
 
 interface IShipmentItem {
   key: number;
@@ -34,7 +37,7 @@ const TColumns: ColumnsType<IShipmentItem> = [
     title: 'Type',
     dataIndex: 'type',
     key: 'type',
-    render: (type) => (type === 'out' ? <LaunchIcon style={{ width: 15 }} /> : <ProductsIcon />),
+    render: (type) => (type === 'out' ? <LaunchIcon style={{ width: 15, stroke: 'black' }} /> : <ProductsIcon />),
   },
   {
     title: 'Created',
@@ -243,12 +246,30 @@ const returnData = [
 const MainPanel: React.FC = () => {
   const { searchType } = useModel('shipment');
   const [selectedRows, setSelectedRows] = useState([]);
+  const [modalOpen, setModalOpen] = useState<modalType>(modalType.Close);
+
+  const importExportMenuItems: ItemType[] = [
+    {
+      key: '1',
+      label: <span onClick={() => setModalOpen(modalType.ExportRmas)}> Export Rmas For Selected Orders </span>,
+      icon: <VerticalAlignBottomOutlined />,
+    },
+    {
+      key: '2',
+      label: <span onClick={() => setModalOpen(modalType.ExportShipments)}>Export Search Results</span>,
+      icon: <VerticalAlignBottomOutlined />,
+    },
+  ];
+
+  useEffect(() => {
+    setSelectedRows([]);
+  }, [searchType]);
 
   return (
     <>
       <div className="title-row">
-        <h1>
-          <FormattedMessage id="menu.shipments" />
+        <h1 style={{ textTransform: 'uppercase' }}>
+          {searchType === 'returns' ? 'Returns' : <FormattedMessage id="menu.shipments" />}
         </h1>
       </div>
       <Card className="content-box">
@@ -260,7 +281,13 @@ const MainPanel: React.FC = () => {
           <OButton btnText="Void Shipment(s)" />
           <OButton btnText="Track Shipment(s)" />
           <OButton btnText="Resend Confirmation Email(s)" />
-          <OButton btnText="Import/Export" />
+          <Dropdown menu={{ items: importExportMenuItems }}>
+            <Button size="small">
+              <Space>
+                Import/Export <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
         </Space>
         {searchType === 'returns' ? (
           <OTable
@@ -272,9 +299,23 @@ const MainPanel: React.FC = () => {
             setSelectedRows={setSelectedRows}
           />
         ) : (
-          <OTable columns={TColumns} rows={shipments} />
+          <OTable
+            type="checkbox"
+            columns={TColumns}
+            rows={shipments}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            pagination={false}
+          />
         )}
       </Card>
+
+      <ExportSelectedRmasModal
+        isOpen={modalOpen === modalType.ExportRmas || modalOpen === modalType.ExportShipments}
+        type={modalOpen === modalType.ExportRmas ? 'rma' : 'shipment'}
+        onSave={() => setModalOpen(modalType.Close)}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
     </>
   );
 };
