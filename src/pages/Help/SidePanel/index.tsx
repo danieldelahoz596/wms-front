@@ -23,6 +23,7 @@ const rootSubmenuKeys = [
   'products',
   'analytics',
   'settings',
+  'warehouse',
   'help',
 ];
 
@@ -687,348 +688,6 @@ const SidePanel = () => {
                 },
               ],
             },
-            // Warehouse
-            {
-              key: 'warehouse',
-              icon: <AccountingIcon />,
-              label: 'Warehouse',
-              children: [
-                {
-                  key: 'orderPickingAndPacking',
-                  icon: <AccountingIcon />,
-                  label: 'Order Picking & Packing',
-                  children: [
-                    {
-                      key: 'information',
-                      icon: <AccountingIcon />,
-                      label: 'Order Pick/Pack Information',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/information/overview',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/information/overview">
-                              Order Pick Overview
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/information/guidedOrderPick',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/information/guidedOrderPick">
-                              Guided Order Pick
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick">
-                              Non-Guided Order Pick
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/information/orderPacking',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/information/orderPacking">
-                              Order Packing
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/information/packingInMobile',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/information/packingInMobile">
-                              Packing in Mobile
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                    {
-                      key: 'pickingWithDevice',
-                      icon: <AccountingIcon />,
-                      label: 'Picking with Device / Mobile',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/guided',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/guided">
-                              Step by Step - Guided Order pick on Device
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided">
-                              Step by Step - Non-Guided Order Pick on Device
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                    {
-                      key: '/help/settings/warehouse/orderPickingAndPacking/noStock',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/orderPickingAndPacking/noStock">No Stock</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/orderPickingAndPacking/pickToCarton',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/orderPickingAndPacking/pickToCarton">Pick to Carton</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings',
-                      icon: <SalesIcon />,
-                      label: (
-                        <Link to="/help/settings/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings">
-                          Pick Item with Part Scan Settings
-                        </Link>
-                      ),
-                    },
-                  ],
-                },
-                {
-                  key: 'customerPortal',
-                  icon: <AccountingIcon />,
-                  label: 'Customer Portal',
-                  children: [
-                    {
-                      key: 'info',
-                      icon: <AccountingIcon />,
-                      label: 'Customer Portal Info',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/customerPortal/info/overview',
-                          icon: <SalesIcon />,
-                          label: <Link to="/help/settings/warehouse/customerPortal/info/overview">Customer Portal Overview</Link>,
-                        },
-                        {
-                          key: '/help/settings/warehouse/customerPortal/info/options',
-                          icon: <SalesIcon />,
-                          label: <Link to="/help/settings/warehouse/customerPortal/info/options">Customer Portal Options</Link>,
-                        },
-                      ],
-                    },
-                    {
-                      key: 'settingUp',
-                      icon: <AccountingIcon />,
-                      label: 'Setting Up Customer Portal',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/customerPortal/settingUp/overview',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/settingUp/overview">
-                              Setting up Customer Portal User
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/customerPortal/settingUp/location',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/settingUp/location">
-                              Locking User into Location
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/customerPortal/settingUp/clientPart',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/settingUp/clientPart">Using Client Parts</Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/customerPortal/settingUp/customer',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/settingUp/customer">
-                              Customer Portal Permissions
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                    {
-                      key: 'using',
-                      icon: <AccountingIcon />,
-                      label: 'Using Customer Portal',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/customerPortal/using/loggingInto',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/using/loggingInto">
-                              Logging into Customer Portal
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/customerPortal/using/customization',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/customerPortal/using/customization">
-                              Customer Portal Customization
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  key: 'barcoding',
-                  icon: <AccountingIcon />,
-                  label: 'Barcoding',
-                  children: [
-                    {
-                      key: 'info',
-                      icon: <AccountingIcon />,
-                      label: 'Barcoding 101',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/barcoding/info/overview',
-                          icon: <SalesIcon />,
-                          label: <Link to="/help/settings/warehouse/barcoding/info/overview">What is a Barcode?</Link>,
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/info/type',
-                          icon: <SalesIcon />,
-                          label: <Link to="/help/settings/warehouse/barcoding/info/type">Barcode Types</Link>,
-                        },
-                      ],
-                    },
-                    {
-                      key: 'labelPrinting',
-                      icon: <AccountingIcon />,
-                      label: 'Barcoding 101',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/barcoding/labelPrinting/hardware',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/labelPrinting/hardware">Label Printer Hardware</Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/labelPrinting/labelMedia',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/labelPrinting/labelMedia">
-                              Selecting Barcode Label Media
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/labelPrinting/configureZebra',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/labelPrinting/configureZebra">
-                              How to Configure Zebra WiFi Printer
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/labelPrinting/settingUp',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/labelPrinting/settingUp">
-                              Setting up your label printer
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                    {
-                      key: 'printingLabel',
-                      icon: <AccountingIcon />,
-                      label: 'Printing Labels in Warehouse Manager',
-                      children: [
-                        {
-                          key: '/help/settings/warehouse/barcoding/printingLabel/template',
-                          icon: <SalesIcon />,
-                          label: <Link to="/help/settings/warehouse/barcoding/printingLabel/template">Label Templates</Link>,
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/printingLabel/mobileApp',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/printingLabel/mobileApp">
-                              Printing In The Mobile App
-                            </Link>
-                          ),
-                        },
-                        {
-                          key: '/help/settings/warehouse/barcoding/printingLabel/googleChrome',
-                          icon: <SalesIcon />,
-                          label: (
-                            <Link to="/help/settings/warehouse/barcoding/printingLabel/googleChrome">
-                              Google Chrome Printing Addon
-                            </Link>
-                          ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  key: 'bindMove',
-                  icon: <AccountingIcon />,
-                  label: 'Bin Move',
-                  children: [
-                    {
-                      key: '/help/settings/warehouse/bindMove/assetMove',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/bindMove/assetMove">Asset Move</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/bindMove/inventoryMove',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/bindMove/inventoryMove">Inventory Move</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/bindMove/childBinMove',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/bindMove/childBinMove">Child Bin Move</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/bindMove/massBinMove',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/bindMove/massBinMove">Mass Bin Move</Link>,
-                    },
-                  ],
-                },
-                {
-                  key: 'mobileReceivingPicking',
-                  icon: <AccountingIcon />,
-                  label: 'Mobile Receiving and Picking',
-                  children: [
-                    {
-                      key: '/help/settings/warehouse/mobileReceivingPicking/packingInMobile',
-                      icon: <SalesIcon />,
-                      label: <Link to="/help/settings/warehouse/mobileReceivingPicking/packingInMobile">Packing in Mobile</Link>,
-                    },
-                    {
-                      key: '/help/settings/warehouse/mobileReceivingPicking/shippingInMobile',
-                      icon: <SalesIcon />,
-                      label: (
-                        <Link to="/help/settings/warehouse/mobileReceivingPicking/shippingInMobile">Shipping in Mobile</Link>
-                      ),
-                    },
-                  ],
-                },
-              ],
-            },
             {
               key: '/help/settings/poTemplate',
               icon: <SalesIcon />,
@@ -1048,6 +707,295 @@ const SidePanel = () => {
               key: '/help/settings/companyinfo',
               icon: <SalesIcon />,
               label: <Link to="/help/settings/companyinfo">Company Info</Link>,
+            },
+          ],
+        },
+
+        // Warehouse
+        {
+          key: 'warehouse',
+          icon: <AccountingIcon />,
+          label: 'Warehouse',
+          children: [
+            {
+              key: 'orderPickingAndPacking',
+              icon: <AccountingIcon />,
+              label: 'Order Picking & Packing',
+              children: [
+                {
+                  key: 'information',
+                  icon: <AccountingIcon />,
+                  label: 'Order Pick/Pack Information',
+                  children: [
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/information/overview',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/orderPickingAndPacking/information/overview">Order Pick Overview</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/information/guidedOrderPick',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/orderPickingAndPacking/information/guidedOrderPick">Guided Order Pick</Link>
+                      ),
+                    },
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/orderPickingAndPacking/information/nonGuidedOrderPick">
+                          Non-Guided Order Pick
+                        </Link>
+                      ),
+                    },
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/information/orderPacking',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/orderPickingAndPacking/information/orderPacking">Order Packing</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/information/packingInMobile',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/orderPickingAndPacking/information/packingInMobile">Packing in Mobile</Link>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  key: 'pickingWithDevice',
+                  icon: <AccountingIcon />,
+                  label: 'Picking with Device / Mobile',
+                  children: [
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/pickingWithDevice/guided',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/orderPickingAndPacking/pickingWithDevice/guided">
+                          Step by Step - Guided Order pick on Device
+                        </Link>
+                      ),
+                    },
+                    {
+                      key: '/help/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/orderPickingAndPacking/pickingWithDevice/nonGuided">
+                          Step by Step - Non-Guided Order Pick on Device
+                        </Link>
+                      ),
+                    },
+                  ],
+                },
+                {
+                  key: '/help/warehouse/orderPickingAndPacking/noStock',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/orderPickingAndPacking/noStock">No Stock</Link>,
+                },
+                {
+                  key: '/help/warehouse/orderPickingAndPacking/pickToCarton',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/orderPickingAndPacking/pickToCarton">Pick to Carton</Link>,
+                },
+                {
+                  key: '/help/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings',
+                  icon: <SalesIcon />,
+                  label: (
+                    <Link to="/help/warehouse/orderPickingAndPacking/pickItemWithPartScanSettings">
+                      Pick Item with Part Scan Settings
+                    </Link>
+                  ),
+                },
+              ],
+            },
+            {
+              key: 'customerPortal',
+              icon: <AccountingIcon />,
+              label: 'Customer Portal',
+              children: [
+                {
+                  key: 'info',
+                  icon: <AccountingIcon />,
+                  label: 'Customer Portal Info',
+                  children: [
+                    {
+                      key: '/help/warehouse/customerPortal/info/overview',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/info/overview">Customer Portal Overview</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/customerPortal/info/options',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/info/options">Customer Portal Options</Link>,
+                    },
+                  ],
+                },
+                {
+                  key: 'settingUp',
+                  icon: <AccountingIcon />,
+                  label: 'Setting Up Customer Portal',
+                  children: [
+                    {
+                      key: '/help/warehouse/customerPortal/settingUp/overview',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/settingUp/overview">Setting up Customer Portal User</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/customerPortal/settingUp/location',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/settingUp/location">Locking User into Location</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/customerPortal/settingUp/clientPart',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/settingUp/clientPart">Using Client Parts</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/customerPortal/settingUp/customer',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/settingUp/customer">Customer Portal Permissions</Link>,
+                    },
+                  ],
+                },
+                {
+                  key: 'using',
+                  icon: <AccountingIcon />,
+                  label: 'Using Customer Portal',
+                  children: [
+                    {
+                      key: '/help/warehouse/customerPortal/using/loggingInto',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/using/loggingInto">Logging into Customer Portal</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/customerPortal/using/customization',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/customerPortal/using/customization">Customer Portal Customization</Link>,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              key: 'barcoding',
+              icon: <AccountingIcon />,
+              label: 'Barcoding',
+              children: [
+                {
+                  key: 'barinfo',
+                  icon: <AccountingIcon />,
+                  label: 'Barcoding 101',
+                  children: [
+                    {
+                      key: '/help/warehouse/barcoding/info/overview',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/info/overview">What is a Barcode?</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/info/type',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/info/type">Barcode Types</Link>,
+                    },
+                  ],
+                },
+                {
+                  key: 'labelPrinting',
+                  icon: <AccountingIcon />,
+                  label: 'Barcoding 101',
+                  children: [
+                    {
+                      key: '/help/warehouse/barcoding/labelPrinting/hardware',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/labelPrinting/hardware">Label Printer Hardware</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/labelPrinting/labelMedia',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/labelPrinting/labelMedia">Selecting Barcode Label Media</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/labelPrinting/configureZebra',
+                      icon: <SalesIcon />,
+                      label: (
+                        <Link to="/help/warehouse/barcoding/labelPrinting/configureZebra">
+                          How to Configure Zebra WiFi Printer
+                        </Link>
+                      ),
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/labelPrinting/settingUp',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/labelPrinting/settingUp">Setting up your label printer</Link>,
+                    },
+                  ],
+                },
+                {
+                  key: 'printingLabel',
+                  icon: <AccountingIcon />,
+                  label: 'Printing Labels in Warehouse Manager',
+                  children: [
+                    {
+                      key: '/help/warehouse/barcoding/printingLabel/template',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/printingLabel/template">Label Templates</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/printingLabel/mobileApp',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/printingLabel/mobileApp">Printing In The Mobile App</Link>,
+                    },
+                    {
+                      key: '/help/warehouse/barcoding/printingLabel/googleChrome',
+                      icon: <SalesIcon />,
+                      label: <Link to="/help/warehouse/barcoding/printingLabel/googleChrome">Google Chrome Printing Addon</Link>,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              key: 'bindMove',
+              icon: <AccountingIcon />,
+              label: 'Bin Move',
+              children: [
+                {
+                  key: '/help/warehouse/bindMove/assetMove',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/bindMove/assetMove">Asset Move</Link>,
+                },
+                {
+                  key: '/help/warehouse/bindMove/inventoryMove',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/bindMove/inventoryMove">Inventory Move</Link>,
+                },
+                {
+                  key: '/help/warehouse/bindMove/childBinMove',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/bindMove/childBinMove">Child Bin Move</Link>,
+                },
+                {
+                  key: '/help/warehouse/bindMove/massBinMove',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/bindMove/massBinMove">Mass Bin Move</Link>,
+                },
+              ],
+            },
+            {
+              key: 'mobileReceivingPicking',
+              icon: <AccountingIcon />,
+              label: 'Mobile Receiving and Picking',
+              children: [
+                {
+                  key: '/help/warehouse/mobileReceivingPicking/packingInMobile',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/mobileReceivingPicking/packingInMobile">Packing in Mobile</Link>,
+                },
+                {
+                  key: '/help/warehouse/mobileReceivingPicking/shippingInMobile',
+                  icon: <SalesIcon />,
+                  label: <Link to="/help/warehouse/mobileReceivingPicking/shippingInMobile">Shipping in Mobile</Link>,
+                },
+              ],
             },
           ],
         },
