@@ -1,4 +1,5 @@
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 import { Tabs } from 'antd';
 import React from 'react';
 import FilterByPanel from './filterBy';
@@ -10,7 +11,7 @@ const SidePanel: React.FC = () => {
       label: (
         <span>
           <FilterOutlined />
-          Filter By
+          <FormattedMessage id='pages.purchasing.sidepanel.filterBy'/>
         </span>
       ),
       key: '1',
@@ -20,7 +21,7 @@ const SidePanel: React.FC = () => {
       label: (
         <span>
           <SearchOutlined />
-          Search By
+          <FormattedMessage id='pages.purchasing.sidepanel.searchBy'/>
         </span>
       ),
       key: '2',

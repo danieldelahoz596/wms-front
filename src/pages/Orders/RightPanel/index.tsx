@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Alert, Card, Form, Tabs } from 'antd';
 import type { FC } from 'react';
 import Method from './method';
@@ -52,7 +52,7 @@ const RightPanel: FC = () => {
               color: '#A2A2A2',
             }}
           >
-            Order Fulfillment
+            <FormattedMessage id="pages.orders.rightpanel.title" />
           </span>
         }
         size="small"

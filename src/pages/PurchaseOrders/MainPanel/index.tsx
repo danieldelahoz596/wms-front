@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import { CheckSquareFilled, DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space, Button, message } from 'antd';
 import Dropdown from 'antd/es/dropdown';
 import { useEffect, useState } from 'react';
@@ -363,7 +363,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       <div className="main-panel">
         <div className="title-row">
           <h1 className="page-title">
-            Purchase Orders ::{' '}
+            <FormattedMessage id="pages.purchasing.mainpanel.title" />{' '}
             {selectedPOStatus ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name : ''}
           </h1>
         </div>

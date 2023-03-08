@@ -1,4 +1,4 @@
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Row, Image } from 'antd';
 import type { FC } from 'react';
 
@@ -19,7 +19,7 @@ const OrderItems: FC = () => {
               color: '#A2A2A2',
             }}
           >
-            Order Items
+            <FormattedMessage id="pages.orders.bottompanel.title" />
           </span>
         }
         size="small"

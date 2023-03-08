@@ -266,4 +266,20 @@ export default {
   'pages.products.coreProduct.variationDetails.description2': '通过单击 + 符号在下面创建您的核心产品变体',
   'pages.products.coreProduct.variationDetails.description3': '变化细节',
   'pages.products.coreProduct.variationDetails.dimension.description': '维度和属性',
+
+  'pages.orders.sidepanel.filterBy': '过滤',
+  'pages.orders.sidepanel.searchBy': '搜索依据',
+  'pages.orders.rightpanel.title': '订单完成度',
+  'pages.orders.bottompanel.title': '订购商品',
+  'pages.orders.mainpanel.title': '命令 ：：',
+
+  'pages.inventory.stock.rightpanel.title': '库存详情',
+  'pages.inventory.transfer.rightpanel.title': '库存转移单详细信息',
+
+  'pages.purchasing.sidepanel.filterBy': '过滤',
+  'pages.purchasing.sidepanel.searchBy': '搜索依据',
+  'pages.purchasing.mainpanel.title': '订单 ：：',
+
+  'pages.shipments.sidepanel.filterBy': '过滤',
+  'pages.shipments.sidepanel.searchBy': '搜索依据',
 };
