@@ -232,6 +232,8 @@ export default {
   'component.select.placeholder.select': 'Select...',
   'component.select.placeholder.addFields': 'Add Fields',
   'component.select.placeholder.attributeGroups': 'Select the attribute groups you want to work with ...',
+  'component.select.options.active': 'Active',
+  'component.select.options.inactive': 'Inactive',
 
   'component.popconfirm.sureDeactivate': 'Sure to Deactivate?',
   'component.popconfirm.surActivate': 'Sure to Activate?',

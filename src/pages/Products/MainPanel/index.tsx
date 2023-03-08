@@ -272,8 +272,8 @@ const MainPanel: React.FC = () => {
         <div>
           <Select
             options={[
-              { label: 'Active', value: 'active' },
-              { label: 'Inactive', value: 'inactive' },
+              { label: <FormattedMessage id="component.select.options.active" />, value: 'active' },
+              { label: <FormattedMessage id="component.select.options.inactive" />, value: 'inactive' },
             ]}
             defaultValue="active"
             size="small"
@@ -282,7 +282,7 @@ const MainPanel: React.FC = () => {
               setShowActivate(value === 'active' ? true : false);
               setEditableProduct(null);
             }}
-            value={showActivate ? 'ACTIVE' : 'INACTIVE'}
+            value={showActivate ? 'active' : 'inactive'}
           />
           <Button icon={<RetweetOutlined />} />
         </div>

@@ -232,6 +232,8 @@ export default {
   'component.select.placeholder.select': '选择...',
   'component.select.placeholder.addFields': '添加字段',
   'component.select.placeholder.attributeGroups': '选择要使用的属性组...',
+  'component.select.options.active': '积极的',
+  'component.select.options.inactive': '无效',
 
   'component.popconfirm.sureDeactivate': '确定停用？',
   'component.popconfirm.surActivate': '确定激活？',
