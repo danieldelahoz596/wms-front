@@ -248,23 +248,32 @@ const MainPanel: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [modalOpen, setModalOpen] = useState<modalType>(modalType.Close);
 
-  const importExportMenuItems: ItemType[] = [
-    {
-      key: '1',
-      label: <span onClick={() => setModalOpen(modalType.ExportRmas)}> Export Rmas For Selected Orders </span>,
-      icon: <VerticalAlignBottomOutlined />,
-    },
-    {
-      key: '2',
-      label: <span onClick={() => setModalOpen(modalType.ExportShipments)}> Export Shipments for Selected Orders </span>,
-      icon: <VerticalAlignBottomOutlined />,
-    },
-    {
-      key: '3',
-      label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
-      icon: <VerticalAlignBottomOutlined />,
-    },
-  ];
+  const importExportMenuItems: ItemType[] =
+    searchType === 'returns'
+      ? [
+          {
+            key: '1',
+            label: <span onClick={() => setModalOpen(modalType.ExportRmas)}> Export Rmas For Selected Orders </span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+          {
+            key: '3',
+            label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+        ]
+      : [
+          {
+            key: '2',
+            label: <span onClick={() => setModalOpen(modalType.ExportShipments)}> Export Shipments for Selected Orders </span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+          {
+            key: '3',
+            label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+        ];
 
   useEffect(() => {
     setSelectedRows([]);
