@@ -35,12 +35,16 @@ const OrderBots: React.FC = () => {
       {
         key: 'new',
         btnText: <FormattedMessage id="component.button.newOrderBot" />,
-        onClick: () => setActiveModal(modalType.New),
+        onClick: () => {
+          setSelectedOrderbot(null);
+          setActiveModal(modalType.New);
+        },
       },
       {
         key: 'edit',
         btnText: <FormattedMessage id="component.button.edit" />,
         disabled: !selectedOrderbot,
+        onClick: () => setActiveModal(modalType.New),
       },
       {
         key: 'copy',
@@ -63,7 +67,7 @@ const OrderBots: React.FC = () => {
         disabled: !selectedOrderbot,
       },
     ],
-    [showActive, selectedOrderbot],
+    [showActive, selectedOrderbot, setSelectedOrderbot],
   );
 
   const TRows = useMemo(
