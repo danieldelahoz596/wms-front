@@ -256,7 +256,12 @@ const MainPanel: React.FC = () => {
     },
     {
       key: '2',
-      label: <span onClick={() => setModalOpen(modalType.ExportShipments)}>Export Search Results</span>,
+      label: <span onClick={() => setModalOpen(modalType.ExportShipments)}> Export Shipments for Selected Orders </span>,
+      icon: <VerticalAlignBottomOutlined />,
+    },
+    {
+      key: '3',
+      label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
       icon: <VerticalAlignBottomOutlined />,
     },
   ];
