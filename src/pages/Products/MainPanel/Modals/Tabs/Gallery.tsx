@@ -6,6 +6,7 @@ import { getBase64, sampleImages } from '@/utils/helpers/base';
 import type { UploadProps } from 'antd/es/upload';
 import type { RcFile } from 'antd/lib/upload';
 import { PlusOutlined } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 
 const Gallery: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>(sampleImages);
@@ -36,7 +37,9 @@ const Gallery: React.FC = () => {
 
   return (
     <>
-      <p>Manage images by adding, removing and/or dragging each image to create an ordered gallery.</p>
+      <p>
+        <FormattedMessage id="pages.products.coreProduct.gallery.description" />
+      </p>
       <Upload
         accept="image/png, image/jpeg, image/jpg"
         multiple={true}

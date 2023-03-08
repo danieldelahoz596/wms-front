@@ -53,6 +53,13 @@ export default {
   'component.button.coreProduct': '核心产品',
   'component.button.bundleKit': '捆绑包/套件',
   'component.button.productVariations': '产品变化',
+  'component.button.newVendorProduct': '新供应商产品',
+  'component.button.default': '默认',
+  'component.button.addCoreProduct': '添加核心产品',
+  'component.button.editQuantity': '编辑数量',
+  'component.button.remove': '消除',
+  'component.button.removeField': '删除字段',
+  'component.button.configureFieldTypes': '配置字段类型',
 
   'component.table.column.name': '名字',
   'component.table.column.created': '已创建',
@@ -104,6 +111,7 @@ export default {
   'component.table.column.categories': '类别',
   'component.table.column.weight': '重量',
   'component.table.column.hwl': '高/宽/长',
+  'component.table.column.quantity': '数量',
 
   'component.form.label.warehouseName': '仓库名称',
   'component.form.label.addressLine1': '地址第一行',
@@ -190,9 +198,13 @@ export default {
   'component.form.label.lb': '磅。',
   'component.form.label.oz': '盎司。',
   'component.form.label.hwl': '高/宽/长',
-  'component.form.label.x': 'x',
+  'component.form.label.x': 'X',
   'component.form.label.y': 'y',
   'component.form.label.z': 'z',
+  'component.form.label.in': '在',
+  'component.form.label.upc': '统一产品代码',
+  'component.form.label.image': '图像',
+  'component.form.label.attributes': '属性',
 
   'component.tab.shippingLabels': '运输标签',
   'component.tab.packingSlips': '装箱单',
@@ -217,8 +229,11 @@ export default {
   'component.card.title.measurements': '测量',
   'component.card.title.special': '特别的',
 
-  'component.select.placeholder.Select': '选择...',
+  'component.select.placeholder.select': '选择...',
+  'component.select.placeholder.addFields': '添加字段',
+  'component.select.placeholder.attributeGroups': '选择要使用的属性组...',
 
   'component.popconfirm.sureDeactivate': '确定停用？',
   'component.popconfirm.surActivate': '确定激活？',
+  'component.popconfirm.sureToRemove': '确定删除？',
 };

@@ -53,6 +53,13 @@ export default {
   'component.button.coreProduct': 'Core Product',
   'component.button.bundleKit': 'Bundle/Kit',
   'component.button.productVariations': 'Product Variations',
+  'component.button.newVendorProduct': 'New Vendor Product',
+  'component.button.default': 'Default',
+  'component.button.addCoreProduct': 'Add Core Product',
+  'component.button.editQuantity': 'Edit Quantity',
+  'component.button.remove': 'Remove',
+  'component.button.removeField': 'Remove Field',
+  'component.button.configureFieldTypes': 'Configure Field Types',
 
   'component.table.column.name': 'Name',
   'component.table.column.created': 'Created',
@@ -104,6 +111,7 @@ export default {
   'component.table.column.categories': 'Categories',
   'component.table.column.weight': 'Weight',
   'component.table.column.hwl': 'H/W/L',
+  'component.table.column.quantity': 'Quantity',
 
   'component.form.label.warehouseName': 'Warehouse Name',
   'component.form.label.addressLine1': 'Address Line 1',
@@ -193,6 +201,10 @@ export default {
   'component.form.label.x': 'x',
   'component.form.label.y': 'y',
   'component.form.label.z': 'z',
+  'component.form.label.in': 'in',
+  'component.form.label.upc': 'UPC',
+  'component.form.label.image': 'Image',
+  'component.form.label.attributes': 'Attributes',
 
   'component.tab.shippingLabels': 'SHIPPING LABELS',
   'component.tab.packingSlips': 'PACKING SLIPS',
@@ -217,8 +229,11 @@ export default {
   'component.card.title.measurements': 'Measurements',
   'component.card.title.special': 'Special',
 
-  'component.select.placeholder.Select': 'Select...',
+  'component.select.placeholder.select': 'Select...',
+  'component.select.placeholder.addFields': 'Add Fields',
+  'component.select.placeholder.attributeGroups': 'Select the attribute groups you want to work with ...',
 
   'component.popconfirm.sureDeactivate': 'Sure to Deactivate?',
   'component.popconfirm.surActivate': 'Sure to Activate?',
+  'component.popconfirm.sureToRemove': 'Sure to Remove?',
 };

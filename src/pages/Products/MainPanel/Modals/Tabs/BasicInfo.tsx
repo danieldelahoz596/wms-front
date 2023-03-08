@@ -117,10 +117,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           <span style={{ width: 93 }}>* {<FormattedMessage id="component.form.label.buyBrand" />} :</span>
           <Form.Item name="buyer" style={{ flex: '1' }}>
-            <Select placeholder="Select..." options={[{ value: 'lucy', label: 'lucky' }]} />
+            <Select
+              placeholder={<FormattedMessage id="component.select.placeholder.select" />}
+              options={[{ value: 'lucy', label: 'lucky' }]}
+            />
           </Form.Item>
           <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
-            <Select placeholder="Select..." options={brandOptions} />
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={brandOptions} />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
@@ -141,7 +144,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           {/* <span>Categories</span> */}
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="categories" style={{ flex: '1' }}>
-            <Select placeholder="Select..." options={categoryOptions} />
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={categoryOptions} />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
@@ -161,7 +164,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="labels" style={{ flex: '1' }}>
-            <Select placeholder="Select..." options={labelOptions} />
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={labelOptions} />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
