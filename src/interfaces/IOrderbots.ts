@@ -1,5 +1,6 @@
 export interface IAction {
   action: string;
+  operator?: any;
   value: any;
 }
 

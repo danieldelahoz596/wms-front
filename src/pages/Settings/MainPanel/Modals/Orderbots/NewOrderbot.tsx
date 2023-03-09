@@ -343,12 +343,84 @@ const actionOptions = [
     label: 'Set custom field 3',
   },
   {
-    value: 'setWarehouse',
-    label: 'Set Warehouse',
+    value: 'setCustomsContentType',
+    label: 'Set customs content type',
+  },
+  {
+    value: 'setCustomsDocumentOnOrder',
+    label: 'Set customs document on order (international only)',
+  },
+  {
+    value: 'setDeliverByDate',
+    label: 'Set deliver by date',
+  },
+  {
+    value: 'setDropshipVendor',
+    label: 'Set dropship vendor...',
+  },
+  {
+    value: 'setInsuredValue',
+    label: 'Set Insured Value',
+  },
+  {
+    value: 'setInternationalNonDelivery',
+    label: 'Set international non-delivery',
+  },
+  {
+    value: 'setMultichannelFulfillment',
+    label: 'Set multichannel fulfillment',
+  },
+  {
+    value: 'setOrdersGiftMessage',
+    label: 'Set orders gift message',
+  },
+  {
+    value: 'setPackageDimensions',
+    label: 'Set package dimensions',
+  },
+  {
+    value: 'setPaymentType',
+    label: 'Set payment type',
   },
   {
     value: 'setProviderServicePackage',
     label: 'Set Provider/Service/Package',
+  },
+  {
+    value: 'setTheDryIceWeight',
+    label: 'Set the dry ice weight (UPS/FedEx)',
+  },
+  {
+    value: 'setTheOrderAsContainingAlchol',
+    label: 'Set the order as containing alcohol (FedEx)',
+  },
+  {
+    value: 'setTheOrderAsContainingDryIce',
+    label: 'Set the order as containing dry ice (UPS/FedEx)',
+  },
+  {
+    value: 'setTheTotalOrderWeight',
+    label: 'Set the total order weight',
+  },
+  {
+    value: 'setWarehouse',
+    label: 'Set Warehouse',
+  },
+  {
+    value: 'showPostagePaidOnTheLabel',
+    label: 'Show postage paid on the label',
+  },
+  {
+    value: 'stopProcessingRulesForTheOrder',
+    label: 'Stop processing rules for the order',
+  },
+  {
+    value: 'useSpecificEmailTemplate',
+    label: 'Use a specific email template',
+  },
+  {
+    value: 'useSpecificPackingSlip',
+    label: 'Use a specific packing slip',
   },
 ];
 
@@ -471,6 +543,10 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                           {getFieldValue(['filters', name, 'filter']) === 'datePaid' ||
                           getFieldValue(['filters', name, 'filter']) === 'orderDate' ? (
                             <Select options={dateOperatorOptions} style={{ width: 200 }} />
+                          ) : getFieldValue(['filters', name, 'filter']) === 'address1' ||
+                            getFieldValue(['filters', name, 'filter']) === 'address2' ||
+                            getFieldValue(['filters', name, 'filter']) === 'address3' ? (
+                            <Select options={[{ value: 'isBlank', label: 'Is blank' }]} style={{ width: 200 }} />
                           ) : (
                             <Select options={operatorOptions} style={{ width: 200 }} />
                           )}
@@ -496,6 +572,10 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                             ) : (
                               <DatePicker />
                             )
+                          ) : getFieldValue(['filters', name, 'filter']) === 'address1' ||
+                            getFieldValue(['filters', name, 'filter']) === 'address2' ||
+                            getFieldValue(['filters', name, 'filter']) === 'address3' ? (
+                            <></>
                           ) : (
                             <InputNumber />
                           )}
@@ -553,6 +633,27 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                       shouldUpdate={(prevValues, currentValues) => prevValues.actions[name] !== currentValues.actions[name]}
                     >
                       {({ getFieldValue }) => (
+                        <Form.Item {...restField} name={[name, 'operator']}>
+                          {getFieldValue(['actions', name, 'action']) === 'replaceAddressField' ? (
+                            <Select
+                              options={[
+                                { value: 'address1', label: 'Address Line 1' },
+                                { value: 'address2', label: 'Address Line 2' },
+                                { value: 'address3', label: 'Address Line 3' },
+                              ]}
+                              style={{ width: 200 }}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                        </Form.Item>
+                      )}
+                    </Form.Item>
+                    <Form.Item
+                      noStyle
+                      shouldUpdate={(prevValues, currentValues) => prevValues.actions[name] !== currentValues.actions[name]}
+                    >
+                      {({ getFieldValue }) => (
                         <Form.Item
                           {...restField}
                           name={[name, 'value']}
@@ -575,6 +676,8 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                               options={[{ value: 'sku', label: 'Split by item then split by sku' }]}
                               style={{ width: 400 }}
                             />
+                          ) : getFieldValue(['actions', name, 'action']) === 'setDropshipVendor' ? (
+                            <Select options={[{ value: 'cellhelmet', label: 'Cellhelmet' }]} style={{ width: 400 }} />
                           ) : getFieldValue(['actions', name, 'action']) === 'applySplitOrderByProductLabel' ? (
                             <Select
                               options={productList.map((item) => ({ value: item.id, label: item.name }))}
@@ -583,6 +686,54 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                           ) : getFieldValue(['actions', name, 'action']) === 'holdTheOrderFor' ? (
                             <>
                               <InputNumber /> days and <InputNumber /> hours
+                            </>
+                          ) : getFieldValue(['actions', name, 'action']) === 'markOrderAsShipped' ? (
+                            <>
+                              <Input.Group compact>
+                                <Form.Item label="Tracking Number">
+                                  <Input />
+                                </Form.Item>
+                                <Form.Item label="Carrier">
+                                  <Select options={[{ value: 'other', label: 'Other' }]} style={{ width: 200 }} />
+                                </Form.Item>
+                                <Form.Item label="Carrier Fee">
+                                  <InputNumber />
+                                </Form.Item>
+                                <Form.Item label="Notify Customer">
+                                  <Select
+                                    options={[
+                                      { value: true, label: 'Yes' },
+                                      { value: false, label: 'No' },
+                                    ]}
+                                    style={{ width: 50 }}
+                                  />
+                                </Form.Item>
+                                <Form.Item label="Update Channel">
+                                  <Select
+                                    options={[
+                                      { value: true, label: 'Yes' },
+                                      { value: false, label: 'No' },
+                                    ]}
+                                    style={{ width: 50 }}
+                                  />
+                                </Form.Item>
+                                <Form.Item label="Ship Date">
+                                  <Select
+                                    options={[
+                                      { value: 'today', label: 'Today' },
+                                      { value: 'a day ago', label: '1 Day ago' },
+                                      { value: 'a week ago', label: '1 Week ago' },
+                                      { value: 'a month ago', label: '1 Month ago' },
+                                    ]}
+                                    style={{ width: 200 }}
+                                  />
+                                </Form.Item>
+                              </Input.Group>
+                            </>
+                          ) : getFieldValue(['actions', name, 'action']) === 'holdUntilShipByDate' ||
+                            getFieldValue(['actions', name, 'action']) === 'setDeliverByDate' ? (
+                            <>
+                              <DatePicker />
                             </>
                           ) : (
                             <Input />
