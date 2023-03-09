@@ -253,7 +253,7 @@ export default {
   'pages.products.coreProduct.basicInfo.title': 'Basic Info',
   'pages.products.coreProduct.gallery.title': 'Gallery',
   'pages.products.coreProduct.vendorProduct.title': 'Vendor Products',
-  'pages.products.coreProduct.fields.title': 'Vendor Products',
+  'pages.products.coreProduct.fields.title': 'Fields',
   'pages.products.coreProduct.basicInfo.name': 'Name',
   'pages.products.coreProduct.basicInfo.hasBarcode': 'Has Barcode',
   'pages.products.coreProduct.basicInfo.hazmat': 'Hazmat',
