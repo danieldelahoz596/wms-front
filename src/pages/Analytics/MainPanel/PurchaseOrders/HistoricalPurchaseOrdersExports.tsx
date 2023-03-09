@@ -5,10 +5,42 @@ import { uuid } from '@antv/x6/lib/util/string/uuid';
 import { useModel } from '@umijs/max';
 import { Button, Card, Col, DatePicker, Form, Row, Select } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+
+const Tcolumns = [
+  {
+    title: 'Export Request Date',
+    dataIndex: 'export_request_date',
+    key: 'export_request_date',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.export_request_date < b.export_request_date,
+  },
+  {
+    title: 'Export Completion Date',
+    dataIndex: 'export_completion_date',
+    key: 'export_completion_date',
+    align: 'center',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.export_completion_date < b.export_completion_date,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    align: 'center',
+  },
+  {
+    title: 'Actions',
+    dataIndex: 'actions',
+    align: 'right',
+  },
+];
 
 const HistoricalPurchaseOrdersExports: React.FC = () => {
-  const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
+  const { milestonesList } = useModel('milestones');
+  const { poStatusList } = useModel('poStatus');
+  const { vendorList } = useModel('vendor');
   const [exports1, setExports1] = useState(null);
   const [form] = Form.useForm();
 
@@ -46,35 +78,6 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
       .catch((error) => console.log(error));
   };
 
-  const Tcolumns = [
-    {
-      title: 'Export Request Date',
-      dataIndex: 'export_request_date',
-      key: 'export_request_date',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.export_request_date < b.export_request_date,
-    },
-    {
-      title: 'Export Completion Date',
-      dataIndex: 'export_completion_date',
-      key: 'export_completion_date',
-      align: 'center',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.export_completion_date < b.export_completion_date,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      align: 'right',
-    },
-  ];
-
   const exportRows = exports1?.map((_item) => ({
     ..._item,
     actions:
@@ -89,6 +92,42 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [warehouseList],
+  );
+
+  const milestoneOptions = useMemo(
+    () =>
+      milestonesList.map((_item) => ({
+        label: _item.text,
+        value: _item.id,
+      })),
+    [milestonesList],
+  );
+
+  const poStatusOptions = useMemo(
+    () =>
+      poStatusList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [poStatusList],
+  );
+
+  const vendorOptions = useMemo(
+    () =>
+      vendorList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [vendorList],
+  );
+
   return (
     <>
       <div style={{ margin: '10px' }}>
@@ -99,55 +138,22 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
             <Row>
               <Col span={6}>
                 <Form.Item label="Destination" name="destination">
-                  <Select
-                    mode="multiple"
-                    size="small"
-                    placeholder="No warehouses selected..."
-                    options={initialState?.initialData?.warehouses.map((_item) => ({
-                      label: _item.name,
-                      value: _item.id,
-                    }))}
-                  />
+                  <Select mode="multiple" size="small" placeholder="No warehouses selected..." options={warehouseOptions} />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Milestones" name="milestone">
-                  <Select
-                    mode="multiple"
-                    size="small"
-                    placeholder="No milestones selected..."
-                    options={[
-                      { value: 1, label: 'milestone1' },
-                      { value: 2, label: 'milestone2' },
-                      { value: 3, label: 'milestone3' },
-                    ]}
-                  />
+                  <Select mode="multiple" size="small" placeholder="No milestones selected..." options={milestoneOptions} />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Status" name="status">
-                  <Select
-                    mode="multiple"
-                    size="small"
-                    placeholder="No status selected..."
-                    options={initialState?.initialData?.purchaseorder_statuses.map((_item) => ({
-                      label: _item.name,
-                      value: _item.id,
-                    }))}
-                  />
+                  <Select mode="multiple" size="small" placeholder="No status selected..." options={poStatusOptions} />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item label="Vendors" name="vendor">
-                  <Select
-                    mode="multiple"
-                    size="small"
-                    placeholder="No vendors selected..."
-                    options={initialState?.initialData?.vendors.map((_item) => ({
-                      label: _item.name,
-                      value: _item.id,
-                    }))}
-                  />
+                  <Select mode="multiple" size="small" placeholder="No vendors selected..." options={vendorOptions} />
                 </Form.Item>
               </Col>
               <Col span={3}>

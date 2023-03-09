@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Form, Input, Table, Select } from 'antd';
 import type { FormInstance } from 'antd/es/form';
 
@@ -136,22 +136,26 @@ export const EditableTable: React.FC<ITable> = ({ dataSource, columns, handleSav
     },
   };
 
-  const _columns = columns.map((col: any, index) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: IColumn) => ({
-        record,
-        editable: col.editable,
-        options: col.options,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
+  const _columns = useMemo(
+    () =>
+      columns.map((col: any) => {
+        if (!col.editable) {
+          return col;
+        }
+        return {
+          ...col,
+          onCell: (record: IColumn) => ({
+            record,
+            editable: col.editable,
+            options: col.options,
+            dataIndex: col.dataIndex,
+            title: col.title,
+            handleSave,
+          }),
+        };
       }),
-    };
-  });
+    [columns, handleSave],
+  );
 
   return (
     <div>

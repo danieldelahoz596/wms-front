@@ -153,7 +153,6 @@ const Scolumns = [
 ];
 
 const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
-  const { initialState } = useModel('@@initialState');
   const { warehouseList } = useModel('warehouse');
   const [modal, setModal] = useState('');
   const [locationHistory] = useState(location_history);
@@ -169,7 +168,7 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
       <h2 style={{ marginLeft: '10px' }}>
         <FormattedMessage id="pages.inventory.stock.rightpanel.title" />
       </h2>
-      <Collapse defaultActiveKey={initialState?.initialData?.warehouses[0].id}>
+      <Collapse defaultActiveKey={warehouseList[0]?.id}>
         {warehouseList.map((_warehouse) => (
           <Collapse.Panel
             header={

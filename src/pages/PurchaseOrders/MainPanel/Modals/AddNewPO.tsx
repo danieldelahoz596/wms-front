@@ -20,6 +20,10 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
   const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
   const { selectedVendor } = useModel('vendor');
+  const { warehouseList } = useModel('warehouse');
+  const { poTemplateList } = useModel('poTemplate');
+  const { shippingTermList } = useModel('shippingTerm');
+  const { paymentTermList } = useModel('paymentTerm');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
 
@@ -39,10 +43,10 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           dateCreated: new Date(),
           fromVendor: selectedVendor,
           poFormat: purchaseFormValues.poFormat,
-          destination: initialState?.initialData.warehouses?.find((warehouse) => warehouse.id === purchaseFormValues.destination),
-          poTemplate: initialState?.initialData.poTemplates?.find((template) => template.id === purchaseFormValues.poTemplate),
-          shippingTerm: initialState?.initialData.shippingTerms?.find((term) => term.id === purchaseFormValues.shippingTerm),
-          paymentTerm: initialState?.initialData.paymentTerms?.find((term) => term.id === purchaseFormValues.paymentTerm),
+          destination: warehouseList.find((warehouse) => warehouse.id === purchaseFormValues.destination),
+          poTemplate: poTemplateList.find((template) => template.id === purchaseFormValues.poTemplate),
+          shippingTerm: shippingTermList.find((term) => term.id === purchaseFormValues.shippingTerm),
+          paymentTerm: paymentTermList.find((term) => term.id === purchaseFormValues.paymentTerm),
           confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
           enablePortal: null,
           milestone: milestonesList.find((milestone) => milestone.id === purchaseFormValues.milestone),

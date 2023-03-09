@@ -1,5 +1,6 @@
 import { FormattedMessage } from '@umijs/max';
 import { Select } from 'antd';
+import { useMemo } from 'react';
 
 export interface IOSelectOption {
   value: string | number;
@@ -33,6 +34,14 @@ export const OSelect: React.FC<IOSelect> = ({
   hidden = false,
   className,
 }) => {
+  const selectOptions = useMemo(() => {
+    const optionList = options?.map((option) => ({ value: option.value, label: option.text }));
+
+    if (showPlaceholder)
+      return [{ value: 0, label: <FormattedMessage id="component.select.placeholder.select" /> }, ...optionList];
+    return optionList;
+  }, [options, showPlaceholder]);
+
   return hidden ? (
     <></>
   ) : (
@@ -45,17 +54,7 @@ export const OSelect: React.FC<IOSelect> = ({
       size="middle"
       style={{ width: '100%', ...style }}
       className={className}
-    >
-      {showPlaceholder && (
-        <Select.Option value="0">
-          <FormattedMessage id="component.select.placeholder.select" />
-        </Select.Option>
-      )}
-      {options?.map((option, index) => (
-        <Select.Option key={`option-${index}`} value={option.value}>
-          {option.text}
-        </Select.Option>
-      ))}
-    </Select>
+      options={selectOptions}
+    />
   );
 };

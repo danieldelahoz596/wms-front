@@ -5,10 +5,40 @@ import { uuid } from '@antv/x6/lib/util/string/uuid';
 import { useModel } from '@umijs/max';
 import { Card, Col, DatePicker, Form, Row, Select } from 'antd';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+
+const Tcolumns = [
+  {
+    title: 'Export Request Date',
+    dataIndex: 'export_request_date',
+    key: 'export_request_date',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.export_request_date < b.export_request_date,
+  },
+  {
+    title: 'Export Completion Date',
+    dataIndex: 'export_completion_date',
+    key: 'export_completion_date',
+    align: 'center',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.export_completion_date < b.export_completion_date,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    align: 'center',
+  },
+  {
+    title: 'Actions',
+    dataIndex: 'actions',
+    align: 'right',
+  },
+];
 
 const HistoricalOrdersExports: React.FC = () => {
-  const { initialState } = useModel('@@initialState');
+  const { warehouseList } = useModel('warehouse');
+  const { orderStatusList } = useModel('orderStatus');
   const [exports, setExports] = useState(null);
   const [form] = Form.useForm();
 
@@ -46,42 +76,35 @@ const HistoricalOrdersExports: React.FC = () => {
       .catch((error) => console.log(error));
   };
 
-  const Tcolumns = [
-    {
-      title: 'Export Request Date',
-      dataIndex: 'export_request_date',
-      key: 'export_request_date',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.export_request_date < b.export_request_date,
-    },
-    {
-      title: 'Export Completion Date',
-      dataIndex: 'export_completion_date',
-      key: 'export_completion_date',
-      align: 'center',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.export_completion_date < b.export_completion_date,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      align: 'right',
-    },
-  ];
+  const exportRows = useMemo(
+    () =>
+      exports?.map((_item) => ({
+        ..._item,
+        actions:
+          _item.status === 'Succeeded' || _item.status === 'Failed' ? (
+            <OButton btnText={'Download'} onClick={handleDownload} />
+          ) : null,
+      })),
+    [exports],
+  );
 
-  const exportRows = exports?.map((_item) => ({
-    ..._item,
-    actions:
-      _item.status === 'Succeeded' || _item.status === 'Failed' ? (
-        <OButton btnText={'Download'} onClick={handleDownload} />
-      ) : null,
-  }));
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [warehouseList],
+  );
+
+  const orderStatusOptions = useMemo(
+    () =>
+      orderStatusList.map((_item) => ({
+        label: _item.name,
+        value: _item.id,
+      })),
+    [orderStatusList],
+  );
 
   useEffect(() => {
     httpClient('/api/orders/order-historic-exports')
@@ -99,30 +122,12 @@ const HistoricalOrdersExports: React.FC = () => {
             <Row>
               <Col span={7}>
                 <Form.Item name="warehouses" label="Warehouses">
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    placeholder="Please select"
-                    options={initialState?.initialData.warehouses.map((_item) => ({
-                      label: _item.name,
-                      value: _item.id,
-                    }))}
-                    size="small"
-                  />
+                  <Select mode="multiple" allowClear placeholder="Please select" options={warehouseOptions} size="small" />
                 </Form.Item>
               </Col>
               <Col span={7}>
                 <Form.Item name="status" label="Status">
-                  <Select
-                    mode="multiple"
-                    allowClear
-                    placeholder="Please select"
-                    size="small"
-                    options={initialState?.initialData.order_statuses.map((_item) => ({
-                      label: _item.name,
-                      value: _item.id,
-                    }))}
-                  />
+                  <Select mode="multiple" allowClear placeholder="Please select" size="small" options={orderStatusOptions} />
                 </Form.Item>
               </Col>
             </Row>

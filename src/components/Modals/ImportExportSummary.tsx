@@ -2,7 +2,7 @@ import { OModal } from '@/components/Globals/OModal';
 import { CheckCircleOutlined, PlusCircleOutlined, WarningOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Space, Table } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 interface IImportExportSummaryModal {
   title: string;
@@ -52,10 +52,20 @@ const ImportExportSummaryModal: React.FC<IImportExportSummaryModal> = ({
 
   const handleSave = () => onSave();
 
+  const rows = useMemo(
+    () =>
+      summary?.logs.map((log, index) => ({
+        ...log,
+        key: index + 1,
+        id: index + 1,
+      })),
+    [summary],
+  );
+
   return (
     <OModal
       title={title}
-      width={1000}
+      width={MODAL_WIDTH}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -106,15 +116,7 @@ const ImportExportSummaryModal: React.FC<IImportExportSummaryModal> = ({
             </div>
           </Space>
         </div>
-        <Table
-          columns={TColumns}
-          dataSource={summary?.logs.map((log, index) => ({
-            ...log,
-            key: index + 1,
-            id: index + 1,
-          }))}
-          pagination={{ hideOnSinglePage: true }}
-        />
+        <Table columns={TColumns} dataSource={rows} pagination={{ hideOnSinglePage: true }} />
       </>
     </OModal>
   );

@@ -19,7 +19,7 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Row, Col, Space, Card, Input, Dropdown, Button, Table } from 'antd';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 // Modals
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -107,11 +107,14 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
   const { getInventoryImportExportSummary } = useModel('exportSummary');
   const [selectedWarehouseName, setSelectedWarehouseName] = useState('');
 
-  const handleMasterSKU = (event, id) => {
-    event.stopPropagation();
-    setSelectedStockId(id);
-    setCurrentModal(modalType.InventoryRules);
-  };
+  const handleMasterSKU = useCallback(
+    (event, id) => {
+      event.stopPropagation();
+      setSelectedStockId(id);
+      setCurrentModal(modalType.InventoryRules);
+    },
+    [setSelectedStockId],
+  );
 
   const TColumns = useMemo(
     () => [
@@ -235,7 +238,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
         ),
       },
     ],
-    [],
+    [handleMasterSKU],
   );
 
   const warehouseOptions = useMemo(
@@ -258,7 +261,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
             <Space size={5}>
               <SelectDropdown
                 options={warehouseOptions}
-                defaultSelectedItems={initialState?.initialData?.warehouses.map((warehouse) => warehouse.id)}
+                defaultSelectedItems={warehouseList.map((warehouse) => warehouse.id)}
                 type="warehouse"
                 style={{ width: '220px' }}
                 size={'middle'}

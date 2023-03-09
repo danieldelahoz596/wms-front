@@ -2,6 +2,7 @@ import { OModal } from '@/components/Globals/OModal';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Select, Upload } from 'antd';
+import { useMemo } from 'react';
 import { useModel } from 'umi';
 
 interface IImportVendorProductsByVendorModal {
@@ -11,7 +12,16 @@ interface IImportVendorProductsByVendorModal {
 }
 
 const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorModal> = ({ isOpen, onClose, onSave }) => {
-  const { initialState } = useModel('@@initialState');
+  const { vendorList } = useModel('vendor');
+
+  const vendorOptions = useMemo(
+    () =>
+      vendorList.map((_item) => ({
+        value: _item.id,
+        label: _item.name,
+      })),
+    [vendorList],
+  );
 
   return (
     <OModal
@@ -55,15 +65,7 @@ const ImportVendorProductsByVendorModal: React.FC<IImportVendorProductsByVendorM
         <Row style={{ display: 'flex', alignItems: 'center' }}>
           <Col span={12}>
             <Card title="Vendor">
-              <Select
-                placeholder="Select..."
-                size="small"
-                options={initialState?.initialData?.vendors.map((_item) => ({
-                  value: _item.id,
-                  label: _item.name,
-                }))}
-                style={{ width: '100%', marginBottom: 5 }}
-              />
+              <Select placeholder="Select..." size="small" options={vendorOptions} style={{ width: '100%', marginBottom: 5 }} />
             </Card>
           </Col>
           <Col offset={4} span={8} style={{ textAlign: 'right' }}>

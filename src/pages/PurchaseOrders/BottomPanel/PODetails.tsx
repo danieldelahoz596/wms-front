@@ -10,8 +10,11 @@ const { TextArea } = Input;
 
 const PODetails: React.FC = () => {
   const { selectedPO, setPoList, getTotalItemCost } = useModel('po');
-  const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
+  const { warehouseList } = useModel('warehouse');
+  const { poTemplateList } = useModel('poTemplate');
+  const { shippingTermList } = useModel('shippingTerm');
+  const { paymentTermList } = useModel('paymentTerm');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
 
@@ -27,22 +30,16 @@ const PODetails: React.FC = () => {
                 }),
                 ...(purchaseFormValues.poFormat && { poFormat: purchaseFormValues.poFormat }),
                 ...(purchaseFormValues.destination && {
-                  destination: initialState?.initialData.warehouses?.find(
-                    (warehouse) => warehouse.id === purchaseFormValues.destination,
-                  ),
+                  destination: warehouseList.find((warehouse) => warehouse.id === purchaseFormValues.destination),
                 }),
                 ...(purchaseFormValues.poTemplate && {
-                  poTemplate: initialState?.initialData.poTemplates?.find(
-                    (template) => template.id === purchaseFormValues.poTemplate,
-                  ),
+                  poTemplate: poTemplateList.find((template) => template.id === purchaseFormValues.poTemplate),
                 }),
                 ...(purchaseFormValues.shippingTerm && {
-                  shippingTerm: initialState?.initialData.shippingTerms?.find(
-                    (term) => term.id === purchaseFormValues.shippingTerm,
-                  ),
+                  shippingTerm: shippingTermList.find((term) => term.id === purchaseFormValues.shippingTerm),
                 }),
                 ...(purchaseFormValues.paymentTerm && {
-                  paymentTerm: initialState?.initialData.paymentTerms?.find((term) => term.id === purchaseFormValues.paymentTerm),
+                  paymentTerm: paymentTermList.find((term) => term.id === purchaseFormValues.paymentTerm),
                 }),
                 ...(purchaseFormValues.confirmBy && {
                   confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
