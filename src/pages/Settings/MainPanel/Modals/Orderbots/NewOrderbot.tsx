@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { OModal } from '@/components/Globals/OModal';
-import { Form, Input, InputNumber, Space, Select } from 'antd';
-import { CloseOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Space, Select, DatePicker } from 'antd';
+import { CloseOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
 import { OButton } from '@/components/Globals/OButton';
 import { FormattedMessage, useModel } from '@umijs/max';
+import { uuidv4 } from '@antv/xflow-core';
 
 interface INewOrderbotModal {
   isOpen: boolean;
@@ -185,6 +186,21 @@ const operatorOptions = [
   },
 ];
 
+const dateOperatorOptions = [
+  {
+    value: 'small',
+    label: 'Is less than...',
+  },
+  {
+    value: 'equal',
+    label: 'Equals the current date',
+  },
+  {
+    value: 'big',
+    label: 'Is greater than...',
+  },
+];
+
 const actionOptions = [
   {
     value: 'addLabel',
@@ -223,6 +239,18 @@ const actionOptions = [
     label: 'Apply Cheapest Rate',
   },
   {
+    value: 'applySplitOrderByAvailableStock',
+    label: 'Apply split order by available stock',
+  },
+  {
+    value: 'applySplitOrderByProductLabel',
+    label: 'Apply split order by product label',
+  },
+  {
+    value: 'assignDomesticBackupWarehouse',
+    label: 'Assign domestic backup warehouse',
+  },
+  {
     value: 'assignToUser',
     label: 'Assign to a user',
   },
@@ -239,6 +267,14 @@ const actionOptions = [
     label: 'Break down bundles to core components',
   },
   {
+    value: 'doNotNotifyMarketPlace',
+    label: 'Do not notify marketplace of shipment',
+  },
+  {
+    value: 'doNotPrepayPostage',
+    label: 'Do not prepay postage (Endicia)',
+  },
+  {
     value: 'holdTheOrderFor',
     label: 'Hold the order for ...',
   },
@@ -247,14 +283,80 @@ const actionOptions = [
     label: 'Hold until ship by date',
   },
   {
+    value: 'holdUntil',
+    label: 'Hold until',
+  },
+  {
+    value: 'insurePackage',
+    label: 'Insure the Package',
+  },
+  {
+    value: 'markOrderAsGift',
+    label: 'Mark order as gift',
+  },
+  {
+    value: 'markOrderAsShipped',
+    label: 'Mark order as shipped',
+  },
+  {
+    value: 'markShipmentAsNonMachinable',
+    label: 'Mark shipment as non machinable',
+  },
+  {
+    value: 'putShopifyAdditionalDetailInOrderField',
+    label: 'Put Shopify additional detail in order field',
+  },
+  {
+    value: 'putAllShopifyAdditionalDetailsInOrderField',
+    label: 'Put All Shopify additional details in order field',
+  },
+  {
+    value: 'replaceAddressField',
+    label: 'Replace Address Field',
+  },
+  {
+    value: 'requestConfirmation',
+    label: 'Request Confirmation',
+  },
+  {
+    value: 'setAmazonFBASKU',
+    label: 'Set Amazon FBA SKU',
+  },
+  {
+    value: 'setAmazonFulfillmentMethod',
+    label: 'Set Amazon Fulfillment Method',
+  },
+  {
+    value: 'setCarrierServicePackage',
+    label: 'Set Carrier/Service/Package',
+  },
+  {
+    value: 'setCustomField1',
+    label: 'Set custom field 1',
+  },
+  {
+    value: 'setCustomField12',
+    label: 'Set custom field 2',
+  },
+  {
+    value: 'setCustomField3',
+    label: 'Set custom field 3',
+  },
+  {
     value: 'setWarehouse',
     label: 'Set Warehouse',
+  },
+  {
+    value: 'setProviderServicePackage',
+    label: 'Set Provider/Service/Package',
   },
 ];
 
 const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
   const { warehouseList } = useModel('warehouse');
+  const { productList } = useModel('product');
+  const { setOrderbotList, selectedOrderbot } = useModel('orderbots');
 
   const warehouseOptions = useMemo(
     () => warehouseList.map((warehouse) => ({ value: warehouse.id, label: warehouse.name })),
@@ -262,13 +364,27 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
   );
 
   const handleSave = () => {
-    form.validateFields().then((values) => console.log(values));
-    console.log(form.getFieldValue(['filters', '0', 'filter']));
+    form.validateFields().then((values) => {
+      console.log('values: ', values);
+      setOrderbotList((prev) => [...prev, { id: uuidv4(), ...values, status: true }]);
+      onSave();
+    });
   };
+
+  useEffect(() => {
+    if (!!selectedOrderbot) {
+      form.setFieldsValue(selectedOrderbot);
+    } else {
+      form.resetFields();
+    }
+  }, [selectedOrderbot, form]);
 
   return (
     <OModal
-      title={<FormattedMessage id="pages.settings.orderbots.neworderbot.title" />}
+      forceRender
+      title={
+        !selectedOrderbot ? <FormattedMessage id="pages.settings.orderbots.neworderbot.title" /> : `Edit ${selectedOrderbot.name}`
+      }
       helpLink=""
       width={1000}
       isOpen={isOpen}
@@ -291,12 +407,14 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
       <>
         <Form layout="inline" form={form}>
           <Form.Item label={<FormattedMessage id="component.form.label.name" />} name="name">
-            <Input style={{ width: 750 }} />
+            <Input style={{ width: 700 }} />
           </Form.Item>
-          <Form.Item label={<FormattedMessage id="component.form.label.rank" />} name="rank">
+          <Form.Item label={<FormattedMessage id="component.form.label.rank" />}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <InputNumber style={{ marginRight: 10 }} />
-              <QuestionCircleOutlined style={{ fontSize: 20, color: 'blue' }} />
+              <Form.Item name="rank" style={{ flex: 1 }}>
+                <InputNumber />
+              </Form.Item>
+              <QuestionCircleTwoTone style={{ fontSize: 20 }} />
             </div>
           </Form.Item>
 
@@ -323,18 +441,41 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                   <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                     <CloseOutlined style={{ color: 'blue' }} onClick={() => remove(name)} />
                     <Form.Item
-                      {...restField}
-                      name={[name, 'filter']}
-                      rules={[{ required: true, message: 'Please select the filter' }]}
+                      noStyle
+                      shouldUpdate={(prevValues, currentValues) => prevValues.filters[name] !== currentValues.filters[name]}
                     >
-                      <Select options={filterOptions} style={{ width: 300 }} />
+                      {({ setFieldValue }) => (
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'filter']}
+                          rules={[{ required: true, message: 'Please select the filter' }]}
+                        >
+                          <Select
+                            options={filterOptions}
+                            style={{ width: 300 }}
+                            onChange={() => setFieldValue(['filters', name, 'value'], null)}
+                          />
+                        </Form.Item>
+                      )}
                     </Form.Item>
                     <Form.Item
-                      {...restField}
-                      name={[name, 'operator']}
-                      rules={[{ required: true, message: 'Please select the options' }]}
+                      noStyle
+                      shouldUpdate={(prevValues, currentValues) => prevValues.filters[name] !== currentValues.filters[name]}
                     >
-                      <Select options={operatorOptions} style={{ width: 200 }} />
+                      {({ getFieldValue }) => (
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'operator']}
+                          rules={[{ required: true, message: 'Please select the options' }]}
+                        >
+                          {getFieldValue(['filters', name, 'filter']) === 'datePaid' ||
+                          getFieldValue(['filters', name, 'filter']) === 'orderDate' ? (
+                            <Select options={dateOperatorOptions} style={{ width: 200 }} />
+                          ) : (
+                            <Select options={operatorOptions} style={{ width: 200 }} />
+                          )}
+                        </Form.Item>
+                      )}
                     </Form.Item>
                     <Form.Item
                       noStyle
@@ -348,9 +489,105 @@ const NewOrderbotModal: React.FC<INewOrderbotModal> = ({ isOpen, onClose, onSave
                         >
                           {getFieldValue(['filters', name, 'filter']) === 'warehouse' ? (
                             <Select options={warehouseOptions} style={{ width: 200 }} />
+                          ) : getFieldValue(['filters', name, 'filter']) === 'datePaid' ||
+                            getFieldValue(['filters', name, 'filter']) === 'orderDate' ? (
+                            getFieldValue(['filters', name, 'operator']) === 'equal' ? (
+                              <></>
+                            ) : (
+                              <DatePicker />
+                            )
                           ) : (
                             <InputNumber />
                           )}
+                        </Form.Item>
+                      )}
+                    </Form.Item>
+                  </Space>
+                ))}
+              </>
+            )}
+          </Form.List>
+
+          <Form.List name="actions">
+            {(fields, { add, remove }) => (
+              <>
+                <div
+                  style={{
+                    width: '100%',
+                    marginTop: 50,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'end',
+                  }}
+                >
+                  <div style={{ fontSize: 14 }}>
+                    <b>Apply Automatic Actions:</b>
+                  </div>
+                  <OButton btnText="Add Action" onClick={() => add()} />
+                </div>
+                <hr style={{ width: '100%' }} />
+
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                    <CloseOutlined style={{ color: 'blue' }} onClick={() => remove(name)} />
+                    <Form.Item
+                      noStyle
+                      shouldUpdate={(prevValues, currentValues) => prevValues.actions[name] !== currentValues.actions[name]}
+                    >
+                      {({ setFieldValue }) => (
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'action']}
+                          rules={[{ required: true, message: 'Please select the Action' }]}
+                        >
+                          <Select
+                            options={actionOptions}
+                            style={{ width: 300 }}
+                            onChange={() => setFieldValue(['actions', name, 'value'], null)}
+                          />
+                        </Form.Item>
+                      )}
+                    </Form.Item>
+                    <Form.Item
+                      noStyle
+                      shouldUpdate={(prevValues, currentValues) => prevValues.actions[name] !== currentValues.actions[name]}
+                    >
+                      {({ getFieldValue }) => (
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'value']}
+                          rules={[{ required: true, message: 'Please input value' }]}
+                        >
+                          {getFieldValue(['actions', name, 'action']) === 'insurePackage' ? (
+                            <Select
+                              options={[{ value: 'carrierInsurance', label: 'Carrier Insurance' }]}
+                              style={{ width: 200 }}
+                            />
+                          ) : getFieldValue(['actions', name, 'action']) === 'setProviderServicePackage' ? (
+                            <Select
+                              options={[{ value: 'carrierInsurance', label: 'Carrier Insurance' }]}
+                              style={{ width: 200 }}
+                            />
+                          ) : getFieldValue(['actions', name, 'action']) === 'setWarehouse' ? (
+                            <Select options={warehouseOptions} style={{ width: 200 }} />
+                          ) : getFieldValue(['actions', name, 'action']) === 'applySplitOrderByAvailableStock' ? (
+                            <Select
+                              options={[{ value: 'sku', label: 'Split by item then split by sku' }]}
+                              style={{ width: 400 }}
+                            />
+                          ) : getFieldValue(['actions', name, 'action']) === 'applySplitOrderByProductLabel' ? (
+                            <Select
+                              options={productList.map((item) => ({ value: item.id, label: item.name }))}
+                              style={{ width: 400 }}
+                            />
+                          ) : getFieldValue(['actions', name, 'action']) === 'holdTheOrderFor' ? (
+                            <>
+                              <InputNumber /> days and <InputNumber /> hours
+                            </>
+                          ) : (
+                            <Input />
+                          )}
+                          {/* <Select options={warehouseOptions} style={{ width: 200 }} /> */}
                         </Form.Item>
                       )}
                     </Form.Item>

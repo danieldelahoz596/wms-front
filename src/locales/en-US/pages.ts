@@ -261,4 +261,35 @@ export default {
   'pages.products.coreProduct.basicInfo.allowBackorders': 'Allow Backorders',
   'pages.products.coreProduct.basicInfo.giftCard': 'Gift Card',
   'pages.products.coreProduct.basicInfo.digital': 'Digital',
+  'pages.products.coreProduct.gallery.description':
+    'Manage images by adding, removing and/or dragging each image to create an ordered gallery.',
+  'pages.products.coreProduct.vendorProducts.description': 'Add vendor SKUs associated with this product.',
+  'pages.products.coreProduct.vendorProducts.popconfirm.deactivate.title': 'Sure to Deactivate?',
+  'pages.products.coreProduct.vendorProducts.popconfirm.activate.title': 'Sure to Activate?',
+  'pages.products.coreProduct.vendorProducts.popconfirm.default.title': 'Sure to Set it as default?',
+  'pages.products.coreProduct.bundleItems.description':
+    'Manage cord products and their respective quantities within this bundle/kit',
+  'pages.products.coreProduct.bundleItems.popconfirm.remove.title': 'Sure to Remove?',
+  'pages.products.coreProduct.customFields.description': 'Manage Custom Fields',
+  'pages.products.coreProduct.variationDetails.description1': 'Attribute Groups:',
+  'pages.products.coreProduct.variationDetails.description2':
+    'Create your Core product variations below by clicking on the + symbol',
+  'pages.products.coreProduct.variationDetails.description3': 'Variation Details',
+  'pages.products.coreProduct.variationDetails.dimension.description': 'Dimension & Attributes',
+
+  'pages.orders.sidepanel.filterBy': 'Filter By',
+  'pages.orders.sidepanel.searchBy': 'Search By',
+  'pages.orders.rightpanel.title': 'Order Fulfillment',
+  'pages.orders.bottompanel.title': 'Order Items',
+  'pages.orders.mainpanel.title': 'Orders :: ',
+
+  'pages.inventory.stock.rightpanel.title': 'Stock Details',
+  'pages.inventory.transfer.rightpanel.title': 'Stock Transfer Order Details',
+
+  'pages.purchasing.sidepanel.filterBy': 'Filter By',
+  'pages.purchasing.sidepanel.searchBy': 'Search By',
+  'pages.purchasing.mainpanel.title': 'Purchase Orders ::',
+
+  'pages.shipments.sidepanel.filterBy': 'Filter By',
+  'pages.shipments.sidepanel.searchBy': 'Search By',
 };

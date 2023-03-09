@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import AddCoreProductModal from '@/pages/Products/MainPanel/Modals/AddCoreProduct';
 import { modalType } from '@/utils/helpers/types';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -65,17 +65,17 @@ const BundledItems: React.FC<IBundleItems> = () => {
       key: 'id',
     },
     {
-      title: 'Master SKU',
+      title: <FormattedMessage id="component.table.column.masterSku" />,
       dataIndex: 'masterSKU',
       key: 'masterSKU',
     },
     {
-      title: 'Name',
+      title: <FormattedMessage id="component.table.column.name" />,
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Quantity',
+      title: <FormattedMessage id="component.table.column.quantity" />,
       dataIndex: 'quantity',
       key: 'quantity',
     },
@@ -83,12 +83,21 @@ const BundledItems: React.FC<IBundleItems> = () => {
 
   return (
     <>
-      <h2>Manage cord products and their respective quantities within this bundle/kit</h2>
+      <h2>
+        <FormattedMessage id="pages.products.coreProduct.bundleItems.description" />
+      </h2>
       <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-        <OButton btnText="Add Core Product" onClick={handleAddCoreProductClick} />
-        <OButton btnText="Edit Quantity" onClick={handleEditCoreProductClick} disabled={!selectedItem} />
-        <Popconfirm title={'Sure to Remove?'} onConfirm={() => handleRemoveClick()}>
-          <OButton disabled={!selectedItem} btnText="Remove" />
+        <OButton btnText={<FormattedMessage id="component.button.addCoreProduct" />} onClick={handleAddCoreProductClick} />
+        <OButton
+          btnText={<FormattedMessage id="component.button.editQuantity" />}
+          onClick={handleEditCoreProductClick}
+          disabled={!selectedItem}
+        />
+        <Popconfirm
+          title={<FormattedMessage id="pages.products.coreProduct.bundleItems.popconfirm.remove.title" />}
+          onConfirm={() => handleRemoveClick()}
+        >
+          <OButton disabled={!selectedItem} btnText={<FormattedMessage id="component.button.remove" />} />
         </Popconfirm>
       </Space>
       <Table

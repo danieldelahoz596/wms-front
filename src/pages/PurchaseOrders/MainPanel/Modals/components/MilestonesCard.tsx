@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Card, Button } from 'antd';
 import { useModel } from '@umijs/max';
 import { CheckSquareFilled } from '@ant-design/icons';
@@ -21,16 +21,8 @@ const TColumns = [
 ];
 
 const MilestonesCard: React.FC = () => {
-  const { milestonesList } = useModel('milestones');
   const { selectedPO } = useModel('po');
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]);
-
-  useEffect(() => {
-    setSelectedRows([selectedPO.milestone.id]);
-  }, [selectedPO]);
-
-  const milestoneRows = useMemo(() => milestonesList.map((milestone) => ({ key: milestone.id, ...milestone })), [milestonesList]);
 
   return (
     <>
@@ -39,10 +31,10 @@ const MilestonesCard: React.FC = () => {
           <OTable
             type="radio"
             columns={TColumns}
-            rows={milestoneRows}
+            rows={[{ key: selectedPO.milestone.id, ...selectedPO.milestone }]}
             pagination={false}
-            selectedRows={selectedRows}
-            setSelectedRows={setSelectedRows}
+            selectedRows={[selectedPO.milestone.id]}
+            style={{ height: 150 }}
           />
         </div>
 

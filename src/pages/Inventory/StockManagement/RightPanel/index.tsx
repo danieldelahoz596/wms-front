@@ -16,7 +16,7 @@ import {
   StopOutlined,
   ToolTwoTone,
 } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
 import { useState, useMemo } from 'react';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
@@ -166,7 +166,9 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <h2 style={{ marginLeft: '10px' }}>Stock Details</h2>
+      <h2 style={{ marginLeft: '10px' }}>
+        <FormattedMessage id="pages.inventory.stock.rightpanel.title" />
+      </h2>
       <Collapse defaultActiveKey={initialState?.initialData?.warehouses[0].id}>
         {warehouseList.map((_warehouse) => (
           <Collapse.Panel

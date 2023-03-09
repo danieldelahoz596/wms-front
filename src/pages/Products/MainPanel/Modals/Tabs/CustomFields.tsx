@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import CustomFieldsConfigureModal from '@/pages/Products/MainPanel/Modals/CustomFieldsConfigure';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Popconfirm, Select, Space } from 'antd';
 import { useMemo, useState } from 'react';
 
@@ -15,25 +15,25 @@ const TColumns = [
   {
     key: 'name',
     dataIndex: 'name',
-    title: 'Name',
+    title: <FormattedMessage id="component.table.column.name" />,
   },
   {
     key: 'value',
     dataIndex: 'value',
-    title: 'Value',
+    title: <FormattedMessage id="component.table.column.value" />,
     align: 'center',
     editable: true,
   },
   {
     key: 'show_on_grid',
-    title: 'Show On Grid',
+    title: <FormattedMessage id="component.table.column.showOnGrid" />,
     dataIndex: 'show_on_grid',
     align: 'right',
     render: (show_on_grid) => (show_on_grid ? <CheckOutlined /> : <CloseOutlined />),
   },
   {
     key: 'required',
-    title: 'Required',
+    title: <FormattedMessage id="component.table.column.required" />,
     dataIndex: 'required',
     align: 'right',
     render: (required) => (required ? <CheckOutlined /> : <CloseOutlined />),
@@ -64,12 +64,14 @@ const CustomFields: React.FC<ICustomFields> = ({ customFields, setCustomFields }
 
   return (
     <>
-      <h2>Manage Custom Fields</h2>
+      <h2>
+        <FormattedMessage id="pages.products.coreProduct.customFields.description" />
+      </h2>
       <div className="button-row space-between">
         <Space size={HORIZONTAL_SPACE_SIZE}>
           <Select
             showSearch
-            placeholder="Add Fields"
+            placeholder={<FormattedMessage id="component.select.placeholder.addFields" />}
             style={{ width: '100%' }}
             size="small"
             options={FieldSelectOptions}
@@ -79,16 +81,16 @@ const CustomFields: React.FC<ICustomFields> = ({ customFields, setCustomFields }
             }}
           />
           <Popconfirm
-            title={'Sure to Remove?'}
+            title={<FormattedMessage id="component.popconfirm.sureToRemove" />}
             onConfirm={() => {
               setCustomFields(customFields.filter((field) => field.field_id !== selectedItemId));
               setSelectedItemId(null);
             }}
           >
-            <OButton btnText={'Remove Field'} disabled={!selectedItemId} />
+            <OButton btnText={<FormattedMessage id="component.button.removeField" />} disabled={!selectedItemId} />
           </Popconfirm>
         </Space>
-        <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
+        <OButton btnText={<FormattedMessage id="component.button.configureFieldTypes" />} onClick={() => setShowModal(true)} />
       </div>
       <EditableTable
         columns={TColumns}

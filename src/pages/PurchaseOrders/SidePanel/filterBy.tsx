@@ -9,7 +9,7 @@ const FilterByPanel: React.FC = () => {
     if (poStatusList.length == 0) {
       initialPOStatus();
     }
-  });
+  }, [initialPOStatus, poStatusList]);
 
   const onSelect = (selectedKey: any) => {
     let selectedPOS = null;

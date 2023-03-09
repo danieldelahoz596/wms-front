@@ -3,7 +3,7 @@ import VendorProductModal from '@/pages/Products/MainPanel/Modals/VendorProduct'
 import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import { Popconfirm, Space, Table } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -21,27 +21,27 @@ const vendorProductsTableColumns = [
     key: 'id',
   },
   {
-    title: 'Vendor',
+    title: <FormattedMessage id="component.table.column.vendor" />,
     dataIndex: 'vendor',
     key: 'vendor',
   },
   {
-    title: 'Vendor SKU',
+    title: <FormattedMessage id="component.table.column.vendorSku" />,
     dataIndex: 'vendorSku',
     key: 'vendorSku',
   },
   {
-    title: 'Min Order Qty',
+    title: <FormattedMessage id="component.table.column.minOrderQty" />,
     dataIndex: 'minOrderQty',
     key: 'minOrderQty',
   },
   {
-    title: 'Lead Time',
+    title: <FormattedMessage id="component.table.column.leadTime" />,
     dataIndex: 'leadTime',
     key: 'leadTime',
   },
   {
-    title: 'U.O.M',
+    title: <FormattedMessage id="component.table.column.uom" />,
     dataIndex: 'uom',
     key: 'uom',
   },
@@ -113,18 +113,24 @@ const VendorProducts: React.FC<IVendorProduct> = ({
   const actionButtons = [
     {
       onClick: handleNewVendorProductClick,
-      btnText: 'New Vendor Product',
+      btnText: <FormattedMessage id="component.button.newVendorProduct" />,
       disabled: false,
     },
     {
       onClick: handleEditVendorProductClick,
-      btnText: 'Edit',
+      btnText: <FormattedMessage id="component.button.edit" />,
       disabled: !selectedVendorProductKey,
     },
     {
       btnText: (
         <Popconfirm
-          title={'Sure to Deactivate?'}
+          title={
+            showActive ? (
+              <FormattedMessage id="pages.products.coreProduct.vendorProducts.popconfirm.deactivate.title" />
+            ) : (
+              <FormattedMessage id="pages.products.coreProduct.vendorProducts.popconfirm.activate.title" />
+            )
+          }
           onConfirm={() => {
             setVendorProductList(
               vendorProductList.map((vendorProduct) =>
@@ -135,17 +141,29 @@ const VendorProducts: React.FC<IVendorProduct> = ({
             );
           }}
         >
-          <OButton disabled={!selectedVendorProductKey} btnText={`${showActive ? 'Deactivate' : 'Activate'}`} />
+          <OButton
+            disabled={!selectedVendorProductKey}
+            btnText={
+              showActive ? (
+                <FormattedMessage id="component.button.deactivate" />
+              ) : (
+                <FormattedMessage id="component.button.activate" />
+              )
+            }
+          />
         </Popconfirm>
       ),
     },
     {
       onClick: handleDefaultClick,
       btnText: (
-        <Popconfirm title={'Sure to Set it as default?'} onConfirm={() => handleDefaultClick()}>
+        <Popconfirm
+          title={<FormattedMessage id="pages.products.coreProduct.vendorProducts.popconfirm.default.title" />}
+          onConfirm={() => handleDefaultClick()}
+        >
           <OButton
             disabled={!selectedVendorProductKey || defaultVendorProductKey === selectedVendorProductKey}
-            btnText="Default"
+            btnText={<FormattedMessage id="component.button.default" />}
           />
         </Popconfirm>
       ),
@@ -154,7 +172,9 @@ const VendorProducts: React.FC<IVendorProduct> = ({
 
   return (
     <>
-      <h2>Add vendor SKUs associated with this product.</h2>
+      <h2>
+        <FormattedMessage id="pages.products.coreProduct.vendorProducts.description" />
+      </h2>
       <div className="button-row space-between">
         <Space size={HORIZONTAL_SPACE_SIZE}>
           {actionButtons.map((btn, index) => (

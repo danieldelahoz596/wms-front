@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import AddAttributeGroupModal from '../AddAttributeGroup';
 import { modalType } from '@/utils/helpers/types';
 import ConfigAttributeGroups from '../ConfigAttributeGroups';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 
 interface IVariationDetails {
   form: any;
@@ -49,14 +49,16 @@ const VariationDetails: React.FC<IVariationDetails> = ({ form, attributeGroup })
       <Row className="pb-3" align="middle">
         <>
           <Col span={4}>
-            <h3>Attribute Groups:</h3>
+            <h3>
+              <FormattedMessage id="pages.products.coreProduct.variationDetails.description1" />
+            </h3>
           </Col>
           <Col span={20}>
             <Row gutter={10}>
               <Col flex="auto">
                 <Select
                   onChange={(value) => setSelectedAttributeGroup(value)}
-                  placeholder="Select the attribute groups you want to work with ..."
+                  placeholder={<FormattedMessage id="component.select.placeholder.attributeGroups" />}
                   options={attributeGroupOptions}
                   value={selectedAttributeGroup}
                   style={{ width: '100%' }}
@@ -89,7 +91,9 @@ const VariationDetails: React.FC<IVariationDetails> = ({ form, attributeGroup })
         </>
       </Row>
       <Row justify="start">
-        <h2>Create your Core product variations below by clicking on the + symbol</h2>
+        <h2>
+          <FormattedMessage id="pages.products.coreProduct.variationDetails.description2" />
+        </h2>
       </Row>
       <Form labelCol={{ span: 4 }} labelAlign="left" form={form}>
         <Row className="mt-10" justify="space-between">
@@ -110,12 +114,16 @@ const VariationDetails: React.FC<IVariationDetails> = ({ form, attributeGroup })
                       />
                     </Col>
                     <Col span={20}>
-                      <h2>Variation Details</h2>
+                      <h2>
+                        <FormattedMessage id="pages.products.coreProduct.variationDetails.description3" />
+                      </h2>
                     </Col>
                   </Row>
                 </Col>
                 <Col span={15}>
-                  <h2>Dimension & Attributes</h2>
+                  <h2>
+                    <FormattedMessage id="pages.products.coreProduct.variationDetails.dimension.description" />
+                  </h2>
                 </Col>
                 <hr style={{ width: '100%', borderTopStyle: 'solid', borderTopColor: 'gray', borderTopWidth: 1 }} />
 
@@ -135,41 +143,87 @@ const VariationDetails: React.FC<IVariationDetails> = ({ form, attributeGroup })
                           />
                         </Col>
                         <Col span={20}>
-                          <Form.Item {...restField} label="SKU" name={[name, 'master_sku']}>
+                          <Form.Item
+                            {...restField}
+                            label={<FormattedMessage id="component.form.label.sku" />}
+                            name={[name, 'master_sku']}
+                          >
                             <Input />
                           </Form.Item>
-                          <Form.Item {...restField} label="UPC" name={[name, 'upc']}>
+                          <Form.Item
+                            {...restField}
+                            label={<FormattedMessage id="component.form.label.upc" />}
+                            name={[name, 'upc']}
+                          >
                             <Input />
                           </Form.Item>
-                          <Form.Item {...restField} label="Image" name={[name, 'image']}>
+                          <Form.Item
+                            {...restField}
+                            label={<FormattedMessage id="component.form.label.image" />}
+                            name={[name, 'image']}
+                          >
                             <Input />
                           </Form.Item>
                         </Col>
                       </Row>
                     </Col>
                     <Col span={15}>
-                      <Form.Item label="Attributes" {...restField} name={[name, 'attribute']}>
+                      <Form.Item
+                        label={<FormattedMessage id="component.form.label.attributes" />}
+                        {...restField}
+                        name={[name, 'attribute']}
+                      >
                         <Select options={attributeOptions} />
                       </Form.Item>
-                      <Form.Item label="Weight" className="custom-form-item">
+                      <Form.Item label={<FormattedMessage id="component.form.label.weight" />} className="custom-form-item">
                         <Input.Group compact>
-                          <Form.Item label="lb." {...restField} name={[name, 'lb']} colon={false} labelCol={{ offset: 1 }}>
+                          <Form.Item
+                            label={<FormattedMessage id="component.form.label.lb" />}
+                            {...restField}
+                            name={[name, 'lb']}
+                            colon={false}
+                            labelCol={{ offset: 1 }}
+                          >
                             <InputNumber defaultValue={0} />
                           </Form.Item>
-                          <Form.Item label="oz." {...restField} name={[name, 'oz']} colon={false} labelCol={{ offset: 1 }}>
+                          <Form.Item
+                            label={<FormattedMessage id="component.form.label.oz" />}
+                            {...restField}
+                            name={[name, 'oz']}
+                            colon={false}
+                            labelCol={{ offset: 1 }}
+                          >
                             <InputNumber defaultValue={0} />
                           </Form.Item>
                         </Input.Group>
                       </Form.Item>
-                      <Form.Item label="H/W/L" className="custom-form-item">
+                      <Form.Item label={<FormattedMessage id="component.form.label.hwl" />} className="custom-form-item">
                         <Input.Group compact>
-                          <Form.Item label="x" {...restField} name={[name, 'x']} colon={false} labelCol={{ offset: 1 }}>
+                          <Form.Item
+                            label={<FormattedMessage id="component.form.label.x" />}
+                            {...restField}
+                            name={[name, 'x']}
+                            colon={false}
+                            labelCol={{ offset: 1 }}
+                          >
                             <InputNumber defaultValue={0} />
                           </Form.Item>
-                          <Form.Item label="y" {...restField} name={[name, 'y']} colon={false} labelCol={{ offset: 1 }}>
+                          <Form.Item
+                            label={<FormattedMessage id="component.form.label.y" />}
+                            {...restField}
+                            name={[name, 'y']}
+                            colon={false}
+                            labelCol={{ offset: 1 }}
+                          >
                             <InputNumber defaultValue={0} />
                           </Form.Item>
-                          <Form.Item label="in" {...restField} name={[name, 'in']} colon={false} labelCol={{ offset: 1 }}>
+                          <Form.Item
+                            label={<FormattedMessage id="component.form.label.in" />}
+                            {...restField}
+                            name={[name, 'in']}
+                            colon={false}
+                            labelCol={{ offset: 1 }}
+                          >
                             <InputNumber defaultValue={0} />
                           </Form.Item>
                         </Input.Group>

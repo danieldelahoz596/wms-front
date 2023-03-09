@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { OTable } from '@/components/Globals/OTable';
 import { EditTwoTone, LikeFilled, PlayCircleFilled } from '@ant-design/icons';
 import { Card } from 'antd';
+import { FormattedMessage } from '@umijs/max';
 
 export const recieveData = [
   {
@@ -66,7 +67,9 @@ const TransferDetails: React.FC = () => {
   return (
     <>
       <Card>
-        <h3>Stock Transfer Order Details</h3>
+        <h3>
+          <FormattedMessage id="pages.inventory.transfer.rightpanel.title" />{' '}
+        </h3>
       </Card>
       <Card>
         <OTable columns={Rcolumns} rows={recieveDataSource} />

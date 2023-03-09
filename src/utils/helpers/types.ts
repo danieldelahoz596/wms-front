@@ -91,6 +91,7 @@ export enum modalType {
   // Shipments
   ExportRmas = 'ExportRmas',
   ExportShipments = 'ExportShipments',
+  VoidShipments = 'VoidShipments',
 
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',

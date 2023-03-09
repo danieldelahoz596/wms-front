@@ -145,7 +145,7 @@ const NewWarehouseModal: React.FC<INewWarehouseModal> = ({ isOpen, onSave, onClo
                 name={'backup_warehouses'}
               >
                 <Select
-                  placeholder={<FormattedMessage id="component.select.placeholder.Select" />}
+                  placeholder={<FormattedMessage id="component.select.placeholder.select" />}
                   size="small"
                   options={warehouseList.map((_item) => ({
                     valeu: _item.id,

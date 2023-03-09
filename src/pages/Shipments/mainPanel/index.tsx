@@ -12,6 +12,7 @@ import moment from 'moment';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import ExportSelectedRmasModal from './Modals/ExportSelectedRmas';
 import { modalType } from '@/utils/helpers/types';
+import VoidShipmentsModal from './Modals/VoidShipments';
 
 interface IShipmentItem {
   key: number;
@@ -248,18 +249,32 @@ const MainPanel: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [modalOpen, setModalOpen] = useState<modalType>(modalType.Close);
 
-  const importExportMenuItems: ItemType[] = [
-    {
-      key: '1',
-      label: <span onClick={() => setModalOpen(modalType.ExportRmas)}> Export Rmas For Selected Orders </span>,
-      icon: <VerticalAlignBottomOutlined />,
-    },
-    {
-      key: '2',
-      label: <span onClick={() => setModalOpen(modalType.ExportShipments)}>Export Search Results</span>,
-      icon: <VerticalAlignBottomOutlined />,
-    },
-  ];
+  const importExportMenuItems: ItemType[] =
+    searchType === 'returns'
+      ? [
+          {
+            key: '1',
+            label: <span onClick={() => setModalOpen(modalType.ExportRmas)}> Export Rmas For Selected Orders </span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+          {
+            key: '3',
+            label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+        ]
+      : [
+          {
+            key: '2',
+            label: <span onClick={() => setModalOpen(modalType.ExportShipments)}> Export Shipments for Selected Orders </span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+          {
+            key: '3',
+            label: <span onClick={() => setModalOpen(modalType.ImportExportSummary)}>Export Search Results</span>,
+            icon: <VerticalAlignBottomOutlined />,
+          },
+        ];
 
   useEffect(() => {
     setSelectedRows([]);
@@ -278,7 +293,11 @@ const MainPanel: React.FC = () => {
           <OButton btnText="Print Packing Slips" />
           <OButton btnText="Print Pick List(s)" />
           <OButton btnText="Print Global Pick List" />
-          <OButton btnText="Void Shipment(s)" />
+          <OButton
+            btnText="Void Shipment(s)"
+            disabled={selectedRows.length === 0}
+            onClick={() => setModalOpen(modalType.VoidShipments)}
+          />
           <OButton btnText="Track Shipment(s)" />
           <OButton btnText="Resend Confirmation Email(s)" />
           <Dropdown menu={{ items: importExportMenuItems }}>
@@ -313,6 +332,12 @@ const MainPanel: React.FC = () => {
       <ExportSelectedRmasModal
         isOpen={modalOpen === modalType.ExportRmas || modalOpen === modalType.ExportShipments}
         type={modalOpen === modalType.ExportRmas ? 'rma' : 'shipment'}
+        onSave={() => setModalOpen(modalType.Close)}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
+
+      <VoidShipmentsModal
+        isOpen={modalOpen === modalType.VoidShipments}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />

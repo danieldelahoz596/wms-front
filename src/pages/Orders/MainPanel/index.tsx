@@ -43,7 +43,7 @@ import SplitOrderModal from './Modals/SplitOrder';
 import DuplicateOrderModal from './Modals/DuplicateOrder';
 import { modalType } from '@/utils/helpers/types';
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { useModel } from '@umijs/max';
+import { FormattedMessage, useModel } from '@umijs/max';
 import moment from 'moment';
 import { uuidv4 } from '@antv/xflow-core';
 
@@ -469,7 +469,9 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
     <>
       <div className="main-panel">
         <div className="title-row space-between">
-          <h1 className="page-title">Orders :: {selectedOrderStatus?.status.name}</h1>
+          <h1 className="page-title">
+            <FormattedMessage id="pages.orders.mainpanel.title" /> {selectedOrderStatus?.status.name}
+          </h1>
           {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
           <Button style={{ paddingTop: '0', paddingBottom: '0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
