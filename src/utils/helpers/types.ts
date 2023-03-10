@@ -62,6 +62,8 @@ export enum modalType {
   ShipmentImportMapping = 'ShipmentImportMapping',
   NewShipmentImportMapping = 'NewShipmentImportMapping',
 
+  ShippingQueueSummary = 'ShippingQueueSummary',
+
   // inventory
   StockHistory = 'StockHistory',
   StockDeactive = 'StockDeactive',

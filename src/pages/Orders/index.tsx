@@ -71,10 +71,7 @@ const OrderManagement: React.FC = () => {
 
         <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
         <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>
-          <div className="w-full">
-            {' '}
-            <RightPanel />
-          </div>
+          <div className="w-full"> {selectedRows.length > 0 && <RightPanel />}</div>
         </div>
       </div>
     </PageContainer>

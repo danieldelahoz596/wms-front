@@ -6,6 +6,7 @@ export default () => {
   const [orderList, setOrderList] = useState<any[]>([]);
   const [editableOrder, setEditableOrder] = useState(null);
   const [selectedOrders, setSelectedOrders] = useState([]);
+  const [shippingQueue, setShippingQueue] = useState([]);
   const [newOrder, setNewOrder] = useState({
     orderItems: [],
   });
@@ -28,11 +29,13 @@ export default () => {
     editableOrder,
     selectedOrders,
     newOrder,
+    shippingQueue,
     setNewOrder,
     initialOrderList,
     setOrderList,
     setEditableOrder,
     updateOrderItem,
     setSelectedOrders,
+    setShippingQueue,
   };
 };
