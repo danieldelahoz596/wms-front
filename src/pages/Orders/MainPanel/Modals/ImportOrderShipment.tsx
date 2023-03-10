@@ -24,12 +24,12 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen,
       text: 'No - Ignore existing shipments, only import new.',
     },
   ];
-  
+
   return (
     <OModal
       title="External Shipment Import"
       helpLink="/help/orders/general"
-      width={1000}
+      width={700}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -53,8 +53,8 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen,
           for orders that were fulfilled by a channel (e.g. Amazon FBA), a 3PL, a dropship vendor, or any other source outside of
           Skubana. This is the batch import equivalent of <b>{`marking orders as "Shipped".`}</b>
         </p>
-        <Row gutter={32}>
-          <Col span={14}>
+        <Row gutter={8}>
+          <Col span={16}>
             <div
               style={{
                 background: '#DEE0FF',
@@ -78,13 +78,13 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen,
               </div>
             </div>
           </Col>
-          <Col span={10}>
+          <Col span={8}>
             <Form
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: '100%',
+                height: '90%',
               }}
             >
               <Form.Item label="Excel Shipment File: ">

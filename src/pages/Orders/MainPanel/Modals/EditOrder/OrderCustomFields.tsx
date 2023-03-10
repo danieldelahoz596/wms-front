@@ -1,10 +1,10 @@
-import { OButton } from '@/components/Globals/OButton';
 import { EditableTable } from '@/components/Globals/EditableTable';
+import { OButton } from '@/components/Globals/OButton';
+import ConfigureFieldTypesModal from '@/pages/Orders/MainPanel/Modals/ConfigFieldTypes';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Button, Col, Row, Select } from 'antd';
+import { Button, Col, Row, Select, Space } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
-import ConfigureFieldTypesModal from '@/pages/Orders/MainPanel/Modals/ConfigFieldTypes';
 
 const TColumns = [
   {
@@ -57,13 +57,9 @@ const OrderCustomFields: React.FC = () => {
 
   return (
     <>
-      <Row align="middle" gutter={10}>
-        <Col span={24}>
-          <p>
-            <b>Manage Custom Fields</b>
-          </p>
-        </Col>
-        <Col span={7}>
+      <h2>Manage Custom Fields</h2>
+      <div className="button-row space-between">
+        <Space size={HORIZONTAL_SPACE_SIZE}>
           <Select
             showSearch
             placeholder="Add Fields"
@@ -82,17 +78,10 @@ const OrderCustomFields: React.FC = () => {
               ]);
             }}
           />
-        </Col>
-        <Col span={10}>
-          <Button>Remove Field</Button>
-        </Col>
-        <Col span={7}>
-          <Row justify="end">
-            <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
-          </Row>
-        </Col>
-      </Row>
-
+          <OButton btnText={'Remove Field'} />
+        </Space>
+        <OButton btnText={'Configure Field Types'} onClick={() => setShowModal(true)} />
+      </div>
       <EditableTable
         columns={TColumns}
         dataSource={customFieldsTableRows}

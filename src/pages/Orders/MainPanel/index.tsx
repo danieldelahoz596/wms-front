@@ -1,8 +1,8 @@
-import { OButton } from '@/components/Globals/OButton';
 import type { IOButton } from '@/components/Globals/OButton';
+import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
-import ManualOrderModal from './Modals/ManualOrder';
+import { modalType } from '@/utils/helpers/types';
 import {
   BorderHorizontalOutlined,
   CheckCircleOutlined,
@@ -22,30 +22,30 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined,
+  VerticalAlignTopOutlined
 } from '@ant-design/icons';
-import { Button, Badge, Card, Space, Dropdown, Modal } from 'antd';
-import EditOrderModal from './Modals/EditOrder';
+import { uuidv4 } from '@antv/xflow-core';
+import { FormattedMessage, useModel } from '@umijs/max';
+import { Badge, Button, Card, Dropdown, Modal, Space } from 'antd';
+import moment from 'moment';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import AddExportSettingsModal from './Modals/AddExportSettings';
+import AddImportSettingsModal from './Modals/AddImportSettings';
 import CancelOrderModal from './Modals/CancelOrder';
-import RestoreOrderModal from './Modals/RestoreOrder';
+import DuplicateOrderModal from './Modals/DuplicateOrder';
+import EditOrderModal from './Modals/EditOrder';
+import ExportOrderModal from './Modals/ExportOrder';
+import ExportQueueOrderModal from './Modals/ExportQueueOrder';
 import ImportOrderModal from './Modals/ImportOrder';
 import ImportOrderShipmentModal from './Modals/ImportOrderShipment';
-import ShipmentImportMappingsModal from './Modals/ShipmentImportMappings';
+import ManualOrderModal from './Modals/ManualOrder';
 import NewShipmentImportMappingsModal from './Modals/NewShipmentImportMappings';
-import ExportOrderModal from './Modals/ExportOrder';
 import OrderExportSettingsModal from './Modals/OrderExportSettings';
-import ExportQueueOrderModal from './Modals/ExportQueueOrder';
 import OrderImportSettingsModal from './Modals/OrderImportSettings';
-import AddImportSettingsModal from './Modals/AddImportSettings';
-import AddExportSettingsModal from './Modals/AddExportSettings';
+import RestoreOrderModal from './Modals/RestoreOrder';
 import SelectOrderColumnsModal from './Modals/SelectOrderColumns';
+import ShipmentImportMappingsModal from './Modals/ShipmentImportMappings';
 import SplitOrderModal from './Modals/SplitOrder';
-import DuplicateOrderModal from './Modals/DuplicateOrder';
-import { modalType } from '@/utils/helpers/types';
-import { useMemo, useCallback, useState, useEffect } from 'react';
-import { FormattedMessage, useModel } from '@umijs/max';
-import moment from 'moment';
-import { uuidv4 } from '@antv/xflow-core';
 
 interface IMainPanel {
   selectedRows: any[];
@@ -174,12 +174,12 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
     {
       onClick: () => setModal(modalType.ExportQueueOrder),
       btnText: 'Queue',
-      hidden: [6, 7].includes(selectedOrderStatus?.status.id),
+      hidden: [5, 6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
       onClick: () => console.log('Ship'),
       btnText: 'Ship',
-      hidden: [6, 7].includes(selectedOrderStatus?.status.id),
+      hidden: selectedOrderStatus?.status.id != 3,
     },
     {
       btnText: (
@@ -292,11 +292,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 key: 'mark_shipped',
                 label: <span>{`Mark 'Shipped'`}</span>,
                 icon: <CheckCircleOutlined />,
+                disabled: selectedRows.length == 0,
+                hidden: [1, 5, 6, 7].includes(selectedOrderStatus?.status.id),
               },
               {
                 key: 'duplicate_order',
                 label: <span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>,
                 icon: <PlusCircleOutlined />,
+                disabled: selectedRows.length !== 1,
               },
               // {
               //   key: '7',
@@ -313,19 +316,22 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           </Button>
         </Dropdown>
       ),
-      hidden: [7].includes(selectedOrderStatus?.status.id),
+      hidden: [5, 7].includes(selectedOrderStatus?.status.id),
     },
     {
       onClick: () => setModal(modalType.RestoreOrder),
       btnText: 'Restore',
-      hidden:
-        ![6, 7].includes(selectedOrderStatus?.status.id) ||
-        ([6, 7].includes(selectedOrderStatus?.status.id) && selectedRows.length < 1),
+      hidden: ![6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
       onClick: () => console.log('Merge'),
       btnText: 'Merge',
-      hidden: [6, 7].includes(selectedOrderStatus?.status.id),
+      hidden: [5, 6, 7].includes(selectedOrderStatus?.status.id),
+    },
+    {
+      onClick: () => console.log('Create RMA'),
+      btnText: 'Create RMA',
+      hidden: ![5].includes(selectedOrderStatus?.status.id),
     },
     {
       btnText: (
@@ -498,14 +504,21 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             setSelectedRows={handleSelectedRows}
           />
           <div className="choose-column" style={{ position: 'absolute', bottom: 20 }} hidden={!showChooseColumn}>
-            <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
-            <OButton
-              icon={<BorderHorizontalOutlined />}
-              btnText={''}
-              onClick={() => setModal(modalType.SelectOrderColumns)}
-              style={{ color: 'gray' }}
-            />
-            <OButton icon={<CloseOutlined />} btnText={''} onClick={() => setShowChooseColumn(false)} style={{ color: 'gray' }} />
+            <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+              <OButton icon={<RetweetOutlined />} btnText={''} style={{ color: 'gray' }} />
+              <OButton
+                icon={<BorderHorizontalOutlined />}
+                btnText={''}
+                onClick={() => setModal(modalType.SelectOrderColumns)}
+                style={{ color: 'gray' }}
+              />
+              <OButton
+                icon={<CloseOutlined />}
+                btnText={''}
+                onClick={() => setShowChooseColumn(false)}
+                style={{ color: 'gray' }}
+              />
+            </Space>
           </div>
         </Card>
       </div>

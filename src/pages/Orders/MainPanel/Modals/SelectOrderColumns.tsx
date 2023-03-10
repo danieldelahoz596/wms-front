@@ -34,7 +34,7 @@ const SelectOrderColumnsModal: React.FC<ISelectOrderColumnsModal> = ({ isOpen, o
     <OModal
       title="Select Columns"
       helpLink="/help/orders/general"
-      width={1200}
+      width={800}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[

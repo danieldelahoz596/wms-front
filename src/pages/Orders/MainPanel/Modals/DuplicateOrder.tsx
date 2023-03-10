@@ -16,7 +16,7 @@ const DuplicateOrderModal: React.FC<IDuplicateOrderModal> = ({ isOpen, onClose, 
     <OModal
       title={`Duplicate Order ${editableOrder?.order_number}`}
       helpLink="/help/orders/general"
-      width={600}
+      width={400}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -36,16 +36,16 @@ const DuplicateOrderModal: React.FC<IDuplicateOrderModal> = ({ isOpen, onClose, 
     >
       <>
         <Card title="Order Number">
-          <Input defaultValue={editableOrder?.order_number} disabled />
+          <Input defaultValue={editableOrder?.order_number} />
         </Card>
         <Card title="Fulfillment Type">
-          <Input defaultValue="Direct Fulfillment" disabled />
+          <Input defaultValue="Direct Fulfillment" />
         </Card>
         <Card title="Warehouse">
-          <Input defaultValue="Warehouse 1" disabled />
+          <Input defaultValue="Warehouse 1" />
         </Card>
         <Card title="Manual Channel">
-          <Input defaultValue="Manual Orders" disabled />
+          <Input defaultValue="Manual Orders" />
         </Card>
       </>
     </OModal>

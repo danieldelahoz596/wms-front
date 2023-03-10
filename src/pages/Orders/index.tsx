@@ -4,9 +4,9 @@ import { useModel } from '@umijs/max';
 import React, { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import OrderItems from './BottomPanel';
+import MainPanel from './MainPanel';
 import RightPanel from './RightPanel';
 import SidePanel from './SidePanel';
-import MainPanel from './MainPanel';
 
 const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
@@ -68,11 +68,9 @@ const OrderManagement: React.FC = () => {
             <div className="w-full">{selectedRows.length == 1 && <OrderItems />}</div>
           </div>
         </div>
-
         <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
-        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>
+        <div className={cn('shrink-0 contents right-panel', isLeftDragging && 'dragging')} style={{ width: RightW }}>
           <div className="w-full">
-            {' '}
             <RightPanel />
           </div>
         </div>

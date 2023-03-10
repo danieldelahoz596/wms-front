@@ -38,9 +38,9 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({ isOpen, onClose, onSave
 
   return (
     <OModal
-      title="Manual Import Orders"
+      title="Manual Order Import"
       helpLink="/help/orders/general"
-      width={1000}
+      width={700}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -64,7 +64,7 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({ isOpen, onClose, onSave
           demands. Manually imported orders go through the same process as all others, including validation, assignment of a
           default fulfillment source, Orderbots, and detarmination of inventory availability.
         </p>
-        <Row gutter={32}>
+        <Row gutter={8}>
           <Col span={16}>
             <div
               style={{

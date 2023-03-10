@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
         <OrderAgingByWarehouse />
       </Col>
       <Col span={8}>
-        <FulfillmentPerformance data={dashboardData?.fullfillment_performance} />
+        <FulfillmentPerformance data={dashboardData?.fulfillment_performance} />
       </Col>
       <Col span={12}>
         <StockRequiringAttention stock={dashboardData?.stock_requiring} />

@@ -86,7 +86,7 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({ 
     <OModal
       title="New Shipment Import Mappings"
       helpLink=""
-      width={1000}
+      width={700}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -108,26 +108,21 @@ const NewShipmentImportMappingsModal: React.FC<INewShipmentImportMappings> = ({ 
         <Row className="mb-10">
           <Col span={12}>
             <Form>
-              <Form.Item name={'fileFormat'} label="Add Optional Field">
-                <OInput type="select" placeholder="Select..." options={[]} />
+              <Form.Item name={'fileFormat'} label="Import Mapping Name">
+                <OInput type="text" placeholder="Sample"/>
               </Form.Item>
             </Form>
           </Col>
           <Col span={12}>&nbsp;</Col>
         </Row>
         <Row gutter={12}>
-          <Col span={8}>
-            <Card title="Sales Channel Mappings" style={{ padding: '0.5rem' }}>
+          <Col span={12}>
+            <Card title="Sales Channel Mappings">
               <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />
             </Card>
           </Col>
-          <Col span={16}>
-            <Card title="Shipping Carrier Mappings" style={{ padding: '0.5rem' }}>
-              <Form>
-                <Form.Item name={'fileFormat'} label="Add Optional Field">
-                  <OInput type="select" placeholder="Select..." options={[]} />
-                </Form.Item>
-              </Form>
+          <Col span={12}>
+            <Card title="Shipping Carrier Mappings">
               <OTable pagination={false} columns={importFieldsColumns} rows={preparedImportFieldsRows} />
             </Card>
           </Col>

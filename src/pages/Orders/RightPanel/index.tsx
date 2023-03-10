@@ -42,23 +42,7 @@ const RightPanel: FC = () => {
 
   if (selectedOrders.length > 1) {
     element = (
-      <Card
-        title={
-          <span
-            style={{
-              fontSize: '1rem',
-              textTransform: 'uppercase',
-              fontWeight: '700',
-              color: '#A2A2A2',
-            }}
-          >
-            <FormattedMessage id="pages.orders.rightpanel.title" />
-          </span>
-        }
-        size="small"
-        style={{ width: '100%' }}
-        tabProps={{ size: 'small' }}
-      >
+      <Card title={<FormattedMessage id="pages.orders.rightpanel.title" />}>
         <Alert
           message={
             <div style={{ padding: '0.5rem' }}>
@@ -74,7 +58,6 @@ const RightPanel: FC = () => {
             <Form.Item label="Bulk Update" style={{ margin: '1rem 0', paddingBottom: '1rem', borderBottom: '1px dashed black' }}>
               <OInput type="select" name="bulkUpdateType" defaultValue={'fulfillmentType'} options={bulkUpdateTypes} />
             </Form.Item>
-
             <Form.Item>
               <span>Fulfillment</span>
               <OInput
@@ -83,20 +66,11 @@ const RightPanel: FC = () => {
                 defaultValue={'directInHouse'}
                 options={fulfillmentOptions}
                 onChange={() => {}}
-                style={{ display: 'block', margin: '0.5rem 0' }}
               />
             </Form.Item>
-
             <Form.Item>
               <span>Source</span>
-              <OInput
-                type="select"
-                name="source"
-                defaultValue={'office'}
-                options={sourceOptions}
-                onChange={() => {}}
-                style={{ display: 'block', margin: '0.5rem 0' }}
-              />
+              <OInput type="select" name="source" defaultValue={'office'} options={sourceOptions} onChange={() => {}} />
             </Form.Item>
             <Form.Item>
               <OButton btnText={'Update Selected Orders'} style={{ width: '100%' }} />
@@ -107,40 +81,29 @@ const RightPanel: FC = () => {
     );
   } else if (selectedOrders.length === 1) {
     element = (
-      <Card
-        title={
-          <span
-            style={{
-              fontSize: '1rem',
-              textTransform: 'uppercase',
-              fontWeight: '700',
-              color: '#A2A2A2',
-            }}
-          >
-            Order Fulfillment
-          </span>
-        }
-        size="small"
-        style={{ width: '100%' }}
-        tabProps={{ size: 'small' }}
-      >
-        <Tabs
-          defaultActiveKey="1"
-          onChange={onChange}
-          items={[
-            {
-              label: 'Method',
-              key: '1',
-              children: <Method />,
-            },
-            {
-              label: 'Recipient',
-              key: '2',
-              children: <Recipient />,
-            },
-          ]}
-        />
-      </Card>
+      <>
+        <div className="title-row">
+          <h1 className="page-title">Order Fulfillment</h1>
+        </div>
+        <Card>
+          <Tabs
+            defaultActiveKey="1"
+            onChange={onChange}
+            items={[
+              {
+                label: 'Method',
+                key: '1',
+                children: <Method />,
+              },
+              {
+                label: 'Recipient',
+                key: '2',
+                children: <Recipient />,
+              },
+            ]}
+          />
+        </Card>
+      </>
     );
   }
 

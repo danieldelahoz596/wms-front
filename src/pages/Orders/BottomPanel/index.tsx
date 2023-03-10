@@ -1,5 +1,5 @@
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Col, Row, Image } from 'antd';
+import { Card, Col, Image, Row } from 'antd';
 import type { FC } from 'react';
 
 const OrderItems: FC = () => {
@@ -9,23 +9,12 @@ const OrderItems: FC = () => {
 
   return order ? (
     <>
-      <Card
-        title={
-          <span
-            style={{
-              fontSize: '1rem',
-              textTransform: 'uppercase',
-              fontWeight: '700',
-              color: '#A2A2A2',
-            }}
-          >
-            <FormattedMessage id="pages.orders.bottompanel.title" />
-          </span>
-        }
-        size="small"
-        style={{ width: '100%' }}
-        tabProps={{ size: 'small' }}
-      >
+      <div className="title-row">
+        <h1 className="page-title">
+          <FormattedMessage id="pages.orders.bottompanel.title" />
+        </h1>
+      </div>
+      <Card>
         {order.orderItems?.map((item, index) => {
           const subTotal = item.unitQty * item.unitAmount;
 
