@@ -46,8 +46,8 @@ export default function () {
   const vendorHistoryRows = useMemo(() => vendorHistory.map((_item) => ({ ..._item, key: _item.id })), [vendorHistory]);
 
   return (
-    <>
-      <div className="w-full flex flex-column h-screen">
+    <div className="flex h-screen">
+      <div className="grow">
         <MainPanel setModal={setModal} />
       </div>
 
@@ -88,6 +88,6 @@ export default function () {
         title={<FormattedMessage id="pages.settings.vendors.history.title" />}
         onClose={() => setModal(modalType.Close)}
       />
-    </>
+    </div>
   );
 }
