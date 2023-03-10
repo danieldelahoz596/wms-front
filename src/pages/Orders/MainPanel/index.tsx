@@ -48,6 +48,7 @@ import moment from 'moment';
 import { uuidv4 } from '@antv/xflow-core';
 import ShippingQueueSummaryModal from './Modals/ShippingQueueSummary';
 import _ from 'lodash';
+import CreateExternalShipmentsModal from './Modals/CreateExternalShipments';
 
 interface IMainPanel {
   selectedRows: any[];
@@ -303,8 +304,9 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'mark_shipped',
-                label: <span>{`Mark 'Shipped'`}</span>,
+                label: <span onClick={() => setModal(modalType.ExternalShipment)}>{`Mark 'Shipped'`}</span>,
                 icon: <CheckCircleOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'duplicate_order',
@@ -652,6 +654,13 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       <ShippingQueueSummaryModal
         isOpen={modalOpen === modalType.ShippingQueueSummary}
         onClose={() => setModal(modalType.Close)}
+      />
+
+      <CreateExternalShipmentsModal
+        isOpen={modalOpen === modalType.ExternalShipment}
+        items={orderList.filter((order) => selectedRows.includes(order.id))}
+        onClose={() => setModal(modalType.Close)}
+        onSave={() => setModal(modalType.Close)}
       />
     </>
   );

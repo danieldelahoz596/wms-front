@@ -6,6 +6,7 @@ import { useModel } from '@umijs/max';
 import OrderItems from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderItems';
 import OrderCustomFields from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderCustomFields';
 import BasicInfo from '@/pages/Orders/MainPanel/Modals/EditOrder/BasicInfo';
+import Processing from './EditOrder/Processing';
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;
@@ -24,26 +25,31 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
     },
     {
       key: '2',
+      label: 'Processing',
+      children: <Processing />,
+    },
+    {
+      key: '3',
       label: 'Order Items',
       children: <OrderItems />,
     },
     {
-      key: '3',
+      key: '4',
       label: 'Fields',
       children: <OrderCustomFields />,
     },
     {
-      key: '4',
+      key: '5',
       label: 'Communication',
       children: <>Communication</>,
     },
     {
-      key: '5',
+      key: '6',
       label: 'Channel Fields',
       children: <>Channel Fields</>,
     },
     {
-      key: '6',
+      key: '7',
       label: 'History',
       children: <>History</>,
     },
