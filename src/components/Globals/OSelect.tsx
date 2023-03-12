@@ -19,6 +19,7 @@ export interface IOSelect {
   hidden?: boolean;
   showPlaceholder?: boolean;
   className?: string;
+  mode?: 'multiple' | 'tags';
 }
 
 export const OSelect: React.FC<IOSelect> = ({
@@ -33,6 +34,7 @@ export const OSelect: React.FC<IOSelect> = ({
   showPlaceholder = true,
   hidden = false,
   className,
+  mode,
 }) => {
   const selectOptions = useMemo(() => {
     const optionList = options?.map((option) => ({ value: option.value, label: option.text }));
@@ -46,6 +48,7 @@ export const OSelect: React.FC<IOSelect> = ({
     <></>
   ) : (
     <Select
+      mode={mode}
       placeholder={placeholder}
       onChange={(value) => onChange(name, value)}
       allowClear={allowClear}

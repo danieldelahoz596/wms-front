@@ -20,6 +20,7 @@ export interface IOInput {
   hidden?: boolean;
   showPlaceholder?: boolean;
   className?: string;
+  mode?: 'multiple' | 'tags';
 }
 const { TextArea } = Input;
 
@@ -39,6 +40,7 @@ export const OInput: React.FC<IOInput> = ({
   hidden = false,
   showPlaceholder = true,
   className,
+  mode,
 }) => {
   let inputField = null;
 
@@ -60,6 +62,7 @@ export const OInput: React.FC<IOInput> = ({
   } else if (type === 'select') {
     inputField = (
       <OSelect
+        mode={mode}
         defaultValue={defaultValue}
         value={value}
         name={name}
