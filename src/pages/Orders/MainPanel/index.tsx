@@ -24,7 +24,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Badge, Card, Space, Dropdown, Modal } from 'antd';
+import { Button, Badge, Card, Space, Dropdown, Modal, Popconfirm } from 'antd';
 import EditOrderModal from './Modals/EditOrder';
 import CancelOrderModal from './Modals/CancelOrder';
 import RestoreOrderModal from './Modals/RestoreOrder';
@@ -46,6 +46,9 @@ import { useMemo, useCallback, useState, useEffect } from 'react';
 import { FormattedMessage, useModel } from '@umijs/max';
 import moment from 'moment';
 import { uuidv4 } from '@antv/xflow-core';
+import ShippingQueueSummaryModal from './Modals/ShippingQueueSummary';
+import _ from 'lodash';
+import CreateExternalShipmentsModal from './Modals/CreateExternalShipments';
 
 interface IMainPanel {
   selectedRows: any[];
@@ -136,7 +139,8 @@ const showConfirm = () => {
 };
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { orderList, setOrderList, setEditableOrder, setSelectedOrders, initialOrderList } = useModel('order');
+  const { orderList, shippingQueue, setOrderList, setEditableOrder, setSelectedOrders, initialOrderList, setShippingQueue } =
+    useModel('order');
   const { userList } = useModel('user');
   const { fieldTypes } = useModel('customOrderFields');
   const { selectedOrderStatus } = useModel('orderStatus');
@@ -170,6 +174,11 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
     [orderList, setSelectedRows, setSelectedOrders, setEditableOrder],
   );
 
+  const handleShip = useCallback(() => {
+    setShippingQueue((prev) => _.uniq([...prev, ...selectedRows]));
+    setSelectedRows([]);
+  }, [setShippingQueue, selectedRows, setSelectedRows]);
+
   const actionButtons: IOButton[] = [
     {
       onClick: () => setModal(modalType.ExportQueueOrder),
@@ -177,9 +186,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      onClick: () => console.log('Ship'),
-      btnText: 'Ship',
+      onClick: () => handleShip(),
+      btnText: (
+        <Popconfirm title="Do you want to ship these items" onConfirm={handleShip}>
+          <OButton btnText="Ship" />
+        </Popconfirm>
+      ),
       hidden: [6, 7].includes(selectedOrderStatus?.status.id),
+      disabled: selectedRows.length === 0,
     },
     {
       btnText: (
@@ -290,8 +304,9 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'mark_shipped',
-                label: <span>{`Mark 'Shipped'`}</span>,
+                label: <span onClick={() => setModal(modalType.ExternalShipment)}>{`Mark 'Shipped'`}</span>,
                 icon: <CheckCircleOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'duplicate_order',
@@ -473,15 +488,17 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             <FormattedMessage id="pages.orders.mainpanel.title" /> {selectedOrderStatus?.status.name}
           </h1>
           {/* {selectedOrderStatus?.status.id === 3 && selectedOrderStatus?.filter && ( */}
-          <Button style={{ paddingTop: '0', paddingBottom: '0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>
-                {' '}
-                <DownOutlined /> {selectedOrderStatus?.status.name} Queue
-              </span>{' '}
-              <Badge count={3} color="#5F5FFF" />
-            </div>
-          </Button>
+          {selectedOrderStatus?.status.id === 3 && (
+            <Button style={{ paddingTop: '0', paddingBottom: '0' }} onClick={() => setModal(modalType.ShippingQueueSummary)}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span>
+                  {' '}
+                  <DownOutlined /> {selectedOrderStatus?.filter?.name} Shipping Queue
+                </span>{' '}
+                <Badge count={shippingQueue.length} color="#5F5FFF" showZero />
+              </div>
+            </Button>
+          )}
           {/* )} */}
         </div>
         <Card className="content-box">
@@ -632,6 +649,18 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         isOpen={modalOpen === modalType.DuplicateOrder}
         onSave={() => setModal(modalType.ManualOrder)}
         onClose={() => setModal(modalType.Close)}
+      />
+
+      <ShippingQueueSummaryModal
+        isOpen={modalOpen === modalType.ShippingQueueSummary}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <CreateExternalShipmentsModal
+        isOpen={modalOpen === modalType.ExternalShipment}
+        items={orderList.filter((order) => selectedRows.includes(order.id))}
+        onClose={() => setModal(modalType.Close)}
+        onSave={() => setModal(modalType.Close)}
       />
     </>
   );

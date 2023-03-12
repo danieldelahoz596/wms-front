@@ -25,9 +25,7 @@ const OrderManagement: React.FC = () => {
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content" style={{ overflow: 'scroll' }}>
-            <MainPanel />
-          </div>
+          <MainPanel />
         </div>
       </div>
     </PageContainer>
