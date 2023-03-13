@@ -190,10 +190,9 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       onClick: () => handleShip(),
       btnText: (
         <Popconfirm title="Do you want to ship these items" onConfirm={handleShip}>
-          <OButton btnText="Ship" />
+          <OButton btnText="Ship" disabled={selectedRows.length === 0}/>
         </Popconfirm>
       ),
-      disabled: selectedRows.length === 0,
     },
     {
       btnText: (
@@ -204,16 +203,19 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 key: 'pick_list',
                 label: <span> Pick List(s)</span>,
                 icon: <FileOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'global_picK_list',
                 label: <span> Global Pick List</span>,
                 icon: <FileOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'packing_slip',
                 label: <span>Packing Slip(s)</span>,
                 icon: <FileTextOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'item_label',
@@ -229,6 +231,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 key: 'label',
                 label: <span>Label(s)</span>,
                 icon: <FileOutlined />,
+                disabled: selectedRows.length === 0,
               },
               {
                 key: 'custom_form',
@@ -336,6 +339,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       onClick: () => setModal(modalType.RestoreOrder),
       btnText: 'Restore',
       hidden: ![6, 7].includes(selectedOrderStatus?.status.id),
+      disabled: selectedRows.length === 0,
     },
     {
       onClick: () => console.log('Merge'),
@@ -346,6 +350,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       onClick: () => console.log('Create RMA'),
       btnText: 'Create RMA',
       hidden: ![5].includes(selectedOrderStatus?.status.id),
+      disabled: selectedRows.length === 0,
     },
     {
       btnText: (
@@ -353,7 +358,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           menu={{
             items: [
               {
-                key: '3',
+                key: '1',
                 label: (
                   <span
                     onClick={() => {
@@ -362,6 +367,13 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                   >
                     Manual Orders
                   </span>
+                ),
+                icon: <GlobalOutlined />,
+              },
+              {
+                key: '2',
+                label: (
+                  <span>Stock Transfer</span>
                 ),
                 icon: <GlobalOutlined />,
               },

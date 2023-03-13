@@ -15,7 +15,7 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
     <OModal
       title="Cancel orders"
       helpLink="/help/orders/manage/cancel"
-      width={600}
+      width={400}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -40,16 +40,16 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
               <li>If the sales channel is not notified, these orders can be restored.</li>
               <li>
                 {`When "Notify Channel" is selected, the options to "Refund order(s)" and "Request`}
-                {`Channel Email Update" will be available if all sales channels selected support those`}
+                {`Channel Email Update" will be available if all sales channels selected support those `}
                 options.
               </li>
             </ul>
           }
         />
-        <Row className="mt-10">
+        <Row>
           <Col offset={6} span={18}>
-            <Form>
-              <Form.Item name={'reason'} label="Select Reason">
+            <Form labelAlign='right' labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
+              <Form.Item name="reason" label="Select Reason">
                 <OInput
                   type="select"
                   options={[
@@ -93,24 +93,20 @@ const CancelOrderModal: React.FC<ICancelOrderModal> = ({ isOpen, onClose, onSave
                   placeholder="No Inventory Available"
                 />
               </Form.Item>
-              <Form.Item name={'details'} label="Details">
+              <Form.Item name="details" label="Details">
                 <OInput type="textarea" rows={3} />
               </Form.Item>
-              <Row>
-                <Col span={17}>
-                  <Form.Item name="notify">
-                    <OInput type="checkbox" /> Notify sales channel
-                  </Form.Item>
-                  <Form.Item name="refund">
-                    <OInput type="checkbox" /> Refund order(s)
-                    <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
-                  </Form.Item>
-                  <Form.Item name="emailUpdate">
-                    <OInput type="checkbox" /> Request channel email update
-                    <QuestionCircleOutlined style={{ color: '#5F5FFF' }} />
-                  </Form.Item>
-                </Col>
-              </Row>
+              <Form.Item name="notify" wrapperCol={{ span: 18, offset: 6 }}>
+                <OInput type="checkbox" /> Notify sales channel
+              </Form.Item>
+              <Form.Item name="refund" wrapperCol={{ span: 18, offset: 6 }}>
+                <OInput type="checkbox" /> Refund order(s)&nbsp;
+                <QuestionCircleOutlined style={{ fontSize: 15, color: '#5F5FFF' }} />
+              </Form.Item>
+              <Form.Item name="emailUpdate" wrapperCol={{ span: 18, offset: 6 }}>
+                <OInput type="checkbox" /> Request channel email update&nbsp;
+                <QuestionCircleOutlined style={{ fontSize: 15, color: '#5F5FFF' }} />
+              </Form.Item>
             </Form>
           </Col>
         </Row>

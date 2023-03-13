@@ -1,3 +1,4 @@
+import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CaretDownFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
@@ -19,7 +20,7 @@ const ShippingQueueSummaryModal: React.FC<IShippingQueueSummaryModal> = ({ isOpe
   return (
     <OModal
       title="Shipping Queue Summary"
-      width={MODAL_WIDTH}
+      width={500}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -37,9 +38,7 @@ const ShippingQueueSummaryModal: React.FC<IShippingQueueSummaryModal> = ({ isOpe
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div>
                 <Progress type="circle" percent={100} format={(percent) => `${percent}%`} />
-                <p>
-                  {shippingQueue.length} out of {shippingQueue.length} orders processed
-                </p>
+                <p>{shippingQueue.length} out of {shippingQueue.length} orders processed</p>
               </div>
             </div>
           </Col>
@@ -47,7 +46,7 @@ const ShippingQueueSummaryModal: React.FC<IShippingQueueSummaryModal> = ({ isOpe
             <h3 style={{ color: 'green' }}>All orders shipped successfully!</h3>
             <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
               <Space size={HORIZONTAL_SPACE_SIZE}>
-                <Button onClick={() => handleCompleteBatch()}>Complete The Batch</Button>
+                <OButton btnText={'Complete The Batch'} onClick={() => handleCompleteBatch()}/>
                 <Dropdown
                   menu={{
                     items: [
@@ -73,7 +72,7 @@ const ShippingQueueSummaryModal: React.FC<IShippingQueueSummaryModal> = ({ isOpe
                   </Button>
                 </Dropdown>
               </Space>
-              <Button onClick={() => handleCompleteBatch()}>Download and Complete The Batch</Button>
+              <OButton btnText={'Download and Complete The Batch'} onClick={() => handleCompleteBatch()}/>
             </Space>
           </Col>
         </Row>

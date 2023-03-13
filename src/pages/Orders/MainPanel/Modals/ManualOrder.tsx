@@ -47,7 +47,7 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
     <OModal
       title="New Manual Order"
       helpLink="/help/orders/general"
-      width={1200}
+      width={800}
       isOpen={isOpen}
       handleCancel={onClose}
       buttons={[
@@ -67,11 +67,11 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
       forceRender
     >
       <>
-        <Row>
-          <Col span={10}>
+        <Row gutter={10}>
+          <Col span={11}>
             <RecipientForm form={recipientForm} />
           </Col>
-          <Col span={14}>
+          <Col span={13}>
             <OrderDetailsForm form={orderdetailsForm} />
           </Col>
         </Row>

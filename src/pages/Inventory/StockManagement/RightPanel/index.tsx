@@ -14,11 +14,11 @@ import {
   QuestionCircleTwoTone,
   SnippetsTwoTone,
   StopOutlined,
-  ToolTwoTone,
+  ToolTwoTone
 } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Button, Card, Col, Collapse, Dropdown, Row, Space, Table } from 'antd';
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import WarehouseTotalGraph from './WarehouseTotalGraph';
 
 // Modals
@@ -302,111 +302,107 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
                 pagination={{ hideOnSinglePage: true }}
               />
 
-              <Row>
-                <Col span={17}>
-                  <Space size={HORIZONTAL_SPACE_SIZE}>
-                    <OButton btnText={'New Stock'} onClick={() => setModal(modalType.NewStock)} />
-                    <Dropdown
-                      disabled={!selectedLocation}
-                      menu={{
-                        items: [
-                          {
-                            key: '1',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockHistory)}>
-                                <ClipboardIcon style={{ fontSize: 15, marginRight: 10 }} /> History
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '2',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockDeactive)}>
-                                <StopOutlined rotate={90} style={{ fontSize: 15, marginRight: 10 }} />
-                                {showActive ? 'Deactivate' : 'Activate'}
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '3',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockDrawRank)}>
-                                <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw Rank
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '4',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockLocationChange)}>
-                                <LinkOutlined style={{ fontSize: 15, marginRight: 10 }} /> Location
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '5',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockLocationTransfer)}>
-                                <TransferIcon style={{ fontSize: 15, marginRight: 10 }} /> Transfer
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '6',
-                            label: (
-                              <span onClick={() => setModal(modalType.StockAdjust)}>
-                                <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Adjust
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '7',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setModal(modalType.StockEdit);
-                                  setActionType('Remove');
-                                }}
-                              >
-                                <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Remove
-                              </span>
-                            ),
-                          },
-                          {
-                            key: '8',
-                            label: (
-                              <span
-                                onClick={() => {
-                                  setModal(modalType.StockEdit);
-                                  setActionType('Add');
-                                }}
-                              >
-                                <PlusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Add
-                              </span>
-                            ),
-                          },
-                        ],
-                      }}
-                    >
-                      <Button size="small">
-                        <Space>
-                          Edit <CaretRightFilled />
-                        </Space>
-                      </Button>
-                    </Dropdown>
-                    <OButton btnText={'Inv. Val. Hist.'} />
-                  </Space>
-                </Col>
-                <Col span={7} style={{ textAlign: 'right' }}>
-                  <OButton
-                    btnText={`Show ${showActive ? 'Inactive' : 'Active'}`}
-                    onClick={() => {
-                      setShowActive((prev) => !prev);
-                      setSelectedLocation(null);
+              <div className="space-between">
+                <Space size={HORIZONTAL_SPACE_SIZE}>
+                  <OButton btnText={'New Stock'} onClick={() => setModal(modalType.NewStock)} />
+                  <Dropdown
+                    disabled={!selectedLocation}
+                    menu={{
+                      items: [
+                        {
+                          key: '1',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockHistory)}>
+                              <ClipboardIcon style={{ fontSize: 15, marginRight: 10 }} /> History
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '2',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockDeactive)}>
+                              <StopOutlined rotate={90} style={{ fontSize: 15, marginRight: 10 }} />
+                              {showActive ? 'Deactivate' : 'Activate'}
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '3',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockDrawRank)}>
+                              <UpDownArrowIcon style={{ fontSize: 15, marginRight: 10 }} /> Draw Rank
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '4',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockLocationChange)}>
+                              <LinkOutlined style={{ fontSize: 15, marginRight: 10 }} /> Location
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '5',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockLocationTransfer)}>
+                              <TransferIcon style={{ fontSize: 15, marginRight: 10 }} /> Transfer
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '6',
+                          label: (
+                            <span onClick={() => setModal(modalType.StockAdjust)}>
+                              <CheckCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Adjust
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '7',
+                          label: (
+                            <span
+                              onClick={() => {
+                                setModal(modalType.StockEdit);
+                                setActionType('Remove');
+                              }}
+                            >
+                              <MinusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Remove
+                            </span>
+                          ),
+                        },
+                        {
+                          key: '8',
+                          label: (
+                            <span
+                              onClick={() => {
+                                setModal(modalType.StockEdit);
+                                setActionType('Add');
+                              }}
+                            >
+                              <PlusCircleFilled style={{ fontSize: 15, marginRight: 10 }} /> Add
+                            </span>
+                          ),
+                        },
+                      ],
                     }}
-                  />
-                </Col>
-              </Row>
+                  >
+                    <Button size="small">
+                      <Space>
+                        Edit <CaretRightFilled />
+                      </Space>
+                    </Button>
+                  </Dropdown>
+                  <OButton btnText={'Inv. Value. Hist.'} />
+                </Space>
+                <OButton
+                  btnText={`Show ${showActive ? 'Inactive' : 'Active'}`}
+                  onClick={() => {
+                    setShowActive((prev) => !prev);
+                    setSelectedLocation(null);
+                  }}
+                />
+              </div>
             </Card>
           </Collapse.Panel>
         ))}
