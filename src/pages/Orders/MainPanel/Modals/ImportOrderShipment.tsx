@@ -3,7 +3,8 @@ import { OInput } from '@/components/Globals/OInput';
 import { OModal } from '@/components/Globals/OModal';
 import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Row, Upload } from 'antd';
+import { useModel } from '@umijs/max';
+import { Button, Col, Form, Row, Upload, Select } from 'antd';
 import React from 'react';
 
 interface IImportOrderShipmentModal {
@@ -14,6 +15,7 @@ interface IImportOrderShipmentModal {
 }
 
 const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen, onClose, onSave, onConfigure }) => {
+  const { shipmentImportSettings } = useModel('shipmentImportSettings');
   const updateShipmentOptions = [
     {
       value: '1',
@@ -71,7 +73,11 @@ const ImportOrderShipmentModal: React.FC<IImportOrderShipmentModal> = ({ isOpen,
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
                 <OButton btnText="Configure" bordered={true} onClick={onConfigure} />
                 <span>Import Settings:</span>
-                <OInput type="select" placeholder="Select..." options={[]} style={{ flex: 1 }} />
+                <Select
+                  placeholder="Select..."
+                  options={shipmentImportSettings.map((item) => ({ value: item.key, label: item.name }))}
+                  style={{ flex: 1 }}
+                />
                 <Button type="primary" size="small" style={{ border: '1px solid #AFB4FF', padding: '2px 16px' }}>
                   <VerticalAlignBottomOutlined size={16} />
                 </Button>

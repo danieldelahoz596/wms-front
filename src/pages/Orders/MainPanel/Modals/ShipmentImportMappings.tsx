@@ -1,8 +1,10 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
-import { Card } from 'antd';
-import React from 'react';
+import { CloseOutlined, ToolOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Card, Space, Popconfirm } from 'antd';
+import { useMemo } from 'react';
 
 interface IShipmentImportMappings {
   isOpen: boolean;
@@ -11,7 +13,50 @@ interface IShipmentImportMappings {
 }
 
 const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({ isOpen, onClose, onAdd }) => {
-  const mappings = [];
+  const { shipmentImportSettings, removeShipmentImportSettings, setEditableImportSetting } = useModel('shipmentImportSettings');
+
+  const mappingRows = useMemo(
+    () => shipmentImportSettings.map((item) => ({ mappings: item.name, key: item.key })),
+    [shipmentImportSettings],
+  );
+
+  const handleEdit = (key) => {
+    setEditableImportSetting(shipmentImportSettings.find((item) => item.key === key));
+    onAdd();
+  };
+
+  const handleAdd = () => {
+    setEditableImportSetting(null);
+    onAdd();
+  };
+
+  const TColumns = [
+    {
+      key: 'mappings',
+      dataIndex: 'mappings',
+      title: 'Mappings',
+    },
+    {
+      key: 'actions',
+      dataIndex: 'key',
+      title: '',
+      render: (key) => (
+        <div style={{ textAlign: 'center' }}>
+          <Space>
+            <ToolOutlined onClick={() => handleEdit(key)} style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+            <Popconfirm
+              title={'Sure to remove?'}
+              onConfirm={() => {
+                removeShipmentImportSettings(key);
+              }}
+            >
+              <CloseOutlined style={{ color: 'blue', cursor: 'pointer', fontSize: 12 }} />
+            </Popconfirm>
+          </Space>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <OModal
@@ -30,23 +75,8 @@ const ShipmentImportMappingsModal: React.FC<IShipmentImportMappings> = ({ isOpen
       ]}
     >
       <>
-        <Card title={<OButton btnText="New Mapping" onClick={onAdd} />}>
-          <OTable
-            pagination={false}
-            columns={[
-              {
-                key: 'mappings',
-                dataIndex: 'mappings',
-                title: 'Mappings',
-              },
-              {
-                key: 'actions',
-                dataIndex: 'actions',
-                title: '',
-              },
-            ]}
-            rows={mappings}
-          />
+        <Card title={<OButton btnText="New Mapping" onClick={handleAdd} />}>
+          <OTable pagination={false} columns={TColumns} rows={mappingRows} />
         </Card>
       </>
     </OModal>
