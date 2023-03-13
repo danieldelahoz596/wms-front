@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Card } from 'antd';
+import { useMemo } from 'react';
+import { Input, Card, Select } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 
@@ -11,6 +11,9 @@ interface IDuplicateOrderModal {
 
 const DuplicateOrderModal: React.FC<IDuplicateOrderModal> = ({ isOpen, onClose, onSave }) => {
   const { editableOrder } = useModel('order');
+  const { warehouseList } = useModel('warehouse');
+
+  const warehouseOptions = useMemo(() => warehouseList.map((item) => ({ value: item.id, label: item.name })), [warehouseList]);
 
   return (
     <OModal
@@ -39,13 +42,13 @@ const DuplicateOrderModal: React.FC<IDuplicateOrderModal> = ({ isOpen, onClose, 
           <Input defaultValue={editableOrder?.order_number} />
         </Card>
         <Card title="Fulfillment Type">
-          <Input defaultValue="Direct Fulfillment" />
+          <Select options={[{ value: 'direct', label: 'Direct Fulfillment' }]} style={{ width: '100%' }} />
         </Card>
         <Card title="Warehouse">
-          <Input defaultValue="Warehouse 1" />
+          <Select options={warehouseOptions} style={{ width: '100%' }} />
         </Card>
         <Card title="Manual Channel">
-          <Input defaultValue="Manual Orders" />
+          <Select options={[{ value: 'manualOrder', label: 'Manual Orders' }]} style={{ width: '100%' }} />
         </Card>
       </>
     </OModal>

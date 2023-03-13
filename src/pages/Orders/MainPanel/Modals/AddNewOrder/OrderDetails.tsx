@@ -100,24 +100,37 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
             Array.isArray(item[0]) ? (
               <Row gutter={12} key={index}>
                 {item.map((group, groupIndex) => (
-                  <Col span={groupIndex !== 0 ? 8 : 16} key={groupIndex}>
+                  <Col span={groupIndex !== 0 ? 10 : 14} key={groupIndex}>
                     {group.map((groupInput, groupInputIndex) => (
-                      <Row key={groupInputIndex}>
-                        <Col span={groupIndex !== 0 ? 24 : 7}>
-                          <small>{groupInput.label}:</small>
-                        </Col>
-                        <Col span={groupIndex !== 0 ? 24 : 15}>
-                          <Form.Item name={groupInput.name} wrapperCol={{ span: 24 }}>
+                      <>
+                        {groupIndex === 0 && (
+                          <Form.Item
+                            key={groupInputIndex}
+                            label={groupInput.label}
+                            name={groupInput.name}
+                            labelCol={{ span: 11 }}
+                          >
                             <OInput type={groupInput.type} placeholder={groupInput.placeholder} />
                           </Form.Item>
-                        </Col>
-                      </Row>
+                        )}
+                        {groupIndex !== 0 && (
+                          <Form.Item
+                            key={groupInputIndex}
+                            label={groupInput.label}
+                            name={groupInput.name}
+                            labelCol={{ span: 24 }}
+                            wrapperCol={{ span: 24 }}
+                          >
+                            <OInput type={groupInput.type} placeholder={groupInput.placeholder} />
+                          </Form.Item>
+                        )}
+                      </>
                     ))}
                   </Col>
                 ))}
               </Row>
             ) : (
-              <Form.Item key={`item1-${index}`}>
+              <Form.Item key={`item1-${index}`} label=" " colon={false}>
                 {item.map((groupItem, groupIndex) => (
                   <Form.Item key={`groupItem-${groupIndex}`} style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
                     <div>{groupItem.label}:</div>
