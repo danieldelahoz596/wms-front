@@ -22,7 +22,7 @@ import {
   StopOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
-  VerticalAlignTopOutlined
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { FormattedMessage, useModel } from '@umijs/max';
@@ -190,7 +190,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       onClick: () => handleShip(),
       btnText: (
         <Popconfirm title="Do you want to ship these items" onConfirm={handleShip}>
-          <OButton btnText="Ship" disabled={selectedRows.length === 0}/>
+          <OButton btnText="Ship" disabled={selectedRows.length === 0} />
         </Popconfirm>
       ),
     },
@@ -372,9 +372,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: '2',
-                label: (
-                  <span>Stock Transfer</span>
-                ),
+                label: <span>Stock Transfer</span>,
                 icon: <GlobalOutlined />,
               },
             ],
@@ -637,8 +635,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
 
       <AddImportSettingsModal
         isOpen={modalOpen === modalType.AddOrderImportSettings}
-        onSave={() => setModal(modalType.ImportOrder)}
-        onClose={() => setModal(modalType.ImportOrder)}
+        onSave={() => setModal(modalType.OrderImportSettings)}
+        onClose={() => setModal(modalType.OrderImportSettings)}
       />
 
       <AddExportSettingsModal

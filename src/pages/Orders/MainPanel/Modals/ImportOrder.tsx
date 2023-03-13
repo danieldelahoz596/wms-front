@@ -17,23 +17,19 @@ interface IImportOrderModal {
 
 const ImportOrderModal: React.FC<IImportOrderModal> = ({ isOpen, onClose, onSave, handleConfigureSettings }) => {
   const { orderImportSettings } = useModel('orderImportSettings');
-  const [selectedSettings, setSelectedSettings] = useState();
+  const [selectedSettings, setSelectedSettings] = useState(null);
 
   const handleSettingsSelect = (_value) => {
     if (_value == 0) {
       setSelectedSettings(null);
     } else {
-      const _selectedFullSettings = orderImportSettings.find((_item, _index) => _index + 1 == _value);
+      const _selectedFullSettings = orderImportSettings.find((_item) => _item.key == _value);
       setSelectedSettings(_selectedFullSettings);
     }
   };
 
   const onConfigureSettings = () => {
-    if (selectedSettings) {
-      handleConfigureSettings(modalType.OrderImportSettings);
-    } else {
-      handleConfigureSettings(modalType.AddOrderImportSettings);
-    }
+    handleConfigureSettings(modalType.OrderImportSettings);
   };
 
   return (
@@ -85,14 +81,14 @@ const ImportOrderModal: React.FC<IImportOrderModal> = ({ isOpen, onClose, onSave
                   type="select"
                   placeholder="Select..."
                   options={[
-                    { value: '0', text: 'Select ...' },
-                    ...orderImportSettings.map((_item, _index) => ({
-                      value: `${_index + 1}`,
+                    ...orderImportSettings.map((_item) => ({
+                      value: _item.key,
                       text: _item.settingName,
                     })),
                   ]}
                   style={{ flex: 1 }}
                   onChange={(_name, _value) => handleSettingsSelect(_value)}
+                  value={selectedSettings ? selectedSettings.key : 0}
                 />
               </div>
             </div>
