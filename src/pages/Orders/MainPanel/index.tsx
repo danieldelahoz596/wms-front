@@ -3,13 +3,16 @@ import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import { modalType } from '@/utils/helpers/types';
+import BranchIcon from '@/utils/icons/branch';
+import ClockIcon from '@/utils/icons/clock';
+import CopyIcon from '@/utils/icons/copy';
+import DuplicateIcon from '@/utils/icons/duplicate';
 import {
   BorderHorizontalOutlined,
   CheckCircleOutlined,
   CloseOutlined,
   DownOutlined,
   ExclamationCircleFilled,
-  FieldTimeOutlined,
   FileFilled,
   FileOutlined,
   FileTextOutlined,
@@ -17,8 +20,6 @@ import {
   GlobalOutlined,
   HomeFilled,
   MessageOutlined,
-  MinusCircleOutlined,
-  PlusCircleOutlined,
   RetweetOutlined,
   StopOutlined,
   UserOutlined,
@@ -278,7 +279,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'hold_until',
                 label: <span>Hold Until..</span>,
-                icon: <FieldTimeOutlined />,
+                icon: <ClockIcon style={{ fontSize: 12 }} />,
               },
               // In Awaiting Shipment or Pending Fulfillment
               [3, 4].includes(selectedOrderStatus?.status.id)
@@ -306,7 +307,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'split_order',
                 label: <span onClick={() => setModal(modalType.SplitOrder)}>SplitOrder</span>,
-                icon: <MinusCircleOutlined />,
+                icon: <BranchIcon style={{ fontSize: 12 }} />,
                 disabled: selectedRows.length !== 1,
               },
               {
@@ -319,7 +320,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'duplicate_order',
                 label: <span onClick={() => setModal(modalType.DuplicateOrder)}>Duplicate Order</span>,
-                icon: <PlusCircleOutlined />,
+                icon: <DuplicateIcon style={{ fontSize: 12 }} />,
                 disabled: selectedRows.length !== 1,
               },
               // {
@@ -466,7 +467,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 handleProductEdit(item);
               }}
             >
-              <FileOutlined />{' '}
+              <CopyIcon style={{ fontSize: 12 }} />{' '}
               <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{item.order_number}</span>
             </div>
           ),
