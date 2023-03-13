@@ -65,6 +65,9 @@ export enum modalType {
   ShippingQueueSummary = 'ShippingQueueSummary',
   ExternalShipment = 'ExternalShipment',
 
+  StockTransferFirstStep = 'StockTransferFirstStep',
+  StockTransferSecondStep = 'StockTransferSecondStep',
+
   // inventory
   StockHistory = 'StockHistory',
   StockDeactive = 'StockDeactive',
@@ -83,6 +86,7 @@ export enum modalType {
   SelectWarehouseForInventoryImport = 'SelectWarehouseForInventoryImport',
   IncomingUnits = 'IncomingUnits',
   NewStock = 'NewStock',
+  ReceiveTransferOrder = 'ReceiveTransferOrder',
 
   // Purchasing
   ManagePurchaseOrders = 'Manage',

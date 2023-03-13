@@ -5,6 +5,7 @@ import { CheckCircleFilled, EditTwoTone, PlayCircleFilled } from '@ant-design/ic
 import { useModel } from '@umijs/max';
 import { Row, Col, Space, Input, Card, Table } from 'antd';
 import { useState, useMemo } from 'react';
+import ReceiveTransferModal from './Modals/ReceiveTransferOrder';
 import TransferHistoryModal from './Modals/TransferHistory';
 
 const { Search } = Input;
@@ -223,7 +224,11 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedTransfer, setSele
             size="small"
             style={{ width: 300 }}
           />
-          <OButton btnText="Receive" disabled={!(selectedTransfer?.status === 'pending_receiving')} />
+          <OButton
+            btnText="Receive"
+            disabled={!(selectedTransfer?.status === 'pending_receiving')}
+            onClick={() => setCurrentModal(modalType.ReceiveTransferOrder)}
+          />
           <OButton btnText="History" disabled={!selectedTransfer} onClick={showHistory} />
         </Space>
 
@@ -247,6 +252,13 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedTransfer, setSele
         isOpen={currentModal === modalType.History}
         title={`History for stock transfer order ${selectedTransfer?.order_number}`}
         dataSource={historyDataSource}
+        onClose={() => setCurrentModal(modalType.Close)}
+      />
+
+      <ReceiveTransferModal
+        title={`Receiving for Stock Transfer Order ${selectedTransfer?.order_number}`}
+        isOpen={currentModal === modalType.ReceiveTransferOrder}
+        onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
       />
     </>

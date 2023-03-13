@@ -15,6 +15,7 @@ import {
   FileTextOutlined,
   FormOutlined,
   GlobalOutlined,
+  HomeFilled,
   MessageOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined,
@@ -49,6 +50,8 @@ import SelectOrderColumnsModal from './Modals/SelectOrderColumns';
 import ShipmentImportMappingsModal from './Modals/ShipmentImportMappings';
 import ShippingQueueSummaryModal from './Modals/ShippingQueueSummary';
 import SplitOrderModal from './Modals/SplitOrder';
+import StockTransferFirstStepModal from './Modals/StockTransferFirstStep';
+import StockTransferSecondStepModal from './Modals/StockTransferSecondStep';
 
 interface IMainPanel {
   selectedRows: any[];
@@ -149,6 +152,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const [modalOpen, setModal] = useState('');
   const [showChooseColumn, setShowChooseColumn] = useState(true);
   const [showColumns, setShowColumns] = useState(defaultShowColumns);
+  const [stockTransferWarehouses, setStockTransferWarehouses] = useState(null);
 
   useEffect(() => {
     initialOrderList({
@@ -372,8 +376,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: '2',
-                label: <span>Stock Transfer</span>,
-                icon: <GlobalOutlined />,
+                label: <span onClick={() => setModal(modalType.StockTransferFirstStep)}>Stock Transfer</span>,
+                icon: <HomeFilled />,
               },
             ],
           }}
@@ -683,6 +687,50 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         items={orderList.filter((order) => selectedRows.includes(order.id))}
         onClose={() => setModal(modalType.Close)}
         onSave={() => setModal(modalType.Close)}
+      />
+
+      <StockTransferFirstStepModal
+        isOpen={modalOpen === modalType.StockTransferFirstStep}
+        onSave={(data) => {
+          setStockTransferWarehouses(data);
+          setModal(modalType.StockTransferSecondStep);
+        }}
+        onClose={() => {
+          setStockTransferWarehouses(null);
+          setModal(modalType.Close);
+        }}
+        warehouses={stockTransferWarehouses}
+      />
+
+      <StockTransferSecondStepModal
+        isOpen={modalOpen === modalType.StockTransferSecondStep}
+        onSave={(values) => {
+          setOrderList((prev) => [
+            ...prev,
+            {
+              id: uuidv4(),
+              order_status: 3,
+              order_number: values.order_number,
+              order_date: new Date(),
+              order_paid: new Date(),
+              recipient: values.destination,
+              orderItems: values.transferRows,
+              custom_fields: [],
+              sales_channel: {
+                icon: 'https://img.icons8.com/ios-glyphs/16/null/google-earth.png',
+                name: 'DL Test channel',
+              },
+            },
+          ]);
+          setStockTransferWarehouses(null);
+          setModal(modalType.Close);
+        }}
+        onBack={() => {
+          setStockTransferWarehouses(null);
+          setModal(modalType.Close);
+        }}
+        onClose={() => setModal(modalType.StockTransferFirstStep)}
+        warehouses={stockTransferWarehouses}
       />
     </>
   );
