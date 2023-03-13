@@ -206,7 +206,17 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             items: [
               {
                 key: 'pick_list',
-                label: <span> Pick List(s)</span>,
+                label: (
+                  <span>
+                    <a
+                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503297/image__3_.png"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Pick List(s)
+                    </a>{' '}
+                  </span>
+                ),
                 icon: <FileOutlined />,
                 disabled: selectedRows.length === 0,
               },
@@ -218,7 +228,17 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'packing_slip',
-                label: <span>Packing Slip(s)</span>,
+                label: (
+                  <span>
+                    <a
+                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503351/image__4_.png"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Packing Slip(s){' '}
+                    </a>
+                  </span>
+                ),
                 icon: <FileTextOutlined />,
                 disabled: selectedRows.length === 0,
               },
@@ -234,7 +254,17 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'label',
-                label: <span>Label(s)</span>,
+                label: (
+                  <span>
+                    <a
+                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504595/orders1__6_.png"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Label(s){' '}
+                    </a>
+                  </span>
+                ),
                 icon: <FileOutlined />,
                 disabled: selectedRows.length === 0,
               },

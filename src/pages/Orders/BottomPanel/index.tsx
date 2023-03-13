@@ -8,18 +8,34 @@ const OrderItems: FC = () => {
   const order = selectedOrders[0];
 
   return order ? (
-    <>
+    <div style={{ position: 'relative' }}>
       <div className="title-row">
         <h1 className="page-title">
           <FormattedMessage id="pages.orders.bottompanel.title" />
         </h1>
       </div>
+      <span
+        style={{
+          color: 'orange',
+          border: '2px solid',
+          fontSize: 24,
+          padding: 4,
+          transform: 'rotate(330deg)',
+          display: 'inline-block',
+          position: 'absolute',
+          zIndex: 100,
+          left: '50%',
+          top: 100,
+        }}
+      >
+        Out Of Stock
+      </span>
       <Card>
         {order.orderItems?.map((item, index) => {
           const subTotal = item.unitQty * item.unitAmount;
 
           return (
-            <div key={index} style={{ borderBottom: '2px dashed #ccc', padding: '0.5rem' }}>
+            <div key={index} style={{ borderBottom: '2px solid #ccc', padding: '0.5rem' }}>
               <Row gutter={32}>
                 <Col span={16}>
                   <div>
@@ -98,7 +114,7 @@ const OrderItems: FC = () => {
           );
         })}
       </Card>
-    </>
+    </div>
   ) : null;
 };
 
