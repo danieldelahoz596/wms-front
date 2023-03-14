@@ -36,6 +36,7 @@ import AddExportSettingsModal from './Modals/AddExportSettings';
 import AddImportSettingsModal from './Modals/AddImportSettings';
 import CancelOrderModal from './Modals/CancelOrder';
 import CreateExternalShipmentsModal from './Modals/CreateExternalShipments';
+import CreateRMAModal from './Modals/CreateRMA';
 import DuplicateOrderModal from './Modals/DuplicateOrder';
 import EditOrderModal from './Modals/EditOrder';
 import ExportOrderModal from './Modals/ExportOrder';
@@ -382,7 +383,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       hidden: [5, 6, 7].includes(selectedOrderStatus?.status.id),
     },
     {
-      onClick: () => console.log('Create RMA'),
+      onClick: () => setModal(modalType.CreateRMA),
       btnText: 'Create RMA',
       hidden: ![5].includes(selectedOrderStatus?.status.id),
       disabled: selectedRows.length === 0,
@@ -762,6 +763,13 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         }}
         onClose={() => setModal(modalType.StockTransferFirstStep)}
         warehouses={stockTransferWarehouses}
+      />
+
+      <CreateRMAModal
+        isOpen={modalOpen === modalType.CreateRMA}
+        title={`Create RMA for ${orderList.find((order) => order.id === selectedRows[0])?.order_number}`}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
       />
     </>
   );

@@ -7,12 +7,13 @@ import { DownOutlined, GlobalOutlined, VerticalAlignBottomOutlined } from '@ant-
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space, Dropdown, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import moment from 'moment';
 import type { ItemType } from 'antd/es/menu/hooks/useItems';
 import ExportSelectedRmasModal from './Modals/ExportSelectedRmas';
 import { modalType } from '@/utils/helpers/types';
 import VoidShipmentsModal from './Modals/VoidShipments';
+import ReturnItemsModal from './Modals/ReturnItems';
 
 interface IShipmentItem {
   key: number;
@@ -140,57 +141,6 @@ const shipments: IShipmentItem[] = [
   },
 ];
 
-const returnTColumns = [
-  {
-    title: 'Confirmation',
-    dataIndex: 'confirmation',
-    key: 'confirmation',
-  },
-  {
-    title: 'Created',
-    dataIndex: 'created',
-    key: 'created',
-    align: 'right',
-    render: (created) => <>{moment(created).format('MM/D/YYYY')}</>,
-  },
-  {
-    title: 'Issued',
-    dataIndex: 'issued',
-    key: 'issued',
-    align: 'right',
-    render: (issued) => <>{moment(issued).format('MM/D/YYYY')}</>,
-  },
-  {
-    title: 'Shipped',
-    dataIndex: 'shipped',
-    key: 'shipped',
-    align: 'right',
-    render: (shipped) => <>{moment(shipped).format('MM/D/YYYY')}</>,
-  },
-  {
-    title: 'Received',
-    dataIndex: 'received',
-    key: 'received',
-    align: 'center',
-    render: (received) => <>{moment(received).format('MM/D/YYYY')}</>,
-  },
-  {
-    title: 'Order Number',
-    dataIndex: 'order_number',
-    key: 'order_number',
-  },
-  {
-    title: 'RMA Number',
-    dataIndex: 'rma_number',
-    key: 'rma_number',
-    render: (rma_number) => (
-      <a>
-        <u>{rma_number}</u>
-      </a>
-    ),
-  },
-];
-
 const returnData = [
   {
     key: 1,
@@ -246,8 +196,69 @@ const returnData = [
 
 const MainPanel: React.FC = () => {
   const { searchType } = useModel('shipment');
+  const { getProductList } = useModel('product');
   const [selectedRows, setSelectedRows] = useState([]);
   const [modalOpen, setModalOpen] = useState<modalType>(modalType.Close);
+  const [editableItem, setEditableItem] = useState(null);
+
+  const returnTColumns = useMemo(
+    () => [
+      {
+        title: 'Confirmation',
+        dataIndex: 'confirmation',
+        key: 'confirmation',
+      },
+      {
+        title: 'Created',
+        dataIndex: 'created',
+        key: 'created',
+        align: 'right',
+        render: (created) => <>{moment(created).format('MM/D/YYYY')}</>,
+      },
+      {
+        title: 'Issued',
+        dataIndex: 'issued',
+        key: 'issued',
+        align: 'right',
+        render: (issued) => <>{moment(issued).format('MM/D/YYYY')}</>,
+      },
+      {
+        title: 'Shipped',
+        dataIndex: 'shipped',
+        key: 'shipped',
+        align: 'right',
+        render: (shipped) => <>{moment(shipped).format('MM/D/YYYY')}</>,
+      },
+      {
+        title: 'Received',
+        dataIndex: 'received',
+        key: 'received',
+        align: 'center',
+        render: (received) => <>{moment(received).format('MM/D/YYYY')}</>,
+      },
+      {
+        title: 'Order Number',
+        dataIndex: 'order_number',
+        key: 'order_number',
+      },
+      {
+        title: 'RMA Number',
+        dataIndex: 'rma_number',
+        key: 'rma_number',
+        render: (rma_number, _item) => (
+          <a
+            onClick={() => {
+              setEditableItem(_item);
+              setModalOpen(modalType.ReturnItems);
+            }}
+          >
+            <u>{rma_number}</u>
+          </a>
+        ),
+      },
+    ],
+    [],
+  );
 
   const importExportMenuItems: ItemType[] =
     searchType === 'returns'
@@ -277,8 +288,9 @@ const MainPanel: React.FC = () => {
         ];
 
   useEffect(() => {
+    getProductList();
     setSelectedRows([]);
-  }, [searchType]);
+  }, [searchType, getProductList]);
 
   return (
     <>
@@ -338,6 +350,13 @@ const MainPanel: React.FC = () => {
 
       <VoidShipmentsModal
         isOpen={modalOpen === modalType.VoidShipments}
+        onSave={() => setModalOpen(modalType.Close)}
+        onClose={() => setModalOpen(modalType.Close)}
+      />
+
+      <ReturnItemsModal
+        title={`Returned Items For ${editableItem?.rma_number}`}
+        isOpen={modalOpen === modalType.ReturnItems}
         onSave={() => setModalOpen(modalType.Close)}
         onClose={() => setModalOpen(modalType.Close)}
       />

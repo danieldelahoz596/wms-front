@@ -67,6 +67,7 @@ export enum modalType {
 
   StockTransferFirstStep = 'StockTransferFirstStep',
   StockTransferSecondStep = 'StockTransferSecondStep',
+  CreateRMA = 'CreateRMA',
 
   // inventory
   StockHistory = 'StockHistory',
@@ -99,6 +100,7 @@ export enum modalType {
   ExportRmas = 'ExportRmas',
   ExportShipments = 'ExportShipments',
   VoidShipments = 'VoidShipments',
+  ReturnItems = 'ReturnItems',
 
   // warehouse
   WarehouseBasicInfo = 'WarehouseBasicInfo',
