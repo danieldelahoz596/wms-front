@@ -76,7 +76,7 @@ const SidePanel = () => {
             {
               key: '/help/orders/general',
               icon: <AccountingIcon />,
-              label: <Link to="/help/orders/general">Orders</Link>,
+              label: <Link to="/help/orders/general">General</Link>,
             },
             // Orders - Manage
             {
@@ -84,6 +84,11 @@ const SidePanel = () => {
               icon: <AccountingIcon />,
               label: 'How to Manage Orders',
               children: [
+                {
+                  key: '/help/orders/edit/additemstoexistingorders',
+                  icon: <AccountingIcon />,
+                  label: <Link to="/help/orders/manage/additemstoexistingorders">Add an item to an existing order</Link>,
+                },
                 {
                   key: '/help/orders/manage/cancel',
                   icon: <AccountingIcon />,
@@ -113,16 +118,9 @@ const SidePanel = () => {
             },
             // Orders - Edit
             {
-              key: 'edit',
+              key: 'search',
               icon: <AccountingIcon />,
-              label: 'How to Edit Orders',
-              children: [
-                {
-                  key: '/help/orders/edit/add',
-                  icon: <AccountingIcon />,
-                  label: <Link to="/help/orders/edit/add">Add an item to an existing order</Link>,
-                },
-              ],
+              label: 'How to Search Orders',
             },
             // Orders - ExportOrders
             {
@@ -162,6 +160,12 @@ const SidePanel = () => {
                   label: <Link to="/help/orders/resolve/outofstock">Out of Stock</Link>,
                 },
               ],
+            },
+            // Orders - Others
+            {
+              key: '/help/orders/others',
+              icon: <AccountingIcon />,
+              label: <Link to="/help/orders/others">Others</Link>,
             },
           ],
         },

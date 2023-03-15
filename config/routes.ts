@@ -256,17 +256,32 @@ export default [
       {
         hideInMenu: true,
         path: '/help/orders/general',
-        component: './Help/MainPanel/Orders/orders',
+        component: './Help/MainPanel/Orders/general',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/manage/additemstoexistingorders',
+        component: './Help/MainPanel/Orders/Manage/additemstoexistingorders',
       },
       {
         hideInMenu: true,
         path: '/help/orders/manage/cancel',
-        component: './Help/MainPanel/Orders/cancelorders',
+        component: './Help/MainPanel/Orders/Manage/cancelorders',
       },
       {
         hideInMenu: true,
         path: '/help/orders/exportorders',
         component: './Help/MainPanel/Orders/exportorders',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/resolve/missingfulfillmentsource',
+        component: './Help/MainPanel/Orders/Resolve/missingfulfillmentsource',
+      },
+      {
+        hideInMenu: true,
+        path: '/help/orders/others',
+        component: './Help/MainPanel/Orders/others',
       },
       // Inventory
       {

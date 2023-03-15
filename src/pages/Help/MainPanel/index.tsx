@@ -5,9 +5,13 @@ import Dashboard from './Dashboard/dashboard';
 import SkuAlerts from './Dashboard/skualerts';
 
 // Orders
-import Cancelorders from './Orders/cancelorders';
+import Orders from './Orders/general';
+import Cancelorders from './Orders/Manage/cancelorders';
+import AddItemsToExistingOrders from './Orders/Manage/additemstoexistingorders';
 import Exportorders from './Orders/exportorders';
-import Orders from './Orders/orders';
+import MissingFulfillmentSource from './Orders/Resolve/missingfulfillmentsource';
+import OrderOthers from './Orders/others';
+
 
 // Inventory
 
@@ -141,10 +145,16 @@ const MainPanel: React.FC = () => {
         ) : // Orders
         location.pathname === '/help/orders/general' ? (
           <Orders />
+        ) : location.pathname === '/help/orders/manage/additemstoexistingorders' ? (
+          <AddItemsToExistingOrders />
         ) : location.pathname === '/help/orders/manage/cancel' ? (
           <Cancelorders />
         ) : location.pathname === '/help/orders/exportorders' ? (
           <Exportorders />
+        ) : location.pathname === '/help/orders/resolve/missingfulfillmentsource' ? (
+          <MissingFulfillmentSource />
+        ) : location.pathname === '/help/orders/others' ? (
+          <OrderOthers />
         ) : // Customers
         location.pathname === '/help/customers/search' ? (
           <Searchcustomers />

@@ -7,15 +7,19 @@ import type { FC } from 'react';
 
 const fulfillmentOptions = [
   {
-    text: 'Direct/In-House',
     value: 'directInHouse',
+    label: 'Direct/In-House',
+  },
+  {
+    value: 'dropshipvendor',
+    label: 'Dropship Vendor',
   },
 ];
 
 const sourceOptions = [
   {
-    text: 'Office',
     value: 'office',
+    label: 'Office',
   },
 ];
 
