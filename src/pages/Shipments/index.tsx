@@ -1,10 +1,14 @@
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
-import MainPanel from './MainPanel';
+import ReturnMainPanel from './MainPanel/Returns';
+import ShipmentMainPanel from './MainPanel/Shipments';
 import SidePanel from './SidePanel';
 
 const ShipmentManagement: React.FC = () => {
+  const { searchType } = useModel('shipment');
+
   const {
     isDragging: isLeftDragging,
     position: LeftW,
@@ -27,7 +31,8 @@ const ShipmentManagement: React.FC = () => {
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content main-panel" style={{ overflow: 'scroll' }}>
             <div className="main-panel">
-              <MainPanel />
+              {searchType === 'returns' && <ReturnMainPanel />}
+              {searchType !== 'returns' && <ShipmentMainPanel />}
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ const SidePanel: React.FC = () => {
     () => [
       {
         label: (
-          <span>
+          <span className="filter-panel-title">
             <FilterOutlined />
             <FormattedMessage id="pages.shipments.sidepanel.filterBy" />
           </span>
@@ -20,7 +20,7 @@ const SidePanel: React.FC = () => {
       },
       {
         label: (
-          <span>
+          <span className="filter-panel-title">
             <SearchOutlined />
             <FormattedMessage id="pages.shipments.sidepanel.searchBy" />
           </span>

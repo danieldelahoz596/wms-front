@@ -2,8 +2,9 @@ import type { IOButton } from '@/components/Globals/OButton';
 import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import { CaretDownOutlined, ToolFilled } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
 import { Card, Form, Select, Space } from 'antd';
-import type { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 const fulfillmentOptions = [
   {
@@ -13,13 +14,6 @@ const fulfillmentOptions = [
   {
     value: 'dropshipvendor',
     label: 'Dropship Vendor',
-  },
-];
-
-const sourceOptions = [
-  {
-    value: 'office',
-    label: 'Office',
   },
 ];
 
@@ -47,6 +41,16 @@ const actionButtons: IOButton[] = [
 ];
 
 const Method: FC = () => {
+  const { warehouseList } = useModel('warehouse');
+
+  const warehouseOptions = useMemo(
+    () =>
+      warehouseList
+        .filter((warehouse) => warehouse.status == true)
+        .map((warehouse) => ({ value: warehouse.id, label: warehouse.name })),
+    [warehouseList],
+  );
+
   return (
     <>
       <div>
@@ -55,7 +59,7 @@ const Method: FC = () => {
             <Select defaultValue="directInHouse" options={fulfillmentOptions} />
           </Form.Item>
           <Form.Item label="Source" name="source">
-            <Select defaultValue="office" options={sourceOptions} />
+            <Select options={warehouseOptions} />
           </Form.Item>
         </Form>
       </div>
