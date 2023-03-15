@@ -1,6 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import { DownOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
+import { DownOutlined, FormOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, Space, Dropdown, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
@@ -20,58 +20,58 @@ interface IReturnItem {
   received: Date;
   order_number: string;
   rma_number: string;
+  notes: React.ReactNode;
+  tracking_number: number;
 }
 
 const returnData = [
   {
     key: 1,
     confirmation: 'Received',
-    created: new Date(2021, 2, 8),
-    issued: new Date(2021, 2, 8),
-    shipped: new Date(2021, 2, 8),
-    received: new Date(2021, 2, 8),
-    order_number: '111',
-    rma_number: 'RMA-111',
+    created: new Date(2020, 3, 5),
+    issued: null,
+    shipped: null,
+    received: new Date(2020, 3, 25),
+    order_number: 'Sandibermuda',
+    rma_number: 'RMA-Sandibermuda',
+    notes: <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />,
+    tracking_number: 794688873185,
   },
   {
     key: 2,
     confirmation: 'Received',
-    created: new Date(2021, 1, 29),
-    issued: new Date(2021, 1, 29),
-    shipped: new Date(2021, 1, 29),
-    received: new Date(2021, 1, 29),
-    order_number: '887',
-    rma_number: 'RMA-887',
+    created: new Date(2020, 3, 5),
+    issued: null,
+    shipped: null,
+    received: new Date(2021, 7, 7),
+    order_number: 'Sandibermuda',
+    rma_number: 'RMA-Sandibermuda',
+    notes: <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />,
+    tracking_number: 794688873185,
   },
   {
     key: 3,
-    confirmation: 'Received',
-    created: new Date(2021, 1, 8),
-    issued: new Date(2021, 1, 7),
-    shipped: new Date(2021, 1, 8),
-    received: new Date(2021, 1, 8),
-    order_number: 'DL TestShippment',
-    rma_number: 'RMA-DL Test',
+    confirmation: 'No Confirmation',
+    created: new Date(2020, 2, 12),
+    issued: null,
+    shipped: null,
+    received: null,
+    order_number: 'Sandibermuda',
+    rma_number: 'RMA-Sandibermuda',
+    notes: <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />,
+    tracking_number: 794688873185,
   },
   {
     key: 4,
-    confirmation: 'Received',
-    created: new Date(2020, 7, 7),
-    issued: new Date(2020, 7, 7),
-    shipped: new Date(2020, 7, 7),
-    received: new Date(2020, 8, 21),
-    order_number: 'MO10',
-    rma_number: 'RMA-MO10',
-  },
-  {
-    key: 5,
-    confirmation: 'Received',
-    created: new Date(2020, 6, 18),
-    issued: new Date(2020, 6, 18),
-    shipped: new Date(2020, 6, 18),
-    received: new Date(2020, 6, 18),
-    order_number: 'DamToughE',
-    rma_number: 'RMA-DanToughE',
+    confirmation: 'No Confirmation',
+    created: new Date(2020, 2, 12),
+    issued: null,
+    shipped: null,
+    received: null,
+    order_number: 'Sandibermuda',
+    rma_number: 'RMA-Sandibermuda',
+    notes: <FormOutlined style={{ color: '#5F5FFF', cursor: 'pointer' }} />,
+    tracking_number: 794688873185,
   },
 ];
 
@@ -92,29 +92,29 @@ const ReturnMainPanel: React.FC = () => {
         title: 'Created',
         dataIndex: 'created',
         key: 'created',
-        align: 'right',
-        render: (created) => <>{moment(created).format('MM/D/YYYY')}</>,
+        align: 'center',
+        render: (created) => <>{created && moment(created).format('MM/DD/YYYY')}</>,
       },
       {
         title: 'Issued',
         dataIndex: 'issued',
         key: 'issued',
-        align: 'right',
-        render: (issued) => <>{moment(issued).format('MM/D/YYYY')}</>,
+        align: 'center',
+        render: (issued) => <>{issued && moment(issued).format('MM/DD/YYYY')}</>,
       },
       {
         title: 'Shipped',
         dataIndex: 'shipped',
         key: 'shipped',
-        align: 'right',
-        render: (shipped) => <>{moment(shipped).format('MM/D/YYYY')}</>,
+        align: 'center',
+        render: (shipped) => <>{shipped && moment(shipped).format('MM/DD/YYYY')}</>,
       },
       {
         title: 'Received',
         dataIndex: 'received',
         key: 'received',
         align: 'center',
-        render: (received) => <>{moment(received).format('MM/D/YYYY')}</>,
+        render: (received) => <>{received && moment(received).format('MM/DD/YYYY')}</>,
       },
       {
         title: 'Order Number',
@@ -135,6 +135,17 @@ const ReturnMainPanel: React.FC = () => {
             <u>{rma_number}</u>
           </a>
         ),
+      },
+      {
+        title: 'NOTEs',
+        dataIndex: 'notes',
+        key: 'notes',
+        render: (notes) => <div style={{ display: 'flex', justifyContent: 'center' }}>{notes}</div>,
+      },
+      {
+        title: 'Tracking Number',
+        dataIndex: 'tracking_number',
+        key: 'tracking_number',
       },
     ],
     [],
@@ -165,8 +176,8 @@ const ReturnMainPanel: React.FC = () => {
       </div>
       <Card className="content-box">
         <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-          <OButton btnText="Print Labels" />
-          <OButton btnText="Mark As Received" />
+          <OButton btnText="Print Labels" disabled={selectedRows.length === 0} />
+          <OButton btnText="Mark As Received" disabled={selectedRows.length === 0} />
           <Dropdown menu={{ items: importExportMenuItems }}>
             <Button size="small">
               <Space>
