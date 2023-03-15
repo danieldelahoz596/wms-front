@@ -61,6 +61,9 @@ export const OTable: React.FC<IOTable> = ({
       disabled: record.vendor === '', // Column configuration not to be checked
       vendor: record.vendor,
     }),
+    renderCell: (checked, record, index, originNode) => (
+      <div style={{ display: 'flex', justifyContent: 'end' }}>{originNode}</div>
+    ),
   };
 
   return (
