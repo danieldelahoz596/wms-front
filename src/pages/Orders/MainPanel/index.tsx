@@ -208,14 +208,15 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'pick_list',
                 label: (
-                  <span>
-                    <a
-                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503297/image__3_.png"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Pick List(s)
-                    </a>{' '}
+                  <span
+                    onClick={() =>
+                      window.open(
+                        'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503297/image__3_.png',
+                        '_blank',
+                      )
+                    }
+                  >
+                    Pick List(s)
                   </span>
                 ),
                 icon: <FileOutlined />,
@@ -230,14 +231,15 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'packing_slip',
                 label: (
-                  <span>
-                    <a
-                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503351/image__4_.png"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Packing Slip(s){' '}
-                    </a>
+                  <span
+                    onClick={() =>
+                      window.open(
+                        'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2503351/image__4_.png',
+                        '_blank',
+                      )
+                    }
+                  >
+                    Packing Slip(s)
                   </span>
                 ),
                 icon: <FileTextOutlined />,
@@ -256,14 +258,15 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               {
                 key: 'label',
                 label: (
-                  <span>
-                    <a
-                      href="https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504595/orders1__6_.png"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Label(s){' '}
-                    </a>
+                  <span
+                    onClick={() =>
+                      window.open(
+                        'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2504595/orders1__6_.png',
+                        '_blank',
+                      )
+                    }
+                  >
+                    Label(s)
                   </span>
                 ),
                 icon: <FileOutlined />,
