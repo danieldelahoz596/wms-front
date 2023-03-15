@@ -19,6 +19,21 @@ const Processing: React.FC = () => {
 
   return (
     <Form form={form} labelCol={{ span: 6 }} labelAlign="left">
+      <Row justify="center">
+        <Col span={12}>
+          <Form.Item label="Fulfillment" labelCol={{ span: 4 }}>
+            <Input.Group compact style={{ alignItems: 'center' }}>
+              <Form.Item>
+                <Select options={[{ value: 'dropshipvendor', label: 'Dropship Vendor' }]} style={{ width: 200 }} />
+              </Form.Item>
+              <span style={{ marginLeft: 10, marginRight: 10, fontSize: 20 }}>/</span>
+              <Form.Item>
+                <Select options={[{ value: 'catstuff', label: 'Cat Stuff' }]} style={{ width: 200 }} />
+              </Form.Item>
+            </Input.Group>
+          </Form.Item>
+        </Col>
+      </Row>
       <Row gutter={20}>
         <Col span={12}>
           <Card
