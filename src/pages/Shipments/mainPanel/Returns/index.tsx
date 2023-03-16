@@ -171,30 +171,32 @@ const ReturnMainPanel: React.FC = () => {
 
   return (
     <>
-      <div className="title-row">
-        <h1 style={{ textTransform: 'uppercase' }}>Returns</h1>
+      <div className="main-panel">
+        <div className="title-row">
+          <h1 className="page-title">Returns</h1>
+        </div>
+        <Card className="content-box">
+          <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+            <OButton btnText="Print Labels" disabled={selectedRows.length === 0} />
+            <OButton btnText="Mark As Received" disabled={selectedRows.length === 0} />
+            <Dropdown menu={{ items: importExportMenuItems }}>
+              <Button size="small">
+                <Space>
+                  Import/Export <DownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+          </Space>
+          <OTable
+            columns={returnTColumns}
+            rows={returnData}
+            type="checkbox"
+            pagination={false}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+          />
+        </Card>
       </div>
-      <Card className="content-box">
-        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-          <OButton btnText="Print Labels" disabled={selectedRows.length === 0} />
-          <OButton btnText="Mark As Received" disabled={selectedRows.length === 0} />
-          <Dropdown menu={{ items: importExportMenuItems }}>
-            <Button size="small">
-              <Space>
-                Import/Export <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
-        </Space>
-        <OTable
-          columns={returnTColumns}
-          rows={returnData}
-          type="checkbox"
-          pagination={false}
-          selectedRows={selectedRows}
-          setSelectedRows={setSelectedRows}
-        />
-      </Card>
 
       <ExportSelectedRmasModal
         isOpen={modalOpen === modalType.ExportRmas}
