@@ -44,6 +44,7 @@ import ExportQueueOrderModal from './Modals/ExportQueueOrder';
 import ImportOrderModal from './Modals/ImportOrder';
 import ImportOrderShipmentModal from './Modals/ImportOrderShipment';
 import ManualOrderModal from './Modals/ManualOrder';
+import MarkOrderPaidModal from './Modals/MarkOrderPaid';
 import NewShipmentImportMappingsModal from './Modals/NewShipmentImportMappings';
 import OrderExportSettingsModal from './Modals/OrderExportSettings';
 import OrderImportSettingsModal from './Modals/OrderImportSettings';
@@ -346,7 +347,16 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'mark_shipped',
-                label: <span onClick={() => setModal(modalType.ExternalShipment)}>{`Mark 'Shipped'`}</span>,
+                label: (
+                  <span
+                    onClick={() => {
+                      if (selectedOrderStatus?.status.id === 2) setModal(modalType.MarkOrdersPaid);
+                      else setModal(modalType.ExternalShipment);
+                    }}
+                  >
+                    {selectedOrderStatus?.status.id === 2 ? "Mark 'Paid'" : `Mark 'Shipped'`}
+                  </span>
+                ),
                 icon: <CheckCircleOutlined />,
                 disabled: selectedRows.length == 0,
                 hidden: [1, 5, 6, 7].includes(selectedOrderStatus?.status.id),
@@ -771,6 +781,13 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       <CreateRMAModal
         isOpen={modalOpen === modalType.CreateRMA}
         title={`Create RMA for ${orderList.find((order) => order.id === selectedRows[0])?.order_number}`}
+        onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <MarkOrderPaidModal
+        isOpen={modalOpen === modalType.MarkOrdersPaid}
+        orderNumber={orderList.find((order) => order.id === selectedRows[0])?.order_number}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
