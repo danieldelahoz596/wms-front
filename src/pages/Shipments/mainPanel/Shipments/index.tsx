@@ -165,41 +165,43 @@ const ShipmentMainPanel: React.FC = () => {
 
   return (
     <>
-      <div className="title-row">
-        <h1 style={{ textTransform: 'uppercase' }}>
-          <FormattedMessage id="menu.shipments" />
-        </h1>
-      </div>
-      <Card className="content-box">
-        <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-          <OButton btnText="Print Labels" />
-          <OButton btnText="Print Packing Slips" />
-          <OButton btnText="Print Pick List(s)" />
-          <OButton btnText="Print Global Pick List" />
-          <OButton
-            btnText="Void Shipment(s)"
-            disabled={selectedRows.length === 0}
-            onClick={() => setModalOpen(modalType.VoidShipments)}
+      <div className="main-panel">
+        <div className="title-row">
+          <h1 className="page-title">
+            <FormattedMessage id="menu.shipments" />
+          </h1>
+        </div>
+        <Card className="content-box">
+          <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
+            <OButton btnText="Print Labels" />
+            <OButton btnText="Print Packing Slips" />
+            <OButton btnText="Print Pick List(s)" />
+            <OButton btnText="Print Global Pick List" />
+            <OButton
+              btnText="Void Shipment(s)"
+              disabled={selectedRows.length === 0}
+              onClick={() => setModalOpen(modalType.VoidShipments)}
+            />
+            <OButton btnText="Track Shipment(s)" />
+            <OButton btnText="Resend Confirmation Email(s)" />
+            <Dropdown menu={{ items: importExportMenuItems }}>
+              <Button size="small">
+                <Space>
+                  Import/Export <DownOutlined />
+                </Space>
+              </Button>
+            </Dropdown>
+          </Space>
+          <OTable
+            type="checkbox"
+            columns={TColumns}
+            rows={shipments}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            pagination={false}
           />
-          <OButton btnText="Track Shipment(s)" />
-          <OButton btnText="Resend Confirmation Email(s)" />
-          <Dropdown menu={{ items: importExportMenuItems }}>
-            <Button size="small">
-              <Space>
-                Import/Export <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
-        </Space>
-        <OTable
-          type="checkbox"
-          columns={TColumns}
-          rows={shipments}
-          selectedRows={selectedRows}
-          setSelectedRows={setSelectedRows}
-          pagination={false}
-        />
-      </Card>
+        </Card>
+      </div>
 
       <ExportSelectedRmasModal
         isOpen={modalOpen === modalType.ExportShipments}

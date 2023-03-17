@@ -68,6 +68,7 @@ export enum modalType {
   StockTransferFirstStep = 'StockTransferFirstStep',
   StockTransferSecondStep = 'StockTransferSecondStep',
   CreateRMA = 'CreateRMA',
+  MarkOrdersPaid = 'MarkOrdersPaid',
 
   // inventory
   StockHistory = 'StockHistory',
