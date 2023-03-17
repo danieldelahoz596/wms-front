@@ -62,7 +62,7 @@ export const OTable: React.FC<IOTable> = ({
       vendor: record.vendor,
     }),
     renderCell: (checked, record, index, originNode) => (
-      <div style={{ display: 'flex', justifyContent: 'end' }}>{originNode}</div>
+      <div style={{ display: 'flex', justifyContent: 'end', marginRight: 8 }}>{originNode}</div>
     ),
   };
 

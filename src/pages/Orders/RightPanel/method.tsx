@@ -9,11 +9,19 @@ import { FC, useMemo } from 'react';
 const fulfillmentOptions = [
   {
     value: 'directInHouse',
-    label: 'Direct/In-House',
+    label: 'Direct / In-House',
+  },
+  {
+    value: '3rdpartylogistics',
+    label: '3rd Party Logistics',
   },
   {
     value: 'dropshipvendor',
     label: 'Dropship Vendor',
+  },
+  {
+    value: 'multichannelfulfillment',
+    label: 'Multi-Channel Fulfillment',
   },
 ];
 

@@ -1,5 +1,5 @@
 import { useModel } from '@umijs/max';
-import { Row, Col, Select, Form, Input, DatePicker, Card } from 'antd';
+import { Card, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import moment from 'moment';
 import { useEffect } from 'react';
 
@@ -21,29 +21,7 @@ const BasicInfo: React.FC = () => {
 
   return (
     <Form form={form}>
-      <Row gutter={20}>
-        <Col span={12}>
-          <Card title="Order Details">
-            <Form.Item label="Order Number" name="order_number" labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Labels" name="labels" labelCol={{ span: 6 }}>
-              <Select size="small" />
-            </Form.Item>
-            <Form.Item label="Order Date" name="order_date" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Order Paid" name="order_paid" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Ship By" name="ship_by" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Deliver By" name="deliver_by" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-          </Card>
-        </Col>
+      <Row gutter={10}>
         <Col span={12}>
           <Card title="Recipient">
             <Form.Item label="Name" name={['recipient', 'name']} labelCol={{ span: 6 }}>
@@ -75,6 +53,28 @@ const BasicInfo: React.FC = () => {
             </Form.Item>
             <Form.Item label="Email" name={['recipient', 'email']} labelCol={{ span: 6 }}>
               <Input />
+            </Form.Item>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title="Order Details">
+            <Form.Item label="Order Number" name="order_number" labelCol={{ span: 6 }}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="Labels" name="labels" labelCol={{ span: 6 }}>
+              <Select size="small" />
+            </Form.Item>
+            <Form.Item label="Order Date" name="order_date" labelCol={{ span: 6 }}>
+              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item label="Order Paid" name="order_paid" labelCol={{ span: 6 }}>
+              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item label="Ship By" name="ship_by" labelCol={{ span: 6 }}>
+              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item label="Deliver By" name="deliver_by" labelCol={{ span: 6 }}>
+              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
             </Form.Item>
           </Card>
         </Col>

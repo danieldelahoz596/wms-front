@@ -316,7 +316,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 icon: <ClockIcon style={{ fontSize: 12 }} />,
               },
               // In Awaiting Shipment or Pending Fulfillment
-              [3, 4].includes(selectedOrderStatus?.status.id)
+              [2, 3, 4].includes(selectedOrderStatus?.status.id)
                 ? {
                     key: 'cancel_order',
                     label: <span onClick={() => setModal(modalType.CancelOrder)}>Cancel Order</span>,
@@ -345,11 +345,18 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 disabled: selectedRows.length !== 1,
               },
               {
+                key: 'mark_paid',
+                label: `Mark 'Paid'`,
+                icon: <CheckCircleOutlined />,
+                disabled: selectedRows.length == 0,
+                hidden: ![2].includes(selectedOrderStatus?.status.id),
+              },
+              {
                 key: 'mark_shipped',
                 label: <span onClick={() => setModal(modalType.ExternalShipment)}>{`Mark 'Shipped'`}</span>,
                 icon: <CheckCircleOutlined />,
                 disabled: selectedRows.length == 0,
-                hidden: [1, 5, 6, 7].includes(selectedOrderStatus?.status.id),
+                hidden: [1, 2, 5, 6, 7].includes(selectedOrderStatus?.status.id),
               },
               {
                 key: 'duplicate_order',
