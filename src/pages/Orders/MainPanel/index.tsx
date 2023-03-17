@@ -347,23 +347,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
               {
                 key: 'mark_paid',
-                label: `Mark 'Paid'`,
+                label: <span onClick={() => setModal(modalType.MarkOrdersPaid)}>Mark 'Paid'</span>,
                 icon: <CheckCircleOutlined />,
                 disabled: selectedRows.length == 0,
                 hidden: ![2].includes(selectedOrderStatus?.status.id),
               },
               {
                 key: 'mark_shipped',
-                label: (
-                  <span
-                    onClick={() => {
-                      if (selectedOrderStatus?.status.id === 2) setModal(modalType.MarkOrdersPaid);
-                      else setModal(modalType.ExternalShipment);
-                    }}
-                  >
-                    {selectedOrderStatus?.status.id === 2 ? "Mark 'Paid'" : `Mark 'Shipped'`}
-                  </span>
-                ),
+                label: <span onClick={() => setModal(modalType.ExternalShipment)}>Mark 'Shipped'</span>,
                 icon: <CheckCircleOutlined />,
                 disabled: selectedRows.length == 0,
                 hidden: [1, 2, 5, 6, 7].includes(selectedOrderStatus?.status.id),
