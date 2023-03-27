@@ -37,7 +37,7 @@ export const OSelect: React.FC<IOSelect> = ({
   mode,
 }) => {
   const selectOptions = useMemo(() => {
-    const optionList = options?.map((option) => ({ value: option.value, label: option.text }));
+    const optionList = options?.map((option) => ({ value: option.value, label: option.text })) || [];
 
     if (showPlaceholder)
       return [{ value: 0, label: <FormattedMessage id="component.select.placeholder.select" /> }, ...optionList];
