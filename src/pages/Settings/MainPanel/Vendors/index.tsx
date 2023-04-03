@@ -1,4 +1,4 @@
-import type IVendors from '@/interfaces/IVendors';
+import type IVendor from '@/interfaces/IVendor';
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { modalType } from '@/utils/helpers/types';
 import { FormattedMessage, useModel } from '@umijs/max';
@@ -62,7 +62,7 @@ export default function () {
       {/* Modals */}
       <VendorModal
         isOpen={modalOpen === modalType.New || modalOpen === modalType.Edit}
-        onSave={(values: IVendors) => {
+        onSave={(values: IVendor) => {
           if (modalOpen === modalType.New) {
             createVendor(values);
             getVendorList();

@@ -1,5 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
-import type IVendors from '@/interfaces/IVendors';
+import type IVendor from '@/interfaces/IVendor';
 import ManufacturerIcon from '@/utils/icons/manufacturer';
 import TrainIcon from '@/utils/icons/train';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
@@ -10,7 +10,7 @@ import { useEffect, useMemo } from 'react';
 
 interface IVendorModal {
   isOpen: boolean;
-  onSave: (values: IVendors) => void;
+  onSave: (values: IVendor) => void;
   onClose: () => void;
 }
 
