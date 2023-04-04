@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
 import { useResizable } from 'react-resizable-layout';
 import BottomPanel from './BottomPanel';
 import MainPanel from './MainPanel';
 import SidePanel from './SidePanel';
-import { useModel } from '@umijs/max';
 
 const ProductManagement: React.FC = () => {
-  const { getProductList } = useModel('product');
-
-  useEffect(() => {
-    getProductList();
-  }, [getProductList]);
-
   const {
     isDragging: isLeftDragging,
     position: LeftW,
