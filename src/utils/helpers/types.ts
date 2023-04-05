@@ -131,11 +131,11 @@ export enum EPOStatus {
 }
 
 export enum productType {
-  CoreProduct = 'Core Product',
+  CoreProduct = 'Core',
   VariationCoreProduct = 'Variation Core Product',
-  BundleOrKit = 'Bundle or Kit',
+  BundleOrKit = 'Bundle/Kit',
   VirtualProduct = 'Virtual Product',
-  Variations = 'Variations',
+  Variations = 'Variation',
 }
 
 export enum productStatus {
