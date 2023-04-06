@@ -1,12 +1,13 @@
 import { OModal } from '@/components/Globals/OModal';
 import type { TabsProps } from 'antd';
-import { Tabs } from 'antd';
-import { useState } from 'react';
+import { Tabs, Form } from 'antd';
+import { useEffect, useState } from 'react';
 import BasicInfoTab from './Tabs/BasicInfo';
 import BundledItemsTab from './Tabs/BundledItems';
 import GalleryTab from './Tabs/Gallery';
 import CustomFieldsTab from './Tabs/CustomFields';
 import VendorProductsTab from './Tabs/VendorProducts';
+import { useModel } from '@umijs/max';
 
 interface IBundleKitModal {
   isOpen: boolean;
@@ -16,11 +17,56 @@ interface IBundleKitModal {
 
 const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const [customFields, setCustomFields] = useState([]);
+  const { bundleItems, editableProduct, createProduct, setBundleItems } = useModel('product');
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (!editableProduct) {
+      form.resetFields();
+      setBundleItems([]);
+    } else {
+      form.setFieldsValue(editableProduct);
+      setBundleItems(
+        editableProduct.children.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+          name: item.name,
+          sku: item.sku,
+        })),
+      );
+    }
+  }, [form, isOpen, editableProduct, setBundleItems]);
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      const items = bundleItems.reduce((acc, val) => {
+        acc[val.product_id] = {
+          quantity: val.quantity,
+        };
+        return acc;
+      }, {});
+
+      if (!!editableProduct) {
+        console.log('hello');
+      } else {
+        createProduct({ type: 'Bundle/Kit', ...values, items })
+          .then(() => {
+            onSave();
+          })
+          .catch(({ response: { data } }) => {
+            const errors = [];
+            Object.keys(data).map((key) => errors.push({ name: key, errors: data[key] }));
+            form.setFields(errors);
+          });
+      }
+    });
+  };
+
   const tabItems: TabsProps['items'] = [
     {
       key: 'tab-1',
       label: 'Basic Info',
-      children: <BasicInfoTab />,
+      children: <BasicInfoTab form={form} />,
     },
     {
       key: 'tab-2',
@@ -63,12 +109,12 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: onSave,
+          onClick: handleSave,
         },
       ]}
     >
       <div>
-        <Tabs defaultActiveKey="1" items={tabItems} />
+        <Tabs defaultActiveKey="tab-1" items={tabItems} />
       </div>
     </OModal>
   );

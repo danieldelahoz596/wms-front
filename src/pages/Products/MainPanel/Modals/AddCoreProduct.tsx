@@ -1,95 +1,89 @@
 import { useModel } from '@umijs/max';
-import React, { useEffect, useState } from 'react';
-import { Form } from 'antd';
+import React, { useEffect, useMemo } from 'react';
+import { Form, Select, InputNumber, Space } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
-import { OInput } from '@/components/Globals/OInput';
+import type { IBundleItem } from '@/models/product';
+import { productType } from '@/utils/helpers/types';
 
 interface IAddCoreProductModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
-  coreProductList: any[];
-  setCoreProductList: (product: any) => void;
-  selectedItemKey: string;
-  setSelectedItemKey: (key: any) => void;
-  type: string;
+  selectedItem: IBundleItem | null;
 }
 
-const AddCoreProductModal: React.FC<IAddCoreProductModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  coreProductList,
-  setCoreProductList,
-  selectedItemKey,
-  setSelectedItemKey,
-  type,
-}) => {
-  const { productList } = useModel('product');
-  const [newCoreProduct, setNewCoreProduct] = useState({
-    product: '',
-    quantity: '',
-  });
+const AddCoreProductModal: React.FC<IAddCoreProductModal> = ({ isOpen, onClose, onSave, selectedItem }) => {
+  const { productList, bundleItems, setBundleItems } = useModel('product');
+  const [form] = Form.useForm();
 
-  const handleInputChange = (name, value) => {
-    setNewCoreProduct((prevState) => ({ ...prevState, [name]: value }));
-  };
+  const productSelectOptions = useMemo(
+    () =>
+      productList
+        .filter((product) => product.type === productType.CoreProduct || product.type === productType.Variations)
+        .map((product) => ({ value: product.id, label: product.name })),
+    [productList],
+  );
 
   useEffect(() => {
-    if (type === 'add') {
-      setNewCoreProduct({
-        product: '',
-        quantity: '',
-      });
-    } else if (type === 'edit') {
-      const item = coreProductList.find((coreProduct) => coreProduct.id === selectedItemKey);
-      if (item) {
-        setNewCoreProduct({
-          product: item.id,
-          quantity: item.quantity,
-        });
-      }
+    if (selectedItem) {
+      form.setFieldsValue(selectedItem);
+    } else {
+      form.resetFields();
     }
-  }, [isOpen]);
+  }, [form, selectedItem, isOpen]);
 
   const handleSave = () => {
-    if (type === 'add') {
-      const item = productList.find((product) => product.id === newCoreProduct.product);
-      setCoreProductList([...coreProductList, { ...item, masterSKU: item.master_sku, quantity: newCoreProduct.quantity }]);
-      setSelectedItemKey(null);
-    }
-    if (type === 'edit') {
-      const product = productList.find((item) => item.id === newCoreProduct.product);
-      setCoreProductList(
-        coreProductList.map((item) =>
-          item.id === selectedItemKey ? { ...item, masterSKU: product.master_sku, quantity: newCoreProduct.quantity } : item,
-        ),
-      );
-      setSelectedItemKey(null);
-    }
-    onSave();
-  };
+    form.validateFields().then((values) => {
+      const bundleItem = bundleItems.find((item) => item.product_id === values.product_id);
+      const product = productList.find((item) => item.id === values.product_id);
+      if (!selectedItem) {
+        if (!bundleItem) {
+          setBundleItems((prev) => [
+            ...prev,
+            { product_id: product.id, name: product.name, sku: product.sku, quantity: values.quantity },
+          ]);
+        } else {
+          setBundleItems((prev) =>
+            prev.map((item) =>
+              item.product_id === bundleItem.product_id ? { ...item, quantity: item.quantity + values.quantity } : item,
+            ),
+          );
+        }
+      } else {
+        if (!bundleItem || (bundleItem && bundleItem.product_id === selectedItem.product_id)) {
+          setBundleItems((prev) =>
+            prev.map((item) =>
+              item.product_id === selectedItem.product_id
+                ? {
+                    product_id: values.product_id,
+                    sku: product.sku,
+                    name: product.name,
+                    quantity: values.quantity,
+                  }
+                : item,
+            ),
+          );
+        } else {
+          setBundleItems((prev) => {
+            const index = prev.indexOf(selectedItem);
+            if (index > -1) prev.splice(index, 1);
+            return prev.map((item) =>
+              item.product_id === values.product_id
+                ? {
+                    product_id: values.product_id,
+                    sku: product.sku,
+                    name: product.name,
+                    quantity: values.quantity + item.quantity,
+                  }
+                : item,
+            );
+          });
+        }
+      }
 
-  const coreProductInputFields = [
-    {
-      type: 'select',
-      onChange: handleInputChange,
-      label: 'Product',
-      name: 'product',
-      defaultValue: newCoreProduct.product,
-      value: newCoreProduct.product,
-      options: productList.map((_item) => ({ value: _item.id, text: _item.name })),
-      style: { width: '100%' },
-    },
-    {
-      type: 'number',
-      onChange: handleInputChange,
-      label: 'Quantity',
-      name: 'quantity',
-      defaultValue: newCoreProduct.quantity,
-      value: newCoreProduct.quantity,
-    },
-  ];
+      onSave();
+    });
+  };
 
   return (
     <OModal
@@ -113,13 +107,15 @@ const AddCoreProductModal: React.FC<IAddCoreProductModal> = ({
         },
       ]}
     >
-      <Form>
-        {coreProductInputFields?.map((inputItem, index) => (
-          <div key={`input-${index}`} style={{ padding: '0.5rem 0' }}>
-            <div>{inputItem.label}</div>
-            <OInput {...inputItem} />
-          </div>
-        ))}
+      <Form layout="vertical" form={form}>
+        <Space size={10} direction="vertical" style={{ width: '100%' }}>
+          <Form.Item label="Product" name="product_id">
+            <Select options={productSelectOptions} />
+          </Form.Item>
+          <Form.Item label="Quantity" name="quantity">
+            <InputNumber style={{ width: '100%' }} />
+          </Form.Item>
+        </Space>
       </Form>
     </OModal>
   );

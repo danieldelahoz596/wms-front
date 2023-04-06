@@ -1,85 +1,77 @@
 import { OButton } from '@/components/Globals/OButton';
 import AddCoreProductModal from '@/pages/Products/MainPanel/Modals/AddCoreProduct';
-import { modalType } from '@/utils/helpers/types';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Popconfirm, Space, Table } from 'antd';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-interface IBundleItems {}
+const TColumns = [
+  {
+    title: '',
+    dataIndex: 'product_id',
+    key: 'id',
+  },
+  {
+    title: <FormattedMessage id="component.table.column.masterSku" />,
+    dataIndex: 'sku',
+    key: 'sku',
+  },
+  {
+    title: <FormattedMessage id="component.table.column.name" />,
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: <FormattedMessage id="component.table.column.quantity" />,
+    dataIndex: 'quantity',
+    key: 'quantity',
+  },
+];
 
-const BundledItems: React.FC<IBundleItems> = () => {
-  const { selectedProducts, editableProduct } = useModel('product');
-  const [modal, setModal] = useState('');
-  const [coreProductList, setCoreProductList] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [buttonType, setButtonType] = useState('');
+const BundledItems: React.FC = () => {
+  const { bundleItems, setBundleItems } = useModel('product');
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
-  useEffect(() => {
-    setCoreProductList(
-      selectedProducts.map((product) => ({
-        key: product.id,
-        id: product.id,
-        masterSKU: product.master_sku,
-        name: product.name,
-        quantity: product.quantity,
-      })),
-    );
-  }, [selectedProducts]);
+  const tableRows = useMemo(() => bundleItems.map((item) => ({ ...item, key: item.product_id })), [bundleItems]);
 
-  useEffect(() => {
-    if (!!editableProduct) {
-      setCoreProductList(
-        editableProduct.children?.map((product) => ({
-          key: product.id,
-          id: product.id,
-          masterSKU: product.master_sku,
-          name: product.name,
-          quantity: product.quantity,
-        })),
-      );
-    }
-  }, [editableProduct]);
+  // useEffect(() => {
+  //   setCoreProductList(
+  //     selectedProducts.map((product) => ({
+  //       key: product.id,
+  //       id: product.id,
+  //       masterSKU: product.master_sku,
+  //       name: product.name,
+  //       quantity: product.quantity,
+  //     })),
+  //   );
+  // }, [selectedProducts]);
+
+  // useEffect(() => {
+  //   if (!!editableProduct) {
+  //     setCoreProductList(
+  //       editableProduct.children?.map((product) => ({
+  //         key: product.id,
+  //         id: product.id,
+  //         masterSKU: product.master_sku,
+  //         name: product.name,
+  //         quantity: product.quantity,
+  //       })),
+  //     );
+  //   }
+  // }, [editableProduct]);
 
   const handleAddCoreProductClick = () => {
-    setButtonType('add');
-    setModal(modalType.AddCoreProduct);
+    setModalOpen(true);
+    setSelectedItemId(null);
   };
 
   const handleEditCoreProductClick = () => {
-    setButtonType('edit');
-    setModal(modalType.AddCoreProduct);
-  };
-
-  const handleRowClick = (record) => {
-    setSelectedItem(record.id);
+    setModalOpen(true);
   };
 
   const handleRemoveClick = () => {
-    setCoreProductList(coreProductList.filter((product) => product.id !== selectedItem));
+    setBundleItems((prev) => prev.filter((item) => item.product_id !== selectedItemId));
   };
-
-  const tableColumns = [
-    {
-      title: '',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: <FormattedMessage id="component.table.column.masterSku" />,
-      dataIndex: 'masterSKU',
-      key: 'masterSKU',
-    },
-    {
-      title: <FormattedMessage id="component.table.column.name" />,
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: <FormattedMessage id="component.table.column.quantity" />,
-      dataIndex: 'quantity',
-      key: 'quantity',
-    },
-  ];
 
   return (
     <>
@@ -91,36 +83,38 @@ const BundledItems: React.FC<IBundleItems> = () => {
         <OButton
           btnText={<FormattedMessage id="component.button.editQuantity" />}
           onClick={handleEditCoreProductClick}
-          disabled={!selectedItem}
+          disabled={!selectedItemId}
         />
         <Popconfirm
           title={<FormattedMessage id="pages.products.coreProduct.bundleItems.popconfirm.remove.title" />}
           onConfirm={() => handleRemoveClick()}
         >
-          <OButton disabled={!selectedItem} btnText={<FormattedMessage id="component.button.remove" />} />
+          <OButton disabled={!selectedItemId} btnText={<FormattedMessage id="component.button.remove" />} />
         </Popconfirm>
       </Space>
       <Table
-        columns={tableColumns}
-        dataSource={coreProductList}
+        columns={TColumns}
+        dataSource={tableRows}
         pagination={false}
         onRow={(record) => {
           return {
-            onClick: () => handleRowClick(record), // click row
+            onClick: () => {
+              if (record.key === selectedItemId) setSelectedItemId(null);
+              else setSelectedItemId(record.key);
+            }, // click row
           };
         }}
-        rowClassName={(record) => (record.id === selectedItem ? `data-row active-row` : 'data-row')}
+        rowClassName={(record) => (record.key === selectedItemId ? `ant-table-row-selected` : '')}
       />
 
       <AddCoreProductModal
-        isOpen={modal == modalType.AddCoreProduct}
-        onSave={() => setModal(modalType.Close)}
-        onClose={() => setModal(modalType.Close)}
-        coreProductList={coreProductList}
-        setCoreProductList={setCoreProductList}
-        selectedItemKey={selectedItem}
-        setSelectedItemKey={setSelectedItem}
-        type={buttonType}
+        isOpen={modalOpen}
+        onSave={() => {
+          setModalOpen(false);
+          setSelectedItemId(null);
+        }}
+        onClose={() => setModalOpen(false)}
+        selectedItem={bundleItems.find((item) => item.product_id === selectedItemId)}
       />
     </>
   );

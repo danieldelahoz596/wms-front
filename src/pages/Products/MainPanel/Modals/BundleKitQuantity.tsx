@@ -17,23 +17,23 @@ interface DataType {
 }
 
 const BundleKitQuantityModal: React.FC<IBundleKitQuantityModal> = ({ isOpen, onClose, onSave }) => {
-  const { selectedProducts, setSelectedProducts } = useModel('product');
+  const { bundleItems, setBundleItems } = useModel('product');
 
   const tableData = useMemo(
     () =>
-      selectedProducts.map((product) => ({
-        key: product.id,
-        name: product.name,
-        quantity: product.quantity,
+      bundleItems.map((item) => ({
+        key: item.product_id,
+        name: item.name,
+        quantity: item.quantity,
       })),
-    [selectedProducts],
+    [bundleItems],
   );
 
   const handleQuantityChange = useCallback(
     (id, value) => {
-      setSelectedProducts(selectedProducts.map((product) => (product.id === id ? { ...product, quantity: value } : product)));
+      setBundleItems(bundleItems.map((item) => (item.product_id === id ? { ...item, quantity: value } : item)));
     },
-    [selectedProducts, setSelectedProducts],
+    [bundleItems, setBundleItems],
   );
 
   const columns: ColumnsType<DataType> = useMemo(

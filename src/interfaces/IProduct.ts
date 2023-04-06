@@ -31,6 +31,7 @@ export default interface IProduct {
   label: ILabel;
   category: ICategory;
   custom_fields: any[];
-  children?: any[];
+  children?: IProduct[];
   status: boolean;
+  quantity?: number;
 }

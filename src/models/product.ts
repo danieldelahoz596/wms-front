@@ -3,17 +3,38 @@ import httpClient from '@/utils/http-client';
 import { useCallback, useState } from 'react';
 import qs from 'qs';
 
+export interface IBundleItem {
+  product_id: number;
+  quantity: number;
+  name: string;
+  sku: string;
+}
+
 export default () => {
   const [productList, setProductList] = useState<IProduct[]>([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [editableProduct, setEditableProduct] = useState(null);
+  const [editableProduct, setEditableProduct] = useState<IProduct>(null);
   const [showActive, setShowActive] = useState<boolean>(true);
+  const [bundleItems, setBundleItems] = useState<IBundleItem[]>([]);
 
   const getProductList = useCallback(() => {
     const queryString = qs.stringify({
       status: showActive,
     });
-    httpClient.get(`/api/products?${queryString}`).then((response) => setProductList(response.data));
+    httpClient.get(`/api/products?${queryString}`).then((response) => {
+      setProductList(
+        response.data.map((item) => {
+          if (item.type === 'Bundle/Kit') {
+            item.children = item.bundle_kit_items.products.map((bundleItem) => ({
+              ...bundleItem,
+              quantity: bundleItem.pivot.quantity,
+            }));
+          }
+
+          return item;
+        }),
+      );
+    });
   }, [showActive]);
 
   const createProduct = useCallback(
@@ -59,6 +80,7 @@ export default () => {
     selectedProducts,
     editableProduct,
     showActive,
+    bundleItems,
     setShowActive,
     getProductList,
     createProduct,
@@ -67,6 +89,7 @@ export default () => {
     setProductList,
     setSelectedProducts,
     setEditableProduct,
+    setBundleItems,
     onChangeSelectedProduct,
     handleUpdateProduct,
   };

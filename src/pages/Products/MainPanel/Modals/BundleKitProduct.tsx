@@ -11,7 +11,7 @@ interface IBundleKitProductModal {
 }
 
 const BundleKitProductModal: React.FC<IBundleKitProductModal> = ({ isOpen, onClose, onSave }) => {
-  const { productList, setSelectedProducts } = useModel('product');
+  const { productList, setBundleItems } = useModel('product');
   const [selectedProductIds, setSelectedProductIds] = useState([]);
 
   useEffect(() => {
@@ -23,17 +23,28 @@ const BundleKitProductModal: React.FC<IBundleKitProductModal> = ({ isOpen, onClo
   };
 
   const handleSave = () => {
-    setSelectedProducts(productList.filter((product) => selectedProductIds.includes(product.id)));
+    setBundleItems(
+      productList
+        .filter((product) => selectedProductIds.includes(product.id))
+        .map((product) => ({
+          product_id: product.id,
+          sku: product.sku,
+          name: product.name,
+          quantity: 0,
+        })),
+    );
     onSave();
   };
 
   const productListOptions = useMemo(
     () =>
-      productList.map((product) => ({
-        value: product.id,
-        label: `${product.master_sku} - ${product.name}`,
-        type: product.type,
-      })),
+      productList
+        .filter((product) => product.type === productType.CoreProduct || product.type === productType.Variations)
+        .map((product) => ({
+          value: product.id,
+          label: `${product.sku} - ${product.name}`,
+          type: product.type,
+        })),
     [productList],
   );
 
@@ -71,9 +82,7 @@ const BundleKitProductModal: React.FC<IBundleKitProductModal> = ({ isOpen, onClo
           placeholder="Searcy by Master SKU or Name..."
           onChange={handleProductSelect}
           options={productListOptions}
-          filterOption={(input, option) =>
-            (option.type === productType.CoreProduct || option.type === productType.Variations) && option.label.includes(input)
-          }
+          filterOption={(input, option) => option.label.includes(input)}
           value={selectedProductIds}
         />
       </div>

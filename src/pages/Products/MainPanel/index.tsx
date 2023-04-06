@@ -268,7 +268,12 @@ const MainPanel: React.FC = () => {
         .filter((_item) => _item.status == showActive)
         .map((_item) => {
           const row = { ..._item, key: _item.id };
-          if (_item.children) row.children = _item.children.map((childrenItem) => ({ ...childrenItem, children_item: true }));
+          if (_item.children)
+            row.children = _item.children.map((childrenItem) => ({
+              ...childrenItem,
+              children_item: true,
+              key: `${_item.id}-${childrenItem.id}`,
+            }));
 
           _item.custom_fields.forEach((item) => {
             row[item.field_id] = item.value;
