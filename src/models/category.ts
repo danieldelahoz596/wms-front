@@ -1,13 +1,15 @@
 import { useModel } from '@umijs/max';
 import { useCallback, useEffect, useState } from 'react';
+import type ICategory from '@/interfaces/ICategory';
+import httpClient from '@/utils/http-client';
 
 export default () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const { initialState } = useModel('@@initialState');
 
   const getCategories = useCallback(() => {
-    if (initialState?.initialData) setCategories(initialState?.initialData?.categories);
-  }, [initialState?.initialData]);
+    httpClient.get('/api/categories').then((response) => setCategories(response.data));
+  }, []);
 
   useEffect(() => {
     if (initialState?.currentUser) {

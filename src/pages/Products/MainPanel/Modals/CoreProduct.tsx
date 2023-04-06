@@ -16,30 +16,20 @@ interface ICoreProductModal {
 }
 
 const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Core Product', onClose, onSave }) => {
-  const { editableProduct, handleUpdateProduct } = useModel('product');
+  const { editableProduct, createProduct, updateProduct } = useModel('product');
   const [form] = Form.useForm();
   const [customFields, setCustomFields] = useState([]);
   const [vendorProductList, setVendorProductList] = useState([]);
   const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
 
   useEffect(() => {
-    form.setFieldsValue({
-      master_sku: editableProduct?.master_sku,
-      name: editableProduct?.name,
-      buyer: editableProduct?.buyer,
-      brand: editableProduct?.brand,
-      categories: editableProduct?.categories,
-      labels: editableProduct?.labels,
-      description: editableProduct?.description,
-      width: editableProduct?.width,
-      height: editableProduct?.height,
-      length: editableProduct?.length,
-    });
+    if (editableProduct) form.setFieldsValue(editableProduct);
+    else form.resetFields();
 
     if (!!editableProduct) {
       setCustomFields(editableProduct.custom_fields);
     }
-  }, [editableProduct, form]);
+  }, [editableProduct, form, isOpen]);
 
   const tabItems: TabsProps['items'] = [
     {
@@ -72,16 +62,34 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   ];
 
   const handleSave = () => {
-    form.validateFields().then(() => {
+    form.validateFields().then((fields) => {
       if (!!editableProduct) {
-        handleUpdateProduct({
-          ...editableProduct,
-          custom_fields: customFields,
-          vendor_products: vendorProductList,
-          default_vendor_product: defaultVendorProductKey,
-        });
+        // handleUpdateProduct({
+        //   ...editableProduct,
+        //   custom_fields: customFields,
+        //   vendor_products: vendorProductList,
+        //   default_vendor_product: defaultVendorProductKey,
+        // });
+        updateProduct({ type: 'Core', ...editableProduct, ...fields })
+          .then(() => {
+            onSave(null);
+          })
+          .catch(({ response: { data } }) => {
+            const errors = [];
+            Object.keys(data).map((key) => errors.push({ name: key, errors: data[key] }));
+            form.setFields(errors);
+          });
+      } else {
+        createProduct({ type: 'Core', ...fields })
+          .then(() => {
+            onSave(null);
+          })
+          .catch(({ response: { data } }) => {
+            const errors = [];
+            Object.keys(data).map((key) => errors.push({ name: key, errors: data[key] }));
+            form.setFields(errors);
+          });
       }
-      onSave(null);
     });
   };
 

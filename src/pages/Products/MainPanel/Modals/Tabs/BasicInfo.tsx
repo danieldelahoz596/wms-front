@@ -1,4 +1,3 @@
-import { OInput } from '@/components/Globals/OInput';
 import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
 import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
 import { modalType } from '@/utils/helpers/types';
@@ -19,7 +18,7 @@ interface INewItemModalData {
 }
 
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
-  const { editableProduct, onChangeSelectedProduct } = useModel('product');
+  const { editableProduct } = useModel('product');
   const { brands, setBrands } = useModel('brand');
   const { categories, setCategories } = useModel('category');
   const { labels, setLabels } = useModel('label');
@@ -55,52 +54,59 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
 
   return (
     <>
-      {!!editableProduct && (
-        <Row align="bottom" style={{ marginBottom: 5 }}>
-          <Col span={3}>
-            <span>
-              <FormattedMessage id="pages.products.coreProduct.basicInfo.name" /> :
-            </span>
-          </Col>
-          <Col span={19}>
-            <OInput
+      <Form form={form} labelCol={{ span: 3 }} labelAlign="left">
+        {!!editableProduct && (
+          <Row align="bottom" style={{ marginBottom: 5 }}>
+            {/* <Col span={3}>
+              <span>
+                <FormattedMessage id="pages.products.coreProduct.basicInfo.name" /> :
+              </span>
+            </Col> */}
+            <Col span={22}>
+              <Form.Item
+                label={<FormattedMessage id="component.form.label.name" />}
+                name="name"
+                rules={[{ required: true, message: 'Please input Product Name' }]}
+              >
+                <Input placeholder="Required" />
+              </Form.Item>
+              {/* <OInput
               type="text"
               onChange={onChangeSelectedProduct}
               label="Name *"
-              name="name1"
-              value={editableProduct?.name}
+              name="name"
+              // value={editableProduct?.name}
               style={{ width: '100%' }}
-            />
-          </Col>
-          <Col span={2}>
-            <Row justify="end">
-              <div style={{ position: 'relative' }}>
-                <CoreProductsIcon style={{ fontSize: 50 }} />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 26,
-                    left: editableProduct?.status === 1 ? 2 : 1,
-                    backgroundColor: 'white',
-                    color: 'blue',
-                    paddingLeft: 7,
-                    paddingRight: 8,
-                    borderRadius: 5,
-                  }}
-                >
-                  <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
+            /> */}
+            </Col>
+            <Col span={2}>
+              <Row justify="end">
+                <div style={{ position: 'relative' }}>
+                  <CoreProductsIcon style={{ fontSize: 50 }} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 26,
+                      left: editableProduct?.status === 1 ? 2 : 1,
+                      backgroundColor: 'white',
+                      color: 'blue',
+                      paddingLeft: 7,
+                      paddingRight: 8,
+                      borderRadius: 5,
+                    }}
+                  >
+                    <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
+                  </div>
                 </div>
-              </div>
-            </Row>
-          </Col>
-        </Row>
-      )}
-      <Form form={form} labelCol={{ span: 3 }} labelAlign="left">
+              </Row>
+            </Col>
+          </Row>
+        )}
         {!editableProduct && (
           <>
             <Form.Item
               label={<FormattedMessage id="component.form.label.masterSku" />}
-              name="master_sku"
+              name="sku"
               rules={[{ required: true, message: 'Please input Master SKU' }]}
             >
               <Input placeholder="Required" />
@@ -122,7 +128,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               options={[{ value: 'lucy', label: 'lucky' }]}
             />
           </Form.Item>
-          <Form.Item name="brand" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
+          <Form.Item name="brand_id" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={brandOptions} />
           </Form.Item>
           <PlusOutlined
@@ -143,7 +149,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           {/* <span>Categories</span> */}
           &nbsp;&nbsp;
-          <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="categories" style={{ flex: '1' }}>
+          <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="category_id" style={{ flex: '1' }}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={categoryOptions} />
           </Form.Item>
           <PlusOutlined
@@ -163,7 +169,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
-          <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="labels" style={{ flex: '1' }}>
+          <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="label_id" style={{ flex: '1' }}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={labelOptions} />
           </Form.Item>
           <PlusOutlined
@@ -199,7 +205,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                 <Input.Group compact>
                   <Form.Item
                     label={<FormattedMessage id="component.form.label.lb" />}
-                    name="lb"
+                    name="pound"
                     colon={false}
                     labelCol={{ offset: 1 }}
                     style={{ width: '50%' }}
@@ -208,7 +214,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                   </Form.Item>
                   <Form.Item
                     label={<FormattedMessage id="component.form.label.oz" />}
-                    name="oz"
+                    name="ounce"
                     colon={false}
                     labelCol={{ offset: 1 }}
                     style={{ width: '50%' }}

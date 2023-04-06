@@ -9,7 +9,7 @@ import {
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip, Badge } from 'antd';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import BundleIcon from '@/utils/icons/bundle';
@@ -41,11 +41,24 @@ import VirtualProductEditModal from './Modals/VirtualProductEdit';
 
 const MainPanel: React.FC = () => {
   const [modalOpen, setModal] = useState('');
-  const [showActivate, setShowActivate] = useState(true);
-  const { productList, editableProduct, setProductList, setEditableProduct, handleUpdateProduct } = useModel('product');
+  const {
+    productList,
+    editableProduct,
+    getProductList,
+    setProductList,
+    updateProductStatus,
+    setEditableProduct,
+    handleUpdateProduct,
+    showActive,
+    setShowActive,
+  } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
+
+  useEffect(() => {
+    getProductList();
+  }, [getProductList]);
 
   const handleMasterSkuClick = (event, record) => {
     event.stopPropagation();
@@ -175,9 +188,9 @@ const MainPanel: React.FC = () => {
     },
     {
       title: <FormattedMessage id="component.table.column.masterSku" />,
-      dataIndex: 'master_sku',
-      key: 'master_sku',
-      render: (master_sku, record) => (
+      dataIndex: 'sku',
+      key: 'sku',
+      render: (sku, record) => (
         <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
           {record.type === productType.Variations && (
             <Tooltip placement="bottomLeft" title="Variation Core Product">
@@ -187,7 +200,7 @@ const MainPanel: React.FC = () => {
           {record.type === productType.CoreProduct && record.children_item && (
             <Badge count={`x${record.quantity}`} color="blue" size="small" style={{ marginRight: 5 }} />
           )}
-          <u>{master_sku}</u>
+          <u>{sku}</u>
         </a>
       ),
     },
@@ -208,23 +221,25 @@ const MainPanel: React.FC = () => {
     },
     {
       title: <FormattedMessage id="component.table.column.brand" />,
-      dataIndex: 'brand',
+      dataIndex: ['brand', 'name'],
       key: 'brand',
     },
     {
       title: <FormattedMessage id="component.table.column.categories" />,
-      dataIndex: 'categories',
+      dataIndex: ['category', 'name'],
       key: 'categories',
     },
     {
       title: <FormattedMessage id="component.table.column.labels" />,
-      dataIndex: 'labels',
+      dataIndex: ['label', 'name'],
       key: 'labels',
     },
     {
       title: <FormattedMessage id="component.table.column.weight" />,
-      dataIndex: 'weight',
       key: 'weight',
+      render: (value, record) => {
+        return <>{record.pound + record.ounce / 12.0}</>;
+      },
     },
     {
       title: <FormattedMessage id="component.table.column.hwl" />,
@@ -250,7 +265,7 @@ const MainPanel: React.FC = () => {
   const productTableRows = useMemo(
     () =>
       productList
-        .filter((_item) => _item.status == showActivate)
+        .filter((_item) => _item.status == showActive)
         .map((_item) => {
           const row = { ..._item, key: _item.id };
           if (_item.children) row.children = _item.children.map((childrenItem) => ({ ...childrenItem, children_item: true }));
@@ -260,7 +275,7 @@ const MainPanel: React.FC = () => {
           });
           return row;
         }),
-    [productList, showActivate],
+    [productList, showActive],
   );
 
   return (
@@ -279,10 +294,10 @@ const MainPanel: React.FC = () => {
             size="small"
             style={{ width: '100px', marginLeft: '5px' }}
             onChange={(value) => {
-              setShowActivate(value === 'active' ? true : false);
+              setShowActive(value === 'active' ? true : false);
               setEditableProduct(null);
             }}
-            value={showActivate ? 'active' : 'inactive'}
+            value={showActive ? 'active' : 'inactive'}
           />
           <Button icon={<RetweetOutlined />} />
         </div>
@@ -326,24 +341,20 @@ const MainPanel: React.FC = () => {
           </Popconfirm>
           <Popconfirm
             title={
-              showActivate ? (
+              showActive ? (
                 <FormattedMessage id="pages.products.mainPag.deactivate.title" />
               ) : (
                 <FormattedMessage id="pages.products.mainPag.activate.title" />
               )
             }
             onConfirm={() => {
-              setProductList(
-                productList.map((_product) =>
-                  _product.id === editableProduct.id ? { ..._product, status: !showActivate } : _product,
-                ),
-              );
+              updateProductStatus(editableProduct.id, !showActive);
               setEditableProduct(null);
             }}
           >
             <OButton
               btnText={
-                showActivate ? (
+                showActive ? (
                   <FormattedMessage id="component.button.deactivate" />
                 ) : (
                   <FormattedMessage id="component.button.activate" />
@@ -434,7 +445,10 @@ const MainPanel: React.FC = () => {
       <CoreProductModal
         isOpen={modalOpen == modalType.CoreProduct}
         title={editableProduct?.master_sku}
-        onSave={(value: any) => setModal(value)}
+        onSave={(value: any) => {
+          setModal(value);
+          setEditableProduct(null);
+        }}
         onClose={() => setModal(modalType.Close)}
       />
 
