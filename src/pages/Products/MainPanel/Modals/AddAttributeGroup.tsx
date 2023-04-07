@@ -2,6 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
+import { useModel } from '@umijs/max';
 import { Collapse, Input, List, Space } from 'antd';
 import { useState } from 'react';
 import AddAttributeModal from './AddAttribute';
@@ -15,25 +16,23 @@ interface IAddAttributeGroupModal {
   setAttributeGroups: (groups: any[]) => void;
 }
 
-const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
-  isOpen,
-  onClose,
-  onSave,
-  attributeGroups,
-  setAttributeGroups,
-}) => {
+const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const [groupName, setGroupName] = useState<string>('');
   const [selectedGroupId, setSelectedGroupId] = useState<string>(null);
   const [selectedPanel, setSelectedPanel] = useState(null);
+  const { attributeGroups, setAttributeGroups, createAttributeGroup } = useModel('attributeGroups');
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
   };
 
   const handleAddGroup = () => {
-    setAttributeGroups([...attributeGroups, { id: uuidv4(), name: groupName, items: [] }]);
-    setGroupName('');
+    createAttributeGroup(groupName).then(() => {
+      setGroupName('');
+    });
+    // setAttributeGroups([...attributeGroups, { id: uuidv4(), name: groupName, items: [] }]);
+    // setGroupName('');
   };
 
   const handleRemoveGroup = (event, name) => {
@@ -82,6 +81,7 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
             addonAfter={<OButton btnText="Add" onClick={handleAddGroup} style={{ height: 30 }} />}
             value={groupName}
             onChange={handleGroupNameChange}
+            required
           />
           <Collapse
             onChange={(key) => setSelectedPanel(key)}
@@ -92,24 +92,24 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
             accordion
             ghost
           >
-            {attributeGroups.map((_group) => (
+            {attributeGroups.map((attributeGroup) => (
               <Panel
-                header={<h3>{_group.name}</h3>}
-                key={_group.id}
+                header={<h3>{attributeGroup.name}</h3>}
+                key={attributeGroup.id}
                 extra={
                   <Space size={50}>
-                    <OButton btnText="" icon={<CloseOutlined />} onClick={(e) => handleRemoveGroup(e, _group.name)} />
-                    <OButton btnText="" icon={<PlusOutlined />} onClick={(e) => handleAddAttribute(e, _group.id)} />
+                    <OButton btnText="" icon={<CloseOutlined />} onClick={(e) => handleRemoveGroup(e, attributeGroup.name)} />
+                    <OButton btnText="" icon={<PlusOutlined />} onClick={(e) => handleAddAttribute(e, attributeGroup.id)} />
                   </Space>
                 }
                 className="custom"
               >
                 <List
                   bordered={false}
-                  dataSource={_group.items}
+                  dataSource={attributeGroup.items}
                   renderItem={(item) => (
                     <List.Item style={{ marginLeft: '30px' }}>
-                      <h3>{item}</h3>
+                      <h3>{item.name}</h3>
                     </List.Item>
                   )}
                 />
@@ -125,13 +125,13 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({
           }}
           onSave={(value) => {
             setShowModal(false);
-            setAttributeGroups(
-              attributeGroups.map((attributeGroup) =>
-                attributeGroup.id === selectedGroupId
-                  ? { ...attributeGroup, items: [...attributeGroup.items, value] }
-                  : attributeGroup,
-              ),
-            );
+            // setAttributeGroups(
+            //   attributeGroups.map((attributeGroup) =>
+            //     attributeGroup.id === selectedGroupId
+            //       ? { ...attributeGroup, items: [...attributeGroup.items, value] }
+            //       : attributeGroup,
+            //   ),
+            // );
           }}
         />
       </>
