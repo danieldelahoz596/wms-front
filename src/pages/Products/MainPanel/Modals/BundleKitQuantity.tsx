@@ -21,7 +21,7 @@ const BundleKitQuantityModal: React.FC<IBundleKitQuantityModal> = ({ isOpen, onC
 
   const tableData = useMemo(
     () =>
-      bundleItems.map((item) => ({
+      bundleItems?.map((item) => ({
         key: item.product_id,
         name: item.name,
         quantity: item.quantity,

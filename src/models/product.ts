@@ -2,6 +2,7 @@ import type IProduct from '@/interfaces/IProduct';
 import httpClient from '@/utils/http-client';
 import { useCallback, useState } from 'react';
 import qs from 'qs';
+import { productType } from '@/utils/helpers/types';
 
 export interface IBundleItem {
   product_id: number;
@@ -12,7 +13,6 @@ export interface IBundleItem {
 
 export default () => {
   const [productList, setProductList] = useState<IProduct[]>([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [editableProduct, setEditableProduct] = useState<IProduct>(null);
   const [showActive, setShowActive] = useState<boolean>(true);
   const [bundleItems, setBundleItems] = useState<IBundleItem[]>([]);
@@ -24,7 +24,7 @@ export default () => {
     httpClient.get(`/api/products?${queryString}`).then((response) => {
       setProductList(
         response.data.map((item) => {
-          if (item.type === 'Bundle/Kit') {
+          if (item.type === productType.BundleOrKit) {
             item.children = item.bundle_kit_items.products.map((bundleItem) => ({
               ...bundleItem,
               quantity: bundleItem.pivot.quantity,
@@ -39,7 +39,18 @@ export default () => {
 
   const createProduct = useCallback(
     (product: IProduct) => {
-      return httpClient.post('/api/products', product).then((response) => setProductList([...productList, response.data]));
+      return httpClient.post('/api/products', product).then((response) => {
+        const data = response.data;
+
+        if (data.type === productType.BundleOrKit) {
+          data.children = data.bundle_kit_items.products.map((bundleItem) => ({
+            ...bundleItem,
+            quantity: bundleItem.pivot.quantity,
+          }));
+        }
+
+        setProductList([...productList, data]);
+      });
     },
     [productList],
   );
@@ -47,7 +58,16 @@ export default () => {
   const updateProduct = useCallback(
     (product: IProduct) => {
       return httpClient.put(`/api/products/${product.id}`, product).then((response) => {
-        setProductList(productList.map((_item) => (_item.id === product.id ? response.data : _item)));
+        const data = response.data;
+
+        if (data.type === productType.BundleOrKit) {
+          data.children = data.bundle_kit_items.products.map((bundleItem) => ({
+            ...bundleItem,
+            quantity: bundleItem.pivot.quantity,
+          }));
+        }
+
+        setProductList(productList.map((_item) => (_item.id === product.id ? data : _item)));
       });
     },
     [productList],
@@ -77,7 +97,6 @@ export default () => {
 
   return {
     productList,
-    selectedProducts,
     editableProduct,
     showActive,
     bundleItems,
@@ -87,7 +106,6 @@ export default () => {
     updateProduct,
     updateProductStatus,
     setProductList,
-    setSelectedProducts,
     setEditableProduct,
     setBundleItems,
     onChangeSelectedProduct,

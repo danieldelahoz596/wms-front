@@ -34,32 +34,6 @@ const BundledItems: React.FC = () => {
 
   const tableRows = useMemo(() => bundleItems.map((item) => ({ ...item, key: item.product_id })), [bundleItems]);
 
-  // useEffect(() => {
-  //   setCoreProductList(
-  //     selectedProducts.map((product) => ({
-  //       key: product.id,
-  //       id: product.id,
-  //       masterSKU: product.master_sku,
-  //       name: product.name,
-  //       quantity: product.quantity,
-  //     })),
-  //   );
-  // }, [selectedProducts]);
-
-  // useEffect(() => {
-  //   if (!!editableProduct) {
-  //     setCoreProductList(
-  //       editableProduct.children?.map((product) => ({
-  //         key: product.id,
-  //         id: product.id,
-  //         masterSKU: product.master_sku,
-  //         name: product.name,
-  //         quantity: product.quantity,
-  //       })),
-  //     );
-  //   }
-  // }, [editableProduct]);
-
   const handleAddCoreProductClick = () => {
     setModalOpen(true);
     setSelectedItemId(null);

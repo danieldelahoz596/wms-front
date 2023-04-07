@@ -17,7 +17,7 @@ interface IBundleKitModal {
 
 const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) => {
   const [customFields, setCustomFields] = useState([]);
-  const { bundleItems, editableProduct, createProduct, setBundleItems } = useModel('product');
+  const { bundleItems, editableProduct, createProduct, updateProduct, setBundleItems } = useModel('product');
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
     } else {
       form.setFieldsValue(editableProduct);
       setBundleItems(
-        editableProduct.children.map((item) => ({
+        editableProduct.children?.map((item) => ({
           product_id: item.id,
           quantity: item.quantity,
           name: item.name,
@@ -47,7 +47,15 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
       }, {});
 
       if (!!editableProduct) {
-        console.log('hello');
+        updateProduct({ type: 'Bundle/Kit', ...editableProduct, ...values, items })
+          .then(() => {
+            onSave();
+          })
+          .catch(({ response: { data } }) => {
+            const errors = [];
+            Object.keys(data).map((key) => errors.push({ name: key, errors: data[key] }));
+            form.setFields(errors);
+          });
       } else {
         createProduct({ type: 'Bundle/Kit', ...values, items })
           .then(() => {

@@ -64,12 +64,6 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   const handleSave = () => {
     form.validateFields().then((fields) => {
       if (!!editableProduct) {
-        // handleUpdateProduct({
-        //   ...editableProduct,
-        //   custom_fields: customFields,
-        //   vendor_products: vendorProductList,
-        //   default_vendor_product: defaultVendorProductKey,
-        // });
         updateProduct({ type: 'Core', ...editableProduct, ...fields })
           .then(() => {
             onSave(null);

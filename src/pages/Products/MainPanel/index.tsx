@@ -45,7 +45,6 @@ const MainPanel: React.FC = () => {
     productList,
     editableProduct,
     getProductList,
-    setProductList,
     updateProductStatus,
     setEditableProduct,
     handleUpdateProduct,
@@ -449,7 +448,7 @@ const MainPanel: React.FC = () => {
 
       <CoreProductModal
         isOpen={modalOpen == modalType.CoreProduct}
-        title={editableProduct?.master_sku}
+        title={editableProduct?.sku}
         onSave={(value: any) => {
           setModal(value);
           setEditableProduct(null);
