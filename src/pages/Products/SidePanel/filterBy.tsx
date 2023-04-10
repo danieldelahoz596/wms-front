@@ -3,39 +3,40 @@ import { CaretDownOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const FilterByPanel: React.FC = () => {
-  const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
-  const { initialState } = useModel('@@initialState');
-  const [labelOptinos, setLabelOptinos] = useState([]);
-  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategoryKeys, setSelectedCategoryKeys] = useState<React.Key[]>([]);
+  const [selectedLabelKeys, setSelectedLabelKeys] = useState<React.Key[]>([]);
+  const { categories } = useModel('category');
+  const { labels } = useModel('label');
+  const { getProductList } = useModel('product');
 
-  useEffect(() => {
-    if (initialState?.initialData) {
-      setLabelOptinos(
-        initialState.initialData.labels.map((label, index) => ({
-          title: label.name,
-          key: `1-0-${index}`,
-          icon: <BookIcon style={{ width: 15 }} />,
-        })),
-      );
+  const categoryOptions = useMemo(
+    () =>
+      categories.map((category) => ({
+        title: category.name,
+        key: category.id,
+        icon: <BookIcon style={{ width: 15 }} />,
+      })),
+    [categories],
+  );
 
-      setCategoryOptions(
-        initialState.initialData.categories.map((category, index) => ({
-          title: category.name,
-          key: `0-0-${index}`,
-          icon: <BookIcon style={{ width: 15 }} />,
-        })),
-      );
-    }
-  }, [initialState?.initialData]);
+  const labelOptions = useMemo(
+    () =>
+      labels.map((label) => ({
+        title: label.name,
+        key: label.id,
+        icon: <BookIcon style={{ width: 15 }} />,
+      })),
+    [labels],
+  );
 
   const treeCategoryData: DataNode[] = useMemo(
     () => [
       {
         title: 'Categories',
-        key: '0-0',
+        key: 'categories',
         children: categoryOptions,
       },
     ],
@@ -46,20 +47,39 @@ const FilterByPanel: React.FC = () => {
     () => [
       {
         title: 'Labels',
-        key: '1-0',
-        children: labelOptinos,
+        key: 'labels',
+        children: labelOptions,
       },
     ],
-    [labelOptinos],
+    [labelOptions],
   );
 
-  const onSelect = (selectedKeysValue: React.Key[], event: any) => {
+  const onCategorySelect = (selectedKeysValue: React.Key[], event: any) => {
+    let selectedKeys = [];
     if (event.nativeEvent.ctrlKey) {
-      setSelectedKeys(selectedKeysValue);
-    } else {
-      if (selectedKeys[0] === event.node.key) setSelectedKeys([]);
-      else setSelectedKeys([event.node.key]);
+      selectedKeys = selectedKeysValue;
+    } else if (selectedCategoryKeys[0] !== event.node.key) {
+      selectedKeys = [event.node.key];
     }
+
+    setSelectedCategoryKeys(selectedKeys);
+    setSelectedLabelKeys([]);
+
+    getProductList({ categoryIds: selectedKeys });
+  };
+
+  const onLabelSelect = (selectedKeysValue: React.Key[], event: any) => {
+    let selectedKeys = [];
+    if (event.nativeEvent.ctrlKey) {
+      selectedKeys = selectedKeysValue;
+    } else if (selectedLabelKeys[0] !== event.node.key) {
+      selectedKeys = [event.node.key];
+    }
+
+    setSelectedCategoryKeys([]);
+    setSelectedLabelKeys(selectedKeys);
+
+    getProductList({ labelIds: selectedKeys });
   };
 
   return (
@@ -73,23 +93,21 @@ const FilterByPanel: React.FC = () => {
       <Tree
         showIcon
         defaultExpandAll
-        defaultSelectedKeys={['0-0-0']}
         switcherIcon={<CaretDownOutlined />}
         treeData={treeCategoryData}
         rootStyle={{ fontSize: 15 }}
-        selectedKeys={selectedKeys}
-        onSelect={onSelect}
+        selectedKeys={selectedCategoryKeys}
+        onSelect={onCategorySelect}
         multiple
       />
       <Tree
         showIcon
         defaultExpandAll
-        defaultSelectedKeys={['0-0-0']}
         switcherIcon={<CaretDownOutlined />}
         treeData={treeLabelData}
         rootStyle={{ fontSize: 15 }}
-        selectedKeys={selectedKeys}
-        onSelect={onSelect}
+        selectedKeys={selectedLabelKeys}
+        onSelect={onLabelSelect}
         multiple
       />
     </Card>

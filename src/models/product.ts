@@ -17,25 +17,35 @@ export default () => {
   const [showActive, setShowActive] = useState<boolean>(true);
   const [bundleItems, setBundleItems] = useState<IBundleItem[]>([]);
 
-  const getProductList = useCallback(() => {
-    const queryString = qs.stringify({
-      status: showActive,
-    });
-    httpClient.get(`/api/products?${queryString}`).then((response) => {
-      setProductList(
-        response.data.map((item) => {
-          if (item.type === productType.BundleOrKit) {
-            item.children = item.bundle_kit_items.products.map((bundleItem) => ({
-              ...bundleItem,
-              quantity: bundleItem.pivot.quantity,
-            }));
-          }
+  const getProductList = useCallback(
+    (query?: { labelIds?: any[]; categoryIds?: any[] }) => {
+      const { labelIds = [], categoryIds = [] } = query || {};
 
-          return item;
-        }),
+      const queryString = qs.stringify(
+        {
+          status: showActive,
+          label: labelIds,
+          category: categoryIds,
+        },
+        { arrayFormat: 'brackets' },
       );
-    });
-  }, [showActive]);
+
+      httpClient.get(`/api/products?${queryString}`).then((response) => {
+        setProductList(
+          response.data.map((item) => {
+            if (item.type === productType.BundleOrKit) {
+              item.children = item.bundle_kit_items.products.map((bundleItem) => ({
+                ...bundleItem,
+                quantity: bundleItem.pivot.quantity,
+              }));
+            }
+            return item;
+          }),
+        );
+      });
+    },
+    [showActive],
+  );
 
   const createProduct = useCallback(
     (product: IProduct) => {
