@@ -23,7 +23,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
   useEffect(() => {
     if (!editableProduct) {
       form.resetFields();
-      setBundleItems([]);
+      // setBundleItems([]);
     } else {
       form.setFieldsValue(editableProduct);
       setBundleItems(

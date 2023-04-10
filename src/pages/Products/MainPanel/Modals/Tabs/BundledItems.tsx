@@ -32,7 +32,7 @@ const BundledItems: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  const tableRows = useMemo(() => bundleItems.map((item) => ({ ...item, key: item.product_id })), [bundleItems]);
+  const tableRows = useMemo(() => bundleItems?.map((item) => ({ ...item, key: item.product_id })), [bundleItems]);
 
   const handleAddCoreProductClick = () => {
     setModalOpen(true);
@@ -88,7 +88,7 @@ const BundledItems: React.FC = () => {
           setSelectedItemId(null);
         }}
         onClose={() => setModalOpen(false)}
-        selectedItem={bundleItems.find((item) => item.product_id === selectedItemId)}
+        selectedItem={bundleItems?.find((item) => item.product_id === selectedItemId)}
       />
     </>
   );
