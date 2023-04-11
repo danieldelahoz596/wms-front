@@ -18,8 +18,28 @@ export default () => {
   }, []);
 
   const updateAttributeGroup = useCallback((id: number, name: string) => {
-    return httpClient.put(`/api/attribute-groups/${id}`, { name }).then((response) => {
+    return httpClient.patch(`/api/attribute-groups/${id}`, { name }).then((response) => {
       setAttributeGroups((prev) => prev.map((item) => (item.id === id ? response.data : item)));
+    });
+  }, []);
+
+  const createAttribute = useCallback((name: string, attribute_group_id: number) => {
+    return httpClient.post('/api/attributes', { name, attribute_group_id }).then((response) => {
+      setAttributeGroups((prev) =>
+        prev.map((group) => (group.id === attribute_group_id ? { ...group, items: [...group.items, response.data] } : group)),
+      );
+    });
+  }, []);
+
+  const updateAttribute = useCallback((id: number, name: string) => {
+    return httpClient.patch(`/api/attributes/${id}`, { name }).then((response) => {
+      setAttributeGroups((prev) =>
+        prev.map((group) =>
+          group.id === response.data.attribute_group_id
+            ? { ...group, items: group.items.map((item) => (item.id === id ? response.data : item)) }
+            : group,
+        ),
+      );
     });
   }, []);
 
@@ -29,5 +49,7 @@ export default () => {
     getAttributeGroups,
     createAttributeGroup,
     updateAttributeGroup,
+    createAttribute,
+    updateAttribute,
   };
 };

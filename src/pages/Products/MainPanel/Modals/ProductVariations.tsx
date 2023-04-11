@@ -1,9 +1,11 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Button, Col, Row } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
-import { Fragment } from 'react';
-import { OInput } from '@/components/Globals/OInput';
-import { productSelectOptions } from '@/utils/helpers/base';
+import { FormattedMessage, useModel } from '@umijs/max';
+import { useMemo, useState } from 'react';
+import { modalType } from '@/utils/helpers/types';
+import AddItemModal from './AddItem';
+import ConfigureItemModal from './ConfigItem';
 
 interface IProductVariationsModal {
   isOpen: boolean;
@@ -11,155 +13,53 @@ interface IProductVariationsModal {
   onSave: () => void;
 }
 
+interface INewItemModalData {
+  title: string;
+  items: any[];
+  setItems: (value: any) => void;
+}
+
 const ProductVariationsModal: React.FC<IProductVariationsModal> = ({ isOpen, onClose, onSave }) => {
-  const newProductInputFields = [
-    {
-      type: 'text',
-      onChange: () => {},
-      label: 'Master Sku *',
-      name: 'masterSku',
-      placeholder: 'Master Sku',
-      defaultValue: '',
-    },
-    {
-      type: 'text',
-      onChange: () => {},
-      label: 'Name *',
-      name: 'name',
-      placeholder: 'Name',
-      defaultValue: '',
-    },
-    [
-      {
-        type: 'select',
-        onChange: () => {},
-        label: 'Buy | Brand *',
-        name: 'buy',
-        defaultValue: 'lucy',
-        options: [
-          {
-            value: 'lucy',
-            label: 'lucky',
-          },
-        ],
-      },
-      {
-        type: 'select',
-        onChange: () => {},
-        name: 'band',
-        defaultValue: 'lucy',
-        options: [
-          {
-            value: 'lucy',
-            label: 'lucky',
-          },
-        ],
-        render: (inputField: any) => (
-          <Row>
-            <Col flex="1 1 200px">{inputField}</Col>
-            <Col flex="0 1 70px">
-              <Row justify="space-between" className="ml-5">
-                <>
-                  <Button
-                    style={{
-                      width: '30px',
-                      height: '33px',
-                      borderColor: 'blue',
-                    }}
-                    icon={<PlusOutlined />}
-                  />
-                  <Button
-                    style={{
-                      width: '30px',
-                      height: '33px',
-                      borderColor: 'blue',
-                    }}
-                    icon={<SettingOutlined />}
-                  />
-                </>
-              </Row>
-            </Col>
-          </Row>
-        ),
-      },
-    ],
-    {
-      type: 'select',
-      onChange: () => {},
-      label: 'Categories',
-      name: 'categories',
-      placeholder: 'Please Select',
-      options: productSelectOptions,
-      render: (inputField: any) => (
-        <Row>
-          <Col flex="1 1 200px">{inputField}</Col>
-          <Col flex="0 1 70px">
-            <Row justify="space-between" className="ml-10">
-              <>
-                <Button
-                  style={{
-                    width: '30px',
-                    height: '33px',
-                    borderColor: 'blue',
-                  }}
-                  icon={<PlusOutlined />}
-                />
-                <Button
-                  style={{
-                    width: '30px',
-                    height: '33px',
-                    borderColor: 'blue',
-                  }}
-                  icon={<SettingOutlined />}
-                />
-              </>
-            </Row>
-          </Col>
-        </Row>
-      ),
-    },
-    {
-      type: 'select',
-      onChange: () => {},
-      label: 'Lables',
-      name: 'lables',
-      placeholder: 'Please Select',
-      options: productSelectOptions,
-      render: (inputField: any) => (
-        <Row>
-          <Col flex="1 1 200px">{inputField}</Col>
-          <Col flex="0 1 70px">
-            <Row justify="space-between" className="ml-10">
-              <>
-                <Button
-                  style={{
-                    width: '30px',
-                    height: '33px',
-                    borderColor: 'blue',
-                  }}
-                  icon={<PlusOutlined />}
-                />
-                <Button
-                  style={{
-                    width: '30px',
-                    height: '33px',
-                    borderColor: 'blue',
-                  }}
-                  icon={<SettingOutlined />}
-                />
-              </>
-            </Row>
-          </Col>
-        </Row>
-      ),
-    },
-    {
-      type: 'textarea',
-      onChange: () => {},
-      label: 'Description',
-      name: 'description',
-    },
-  ];
+  const [form] = Form.useForm();
+  const { brands, setBrands } = useModel('brand');
+  const { categories, setCategories } = useModel('category');
+  const { labels, setLabels } = useModel('label');
+  const [currentModal, setCurrentModal] = useState(modalType.Close);
+  const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
+
+  const brandOptions = useMemo(
+    () =>
+      brands.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [brands],
+  );
+
+  const categoryOptions = useMemo(
+    () =>
+      categories.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [categories],
+  );
+
+  const labelOptions = useMemo(
+    () =>
+      labels.map((brand) => ({
+        value: brand.id,
+        label: brand.name,
+      })),
+    [labels],
+  );
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      console.log(values);
+      onSave();
+    });
+  };
 
   return (
     <OModal
@@ -180,33 +80,114 @@ const ProductVariationsModal: React.FC<IProductVariationsModal> = ({ isOpen, onC
           key: 'submit',
           type: 'primary',
           btnLabel: 'Continue',
-          onClick: onSave,
+          onClick: handleSave,
         },
       ]}
     >
       <>
         <h3>Create parent virtual product that will group your core product variants</h3>
-        {newProductInputFields.map((inputItem, inputItemIndex) =>
-          Array.isArray(inputItem) ? (
-            <Row className="pb-3" key={`inputItem1-${inputItemIndex}`}>
-              {inputItem.map((item: any, itemIndex) => (
-                <Fragment key={`item-${itemIndex}`}>
-                  {item.label && <Col span={4}> {item.label} </Col>}
-                  <Col span={10}>
-                    <OInput {...item} style={{ width: '100%' }} />
-                  </Col>
-                </Fragment>
-              ))}
-            </Row>
-          ) : (
-            <Row key={`inputItem2-${inputItemIndex}`} className="pb-3">
-              <Col span={4}>{inputItem.label}</Col>
-              <Col span={20}>
-                <OInput {...inputItem} style={{ width: '100%' }} />
-              </Col>
-            </Row>
-          ),
-        )}
+
+        <Form form={form} labelCol={{ span: 3 }} labelAlign="left">
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.masterSku" />}
+            name="sku"
+            rules={[{ required: true, message: 'Please input Master SKU' }]}
+          >
+            <Input placeholder="Master SKU" />
+          </Form.Item>
+          <Form.Item
+            label={<FormattedMessage id="component.form.label.name" />}
+            name="name"
+            rules={[{ required: true, message: 'Please input Product Name' }]}
+          >
+            <Input placeholder="Name" />
+          </Form.Item>
+          <div style={{ display: 'flex', gap: 4 }}>
+            <span style={{ width: 93 }}>* {<FormattedMessage id="component.form.label.buyBrand" />} :</span>
+            <Form.Item name="buyer" style={{ flex: '1' }}>
+              <Select
+                placeholder={<FormattedMessage id="component.select.placeholder.select" />}
+                options={[{ value: 'lucy', label: 'lucky' }]}
+              />
+            </Form.Item>
+            <Form.Item name="brand_id" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
+              <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={brandOptions} />
+            </Form.Item>
+            <PlusOutlined
+              className="plus-button"
+              onClick={() => {
+                setCurrentModal(modalType.New);
+                setItemModalData({ title: 'Add New Brand', items: brands, setItems: setBrands });
+              }}
+            />
+            <SettingOutlined
+              className="setting-button"
+              onClick={() => {
+                setCurrentModal(modalType.Edit);
+                setItemModalData({ title: 'Configure Brand', items: brands, setItems: setBrands });
+              }}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {/* <span>Categories</span> */}
+            &nbsp;&nbsp;
+            <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="category_id" style={{ flex: '1' }}>
+              <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={categoryOptions} />
+            </Form.Item>
+            <PlusOutlined
+              className="plus-button"
+              onClick={() => {
+                setCurrentModal(modalType.New);
+                setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories });
+              }}
+            />
+            <SettingOutlined
+              className="setting-button"
+              onClick={() => {
+                setCurrentModal(modalType.Edit);
+                setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories });
+              }}
+            />
+          </div>
+          <div style={{ display: 'flex', gap: 4 }}>
+            &nbsp;&nbsp;
+            <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="label_id" style={{ flex: '1' }}>
+              <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={labelOptions} />
+            </Form.Item>
+            <PlusOutlined
+              className="plus-button"
+              onClick={() => {
+                setCurrentModal(modalType.New);
+                setItemModalData({ title: 'Add New Label', items: labels, setItems: setLabels });
+              }}
+            />
+            <SettingOutlined
+              className="setting-button"
+              onClick={() => {
+                setCurrentModal(modalType.Edit);
+                setItemModalData({ title: 'Configure Label', items: labels, setItems: setLabels });
+              }}
+            />
+          </div>
+
+          <Form.Item label={<FormattedMessage id="component.form.label.description" />} name="description">
+            <Input.TextArea rows={4} />
+          </Form.Item>
+        </Form>
+
+        <AddItemModal
+          isOpen={currentModal === modalType.New}
+          onSave={() => setCurrentModal(modalType.Close)}
+          onClose={() => setCurrentModal(modalType.Close)}
+          {...itemModalData}
+        />
+
+        <ConfigureItemModal
+          isOpen={currentModal === modalType.Edit}
+          onSave={() => setCurrentModal(modalType.Close)}
+          onClose={() => setCurrentModal(modalType.Close)}
+          {...itemModalData}
+        />
       </>
     </OModal>
   );

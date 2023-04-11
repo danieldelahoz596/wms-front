@@ -4,23 +4,19 @@ import { ToolFilled } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import { useMemo, useState } from 'react';
 import ConfigAttributes from './ConfigAttributes';
+import { useModel } from '@umijs/max';
+import type IAttributeGroup from '@/interfaces/IAttributeGroup';
 
 interface IConfigAttributeGroupsModal {
   isOpen: boolean;
   onClose: () => void;
-  attributeGroups: any[];
-  setAttributeGroups: (items: any) => void;
 }
 
-const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
-  isOpen,
-  onClose,
-  attributeGroups,
-  setAttributeGroups,
-}) => {
+const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({ isOpen, onClose }) => {
   const [enteredRow, setEnteredRow] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [editableGroup, setEditableGroup] = useState(null);
+  const [editableGroup, setEditableGroup] = useState<IAttributeGroup>(null);
+  const { attributeGroups, setAttributeGroups, updateAttributeGroup } = useModel('attributeGroups');
 
   const TColumns = useMemo(
     () => [
@@ -79,9 +75,10 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
     >
       <>
         <Row style={{ border: 'solid', borderWidth: 1, borderColor: 'gray' }}>
-          <Col span={4}></Col>
           <Col
             span={15}
+            pull={4}
+            push={4}
             style={{
               border: 'solid',
               borderWidth: 1,
@@ -93,7 +90,6 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
           >
             Group Name
           </Col>
-          <Col span={4}></Col>
         </Row>
         <EditableTable
           columns={TColumns}
@@ -113,7 +109,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
             },
           }}
           handleSave={(key: any, name: any, value: any) => {
-            setAttributeGroups(attributeGroups.map((item) => (item.id === key ? { ...item, [name]: value } : item)));
+            updateAttributeGroup(key, value);
           }}
         />
 
@@ -128,7 +124,7 @@ const ConfigAttributeGroupsModal: React.FC<IConfigAttributeGroupsModal> = ({
             );
             setShowModal(false);
           }}
-          attributes={editableGroup ? editableGroup.items : []}
+          attributeGroupId={editableGroup?.id}
         />
       </>
     </OModal>

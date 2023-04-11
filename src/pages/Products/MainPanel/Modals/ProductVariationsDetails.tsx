@@ -279,8 +279,6 @@ const ProductVariationsDetailsModal: React.FC<IProductVariationsDetailsModal> = 
         <ConfigAttributeGroups
           isOpen={currentModal === modalType.ConfigAttributeGroups}
           onClose={() => setCurrentModal(modalType.Close)}
-          attributeGroups={attributeGroups}
-          setAttributeGroups={setAttributeGroups}
         />
       </>
     </OModal>

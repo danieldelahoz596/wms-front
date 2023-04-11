@@ -1,7 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Collapse, Input, List, Space } from 'antd';
 import { useState } from 'react';
@@ -19,9 +18,9 @@ interface IAddAttributeGroupModal {
 const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({ isOpen, onClose, onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const [groupName, setGroupName] = useState<string>('');
-  const [selectedGroupId, setSelectedGroupId] = useState<string>(null);
+  const [selectedGroupId, setSelectedGroupId] = useState<number>(null);
   const [selectedPanel, setSelectedPanel] = useState(null);
-  const { attributeGroups, setAttributeGroups, createAttributeGroup } = useModel('attributeGroups');
+  const { attributeGroups, setAttributeGroups, createAttributeGroup, createAttribute } = useModel('attributeGroups');
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
@@ -31,8 +30,6 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({ isOpen, onC
     createAttributeGroup(groupName).then(() => {
       setGroupName('');
     });
-    // setAttributeGroups([...attributeGroups, { id: uuidv4(), name: groupName, items: [] }]);
-    // setGroupName('');
   };
 
   const handleRemoveGroup = (event, name) => {
@@ -124,14 +121,9 @@ const AddAttributeGroupModal: React.FC<IAddAttributeGroupModal> = ({ isOpen, onC
             setShowModal(false);
           }}
           onSave={(value) => {
-            setShowModal(false);
-            // setAttributeGroups(
-            //   attributeGroups.map((attributeGroup) =>
-            //     attributeGroup.id === selectedGroupId
-            //       ? { ...attributeGroup, items: [...attributeGroup.items, value] }
-            //       : attributeGroup,
-            //   ),
-            // );
+            createAttribute(value, selectedGroupId).then(() => {
+              setShowModal(false);
+            });
           }}
         />
       </>

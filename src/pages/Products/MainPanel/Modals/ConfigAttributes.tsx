@@ -3,12 +3,14 @@ import { OModal } from '@/components/Globals/OModal';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { Input } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import type IAttribute from '@/interfaces/IAttribute';
+import { useModel } from '@umijs/max';
 
 interface IConfigAttributesModal {
   isOpen: boolean;
   onClose: () => void;
   onSave: (items: any[]) => void;
-  attributes: any[];
+  attributeGroupId: number;
 }
 
 const TColumns = [
@@ -20,15 +22,19 @@ const TColumns = [
   },
 ];
 
-const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClose, onSave, attributes }) => {
-  const [items, setItems] = useState([]);
+const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClose, onSave, attributeGroupId }) => {
+  const [items, setItems] = useState<IAttribute[]>([]);
   const [attribute, setAttribute] = useState(null);
+  const { attributeGroups, createAttribute, updateAttribute } = useModel('attributeGroups');
 
   useEffect(() => {
-    setItems(attributes);
-  }, [attributes]);
+    if (attributeGroupId) {
+      const selectedAttributeGroup = attributeGroups.find((group) => group.id === attributeGroupId);
+      setItems(selectedAttributeGroup.items);
+    }
+  }, [attributeGroups, attributeGroupId]);
 
-  const itemRows = useMemo(() => items.map((item, index) => ({ key: index, name: item })), [items]);
+  const itemRows = useMemo(() => items.map((item) => ({ key: item.id, name: item.name })), [items]);
 
   return (
     <OModal
@@ -61,7 +67,7 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
               btnText="Add"
               onClick={() => {
                 setAttribute(null);
-                setItems([...items, attribute]);
+                createAttribute(attribute, attributeGroupId);
               }}
               style={{ height: 30 }}
             />
@@ -73,7 +79,7 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
           columns={TColumns}
           dataSource={itemRows}
           handleSave={(key: any, name: any, value: any) => {
-            setItems(items.map((item, index) => (index === key ? value : item)));
+            updateAttribute(key, value);
           }}
           props={{ showHeader: false }}
         />
