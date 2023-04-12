@@ -10,7 +10,7 @@ import ConfigureItemModal from './ConfigItem';
 interface IProductVariationsModal {
   isOpen: boolean;
   onClose: () => void;
-  onSave: () => void;
+  onSave: (values: any) => void;
 }
 
 interface INewItemModalData {
@@ -56,8 +56,7 @@ const ProductVariationsModal: React.FC<IProductVariationsModal> = ({ isOpen, onC
 
   const handleSave = () => {
     form.validateFields().then((values) => {
-      console.log(values);
-      onSave();
+      onSave(values);
     });
   };
 
@@ -91,7 +90,11 @@ const ProductVariationsModal: React.FC<IProductVariationsModal> = ({ isOpen, onC
           <Form.Item
             label={<FormattedMessage id="component.form.label.masterSku" />}
             name="sku"
-            rules={[{ required: true, message: 'Please input Master SKU' }]}
+            rules={[
+              { required: true, message: 'Please input Master SKU' },
+              { max: 8, message: 'The length of the SKU must be 8.' },
+              { min: 8, message: 'The length of the SKU must be 8.' },
+            ]}
           >
             <Input placeholder="Master SKU" />
           </Form.Item>
@@ -104,7 +107,7 @@ const ProductVariationsModal: React.FC<IProductVariationsModal> = ({ isOpen, onC
           </Form.Item>
           <div style={{ display: 'flex', gap: 4 }}>
             <span style={{ width: 93 }}>* {<FormattedMessage id="component.form.label.buyBrand" />} :</span>
-            <Form.Item name="buyer" style={{ flex: '1' }}>
+            <Form.Item name="buyer_id" style={{ flex: '1' }}>
               <Select
                 placeholder={<FormattedMessage id="component.select.placeholder.select" />}
                 options={[{ value: 'lucy', label: 'lucky' }]}

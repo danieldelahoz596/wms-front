@@ -54,6 +54,7 @@ const MainPanel: React.FC = () => {
   const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
+  const [virtualProductData, setVirtualProductData] = useState(null);
 
   useEffect(() => {
     getProductList();
@@ -480,16 +481,20 @@ const MainPanel: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
+      <ProductVariationsModal
+        isOpen={modalOpen == modalType.ProductVariations}
+        onSave={(values) => {
+          setModal(modalType.ProductVariants);
+          setVirtualProductData(values);
+        }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
       <ProductVariationsDetailsModal
         isOpen={modalOpen == modalType.ProductVariants}
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
-      />
-
-      <ProductVariationsModal
-        isOpen={modalOpen == modalType.ProductVariations}
-        onSave={() => setModal(modalType.ProductVariants)}
-        onClose={() => setModal(modalType.Close)}
+        virtualProductData={virtualProductData}
       />
 
       {/* <EditProductModal

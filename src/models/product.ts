@@ -38,6 +38,8 @@ export default () => {
                 ...bundleItem,
                 quantity: bundleItem.pivot.quantity,
               }));
+            } else if (item.type === productType.VirtualProduct) {
+              item.children = item.variation.products;
             }
             return item;
           }),
@@ -57,6 +59,8 @@ export default () => {
             ...bundleItem,
             quantity: bundleItem.pivot.quantity,
           }));
+        } else if (data.type === productType.VirtualProduct) {
+          data.children = data.variation.products;
         }
 
         setProductList([...productList, data]);

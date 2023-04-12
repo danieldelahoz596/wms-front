@@ -4,7 +4,7 @@ import type ILabel from './ILabel';
 
 export default interface IProduct {
   id: number;
-  type: 'Core' | 'Bundle/Kit' | 'Variation';
+  type: 'Core' | 'Bundle/Kit' | 'Variation' | 'Virtual Product';
   sku: string;
   upc: string;
   mpn: string;
@@ -34,4 +34,5 @@ export default interface IProduct {
   children?: IProduct[];
   status: boolean;
   quantity?: number;
+  attribute_group_id: number;
 }
