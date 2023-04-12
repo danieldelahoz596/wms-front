@@ -18,20 +18,24 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
   const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
   const [variationForm] = Form.useForm();
   const [basicForm] = Form.useForm();
-  const { editableProduct } = useModel('product');
+  const { editableProduct, updateProduct } = useModel('product');
+  const [selectedAttributeGroupId, setSelectedAttributeGroupId] = useState(null);
 
   useEffect(() => {
-    const items = [];
-    if (editableProduct?.children) {
-      editableProduct.children.forEach((product) => {
-        items.push({
-          master_sku: product.master_sku,
-          attribute: product.attribute,
-        });
-      });
+    if (editableProduct) {
+      basicForm.setFieldsValue(editableProduct);
+      variationForm.setFieldsValue({ variations: editableProduct.children });
+      setSelectedAttributeGroupId(editableProduct.attribute_group_id);
     }
-    variationForm.setFieldsValue({ variationDetailsGroup: items });
-  }, [editableProduct, variationForm]);
+  }, [editableProduct, variationForm, basicForm]);
+
+  const handleSave = () => {
+    basicForm.validateFields().then((values) => {
+      variationForm.validateFields().then(({ variations }) => {
+        updateProduct({ ...editableProduct, ...values, variations }).then(() => onSave());
+      });
+    });
+  };
 
   const tabItems: TabsProps['items'] = [
     {
@@ -45,7 +49,8 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
       children: (
         <VariationDetailsTab
           form={variationForm}
-          attributeGroup={editableProduct?.children ? editableProduct.children[0].attribute_group : null}
+          selectedAttributeGroupId={selectedAttributeGroupId}
+          setSelectedAttributeGroupId={setSelectedAttributeGroupId}
         />
       ),
     },
@@ -82,7 +87,7 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: onSave,
+          onClick: handleSave,
         },
       ]}
     >

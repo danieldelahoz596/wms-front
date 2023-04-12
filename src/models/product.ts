@@ -40,6 +40,7 @@ export default () => {
               }));
             } else if (item.type === productType.VirtualProduct) {
               item.children = item.variation.products;
+              item.attribute_group_id = item.variation.attribute_group_id;
             }
             return item;
           }),
@@ -61,6 +62,7 @@ export default () => {
           }));
         } else if (data.type === productType.VirtualProduct) {
           data.children = data.variation.products;
+          data.attribute_group_id = data.variation.attribute_group_id;
         }
 
         setProductList([...productList, data]);
@@ -79,6 +81,9 @@ export default () => {
             ...bundleItem,
             quantity: bundleItem.pivot.quantity,
           }));
+        } else if (data.type === productType.VirtualProduct) {
+          data.children = data.variation.products;
+          data.attribute_group_id = data.variation.attribute_group_id;
         }
 
         setProductList(productList.map((_item) => (_item.id === product.id ? data : _item)));

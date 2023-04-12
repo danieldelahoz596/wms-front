@@ -263,7 +263,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             </Col>
           </Row>
         </Card>
-        <Card title={<FormattedMessage id="component.card.title.special" />} style={{ marginTop: 20 }}>
+        {/* <Card title={<FormattedMessage id="component.card.title.special" />} style={{ marginTop: 20 }}>
           <Row>
             <Col span={4}>
               <Form.Item name="has_Barcode" valuePropName="checked">
@@ -308,7 +308,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               </Form.Item>
             </Col>
           </Row>
-        </Card>
+        </Card> */}
       </Form>
 
       <AddItemModal
