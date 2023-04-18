@@ -13,7 +13,7 @@ export default () => {
   const [newCustomer, setNewCustomer] = useState<ICustomer>();
 
   // get initial customer list
-  const initialCustomerList = useCallback(() => {
+  const getCustomerList = useCallback(() => {
     httpClient
       .get('/api/customers')
       .then((response) => {
@@ -64,12 +64,14 @@ export default () => {
   }, []);
 
   // create new customer
-  const handleCreateCustomer = useCallback(() => {
-    httpClient.post('/api/customers', newCustomer).then((response) => {
-      setCustomerList((prevState) => [response.data.customer, ...prevState]);
-      setNewCustomer(null);
-    });
-  }, [newCustomer]);
+  const createCustomer = useCallback(
+    (customerData) =>
+      httpClient.post('/api/customers', customerData).then(({ data }) => {
+        setCustomerList((prevState) => [data, ...prevState]);
+        setNewCustomer(null);
+      }),
+    [],
+  );
 
   return {
     customerList,
@@ -77,13 +79,13 @@ export default () => {
     newCustomer,
     setNewCustomer,
     setSelectedCustomer,
-    initialCustomerList,
+    getCustomerList,
     setCustomerList,
     onGetSelectedCustomer,
     onChangeSelectedCustomer,
     onChangeNewCustomer,
     handleUpdateCustomer,
     handleDeleteCustomer,
-    handleCreateCustomer,
+    createCustomer,
   };
 };

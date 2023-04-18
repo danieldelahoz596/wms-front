@@ -1,16 +1,30 @@
 import { OModal } from '@/components/Globals/OModal';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Form, Input } from 'antd';
+import { Form, Input, Select } from 'antd';
 
 interface ICreateCustomerModal {
   isOpen: boolean;
   onClose: () => void;
-  onSave?: () => void;
+  onSave: () => void;
 }
 
-const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose }) => {
+const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
-  const { handleCreateCustomer } = useModel('customer');
+  const { createCustomer } = useModel('customer');
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      createCustomer(values)
+        .then(() => {
+          onSave();
+        })
+        .catch(({ response: { data } }) => {
+          const errors = [];
+          Object.keys(data).map((key) => errors.push({ name: key, errors: data[key] }));
+          form.setFields(errors);
+        });
+    });
+  };
 
   return (
     <OModal
@@ -30,30 +44,25 @@ const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose }
           key: 'submit',
           type: 'primary',
           btnLabel: <FormattedMessage id="component.button.save" />,
-          onClick: handleCreateCustomer,
+          onClick: handleSave,
         },
       ]}
     >
-      <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 17 }}>
-        <Form.Item
-          label={<FormattedMessage id="component.form.label.phoneNumber" />}
-          name="phonenumber"
-          rules={[{ required: true, message: 'Please input Phone Number!' }]}
-        >
-          <Input placeholder="Phone Number" />
-        </Form.Item>
-        <Form.Item
-          label={<FormattedMessage id="component.form.label.cardIdNumber" />}
-          name="card_number"
-          rules={[{ required: true, message: 'Please input Card ID Number!' }]}
-        >
-          <Input placeholder="Card ID Number" />
-        </Form.Item>
-        <Form.Item label={<FormattedMessage id="component.form.label.address" />} name="address">
-          <Input placeholder="Customer Address" />
-        </Form.Item>
+      <Form form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} labelAlign="left">
         <Form.Item label={<FormattedMessage id="component.form.label.name" />} name="name">
           <Input placeholder="Customer Name" />
+        </Form.Item>
+        <Form.Item name="phone_type" rules={[{ required: true, message: 'Please Select Phone Type!' }]} label="Phone Type">
+          <Select
+            placeholder="Phone Type"
+            options={[
+              { value: 'mobile', label: 'Mobile' },
+              { value: 'home', label: 'Home' },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item name="phone_number" rules={[{ required: true, message: 'Please input Phone Number!' }]} label="Phone Number">
+          <Input placeholder="Phone Number" />
         </Form.Item>
       </Form>
     </OModal>

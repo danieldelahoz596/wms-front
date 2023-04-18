@@ -10,7 +10,7 @@ import SidePanel from './SidePanel';
 import MainPanel from './MainPanel';
 
 const CustomerManagement: React.FC = () => {
-  const { initialCustomerList } = useModel('customer');
+  const { getCustomerList } = useModel('customer');
 
   const {
     isDragging: isBottomDragging,
@@ -46,8 +46,8 @@ const CustomerManagement: React.FC = () => {
 
   // fetch initial customer list
   useEffect(() => {
-    initialCustomerList();
-  }, [initialCustomerList]);
+    getCustomerList();
+  }, [getCustomerList]);
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>

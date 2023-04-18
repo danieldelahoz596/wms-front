@@ -103,7 +103,11 @@ const MainPanel: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <CreateCustomerModal isOpen={modalOpen === modalType.New} onClose={() => setModal(modalType.Close)} />
+      <CreateCustomerModal
+        isOpen={modalOpen === modalType.New}
+        onClose={() => setModal(modalType.Close)}
+        onSave={() => setModal(modalType.Close)}
+      />
     </>
   );
 };
