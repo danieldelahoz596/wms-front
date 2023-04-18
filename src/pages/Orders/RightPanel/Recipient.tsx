@@ -14,13 +14,13 @@ const Recipient: FC = () => {
       <div className="OModal" style={{ marginTop: 20 }}>
         <Form labelAlign="left" labelCol={{ span: 8 }}>
           <Form.Item label="Name">
-            <Input size="small" />
+            <Input size="small" placeholder="Required" />
           </Form.Item>
           <Form.Item label="Company">
             <Input size="small" />
           </Form.Item>
           <Form.Item label="Address">
-            <Input size="small" />
+            <Input size="small" placeholder="Required" />
           </Form.Item>
           <Form.Item label=" ">
             <Input size="small" />
@@ -29,10 +29,10 @@ const Recipient: FC = () => {
             <Input size="small" />
           </Form.Item>
           <Form.Item label="City">
-            <Input size="small" />
+            <Input size="small" placeholder="Required" />
           </Form.Item>
           <Form.Item label="State, Zip">
-            <Input.Group compact>
+            {/* <Input.Group compact>
               <div style={{ display: 'flex', gap: 10 }}>
                 <Form.Item>
                   <Input size="small" />
@@ -41,7 +41,13 @@ const Recipient: FC = () => {
                   <Input size="small" />
                 </Form.Item>
               </div>
-            </Input.Group>
+            </Input.Group> */}
+            <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 4px)' }}>
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item style={{ display: 'inline-block', width: 'calc(50% - 4px)', margin: '0 0 0 8px' }}>
+              <Input size="small" placeholder="Required" />
+            </Form.Item>
           </Form.Item>
           <Form.Item label="Country">
             <Input size="small" />

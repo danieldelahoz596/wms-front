@@ -43,6 +43,12 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
     } else return [];
   }, [editableOrder]);
 
+  const handleSave = () => {
+    recipientForm.validateFields().then((values) => {
+      console.log(values);
+    });
+  };
+
   return (
     <OModal
       title="New Manual Order"
@@ -61,7 +67,7 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: onSave,
+          onClick: handleSave,
         },
       ]}
       forceRender

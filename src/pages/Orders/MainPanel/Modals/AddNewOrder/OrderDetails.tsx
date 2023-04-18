@@ -1,6 +1,8 @@
 import { OInput } from '@/components/Globals/OInput';
 import PaymentTerm from '@/components/PaymentTerm';
-import { Card, Col, Form, Row } from 'antd';
+import { Card, Col, Form, Row, Input, DatePicker, InputNumber } from 'antd';
+
+const { TextArea } = Input;
 
 interface IOrderDetails {
   form: any;
@@ -92,7 +94,7 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
         autoComplete="off"
         form={form}
       >
-        <Form.Item name="channel" label="Channel">
+        <Form.Item label="Channel">
           <div>Manual Orders</div>
         </Form.Item>
         {formInputs.map((item, index) =>
@@ -145,6 +147,54 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
             </Form.Item>
           ),
         )}
+        <Form.Item label="Order #">
+          <Input size="small" />
+        </Form.Item>
+        <Form.Item label=" " colon={false}>
+          <Row gutter={10}>
+            <Col span={12}>
+              <Form.Item label="Order Date" labelCol={{ span: 24 }}>
+                <DatePicker style={{ width: '100%' }} size="small" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Paid On" labelCol={{ span: 24 }}>
+                <DatePicker style={{ width: '100%' }} size="small" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Ship By" labelCol={{ span: 24 }}>
+                <DatePicker style={{ width: '100%' }} size="small" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Deliver By" labelCol={{ span: 24 }}>
+                <DatePicker style={{ width: '100%' }} size="small" />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form.Item>
+        <Row gutter={5}>
+          <Col span={16}>
+            <Form.Item labelCol={{ span: 9 }} label="Amount Paid">
+              <InputNumber size="small" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item labelCol={{ span: 9 }} label="Discount">
+              <InputNumber size="small" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item labelCol={{ span: 9 }} label="Shipping Paid">
+              <InputNumber size="small" style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item labelCol={{ span: 9 }} label="Tax Amount">
+              <InputNumber size="small" style={{ width: '100%' }} />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item labelCol={{ span: 24 }} label="Internal Notes">
+              <TextArea style={{ width: '100%' }} />
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </Card>
   );
