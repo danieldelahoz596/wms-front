@@ -216,6 +216,8 @@ export default {
   'pages.settings.menu.myProfile': '我的简历',
   'pages.settings.menu.warehouses': '仓库',
   'pages.settings.menu.vendors': '供应商',
+  'pages.settings.menu.shops': '商店',
+  'pages.settings.menu.pickupLocations': '取货地点',
   'pages.settings.menu.orderBots': '订单机器人',
   'pages.settings.menu.packingSlipTemplates': '装箱单模板',
   'pages.settings.menu.poTemplate': '邮政信箱 模板',

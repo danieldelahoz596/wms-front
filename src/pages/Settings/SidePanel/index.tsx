@@ -48,6 +48,18 @@ const SidePanel: React.FC = () => {
             onClick: handleMenuItemClick,
           },
           {
+            key: 'shops',
+            icon: <ProfileIcon style={{ fontSize: 15 }} />,
+            label: <FormattedMessage id="pages.settings.menu.shops" />,
+            onClick: handleMenuItemClick,
+          },
+          {
+            key: 'pickuplocations',
+            icon: <ProfileIcon style={{ fontSize: 15 }} />,
+            label: <FormattedMessage id="pages.settings.menu.pickupLocations" />,
+            onClick: handleMenuItemClick,
+          },
+          {
             key: 'orderbots',
             icon: <RobotFilled style={{ fontSize: 15 }} />,
             label: <FormattedMessage id="pages.settings.menu.orderBots" />,

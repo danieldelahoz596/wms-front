@@ -223,6 +223,8 @@ export default {
   'pages.settings.menu.myProfile': 'My Profile',
   'pages.settings.menu.warehouses': 'Warehouses',
   'pages.settings.menu.vendors': 'Vendors',
+  'pages.settings.menu.shops': 'Shops',
+  'pages.settings.menu.pickupLocations': 'Pickup Locations',
   'pages.settings.menu.orderBots': 'Order Bots',
   'pages.settings.menu.packingSlipTemplates': 'Packing Slip Templates',
   'pages.settings.menu.poTemplate': 'P.O. Template',

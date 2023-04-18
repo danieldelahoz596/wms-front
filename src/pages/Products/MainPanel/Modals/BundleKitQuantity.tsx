@@ -63,7 +63,7 @@ const BundleKitQuantityModal: React.FC<IBundleKitQuantityModal> = ({ isOpen, onC
     <OModal
       title="New Bundle/Kit"
       helpLink="/help/products/create/bundlekit"
-      width={800}
+      width={500}
       centered
       isOpen={isOpen}
       handleCancel={onClose}
