@@ -11,13 +11,8 @@ import EditHistoryModal from './Modals/EditHistory';
 const TColumns = [
   {
     title: <FormattedMessage id="component.table.column.phoneNumber" />,
-    dataIndex: 'phone',
+    dataIndex: 'phone_number',
     key: 'phone',
-  },
-  {
-    title: <FormattedMessage id="component.table.column.cardIdNumber" />,
-    dataIndex: 'cardNumber',
-    key: 'cardNumber',
   },
   {
     title: <FormattedMessage id="component.table.column.name" />,
@@ -42,20 +37,17 @@ const TColumns = [
 ];
 
 const MainPanel: React.FC = () => {
-  const { customerList, selectedCustomer, setSelectedCustomer, onGetSelectedCustomer } = useModel('customer');
+  const { customerList, selectedCustomer, setSelectedCustomer } = useModel('customer');
   const [modalOpen, setModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
   const prepareCustomersTableData = useMemo(
     () =>
-      customerList?.map((item) => ({
+      customerList.map((item) => ({
         key: item.id,
-        phone: item.phonenumber,
-        cardNumber: item.card_number,
-        name: item.name,
-        address: item.address,
-        orders: 1,
+        orders: 0,
         totalsales: '$0.00',
+        ...item,
       })),
     [customerList],
   );
@@ -63,11 +55,11 @@ const MainPanel: React.FC = () => {
   // get selected customer
   useEffect(() => {
     if (selectedRows[0]) {
-      onGetSelectedCustomer(selectedRows[0]);
+      setSelectedCustomer(customerList.find((item) => item.id === selectedRows[0]));
     } else {
       setSelectedCustomer(null);
     }
-  }, [selectedRows, onGetSelectedCustomer, setSelectedCustomer]);
+  }, [selectedRows, setSelectedCustomer, customerList]);
 
   return (
     <>

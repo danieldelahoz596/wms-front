@@ -23,11 +23,6 @@ const inputFields = [
   },
   {
     type: 'text',
-    name: 'card_number',
-    label: <FormattedMessage id="component.form.label.cardIdNumber" />,
-  },
-  {
-    type: 'text',
     name: 'name',
     label: <FormattedMessage id="component.form.label.name" />,
   },

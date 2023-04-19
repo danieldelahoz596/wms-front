@@ -2,15 +2,22 @@ import { useCallback, useState } from 'react';
 import httpClient from '@/utils/http-client';
 
 interface ICustomer {
+  id: number;
+  type: 'mobile' | 'home';
+  phone_number: string;
   name: string;
-  phonenumber: string;
+  sex: boolean;
+  age: number;
+  pickup_location_id: number;
+  channel_id: number;
+  state_id: number;
+  city_id: number;
   address: string;
 }
 
 export default () => {
-  const [customerList, setCustomerList] = useState<any[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [newCustomer, setNewCustomer] = useState<ICustomer>();
+  const [customerList, setCustomerList] = useState<ICustomer[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<ICustomer>(null);
 
   // get initial customer list
   const getCustomerList = useCallback(() => {
@@ -22,70 +29,37 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // get customer by id
-  const onGetSelectedCustomer = useCallback((id) => {
-    httpClient
-      .get('/api/customers/id/' + id)
-      .then((response) => {
-        setSelectedCustomer(response.data.customer);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  // change selected customer
-  const onChangeSelectedCustomer = useCallback((name: any, value: any) => {
-    setSelectedCustomer((prevState: any) => ({ ...prevState, [name]: value }));
-  }, []);
-
-  // update customer
-  const handleUpdateCustomer = useCallback((_id, _values) => {
-    httpClient
-      .post('/api/customers/id/' + _id, _values)
-      .then((response) => {
-        const updatedCustomer = response.data.customer;
-        setCustomerList((prevState) => prevState.map((_item) => (_item.id === updatedCustomer.id ? updatedCustomer : _item)));
-        setSelectedCustomer(updatedCustomer);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  // delete customer
-  const handleDeleteCustomer = useCallback(() => {
-    httpClient.post('/api/customers/remove/' + selectedCustomer.id, selectedCustomer).then(() => {
-      const updatedCustomerList = customerList.filter((item) => item.id !== selectedCustomer.id);
-      setCustomerList(updatedCustomerList);
-      setSelectedCustomer(null);
-    });
-  }, [customerList, selectedCustomer]);
-
-  // change new customer field
-  const onChangeNewCustomer = useCallback((name: any, value: any) => {
-    setNewCustomer((prevState: any) => ({ ...prevState, [name]: value }));
-  }, []);
-
   // create new customer
   const createCustomer = useCallback(
-    (customerData) =>
-      httpClient.post('/api/customers', customerData).then(({ data }) => {
-        setCustomerList((prevState) => [data, ...prevState]);
-        setNewCustomer(null);
-      }),
+    (customerData: ICustomer) =>
+      httpClient.post('/api/customers', customerData).then(({ data }) => setCustomerList((prev) => [...prev, data])),
+    [],
+  );
+
+  // update a customer
+  const updateCustomer = useCallback(
+    (customerData: ICustomer) =>
+      httpClient
+        .put(`/api/customers/${customerData.id}`, customerData)
+        .then(({ data }) => setCustomerList((prev) => prev.map((item) => (item.id === customerData.id ? data : item)))),
+    [],
+  );
+
+  // delete a customer
+  const deleteCustomer = useCallback(
+    (id: number) =>
+      httpClient.delete(`/api/customers/${id}`).then(() => setCustomerList((prev) => prev.filter((item) => item.id !== id))),
     [],
   );
 
   return {
     customerList,
     selectedCustomer,
-    newCustomer,
-    setNewCustomer,
     setSelectedCustomer,
     getCustomerList,
     setCustomerList,
-    onGetSelectedCustomer,
-    onChangeSelectedCustomer,
-    onChangeNewCustomer,
-    handleUpdateCustomer,
-    handleDeleteCustomer,
     createCustomer,
+    updateCustomer,
+    deleteCustomer,
   };
 };
