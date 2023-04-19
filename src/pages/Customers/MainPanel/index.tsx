@@ -10,9 +10,14 @@ import EditHistoryModal from './Modals/EditHistory';
 
 const TColumns = [
   {
+    title: 'Phone Type',
+    dataIndex: 'phone_type',
+    key: 'phone_type',
+  },
+  {
     title: <FormattedMessage id="component.table.column.phoneNumber" />,
     dataIndex: 'phone_number',
-    key: 'phone',
+    key: 'phone_number',
   },
   {
     title: <FormattedMessage id="component.table.column.name" />,
@@ -23,6 +28,32 @@ const TColumns = [
         {text}
       </DragDropContainer>
     ),
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'Sex',
+    dataIndex: 'sex',
+    key: 'sex',
+    render: (value) => (value == true ? 'Male' : 'Female'),
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'State',
+    dataIndex: ['state', 'name'],
+    key: 'state',
+  },
+  {
+    title: 'City',
+    dataIndex: ['city', 'name'],
+    key: 'city',
   },
   {
     title: <FormattedMessage id="component.table.column.orders" />,
@@ -77,7 +108,13 @@ const MainPanel: React.FC = () => {
               disabled={!selectedCustomer}
               onClick={() => setModal(modalType.History)}
             />
-            <OButton btnText={<FormattedMessage id="component.button.newCustomers" />} onClick={() => setModal(modalType.New)} />
+            <OButton
+              btnText={<FormattedMessage id="component.button.newCustomers" />}
+              onClick={() => {
+                setSelectedRows([]);
+                setModal(modalType.New);
+              }}
+            />
           </Space>
           <OTable
             columns={TColumns}

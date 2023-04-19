@@ -1,6 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Form, Input, Select } from 'antd';
+import { useEffect } from 'react';
 
 interface ICreateCustomerModal {
   isOpen: boolean;
@@ -10,7 +11,7 @@ interface ICreateCustomerModal {
 
 const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose, onSave }) => {
   const [form] = Form.useForm();
-  const { createCustomer } = useModel('customer');
+  const { createCustomer, selectedCustomer } = useModel('customer');
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -25,6 +26,12 @@ const CreateCustomerModal: React.FC<ICreateCustomerModal> = ({ isOpen, onClose, 
         });
     });
   };
+
+  useEffect(() => {
+    if (!selectedCustomer) {
+      form.resetFields();
+    }
+  }, [selectedCustomer, form]);
 
   return (
     <OModal

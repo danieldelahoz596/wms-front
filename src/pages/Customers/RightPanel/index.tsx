@@ -1,14 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { OButton } from '@/components/Globals/OButton';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Form, Input, Space, Select, message } from 'antd';
+import { Card, Form, Input, Space, Select, message, InputNumber } from 'antd';
 
 const RightPanel: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { selectedCustomer, updateCustomer, deleteCustomer } = useModel('customer');
-  console.log('selectedCustomer: ', selectedCustomer);
+  const { stateList } = useModel('states');
+  const [cityOptions, setCityOptions] = useState<{ label: string; value: string | number }[]>([]);
 
   const [form] = Form.useForm();
+
+  const stateOptions = useMemo(() => stateList.map((state) => ({ value: state.id, label: state.name })), [stateList]);
 
   const handleUpdate = () => {
     form.validateFields().then((values) => {
@@ -42,16 +45,33 @@ const RightPanel: React.FC = () => {
 
   useEffect(() => {
     if (selectedCustomer) {
+      form.resetFields();
       form.setFieldsValue(selectedCustomer);
+      if (selectedCustomer.state_id) {
+        setCityOptions(
+          stateList
+            .find((item) => item.id === selectedCustomer.state_id)
+            .cities.map((city) => ({ label: city.name, value: city.id })),
+        );
+      }
     }
-  }, [form, selectedCustomer]);
+  }, [form, selectedCustomer, stateList]);
+
+  const handleFieldChange = (changedFields) => {
+    if (changedFields[0].name.includes('state_id')) {
+      form.setFieldValue('city_id', null);
+      setCityOptions(
+        stateList.find((item) => item.id === changedFields[0].value).cities.map((city) => ({ label: city.name, value: city.id })),
+      );
+    }
+  };
 
   return (
     <>
       {contextHolder}
       {selectedCustomer ? (
-        <Card title={selectedCustomer?.name}>
-          <Form layout="vertical" form={form}>
+        <Card title={selectedCustomer.name}>
+          <Form layout="horizontal" form={form} labelCol={{ span: 8 }} labelAlign="left" onFieldsChange={handleFieldChange}>
             <Form.Item name="phone_type" rules={[{ required: true, message: 'Please Select Phone Type!' }]} label="Phone Type">
               <Select
                 placeholder="Phone Type"
@@ -73,6 +93,23 @@ const RightPanel: React.FC = () => {
             </Form.Item>
             <Form.Item name="address" label={<FormattedMessage id="component.form.label.address" />}>
               <Input placeholder="Customer Address" />
+            </Form.Item>
+            <Form.Item name="sex" label="Sex">
+              <Select
+                options={[
+                  { value: 1, label: 'Male' },
+                  { value: 0, label: 'Female' },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item name="age" label="Age">
+              <InputNumber style={{ width: '100%' }} min={1} />
+            </Form.Item>
+            <Form.Item name="state_id" label="State">
+              <Select options={stateOptions} />
+            </Form.Item>
+            <Form.Item name="city_id" label="City">
+              <Select options={cityOptions} />
             </Form.Item>
             <Form.Item>
               <Space size={HORIZONTAL_SPACE_SIZE}>
