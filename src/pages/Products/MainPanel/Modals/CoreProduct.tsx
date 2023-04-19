@@ -7,6 +7,7 @@ import GalleryTab from './Tabs/Gallery';
 import VendorProductsTab from './Tabs/VendorProducts';
 import CustomFieldsTab from './Tabs/CustomFields';
 import { FormattedMessage, useModel } from '@umijs/max';
+import type { UploadFile } from 'antd';
 
 interface ICoreProductModal {
   isOpen: boolean;
@@ -21,6 +22,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   const [customFields, setCustomFields] = useState([]);
   const [vendorProductList, setVendorProductList] = useState([]);
   const [defaultVendorProductKey, setDefaultVendorProductKey] = useState(null);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
     if (editableProduct) form.setFieldsValue(editableProduct);
@@ -40,7 +42,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
     {
       key: 'tab-2',
       label: <FormattedMessage id="pages.products.coreProduct.gallery.title" />,
-      children: <GalleryTab />,
+      children: <GalleryTab fileList={fileList} setFileList={setFileList} />,
     },
     {
       key: 'tab-3',
@@ -62,6 +64,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   ];
 
   const handleSave = () => {
+    const fileUrls = fileList.map((item) => item.response);
     form.validateFields().then((fields) => {
       if (!!editableProduct) {
         updateProduct({ type: 'Core', ...editableProduct, ...fields })
@@ -74,7 +77,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
             form.setFields(errors);
           });
       } else {
-        createProduct({ type: 'Core', ...fields })
+        createProduct({ type: 'Core', urls: fileUrls, ...fields })
           .then(() => {
             onSave(null);
           })

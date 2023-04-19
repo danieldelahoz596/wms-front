@@ -19,6 +19,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
   const [customFields, setCustomFields] = useState([]);
   const { bundleItems, editableProduct, createProduct, updateProduct, setBundleItems } = useModel('product');
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
     if (!editableProduct) {
@@ -38,6 +39,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
   }, [form, isOpen, editableProduct, setBundleItems]);
 
   const handleSave = () => {
+    const fileUrls = fileList.map((item) => item.response);
     form.validateFields().then((values) => {
       const items = bundleItems.reduce((acc, val) => {
         acc[val.product_id] = {
@@ -57,7 +59,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
             form.setFields(errors);
           });
       } else {
-        createProduct({ type: 'Bundle/Kit', ...values, items })
+        createProduct({ type: 'Bundle/Kit', urls: fileUrls, ...values, items })
           .then(() => {
             onSave();
           })
@@ -79,7 +81,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
     {
       key: 'tab-2',
       label: 'Gallery',
-      children: <GalleryTab />,
+      children: <GalleryTab fileList={fileList} setFileList={setFileList} />,
     },
     {
       key: 'tab-3',
