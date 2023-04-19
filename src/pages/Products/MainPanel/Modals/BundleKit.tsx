@@ -8,6 +8,7 @@ import GalleryTab from './Tabs/Gallery';
 import CustomFieldsTab from './Tabs/CustomFields';
 import VendorProductsTab from './Tabs/VendorProducts';
 import { useModel } from '@umijs/max';
+import type { UploadFile } from 'antd';
 
 interface IBundleKitModal {
   isOpen: boolean;
@@ -19,6 +20,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
   const [customFields, setCustomFields] = useState([]);
   const { bundleItems, editableProduct, createProduct, updateProduct, setBundleItems } = useModel('product');
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
     if (!editableProduct) {
@@ -34,10 +36,20 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
           sku: item.sku,
         })),
       );
+      setFileList(
+        editableProduct.images.map((image) => ({
+          uid: `${image.id}`,
+          name: 'image.png',
+          status: 'done',
+          url: image.image_url,
+          response: image.url,
+        })),
+      );
     }
   }, [form, isOpen, editableProduct, setBundleItems]);
 
   const handleSave = () => {
+    const fileUrls = fileList.map((item) => item.response);
     form.validateFields().then((values) => {
       const items = bundleItems.reduce((acc, val) => {
         acc[val.product_id] = {
@@ -47,7 +59,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
       }, {});
 
       if (!!editableProduct) {
-        updateProduct({ type: 'Bundle/Kit', ...editableProduct, ...values, items })
+        updateProduct({ type: 'Bundle/Kit', urls: fileUrls, ...editableProduct, ...values, items })
           .then(() => {
             onSave();
           })
@@ -57,7 +69,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
             form.setFields(errors);
           });
       } else {
-        createProduct({ type: 'Bundle/Kit', ...values, items })
+        createProduct({ type: 'Bundle/Kit', urls: fileUrls, ...values, items })
           .then(() => {
             onSave();
           })
@@ -79,7 +91,7 @@ const BundleKitModal: React.FC<IBundleKitModal> = ({ isOpen, onClose, onSave }) 
     {
       key: 'tab-2',
       label: 'Gallery',
-      children: <GalleryTab />,
+      children: <GalleryTab fileList={fileList} setFileList={setFileList} />,
     },
     {
       key: 'tab-3',

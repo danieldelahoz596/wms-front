@@ -2,17 +2,22 @@ import { useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import { Upload, Modal } from 'antd';
 import type { UploadFile } from 'antd';
-import { getBase64, sampleImages } from '@/utils/helpers/base';
+import { getBase64 } from '@/utils/helpers/base';
 import type { UploadProps } from 'antd/es/upload';
 import type { RcFile } from 'antd/lib/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { FormattedMessage } from '@umijs/max';
 
-const Gallery: React.FC = () => {
-  const [fileList, setFileList] = useState<UploadFile[]>(sampleImages);
+interface IGallery {
+  fileList: UploadFile[];
+  setFileList: (values: UploadFile[]) => void;
+}
+
+const Gallery: React.FC<IGallery> = ({ fileList, setFileList }) => {
   const [previewTitle, setPreviewTitle] = useState('');
   const [modalOpen, setModal] = useState('');
   const [previewImage, setPreviewImage] = useState('');
+  const authData = JSON.parse(localStorage.getItem('authdata'));
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -43,7 +48,8 @@ const Gallery: React.FC = () => {
       <Upload
         accept="image/png, image/jpeg, image/jpg"
         multiple={true}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action={`${BACKEND_URL}/api/products/upload-image`}
+        headers={{ Authorization: `Bearer ${authData?.access_token}` }}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
