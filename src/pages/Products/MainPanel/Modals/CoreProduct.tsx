@@ -25,8 +25,18 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
-    if (editableProduct) form.setFieldsValue(editableProduct);
-    else form.resetFields();
+    if (editableProduct) {
+      form.setFieldsValue(editableProduct);
+      setFileList(
+        editableProduct.images.map((image) => ({
+          uid: `${image.id}`,
+          name: 'image.png',
+          status: 'done',
+          url: image.image_url,
+          response: image.url,
+        })),
+      );
+    } else form.resetFields();
 
     if (!!editableProduct) {
       setCustomFields(editableProduct.custom_fields);
@@ -67,7 +77,7 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
     const fileUrls = fileList.map((item) => item.response);
     form.validateFields().then((fields) => {
       if (!!editableProduct) {
-        updateProduct({ type: 'Core', ...editableProduct, ...fields })
+        updateProduct({ type: 'Core', urls: fileUrls, ...editableProduct, ...fields })
           .then(() => {
             onSave(null);
           })

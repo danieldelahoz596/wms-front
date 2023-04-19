@@ -1,6 +1,7 @@
 import type IBrand from './IBrand';
 import type ICategory from './ICategory';
 import type ILabel from './ILabel';
+import type IProductImage from './IProductImage';
 
 export default interface IProduct {
   id: number;
@@ -35,4 +36,5 @@ export default interface IProduct {
   status: boolean;
   quantity?: number;
   attribute_group_id: number;
+  images: IProductImage[];
 }
