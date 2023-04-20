@@ -1,85 +1,40 @@
 import { useModel } from '@umijs/max';
-import { Card, Col, DatePicker, Form, Input, Row, Select } from 'antd';
+import { Col, Row } from 'antd';
 import moment from 'moment';
 import { useEffect } from 'react';
+import RecipientForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/Recipient';
+import OrderDetailsForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/OrderDetails';
 
-const BasicInfo: React.FC = () => {
+interface IBasicInfo {
+  recipientForm: any;
+  orderDetailsForm: any;
+}
+
+const BasicInfo: React.FC<IBasicInfo> = ({ recipientForm, orderDetailsForm }) => {
   const { editableOrder } = useModel('order');
-  const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({
-      order_number: editableOrder?.order_number,
-      labels: editableOrder?.labels,
-      order_date: moment(new Date(editableOrder?.order_date)),
-      order_paid: moment(new Date(editableOrder?.order_paid)),
-      ship_by: moment(new Date(editableOrder?.ship_by)),
-      deliver_by: moment(new Date(editableOrder?.deliver_by)),
-      recipient: editableOrder?.recipient,
-    });
-  }, [editableOrder, form]);
+    if (editableOrder) {
+      recipientForm.setFieldsValue(editableOrder.customer);
+      orderDetailsForm.setFieldsValue({
+        ...editableOrder,
+        order_date: moment(new Date(editableOrder.order_date)),
+        paid_on: moment(new Date(editableOrder.paid_on)),
+        deliver_by: moment(new Date(editableOrder.deliver_by)),
+        ship_by: moment(new Date(editableOrder.ship_by)),
+      });
+    }
+  }, [editableOrder, recipientForm, orderDetailsForm]);
 
   return (
-    <Form form={form}>
-      <Row gutter={10}>
-        <Col span={12}>
-          <Card title="Recipient">
-            <Form.Item label="Name" name={['recipient', 'name']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Company" name={['recipient', 'company']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Address" name={['recipient', 'address1']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label=" " name={['recipient', 'address2']} labelCol={{ span: 6 }} colon={false}>
-              <Input />
-            </Form.Item>
-            <Form.Item label=" " name={['recipient', 'address3']} labelCol={{ span: 6 }} colon={false}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="City" name={['recipient', 'city']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="State" name={['recipient', 'state']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Country" name={['recipient', 'country']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Phone Number" name={['recipient', 'phone']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Email" name={['recipient', 'email']} labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-          </Card>
-        </Col>
-        <Col span={12}>
-          <Card title="Order Details">
-            <Form.Item label="Order Number" name="order_number" labelCol={{ span: 6 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Labels" name="labels" labelCol={{ span: 6 }}>
-              <Select size="small" />
-            </Form.Item>
-            <Form.Item label="Order Date" name="order_date" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Order Paid" name="order_paid" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Ship By" name="ship_by" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item label="Deliver By" name="deliver_by" labelCol={{ span: 6 }}>
-              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} />
-            </Form.Item>
-          </Card>
-        </Col>
-      </Row>
-    </Form>
+    <Row gutter={10}>
+      <Col span={12}>
+        <RecipientForm form={recipientForm} />
+      </Col>
+      <Col span={12}>
+        <OrderDetailsForm form={orderDetailsForm} />
+      </Col>
+    </Row>
   );
 };
 

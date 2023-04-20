@@ -1,12 +1,13 @@
-import React from 'react';
-import { Tabs } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Tabs, Form } from 'antd';
 import type { TabsProps } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import OrderItems from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderItems';
-import OrderCustomFields from '@/pages/Orders/MainPanel/Modals/EditOrder/OrderCustomFields';
 import BasicInfo from '@/pages/Orders/MainPanel/Modals/EditOrder/BasicInfo';
 import Processing from './EditOrder/Processing';
+import AddNewOrderItemTable from './AddNewOrder/AddNewOrderItemTable';
+import moment from 'moment';
+
 interface IEditOrderModal {
   isOpen: boolean;
   onClose: () => void;
@@ -14,14 +15,38 @@ interface IEditOrderModal {
 }
 
 const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) => {
-  const { editableOrder, updateOrderItem } = useModel('order');
-  const { customFields } = useModel('customOrderFields');
+  const { editableOrder, updateOrder } = useModel('order');
+  const [productRows, setProductRows] = useState([]);
+  const [recipientForm] = Form.useForm();
+  const [orderDetailsForm] = Form.useForm();
+
+  useEffect(() => {
+    if (editableOrder) {
+      recipientForm.setFieldsValue(editableOrder.customer);
+      orderDetailsForm.setFieldsValue({
+        ...editableOrder,
+        order_date: moment(new Date(editableOrder.order_date)),
+        paid_on: moment(new Date(editableOrder.paid_on)),
+        deliver_by: moment(new Date(editableOrder.deliver_by)),
+        ship_by: moment(new Date(editableOrder.ship_by)),
+      });
+      setProductRows(
+        editableOrder.order_items.map((item) => ({
+          key: item.product.id,
+          product: item.product.name,
+          quantity: item.qty,
+          unitPrice: 10,
+          totalDiscount: 0,
+        })),
+      );
+    }
+  }, [editableOrder, recipientForm, orderDetailsForm]);
 
   const tabItems: TabsProps['items'] = [
     {
       key: '1',
       label: 'Basic Info',
-      children: <BasicInfo />,
+      children: <BasicInfo recipientForm={recipientForm} orderDetailsForm={orderDetailsForm} />,
     },
     {
       key: '2',
@@ -31,13 +56,14 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
     {
       key: '3',
       label: 'Order Items',
-      children: <OrderItems />,
+      // children: <OrderItems />,
+      children: <AddNewOrderItemTable productRows={productRows} setProductRows={setProductRows} />,
     },
-    {
-      key: '4',
-      label: 'Fields',
-      children: <OrderCustomFields />,
-    },
+    // {
+    //   key: '4',
+    //   label: 'Fields',
+    //   children: <OrderCustomFields />,
+    // },
     {
       key: '5',
       label: 'Communication',
@@ -56,8 +82,18 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
   ];
 
   const handleSave = () => {
-    updateOrderItem({ ...editableOrder, custom_fields: customFields });
-    onSave();
+    recipientForm.validateFields().then((customerData) => {
+      orderDetailsForm.validateFields().then((orderData) => {
+        updateOrder({
+          ...editableOrder,
+          customer: { ...editableOrder.customer, ...customerData },
+          ...orderData,
+          order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+        }).then(() => {
+          onSave();
+        });
+      });
+    });
   };
 
   return (

@@ -85,7 +85,7 @@ const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }
         <Form.Item label=" " labelCol={{ span: 4 }} colon={false}>
           <Input.Group compact>
             <Form.Item
-              label={`Quantity: ${editableOrder?.orderItems[0].unitQty}`}
+              // label={`Quantity: ${editableOrder?.orderItems[0].unitQty}`}
               labelCol={{ span: 24 }}
               style={{ width: '50%' }}
             />
@@ -97,7 +97,8 @@ const SplitOrderModal: React.FC<ISplitOrderModal> = ({ isOpen, onClose, onSave }
               colon={true}
               rules={[{ required: true, message: 'Quantity is required!' }]}
             >
-              <InputNumber style={{ width: '100%' }} max={editableOrder?.orderItems[0].unitQty} min={1} />
+              <InputNumber />
+              {/* <InputNumber style={{ width: '100%' }} max={editableOrder?.orderItems[0].unitQty} min={1} /> */}
             </Form.Item>
           </Input.Group>
         </Form.Item>

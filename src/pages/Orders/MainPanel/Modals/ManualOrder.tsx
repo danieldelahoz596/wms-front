@@ -5,6 +5,9 @@ import RecipientForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/Recipient
 import OrderDetailsForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/OrderDetails';
 import AddNewOrderItemTable from '@/pages/Orders/MainPanel/Modals/AddNewOrder/AddNewOrderItemTable';
 import { useModel } from '@umijs/max';
+import DebounceSelect from '@/components/Globals/DebounceSelect';
+import type ICustomer from '@/interfaces/ICustomer';
+import qs from 'qs';
 
 interface IAddNewOrderModal {
   isOpen: boolean;
@@ -13,35 +16,18 @@ interface IAddNewOrderModal {
 }
 
 const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave }) => {
-  const { editableOrder, createOrder } = useModel('order');
+  const { createOrder } = useModel('order');
   const [recipientForm] = Form.useForm();
   const [orderDetailsForm] = Form.useForm();
   const [productRows, setProductRows] = useState([]);
+  const [value, setValue] = useState([]);
+  const { getCustomerList } = useModel('customer');
 
   useEffect(() => {
-    recipientForm.setFieldsValue({
-      name: editableOrder ? editableOrder.recipient : '',
-    });
-    orderDetailsForm.setFieldsValue({
-      order: editableOrder ? editableOrder.order_number : '',
-      order_date: editableOrder ? editableOrder.order_date : '',
-      paidOn: editableOrder ? editableOrder.order_paid : '',
-    });
-  }, [isOpen]);
-
-  // const initialItems = useMemo(() => {
-  //   if (editableOrder) {
-  //     return editableOrder.orderItems.map((item) => ({
-  //       key: uuidv4(),
-  //       product: item.name,
-  //       notes: '',
-  //       available: '',
-  //       quantity: item.unitQty,
-  //       uniPrice: item.unitAmount,
-  //       totalDiscount: item.discount,
-  //     }));
-  //   } else return [];
-  // }, [editableOrder]);
+    recipientForm.resetFields();
+    orderDetailsForm.resetFields();
+    setProductRows([]);
+  }, [isOpen, recipientForm, orderDetailsForm]);
 
   const handleSave = () => {
     recipientForm.validateFields().then((customerData) => {
@@ -50,8 +36,20 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
           customer: customerData,
           order: orderData,
           order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+        }).then(() => {
+          onSave();
         });
       });
+    });
+  };
+
+  const fetchCustomerList = (s) => {
+    return getCustomerList(qs.stringify({ name: s, phone_number: s, address: s })).then(({ data: { customers } }) => {
+      return customers.map((customer: ICustomer) => ({
+        label: `${customer.name} - ${customer.phone_number} - ${customer.address}`,
+        value: customer.id,
+        ...customer,
+      }));
     });
   };
 
@@ -81,6 +79,16 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
       <>
         <Row gutter={10}>
           <Col span={11}>
+            <DebounceSelect
+              value={value}
+              placeholder="Select users"
+              fetchOptions={fetchCustomerList}
+              onChange={(newValue, option) => {
+                setValue(newValue);
+                recipientForm.setFieldsValue(option);
+              }}
+              style={{ width: '100%' }}
+            />
             <RecipientForm form={recipientForm} />
           </Col>
           <Col span={13}>

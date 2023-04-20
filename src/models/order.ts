@@ -5,7 +5,7 @@ import type IOrder from '@/interfaces/IOrder';
 
 export default () => {
   const [orderList, setOrderList] = useState<IOrder[]>([]);
-  const [editableOrder, setEditableOrder] = useState(null);
+  const [editableOrder, setEditableOrder] = useState<IOrder>(null);
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [shippingQueue, setShippingQueue] = useState([]);
   const [newOrder, setNewOrder] = useState({
@@ -21,18 +21,27 @@ export default () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const updateOrderItem = useCallback((orderItem) => {
-    setOrderList((prevState) => prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)));
-  }, []);
+  const createOrder = useCallback(
+    (orderData) =>
+      httpClient
+        .post('/api/orders', orderData)
+        .then(({ data }) => {
+          setOrderList((prev) => [...prev, data]);
+        })
+        .catch((error) => console.log(error)),
+    [],
+  );
 
-  const createOrder = useCallback((data) => {
-    httpClient
-      .post('/api/orders', data)
-      .then((response) => {
-        setOrderList(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const updateOrder = useCallback(
+    (orderData) =>
+      httpClient
+        .put(`/api/orders/${orderData.id}`, orderData)
+        .then(({ data }) => {
+          setOrderList((prev) => prev.map((item) => (item.id === data.id ? data : item)));
+        })
+        .catch((error) => console.log(error)),
+    [],
+  );
 
   return {
     orderList,
@@ -44,9 +53,9 @@ export default () => {
     getOrderList,
     setOrderList,
     setEditableOrder,
-    updateOrderItem,
     setSelectedOrders,
     setShippingQueue,
     createOrder,
+    updateOrder,
   };
 };
