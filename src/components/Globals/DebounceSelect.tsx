@@ -47,6 +47,7 @@ function DebounceSelect<ValueType extends { key?: string; label: React.ReactNode
       {...props}
       options={options}
       showSearch
+      size="small"
     />
   );
 }

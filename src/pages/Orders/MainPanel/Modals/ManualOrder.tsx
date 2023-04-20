@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form } from 'antd';
 import { OModal } from '@/components/Globals/OModal';
 import RecipientForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/Recipient';
 import OrderDetailsForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/OrderDetails';
 import AddNewOrderItemTable from '@/pages/Orders/MainPanel/Modals/AddNewOrder/AddNewOrderItemTable';
 import { useModel } from '@umijs/max';
-import { uuidv4 } from '@antv/xflow-core';
 
 interface IAddNewOrderModal {
   isOpen: boolean;
@@ -14,38 +13,45 @@ interface IAddNewOrderModal {
 }
 
 const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave }) => {
-  const { editableOrder } = useModel('order');
+  const { editableOrder, createOrder } = useModel('order');
   const [recipientForm] = Form.useForm();
-  const [orderdetailsForm] = Form.useForm();
+  const [orderDetailsForm] = Form.useForm();
+  const [productRows, setProductRows] = useState([]);
 
   useEffect(() => {
     recipientForm.setFieldsValue({
       name: editableOrder ? editableOrder.recipient : '',
     });
-    orderdetailsForm.setFieldsValue({
+    orderDetailsForm.setFieldsValue({
       order: editableOrder ? editableOrder.order_number : '',
       order_date: editableOrder ? editableOrder.order_date : '',
       paidOn: editableOrder ? editableOrder.order_paid : '',
     });
   }, [isOpen]);
 
-  const initialItems = useMemo(() => {
-    if (editableOrder) {
-      return editableOrder.orderItems.map((item) => ({
-        key: uuidv4(),
-        product: item.name,
-        notes: '',
-        available: '',
-        quantity: item.unitQty,
-        uniPrice: item.unitAmount,
-        totalDiscount: item.discount,
-      }));
-    } else return [];
-  }, [editableOrder]);
+  // const initialItems = useMemo(() => {
+  //   if (editableOrder) {
+  //     return editableOrder.orderItems.map((item) => ({
+  //       key: uuidv4(),
+  //       product: item.name,
+  //       notes: '',
+  //       available: '',
+  //       quantity: item.unitQty,
+  //       uniPrice: item.unitAmount,
+  //       totalDiscount: item.discount,
+  //     }));
+  //   } else return [];
+  // }, [editableOrder]);
 
   const handleSave = () => {
-    recipientForm.validateFields().then((values) => {
-      console.log(values);
+    recipientForm.validateFields().then((customerData) => {
+      orderDetailsForm.validateFields().then((orderData) => {
+        createOrder({
+          customer: customerData,
+          order: orderData,
+          order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+        });
+      });
     });
   };
 
@@ -78,11 +84,11 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
             <RecipientForm form={recipientForm} />
           </Col>
           <Col span={13}>
-            <OrderDetailsForm form={orderdetailsForm} />
+            <OrderDetailsForm form={orderDetailsForm} />
           </Col>
         </Row>
         <div>
-          <AddNewOrderItemTable initialItems={initialItems} />
+          <AddNewOrderItemTable productRows={productRows} setProductRows={setProductRows} />
         </div>
       </>
     </OModal>

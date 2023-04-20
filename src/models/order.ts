@@ -1,9 +1,10 @@
 import httpClient from '@/utils/http-client';
 import { useCallback, useState } from 'react';
 import qs from 'qs';
+import type IOrder from '@/interfaces/IOrder';
 
 export default () => {
-  const [orderList, setOrderList] = useState<any[]>([]);
+  const [orderList, setOrderList] = useState<IOrder[]>([]);
   const [editableOrder, setEditableOrder] = useState(null);
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [shippingQueue, setShippingQueue] = useState([]);
@@ -11,7 +12,7 @@ export default () => {
     orderItems: [],
   });
 
-  const initialOrderList = useCallback((_query) => {
+  const getOrderList = useCallback((_query) => {
     httpClient
       .get('/api/orders?' + qs.stringify(_query))
       .then((response) => {
@@ -24,6 +25,15 @@ export default () => {
     setOrderList((prevState) => prevState.map((_item) => (_item.id === orderItem.id ? orderItem : _item)));
   }, []);
 
+  const createOrder = useCallback((data) => {
+    httpClient
+      .post('/api/orders', data)
+      .then((response) => {
+        setOrderList(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return {
     orderList,
     editableOrder,
@@ -31,11 +41,12 @@ export default () => {
     newOrder,
     shippingQueue,
     setNewOrder,
-    initialOrderList,
+    getOrderList,
     setOrderList,
     setEditableOrder,
     updateOrderItem,
     setSelectedOrders,
     setShippingQueue,
+    createOrder,
   };
 };

@@ -1,85 +1,22 @@
-import { OInput } from '@/components/Globals/OInput';
-import PaymentTerm from '@/components/PaymentTerm';
-import { Card, Col, Form, Row, Input, DatePicker, InputNumber } from 'antd';
+import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Card, Col, Form, Row, Input, DatePicker, InputNumber, Select } from 'antd';
+import { useMemo } from 'react';
 
 const { TextArea } = Input;
 
 interface IOrderDetails {
   form: any;
 }
-const formInputs = [
-  {
-    type: 'text',
-    name: 'order',
-    label: 'Order #',
-    placeholder: 'Required',
-  },
-  [
-    {
-      type: 'date',
-      name: 'order_date',
-      label: 'Order Date',
-    },
-    {
-      type: 'date',
-      name: 'paidOn',
-      label: 'Paid On',
-    },
-  ],
-  [
-    {
-      type: 'date',
-      name: 'shipBy',
-      label: 'Ship By',
-    },
-    {
-      type: 'date',
-      name: 'deliverBy',
-      label: 'Deliver By',
-    },
-  ],
-  {
-    type: 'select',
-    name: 'paymentType',
-    label: 'Payment Type',
-    placeholder: 'Select..',
-    options: [{ key: 'credit', value: 'Credit' }],
-    render: (inputField: any) => <PaymentTerm inputField={inputField} />,
-  },
-  [
-    [
-      {
-        type: 'text',
-        name: 'amountPaid',
-        label: 'Amount Paid',
-      },
-      {
-        type: 'text',
-        name: 'discount',
-        label: 'Discount',
-      },
-      {
-        type: 'text',
-        name: 'shippingPaid',
-        label: 'Shipping Paid',
-      },
-      {
-        type: 'text',
-        name: 'taxAmount',
-        label: 'Tax Amount',
-      },
-    ],
-    [
-      {
-        type: 'textarea',
-        name: 'internalNotes',
-        label: 'Internal Notes',
-      },
-    ],
-  ],
-];
 
 const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
+  const { paymentTermList } = useModel('paymentTerm');
+
+  const paymentTermOptions = useMemo(
+    () => paymentTermList?.map((item) => ({ value: item.id, label: item.name })),
+    [paymentTermList],
+  );
+
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -97,101 +34,70 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
         <Form.Item label="Channel">
           <div>Manual Orders</div>
         </Form.Item>
-        {formInputs.map((item, index) =>
-          Array.isArray(item) ? (
-            Array.isArray(item[0]) ? (
-              <Row gutter={12} key={index}>
-                {item.map((group, groupIndex) => (
-                  <Col span={groupIndex !== 0 ? 10 : 14} key={groupIndex}>
-                    {group.map((groupInput, groupInputIndex) => (
-                      <>
-                        {groupIndex === 0 && (
-                          <Form.Item
-                            key={groupInputIndex}
-                            label={groupInput.label}
-                            name={groupInput.name}
-                            labelCol={{ span: 11 }}
-                          >
-                            <OInput type={groupInput.type} placeholder={groupInput.placeholder} />
-                          </Form.Item>
-                        )}
-                        {groupIndex !== 0 && (
-                          <Form.Item
-                            key={groupInputIndex}
-                            label={groupInput.label}
-                            name={groupInput.name}
-                            labelCol={{ span: 24 }}
-                            wrapperCol={{ span: 24 }}
-                          >
-                            <OInput type={groupInput.type} placeholder={groupInput.placeholder} />
-                          </Form.Item>
-                        )}
-                      </>
-                    ))}
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <Form.Item key={`item1-${index}`} label=" " colon={false}>
-                {item.map((groupItem, groupIndex) => (
-                  <Form.Item key={`groupItem-${groupIndex}`} style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}>
-                    <div>{groupItem.label}:</div>
-                    <OInput type={groupItem.type} placeholder={groupItem.placeholder} />
-                  </Form.Item>
-                ))}
-              </Form.Item>
-            )
-          ) : (
-            <Form.Item key={`item-${index}`} label={item.label} name={item.name} style={{ justifyContent: 'flex-end' }}>
-              <OInput {...item} />
-            </Form.Item>
-          ),
-        )}
-        <Form.Item label="Order #">
+        <Form.Item label="Order #" name="order_number">
           <Input size="small" />
         </Form.Item>
         <Form.Item label=" " colon={false}>
           <Row gutter={10}>
             <Col span={12}>
-              <Form.Item label="Order Date" labelCol={{ span: 24 }}>
+              <Form.Item label="Order Date" labelCol={{ span: 24 }} name="order_date">
                 <DatePicker style={{ width: '100%' }} size="small" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Paid On" labelCol={{ span: 24 }}>
+              <Form.Item label="Paid On" labelCol={{ span: 24 }} name="paid_on">
                 <DatePicker style={{ width: '100%' }} size="small" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Ship By" labelCol={{ span: 24 }}>
+              <Form.Item label="Ship By" labelCol={{ span: 24 }} name="ship_by">
                 <DatePicker style={{ width: '100%' }} size="small" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Deliver By" labelCol={{ span: 24 }}>
+              <Form.Item label="Deliver By" labelCol={{ span: 24 }} name="deliver_by">
                 <DatePicker style={{ width: '100%' }} size="small" />
               </Form.Item>
             </Col>
           </Row>
         </Form.Item>
-        <Row gutter={5}>
+        <Form.Item label="Payment Type">
+          <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+            <div style={{ flex: '1' }}>
+              <Form.Item name="payment_type_id">
+                <Select options={paymentTermOptions} size="small" />
+              </Form.Item>
+            </div>
+            <PlusOutlined
+              style={{
+                color: 'blue',
+                cursor: 'pointer',
+                padding: '0.5rem',
+                border: '1px solid blue',
+              }}
+            />
+            <SettingOutlined
+              style={{
+                color: 'blue',
+                cursor: 'pointer',
+                padding: '0.5rem',
+                border: '1px solid blue',
+              }}
+            />
+          </div>
+        </Form.Item>
+        <Row gutter={10}>
           <Col span={16}>
-            <Form.Item labelCol={{ span: 9 }} label="Amount Paid">
+            <Form.Item labelCol={{ span: 9 }} label="Amount Paid" name="amount_paid">
               <InputNumber size="small" style={{ width: '100%' }} />
             </Form.Item>
-            <Form.Item labelCol={{ span: 9 }} label="Discount">
-              <InputNumber size="small" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item labelCol={{ span: 9 }} label="Shipping Paid">
-              <InputNumber size="small" style={{ width: '100%' }} />
-            </Form.Item>
-            <Form.Item labelCol={{ span: 9 }} label="Tax Amount">
+            <Form.Item labelCol={{ span: 9 }} label="Discount" name="discount">
               <InputNumber size="small" style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Form.Item labelCol={{ span: 24 }} label="Internal Notes">
-              <TextArea style={{ width: '100%' }} />
+            <Form.Item labelCol={{ span: 24 }} wrapperCol={{ span: 24 }} label="Internal Notes" name="note">
+              <TextArea maxLength={100} rows={5} />
             </Form.Item>
           </Col>
         </Row>

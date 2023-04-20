@@ -12,11 +12,16 @@ const OrderManagement: React.FC = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const { getProductList } = useModel('product');
   const { getUsers } = useModel('user');
+  const { getStateList } = useModel('states');
 
   useEffect(() => {
     getUsers({ permission: 'orders' });
     getProductList();
   }, [getUsers, getProductList]);
+
+  useEffect(() => {
+    getStateList();
+  }, [getStateList]);
 
   const {
     isDragging: isBottomDragging,

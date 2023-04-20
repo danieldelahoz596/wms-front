@@ -1,92 +1,74 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OInput } from '@/components/Globals/OInput';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
-import { Col, message, Row } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { Col, message, Row, Select, Form } from 'antd';
+import { useMemo } from 'react';
 
 interface IAddNewOrderItemTable {
-  initialItems: any[];
+  productRows: any[];
+  setProductRows: (rows: any) => void;
 }
 
-const productColumns = [
-  {
-    key: 'product',
-    dataIndex: 'product',
-    title: 'Product',
-  },
-  {
-    key: 'notes',
-    dataIndex: 'notes',
-    title: 'Notes',
-  },
-  {
-    key: 'available',
-    dataIndex: 'available',
-    title: 'Available',
-  },
-  {
-    key: 'quantity',
-    dataIndex: 'quantity',
-    title: 'Quantity',
-    editable: true,
-  },
-  {
-    key: 'uniPrice',
-    dataIndex: 'uniPrice',
-    title: 'Unit Price',
-  },
-  {
-    key: 'totalDiscount',
-    dataIndex: 'totalDiscount',
-    title: 'Total Discount',
-  },
-];
-
-const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems }) => {
+const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, setProductRows }) => {
   const { productList } = useModel('product');
-  const { setNewOrder } = useModel('order');
-  const [productRows, setProductRows] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const products = useMemo(() => productList.map((item) => ({ text: item.name, value: item.id })), [productList]);
+  const handleDeleteRow = (id) => {
+    setProductRows((prev) => prev.filter((item) => item.key !== id));
+  };
 
-  useEffect(() => {
-    setProductRows(initialItems);
-  }, [initialItems]);
+  const productColumns = useMemo(
+    () => [
+      {
+        key: 'product',
+        dataIndex: 'product',
+        title: 'Product',
+      },
+      {
+        key: 'quantity',
+        dataIndex: 'quantity',
+        title: 'Quantity',
+        editable: true,
+      },
+      {
+        key: 'unitPrice',
+        dataIndex: 'unitPrice',
+        title: 'Unit Price',
+      },
+      {
+        key: 'totalDiscount',
+        dataIndex: 'totalDiscount',
+        title: 'Total Discount',
+      },
+      {
+        key: 'action',
+        align: 'center',
+        render: (_, record) => <a onClick={() => handleDeleteRow(record.key)}>Delete</a>,
+      },
+    ],
+    [],
+  );
 
-  // const productRows = useMemo(
-  //   () =>
-  //     newOrder.orderItems.map((item) => ({
-  //       key: item.id,
-  //       product: item.name,
-  //       notes: '',
-  //       available: '',
-  //       quantity: item.quantity,
-  //       uniPrice: 10,
-  //       totalDiscount: 0,
-  //     })),
-  //   [newOrder],
-  // );
+  const productOptions = useMemo(
+    () =>
+      productList
+        .filter((item) => !productRows.map((row) => row.key).includes(item.id))
+        .map((item) => ({ label: item.name, value: item.id })),
+    [productList, productRows],
+  );
 
   const handleProductAdd = (value) => {
     const selectedProduct = productList.find((item) => item.id === value);
 
     if (selectedProduct) {
-      setNewOrder((prevState) => ({
-        ...prevState,
-        orderItems: [...prevState.orderItems, { ...selectedProduct }],
-      }));
-      setProductRows([
-        ...productRows,
+      setProductRows((prev) => [
+        ...prev,
         {
           key: selectedProduct.id,
           product: selectedProduct.name,
-          notes: '',
-          available: '',
-          quantity: 0,
-          uniPrice: 10,
+          quantity: 1,
+          unitPrice: 10,
           totalDiscount: 0,
         },
       ]);
@@ -94,19 +76,15 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
   };
 
   const handleRowEdit = (index, name, value) => {
-    setProductRows(productRows.map((row) => (row.key === index ? { ...row, [name]: value } : row)));
-    // setNewOrder((prevState) => ({
-    //   ...prevState,
-    //   orderItems: prevState.orderItems.map((item) =>
-    //     index == item.id ? { ...item, [name]: value } : item,
-    //   ),
-    // }));
+    if (name === 'quantity' && value <= 0) setProductRows((prev) => prev.filter((item) => item.key !== index));
+    else setProductRows(productRows.map((row) => (row.key === index ? { ...row, [name]: value } : row)));
   };
 
   const handlePasteFromCSV = () => {
     const productItems = [];
     navigator.clipboard.readText().then((text) => {
       const items = text.split(/\r\n|\r|\n/);
+      console.log('items: ', items);
       items.forEach((item) => {
         const details = item.split(',');
         if (details.length !== 3)
@@ -127,7 +105,7 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
             notes: '',
             available: '',
             quantity: quantity,
-            uniPrice: price,
+            unitPrice: price,
             totalDiscount: 0,
           });
         }
@@ -140,15 +118,17 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ initialItems })
     <>
       {contextHolder}
       <Row style={{ marginTop: '0.5rem' }}>
-        <Col span={12} style={{ display: 'flex', alignItems: 'center' }}>
-          <small>Add Item: </small>
-          <OInput
-            type="select"
-            options={products}
-            placeholder="Select a product.."
-            style={{ flex: 1, marginLeft: '0.5rem' }}
-            onChange={(name: any, value: any) => handleProductAdd(value)}
-          />
+        <Col span={12}>
+          <Form labelCol={{ span: 6 }} labelAlign="left">
+            <Form.Item label="Add Item">
+              <Select
+                options={productOptions}
+                style={{ width: '100%' }}
+                size="small"
+                onChange={(value) => handleProductAdd(value)}
+              />
+            </Form.Item>
+          </Form>
         </Col>
         <Col span={12} style={{ textAlign: 'right' }}>
           <OButton btnText={'Paste from CSV'} onClick={handlePasteFromCSV} />

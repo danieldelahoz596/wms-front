@@ -1,5 +1,5 @@
-import type ICity from './ICity';
 import type IState from './IState';
+import type ICity from './ICity';
 
 export default interface ICustomer {
   id: number;

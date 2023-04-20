@@ -145,7 +145,7 @@ const showConfirm = () => {
 };
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { orderList, shippingQueue, setOrderList, setEditableOrder, setSelectedOrders, initialOrderList, setShippingQueue } =
+  const { orderList, shippingQueue, setOrderList, setEditableOrder, setSelectedOrders, getOrderList, setShippingQueue } =
     useModel('order');
   const { userList } = useModel('user');
   const { fieldTypes } = useModel('customOrderFields');
@@ -158,10 +158,10 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const [stockTransferWarehouses, setStockTransferWarehouses] = useState(null);
 
   useEffect(() => {
-    initialOrderList({
+    getOrderList({
       order_status: selectedOrderStatus?.status?.id,
     });
-  }, [initialOrderList, selectedOrderStatus]);
+  }, [getOrderList, selectedOrderStatus]);
 
   const handleProductEdit = useCallback(
     (item: any) => {
@@ -490,18 +490,18 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const orderTableRows = useMemo(
     () =>
       orderList.map((item) => {
-        item.custom_fields.forEach((field) => (item[field.field_id] = field.value));
+        item.custom_fields?.forEach((field) => (item[field.field_id] = field.value));
 
         return {
           ...item,
           key: item.id,
           channel: (
             <span>
-              <img src={item.sales_channel.icon} />
-              <span>{item.sales_channel.name}</span>
+              {/* <img src={item.sales_channel.icon} />
+              <span>{item.sales_channel.name}</span> */}
             </span>
           ),
-          orderTotal: `$${item.orderTotal}`,
+          orderTotal: `$${item.amount_paid}`,
           order_number: (
             <div
               onClick={(e) => {
@@ -521,22 +521,24 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             </div>
           ),
           order_date: moment(item.order_date).format('Y-M-D'),
-          order_paid: moment(item.order_paid).format('Y-M-D'),
+          order_paid: moment(item.paid_on).format('Y-M-D'),
           age: (
             <span
               style={{
-                color: item.age?.search('d') < 0 ? 'green' : 'red',
+                color: Math.floor(item.age / 24) > 0 ? 'green' : 'red',
               }}
             >
-              {item.age}
+              {Math.floor(item.age / 24)}d {Math.floor(item.age % 24)}hr
             </span>
           ),
           recipient: (
             <div>
               <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
-              {item.recipient.name}
+              {item.customer.name}
             </div>
           ),
+          items: item.order_items.length,
+          itemNames: item.order_items && item.order_items[0].product.name,
         };
       }),
     [orderList, handleProductEdit],

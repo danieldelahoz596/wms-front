@@ -1,30 +1,19 @@
 import { useCallback, useState } from 'react';
 import httpClient from '@/utils/http-client';
-
-interface ICustomer {
-  id: number;
-  type: 'mobile' | 'home';
-  phone_number: string;
-  name: string;
-  sex: boolean;
-  age: number;
-  pickup_location_id: number;
-  channel_id: number;
-  state_id: number;
-  city_id: number;
-  address: string;
-}
+import type ICustomer from '@/interfaces/ICustomer';
 
 export default () => {
   const [customerList, setCustomerList] = useState<ICustomer[]>([]);
   const [selectedCustomer, setSelectedCustomer] = useState<ICustomer>(null);
 
   // get initial customer list
-  const getCustomerList = useCallback(() => {
-    httpClient
-      .get('/api/customers')
+  const getCustomerList = useCallback((queryString?: string) => {
+    return httpClient
+      .get(`/api/customers?${queryString}`)
       .then((response) => {
         setCustomerList(response.data.customers);
+
+        return response;
       })
       .catch((error) => console.log(error));
   }, []);
