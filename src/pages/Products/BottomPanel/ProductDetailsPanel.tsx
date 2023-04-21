@@ -72,6 +72,11 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   const [selectedMode, setSelectedMode] = useState<'vendorProduct' | 'fields' | 'gallery'>('vendorProduct');
   const { vendorList } = useModel('vendor');
 
+  const fielUrls = useMemo(
+    () => (editableProduct ? editableProduct.images.map((item) => item.image_url) : []),
+    [editableProduct],
+  );
+
   const fieldTableRows = useMemo(
     () =>
       editableProduct?.custom_fields?.map((customField) => ({
@@ -131,7 +136,11 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
         {selectedMode === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : selectedMode === 'gallery' ? (
-          <Image width={200} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+          <Space size={10} style={{ margin: 10 }}>
+            {fielUrls.map((url, index) => (
+              <Image key={index} width={200} src={url} />
+            ))}
+          </Space>
         ) : (
           <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
         )}

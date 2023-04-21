@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 import BasicInfoTab from './Tabs/BasicInfo';
 import VariationDetailsTab from './Tabs/VariationDetails';
 import VendorProductsTab from './Tabs/VendorProducts';
+import GalleryTab from './Tabs/Gallery';
+import type { UploadFile } from 'antd';
 
 interface IVirtualProductEditModal {
   isOpen: boolean;
@@ -20,19 +22,30 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
   const [basicForm] = Form.useForm();
   const { editableProduct, updateProduct } = useModel('product');
   const [selectedAttributeGroupId, setSelectedAttributeGroupId] = useState(null);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
     if (editableProduct) {
       basicForm.setFieldsValue(editableProduct);
       variationForm.setFieldsValue({ variations: editableProduct.children });
       setSelectedAttributeGroupId(editableProduct.attribute_group_id);
+      setFileList(
+        editableProduct.images.map((image) => ({
+          uid: `${image.id}`,
+          name: 'image.png',
+          status: 'done',
+          url: image.image_url,
+          response: image.url,
+        })),
+      );
     }
   }, [editableProduct, variationForm, basicForm]);
 
   const handleSave = () => {
+    const fileUrls = fileList.map((item) => item.response);
     basicForm.validateFields().then((values) => {
       variationForm.validateFields().then(({ variations }) => {
-        updateProduct({ ...editableProduct, ...values, variations }).then(() => onSave());
+        updateProduct({ ...editableProduct, urls: fileUrls, ...values, variations }).then(() => onSave());
       });
     });
   };
@@ -45,6 +58,11 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
     },
     {
       key: 'tab-2',
+      label: 'Gallery',
+      children: <GalleryTab fileList={fileList} setFileList={setFileList} />,
+    },
+    {
+      key: 'tab-3',
       label: 'Variation Details',
       children: (
         <VariationDetailsTab
@@ -55,7 +73,7 @@ const VirtualProductEditModal: React.FC<IVirtualProductEditModal> = ({ isOpen, o
       ),
     },
     {
-      key: 'tab-3',
+      key: 'tab-4',
       label: 'Vendor Products',
       children: (
         <VendorProductsTab
