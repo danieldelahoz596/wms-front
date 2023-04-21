@@ -22,7 +22,8 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
 
   useEffect(() => {
     if (editableOrder) {
-      recipientForm.setFieldsValue(editableOrder.customer);
+      if (editableOrder.customer) recipientForm.setFieldsValue(editableOrder.customer);
+      else recipientForm.resetFields();
       orderDetailsForm.setFieldsValue({
         ...editableOrder,
         order_date: moment(new Date(editableOrder.order_date)),
@@ -84,12 +85,20 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
   const handleSave = () => {
     recipientForm.validateFields().then((customerData) => {
       orderDetailsForm.validateFields().then((orderData) => {
-        updateOrder({
-          ...editableOrder,
-          customer: { ...editableOrder.customer, ...customerData },
-          ...orderData,
-          order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
-        }).then(() => {
+        const updateOrderData =
+          !customerData.phone_number && !customerData.phone_type
+            ? {
+                ...editableOrder,
+                ...orderData,
+                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+              }
+            : {
+                ...editableOrder,
+                customer: { ...editableOrder.customer, ...customerData },
+                ...orderData,
+                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+              };
+        updateOrder(updateOrderData).then(() => {
           onSave();
         });
       });

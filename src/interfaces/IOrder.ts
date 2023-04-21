@@ -23,7 +23,7 @@ export default interface IOrder {
   amount_paid: number;
   discount: number;
   note: string;
-  customer: ICustomer;
+  customer?: ICustomer;
   order_items: IOrderItem[];
   age: number;
   order_num: string;

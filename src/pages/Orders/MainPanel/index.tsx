@@ -532,8 +532,12 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           ),
           recipient: (
             <div>
-              <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
-              {item.customer.name}
+              {item.customer && (
+                <>
+                  <FileFilled style={{ color: '#AD5A7D', marginRight: '3px' }} />
+                  {item.customer.name}
+                </>
+              )}
             </div>
           ),
           items: item.order_items.length,

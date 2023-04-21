@@ -30,13 +30,13 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
         form={form}
         style={{ marginTop: 10 }}
         onFieldsChange={(changedFields) => {
-          if (changedFields[0].name[0] === 'state_id') form.setFieldValue('city_id', null);
+          if (changedFields.length > 0 && changedFields[0].name[0] === 'state_id') form.setFieldValue('city_id', null);
         }}
       >
         <Form.Item name="id" label="id" hidden={true}>
           <Input />
         </Form.Item>
-        <Form.Item name="phone_type" rules={[{ required: true, message: 'Please Select Phone Type!' }]} label="Phone Type">
+        <Form.Item name="phone_type" label="Phone Type">
           <Select
             placeholder="Phone Type"
             options={[
@@ -46,7 +46,7 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
             size="small"
           />
         </Form.Item>
-        <Form.Item name="phone_number" label="Phone Number" rules={[{ required: true, message: 'Please Input Phone Number!' }]}>
+        <Form.Item name="phone_number" label="Phone Number">
           <Input placeholder="Phone Number" size="small" />
         </Form.Item>
         <Form.Item label="Name" name="name">

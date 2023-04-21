@@ -32,11 +32,18 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
   const handleSave = () => {
     recipientForm.validateFields().then((customerData) => {
       orderDetailsForm.validateFields().then((orderData) => {
-        createOrder({
-          customer: customerData,
-          order: { ...orderData, status_id: 2 },
-          order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
-        }).then(() => {
+        const newOrderData =
+          !customerData.phone_number && !customerData.phone_type
+            ? {
+                order: { ...orderData, status_id: 2 },
+                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+              }
+            : {
+                customer: customerData,
+                order: { ...orderData, status_id: 2 },
+                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+              };
+        createOrder(newOrderData).then(() => {
           onSave();
         });
       });
