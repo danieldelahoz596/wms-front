@@ -73,7 +73,7 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   const { vendorList } = useModel('vendor');
 
   const fielUrls = useMemo(
-    () => (editableProduct ? editableProduct.images.map((item) => item.image_url) : []),
+    () => (editableProduct ? editableProduct?.images.map((item) => item.image_url) : []),
     [editableProduct],
   );
 
@@ -136,11 +136,11 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
         {selectedMode === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : selectedMode === 'gallery' ? (
-          <Space size={10} style={{ margin: 10 }}>
+          <Image.PreviewGroup>
             {fielUrls.map((url, index) => (
               <Image key={index} width={200} src={url} />
             ))}
-          </Space>
+          </Image.PreviewGroup>
         ) : (
           <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />
         )}
