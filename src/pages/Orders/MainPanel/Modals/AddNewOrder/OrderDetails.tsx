@@ -34,9 +34,9 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
         <Form.Item label="Channel">
           <div>Manual Orders</div>
         </Form.Item>
-        <Form.Item label="Order #" name="order_number">
+        {/* <Form.Item label="Order #" name="order_number">
           <Input size="small" />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label=" " colon={false}>
           <Row gutter={10}>
             <Col span={12}>

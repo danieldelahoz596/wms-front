@@ -17,7 +17,7 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
     setCityOptions(
       stateList.find((item) => item.id === selectedStateId)?.cities.map((city) => ({ label: city.name, value: city.id })),
     );
-  }, [selectedStateId, stateList]);
+  }, [selectedStateId, stateList, form]);
 
   return (
     <Card title="Recipient">
@@ -29,6 +29,9 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
         autoComplete="off"
         form={form}
         style={{ marginTop: 10 }}
+        onFieldsChange={(changedFields) => {
+          if (changedFields[0].name[0] === 'state_id') form.setFieldValue('city_id', null);
+        }}
       >
         <Form.Item name="id" label="id" hidden={true}>
           <Input />

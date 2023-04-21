@@ -26,4 +26,5 @@ export default interface IOrder {
   customer: ICustomer;
   order_items: IOrderItem[];
   age: number;
+  order_num: string;
 }
