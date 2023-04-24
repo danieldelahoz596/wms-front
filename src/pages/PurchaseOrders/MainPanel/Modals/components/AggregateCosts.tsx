@@ -11,10 +11,15 @@ const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
   const { selectedPO, getTotalItemCost } = useModel('po');
 
   useEffect(() => {
-    if (!!selectedPO.key) {
-      form.setFieldsValue({
-        shippingCost: selectedPO?.shippingCost,
-      });
+    // if (!!selectedPO.key) {
+    //   form.setFieldsValue({
+    //     shippingCost: selectedPO?.shippingCost,
+    //   });
+    // }
+    if (!selectedPO) {
+      form.resetFields();
+    } else {
+      form.setFields({});
     }
   }, [selectedPO, form]);
 

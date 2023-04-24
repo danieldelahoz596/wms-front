@@ -42,35 +42,6 @@ export default () => {
     [milestonesList, vendorList, poTemplateList, shippingTermList, paymentTermList, warehouseList],
   );
 
-  //when opening the button
-  const initialSelectedPO = useCallback(() => {
-    setSelectedPO({
-      key: -1,
-      // P.O Details
-      fromVendor: null,
-      destination: null,
-      poTemplate: null,
-      shippingTerm: null,
-      paymentTerm: null,
-      confirmedBy: null,
-      enablePortal: null,
-      milestone: null,
-
-      // Aggregate Costs
-      itemCost: 0,
-      shippingCost: 0,
-      paymentDate: '',
-      otherCost: [],
-
-      // Communication
-      messageToVendor: '',
-      internalNote: '',
-
-      // P.O Items
-      poItems: [],
-    });
-  }, []);
-
   //when click the save button
   const addNewPO = useCallback(() => {
     setPoList([...poList, selectedPO]);
@@ -160,7 +131,6 @@ export default () => {
   return {
     poList,
     selectedPO,
-    initialSelectedPO,
     setPoList,
     setSelectedPO,
     handleSelectedPOChange,

@@ -24,17 +24,23 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
   useEffect(() => {
-    if (!!selectedPO.key) {
-      form.setFieldsValue({
-        destination: selectedPO?.destination?.id,
-        customPONumber: selectedPO?.customponumber,
-        poTemplate: selectedPO?.poTemplate?.id,
-        poFormat: selectedPO?.poFormat,
-        shippingTerm: selectedPO?.shipmentTerm?.id,
-        paymentTerm: selectedPO?.paymentTerm?.id,
-        milestone: selectedPO?.milestone?.id,
-        enablePortal: selectedPO?.enablePortal,
-      });
+    // if (!!selectedPO.key) {
+    //   form.setFieldsValue({
+    //     destination: selectedPO?.destination?.id,
+    //     customPONumber: selectedPO?.customponumber,
+    //     poTemplate: selectedPO?.poTemplate?.id,
+    //     poFormat: selectedPO?.poFormat,
+    //     shippingTerm: selectedPO?.shipmentTerm?.id,
+    //     paymentTerm: selectedPO?.paymentTerm?.id,
+    //     milestone: selectedPO?.milestone?.id,
+    //     enablePortal: selectedPO?.enablePortal,
+    //   });
+    // }
+
+    if (!selectedPO) {
+      form.resetFields();
+    } else {
+      form.setFielsValue({});
     }
   }, [selectedPO, form]);
 
@@ -88,9 +94,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
       <Card title="P.O. Details">
         <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left" form={form}>
           <Form.Item label="From Vendor">
-            <span style={{ fontWeight: 'bold' }}>
-              {selectedPO.fromVendor ? selectedPO.fromVendor?.name : selectedVendor?.name}
-            </span>
+            <span style={{ fontWeight: 'bold' }}>{selectedPO ? selectedPO.fromVendor?.name : selectedVendor?.name}</span>
           </Form.Item>
           <Form.Item label="To Destination" name="destination">
             <Select options={warehouseOptions} />

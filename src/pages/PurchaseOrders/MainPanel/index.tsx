@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
-import VendorModal from './Modals/Vendor';
+import SelectVendorModal from './Modals/SelectVendor';
 import AddNewPOModal from './Modals/AddNewPO';
 import ReceivePOModal from './Modals/ReceivePO';
 import ManageItemsModal from '@/components/Modals/ManageItems';
@@ -114,7 +114,7 @@ export const TColumns = [
 ];
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { poList, initialSelectedPO, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
+  const { poList, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
   const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -129,7 +129,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   }, [selectedRows, poList, setSelectedPO]);
 
   const handleNewPOModalOpen = () => {
-    initialSelectedPO();
+    setSelectedPO(null);
     setModal(modalType.New);
   };
 
@@ -377,13 +377,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         </Card>
       </div>
 
-      <VendorModal
+      <SelectVendorModal
         isOpen={modalOpen === modalType.New}
         onSave={() => {
           setModal(modalType.AddNewPo);
-          initialSelectedPO();
         }}
-        onClose={() => {}}
+        onClose={() => {
+          setModal(modalType.Cancel);
+        }}
       />
 
       <AddNewPOModal

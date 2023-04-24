@@ -1,14 +1,14 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Card, Form, Select } from 'antd';
-import React, { useMemo } from 'react';
-interface IVendorModal {
+import React, { useEffect, useMemo } from 'react';
+interface ISelectVendorModal {
   isOpen: boolean;
   onSave: () => void;
   onClose: () => void;
 }
 
-const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
+const SelectVendorModal: React.FC<ISelectVendorModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
   const { vendorList, setSelectedVendor } = useModel('vendor');
 
@@ -20,6 +20,10 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
       })),
     [vendorList],
   );
+
+  useEffect(() => {
+    form.resetFields();
+  }, [isOpen, form]);
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -60,4 +64,4 @@ const VendorModal: React.FC<IVendorModal> = ({ isOpen, onSave, onClose }) => {
   );
 };
 
-export default VendorModal;
+export default SelectVendorModal;

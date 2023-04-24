@@ -16,7 +16,7 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { selectedPO, setPoList, initialSelectedPO } = useModel('po');
+  const { selectedPO, setPoList } = useModel('po');
   const { initialState } = useModel('@@initialState');
   const { milestonesList } = useModel('milestones');
   const { selectedVendor } = useModel('vendor');
@@ -59,7 +59,6 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           poItems: selectedPO?.poItems,
         };
         setPoList((prev) => [...prev, item]);
-        initialSelectedPO();
         onSave();
       });
     });

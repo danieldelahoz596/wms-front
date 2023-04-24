@@ -127,7 +127,7 @@ const AddNewPOItemTable: React.FC = () => {
   ];
 
   // prepare data table rows
-  const rows = selectedPO.poItems.map((item: any, index: any) => ({
+  const rows = selectedPO?.poItems.map((item: any, index: any) => ({
     key: index,
     removeBtn: (
       <div onClick={() => removePoItem(index)}>
