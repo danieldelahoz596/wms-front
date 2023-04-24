@@ -94,16 +94,16 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
       ]}
     >
       <>
-        <Row gutter={5}>
-          <Col span={10}>
+        <Row gutter={10}>
+          <Col span={12}>
             <PurchaseOrderDetail form={purchaseForm} />
           </Col>
-          <Col span={7}>
+          <Col span={12}>
             <AggregateCosts form={aggregateCostForm} />
           </Col>
-          <Col span={7}>
+          {/* <Col span={7}>
             <POCommunication />
-          </Col>
+          </Col> */}
         </Row>
         <AddNewPOItemTable />
       </>

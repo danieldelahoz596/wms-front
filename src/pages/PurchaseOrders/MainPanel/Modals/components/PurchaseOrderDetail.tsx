@@ -2,7 +2,7 @@ import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
 import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
 import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
 import { modalType } from '@/utils/helpers/types';
-import { PlusOutlined, QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
@@ -17,9 +17,9 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const { selectedVendor } = useModel('vendor');
   const { milestonesList } = useModel('milestones');
   const { selectedPO } = useModel('po');
+  // const { poTemplateList } = useModel('poTemplate');
+  // const { shippingTermList } = useModel('shippingTerm');
   const { warehouseList } = useModel('warehouse');
-  const { poTemplateList } = useModel('poTemplate');
-  const { shippingTermList } = useModel('shippingTerm');
   const { paymentTermList, setPaymentTermList } = useModel('paymentTerm');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
@@ -53,32 +53,32 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     [warehouseList],
   );
 
-  const poTemplateOptions = useMemo(
-    () =>
-      poTemplateList.map((_item) => ({
-        label: _item.name,
-        value: _item.id,
-      })),
-    [poTemplateList],
-  );
+  // const poTemplateOptions = useMemo(
+  //   () =>
+  //     poTemplateList.map((_item) => ({
+  //       label: _item.name,
+  //       value: _item.id,
+  //     })),
+  //   [poTemplateList],
+  // );
 
-  const shippingTermOptions = useMemo(
-    () =>
-      shippingTermList.map((_item) => ({
-        label: _item.text,
-        value: _item.name,
-      })),
-    [shippingTermList],
-  );
+  // const shippingTermOptions = useMemo(
+  //   () =>
+  //     shippingTermList.map((_item) => ({
+  //       label: _item.text,
+  //       value: _item.name,
+  //     })),
+  //   [shippingTermList],
+  // );
 
-  const paymentTermOptions = useMemo(
-    () =>
-      paymentTermList.map((_item) => ({
-        label: _item.name,
-        value: _item.id,
-      })),
-    [paymentTermList],
-  );
+  // const paymentTermOptions = useMemo(
+  //   () =>
+  //     paymentTermList.map((_item) => ({
+  //       label: _item.name,
+  //       value: _item.id,
+  //     })),
+  //   [paymentTermList],
+  // );
 
   const milestoneOptions = useMemo(
     () =>
@@ -102,7 +102,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           <Form.Item label="Custom P.O. Number" name="order_number">
             <Input />
           </Form.Item>
-          <Form.Item label="P.O. Template" name="template_id">
+          {/* <Form.Item label="P.O. Template" name="template_id">
             <Select options={poTemplateOptions} />
           </Form.Item>
           <Form.Item label="P.O. Format" name="format_id">
@@ -125,7 +125,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
               <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
               <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
             </div>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item label="Confirm By" name="confirm_by">
             <DatePicker />
           </Form.Item>

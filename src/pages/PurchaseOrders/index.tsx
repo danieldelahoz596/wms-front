@@ -10,6 +10,7 @@ import MainPanel from './MainPanel';
 const CustomerManagement: React.FC = () => {
   const { poList } = useModel('po');
   const { getMilestones } = useModel('milestones');
+  const { getUnitOfMeasures } = useModel('unitOfMeasure');
   const { initialShippingTermList } = useModel('shippingTerm');
   const { getProductList } = useModel('product');
   const { selectedPOStatus, changeSelectedPOStatus } = useModel('poStatus');
@@ -56,7 +57,8 @@ const CustomerManagement: React.FC = () => {
   useEffect(() => {
     getMilestones();
     initialShippingTermList();
-  }, [getMilestones, initialShippingTermList]);
+    getUnitOfMeasures();
+  }, [getMilestones, initialShippingTermList, getUnitOfMeasures]);
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
