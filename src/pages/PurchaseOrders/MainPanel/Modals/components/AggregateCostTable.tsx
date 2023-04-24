@@ -1,55 +1,35 @@
-import { OInput } from '@/components/Globals/OInput';
 import { OTable } from '@/components/Globals/OTable';
-import type { IPOOtherCost } from '@/interfaces';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row } from 'antd';
-import React, { useMemo, useState } from 'react';
+import { Col, Row, Form, Input, InputNumber } from 'antd';
+import React, { useCallback, useMemo, useState } from 'react';
 import { OModal } from '../../../../../components/Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
   const { selectedPO, setSelectedPO } = useModel('po');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newCost, setNewCost] = useState<IPOOtherCost>({
-    name: '',
-    cost: 0,
-  });
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleChange = (name: string, value: any) =>
-    setNewCost((prev) => ({
-      ...prev,
-      [name]: name === 'cost' ? parseFloat(value) : value,
-    }));
+  const [form] = Form.useForm();
 
   const handleOk = () => {
-    setSelectedPO((item) => ({ ...item, otherCost: [...item.otherCost, newCost] }));
-    setNewCost({
-      name: '',
-      cost: 0,
+    form.validateFields().then((values) => {
+      setSelectedPO((item) => ({ ...item, other_costs: [...item.other_costs, values] }));
+      form.resetFields();
+      setIsModalOpen(false);
     });
-    setIsModalOpen(false);
   };
 
-  const handleRemove = (removeIndex) => {
-    setSelectedPO((item) => ({
-      ...item,
-      otherCost: item.otherCost.filter((cost, index) => index !== removeIndex),
-    }));
-  };
+  const handleRemove = useCallback(
+    (removeIndex) => {
+      setSelectedPO((item) => ({ ...item, other_costs: item.other_costs.filter((cost, index) => index !== removeIndex) }));
+    },
+    [setSelectedPO],
+  );
 
   const columns = [
     {
-      title: <PlusCircleOutlined style={{ color: 'blue', fontSize: 14 }} onClick={showModal} />,
-      dataIndex: 'add',
-      key: 'add',
+      title: <PlusCircleOutlined style={{ color: 'blue', fontSize: 14 }} onClick={() => setIsModalOpen(true)} />,
+      dataIndex: 'action',
+      key: 'action',
     },
     {
       title: 'Other Costs',
@@ -58,24 +38,24 @@ const AggregateCostTable: React.FC = () => {
     },
     {
       title: 'Amount',
-      dataIndex: 'cost',
-      key: 'cost',
+      dataIndex: 'amount',
+      key: 'amount',
     },
   ];
 
   const rows = useMemo(
     () =>
-      selectedPO?.otherCost.map((item: any, index: number) => ({
+      selectedPO.other_costs.map((item: any, index: number) => ({
         key: index,
-        add: (
-          <div onClick={() => {}}>
+        action: (
+          <div>
             <MinusCircleOutlined style={{ color: 'blue' }} onClick={() => handleRemove(index)} />
           </div>
         ),
         name: item.name,
-        cost: item.cost,
+        amount: item.amount,
       })),
-    [selectedPO],
+    [selectedPO, handleRemove],
   );
 
   return (
@@ -91,17 +71,18 @@ const AggregateCostTable: React.FC = () => {
         <Col offset={12} span={6}>
           <span>Total:</span>
         </Col>
-        <Col span={6}>
-          <span>${selectedPO?.otherCost.reduce((pre, cur) => pre + cur.cost, 0)}</span>{' '}
-        </Col>
+        <Col span={6}>{/* <span>${selectedPO?.other_costs.reduce((pre, cur) => pre + cur.cost, 0)}</span>{' '} */}</Col>
       </Row>
 
-      <OModal title="Add New Cost" width={250} isOpen={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <>
-          <OInput type="text" name="name" onChange={handleChange} placeholder="Title" value={newCost.name} />
-          <div style={{ margin: '0.1rem 0' }}>&nbsp;</div>
-          <OInput type="number" name="cost" onChange={handleChange} placeholder="amount" value={newCost.cost} />
-        </>
+      <OModal title="Add New Cost" width={250} isOpen={isModalOpen} onOk={handleOk} onCancel={() => setIsModalOpen(false)}>
+        <Form form={form} labelCol={{ span: 8 }} labelAlign="left">
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Pleas input the name' }]}>
+            <Input placeholder="Title" />
+          </Form.Item>
+          <Form.Item label="Amount" name="amount" rules={[{ required: true, message: 'Please input the amount of the cost' }]}>
+            <InputNumber placeholder="Amount" style={{ width: '100%' }} min={0} />
+          </Form.Item>
+        </Form>
       </OModal>
     </>
   );

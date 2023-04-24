@@ -12,4 +12,5 @@ export default interface IPurchasingOrder {
   payment_date: Date;
   total_cost: number;
   other_costs: IPurchasingOrderCost[];
+  po_items: any[];
 }

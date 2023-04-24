@@ -37,10 +37,10 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     //   });
     // }
 
-    if (!selectedPO) {
+    if (!selectedPO.id) {
       form.resetFields();
     } else {
-      form.setFielsValue({});
+      form.setFieldsValue({});
     }
   }, [selectedPO, form]);
 
@@ -141,7 +141,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
               </span>
             </div>
           </Form.Item>
-          <Form.Item label="Enable Auto Update" name="enablePortal">
+          <Form.Item label="Enable Auto Update" name="enable_portal">
             <>
               <Checkbox />
               <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
