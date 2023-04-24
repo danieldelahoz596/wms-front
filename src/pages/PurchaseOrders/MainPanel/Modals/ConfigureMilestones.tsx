@@ -1,7 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { OTable } from '@/components/Globals/OTable';
-import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Space } from 'antd';
 import React, { useState } from 'react';
@@ -20,7 +19,7 @@ const TColumns = [
   },
   {
     key: 'name',
-    dataIndex: 'text',
+    dataIndex: 'name',
     title: 'Milestone Name',
   },
   {
@@ -78,22 +77,7 @@ const ConfigureMilestonesModal: React.FC<IConfigureMilestonesModal> = ({ isOpen,
           selectedRows={selectedMilestone}
         />
 
-        <NewMilestoneModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          onSave={(value) => {
-            setMilestonesList((prev) => [
-              ...prev,
-              {
-                id: uuidv4(),
-                value: `${uuidv4()}`,
-                text: value.name,
-                color: value.color.hex,
-              },
-            ]);
-            setShowModal(false);
-          }}
-        />
+        <NewMilestoneModal isOpen={showModal} onClose={() => setShowModal(false)} onSave={() => setShowModal(false)} />
       </>
     </OModal>
   );

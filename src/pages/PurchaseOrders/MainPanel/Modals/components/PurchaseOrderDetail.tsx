@@ -66,7 +66,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     () =>
       shippingTermList.map((_item) => ({
         label: _item.text,
-        value: _item.value,
+        value: _item.name,
       })),
     [shippingTermList],
   );
@@ -82,8 +82,8 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
 
   const milestoneOptions = useMemo(
     () =>
-      milestonesList?.map((_item) => ({
-        label: _item.text,
+      milestonesList.map((_item) => ({
+        label: _item.name,
         value: _item.id,
       })),
     [milestonesList],
@@ -96,16 +96,16 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           <Form.Item label="From Vendor">
             <span style={{ fontWeight: 'bold' }}>{selectedPO ? selectedPO.fromVendor?.name : selectedVendor?.name}</span>
           </Form.Item>
-          <Form.Item label="To Destination" name="destination">
+          <Form.Item label="To Destination" name="destination_id">
             <Select options={warehouseOptions} />
           </Form.Item>
-          <Form.Item label="Custom P.O. Number" name="customPONumber">
+          <Form.Item label="Custom P.O. Number" name="order_number">
             <Input />
           </Form.Item>
-          <Form.Item label="P.O. Template" name="poTemplate">
+          <Form.Item label="P.O. Template" name="template_id">
             <Select options={poTemplateOptions} />
           </Form.Item>
-          <Form.Item label="P.O. Format" name="poFormat">
+          <Form.Item label="P.O. Format" name="format_id">
             <Select
               options={[
                 { value: 'pdf', label: 'PDF Attachment' },
@@ -114,25 +114,25 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
               ]}
             />
           </Form.Item>
-          <Form.Item label="Shipping Terms" name="shippingTerm">
+          <Form.Item label="Shipping Terms" name="shipping_term_id">
             <Select options={shippingTermOptions} />
           </Form.Item>
           <Form.Item label="Payment Terms">
             <div style={{ display: 'flex', gap: HORIZONTAL_SPACE_SIZE }}>
-              <Form.Item name="paymentTerm" style={{ flex: 1 }}>
+              <Form.Item name="payment_id" style={{ flex: 1 }}>
                 <Select options={paymentTermOptions} />
               </Form.Item>
               <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
               <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
             </div>
           </Form.Item>
-          <Form.Item label="Confirm By" name="confirmBy">
+          <Form.Item label="Confirm By" name="confirm_by">
             <DatePicker />
           </Form.Item>
           <Form.Item label="Milestones">
             <div style={{ display: 'flex', gap: 3 }}>
               <div style={{ flex: '1' }}>
-                <Form.Item name="milestone">
+                <Form.Item name="milestone_id">
                   <Select options={milestoneOptions} />
                 </Form.Item>
               </div>

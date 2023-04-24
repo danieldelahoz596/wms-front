@@ -1,19 +1,29 @@
+import httpClient from '@/utils/http-client';
+import type IMileStone from '@/interfaces/IMilestone';
 import { useModel } from '@umijs/max';
 import { useCallback, useEffect, useState } from 'react';
 
 export default () => {
-  const [milestonesList, setMilestonesList] = useState<any[]>([]);
+  const [milestonesList, setMilestonesList] = useState<IMileStone[]>([]);
   const { initialState } = useModel('@@initialState');
 
-  const initialMilestonesList = useCallback(() => {
-    setMilestonesList(initialState?.initialData?.milestones);
-  }, [initialState?.initialData]);
+  const getMilestones = useCallback(() => {
+    return httpClient.get('/api/milestones').then((response) => {
+      setMilestonesList(response.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (initialState?.currentUser) {
-      initialMilestonesList();
+      getMilestones();
     }
-  }, [initialMilestonesList, initialState?.currentUser]);
+  }, [getMilestones, initialState?.currentUser]);
 
-  return { milestonesList, setMilestonesList, initialMilestonesList };
+  const createMilestone = useCallback((data) => {
+    return httpClient.post('/api/milestones', data).then((response) => {
+      setMilestonesList((prev) => [...prev, response.data]);
+    });
+  }, []);
+
+  return { milestonesList, setMilestonesList, createMilestone, getMilestones };
 };

@@ -6,7 +6,7 @@ export default () => {
   const [shippingTermList, setShippingTermList] = useState<any[]>([]);
 
   const initialShippingTermList = useCallback(() => {
-    setShippingTermList(initialState?.initialData?.milestones);
+    setShippingTermList(initialState?.initialData?.shippingTerms);
   }, [initialState?.initialData]);
 
   useEffect(() => {

@@ -104,7 +104,7 @@ const HistoricalPurchaseOrdersExports: React.FC = () => {
   const milestoneOptions = useMemo(
     () =>
       milestonesList.map((_item) => ({
-        label: _item.text,
+        label: _item.name,
         value: _item.id,
       })),
     [milestonesList],

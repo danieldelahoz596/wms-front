@@ -1,3 +1,4 @@
+import type IPurchasingOrder from '@/interfaces/IPurchasingOrder';
 import { useCallback, useState } from 'react';
 import { useModel } from 'umi';
 
@@ -9,8 +10,8 @@ export default () => {
   const { paymentTermList } = useModel('paymentTerm');
   const { milestonesList } = useModel('milestones');
 
-  const [poList, setPoList] = useState<any[]>([]);
-  const [selectedPO, setSelectedPO] = useState<any>(null);
+  const [poList, setPoList] = useState<IPurchasingOrder[]>([]);
+  const [selectedPO, setSelectedPO] = useState<IPurchasingOrder>(null);
 
   //when input values are changed
   const handleSelectedPOChange = useCallback(
