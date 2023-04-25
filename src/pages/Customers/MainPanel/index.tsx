@@ -68,7 +68,7 @@ const TColumns = [
 ];
 
 const MainPanel: React.FC = () => {
-  const { customerList, selectedCustomer, setSelectedCustomer } = useModel('customer');
+  const { customerList, selectedCustomer, setSelectedCustomer, getCustomer } = useModel('customer');
   const [modalOpen, setModal] = useState('');
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
@@ -76,9 +76,16 @@ const MainPanel: React.FC = () => {
     () =>
       customerList.map((item) => ({
         key: item.id,
-        orders: 0,
+        phone_type: item.phone_type,
+        phone_number: item.phone_number,
+        name: item.name,
+        address: item.address,
+        sex: item.sex ? 'Male' : 'Female',
+        age: item.age,
+        state: item.state && item.state.name,
+        city: item.city && item.city.name,
+        orders: item.orders.length,
         totalsales: '$0.00',
-        ...item,
       })),
     [customerList],
   );
@@ -86,11 +93,11 @@ const MainPanel: React.FC = () => {
   // get selected customer
   useEffect(() => {
     if (selectedRows[0]) {
-      setSelectedCustomer(customerList.find((item) => item.id === selectedRows[0]));
+      getCustomer(selectedRows[0]);
     } else {
       setSelectedCustomer(null);
     }
-  }, [selectedRows, setSelectedCustomer, customerList]);
+  }, [selectedRows, setSelectedCustomer, getCustomer]);
 
   return (
     <>

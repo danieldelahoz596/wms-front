@@ -10,6 +10,11 @@ interface IOrderItem {
   product: IProduct;
 }
 
+interface IOrderStatus {
+  id: number;
+  name: string;
+}
+
 export default interface IOrder {
   id: number;
   customer_id: number;
@@ -27,4 +32,5 @@ export default interface IOrder {
   order_items: IOrderItem[];
   age: number;
   order_num: string;
+  order_status: IOrderStatus;
 }

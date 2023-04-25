@@ -25,8 +25,8 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
   }, [selectedStateId, stateList, form]);
 
   const fetchCustomerList = (s) => {
-    return getCustomerList(qs.stringify({ name: s, phone_number: s, address: s })).then(({ data: { customers } }) => {
-      return customers.map((customer: ICustomer) => ({
+    return getCustomerList(qs.stringify({ name: s, phone_number: s, address: s })).then(({ data }) => {
+      return data.map((customer: ICustomer) => ({
         label: `${customer.name} - ${customer.phone_number} - ${customer.address}`,
         value: customer.id,
         ...customer,

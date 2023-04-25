@@ -11,7 +11,7 @@ export default () => {
     return httpClient
       .get(`/api/customers?${queryString}`)
       .then((response) => {
-        setCustomerList(response.data.customers);
+        setCustomerList(response.data);
 
         return response;
       })
@@ -41,12 +41,19 @@ export default () => {
     [],
   );
 
+  // get a customer
+  const getCustomer = useCallback(
+    (id: number) => httpClient.get(`/api/customers/${id}`).then((response) => setSelectedCustomer(response.data)),
+    [],
+  );
+
   return {
     customerList,
     selectedCustomer,
     setSelectedCustomer,
     getCustomerList,
     setCustomerList,
+    getCustomer,
     createCustomer,
     updateCustomer,
     deleteCustomer,

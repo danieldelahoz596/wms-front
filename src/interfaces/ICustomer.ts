@@ -1,9 +1,10 @@
 import type IState from './IState';
 import type ICity from './ICity';
+import type IOrder from './IOrder';
 
 export default interface ICustomer {
   id: number;
-  type: 'mobile' | 'home';
+  phone_type: 'mobile' | 'home';
   phone_number: string;
   name: string;
   sex: boolean;
@@ -15,4 +16,5 @@ export default interface ICustomer {
   address: string;
   state: IState;
   city: ICity;
+  orders: IOrder[];
 }

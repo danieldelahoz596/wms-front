@@ -55,7 +55,7 @@ export default function SidePanel() {
     httpClient
       .get('/api/customers?' + qs.stringify(query))
       .then((response) => {
-        setCustomerList(response.data.customers);
+        setCustomerList(response.data);
       })
       .catch((error) => {
         console.log(error);
