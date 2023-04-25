@@ -42,7 +42,7 @@ const OrderItems = () => {
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                       <Image
-                        src={item.product.images && item.product.images[0].image_url}
+                        src={item.product.images.length > 0 ? item.product.images[0].image_url : ''}
                         alt="No Image Found"
                         width="5rem"
                         height="5rem"
