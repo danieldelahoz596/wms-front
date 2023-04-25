@@ -519,8 +519,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }} />
             </div>
           ),
-          order_date: moment(item.order_date).format('Y-M-D'),
-          order_paid: moment(item.paid_on).format('Y-M-D'),
+          order_date: item.order_date ? moment(item.order_date).format('Y-M-D') : '',
+          order_paid: item.paid_on ? moment(item.paid_on).format('Y-M-D') : '',
           age: (
             <span
               style={{

@@ -1,13 +1,10 @@
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Image, Row } from 'antd';
-import type { FC } from 'react';
 
-const OrderItems: FC = () => {
+const OrderItems = () => {
   const { selectedOrders } = useModel('order');
 
-  const order = selectedOrders[0];
-
-  return order ? (
+  return selectedOrders.length === 1 ? (
     <div style={{ position: 'relative' }}>
       <div className="title-row">
         <h1 className="page-title">
@@ -31,21 +28,21 @@ const OrderItems: FC = () => {
         Out Of Stock
       </span>
       <Card>
-        {order.orderItems?.map((item, index) => {
-          const subTotal = item.unitQty * item.unitAmount;
+        {selectedOrders[0].order_items?.map((item) => {
+          const subTotal = item.qty * item.product.vendor_cost;
 
           return (
-            <div key={index} style={{ borderBottom: '2px solid #ccc', padding: '0.5rem' }}>
+            <div key={item.id} style={{ borderBottom: '2px solid #ccc', padding: '0.5rem' }}>
               <Row gutter={32}>
                 <Col span={16}>
                   <div>
                     <div>
-                      <img src={order.sales_channel?.icon} />
-                      {order.sales_channel?.name} :: {order.order_number}
+                      {/* <img src={order.sales_channel?.icon} />
+                      {order.sales_channel?.name} :: {order.order_number} */}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                       <Image
-                        src={item.image}
+                        src={item.product.images && item.product.images[0].image_url}
                         alt="No Image Found"
                         width="5rem"
                         height="5rem"
@@ -58,12 +55,9 @@ const OrderItems: FC = () => {
                         }}
                       />
                       <div>
-                        <div>LISTING SKU: {item.listingSku}</div>
-                        <div>LISTING NAME: {item.name}</div>
-                        <div>MASTER SKU: {item.masterSku}</div>
-                        <div>ATTRIBUTES: VENDOR PRODUCT SKU: {item.listingSku}</div>
+                        <p>ITEM NAME: {item.product.name}</p>
+                        <p>Master SKU: {item.product.sku}</p>
                       </div>
-                      <div>Master SKU: {item.masterSku}</div>
                     </div>
                   </div>
                 </Col>
@@ -73,7 +67,7 @@ const OrderItems: FC = () => {
                       <b style={{ color: '#5F5FFF' }}>Quantity:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <b style={{ color: '#5F5FFF' }}>X{item.unitQty}</b>
+                      <b style={{ color: '#5F5FFF' }}>X{item.qty}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem' }}>
@@ -81,7 +75,7 @@ const OrderItems: FC = () => {
                       <b style={{ color: '#626262' }}>Unit Price:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <b style={{ color: '#626262' }}>${item.unitAmount}</b>
+                      <b style={{ color: '#626262' }}>${item.product.vendor_cost}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem' }}>
@@ -89,7 +83,7 @@ const OrderItems: FC = () => {
                       <b style={{ color: '#626262' }}>Total Discount:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <b style={{ color: '#626262' }}>-${item.discount}</b>
+                      <b style={{ color: '#626262' }}>-${0}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem', padding: '0.4rem', background: '#5F5FFF' }}>
@@ -104,8 +98,12 @@ const OrderItems: FC = () => {
               </Row>
               <Row style={{ marginTop: '1rem' }}>
                 <Col span={24}>
-                  <div style={{ textTransform: 'uppercase' }}>Unit Weight: {item.unitWeight}</div>
-                  <div style={{ textTransform: 'uppercase' }}>Unit H/W/L: {item.unitHWL}</div>
+                  <div style={{ textTransform: 'uppercase' }}>
+                    Unit Weight: {Number(item.product.pound + item.product.ounce / 12.0).toFixed(2)}
+                  </div>
+                  <div style={{ textTransform: 'uppercase' }}>
+                    Unit H/W/L: {item.product.height} / {item.product.width} / {item.product.length}
+                  </div>
                   <div style={{ textTransform: 'uppercase' }}>Warehouse: {item.warehouse}</div>
                   <div style={{ textTransform: 'uppercase' }}>Pick Location: {item.pickLocation}</div>
                 </Col>
