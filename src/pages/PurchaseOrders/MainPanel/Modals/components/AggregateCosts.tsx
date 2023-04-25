@@ -8,7 +8,7 @@ interface IAggregateCosts {
 }
 
 const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
-  const { selectedPO, getTotalItemCost } = useModel('po');
+  const { selectedPO, poItemsCost } = useModel('po');
 
   useEffect(() => {
     // if (!!selectedPO.key) {
@@ -16,7 +16,7 @@ const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
     //     shippingCost: selectedPO?.shippingCost,
     //   });
     // }
-    if (!selectedPO.id) {
+    if (!selectedPO) {
       form.resetFields();
     } else {
       form.setFields({});
@@ -26,7 +26,7 @@ const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
   return (
     <Card title="Aggregate Costs">
       <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} form={form} labelAlign="left">
-        <Form.Item label="Item Cost">{getTotalItemCost(selectedPO)}</Form.Item>
+        <Form.Item label="Item Cost">{poItemsCost}</Form.Item>
         <Form.Item label="Shipping Cost" name="shipping_cost">
           <InputNumber style={{ width: '100%' }} />
         </Form.Item>

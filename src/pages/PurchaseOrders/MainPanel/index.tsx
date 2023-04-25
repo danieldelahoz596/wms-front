@@ -129,7 +129,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   }, [selectedRows, poList, setSelectedPO]);
 
   const handleNewPOModalOpen = () => {
-    setSelectedPO({ po_items: [], other_costs: [] });
+    setSelectedPO(null);
     setModal(modalType.New);
   };
 

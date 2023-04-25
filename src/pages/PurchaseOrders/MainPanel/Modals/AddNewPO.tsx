@@ -16,21 +16,18 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { selectedPO, setPoList } = useModel('po');
-  const { initialState } = useModel('@@initialState');
-  const { milestonesList } = useModel('milestones');
+  const { selectedPO, setPoList, poItems, otherCosts } = useModel('po');
   const { selectedVendor } = useModel('vendor');
-  const { warehouseList } = useModel('warehouse');
-  const { poTemplateList } = useModel('poTemplate');
-  const { shippingTermList } = useModel('shippingTerm');
-  const { paymentTermList } = useModel('paymentTerm');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
 
-  const handleSave = () => {
+  const handleSave = (status) => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
       aggregateCostForm.validateFields().then((aggregateCostValues) => {
-        console.log(purchaseFormValues);
+        console.log('otherCosts: ', otherCosts);
+        console.log('poItems: ', poItems);
+        console.log({ ...purchaseFormValues, ...aggregateCostValues, status_id: status, vendor_id: selectedVendor.id });
+
         // const item = {
         //   key: uuidv4(),
         //   po_status: {
@@ -83,13 +80,13 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           key: 'submitauth',
           type: 'primary',
           btnLabel: 'Save & Authorize',
-          onClick: handleSave,
+          onClick: () => handleSave(2),
         },
         {
           key: 'submit',
           type: 'primary',
           btnLabel: 'Save',
-          onClick: handleSave,
+          onClick: () => handleSave(1),
         },
       ]}
     >

@@ -6,7 +6,6 @@ export default interface IPurchasingOrder {
   vendor_id: number;
   destination_id: number;
   confirm_by: Date;
-  milestone_id: number;
   status_id: number;
   shipping_cost: number;
   payment_date: Date;

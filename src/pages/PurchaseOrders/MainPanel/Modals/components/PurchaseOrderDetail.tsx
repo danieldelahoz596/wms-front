@@ -1,12 +1,8 @@
-import AddItemModal from '@/pages/Products/MainPanel/Modals/AddItem';
-import ConfigureItemModal from '@/pages/Products/MainPanel/Modals/ConfigItem';
-import ConfigureMilestonesModal from '@/pages/PurchaseOrders/MainPanel/Modals/ConfigureMilestones';
-import { modalType } from '@/utils/helpers/types';
-import { QuestionCircleOutlined, SettingOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 // import PaymentTerm from './PaymentTerm';
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
@@ -15,13 +11,8 @@ interface IPurchaseOrderDetail {
 
 const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const { selectedVendor } = useModel('vendor');
-  const { milestonesList } = useModel('milestones');
   const { selectedPO } = useModel('po');
-  // const { poTemplateList } = useModel('poTemplate');
-  // const { shippingTermList } = useModel('shippingTerm');
   const { warehouseList } = useModel('warehouse');
-  const { paymentTermList, setPaymentTermList } = useModel('paymentTerm');
-  const [showModal, setShowModal] = useState<modalType>(modalType.Close);
 
   useEffect(() => {
     // if (!!selectedPO.key) {
@@ -37,7 +28,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     //   });
     // }
 
-    if (!selectedPO.id) {
+    if (!selectedPO) {
       form.resetFields();
     } else {
       form.setFieldsValue({});
@@ -52,49 +43,14 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
       })),
     [warehouseList],
   );
-
-  // const poTemplateOptions = useMemo(
-  //   () =>
-  //     poTemplateList.map((_item) => ({
-  //       label: _item.name,
-  //       value: _item.id,
-  //     })),
-  //   [poTemplateList],
   // );
-
-  // const shippingTermOptions = useMemo(
-  //   () =>
-  //     shippingTermList.map((_item) => ({
-  //       label: _item.text,
-  //       value: _item.name,
-  //     })),
-  //   [shippingTermList],
-  // );
-
-  // const paymentTermOptions = useMemo(
-  //   () =>
-  //     paymentTermList.map((_item) => ({
-  //       label: _item.name,
-  //       value: _item.id,
-  //     })),
-  //   [paymentTermList],
-  // );
-
-  const milestoneOptions = useMemo(
-    () =>
-      milestonesList.map((_item) => ({
-        label: _item.name,
-        value: _item.id,
-      })),
-    [milestonesList],
-  );
 
   return (
     <>
       <Card title="P.O. Details">
         <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left" form={form}>
           <Form.Item label="From Vendor">
-            <span style={{ fontWeight: 'bold' }}>{selectedPO ? selectedPO.fromVendor?.name : selectedVendor?.name}</span>
+            <span style={{ fontWeight: 'bold' }}>{selectedVendor.name}</span>
           </Form.Item>
           <Form.Item label="To Destination" name="destination_id">
             <Select options={warehouseOptions} />
@@ -102,44 +58,8 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           <Form.Item label="Custom P.O. Number" name="order_number">
             <Input />
           </Form.Item>
-          {/* <Form.Item label="P.O. Template" name="template_id">
-            <Select options={poTemplateOptions} />
-          </Form.Item>
-          <Form.Item label="P.O. Format" name="format_id">
-            <Select
-              options={[
-                { value: 'pdf', label: 'PDF Attachment' },
-                { value: 'email', label: 'Email Attachment' },
-                { value: 'html', label: 'HTML Attachment' },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item label="Shipping Terms" name="shipping_term_id">
-            <Select options={shippingTermOptions} />
-          </Form.Item>
-          <Form.Item label="Payment Terms">
-            <div style={{ display: 'flex', gap: HORIZONTAL_SPACE_SIZE }}>
-              <Form.Item name="payment_id" style={{ flex: 1 }}>
-                <Select options={paymentTermOptions} />
-              </Form.Item>
-              <PlusOutlined className="plus-button" onClick={() => setShowModal(modalType.Add)} />
-              <SettingOutlined className="setting-button" onClick={() => setShowModal(modalType.Configure)} />
-            </div>
-          </Form.Item> */}
           <Form.Item label="Confirm By" name="confirm_by">
             <DatePicker />
-          </Form.Item>
-          <Form.Item label="Milestones">
-            <div style={{ display: 'flex', gap: 3 }}>
-              <div style={{ flex: '1' }}>
-                <Form.Item name="milestone_id">
-                  <Select options={milestoneOptions} />
-                </Form.Item>
-              </div>
-              <span onClick={() => setShowModal(modalType.ConfigureMilestones)}>
-                <SettingOutlined className="setting-button" />
-              </span>
-            </div>
           </Form.Item>
           <Form.Item label="Enable Auto Update" name="enable_portal">
             <>
@@ -149,29 +69,6 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           </Form.Item>
         </Form>
       </Card>
-
-      <ConfigureMilestonesModal
-        isOpen={showModal === modalType.ConfigureMilestones}
-        onClose={() => setShowModal(modalType.Close)}
-      />
-
-      <AddItemModal
-        isOpen={showModal === modalType.Add}
-        title="Add New Payment Term"
-        onSave={() => setShowModal(modalType.Close)}
-        onClose={() => setShowModal(modalType.Close)}
-        items={paymentTermList}
-        setItems={setPaymentTermList}
-      />
-
-      <ConfigureItemModal
-        isOpen={showModal === modalType.Configure}
-        title="Add New Payment Term"
-        onSave={() => setShowModal(modalType.Close)}
-        onClose={() => setShowModal(modalType.Close)}
-        items={paymentTermList}
-        setItems={setPaymentTermList}
-      />
     </>
   );
 };

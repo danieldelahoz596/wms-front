@@ -6,23 +6,21 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { OModal } from '../../../../../components/Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
-  const { selectedPO, setSelectedPO } = useModel('po');
+  const { otherCosts, setOtherCosts } = useModel('po');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      setSelectedPO((item) => ({ ...item, other_costs: [...item.other_costs, values] }));
+      setOtherCosts((prev) => [...prev, values]);
       form.resetFields();
       setIsModalOpen(false);
     });
   };
 
   const handleRemove = useCallback(
-    (removeIndex) => {
-      setSelectedPO((item) => ({ ...item, other_costs: item.other_costs.filter((cost, index) => index !== removeIndex) }));
-    },
-    [setSelectedPO],
+    (removeIndex) => setOtherCosts((prev) => prev.filter((cost, index) => index !== removeIndex)),
+    [setOtherCosts],
   );
 
   const columns = [
@@ -45,7 +43,7 @@ const AggregateCostTable: React.FC = () => {
 
   const rows = useMemo(
     () =>
-      selectedPO.other_costs.map((item: any, index: number) => ({
+      otherCosts.map((item: any, index: number) => ({
         key: index,
         action: (
           <div>
@@ -55,7 +53,7 @@ const AggregateCostTable: React.FC = () => {
         name: item.name,
         amount: item.amount,
       })),
-    [selectedPO, handleRemove],
+    [otherCosts, handleRemove],
   );
 
   return (
