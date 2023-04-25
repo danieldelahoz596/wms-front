@@ -5,7 +5,6 @@ import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
 import { modalType } from '@/utils/helpers/types';
 import BranchIcon from '@/utils/icons/branch';
 import ClockIcon from '@/utils/icons/clock';
-import CopyIcon from '@/utils/icons/copy';
 import DuplicateIcon from '@/utils/icons/duplicate';
 import {
   BorderHorizontalOutlined,
@@ -541,7 +540,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             </div>
           ),
           items: item.order_items.length,
-          itemNames: item.order_items && item.order_items[0].product.name,
+          itemNames: item.order_items.length > 0 && item.order_items[0].product.name,
         };
       }),
     [orderList, handleProductEdit],

@@ -5,9 +5,6 @@ import RecipientForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/Recipient
 import OrderDetailsForm from '@/pages/Orders/MainPanel/Modals/AddNewOrder/OrderDetails';
 import AddNewOrderItemTable from '@/pages/Orders/MainPanel/Modals/AddNewOrder/AddNewOrderItemTable';
 import { useModel } from '@umijs/max';
-import DebounceSelect from '@/components/Globals/DebounceSelect';
-import type ICustomer from '@/interfaces/ICustomer';
-import qs from 'qs';
 
 interface IAddNewOrderModal {
   isOpen: boolean;
@@ -20,8 +17,6 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
   const [recipientForm] = Form.useForm();
   const [orderDetailsForm] = Form.useForm();
   const [productRows, setProductRows] = useState([]);
-  const [value, setValue] = useState([]);
-  const { getCustomerList } = useModel('customer');
 
   useEffect(() => {
     recipientForm.resetFields();
@@ -47,16 +42,6 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
           onSave();
         });
       });
-    });
-  };
-
-  const fetchCustomerList = (s) => {
-    return getCustomerList(qs.stringify({ name: s, phone_number: s, address: s })).then(({ data: { customers } }) => {
-      return customers.map((customer: ICustomer) => ({
-        label: `${customer.name} - ${customer.phone_number} - ${customer.address}`,
-        value: customer.id,
-        ...customer,
-      }));
     });
   };
 
@@ -86,16 +71,6 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
       <>
         <Row gutter={10}>
           <Col span={11}>
-            <DebounceSelect
-              value={value}
-              placeholder="Select users"
-              fetchOptions={fetchCustomerList}
-              onChange={(newValue, option) => {
-                setValue(newValue);
-                recipientForm.setFieldsValue(option);
-              }}
-              style={{ width: '100%' }}
-            />
             <RecipientForm form={recipientForm} />
           </Col>
           <Col span={13}>

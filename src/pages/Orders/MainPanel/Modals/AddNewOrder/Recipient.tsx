@@ -1,6 +1,9 @@
+import DebounceSelect from '@/components/Globals/DebounceSelect';
+import type ICustomer from '@/interfaces/ICustomer';
 import { useModel } from '@umijs/max';
 import { Card, Form, Input, Select, InputNumber } from 'antd';
 import { useState, useMemo, useEffect } from 'react';
+import qs from 'qs';
 
 interface IRecipient {
   form: any;
@@ -10,6 +13,8 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
   const { stateList } = useModel('states');
   const [cityOptions, setCityOptions] = useState<{ label: string; value: string | number }[]>([]);
   const selectedStateId = Form.useWatch('state_id', form);
+  const [value, setValue] = useState([]);
+  const { getCustomerList } = useModel('customer');
 
   const stateOptions = useMemo(() => stateList.map((state) => ({ value: state.id, label: state.name })), [stateList]);
 
@@ -19,8 +24,28 @@ const Recipient: React.FC<IRecipient> = ({ form }) => {
     );
   }, [selectedStateId, stateList, form]);
 
+  const fetchCustomerList = (s) => {
+    return getCustomerList(qs.stringify({ name: s, phone_number: s, address: s })).then(({ data: { customers } }) => {
+      return customers.map((customer: ICustomer) => ({
+        label: `${customer.name} - ${customer.phone_number} - ${customer.address}`,
+        value: customer.id,
+        ...customer,
+      }));
+    });
+  };
+
   return (
     <Card title="Recipient">
+      <DebounceSelect
+        value={value}
+        placeholder="Select users"
+        fetchOptions={fetchCustomerList}
+        onChange={(newValue, option) => {
+          setValue(newValue);
+          form.setFieldsValue(option);
+        }}
+        style={{ width: '100%' }}
+      />
       <Form
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
