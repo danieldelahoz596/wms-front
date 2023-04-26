@@ -9,7 +9,7 @@ import moment from 'moment';
 const { TextArea } = Input;
 
 const PODetails: React.FC = () => {
-  const { selectedPO, setPoList, getTotalItemCost } = useModel('po');
+  const { selectedPO, setPoList, totalCost } = useModel('po');
   const { milestonesList } = useModel('milestones');
   const { warehouseList } = useModel('warehouse');
   const { poTemplateList } = useModel('poTemplate');
@@ -72,9 +72,9 @@ const PODetails: React.FC = () => {
   };
 
   return (
-    <Row style={{ marginTop: 12 }} gutter={10}>
+    <Row style={{ marginTop: 12 }} gutter={15}>
       <Col span={12}>
-        <Row gutter={10}>
+        <Row gutter={15}>
           <Col span={14}>
             <PurchaseOrderDetail form={purchaseForm} />
           </Col>
@@ -92,19 +92,14 @@ const PODetails: React.FC = () => {
       </Col>
       <Col span={6}>
         <AggregateCosts form={aggregateCostForm} />
-        <div style={{ display: 'flex', gap: 20 }}>
+        <div style={{ display: 'flex', gap: 20, marginTop: 10 }}>
           <Button onClick={handleUpdateCosts}>Update Costs</Button>
-          <h3>
-            Total:{' '}
-            {getTotalItemCost(selectedPO) +
-              selectedPO?.otherCost.map(({ cost }) => cost).reduce((acc: any, curValue: any) => acc + curValue, 0) +
-              selectedPO?.shippingCost}
-          </h3>
+          <h3>Total: {totalCost}</h3>
         </div>
       </Col>
-      <Col span={6}>
+      {/* <Col span={6}>
         <MilestonesCard />
-      </Col>
+      </Col> */}
     </Row>
   );
 };

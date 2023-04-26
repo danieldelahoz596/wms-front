@@ -1,6 +1,6 @@
 import httpClient from '@/utils/http-client';
 import type IPurchasingOrder from '@/interfaces/IPurchasingOrder';
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 
 export default () => {
   const [poList, setPoList] = useState<IPurchasingOrder[]>([]);
@@ -8,6 +8,13 @@ export default () => {
   const [otherCosts, setOtherCosts] = useState<any[]>([]);
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
+
+  useEffect(() => {
+    if (selectedPO) {
+      setPoItems(selectedPO.po_items);
+      setOtherCosts(selectedPO.other_costs);
+    }
+  }, [selectedPO]);
 
   const createPO = useCallback(
     (newPOData) =>
@@ -39,23 +46,6 @@ export default () => {
     [poList],
   );
 
-  // Get caluclated total aggregate costs
-  const getPoTotalCost = useCallback((poData: any) => {
-    const totalAggregateCost = poData?.itemCost + poData.shippingCost;
-    const totalOtherCost = poData?.otherCost
-      ?.map((item: any) => item.cost)
-      .reduce((acc: any, curValue: any) => acc + curValue, 0);
-
-    return totalAggregateCost + totalOtherCost;
-  }, []);
-
-  // get calculated total item cost
-  const getTotalItemCost = useCallback((poData: any) => {
-    return poData?.poItems
-      ?.map((item: any) => parseFloat(item.quantity) * parseFloat(item.unitCost) - item.discount)
-      .reduce((acc: any, curValue: any) => acc + curValue, 0);
-  }, []);
-
   const poItemsCost = useMemo(() => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost, 0), [poItems]);
 
   const totalCost = useMemo(
@@ -80,7 +70,5 @@ export default () => {
     createPO,
     updatePO,
     getPO,
-    getPoTotalCost,
-    getTotalItemCost,
   };
 };

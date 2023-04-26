@@ -2,8 +2,9 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, Input, Select } from 'antd';
 import Checkbox from 'antd/es/checkbox';
+import moment from 'moment';
 import React, { useEffect, useMemo } from 'react';
-// import PaymentTerm from './PaymentTerm';
+
 interface IPurchaseOrderDetail {
   selectedVendor?: string;
   form: any;
@@ -15,24 +16,13 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
   const { warehouseList } = useModel('warehouse');
 
   useEffect(() => {
-    // if (!!selectedPO.key) {
-    //   form.setFieldsValue({
-    //     destination: selectedPO?.destination?.id,
-    //     customPONumber: selectedPO?.customponumber,
-    //     poTemplate: selectedPO?.poTemplate?.id,
-    //     poFormat: selectedPO?.poFormat,
-    //     shippingTerm: selectedPO?.shipmentTerm?.id,
-    //     paymentTerm: selectedPO?.paymentTerm?.id,
-    //     milestone: selectedPO?.milestone?.id,
-    //     enablePortal: selectedPO?.enablePortal,
-    //   });
-    // }
-
-    if (!selectedPO) {
-      form.resetFields();
-    } else {
-      form.resetFields();
-    }
+    if (!selectedPO) form.resetFields();
+    else
+      form.setFieldsValue({
+        destination_id: selectedPO.destination_id,
+        order_number: selectedPO.order_number,
+        confirm_by: moment(new Date(selectedPO.confirm_by)),
+      });
   }, [selectedPO, form]);
 
   const warehouseOptions = useMemo(
@@ -43,14 +33,13 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
       })),
     [warehouseList],
   );
-  // );
 
   return (
     <>
       <Card title="P.O. Details">
         <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left" form={form}>
           <Form.Item label="From Vendor">
-            <span style={{ fontWeight: 'bold' }}>{selectedVendor.name}</span>
+            <span style={{ fontWeight: 'bold' }}>{selectedPO ? selectedPO.vendor.name : selectedVendor.name}</span>
           </Form.Item>
           <Form.Item
             label="To Destination"

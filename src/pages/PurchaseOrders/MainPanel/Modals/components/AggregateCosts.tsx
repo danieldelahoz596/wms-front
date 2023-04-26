@@ -1,6 +1,7 @@
 import AggregateCostTable from '@/pages/PurchaseOrders/MainPanel/Modals/components/AggregateCostTable';
 import { useModel } from '@umijs/max';
 import { Card, DatePicker, Form, InputNumber } from 'antd';
+import moment from 'moment';
 import React, { useEffect } from 'react';
 
 interface IAggregateCosts {
@@ -16,15 +17,13 @@ const AggregateCosts: React.FC<IAggregateCosts> = ({ form }) => {
   }, [shipCost, setShippingCost]);
 
   useEffect(() => {
-    // if (!!selectedPO.key) {
-    //   form.setFieldsValue({
-    //     shippingCost: selectedPO?.shippingCost,
-    //   });
-    // }
     if (!selectedPO) {
       form.resetFields();
     } else {
-      form.resetFields();
+      form.setFieldsValue({
+        shipping_cost: selectedPO.shipping_cost,
+        payment_date: moment(new Date(selectedPO.payment_date)),
+      });
     }
   }, [selectedPO, form]);
 
