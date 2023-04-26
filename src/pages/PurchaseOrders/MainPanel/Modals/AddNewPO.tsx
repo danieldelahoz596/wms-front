@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form } from 'antd';
+import { Row, Col, Form, message } from 'antd';
 import PurchaseOrderDetail from '@/pages/PurchaseOrders/MainPanel/Modals/components/PurchaseOrderDetail';
 import AggregateCosts from '@/pages/PurchaseOrders/MainPanel/Modals/components/AggregateCosts';
 import AddNewPOItemTable from '@/pages/PurchaseOrders/MainPanel/Modals/components/AddNewPOItemTable';
@@ -17,6 +17,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
   const { selectedVendor } = useModel('vendor');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleSave = (status) => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
@@ -34,6 +35,10 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           })),
           total_cost: totalCost,
         }).then(() => {
+          messageApi.open({
+            type: 'success',
+            content: 'Successfully creating a PO',
+          });
           onSave();
         });
       });
@@ -69,6 +74,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
       ]}
     >
       <>
+        {contextHolder}
         <Row gutter={10}>
           <Col span={12}>
             <PurchaseOrderDetail form={purchaseForm} />

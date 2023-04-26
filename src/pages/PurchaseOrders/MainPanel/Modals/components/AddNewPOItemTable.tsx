@@ -87,7 +87,7 @@ const AddNewPOItemTable: React.FC = () => {
         {
           ...values,
           product: productList.find((product) => product.id === values.product_id),
-          unitMeasure: unitOfMeasureList.find((item) => item.id === values.unit_of_measure_id),
+          unit_of_measure: unitOfMeasureList.find((item) => item.id === values.unit_of_measure_id),
         },
       ]);
       form.resetFields();
@@ -106,7 +106,7 @@ const AddNewPOItemTable: React.FC = () => {
         product: item.product.name,
         vendorSku: item.product.sku,
         qty: item.qty,
-        unitMeasure: item.unitMeasure.name,
+        unitMeasure: item.unit_of_measure.name,
         totalUnitQty: 0,
         unitCost: item.product.vendor_cost,
       })),

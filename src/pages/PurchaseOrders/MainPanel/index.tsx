@@ -118,13 +118,6 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
 
   const [modalOpen, setModal] = useState('');
 
-  useEffect(() => {
-    if (selectedRows && selectedRows[0]) {
-      const _selectedPo = poList.find((poItem) => poItem.key === selectedRows[0]);
-      setSelectedPO(_selectedPo);
-    }
-  }, [selectedRows, poList, setSelectedPO]);
-
   const handleNewPOModalOpen = () => {
     setSelectedPO(null);
     setSelectedRows([]);

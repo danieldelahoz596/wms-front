@@ -36,8 +36,14 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
 
   return (
     <>
-      <Card title="P.O. Details">
-        <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left" form={form}>
+      <Card title="P.O. Details" style={{ width: '100%' }}>
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          labelAlign="left"
+          form={form}
+          style={{ marginLeft: 10, marginRight: 10 }}
+        >
           <Form.Item label="From Vendor">
             <span style={{ fontWeight: 'bold' }}>{selectedPO ? selectedPO.vendor.name : selectedVendor.name}</span>
           </Form.Item>

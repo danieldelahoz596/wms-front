@@ -40,10 +40,13 @@ export default () => {
     [],
   );
 
-  //when click updatePO button
   const updatePO = useCallback(
-    (poData: any) => setPoList(poList.map((item) => (item.key === poData.key ? poData : item))),
-    [poList],
+    (updatePOData) =>
+      httpClient.put(`/api/purchasing-orders/${updatePOData.id}`, updatePOData).then((response) => {
+        setPoList((prev) => prev.map((item) => (item.id === updatePOData.id ? response.data : item)));
+        setSelectedPO(response.data);
+      }),
+    [],
   );
 
   const poItemsCost = useMemo(() => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost, 0), [poItems]);
