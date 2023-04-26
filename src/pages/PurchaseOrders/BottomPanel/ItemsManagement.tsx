@@ -5,7 +5,7 @@ import AddNewItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/AddNewItem'
 import EditItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/EditItem';
 import ReceiveItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/ReceiveItem';
 import { modalType } from '@/utils/helpers/types';
-import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled, StopOutlined } from '@ant-design/icons';
+import { PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space, Table } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
@@ -44,13 +44,13 @@ const TColumns = [
   },
   {
     title: 'Product',
-    dataIndex: 'product',
-    key: 'product',
+    dataIndex: 'product_name',
+    key: 'product_name',
   },
   {
     title: 'Vendor SKU',
-    dataIndex: 'vendorSku',
-    key: 'vendorSku',
+    dataIndex: 'vendor_sku',
+    key: 'vendor_sku',
   },
   {
     title: 'Buyer',
@@ -64,14 +64,14 @@ const TColumns = [
   },
   {
     title: 'Unit of Measure',
-    dataIndex: 'unitMeasure',
-    key: 'unitMeasure',
+    dataIndex: 'unit_measure',
+    key: 'unit_measure',
   },
-  {
-    title: 'Total Unit Qty.',
-    dataIndex: 'totalUnitQty',
-    key: 'totalUnitQty',
-  },
+  // {
+  //   title: 'Total Unit Qty.',
+  //   dataIndex: 'totalUnitQty',
+  //   key: 'totalUnitQty',
+  // },
   {
     title: 'Original Cost',
     dataIndex: 'originalCost',
@@ -109,15 +109,14 @@ const ItemsManagement = () => {
   const { selectedPO } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [poItems, setPoItems] = useState([]);
-  const [data, setData] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
 
   useEffect(() => {
-    setPoItems(data);
+    if (selectedPO.po_items) setPoItems(selectedPO.po_items);
     setSelectedRow(null);
-  }, [data]);
+  }, [selectedPO]);
 
   const actionButtons: IOButton[] = [
     {
@@ -203,22 +202,19 @@ const ItemsManagement = () => {
 
   const rows = useMemo(
     () =>
-      poItems.map((poItem: any, index) => ({
-        key: index + 1,
+      poItems.map((poItem) => ({
+        key: poItem.id,
         id: poItem.id,
-        status: poItem.status,
-        product: poItem.product?.name,
-        vendorSku: poItem.product?.vendor_skus,
-        buyer: poItem.product?.buyer,
-        Qty: poItem.quantity,
-        holdQty: poItem.holdQty,
-        qty: poItem.quantity,
-        unitMeasure: poItem.unitMeasure,
-        totalUnitQty: poItem.quantity,
-        originalCost: poItem.originalCost,
-        discount: poItem.discount,
-        tax: poItem.tax,
-        totalCost: parseInt(poItem.quantity) * parseFloat(poItem.unitCost) - parseFloat(poItem.discount),
+        product_name: poItem.product.name,
+        vendor_sku: poItem.product.sku,
+        buyer: '',
+        qty: poItem.qty,
+        unit_measure: poItem.unit_of_measure.name,
+        // totalUnitQty: poItem.quantity,
+        originalCost: poItem.product.vendor_cost,
+        discount: 0,
+        tax: 0,
+        totalCost: poItem.qty * poItem.product.vendor_cost,
       })),
     [poItems],
   );
@@ -253,8 +249,8 @@ const ItemsManagement = () => {
 
       <AddNewItemModal
         isOpen={showModal === modalType.New}
-        poNumber={selectedPO?.ponumber}
-        items={data}
+        poNumber={selectedPO.order_number}
+        items={selectedPO.po_items}
         onSave={(items) => {
           setPoItems(items);
           setShowModal(modalType.Close);

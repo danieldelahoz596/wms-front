@@ -5,7 +5,6 @@ import { useCallback, useState, useMemo } from 'react';
 export default () => {
   const [poList, setPoList] = useState<IPurchasingOrder[]>([]);
   const [selectedPO, setSelectedPO] = useState<IPurchasingOrder>(null);
-  console.log('selectedPO: ', selectedPO);
   const [otherCosts, setOtherCosts] = useState<any[]>([]);
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
