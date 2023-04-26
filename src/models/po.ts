@@ -9,23 +9,29 @@ export default () => {
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
 
-  const createPO = useCallback((newPOData) => {
-    httpClient.post('/api/purchasing-orders', newPOData).then((response) => {
-      setPoList((prev) => [...prev, response.data]);
-    });
-  }, []);
+  const createPO = useCallback(
+    (newPOData) =>
+      httpClient.post('/api/purchasing-orders', newPOData).then((response) => {
+        setPoList((prev) => [...prev, response.data]);
+      }),
+    [],
+  );
 
-  const getPOList = useCallback(() => {
-    httpClient.get('/api/purchasing-orders').then((response) => {
-      setPoList(response.data);
-    });
-  }, []);
+  const getPOList = useCallback(
+    () =>
+      httpClient.get('/api/purchasing-orders').then((response) => {
+        setPoList(response.data);
+      }),
+    [],
+  );
 
-  const getPO = useCallback((id) => {
-    httpClient.get(`/api/purchasing-orders/${id}`).then((response) => {
-      setSelectedPO(response.data);
-    });
-  }, []);
+  const getPO = useCallback(
+    (id) =>
+      httpClient.get(`/api/purchasing-orders/${id}`).then((response) => {
+        setSelectedPO(response.data);
+      }),
+    [],
+  );
 
   //when click updatePO button
   const updatePO = useCallback(

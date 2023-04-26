@@ -13,7 +13,7 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { poItems, otherCosts, totalCost } = useModel('po');
+  const { poItems, otherCosts, totalCost, createPO } = useModel('po');
   const { selectedVendor } = useModel('vendor');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
@@ -21,7 +21,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
   const handleSave = (status) => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
       aggregateCostForm.validateFields().then((aggregateCostValues) => {
-        console.log({
+        createPO({
           ...purchaseFormValues,
           ...aggregateCostValues,
           status_id: status,
@@ -33,38 +33,9 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
             unit_of_measure_id: item.unit_of_measure_id,
           })),
           total_cost: totalCost,
+        }).then(() => {
+          onSave();
         });
-
-        // const item = {
-        //   key: uuidv4(),
-        //   po_status: {
-        //     id: 1,
-        //     code: '1',
-        //     name: 'Awaiting Authorization',
-        //   },
-        //   ponumber: uuidv4(),
-        //   customponumber: purchaseFormValues.customPONumber,
-        //   createdBy: initialState?.currentUser?.user?.full_name,
-        //   dateCreated: new Date(),
-        //   fromVendor: selectedVendor,
-        //   poFormat: purchaseFormValues.poFormat,
-        //   destination: warehouseList.find((warehouse) => warehouse.id === purchaseFormValues.destination),
-        //   poTemplate: poTemplateList.find((template) => template.id === purchaseFormValues.poTemplate),
-        //   shippingTerm: shippingTermList.find((term) => term.id === purchaseFormValues.shippingTerm),
-        //   paymentTerm: paymentTermList.find((term) => term.id === purchaseFormValues.paymentTerm),
-        //   confirmedBy: moment(purchaseFormValues.confirmBy).format('MM/dd/yyyy'),
-        //   enablePortal: null,
-        //   milestone: milestonesList.find((milestone) => milestone.id === purchaseFormValues.milestone),
-        //   itemCost: 0,
-        //   shippingCost: aggregateCostValues.shippingCost,
-        //   paymentDate: new Date(),
-        //   otherCost: selectedPO.otherCost,
-        //   messageToVendor: 'abc',
-        //   internalNote: 'abc',
-        //   poItems: selectedPO?.poItems,
-        // };
-        // setPoList((prev) => [...prev, item]);
-        // onSave();
       });
     });
   };
