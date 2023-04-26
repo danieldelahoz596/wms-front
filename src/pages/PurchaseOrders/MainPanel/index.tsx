@@ -1,7 +1,7 @@
 import { OButton } from '@/components/Globals/OButton';
 import type { IOButton } from '@/components/Globals/OButton';
 import { OTable } from '@/components/Globals/OTable';
-import { CheckSquareFilled, DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
+import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space, Button, message } from 'antd';
 import Dropdown from 'antd/es/dropdown';
@@ -14,6 +14,9 @@ import AddNewPOModal from './Modals/AddNewPO';
 import ReceivePOModal from './Modals/ReceivePO';
 import ManageItemsModal from '@/components/Modals/ManageItems';
 import ExportPOModal from './Modals/ExportPO';
+import type IVendor from '@/interfaces/IVendor';
+import type IWarehouse from '@/interfaces/IWarehouse';
+import moment from 'moment';
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -33,41 +36,30 @@ interface IMainPanel {
 export const TColumns = [
   {
     title: 'Vendor',
-    dataIndex: 'fromVendor',
-    key: 'fromVendor',
-    render: (obj: any) => obj?.name,
+    dataIndex: 'vendor',
+    key: 'vendor',
+    render: (vendor: IVendor) => vendor.name,
   },
   {
     title: 'P.O. Number',
-    dataIndex: 'ponumber',
-    key: 'ponumber',
+    dataIndex: 'po_number',
+    key: 'po_number',
   },
-  {
-    title: 'Custom P.O. Number',
-    dataIndex: 'customponumber',
-    key: 'ponumber',
-  },
-  {
-    title: 'Created By',
-    dataIndex: 'createdBy',
-    key: 'createdBy',
-  },
-  {
-    title: 'Authorizer',
-    dataIndex: 'authorizer',
-    key: 'authorizer',
-  },
-  {
-    title: 'Milestone',
-    dataIndex: 'milestone',
-    key: 'milestone',
-    align: 'center',
-    render: (milestone) => (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <CheckSquareFilled style={{ color: milestone.color, fontSize: 13 }} />
-      </div>
-    ),
-  },
+  // {
+  //   title: 'Custom P.O. Number',
+  //   dataIndex: 'customponumber',
+  //   key: 'ponumber',
+  // },
+  // {
+  //   title: 'Created By',
+  //   dataIndex: 'createdBy',
+  //   key: 'createdBy',
+  // },
+  // {
+  //   title: 'Authorizer',
+  //   dataIndex: 'authorizer',
+  //   key: 'authorizer',
+  // },
   {
     title: 'Notes',
     dataIndex: 'internalNote',
@@ -81,40 +73,45 @@ export const TColumns = [
     ),
   },
   {
-    title: 'Date Created',
-    dataIndex: 'dateCreated',
-    key: 'dateCreated',
+    title: 'Confirm Date',
+    dataIndex: 'confirm_by',
+    key: 'confirm_by',
   },
-  {
-    title: 'Date issued',
-    dataIndex: 'dateIssued',
-    key: 'dateIssued',
-  },
+  // {
+  //   title: 'Date issued',
+  //   dataIndex: 'dateIssued',
+  //   key: 'dateIssued',
+  // },
   {
     title: 'Destination',
     dataIndex: 'destination',
     key: 'destination',
-    render: (obj: any) => obj?.text,
-  },
-  {
-    title: 'Total Cost',
-    dataIndex: 'totalCost',
-    key: 'totalCost',
+    render: (destination: IWarehouse) => destination.name,
   },
   {
     title: 'Shipping Cost',
-    dataIndex: 'shippingCost',
-    key: 'shippingCost',
+    dataIndex: 'shipping_cost',
+    key: 'shipping_cost',
   },
   {
-    title: 'Total units',
-    dataIndex: 'totalUnits',
-    key: 'totalUnits',
+    title: 'Total Cost',
+    dataIndex: 'total_cost',
+    key: 'total_cost',
+  },
+  // {
+  //   title: 'Total units',
+  //   dataIndex: 'totalUnits',
+  //   key: 'totalUnits',
+  // },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
   },
 ];
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { poList, getPoTotalCost, getTotalUnitQuantity, setSelectedPO, selectedPO } = useModel('po');
+  const { poList, setSelectedPO, selectedPO } = useModel('po');
   const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -130,6 +127,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
 
   const handleNewPOModalOpen = () => {
     setSelectedPO(null);
+    setSelectedRows([]);
     setModal(modalType.New);
   };
 
@@ -354,8 +352,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   // prepare po list table rows
   const poListTableRows = poList.map((poItem) => ({
     ...poItem,
-    totalCost: getPoTotalCost(poItem),
-    totalUnits: getTotalUnitQuantity(poItem),
+    key: poItem.id,
+    vendor: poItem.vendor,
+    po_number: poItem.order_number,
+    destination: poItem.destination,
+    total_cost: poItem.total_cost,
+    shipping_cost: poItem.shipping_cost,
+    confirm_by: poItem.confirm_by && moment(poItem.confirm_by).format('YYYY-MM-DD'),
+    status: poItem.status.name,
   }));
 
   return (

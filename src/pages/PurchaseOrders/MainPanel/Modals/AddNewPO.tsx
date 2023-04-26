@@ -2,12 +2,9 @@ import React from 'react';
 import { Row, Col, Form } from 'antd';
 import PurchaseOrderDetail from '@/pages/PurchaseOrders/MainPanel/Modals/components/PurchaseOrderDetail';
 import AggregateCosts from '@/pages/PurchaseOrders/MainPanel/Modals/components/AggregateCosts';
-import POCommunication from '@/pages/PurchaseOrders/MainPanel/Modals/components/POCommunication';
 import AddNewPOItemTable from '@/pages/PurchaseOrders/MainPanel/Modals/components/AddNewPOItemTable';
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
-import { uuidv4 } from '@antv/xflow-core';
-import moment from 'moment';
 
 interface IAddNewPOModal {
   isOpen: boolean;
@@ -16,7 +13,7 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { selectedPO, setPoList, poItems, otherCosts } = useModel('po');
+  const { poItems, otherCosts, totalCost } = useModel('po');
   const { selectedVendor } = useModel('vendor');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
@@ -24,9 +21,19 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
   const handleSave = (status) => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
       aggregateCostForm.validateFields().then((aggregateCostValues) => {
-        console.log('otherCosts: ', otherCosts);
-        console.log('poItems: ', poItems);
-        console.log({ ...purchaseFormValues, ...aggregateCostValues, status_id: status, vendor_id: selectedVendor.id });
+        console.log({
+          ...purchaseFormValues,
+          ...aggregateCostValues,
+          status_id: status,
+          vendor_id: selectedVendor.id,
+          other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
+          po_items: poItems.map((item) => ({
+            product_id: item.product_id,
+            qty: item.qty,
+            unit_of_measure_id: item.unit_of_measure_id,
+          })),
+          total_cost: totalCost,
+        });
 
         // const item = {
         //   key: uuidv4(),
@@ -98,9 +105,6 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           <Col span={12}>
             <AggregateCosts form={aggregateCostForm} />
           </Col>
-          {/* <Col span={7}>
-            <POCommunication />
-          </Col> */}
         </Row>
         <AddNewPOItemTable />
       </>

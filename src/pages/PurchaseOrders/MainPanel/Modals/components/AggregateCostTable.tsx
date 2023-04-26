@@ -6,7 +6,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { OModal } from '../../../../../components/Globals/OModal';
 
 const AggregateCostTable: React.FC = () => {
-  const { otherCosts, setOtherCosts } = useModel('po');
+  const { otherCosts, totalCost, setOtherCosts } = useModel('po');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -69,7 +69,7 @@ const AggregateCostTable: React.FC = () => {
         <Col offset={12} span={6}>
           <span>Total:</span>
         </Col>
-        <Col span={6}>{/* <span>${selectedPO?.other_costs.reduce((pre, cur) => pre + cur.cost, 0)}</span>{' '} */}</Col>
+        <Col span={6}>{totalCost}</Col>
       </Row>
 
       <OModal title="Add New Cost" width={250} isOpen={isModalOpen} onOk={handleOk} onCancel={() => setIsModalOpen(false)}>

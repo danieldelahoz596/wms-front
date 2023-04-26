@@ -8,7 +8,7 @@ import SidePanel from './SidePanel';
 import MainPanel from './MainPanel';
 
 const CustomerManagement: React.FC = () => {
-  const { poList } = useModel('po');
+  const { getPOList, getPO, setSelectedPO, selectedPO } = useModel('po');
   const { getUnitOfMeasures } = useModel('unitOfMeasure');
   const { initialShippingTermList } = useModel('shippingTerm');
   const { getProductList } = useModel('product');
@@ -38,16 +38,26 @@ const CustomerManagement: React.FC = () => {
   });
 
   // get selected po product items
-  const selectedFullPO = poList.find((poItem) => poItem.key === selectedRows[0]);
-  const POProductItems = selectedFullPO ? selectedFullPO.poItems : [];
+  // const selectedFullPO = poList.find((poItem) => poItem.key === selectedRows[0]);
+  // const POProductItems = selectedFullPO ? selectedFullPO.poItems : [];
 
   useEffect(() => {
-    changeSelectedPOStatus({ poStatus: 1, warehouse: null });
-  }, [changeSelectedPOStatus]);
+    if (selectedRows.length === 1) {
+      getPO(selectedRows[0]);
+    } else setSelectedPO(null);
+  }, [selectedRows, getPO, setSelectedPO]);
+
+  // useEffect(() => {
+  //   changeSelectedPOStatus({ poStatus: 1, warehouse: null });
+  // }, [changeSelectedPOStatus]);
 
   useEffect(() => {
     getProductList();
   }, [getProductList]);
+
+  useEffect(() => {
+    getPOList();
+  }, [getPOList]);
 
   useEffect(() => {
     setSelectedRows([]);
@@ -73,7 +83,7 @@ const CustomerManagement: React.FC = () => {
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
           <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
-            <div className="w-full">{selectedRows.length == 1 && <BottomPanel POProductItems={POProductItems} />}</div>
+            <div className="w-full">{selectedPO && <BottomPanel />}</div>
           </div>
         </div>
       </div>

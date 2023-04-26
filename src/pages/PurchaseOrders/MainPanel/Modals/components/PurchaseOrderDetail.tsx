@@ -31,7 +31,7 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
     if (!selectedPO) {
       form.resetFields();
     } else {
-      form.setFieldsValue({});
+      form.resetFields();
     }
   }, [selectedPO, form]);
 
@@ -52,13 +52,21 @@ const PurchaseOrderDetail: React.FC<IPurchaseOrderDetail> = ({ form }) => {
           <Form.Item label="From Vendor">
             <span style={{ fontWeight: 'bold' }}>{selectedVendor.name}</span>
           </Form.Item>
-          <Form.Item label="To Destination" name="destination_id">
+          <Form.Item
+            label="To Destination"
+            name="destination_id"
+            rules={[{ required: true, message: 'Please select Destination Warehouse' }]}
+          >
             <Select options={warehouseOptions} />
           </Form.Item>
-          <Form.Item label="Custom P.O. Number" name="order_number">
+          <Form.Item
+            label="Custom P.O. Number"
+            name="order_number"
+            rules={[{ required: true, message: 'Please input the Order Number' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Confirm By" name="confirm_by">
+          <Form.Item label="Confirm By" name="confirm_by" rules={[{ required: true, message: 'Please select the Confirm Date' }]}>
             <DatePicker />
           </Form.Item>
           <Form.Item label="Enable Auto Update" name="enable_portal">

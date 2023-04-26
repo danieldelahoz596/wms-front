@@ -124,7 +124,7 @@ const AddNewPOItemTable: React.FC = () => {
             ))} */}
           <Form layout="inline" form={form}>
             <Form.Item label="Add Item" name="product_id" rules={[{ required: true, message: 'Please select Product Item' }]}>
-              <Select options={productOptions} style={{ width: 200 }} />
+              <Select options={productOptions} style={{ width: 150 }} />
             </Form.Item>
             <Form.Item label="Quantity" name="qty" rules={[{ required: true, message: 'Please input the quantity' }]}>
               <InputNumber style={{ width: 80 }} min={0} />
@@ -134,7 +134,7 @@ const AddNewPOItemTable: React.FC = () => {
               name="unit_of_measure_id"
               rules={[{ required: true, message: 'Please select the Unit of Measure' }]}
             >
-              <Select options={unitMeasureOptions} style={{ width: 200 }} />
+              <Select options={unitMeasureOptions} style={{ width: 150 }} />
             </Form.Item>
           </Form>
           <OButton btnText="Add" onClick={handleAddNewPOProductItem} size="large" />

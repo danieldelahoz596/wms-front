@@ -8,11 +8,7 @@ import { modalType } from '@/utils/helpers/types';
 import { CheckCircleFilled, CloseCircleFilled, MinusCircleFilled, PlayCircleFilled, StopOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space, Table } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
-
-interface IItemsManagement {
-  data: any[];
-}
+import { useEffect, useMemo, useState } from 'react';
 
 interface IManagePurchaseOrdersModal {
   title: string;
@@ -31,20 +27,20 @@ const TColumns = [
   },
   {
     title: 'Status',
-    dataIndex: 'status',
     key: 'status',
-    render: (status) =>
-      status === '1' ? (
-        <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} /> // Fulfilled
-      ) : status === '2' ? (
-        <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} /> //
-      ) : status === '3' ? (
-        <CloseCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
-      ) : status === '4' ? (
-        <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
-      ) : (
-        <StopOutlined style={{ color: 'red', fontSize: 14 }} /> //
-      ),
+    render: () => (
+      // status === '1' ? (
+      <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} />
+    ), // Fulfilled
+    // ) : status === '2' ? (
+    //   <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} /> //
+    // ) : status === '3' ? (
+    //   <CloseCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
+    // ) : status === '4' ? (
+    //   <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
+    // ) : (
+    //   <StopOutlined style={{ color: 'red', fontSize: 14 }} /> //
+    // ),
   },
   {
     title: 'Product',
@@ -108,11 +104,12 @@ const TColumns = [
   },
 ];
 
-const ItemsManagement: React.FC<IItemsManagement> = ({ data }) => {
+const ItemsManagement = () => {
   const { selectedPOStatus } = useModel('poStatus');
   const { selectedPO } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [poItems, setPoItems] = useState([]);
+  const [data, setData] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
