@@ -28,11 +28,15 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           status_id: status,
           vendor_id: selectedVendor.id,
           other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
-          po_items: poItems.map((item) => ({
-            product_id: item.product_id,
-            qty: item.qty,
-            unit_of_measure_id: item.unit_of_measure_id,
-          })),
+          po_items: poItems.map((item) => {
+            const total_cost =
+              item.qty * item.unit_of_measure.qty * item.product.vendor_cost * (1 + item.tax / 100.0) +
+              item.billed_cost +
+              item.landed_cost -
+              item.discount;
+            const { product, unit_of_measure, ...rest } = item;
+            return { ...rest, total_cost };
+          }),
           total_cost: totalCost,
         }).then(() => {
           messageApi.open({

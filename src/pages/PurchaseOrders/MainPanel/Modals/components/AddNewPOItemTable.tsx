@@ -15,6 +15,11 @@ const AddNewPOItemTable: React.FC = () => {
 
   const handleRemoveItem = useCallback((index) => setPoItems((prev) => prev.filter((_, i) => i !== index)), [setPoItems]);
 
+  const unitMeasureOptions = useMemo(
+    () => unitOfMeasureList.map((item) => ({ value: item.id, label: item.name })),
+    [unitOfMeasureList],
+  );
+
   const AddNewPOItemTableColumns = useMemo(
     () => [
       {
@@ -51,24 +56,22 @@ const AddNewPOItemTable: React.FC = () => {
         title: 'Unit of Measure',
         dataIndex: 'unitMeasure',
         key: 'unitMeasure',
-      },
-      {
-        title: 'Total Unit Qty.',
-        dataIndex: 'totalUnitQty',
-        key: 'totalUnitQty',
+        options: unitMeasureOptions,
+        // editable: true,
       },
       {
         title: 'Unit Cost',
         dataIndex: 'unitCost',
         key: 'unitCost',
       },
+      {
+        title: 'Discount',
+        dataIndex: 'discount',
+        key: 'discount',
+        editable: true,
+      },
     ],
-    [handleRemoveItem],
-  );
-
-  const unitMeasureOptions = useMemo(
-    () => unitOfMeasureList.map((item) => ({ value: item.id, label: item.name })),
-    [unitOfMeasureList],
+    [handleRemoveItem, unitMeasureOptions],
   );
 
   const productOptions = useMemo(
@@ -86,6 +89,10 @@ const AddNewPOItemTable: React.FC = () => {
         ...prev,
         {
           ...values,
+          discount: 0,
+          tax: 0,
+          billed_cost: 0,
+          landed_cost: 0,
           product: productList.find((product) => product.id === values.product_id),
           unit_of_measure: unitOfMeasureList.find((item) => item.id === values.unit_of_measure_id),
         },
@@ -95,7 +102,7 @@ const AddNewPOItemTable: React.FC = () => {
   };
 
   const handleTableUpdate = (index, name, value) => {
-    setPoItems((prev) => prev.map((item, i) => (i === index ? { ...item, [name]: value } : item)));
+    setPoItems((prev) => prev.map((item, i) => (i === index ? { ...item, [name]: parseFloat(value) } : item)));
   };
 
   // prepare data table rows
@@ -107,8 +114,8 @@ const AddNewPOItemTable: React.FC = () => {
         vendorSku: item.product.sku,
         qty: item.qty,
         unitMeasure: item.unit_of_measure.name,
-        totalUnitQty: 0,
         unitCost: item.product.vendor_cost,
+        discount: item.discount,
       })),
     [poItems],
   );

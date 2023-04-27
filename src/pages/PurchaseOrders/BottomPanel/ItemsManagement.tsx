@@ -7,7 +7,7 @@ import ReceiveItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/ReceiveIte
 import { modalType } from '@/utils/helpers/types';
 import { PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
-import { Col, Row, Space, Table } from 'antd';
+import { Col, Row, Space, Table, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 
 interface IManagePurchaseOrdersModal {
@@ -106,9 +106,9 @@ const TColumns = [
 
 const ItemsManagement = () => {
   const { selectedPOStatus } = useModel('poStatus');
-  const { selectedPO } = useModel('po');
+  const { selectedPO, poItems, setPoItems } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
-  const [poItems, setPoItems] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -116,13 +116,13 @@ const ItemsManagement = () => {
   useEffect(() => {
     if (selectedPO.po_items) setPoItems(selectedPO.po_items);
     setSelectedRow(null);
-  }, [selectedPO]);
+  }, [selectedPO, setPoItems]);
 
   const actionButtons: IOButton[] = [
     {
       onClick: () => setShowModal(modalType.New),
       btnText: 'Add Item',
-      hidden: selectedPOStatus == null || !['1', '2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || ![1, 2, 3, 4, 5].includes(selectedPOStatus.status_id),
       // Only NOT in Fulfilled, Closed Short, Voided, Canceled
     },
     {
@@ -135,7 +135,7 @@ const ItemsManagement = () => {
       onClick: () => setShowModal(modalType.Receive),
       btnText: 'Receive',
       disabled: !selectedRow,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || ![4, 5].includes(selectedPOStatus.status_id),
       // Only NOT in Awaiting Confirmation
     },
     {
@@ -154,7 +154,7 @@ const ItemsManagement = () => {
         });
       },
       disabled: !selectedRow,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || ![4, 5].includes(selectedPOStatus.status_id),
       // Only NOT in Awaiting Confirmation
     },
     {
@@ -174,7 +174,7 @@ const ItemsManagement = () => {
         });
       },
       disabled: !selectedRow,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || ![4, 5].includes(selectedPOStatus.status_id),
       // Only NOT in Awaiting Confirmation
     },
     {
@@ -195,7 +195,7 @@ const ItemsManagement = () => {
         });
       },
       disabled: !selectedRow,
-      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.status_id),
       // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
   ];
@@ -212,15 +212,18 @@ const ItemsManagement = () => {
         unit_measure: poItem.unit_of_measure.name,
         // totalUnitQty: poItem.quantity,
         originalCost: poItem.product.vendor_cost,
-        discount: 0,
-        tax: 0,
-        totalCost: poItem.qty * poItem.product.vendor_cost,
+        billedCost: poItem.billed_cost,
+        landedCost: poItem.landed_cost,
+        discount: poItem.discount,
+        tax: poItem.tax,
+        totalCost: poItem.total_cost,
       })),
     [poItems],
   );
 
   return (
     <>
+      {contextHolder}
       <Row gutter={10}>
         <Col span={22}>
           <Table
@@ -249,8 +252,6 @@ const ItemsManagement = () => {
 
       <AddNewItemModal
         isOpen={showModal === modalType.New}
-        poNumber={selectedPO.order_number}
-        items={selectedPO.po_items}
         onSave={(items) => {
           setPoItems(items);
           setShowModal(modalType.Close);
@@ -261,21 +262,13 @@ const ItemsManagement = () => {
       <EditItemModal
         isOpen={showModal === modalType.Edit}
         item={selectedRow}
-        onSave={(poData) => {
+        onSave={() => {
           setSelectedRow(null);
-          setPoItems((prev) =>
-            prev.map((item) =>
-              item.id === selectedRow.id
-                ? {
-                    ...item,
-                    ...poData,
-                    billed_cost: poData.billedCost,
-                    landed_cost: poData.landedCost,
-                  }
-                : item,
-            ),
-          );
           setShowModal(modalType.Close);
+          messageApi.open({
+            type: 'success',
+            content: 'Successful to update a PO Item',
+          });
         }}
         onCancel={() => setShowModal(modalType.Close)}
       />

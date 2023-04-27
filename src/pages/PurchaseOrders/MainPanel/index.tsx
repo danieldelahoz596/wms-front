@@ -199,7 +199,7 @@ const MainPanel = () => {
         });
       },
       disabled: selectedPOIds.length === 0,
-      hidden: selectedPOStatus.status_id == null || !['9'].includes(selectedPOStatus.status_id),
+      hidden: selectedPOStatus.status_id == null || ![9].includes(selectedPOStatus.status_id),
       // Only in Canceled status.
     },
     {

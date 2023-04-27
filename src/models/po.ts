@@ -72,8 +72,25 @@ export default () => {
     [selectedPOIds, getPOStatusFilterList],
   );
 
+  const updatePOItem = useCallback(
+    (updatePOItemData) =>
+      httpClient.put(`/api/purchasing-order-items/${updatePOItemData.id}`, updatePOItemData).then((response) => {
+        setPoItems((prev) => prev.map((item) => (item.id === updatePOItemData.id ? response.data : item)));
+      }),
+    [],
+  );
+
   const poItemsCost = useMemo(
-    () => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost * item.unit_of_measure.qty, 0),
+    () =>
+      poItems.reduce(
+        (sum, item) =>
+          sum +
+          item.qty * item.product.vendor_cost * item.unit_of_measure.qty * (1 + item.tax / 100.0) -
+          item.discount -
+          item.billed_cost -
+          item.landed_cost,
+        0,
+      ),
     [poItems],
   );
 
@@ -102,5 +119,6 @@ export default () => {
     updatePO,
     updatePOStatus,
     getPO,
+    updatePOItem,
   };
 };

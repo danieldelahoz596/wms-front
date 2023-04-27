@@ -6,7 +6,7 @@ import MilestonesCard from '@/pages/PurchaseOrders/MainPanel/Modals/components/M
 import { useModel } from '@umijs/max';
 
 const PODetails: React.FC = () => {
-  const { selectedPO, otherCosts, poItems, updatePO, totalCost } = useModel('po');
+  const { selectedPO, otherCosts, updatePO, totalCost } = useModel('po');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
@@ -20,11 +20,6 @@ const PODetails: React.FC = () => {
           ...aggregatecostValues,
           total_cost: totalCost,
           other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
-          po_items: poItems.map((item) => ({
-            product_id: item.product_id,
-            qty: item.qty,
-            unit_of_measure_id: item.unit_of_measure_id,
-          })),
         }).then(() => {
           messageApi.open({
             type: 'success',

@@ -1,41 +1,52 @@
 import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
-import { OSelect } from '@/components/Globals/OSelect';
-import { Card, Col, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
-
-const { TextArea } = Input;
+import { useModel } from '@umijs/max';
+import { Card, Col, DatePicker, Form, InputNumber, Row } from 'antd';
+import React, { useEffect, useMemo } from 'react';
 
 interface IEditItemModal {
   isOpen: boolean;
   item: any;
-  onSave: (item: any) => void;
+  onSave: () => void;
   onCancel: () => void;
 }
 
 const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCancel }) => {
+  const { updatePOItem } = useModel('po');
   const [form] = Form.useForm();
-  const buyerOptions: IOSelectOption[] = [
-    {
-      text: 'Item 1',
-      value: '1',
-    },
-    {
-      text: 'Item 2',
-      value: '2',
-    },
-  ];
+  const qty = Form.useWatch('qty', form);
+  const billedCost = Form.useWatch('billed_cost', form);
+  const landedCost = Form.useWatch('landed_cost', form);
+  const discount = Form.useWatch('discount', form);
+  const tax = Form.useWatch('tax', form);
+
+  // const buyerOptions: IOSelectOption[] = [
+  //   {
+  //     text: 'Item 1',
+  //     value: '1',
+  //   },
+  //   {
+  //     text: 'Item 2',
+  //     value: '2',
+  //   },
+  // ];
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...item,
-      billedCost: item?.billed_cost,
-      landedCost: item?.landed_cost,
-    });
-  }, [isOpen]);
+    if (item) {
+      form.setFieldsValue(item);
+    }
+  }, [isOpen, form, item]);
+
+  const totalCost = useMemo(
+    () => qty * item?.unit_of_measure.qty * item?.product.vendor_cost * (1 + tax / 100.0) + billedCost + landedCost - discount,
+    [qty, item, billedCost, tax, landedCost, discount],
+  );
 
   const handleSave = () => {
-    form.validateFields().then((values) => onSave(values));
+    form.validateFields().then((values) => {
+      updatePOItem({ ...item, ...values, total_cost: totalCost }).then(() => {
+        onSave();
+      });
+    });
   };
 
   return (
@@ -62,76 +73,74 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
     >
       <>
         <div style={{ textAlign: 'center' }}>
-          <h1>Vendor SKU: {item?.product.vendor_skus}</h1>
+          <h1>Vendor SKU: {item?.product.sku}</h1>
         </div>
         <Row gutter={8}>
           <Col span={14}>
             <Card title="Details">
               <Form labelCol={{ span: 10 }} labelAlign="left">
                 <Form.Item label="Billed On">
-                  <Input />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item label="Est. Delivery">
-                  <DatePicker />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item label="Delivered">
-                  <Input />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item label="Landed Cost Payment Date">
+                {/* <Form.Item label="Landed Cost Payment Date">
                   <DatePicker />
-                </Form.Item>
-                <Form.Item label="Packaging">
+                </Form.Item> */}
+                {/* <Form.Item label="Packaging">
                   <Input />
                 </Form.Item>
                 <Form.Item label="Reference #">
                   <Input />
-                </Form.Item>
-                <Form.Item label="Buyer">
+                </Form.Item> */}
+                {/* <Form.Item label="Buyer">
                   <OSelect name="buyer" options={buyerOptions} onChange={() => {}} />
-                </Form.Item>
-                <Form.Item label="Item Memo">
+                </Form.Item> */}
+                {/* <Form.Item label="Item Memo">
                   <TextArea rows={4} />
-                </Form.Item>
+                </Form.Item> */}
               </Form>
             </Card>
           </Col>
           <Col span={10}>
             <Card title="Item Totals">
               <Form labelCol={{ span: 14 }} form={form} style={{ textAlign: 'right' }}>
-                <Form.Item label="Order Quantity" name="quantity">
+                <Form.Item label="Order Quantity" name="qty">
                   <InputNumber value={25} />
                 </Form.Item>
                 <Form.Item label="Hold Quantity">
                   <span>0</span>
                 </Form.Item>
                 <Form.Item label="Unit of Measure">
-                  <span>Each (x1)</span>
+                  <span>
+                    {item?.unit_of_measure.name} (x{item?.unit_of_measure.qty})
+                  </span>
                 </Form.Item>
                 <Form.Item label="Total Unit Quantity">
-                  <span>25</span>
+                  <span>{qty && item && qty * item?.unit_of_measure.qty}</span>
                 </Form.Item>
                 <Form.Item label="Unit Cost">
-                  <span>$1.00</span>
+                  <span>${item?.product.vendor_cost}</span>
                 </Form.Item>
-                <Form.Item label="Billed Cost" name="billedCost">
-                  <Input type="number" addonBefore="$" value={1.0} />
+                <Form.Item label="Billed Cost" name="billed_cost">
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item label="Landed Cost" name="landedCost">
-                  <Input type="number" addonBefore="$" value={1.0} />
+                <Form.Item label="Landed Cost" name="landed_cost">
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
-                  <Input
-                    type="number"
-                    addonBefore={<Select defaultValue="$" style={{ width: 40 }} options={[{ value: '$', label: '$' }]} />}
-                    value={0.0}
-                  />
+                <Form.Item label="Discount" name="discount">
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item label="Item Tax" name="tax">
-                  <Input value={'10.0'} addonAfter="%" />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <hr />
                 <Form.Item label="Total Cost">
-                  <span>$27.50</span>
+                  <span>${totalCost}</span>
                 </Form.Item>
               </Form>
             </Card>

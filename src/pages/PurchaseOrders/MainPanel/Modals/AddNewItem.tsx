@@ -6,7 +6,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
 import { Form, Input, Select, Space } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 const unitMeasureOptions: IOSelectOption[] = [
   {
@@ -32,16 +32,14 @@ const buyerOptions = [
 
 interface IAddNewItemModal {
   isOpen: boolean;
-  poNumber: string;
-  items: any[];
   onSave: (items: any[]) => void;
   onCancel: () => void;
 }
 
-const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, poNumber, items, onSave, onCancel }) => {
+const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, onSave, onCancel }) => {
   const { productList } = useModel('product');
+  const { selectedPO, poItems, setPoItems } = useModel('po');
   const [form] = Form.useForm();
-  const [poItems, setPoItems] = useState([]);
 
   const productOptions = useMemo(() => productList.map((item) => ({ value: item.id, label: item.name })), [productList]);
 
@@ -132,10 +130,6 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, poNumber, items, 
     [poItems],
   );
 
-  useEffect(() => {
-    setPoItems(items);
-  }, [isOpen]);
-
   const handleAdd = () => {
     form.validateFields().then((values) =>
       setPoItems((prev) => [
@@ -178,7 +172,7 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, poNumber, items, 
 
   return (
     <OModal
-      title={`Add Items To P.O. #${poNumber}`}
+      title={`Add Items To P.O. #${selectedPO?.order_number}`}
       helpLink=""
       width={1000}
       isOpen={isOpen}
