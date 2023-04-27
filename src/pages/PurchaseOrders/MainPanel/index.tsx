@@ -111,7 +111,7 @@ export const TColumns = [
 ];
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { poList, setSelectedPO, selectedPO } = useModel('po');
+  const { poList, setSelectedPO, selectedPO, updatePOStatus } = useModel('po');
   const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -161,18 +161,20 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             'Authorizing will send the P.O.(s) to the vendor for confirmation. If a P.O. is tied to a Dropship Order, it will move to Pending Delivery status.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
-            message.success(
-              <p>
-                P.O.(s) moved to <b>Awaiting Confirmation</b> status.
-              </p>,
-            );
+            updatePOStatus(2).then(() => {
+              setModal(modalType.Close);
+              message.success(
+                <p>
+                  P.O.(s) moved to <b>Awaiting Confirmation</b> status.
+                </p>,
+              );
+            });
           },
           onClose: () => setModal(modalType.Close),
         });
       },
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['1'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || ['2'].includes(selectedPOStatus),
       // Only in Awaiting Authorization.
     },
     {
@@ -197,7 +199,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         });
       },
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus),
       // Only in Canceled status.
     },
     {
@@ -218,7 +220,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           onClose: () => setModal(modalType.Close),
         });
       },
-      hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus),
       // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
@@ -243,7 +245,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         });
       },
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus),
       // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
     },
     {
@@ -268,7 +270,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         });
       },
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus),
       // Only in Awaiting Confirmation
       // Confirming will effectively issue the selected P.O.(s).
     },
@@ -282,7 +284,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       },
       btnText: 'Receive',
       disabled: selectedRows.length !== 1,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus),
       // Only in Pending Delivery or Partially Delivered
     },
     {
@@ -307,7 +309,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         });
       },
       disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus.poStatus),
+      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus),
       // Only in Pending Delivery or Partially Delivered
     },
     {
@@ -361,7 +363,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         <div className="title-row">
           <h1 className="page-title">
             <FormattedMessage id="pages.purchasing.mainpanel.title" />{' '}
-            {selectedPOStatus ? poStatusList.find((item) => item.po_status.id == selectedPOStatus.poStatus)?.po_status.name : ''}
+            {selectedPOStatus ? poStatusList.find((item) => item.po_status.id == selectedPOStatus)?.po_status.name : ''}
           </h1>
         </div>
         <Card className="content-box">

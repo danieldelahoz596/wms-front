@@ -3,7 +3,7 @@ import { Card, Tree } from 'antd';
 import { useModel } from 'umi';
 
 const FilterByPanel: React.FC = () => {
-  const { changeSelectedPOStatus, poStatusList, initialPOStatus } = useModel('poStatus');
+  const { setSelectedPOStatus, poStatusList, initialPOStatus } = useModel('poStatus');
 
   useEffect(() => {
     if (poStatusList.length == 0) {
@@ -16,14 +16,15 @@ const FilterByPanel: React.FC = () => {
     if (Array.isArray(selectedKey) && selectedKey.length > 0) {
       const _selectedKeys = selectedKey[0]?.split('-');
 
-      const _selectedWarehouse = _selectedKeys[1] !== '0' ? _selectedKeys[1] : null;
+      // const _selectedWarehouse = _selectedKeys[1] !== '0' ? _selectedKeys[1] : null;
 
-      selectedPOS = {
-        poStatus: _selectedKeys[0],
-        warehouse: _selectedWarehouse,
-      };
+      // selectedPOS = {
+      //   poStatus: _selectedKeys[0],
+      //   warehouse: _selectedWarehouse,
+      // };
+      selectedPOS = _selectedKeys[0];
     }
-    changeSelectedPOStatus(selectedPOS);
+    setSelectedPOStatus(selectedPOS);
   };
 
   const preparePoFiltersForTree = poStatusList?.map((statusItem) => {

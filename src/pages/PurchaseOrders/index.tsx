@@ -1,6 +1,6 @@
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import { useModel } from 'umi';
 import BottomPanel from './BottomPanel';
@@ -8,13 +8,10 @@ import SidePanel from './SidePanel';
 import MainPanel from './MainPanel';
 
 const CustomerManagement: React.FC = () => {
-  const { getPOList, getPO, setSelectedPO, selectedPO } = useModel('po');
+  const { getPOList, getPO, setSelectedPO, selectedPO, selectedPOIds, setSelectedPOIds } = useModel('po');
   const { getUnitOfMeasures } = useModel('unitOfMeasure');
-  const { initialShippingTermList } = useModel('shippingTerm');
   const { getProductList } = useModel('product');
-  const { selectedPOStatus, changeSelectedPOStatus } = useModel('poStatus');
-
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const { selectedPOStatus, setSelectedPOStatus } = useModel('poStatus');
 
   const {
     isDragging: isBottomDragging,
@@ -37,36 +34,22 @@ const CustomerManagement: React.FC = () => {
     min: 50,
   });
 
-  // get selected po product items
-  // const selectedFullPO = poList.find((poItem) => poItem.key === selectedRows[0]);
-  // const POProductItems = selectedFullPO ? selectedFullPO.poItems : [];
+  useEffect(() => {
+    if (selectedPOIds.length === 1) {
+      getPO(selectedPOIds[0]);
+    } else setSelectedPO(null);
+  }, [selectedPOIds, getPO, setSelectedPO]);
 
   useEffect(() => {
-    if (selectedRows.length === 1) {
-      getPO(selectedRows[0]);
-    } else setSelectedPO(null);
-  }, [selectedRows, getPO, setSelectedPO]);
-
-  // useEffect(() => {
-  //   changeSelectedPOStatus({ poStatus: 1, warehouse: null });
-  // }, [changeSelectedPOStatus]);
+    getPOList({ status_id: selectedPOStatus });
+    setSelectedPOIds([]);
+  }, [selectedPOStatus, getPOList, setSelectedPOIds]);
 
   useEffect(() => {
     getProductList();
-  }, [getProductList]);
-
-  useEffect(() => {
-    getPOList();
-  }, [getPOList]);
-
-  useEffect(() => {
-    setSelectedRows([]);
-  }, [selectedPOStatus]);
-
-  useEffect(() => {
-    initialShippingTermList();
+    setSelectedPOStatus(1);
     getUnitOfMeasures();
-  }, [initialShippingTermList, getUnitOfMeasures]);
+  }, [getProductList, setSelectedPOStatus, getUnitOfMeasures]);
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
@@ -79,7 +62,7 @@ const CustomerManagement: React.FC = () => {
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content" style={{ overflow: 'scroll' }}>
-            <MainPanel selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
+            <MainPanel selectedRows={selectedPOIds} setSelectedRows={setSelectedPOIds} />
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
           <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>

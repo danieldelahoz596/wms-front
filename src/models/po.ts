@@ -1,6 +1,7 @@
 import httpClient from '@/utils/http-client';
 import type IPurchasingOrder from '@/interfaces/IPurchasingOrder';
 import { useCallback, useState, useMemo, useEffect } from 'react';
+import qs from 'qs';
 
 export default () => {
   const [poList, setPoList] = useState<IPurchasingOrder[]>([]);
@@ -8,6 +9,7 @@ export default () => {
   const [otherCosts, setOtherCosts] = useState<any[]>([]);
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
+  const [selectedPOIds, setSelectedPOIds] = useState<number[]>([]);
 
   useEffect(() => {
     if (selectedPO) {
@@ -16,18 +18,18 @@ export default () => {
     }
   }, [selectedPO]);
 
-  const createPO = useCallback(
-    (newPOData) =>
-      httpClient.post('/api/purchasing-orders', newPOData).then((response) => {
-        setPoList((prev) => [...prev, response.data]);
+  const getPOList = useCallback(
+    (_query) =>
+      httpClient.get('/api/purchasing-orders?' + qs.stringify(_query)).then((response) => {
+        setPoList(response.data);
       }),
     [],
   );
 
-  const getPOList = useCallback(
-    () =>
-      httpClient.get('/api/purchasing-orders').then((response) => {
-        setPoList(response.data);
+  const createPO = useCallback(
+    (newPOData) =>
+      httpClient.post('/api/purchasing-orders', newPOData).then((response) => {
+        setPoList((prev) => [...prev, response.data]);
       }),
     [],
   );
@@ -49,6 +51,17 @@ export default () => {
     [],
   );
 
+  const updatePOStatus = useCallback(
+    (status) =>
+      httpClient
+        .put(`/api/purchasing-orders/update-status`, {
+          ids: selectedPOIds,
+          status_id: status,
+        })
+        .then(() => setPoList((prev) => prev.filter((item) => !selectedPOIds.includes(item.id)))),
+    [selectedPOIds],
+  );
+
   const poItemsCost = useMemo(() => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost, 0), [poItems]);
 
   const totalCost = useMemo(
@@ -64,14 +77,17 @@ export default () => {
     poItemsCost,
     totalCost,
     shippingCost,
+    selectedPOIds,
     setPoList,
     setSelectedPO,
     setOtherCosts,
     setPoItems,
     setShippingCost,
+    setSelectedPOIds,
     getPOList,
     createPO,
     updatePO,
+    updatePOStatus,
     getPO,
   };
 };

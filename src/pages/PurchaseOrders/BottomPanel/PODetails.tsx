@@ -13,19 +13,22 @@ const PODetails: React.FC = () => {
 
   const handleUpdateDetails = () => {
     purchaseForm.validateFields().then((purchaseFormValues) => {
-      updatePO({
-        ...selectedPO,
-        ...purchaseFormValues,
-        other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
-        po_items: poItems.map((item) => ({
-          product_id: item.product_id,
-          qty: item.qty,
-          unit_of_measure_id: item.unit_of_measure_id,
-        })),
-      }).then(() => {
-        messageApi.open({
-          type: 'success',
-          content: 'Successfully updating a PO',
+      aggregateCostForm.validateFields().then((aggregatecostValues) => {
+        updatePO({
+          ...selectedPO,
+          ...purchaseFormValues,
+          ...aggregatecostValues,
+          other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
+          po_items: poItems.map((item) => ({
+            product_id: item.product_id,
+            qty: item.qty,
+            unit_of_measure_id: item.unit_of_measure_id,
+          })),
+        }).then(() => {
+          messageApi.open({
+            type: 'success',
+            content: 'Successfully updating a PO',
+          });
         });
       });
     });
