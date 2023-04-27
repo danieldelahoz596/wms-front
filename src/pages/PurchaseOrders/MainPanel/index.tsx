@@ -111,7 +111,7 @@ export const TColumns = [
 ];
 
 const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { poList, setSelectedPO, selectedPO, updatePOStatus } = useModel('po');
+  const { poList, setSelectedPO, selectedPO, updatePOStatus, setPoItems, setOtherCosts } = useModel('po');
   const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -121,6 +121,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
   const handleNewPOModalOpen = () => {
     setSelectedPO(null);
     setSelectedRows([]);
+    setPoItems([]);
+    setOtherCosts([]);
     setModal(modalType.New);
   };
 

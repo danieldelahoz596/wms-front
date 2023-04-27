@@ -15,6 +15,9 @@ export default () => {
     if (selectedPO) {
       setPoItems(selectedPO.po_items);
       setOtherCosts(selectedPO.other_costs);
+    } else {
+      setPoItems([]);
+      setOtherCosts([]);
     }
   }, [selectedPO]);
 
