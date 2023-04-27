@@ -5,7 +5,7 @@ import { DownOutlined, FileOutlined, VerticalAlignBottomOutlined } from '@ant-de
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Space, Button, message } from 'antd';
 import Dropdown from 'antd/es/dropdown';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { modalType } from '@/utils/helpers/types';
 import NoteEditIcon from '@/utils/icons/noteEdit';
 import ChatIcon from '@/utils/icons/chat';
@@ -26,11 +26,6 @@ interface IManagePurchaseOrdersModal {
   confirmMessage: string;
   onClose: () => void;
   onSave: () => void;
-}
-
-interface IMainPanel {
-  selectedRows: any[];
-  setSelectedRows: (value: any) => void;
 }
 
 export const TColumns = [
@@ -110,8 +105,9 @@ export const TColumns = [
   },
 ];
 
-const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
-  const { poList, setSelectedPO, selectedPO, updatePOStatus, setPoItems, setOtherCosts } = useModel('po');
+const MainPanel = () => {
+  const { poList, setSelectedPO, selectedPO, updatePOStatus, setPoItems, setOtherCosts, selectedPOIds, setSelectedPOIds } =
+    useModel('po');
   const { selectedPOStatus, poStatusList } = useModel('poStatus');
 
   const [manageOrdersModalData, setManageOrdersModalData] = useState<IManagePurchaseOrdersModal>(null);
@@ -120,7 +116,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
 
   const handleNewPOModalOpen = () => {
     setSelectedPO(null);
-    setSelectedRows([]);
+    setSelectedPOIds([]);
     setPoItems([]);
     setOtherCosts([]);
     setModal(modalType.New);
@@ -141,7 +137,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               },
             ],
           }}
-          disabled={selectedRows.length === 0}
+          disabled={selectedPOIds.length === 0}
         >
           <Button size="small">
             <Space>
@@ -165,6 +161,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           onSave: () => {
             updatePOStatus(2).then(() => {
               setModal(modalType.Close);
+              setSelectedPOIds([]);
               message.success(
                 <p>
                   P.O.(s) moved to <b>Awaiting Confirmation</b> status.
@@ -175,8 +172,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           onClose: () => setModal(modalType.Close),
         });
       },
-      disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || ['2'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length === 0,
+      hidden: selectedPOStatus.status_id == null || ![1].includes(selectedPOStatus.status_id),
       // Only in Awaiting Authorization.
     },
     {
@@ -191,6 +188,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
+            setSelectedPOIds([]);
             message.success(
               <p>
                 P.O.(s) moved to <b>Pending Delivery</b> status
@@ -200,14 +198,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           onClose: () => setModal(modalType.Close),
         });
       },
-      disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['9'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length === 0,
+      hidden: selectedPOStatus.status_id == null || !['9'].includes(selectedPOStatus.status_id),
       // Only in Canceled status.
     },
     {
       key: 'resend',
       btnText: 'Re-send',
-      disabled: selectedRows.length === 0,
+      disabled: selectedPOIds.length === 0,
       onClick: () => {
         setModal(modalType.ManagePurchaseOrders);
         setManageOrdersModalData({
@@ -217,12 +215,13 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
             setModal(modalType.Close);
+            setSelectedPOIds([]);
             message.success(<p>The selected P.O.(s) have been re-sent to their vendors.</p>);
           },
           onClose: () => setModal(modalType.Close),
         });
       },
-      hidden: selectedPOStatus == null || !['2', '3', '4', '5'].includes(selectedPOStatus),
+      hidden: selectedPOStatus.status_id == null || ![2, 3, 4, 5].includes(selectedPOStatus.status_id),
       // Only in Awaiting Confirm ation, Awaiting Re-Authorization, Pending Delivery, or Partially Delivered
     },
     {
@@ -236,18 +235,21 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           description: 'Canceling will prevent the selected P.O.(s) from being issued to vendors.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
-            message.success(
-              <p>
-                P.O.(s) moved to <b>Canceled</b> status
-              </p>,
-            );
+            updatePOStatus(9).then(() => {
+              setModal(modalType.Close);
+              setSelectedPOIds([]);
+              message.success(
+                <p>
+                  P.O.(s) moved to <b>Canceled</b> status
+                </p>,
+              );
+            });
           },
           onClose: () => setModal(modalType.Close),
         });
       },
-      disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length === 0,
+      hidden: selectedPOStatus.status_id == null || ![1, 2, 3].includes(selectedPOStatus.status_id),
       // Only in Awaiting Authorization, Awaiting Confirmation, or Awaiting Re-Authorization status.
     },
     {
@@ -261,32 +263,36 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           description: 'Confirming will effectively issue the selected P.O.(s).',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
-            message.success(
-              <p>
-                P.O.(s) moved to <b>Pending Delivery</b> status
-              </p>,
-            );
+            updatePOStatus(4).then(() => {
+              setModal(modalType.Close);
+              setSelectedPOIds([]);
+              message.success(
+                <p>
+                  P.O.(s) moved to <b>Pending Delivery</b> status
+                </p>,
+              );
+            });
           },
           onClose: () => setModal(modalType.Close),
         });
       },
-      disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['2'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length === 0,
+      hidden: selectedPOStatus.status_id == null || ![2].includes(selectedPOStatus.status_id),
       // Only in Awaiting Confirmation
       // Confirming will effectively issue the selected P.O.(s).
     },
     {
       key: 'receive',
       onClick: () => {
-        // setPoList((prev) => prev.filter((item) => !selectedRows.includes(item.key)));
-        // setSelectedRows([]);
+        // setPoList((prev) => prev.filter((item) => !selectedPOIds.includes(item.key)));
+        // setSelectedPOIds([]);
         // message.success('P.O.(s) moved to Fulfilled status.');
         setModal(modalType.Receive);
+        setSelectedPOIds([]);
       },
       btnText: 'Receive',
-      disabled: selectedRows.length !== 1,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length !== 1,
+      hidden: selectedPOStatus.status_id == null || ![4, 5].includes(selectedPOStatus.status_id),
       // Only in Pending Delivery or Partially Delivered
     },
     {
@@ -300,18 +306,21 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
           description: 'This will void all pending items and close the seleted P.O.(s).',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setModal(modalType.Close);
-            message.success(
-              <p>
-                P.O.(s) moved to <b>Voided</b> status.
-              </p>,
-            );
+            updatePOStatus(8).then(() => {
+              setModal(modalType.Close);
+              setSelectedPOIds([]);
+              message.success(
+                <p>
+                  P.O.(s) moved to <b>Voided</b> status.
+                </p>,
+              );
+            });
           },
           onClose: () => setModal(modalType.Close),
         });
       },
-      disabled: selectedRows.length === 0,
-      hidden: selectedPOStatus == null || !['4', '5'].includes(selectedPOStatus),
+      disabled: selectedPOIds.length === 0,
+      hidden: selectedPOStatus.status_id == null || ![4, 5].includes(selectedPOStatus.status_id),
       // Only in Pending Delivery or Partially Delivered
     },
     {
@@ -330,7 +339,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 key: 'pick_list',
                 label: <span>Export Purchase Orders</span>,
                 icon: <VerticalAlignBottomOutlined />,
-                disabled: selectedRows.length === 0,
+                disabled: selectedPOIds.length === 0,
                 onClick: () => setModal(modalType.ExportPOSettings),
               },
             ],
@@ -374,7 +383,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               <OButton key={btn.key} {...btn} />
             ))}
           </Space>
-          <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
+          <OTable columns={TColumns} rows={poListTableRows} selectedRows={selectedPOIds} setSelectedRows={setSelectedPOIds} />
         </Card>
       </div>
 

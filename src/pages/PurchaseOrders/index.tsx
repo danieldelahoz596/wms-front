@@ -41,13 +41,13 @@ const CustomerManagement: React.FC = () => {
   }, [selectedPOIds, getPO, setSelectedPO]);
 
   useEffect(() => {
-    getPOList({ status_id: selectedPOStatus });
+    getPOList(selectedPOStatus);
     setSelectedPOIds([]);
   }, [selectedPOStatus, getPOList, setSelectedPOIds]);
 
   useEffect(() => {
     getProductList();
-    setSelectedPOStatus(1);
+    setSelectedPOStatus({ status_id: 1, destination_id: null });
     getUnitOfMeasures();
   }, [getProductList, setSelectedPOStatus, getUnitOfMeasures]);
 
@@ -62,7 +62,7 @@ const CustomerManagement: React.FC = () => {
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
         <div className="w-full flex flex-column h-screen">
           <div className="horizon-content" style={{ overflow: 'scroll' }}>
-            <MainPanel selectedRows={selectedPOIds} setSelectedRows={setSelectedPOIds} />
+            <MainPanel />
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
           <div className={cn('shrink-0 contents bottom-panel', isBottomDragging && 'dragging')} style={{ height: bottomH }}>

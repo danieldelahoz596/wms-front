@@ -3,17 +3,17 @@ import httpClient from '@/utils/http-client';
 
 export default () => {
   const [poStatusList, setPoStatusList] = useState<any[]>([]);
-  const [selectedPOStatus, setSelectedPOStatus] = useState(null);
+  const [selectedPOStatus, setSelectedPOStatus] = useState({ status_id: null, destination_id: null });
 
-  const initialPOStatus = useCallback(() => {
-    httpClient.get('/api/po-filters').then((response) => setPoStatusList(response.data));
+  const getPOStatusFilterList = useCallback(() => {
+    httpClient.get('/api/purchasing-order-statuses/filter-list').then((response) => setPoStatusList(response.data));
   }, []);
 
   return {
     selectedPOStatus,
     poStatusList,
     setPoStatusList,
-    initialPOStatus,
+    getPOStatusFilterList,
     setSelectedPOStatus,
   };
 };

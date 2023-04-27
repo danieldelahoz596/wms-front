@@ -2,6 +2,7 @@ import httpClient from '@/utils/http-client';
 import type IPurchasingOrder from '@/interfaces/IPurchasingOrder';
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import qs from 'qs';
+import { useModel } from '@umijs/max';
 
 export default () => {
   const [poList, setPoList] = useState<IPurchasingOrder[]>([]);
@@ -10,6 +11,7 @@ export default () => {
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
   const [selectedPOIds, setSelectedPOIds] = useState<number[]>([]);
+  const { getPOStatusFilterList } = useModel('poStatus');
 
   useEffect(() => {
     if (selectedPO) {
@@ -33,8 +35,9 @@ export default () => {
     (newPOData) =>
       httpClient.post('/api/purchasing-orders', newPOData).then((response) => {
         setPoList((prev) => [...prev, response.data]);
+        getPOStatusFilterList();
       }),
-    [],
+    [getPOStatusFilterList],
   );
 
   const getPO = useCallback(
@@ -50,8 +53,9 @@ export default () => {
       httpClient.put(`/api/purchasing-orders/${updatePOData.id}`, updatePOData).then((response) => {
         setPoList((prev) => prev.map((item) => (item.id === updatePOData.id ? response.data : item)));
         setSelectedPO(response.data);
+        getPOStatusFilterList();
       }),
-    [],
+    [getPOStatusFilterList],
   );
 
   const updatePOStatus = useCallback(
@@ -61,11 +65,17 @@ export default () => {
           ids: selectedPOIds,
           status_id: status,
         })
-        .then(() => setPoList((prev) => prev.filter((item) => !selectedPOIds.includes(item.id)))),
-    [selectedPOIds],
+        .then(() => {
+          setPoList((prev) => prev.filter((item) => !selectedPOIds.includes(item.id)));
+          getPOStatusFilterList();
+        }),
+    [selectedPOIds, getPOStatusFilterList],
   );
 
-  const poItemsCost = useMemo(() => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost, 0), [poItems]);
+  const poItemsCost = useMemo(
+    () => poItems.reduce((sum, item) => sum + item.qty * item.product.vendor_cost * item.unit_of_measure.qty, 0),
+    [poItems],
+  );
 
   const totalCost = useMemo(
     () => poItemsCost + otherCosts.reduce((sum, item) => sum + item.amount, 0) + shippingCost,
