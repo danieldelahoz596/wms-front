@@ -11,7 +11,7 @@ export default () => {
   const [poItems, setPoItems] = useState<any[]>([]);
   const [shippingCost, setShippingCost] = useState<number>(0);
   const [selectedPOIds, setSelectedPOIds] = useState<number[]>([]);
-  const { getPOStatusFilterList } = useModel('poStatus');
+  const { getPOStatusFilterList, selectedPOStatus } = useModel('poStatus');
 
   useEffect(() => {
     if (selectedPO) {
@@ -97,6 +97,19 @@ export default () => {
     [selectedPO, poItems],
   );
 
+  const receivePOItem = useCallback(
+    (receivePOItemData) =>
+      httpClient
+        .post(`/api/purchasing-orders/${selectedPO.id}/items/${receivePOItemData.id}/receive`, receivePOItemData)
+        .then((response) => {
+          if (response.data.status_id !== selectedPOStatus.status_id)
+            setPoList((prev) => prev.filter((item) => item.id !== response.data.id));
+          getPOStatusFilterList();
+          setSelectedPOIds([]);
+        }),
+    [selectedPO, getPOStatusFilterList, selectedPOStatus],
+  );
+
   const getPOItemCost = useCallback(
     (item) =>
       item.qty * item.product.vendor_cost * item.unit_of_measure.qty * (1 + item.tax / 100.0) -
@@ -136,5 +149,6 @@ export default () => {
     getPO,
     createPOItems,
     updatePOItem,
+    receivePOItem,
   };
 };

@@ -5,7 +5,7 @@ import AddNewItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/AddNewItem'
 import EditItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/EditItem';
 import ReceiveItemModal from '@/pages/PurchaseOrders/MainPanel/Modals/ReceiveItem';
 import { modalType } from '@/utils/helpers/types';
-import { PlayCircleFilled } from '@ant-design/icons';
+import { CheckCircleFilled, PlayCircleFilled } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Col, Row, Space, Table, message } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
@@ -27,20 +27,25 @@ const TColumns = [
   },
   {
     title: 'Status',
-    key: 'status',
-    render: () => (
-      // status === '1' ? (
-      <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} />
-    ), // Fulfilled
-    // ) : status === '2' ? (
-    //   <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} /> //
-    // ) : status === '3' ? (
-    //   <CloseCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
-    // ) : status === '4' ? (
-    //   <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} /> //
-    // ) : (
-    //   <StopOutlined style={{ color: 'red', fontSize: 14 }} /> //
-    // ),
+    key: 'status_id',
+    dataIndex: 'status_id',
+    render: (status) =>
+      status == 0 ? (
+        <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} />
+      ) : (
+        <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} />
+      ),
+    //   status === '1' ?
+    //   <PlayCircleFilled style={{ color: 'blue', fontSize: 14 }} />
+    //  : status === '2' ?
+    //   <CheckCircleFilled style={{ color: 'blue', fontSize: 14 }} />
+    //  : status === '3' ?
+    //   <CloseCircleFilled style={{ color: 'red', fontSize: 14 }} />
+    //  : status === '4' ?
+    //   <MinusCircleFilled style={{ color: 'red', fontSize: 14 }} />
+    //  : (
+    //   <StopOutlined style={{ color: 'red', fontSize: 14 }} />
+    // )
   },
   {
     title: 'Product',
@@ -217,6 +222,7 @@ const ItemsManagement = () => {
         discount: poItem.discount,
         tax: poItem.tax,
         totalCost: poItem.total_cost,
+        status_id: poItem.status_id,
       })),
     [poItems],
   );
@@ -275,20 +281,8 @@ const ItemsManagement = () => {
       <ReceiveItemModal
         isOpen={showModal === modalType.Receive}
         item={selectedRow}
-        onSave={(poData) => {
+        onSave={() => {
           setSelectedRow(null);
-          setPoItems((prev) =>
-            prev.map((item) =>
-              item.id === selectedRow.id
-                ? {
-                    ...item,
-                    ...poData,
-                    billed_cost: poData.billedCost,
-                    landed_cost: poData.landedCost,
-                  }
-                : item,
-            ),
-          );
           setShowModal(modalType.Close);
         }}
         onCancel={() => setShowModal(modalType.Close)}
