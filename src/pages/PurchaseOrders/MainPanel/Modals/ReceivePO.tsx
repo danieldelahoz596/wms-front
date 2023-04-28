@@ -207,9 +207,8 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
 
       <NewRecevingLocationModal
         isOpen={showModal}
-        onSave={(value) => {
+        onSave={() => {
           setShowModal(false);
-          setLocations((prev) => [...prev, { id: uuidv4(), name: value }]);
         }}
         onClose={() => setShowModal(false)}
       />

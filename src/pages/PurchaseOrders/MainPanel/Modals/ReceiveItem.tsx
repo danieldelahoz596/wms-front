@@ -1,8 +1,11 @@
 import { OModal } from '@/components/Globals/OModal';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
-import React, { useEffect } from 'react';
-const { TextArea } = Input;
+import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { useModel } from '@umijs/max';
+import { Checkbox, Col, DatePicker, Form, Row, Select, InputNumber, message } from 'antd';
+import moment from 'moment';
+import React, { useEffect, useMemo, useState } from 'react';
+import NewRecevingLocationModal from './NewRecevingLocation';
+
 interface IReceiveItemModal {
   isOpen: boolean;
   item: any;
@@ -11,23 +14,39 @@ interface IReceiveItemModal {
 }
 
 const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, onCancel }) => {
+  const { selectedPO } = useModel('po');
   const [form] = Form.useForm();
+  const accept = Form.useWatch('accept', form);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const { warehouseLocationList, getLocationList } = useModel('warehouseLocation');
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...item,
-      billedCost: item?.billed_cost,
-      landedCost: item?.landed_cost,
-    });
-  }, [isOpen]);
+    if (item) {
+      const { billed_on, delivered_on, received_on, ...rest } = item;
+      if (billed_on) rest.billed_on = moment(new Date(item.billed_on));
+      if (delivered_on) rest.delivered_on = moment(new Date(item.delivered_on));
+      if (received_on) rest.received_on = moment(new Date(item.received_on));
+      form.setFieldsValue(rest);
+    }
+  }, [item, form, isOpen]);
+
+  useEffect(() => {
+    if (isOpen) getLocationList(selectedPO?.destination_id);
+  }, [isOpen, getLocationList, selectedPO]);
 
   const handleSave = () => {
     form.validateFields().then((values) => onSave(values));
   };
 
+  const locationOptions = useMemo(
+    () => warehouseLocationList.map((location) => ({ value: location.id, label: location.name })),
+    [warehouseLocationList],
+  );
+
   return (
     <OModal
-      title={"Receive Item '" + item?.product?.name + "'"}
+      title={`Receive Item '${selectedPO.order_number} - ${item?.product.name} Product'`}
       helpLink=""
       width={800}
       isOpen={isOpen}
@@ -48,75 +67,79 @@ const ReceiveItemModal: React.FC<IReceiveItemModal> = ({ isOpen, item, onSave, o
       ]}
     >
       <>
+        {contextHolder}
         <div style={{ textAlign: 'center' }}>
-          <h1>Vendor SKU: {item?.product?.vendor_skus}</h1>
+          <h1>Vendor SKU: {item?.product.sku}</h1>
         </div>
-        <Row gutter={10}>
-          <Col span={9}>
-            <Form labelCol={{ span: 12 }} labelAlign="left">
-              <Form.Item label="Delivered">
-                <Input />
+        <Form labelCol={{ span: 12 }} form={form} style={{ textAlign: 'right' }}>
+          <Row gutter={15}>
+            <Col span={9}>
+              <Form.Item label="Delivered" name="delivered_on">
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item label="Received">
-                <Input />
+              <Form.Item label="Received" name="received_on">
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item label="Billed On">
-                <Input />
+              <Form.Item label="Billed On" name="billed_on">
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
               <Form.Item label="Landed Cost Payment Date">
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="Reference #">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Item Memo">
-                <TextArea rows={2} />
-              </Form.Item>
-            </Form>
-          </Col>
-          <Col span={6}>
-            <Form labelCol={{ span: 12 }} form={form} style={{ textAlign: 'right' }}>
+            </Col>
+            <Col span={6}>
               <Form.Item label="Original Unit Cost">
-                <span>$1.00</span>
+                <span>{item?.product.vendor_cost}</span>
               </Form.Item>
-              <Form.Item label="Billed Unit Cost" name="billedCost">
-                <Input type="number" addonBefore="$" />
+              <Form.Item label="Billed Unit Cost" name="billed_cost">
+                <InputNumber />
               </Form.Item>
-              <Form.Item label="Landed Unit Cost" name="landedCost">
-                <Input type="number" addonBefore="$" />
+              <Form.Item label="Landed Unit Cost" name="landed_cost">
+                <InputNumber />
               </Form.Item>
-              <Form.Item label="Discount" name="discount" labelCol={{ span: 6 }}>
-                <Input
-                  type="number"
-                  addonBefore={<Select defaultValue="$" style={{ width: 40 }} options={[{ value: '$', label: '$' }]} />}
-                  value={0.0}
-                />
+              <Form.Item label="Discount" name="discount">
+                <InputNumber />
               </Form.Item>
-            </Form>
-          </Col>
-          <Col span={9}>
-            <Form labelCol={{ span: 10 }} style={{ textAlign: 'right' }}>
-              <Form.Item label="Accept">
-                <Input type="number" addonAfter="units" value={25} />
+            </Col>
+            <Col span={9}>
+              <Form.Item label="Accept" name="accept" rules={[{ required: true, message: 'Please input the accept units' }]}>
+                <InputNumber addonAfter="units" max={item?.qty} min={1} />
               </Form.Item>
               <Form.Item label="Reject">
-                <Input type="number" addonAfter="units" value={0} />
+                <InputNumber addonAfter="units" value={item?.qty - accept} max={item?.qty} min={0} disabled />
               </Form.Item>
               <Form.Item label="Total">
                 <span>
-                  <b>25</b> units
+                  <b>{item?.qty}</b> units
                 </span>
               </Form.Item>
               <Form.Item label="Update inventory" style={{ textAlign: 'left' }}>
                 <Checkbox />
                 <QuestionCircleOutlined className="help-button" style={{ marginLeft: 6 }} />
               </Form.Item>
-              <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
-                <Input type="number" addonAfter="units" value={25} />
-              </Form.Item>
-            </Form>
-          </Col>
-        </Row>
+              <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+                <div style={{ flex: '1' }}>
+                  <Form.Item label="Receiving Location" labelCol={{ span: 8 }}>
+                    <Select options={locationOptions} />
+                  </Form.Item>
+                </div>
+                <PlusOutlined className="plus-button" onClick={() => setShowModal(true)} />
+              </div>
+            </Col>
+          </Row>
+        </Form>
+
+        <NewRecevingLocationModal
+          isOpen={showModal}
+          onSave={() => {
+            setShowModal(false);
+            messageApi.open({
+              type: 'success',
+              content: 'Successful to create a new location',
+            });
+          }}
+          onClose={() => setShowModal(false)}
+        />
       </>
     </OModal>
   );

@@ -1,16 +1,22 @@
 import { OModal } from '@/components/Globals/OModal';
+import { useModel } from '@umijs/max';
 import { Checkbox, Form, Input } from 'antd';
 interface INewRecevingLocationModal {
   isOpen: boolean;
-  onSave: (item: string) => void;
+  onSave: () => void;
   onClose: () => void;
 }
 const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({ isOpen, onSave, onClose }) => {
   const [form] = Form.useForm();
+  const { selectedPO } = useModel('po');
+  const { createLocation } = useModel('warehouseLocation');
 
   const handleSave = () => {
     form.validateFields().then((values) => {
-      onSave(values.location);
+      console.log('values: ', values, selectedPO.destination_id);
+      createLocation(selectedPO.destination_id, { ...values, warehouse_id: selectedPO.destination_id }).then(() => {
+        onSave();
+      });
     });
   };
 
@@ -37,15 +43,17 @@ const NewRecevingLocationModal: React.FC<INewRecevingLocationModal> = ({ isOpen,
       ]}
     >
       <>
-        <h2 style={{ textAlign: 'center' }}>AA0001</h2>
+        <h2 style={{ textAlign: 'center' }}>{selectedPO?.destination.name}</h2>
         <Form form={form}>
-          <Form.Item label="Location" name="location" rules={[{ required: true, message: 'Please input location' }]}>
+          <Form.Item label="Location" name="name" rules={[{ required: true, message: 'Please input location' }]}>
             <Input />
           </Form.Item>
+          <Form.Item label="" name="isPickable" valuePropName="checked">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'end', gap: 5 }}>
+              <Checkbox /> Is Pickable?
+            </div>
+          </Form.Item>
         </Form>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'end', gap: 5 }}>
-          <Checkbox /> Is Pickable?
-        </div>
       </>
     </OModal>
   );

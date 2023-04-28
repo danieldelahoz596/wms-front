@@ -1,6 +1,7 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Card, Col, DatePicker, Form, InputNumber, Row } from 'antd';
+import moment from 'moment';
 import React, { useEffect, useMemo } from 'react';
 
 interface IEditItemModal {
@@ -32,7 +33,11 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
 
   useEffect(() => {
     if (item) {
-      form.setFieldsValue(item);
+      const { billed_on, delivered_on, received_on, ...rest } = item;
+      if (billed_on) rest.billed_on = moment(new Date(item.billed_on));
+      if (delivered_on) rest.delivered_on = moment(new Date(item.delivered_on));
+      if (received_on) rest.received_on = moment(new Date(item.received_on));
+      form.setFieldsValue(rest);
     }
   }, [isOpen, form, item]);
 
@@ -75,17 +80,17 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
         <div style={{ textAlign: 'center' }}>
           <h1>Vendor SKU: {item?.product.sku}</h1>
         </div>
-        <Row gutter={8}>
-          <Col span={14}>
-            <Card title="Details">
-              <Form labelCol={{ span: 10 }} labelAlign="left">
-                <Form.Item label="Billed On">
+        <Form labelCol={{ span: 14 }} form={form} labelAlign="left">
+          <Row gutter={8}>
+            <Col span={14}>
+              <Card title="Details">
+                <Form.Item label="Billed On" name="billed_on">
                   <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item label="Est. Delivery">
+                <Form.Item label="Est. Delivery" name="received_on">
                   <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
-                <Form.Item label="Delivered">
+                <Form.Item label="Delivered" name="delivered_on">
                   <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
                 {/* <Form.Item label="Landed Cost Payment Date">
@@ -103,12 +108,10 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
                 {/* <Form.Item label="Item Memo">
                   <TextArea rows={4} />
                 </Form.Item> */}
-              </Form>
-            </Card>
-          </Col>
-          <Col span={10}>
-            <Card title="Item Totals">
-              <Form labelCol={{ span: 14 }} form={form} style={{ textAlign: 'right' }}>
+              </Card>
+            </Col>
+            <Col span={10}>
+              <Card title="Item Totals">
                 <Form.Item label="Order Quantity" name="qty">
                   <InputNumber value={25} />
                 </Form.Item>
@@ -142,10 +145,10 @@ const EditItemModal: React.FC<IEditItemModal> = ({ isOpen, item, onSave, onCance
                 <Form.Item label="Total Cost">
                   <span>${totalCost}</span>
                 </Form.Item>
-              </Form>
-            </Card>
-          </Col>
-        </Row>
+              </Card>
+            </Col>
+          </Row>
+        </Form>
       </>
     </OModal>
   );
