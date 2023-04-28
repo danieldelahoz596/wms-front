@@ -1,49 +1,38 @@
 import { OModal } from '@/components/Globals/OModal';
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { uuidv4 } from '@antv/xflow-core';
-import { Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd';
+import { Checkbox, Col, DatePicker, Form, Input, Row, Select, message } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import NewRecevingLocationModal from './NewRecevingLocation';
+import { useModel } from '@umijs/max';
+
 const { TextArea } = Input;
 interface IReceivePOModal {
   isOpen: boolean;
-  item: any;
   onSave: (item: any) => void;
   onClose: () => void;
 }
 
-const locationData = [
-  {
-    id: '1',
-    name: 'Location 1',
-  },
-  {
-    id: '2',
-    name: 'Location 2',
-  },
-  {
-    id: '3',
-    name: 'Location 3',
-  },
-];
-
-const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClose }) => {
+const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, onSave, onClose }) => {
+  const { selectedPO } = useModel('po');
+  const { getLocationList, warehouseLocationList } = useModel('warehouseLocation');
+  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
-  const [locations, setLocations] = useState(locationData);
   const [showModal, setShowModal] = useState(false);
 
   const locationOptions = useMemo(
-    () => locations.map((location) => ({ key: location.id, value: location.id, label: location.name })),
-    [locations],
+    () => warehouseLocationList.map((location) => ({ value: location.id, label: location.name })),
+    [warehouseLocationList],
   );
 
   useEffect(() => {
-    form.setFieldsValue({
-      ...item,
-      billedCost: item?.billed_cost,
-      landedCost: item?.landed_cost,
-    });
-  }, [isOpen]);
+    if (isOpen) getLocationList(selectedPO.destination_id);
+  }, [isOpen, getLocationList, selectedPO]);
+
+  useEffect(() => {
+    if (selectedPO) {
+      form.setFieldsValue(selectedPO);
+    }
+  }, [isOpen, selectedPO, form]);
 
   const handleSave = () => {
     form.validateFields().then((values) => onSave(values));
@@ -52,7 +41,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
   return (
     <OModal
       forceRender
-      title={"Receive Item '" + item?.ponumber + "'"}
+      title={"Receive Item '" + selectedPO?.ponumber + "'"}
       helpLink=""
       width={1000}
       isOpen={isOpen}
@@ -73,6 +62,7 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
       ]}
     >
       <>
+        {contextHolder}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h3 style={{ color: 'blue' }}>{'Apply To All {'}</h3>
           <Form layout="inline" style={{ marginLeft: 10 }}>
@@ -203,15 +193,19 @@ const ReceivePOModal: React.FC<IReceivePOModal> = ({ isOpen, item, onSave, onClo
             </div>
           </Col>
         </Row>
-      </>
 
-      <NewRecevingLocationModal
-        isOpen={showModal}
-        onSave={() => {
-          setShowModal(false);
-        }}
-        onClose={() => setShowModal(false)}
-      />
+        <NewRecevingLocationModal
+          isOpen={showModal}
+          onSave={() => {
+            setShowModal(false);
+            messageApi.open({
+              type: 'success',
+              content: 'Successful to create a new location',
+            });
+          }}
+          onClose={() => setShowModal(false)}
+        />
+      </>
     </OModal>
   );
 };

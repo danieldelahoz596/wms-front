@@ -111,7 +111,7 @@ const TColumns = [
 
 const ItemsManagement = () => {
   const { selectedPOStatus } = useModel('poStatus');
-  const { selectedPO, poItems, setPoItems } = useModel('po');
+  const { selectedPO, poItems, setPoItems, deletePOItem } = useModel('po');
   const [showModal, setShowModal] = useState<modalType>(modalType.Close);
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -192,15 +192,16 @@ const ItemsManagement = () => {
           description: 'Removing this item will exclue it from the issued P.O.',
           confirmMessage: 'Are you sure you want to proceed?',
           onSave: () => {
-            setShowModal(modalType.Close);
-            setPoItems((prev) => prev.filter((item) => item.id !== selectedRow.id));
-            setSelectedRow(null);
+            deletePOItem(selectedRow.id).then(() => {
+              setShowModal(modalType.Close);
+              setSelectedRow(null);
+            });
           },
           onClose: () => setShowModal(modalType.Close),
         });
       },
       disabled: !selectedRow,
-      hidden: selectedPOStatus == null || !['1', '2', '3'].includes(selectedPOStatus.status_id),
+      hidden: selectedPOStatus == null || ![1, 2, 3].includes(selectedPOStatus.status_id),
       // Only in Awaiting Authorization, Awaiting Confirmation, Awaiting Re-Authorization
     },
   ];

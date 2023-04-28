@@ -288,7 +288,7 @@ const MainPanel = () => {
         // setSelectedPOIds([]);
         // message.success('P.O.(s) moved to Fulfilled status.');
         setModal(modalType.Receive);
-        setSelectedPOIds([]);
+        // setSelectedPOIds([]);
       },
       btnText: 'Receive',
       disabled: selectedPOIds.length !== 1,
@@ -405,7 +405,6 @@ const MainPanel = () => {
 
       <ReceivePOModal
         isOpen={modalOpen === modalType.Receive}
-        item={selectedPO}
         onSave={() => {
           setModal(modalType.ManagePurchaseOrders);
           setManageOrdersModalData({

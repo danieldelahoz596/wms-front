@@ -97,6 +97,19 @@ export default () => {
     [selectedPO, poItems],
   );
 
+  const deletePOItem = useCallback(
+    (id) =>
+      httpClient.delete(`/api/purchasing-orders/${selectedPO.id}/items/${id}`).then((response) => {
+        setPoItems((prev) => prev.filter((item) => item.id !== id));
+        setPoList((prev) =>
+          prev.map((item) =>
+            item.id === selectedPO.id ? { ...item, total_cost: item.total_cost - response.data.total_cost } : item,
+          ),
+        );
+      }),
+    [setPoItems, selectedPO],
+  );
+
   const receivePOItem = useCallback(
     (receivePOItemData) =>
       httpClient
@@ -149,6 +162,7 @@ export default () => {
     getPO,
     createPOItems,
     updatePOItem,
+    deletePOItem,
     receivePOItem,
   };
 };

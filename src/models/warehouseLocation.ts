@@ -1,6 +1,6 @@
 import type IWarehouseLocation from '@/interfaces/IWarehouseLocation';
 import httpClient from '@/utils/http-client';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export default () => {
   const [warehouseLocationList, setWarehouseLocationList] = useState<IWarehouseLocation[]>([]);
