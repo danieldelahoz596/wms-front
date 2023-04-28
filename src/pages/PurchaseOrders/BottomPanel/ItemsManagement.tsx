@@ -202,8 +202,8 @@ const ItemsManagement = () => {
 
   const rows = useMemo(
     () =>
-      poItems.map((poItem) => ({
-        key: poItem.id,
+      poItems.map((poItem, index) => ({
+        key: index,
         id: poItem.id,
         product_name: poItem.product.name,
         vendor_sku: poItem.product.sku,
@@ -252,8 +252,7 @@ const ItemsManagement = () => {
 
       <AddNewItemModal
         isOpen={showModal === modalType.New}
-        onSave={(items) => {
-          setPoItems(items);
+        onSave={() => {
           setShowModal(modalType.Close);
         }}
         onCancel={() => setShowModal(modalType.Close)}

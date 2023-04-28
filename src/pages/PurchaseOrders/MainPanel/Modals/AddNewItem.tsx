@@ -1,173 +1,144 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OModal } from '@/components/Globals/OModal';
-import type { IOSelectOption } from '@/components/Globals/OSelect';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { CloseOutlined } from '@ant-design/icons';
-import { uuidv4 } from '@antv/xflow-core';
 import { useModel } from '@umijs/max';
-import { Form, Input, Select, Space } from 'antd';
-import React, { useMemo } from 'react';
-
-const unitMeasureOptions: IOSelectOption[] = [
-  {
-    text: 'Each',
-    value: '1',
-  },
-  {
-    text: 'Item 2',
-    value: '2',
-  },
-];
-
-const buyerOptions = [
-  {
-    value: 1,
-    label: 'Buyer1',
-  },
-  {
-    value: 2,
-    label: 'Buyer2',
-  },
-];
+import { Form, Space, Select, InputNumber } from 'antd';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { OModal } from '@/components/Globals/OModal';
 
 interface IAddNewItemModal {
   isOpen: boolean;
-  onSave: (items: any[]) => void;
+  onSave: () => void;
   onCancel: () => void;
 }
 
 const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, onSave, onCancel }) => {
+  const { poItems, selectedPO, createPOItems, getPOItemCost } = useModel('po');
   const { productList } = useModel('product');
-  const { selectedPO, poItems, setPoItems } = useModel('po');
+  const { unitOfMeasureList } = useModel('unitOfMeasure');
+  const [items, setItems] = useState([]);
   const [form] = Form.useForm();
 
-  const productOptions = useMemo(() => productList.map((item) => ({ value: item.id, label: item.name })), [productList]);
+  useEffect(() => {
+    setItems(poItems);
+  }, [poItems]);
 
-  const AddNewItemTableColumns = [
-    {
-      title: '',
-      key: 'delete',
-      dataIndex: 'key',
-      render: (id) => (
-        <span onClick={() => setPoItems((prev) => prev.filter((item) => item.id !== id))}>
-          <CloseOutlined style={{ color: 'blue' }} />
-        </span>
-      ),
-    },
-    {
-      title: 'Product',
-      dataIndex: 'product',
-      key: 'product',
-      editable: true,
-      options: productOptions,
-    },
-    {
-      title: 'Vendor SKU',
-      dataIndex: 'vendorSku',
-      key: 'vendorSku',
-      editable: true,
-    },
-    {
-      title: 'Buyer.',
-      dataIndex: 'buyer',
-      key: 'buyer',
-      editable: true,
-      options: buyerOptions,
-    },
-    {
-      title: 'Qty.',
-      dataIndex: 'quantity',
-      key: 'quantity',
-      editable: true,
-    },
-    {
-      title: 'Unit of Measure',
-      dataIndex: 'unitMeasure',
-      key: 'unitMeasure',
-      editable: true,
-    },
-    {
-      title: 'Total Unit Qty.',
-      dataIndex: 'totalUnitqQuantity',
-      key: 'totalUnitqQuantity',
-      editable: true,
-    },
-    {
-      title: 'Unit Cost',
-      dataIndex: 'unitCost',
-      key: 'unitCost',
-      editable: true,
-    },
-    {
-      title: 'Discount Type',
-      dataIndex: 'discountType',
-      key: 'discountType',
-      editable: true,
-      options: [{ value: '$', label: '$' }],
-    },
-    {
-      title: 'Discount',
-      dataIndex: 'discount',
-      key: 'discount',
-      editable: true,
-    },
-  ];
+  const handleRemoveItem = useCallback((index) => setItems((prev) => prev.filter((_, i) => i !== index)), [setItems]);
 
-  const tableRows = useMemo(
-    () =>
-      poItems.map((item) => ({
-        key: item.id,
-        product: item.product?.name,
-        vendorSku: item.product?.vendor_skus,
-        buyer: item.product?.buyer,
-        quantity: item.quantity,
-        unitMeasure: item.unitMeasure,
-        totalUnitqQuantity: item.totalUnitqQuantity,
-        unitCost: item.unitCost,
-        discountType: item.discountType,
-        discount: item.discount,
-      })),
-    [poItems],
+  const unitMeasureOptions = useMemo(
+    () => unitOfMeasureList.map((item) => ({ value: item.id, label: item.name })),
+    [unitOfMeasureList],
   );
 
-  const handleAdd = () => {
-    form.validateFields().then((values) =>
-      setPoItems((prev) => [
+  const AddNewPOItemTableColumns = useMemo(
+    () => [
+      {
+        title: '',
+        key: 'action',
+        render: (_, record) => (
+          <div onClick={() => handleRemoveItem(record.key)}>
+            <CloseOutlined style={{ color: 'blue', cursor: 'pointer' }} />
+          </div>
+        ),
+      },
+      {
+        title: 'Product',
+        dataIndex: 'product',
+        key: 'product',
+      },
+      {
+        title: 'Vendor SKU',
+        dataIndex: 'vendorSku',
+        key: 'vendorSku',
+      },
+      {
+        title: 'Buyer.',
+        dataIndex: 'buyer',
+        key: 'buyer',
+      },
+      {
+        title: 'Qty.',
+        dataIndex: 'qty',
+        key: 'qty',
+        editable: true,
+      },
+      {
+        title: 'Unit of Measure',
+        dataIndex: 'unitMeasure',
+        key: 'unitMeasure',
+        options: unitMeasureOptions,
+        // editable: true,
+      },
+      {
+        title: 'Unit Cost',
+        dataIndex: 'unitCost',
+        key: 'unitCost',
+      },
+      {
+        title: 'Discount',
+        dataIndex: 'discount',
+        key: 'discount',
+        editable: true,
+      },
+    ],
+    [handleRemoveItem, unitMeasureOptions],
+  );
+
+  const productOptions = useMemo(
+    () =>
+      productList
+        .filter((product) => !items.map((item) => item.product_id).includes(product.id))
+        .map((product) => ({ value: product.id, label: product.name })),
+    [productList, items],
+  );
+
+  // store product to po model
+  const handleAddNewPOProductItem = () => {
+    form.validateFields().then((values) => {
+      setItems((prev) => [
         ...prev,
         {
-          id: uuidv4(),
           ...values,
-          product: productList.find((item) => item.id === values.product),
-          discountType: '$',
-          discount: 1,
-          status: '1',
+          discount: 0,
+          tax: 0,
+          billed_cost: 0,
+          landed_cost: 0,
+          product: productList.find((product) => product.id === values.product_id),
+          unit_of_measure: unitOfMeasureList.find((item) => item.id === values.unit_of_measure_id),
         },
-      ]),
-    );
+      ]);
+      form.resetFields();
+    });
   };
 
-  const handleItemSave = (index, name, value) => {
-    setPoItems((prev) =>
-      prev.map((item) =>
-        item.id === index
-          ? name === 'product'
-            ? { ...item, product: productList.find((product) => product.id === value) }
-            : name === 'buyer'
-            ? {
-                ...item,
-                product: {
-                  ...item.product,
-                  buyer: buyerOptions.find((buyer) => buyer.value === value).label,
-                },
-              }
-            : { ...item, [name]: value }
-          : item,
-      ),
-    );
+  const handleTableUpdate = (index, name, value) => {
+    setItems((prev) => prev.map((item, i) => (i === index ? { ...item, [name]: parseFloat(value) } : item)));
   };
+
+  // prepare data table rows
+  const rows = useMemo(
+    () =>
+      items.map((item: any, index: any) => ({
+        key: index,
+        product: item.product.name,
+        vendorSku: item.product.sku,
+        qty: item.qty,
+        unitMeasure: item.unit_of_measure.name,
+        unitCost: item.product.vendor_cost,
+        discount: item.discount,
+      })),
+    [items],
+  );
 
   const handleSave = () => {
-    onSave(poItems);
+    createPOItems(
+      items.map((item) => {
+        const { product, unit_of_measure, ...rest } = item;
+        return { ...rest, order_id: selectedPO.id, total_cost: getPOItemCost(item) };
+      }),
+    ).then(() => {
+      onSave();
+    });
   };
 
   return (
@@ -193,21 +164,28 @@ const AddNewItemModal: React.FC<IAddNewItemModal> = ({ isOpen, onSave, onCancel 
       ]}
     >
       <>
-        <Form form={form}>
-          <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-            <Form.Item name="product">
-              <Select placeholder="Select a product..." options={productOptions} onChange={() => {}} style={{ width: 250 }} />
-            </Form.Item>
-            <Form.Item label="Quantity" name="quantity">
-              <Input type="number" style={{ width: 70 }} min={1} />
-            </Form.Item>
-            <Form.Item label="Unit of measure" name="unitMeasure">
-              <Select options={unitMeasureOptions} onChange={() => {}} style={{ width: 120 }} />
-            </Form.Item>
-            <OButton btnText={'Add'} size="large" onClick={handleAdd} />
+        <div className="space-between" style={{ margin: '20px 0 8px' }}>
+          <Space>
+            <Form layout="inline" form={form}>
+              <Form.Item label="Add Item" name="product_id" rules={[{ required: true, message: 'Please select Product Item' }]}>
+                <Select options={productOptions} style={{ width: 150 }} />
+              </Form.Item>
+              <Form.Item label="Quantity" name="qty" rules={[{ required: true, message: 'Please input the quantity' }]}>
+                <InputNumber style={{ width: 80 }} min={0} />
+              </Form.Item>
+              <Form.Item
+                label="Unit of Measure"
+                name="unit_of_measure_id"
+                rules={[{ required: true, message: 'Please select the Unit of Measure' }]}
+              >
+                <Select options={unitMeasureOptions} style={{ width: 150 }} />
+              </Form.Item>
+            </Form>
+            <OButton btnText="Add" onClick={handleAddNewPOProductItem} size="large" />
           </Space>
-        </Form>
-        <EditableTable columns={AddNewItemTableColumns} dataSource={tableRows} pagination={false} handleSave={handleItemSave} />
+        </div>
+
+        <EditableTable dataSource={rows} columns={AddNewPOItemTableColumns} handleSave={handleTableUpdate} pagination={false} />
       </>
     </OModal>
   );

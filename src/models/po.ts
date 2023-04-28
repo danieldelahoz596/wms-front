@@ -72,27 +72,41 @@ export default () => {
     [selectedPOIds, getPOStatusFilterList],
   );
 
+  const createPOItems = useCallback(
+    (items) =>
+      httpClient.post(`/api/purchasing-orders/${selectedPO.id}/items`, { po_items: items }).then((response) => {
+        setPoItems(response.data);
+        setSelectedPO({ ...selectedPO, po_items: response.data });
+        const totalCost = response.data.reduce((sum, item) => sum + item.total_cost, 0);
+        setPoList((prev) => prev.map((item) => (item.id === selectedPO.id ? { ...item, total_cost: totalCost } : item)));
+      }),
+    [selectedPO],
+  );
+
   const updatePOItem = useCallback(
     (updatePOItemData) =>
-      httpClient.put(`/api/purchasing-order-items/${updatePOItemData.id}`, updatePOItemData).then((response) => {
-        setPoItems((prev) => prev.map((item) => (item.id === updatePOItemData.id ? response.data : item)));
-      }),
+      httpClient
+        .put(`/api/purchasing-orders/${selectedPO.id}/items/${updatePOItemData.id}`, updatePOItemData)
+        .then((response) => {
+          const updatedPOItems = poItems.map((item) => (item.id === updatePOItemData.id ? response.data : item));
+          const totalCost = updatedPOItems.reduce((sum, item) => sum + item.total_cost, 0);
+          setPoItems(updatedPOItems);
+          setSelectedPO({ ...selectedPO, po_items: updatedPOItems });
+          setPoList((prev) => prev.map((item) => (item.id === selectedPO.id ? { ...item, total_cost: totalCost } : item)));
+        }),
+    [selectedPO, poItems],
+  );
+
+  const getPOItemCost = useCallback(
+    (item) =>
+      item.qty * item.product.vendor_cost * item.unit_of_measure.qty * (1 + item.tax / 100.0) -
+      item.discount +
+      item.billed_cost +
+      item.landed_cost,
     [],
   );
 
-  const poItemsCost = useMemo(
-    () =>
-      poItems.reduce(
-        (sum, item) =>
-          sum +
-          item.qty * item.product.vendor_cost * item.unit_of_measure.qty * (1 + item.tax / 100.0) -
-          item.discount -
-          item.billed_cost -
-          item.landed_cost,
-        0,
-      ),
-    [poItems],
-  );
+  const poItemsCost = useMemo(() => poItems.reduce((sum, item) => sum + getPOItemCost(item), 0), [poItems, getPOItemCost]);
 
   const totalCost = useMemo(
     () => poItemsCost + otherCosts.reduce((sum, item) => sum + item.amount, 0) + shippingCost,
@@ -108,6 +122,7 @@ export default () => {
     totalCost,
     shippingCost,
     selectedPOIds,
+    getPOItemCost,
     setPoList,
     setSelectedPO,
     setOtherCosts,
@@ -119,6 +134,7 @@ export default () => {
     updatePO,
     updatePOStatus,
     getPO,
+    createPOItems,
     updatePOItem,
   };
 };

@@ -13,7 +13,7 @@ interface IAddNewPOModal {
 }
 
 const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) => {
-  const { poItems, otherCosts, totalCost, createPO } = useModel('po');
+  const { poItems, otherCosts, totalCost, createPO, getPOItemCost } = useModel('po');
   const { selectedVendor } = useModel('vendor');
   const [purchaseForm] = Form.useForm();
   const [aggregateCostForm] = Form.useForm();
@@ -29,11 +29,7 @@ const AddNewPOModal: React.FC<IAddNewPOModal> = ({ isOpen, onSave, onClose }) =>
           vendor_id: selectedVendor.id,
           other_costs: otherCosts.map((item) => ({ name: item.name, amount: item.amount })),
           po_items: poItems.map((item) => {
-            const total_cost =
-              item.qty * item.unit_of_measure.qty * item.product.vendor_cost * (1 + item.tax / 100.0) +
-              item.billed_cost +
-              item.landed_cost -
-              item.discount;
+            const total_cost = getPOItemCost(item);
             const { product, unit_of_measure, ...rest } = item;
             return { ...rest, total_cost };
           }),
