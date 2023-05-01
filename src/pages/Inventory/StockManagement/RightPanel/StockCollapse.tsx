@@ -82,7 +82,8 @@ export const location_history = [
 ];
 
 const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
-  const { selectedStockItem } = useModel('stockLocation');
+  const { selectedStockItem, setStockDetails, createStock } = useModel('stockLocation');
+  const { updateLocationStatus } = useModel('warehouseLocation');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [modal, setModal] = useState<modalType>(modalType.Close);
   const [showActive, setShowActive] = useState(true);
@@ -106,6 +107,7 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      render: (status) => (status ? 'Active' : 'Deactive'),
     },
     {
       title: 'Rank',
@@ -370,36 +372,47 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
         </div>
       </Card>
 
-      <StockHistoryModal
-        isOpen={modal === modalType.StockHistory}
-        title={
-          <>
-            {"In-House Warehouse Stock Edit History For 1234 At '"} <BarCodeIcon style={{ fontSize: 15 }} />
-            <StockIcon style={{ fontSize: 15 }} />
-            {"Location1234234234'"}
-          </>
-        }
-        dataSource={[]}
-        onClose={() => setModal(modalType.Close)}
-      />
-
       <NewStockModal
         isOpen={modal === modalType.NewStock}
-        onSave={() => setModal(modalType.Close)}
+        onSave={(values) => {
+          createStock({ ...values, warehouse_id: data.warehouse_id, product_id: selectedStockItem.product_id }).then(
+            ({ location }) => {
+              setStockDetails((prev) =>
+                prev.map((item) =>
+                  item.warehouse_id === data.warehouse_id
+                    ? { ...item, locations: [...item.locations, { ...location, available: values.on_hand }] }
+                    : item,
+                ),
+              );
+              // setModal(modalType.Close);
+            },
+          );
+        }}
         onClose={() => setModal(modalType.Close)}
-        stockData={[]}
+        stockData={selectedStockItem}
       />
 
       <StockDeactiveModal
         isOpen={modal === modalType.StockDeactive}
-        subTitle={`11111`}
+        subTitle={selectedLocation?.name}
         active={showActive}
         onSave={() => {
-          // setLocationList(
-          //   locationList.map((item) => (item.key === selectedLocation?.key ? { ...item, status: !item.status } : item)),
-          // );
-          setModal(modalType.Close);
-          setSelectedLocation(null);
+          updateLocationStatus(data.warehouse_id, selectedLocation.id, !selectedLocation.status).then(() => {
+            setStockDetails((prev) =>
+              prev.map((item) =>
+                item.warehouse_id === data.warehouse_id
+                  ? {
+                      ...item,
+                      locations: item.locations.map((location) =>
+                        location.id === selectedLocation.id ? { ...location, status: !location.status } : location,
+                      ),
+                    }
+                  : item,
+              ),
+            );
+            setModal(modalType.Close);
+            setSelectedLocation(null);
+          });
         }}
         onClose={() => setModal(modalType.Close)}
       />
@@ -485,6 +498,19 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
           setSelectedLocation(null);
           setModal(modalType.Close);
         }}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <StockHistoryModal
+        isOpen={modal === modalType.StockHistory}
+        title={
+          <>
+            {"In-House Warehouse Stock Edit History For 1234 At '"} <BarCodeIcon style={{ fontSize: 15 }} />
+            <StockIcon style={{ fontSize: 15 }} />
+            {"Location1234234234'"}
+          </>
+        }
+        dataSource={locationHistory}
         onClose={() => setModal(modalType.Close)}
       />
     </Collapse.Panel>

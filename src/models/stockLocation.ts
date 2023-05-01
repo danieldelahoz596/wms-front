@@ -25,7 +25,6 @@ export default () => {
   const [stockLocationList, setStockLocationList] = useState<IStockLocation[]>([]);
   const [selectedStockItem, setSelectedStockItem] = useState<IStockLocation>(null);
   const [stockDetails, setStockDetails] = useState<IStockDetails[]>([]);
-  console.log('stockDetails: ', stockDetails);
 
   const getStockLocationList = useCallback(() => {
     httpClient
@@ -45,5 +44,23 @@ export default () => {
       .catch((err) => console.log(err));
   }, []);
 
-  return { stockLocationList, selectedStockItem, stockDetails, setSelectedStockItem, getStockLocationList, getStockDetails };
+  const createStock = useCallback(
+    (storeData) =>
+      httpClient.post('/api/stock-locations', storeData).then(({ data }) => {
+        setStockLocationList((prev) => [...prev, data.stock_location]);
+        return data;
+      }),
+    [],
+  );
+
+  return {
+    stockLocationList,
+    selectedStockItem,
+    stockDetails,
+    setSelectedStockItem,
+    setStockDetails,
+    getStockLocationList,
+    getStockDetails,
+    createStock,
+  };
 };

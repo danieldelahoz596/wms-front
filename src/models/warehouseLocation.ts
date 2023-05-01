@@ -19,9 +19,22 @@ export default () => {
     [],
   );
 
+  const updateLocationStatus = useCallback(
+    (warehouseId, locationId, status) =>
+      httpClient
+        .patch(`/api/warehouses/${warehouseId}/locations/${locationId}/update-status`, { status })
+        .then(() =>
+          setWarehouseLocationList((prev) =>
+            prev.map((item) => (item.id === locationId ? { ...item, status: !item.status } : item)),
+          ),
+        ),
+    [],
+  );
+
   return {
     warehouseLocationList,
     getLocationList,
     createLocation,
+    updateLocationStatus,
   };
 };
