@@ -53,9 +53,27 @@ export default () => {
     [],
   );
 
+  const addStock = useCallback(
+    (updateData) =>
+      httpClient.post(`/api/warehouse-locations/${updateData.location_id}/add-stock`, updateData).then(({ data }) => {
+        setStockLocationList((prev) => prev.map((item) => (item.id === data.id ? data : item)));
+        return data;
+      }),
+    [],
+  );
+
+  const removeStock = useCallback(
+    (updateData) =>
+      httpClient.post(`/api/warehouse-locations/${updateData.location_id}/remove-stock`, updateData).then(({ data }) => {
+        setStockLocationList((prev) => prev.map((item) => (item.id === data.id ? data : item)));
+        return data;
+      }),
+    [],
+  );
+
   const transferStock = useCallback(
-    (id, transferData) =>
-      httpClient.post(`/api/stock-locations/${id}/transfer`, transferData).then(({ data }) => {
+    (transferData) =>
+      httpClient.post(`/api/warehouse-locations/${transferData.location_id}/transfer-stock`, transferData).then(({ data }) => {
         setStockLocationList((prev) =>
           prev.map((item) =>
             item.id === data.stock_location.id
@@ -70,6 +88,15 @@ export default () => {
     [],
   );
 
+  const adjustStock = useCallback(
+    (adjustData) =>
+      httpClient.post(`/api/warehouse-locations/${adjustData.location_id}/adjust-stock`, adjustData).then(({ data }) => {
+        setStockLocationList((prev) => prev.map((item) => (item.id === data.stock_location.id ? data.stock_location : item)));
+        return data;
+      }),
+    [],
+  );
+
   return {
     stockLocationList,
     selectedStockItem,
@@ -79,6 +106,9 @@ export default () => {
     getStockLocationList,
     getStockDetails,
     createStock,
+    addStock,
+    removeStock,
     transferStock,
+    adjustStock,
   };
 };

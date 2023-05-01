@@ -82,7 +82,8 @@ export const location_history = [
 ];
 
 const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
-  const { selectedStockItem, setStockDetails, createStock, transferStock } = useModel('stockLocation');
+  const { selectedStockItem, setStockDetails, createStock, transferStock, adjustStock, addStock, removeStock } =
+    useModel('stockLocation');
   const { updateLocation, updateLocationStatus } = useModel('warehouseLocation');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [modal, setModal] = useState<modalType>(modalType.Close);
@@ -128,10 +129,7 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
   ];
 
   const TRows = useMemo(
-    () =>
-      data.locations
-        .filter((item) => item.status == showActive)
-        .map((item) => ({ key: item.id, rank: 0, min_level: 0, ...item })),
+    () => data.locations.filter((item) => item.status == showActive).map((item) => ({ key: item.id, rank: 0, ...item })),
     [data.locations, showActive],
   );
 
@@ -470,7 +468,11 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
         selectedLocation={selectedLocation}
         warehouseId={data.warehouse_id}
         onSave={(values) => {
-          transferStock(selectedStockItem.id, values).then(() => {
+          transferStock({
+            ...values,
+            product_id: selectedStockItem.product_id,
+            location_id: selectedLocation.id,
+          }).then(() => {
             setStockDetails((prev) =>
               prev.map((item) =>
                 item.warehouse_id === data.warehouse_id
@@ -490,50 +492,85 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
             setSelectedLocation(null);
             setModal(modalType.Close);
           });
-          // setLocationList(
-          //   locationList.map((location) =>
-          //     location.key === selectedLocation.key
-          //       ? { ...location, available: location.available - values.available }
-          //       : location.key === values.destination
-          //       ? { ...location, available: location.available + values.available }
-          //       : location,
-          //   ),
-          // );
         }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <StockAdjustModal
         isOpen={modal === modalType.StockAdjust}
-        vendorName={'vendorData.name'}
-        initialData={selectedLocation}
+        vendorName={selectedStockItem?.product.name}
         onSave={(values) => {
-          // setLocationList(
-          //   locationList.map((location) => (location.key === selectedLocation.key ? { ...location, ...values } : location)),
-          // );
-          setSelectedLocation(null);
-          setModal(modalType.Close);
+          adjustStock({
+            ...values,
+            product_id: selectedStockItem.product_id,
+            location_id: selectedLocation.id,
+          }).then(() => {
+            setStockDetails((prev) =>
+              prev.map((item) =>
+                item.warehouse_id === data.warehouse_id
+                  ? {
+                      ...item,
+                      locations: item.locations.map((location) =>
+                        location.id === selectedLocation.id
+                          ? { ...location, available: parseInt(values.on_hand), min_level: values.min_level }
+                          : location,
+                      ),
+                    }
+                  : item,
+              ),
+            );
+            setSelectedLocation(null);
+            setModal(modalType.Close);
+          });
         }}
         onClose={() => setModal(modalType.Close)}
       />
 
       <StockEditModal
         isOpen={modal === modalType.StockEdit}
-        vendorName={'vendorData.name'}
+        vendorName={selectedStockItem?.product.name}
         locationInfo={selectedLocation}
         actionType={actionType}
-        onSave={(count) => {
-          // setLocationList(
-          //   locationList.map((location) => {
-          //     if (location.key === selectedLocation.key) {
-          //       if (actionType === 'Add') return { ...location, available: location.available + count };
-          //       else return { ...location, available: location.available - count };
-          //     }
-          //     return location;
-          //   }),
-          // );
-          setSelectedLocation(null);
-          setModal(modalType.Close);
+        onSave={(values) => {
+          if (actionType === 'Add') {
+            addStock({ ...values, product_id: selectedStockItem.product_id, location_id: selectedLocation.id }).then(() => {
+              setStockDetails((prev) =>
+                prev.map((item) =>
+                  item.warehouse_id === data.warehouse_id
+                    ? {
+                        ...item,
+                        locations: item.locations.map((location) =>
+                          location.id === selectedLocation.id
+                            ? { ...location, available: location.available + parseInt(values.amount) }
+                            : location,
+                        ),
+                      }
+                    : item,
+                ),
+              );
+              setSelectedLocation(null);
+              setModal(modalType.Close);
+            });
+          } else {
+            removeStock({ ...values, product_id: selectedStockItem.product_id, location_id: selectedLocation.id }).then(() => {
+              setStockDetails((prev) =>
+                prev.map((item) =>
+                  item.warehouse_id === data.warehouse_id
+                    ? {
+                        ...item,
+                        locations: item.locations.map((location) =>
+                          location.id === selectedLocation.id
+                            ? { ...location, available: location.available - parseInt(values.amount) }
+                            : location,
+                        ),
+                      }
+                    : item,
+                ),
+              );
+              setSelectedLocation(null);
+              setModal(modalType.Close);
+            });
+          }
         }}
         onClose={() => setModal(modalType.Close)}
       />

@@ -7,12 +7,11 @@ const { TextArea } = Input;
 interface IStockAdjustModal {
   isOpen: boolean;
   vendorName: string;
-  initialData: any;
   onClose: () => void;
   onSave: (data: any) => void;
 }
 
-const StockAdjustModal: React.FC<IStockAdjustModal> = ({ isOpen, vendorName, initialData, onClose, onSave }) => {
+const StockAdjustModal: React.FC<IStockAdjustModal> = ({ isOpen, vendorName, onClose, onSave }) => {
   const [form] = Form.useForm();
 
   const handleSave = () => {
@@ -22,8 +21,8 @@ const StockAdjustModal: React.FC<IStockAdjustModal> = ({ isOpen, vendorName, ini
   };
 
   useEffect(() => {
-    form.setFieldsValue(initialData);
-  }, [isOpen]);
+    if (isOpen) form.resetFields();
+  }, [isOpen, form]);
 
   return (
     <OModal
@@ -55,16 +54,20 @@ const StockAdjustModal: React.FC<IStockAdjustModal> = ({ isOpen, vendorName, ini
         </Row>
 
         <Card title="Stock">
-          <Form form={form} layout="inline" labelCol={{ span: 10 }}>
-            <Form.Item label="On Hand" name="on_hand" style={{ width: 180 }}>
-              <InputNumber />
+          <Form form={form} layout="inline">
+            <Form.Item label="On Hand" name="on_hand">
+              <InputNumber style={{ width: 130 }} />
             </Form.Item>
-            <Form.Item label="Locked" name="locked" style={{ width: 180 }}>
-              <InputNumber />
+            <Form.Item label="Locked" name="locked">
+              <InputNumber style={{ width: 130 }} />
             </Form.Item>
-            <Form.Item label="Min" name="min" style={{ width: 220 }}>
-              <InputNumber />
-              <QuestionCircleTwoTone style={{ fontSize: 16 }} />
+            <Form.Item label="Min">
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Form.Item name="min_level">
+                  <InputNumber style={{ width: 130 }} />
+                </Form.Item>
+                <QuestionCircleTwoTone style={{ fontSize: 16 }} />
+              </div>
             </Form.Item>
           </Form>
         </Card>
