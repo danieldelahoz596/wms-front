@@ -82,13 +82,13 @@ const StockDrawRankModal: React.FC<IStockDrawRankModal> = ({ isOpen, vendorName,
           <SortableContainer onSortEnd={onSortEnd}>
             {items.map((item, index) => (
               <SortableItem
-                key={`item-${item.key}`}
+                key={`item-${item.id}`}
                 index={index}
                 value={
                   <div style={{ display: 'flex', alignItems: 'center', margin: '0.2rem 0' }}>
                     <div>{index + 1}.</div>
                     <div style={{ border: '1px solid #ccc', padding: '0.5rem', flex: '1' }}>
-                      {`${item?.location} / Current Qty: ${item?.available}`}
+                      {`${item.name} / Current Qty: ${item.available}`}
                     </div>
                   </div>
                 }

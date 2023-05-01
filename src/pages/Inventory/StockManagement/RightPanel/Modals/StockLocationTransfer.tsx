@@ -1,5 +1,4 @@
 import { OModal } from '@/components/Globals/OModal';
-import { useModel } from '@umijs/max';
 import { Row, Col, Input, Select, Form, InputNumber } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 const { TextArea } = Input;
@@ -8,7 +7,7 @@ interface IStockLocationTransferModal {
   isOpen: boolean;
   vendorName: string;
   selectedLocation: any;
-  warehouseId: number;
+  locations: any[];
   onClose: () => void;
   onSave: (data: any) => void;
 }
@@ -17,12 +16,11 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   isOpen,
   vendorName,
   selectedLocation,
-  warehouseId,
+  locations,
   onClose,
   onSave,
 }) => {
   const [form] = Form.useForm();
-  const { warehouseLocationList, getLocationList } = useModel('warehouseLocation');
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -33,13 +31,12 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   useEffect(() => {
     if (isOpen) {
       form.resetFields();
-      getLocationList(warehouseId);
     }
-  }, [isOpen, form, getLocationList, warehouseId]);
+  }, [isOpen, form]);
 
   const locationOptions = useMemo(
-    () => warehouseLocationList.map((item) => ({ label: item.name, value: item.id })),
-    [warehouseLocationList],
+    () => locations.filter((item) => item.id !== selectedLocation?.id).map((item) => ({ label: item.name, value: item.id })),
+    [locations, selectedLocation],
   );
 
   return (

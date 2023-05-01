@@ -422,9 +422,19 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
 
       <StockDrawRankModal
         isOpen={modal === modalType.StockDrawRank}
-        vendorName={'vendorData.name'}
-        locations={[]}
+        vendorName={selectedStockItem?.product.name}
+        locations={data.locations}
         onSave={(items) => {
+          setStockDetails((prev) =>
+            prev.map((item) =>
+              item.warehouse_id === data.warehouse_id
+                ? {
+                    ...item,
+                    locations: items.map((location, index) => ({ ...location, rank: index + 1 })),
+                  }
+                : item,
+            ),
+          );
           // setLocationList(items.map((item, index) => ({ ...item, rank: index + 1 })));
           setSelectedLocation(null);
           setModal(modalType.Close);
@@ -453,11 +463,6 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
             setModal(modalType.Close);
             setSelectedLocation(null);
           });
-          // setLocationList(
-          //   locationList.map((location) =>
-          //     location.key === selectedLocation.key ? { ...selectedLocation, location: name } : location,
-          //   ),
-          // );
         }}
         onClose={() => setModal(modalType.Close)}
       />
@@ -466,7 +471,7 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
         isOpen={modal === modalType.StockLocationTransfer}
         vendorName={selectedStockItem?.product.name}
         selectedLocation={selectedLocation}
-        warehouseId={data.warehouse_id}
+        locations={data.locations}
         onSave={(values) => {
           transferStock({
             ...values,
