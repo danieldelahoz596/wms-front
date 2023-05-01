@@ -82,7 +82,7 @@ export const location_history = [
 ];
 
 const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
-  const { selectedStockItem, setStockDetails, createStock } = useModel('stockLocation');
+  const { selectedStockItem, setStockDetails, createStock, transferStock } = useModel('stockLocation');
   const { updateLocation, updateLocationStatus } = useModel('warehouseLocation');
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [modal, setModal] = useState<modalType>(modalType.Close);
@@ -466,10 +466,30 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
 
       <StockLocationTransferModal
         isOpen={modal === modalType.StockLocationTransfer}
-        vendorName={'vendorData.name'}
+        vendorName={selectedStockItem?.product.name}
         selectedLocation={selectedLocation}
-        locations={[]}
+        warehouseId={data.warehouse_id}
         onSave={(values) => {
+          transferStock(selectedStockItem.id, values).then(() => {
+            setStockDetails((prev) =>
+              prev.map((item) =>
+                item.warehouse_id === data.warehouse_id
+                  ? {
+                      ...item,
+                      locations: item.locations.map((location) =>
+                        location.id === selectedLocation.id
+                          ? { ...location, available: location.available - parseInt(values.amount) }
+                          : location.id === values.destination_id
+                          ? { ...location, available: location.available + parseInt(values.amount) }
+                          : location,
+                      ),
+                    }
+                  : item,
+              ),
+            );
+            setSelectedLocation(null);
+            setModal(modalType.Close);
+          });
           // setLocationList(
           //   locationList.map((location) =>
           //     location.key === selectedLocation.key
@@ -479,8 +499,6 @@ const StockCollapse: React.FC<IStockCollapse> = ({ data, ...rest }) => {
           //       : location,
           //   ),
           // );
-          setSelectedLocation(null);
-          setModal(modalType.Close);
         }}
         onClose={() => setModal(modalType.Close)}
       />

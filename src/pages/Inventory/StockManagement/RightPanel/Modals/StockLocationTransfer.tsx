@@ -1,4 +1,5 @@
 import { OModal } from '@/components/Globals/OModal';
+import { useModel } from '@umijs/max';
 import { Row, Col, Input, Select, Form, InputNumber } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 const { TextArea } = Input;
@@ -7,7 +8,7 @@ interface IStockLocationTransferModal {
   isOpen: boolean;
   vendorName: string;
   selectedLocation: any;
-  locations: any[];
+  warehouseId: number;
   onClose: () => void;
   onSave: (data: any) => void;
 }
@@ -16,11 +17,12 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   isOpen,
   vendorName,
   selectedLocation,
-  locations,
+  warehouseId,
   onClose,
   onSave,
 }) => {
   const [form] = Form.useForm();
+  const { warehouseLocationList, getLocationList } = useModel('warehouseLocation');
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -29,15 +31,15 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
   };
 
   useEffect(() => {
-    form.setFieldsValue({ available: 0, destination: '' });
-  }, [isOpen]);
+    if (isOpen) {
+      form.resetFields();
+      getLocationList(warehouseId);
+    }
+  }, [isOpen, form, getLocationList, warehouseId]);
 
   const locationOptions = useMemo(
-    () =>
-      locations
-        .filter((location) => location.key !== selectedLocation?.key)
-        .map((item) => ({ label: item.location, value: item.key })),
-    [locations, selectedLocation],
+    () => warehouseLocationList.map((item) => ({ label: item.name, value: item.id })),
+    [warehouseLocationList],
   );
 
   return (
@@ -69,11 +71,15 @@ const StockLocationTransferModal: React.FC<IStockLocationTransferModal> = ({
           </Col>
         </Row>
 
-        <Form form={form}>
-          <Form.Item label="Quantity" name="available">
-            <InputNumber max={selectedLocation?.available} min={0} />
+        <Form form={form} labelCol={{ span: 6 }} labelAlign="left">
+          <Form.Item label="Quantity" name="amount" rules={[{ required: true, message: 'Please input the quantity of item' }]}>
+            <InputNumber max={selectedLocation?.available} min={0} style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item label="To Location" name="destination">
+          <Form.Item
+            label="To Location"
+            name="destination_id"
+            rules={[{ required: true, message: 'Please select the destination location' }]}
+          >
             <Select options={locationOptions} />
           </Form.Item>
         </Form>

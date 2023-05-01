@@ -53,6 +53,23 @@ export default () => {
     [],
   );
 
+  const transferStock = useCallback(
+    (id, transferData) =>
+      httpClient.post(`/api/stock-locations/${id}/transfer`, transferData).then(({ data }) => {
+        setStockLocationList((prev) =>
+          prev.map((item) =>
+            item.id === data.stock_location.id
+              ? data.stock_location
+              : item.id === data.destination_location.id
+              ? data.destination_location
+              : item,
+          ),
+        );
+        return data;
+      }),
+    [],
+  );
+
   return {
     stockLocationList,
     selectedStockItem,
@@ -62,5 +79,6 @@ export default () => {
     getStockLocationList,
     getStockDetails,
     createStock,
+    transferStock,
   };
 };
