@@ -39,8 +39,6 @@ const { Search } = Input;
 
 interface IMainPanel {
   tabButtons: React.ReactNode;
-  selectedStockId: any;
-  setSelectedStockId: (value: any) => void;
   dataSource: any[];
 }
 
@@ -98,9 +96,9 @@ export const stock_history = [
   },
 ];
 
-const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelectedStockId, dataSource }) => {
-  const { initialState } = useModel('@@initialState');
+const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
   const { warehouseList } = useModel('warehouse');
+  const { stockLocationList, selectedStockItem, setSelectedStockItem, getStockDetails, stockDetails } = useModel('stockLocation');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [stockHistorySource] = useState(stock_history);
   const [stockAllocationSource] = useState(stock_allocation);
@@ -110,10 +108,10 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
   const handleMasterSKU = useCallback(
     (event, id) => {
       event.stopPropagation();
-      setSelectedStockId(id);
+      setSelectedStockItem(id);
       setCurrentModal(modalType.InventoryRules);
     },
-    [setSelectedStockId],
+    [setSelectedStockItem],
   );
 
   const TColumns = useMemo(
@@ -125,9 +123,9 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
       },
       {
         title: 'Type',
-        dataIndex: 'type',
+        dataIndex: ['product', 'type'],
         key: 'type',
-        align: 'center',
+        align: 'center' as const,
         render: (text: any) => (
           <>
             {text === productType.CoreProduct ? (
@@ -149,7 +147,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
       },
       {
         title: 'MASTER SKU',
-        dataIndex: 'master_sku',
+        dataIndex: ['product', 'sku'],
         key: 'master_sku',
         render: (text: any, record) => (
           <a onClick={(event) => handleMasterSKU(event, record.key)}>
@@ -159,12 +157,12 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
       },
       {
         title: 'Name',
-        dataIndex: 'name',
+        dataIndex: ['product', 'name'],
         key: 'name',
       },
       {
         title: 'Brand',
-        dataIndex: 'brand',
+        dataIndex: ['product', 'brand', 'name'],
         key: 'brand',
       },
       {
@@ -175,7 +173,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
       },
       {
         title: 'On Hand',
-        dataIndex: 'on_hands',
+        dataIndex: 'on_hand',
         key: 'on_hands',
       },
       {
@@ -197,9 +195,9 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
         title: 'In Transfer',
         dataIndex: 'in_transfer',
         key: 'in_transfer',
-        render: (text: any) => (
+        render: () => (
           <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.IncomingUnits)}>
-            <u>{text}</u>
+            <u>0</u>
           </span>
         ),
       },
@@ -222,7 +220,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
-        align: 'center',
+        align: 'center' as const,
         render: (text: any) => (
           <>
             {text === productStatus.yellow ? (
@@ -240,6 +238,8 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
     ],
     [handleMasterSKU],
   );
+
+  const TRows = useMemo(() => stockLocationList.map((item) => ({ ...item, key: item.id })), [stockLocationList]);
 
   const warehouseOptions = useMemo(
     () =>
@@ -404,17 +404,21 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
 
         <Table
           columns={TColumns}
-          dataSource={dataSource}
+          dataSource={TRows}
           style={{ marginTop: 15 }}
           onRow={(record) => {
             return {
               onClick: () => {
-                if (record.key === selectedStockId) setSelectedStockId(null);
-                else setSelectedStockId(record.key);
+                if (record.id === selectedStockItem?.id) setSelectedStockItem(null);
+                else {
+                  const stockLocationData = stockLocationList.find((item) => item.id === record.id);
+                  setSelectedStockItem(stockLocationData);
+                  getStockDetails(stockLocationData.product_id);
+                }
               },
             };
           }}
-          rowClassName={(record) => (record.key === selectedStockId ? `ant-table-row-selected` : '')}
+          rowClassName={(record) => (record.id === selectedStockItem?.id ? `ant-table-row-selected` : '')}
           expandIcon={(props) => {
             if (props.expandable) {
               if (props.expanded) {
@@ -495,7 +499,7 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, selectedStockId, setSelec
         isOpen={currentModal === modalType.InventoryRules}
         onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
-        stockData={dataSource.find((item) => item.key === selectedStockId)}
+        stockData={dataSource.find((item) => item.key === selectedStockItem?.id)}
       />
 
       <SelectWarehouseForInventoryImportModal

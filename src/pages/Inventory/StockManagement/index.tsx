@@ -1,8 +1,9 @@
 import { cn, SampleSplitter } from '@/components/Globals/SampleSplitter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useResizable } from 'react-resizable-layout';
 import StockDetailsPanel from './RightPanel';
 import MainPanel from './MainPanel';
+import { useModel } from '@umijs/max';
 
 interface IStockManagement {
   tabButtons: React.ReactNode;
@@ -254,8 +255,8 @@ export const data = [
 ];
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
+  const { getStockLocationList, selectedStockItem, stockLocationList } = useModel('stockLocation');
   const [dataSource] = useState(data);
-  const [selectedStockId, setSelectedStockId] = useState(null);
 
   const {
     isDragging: isRightDragging,
@@ -268,22 +269,23 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
     reverse: true,
   });
 
+  useEffect(() => {
+    getStockLocationList();
+  }, [getStockLocationList]);
+
   return (
     <>
       <div className="w-full flex flex-column h-screen">
-        <MainPanel
-          tabButtons={tabButtons}
-          selectedStockId={selectedStockId}
-          setSelectedStockId={setSelectedStockId}
-          dataSource={dataSource}
-        />
+        <MainPanel tabButtons={tabButtons} dataSource={dataSource} />
       </div>
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
       <div className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')} style={{ width: RightW }}>
         <div className="w-full">
-          {selectedStockId && <StockDetailsPanel vendorData={dataSource.find((item) => item.key === selectedStockId)} />}
+          {selectedStockItem && (
+            <StockDetailsPanel vendorData={stockLocationList.find((item) => item.id === selectedStockItem.id)} />
+          )}
         </div>
       </div>
     </>

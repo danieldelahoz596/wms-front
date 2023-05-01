@@ -1,25 +1,33 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Dropdown, Row, Col } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { Column } from '@ant-design/charts';
 
-const warehouseTotalData = [
-  {
-    type: 'Above Min',
-    stock: 'Stock',
-    value: 1000486,
-  },
-  {
-    type: 'Min Level',
-    value: 0,
-    stock: 'Stock',
-  },
-];
+interface IWarehouseTotalGraph {
+  minLevel: number;
+  stockValue: number;
+}
 
-const WarehouseTotalGraph: React.FC = () => {
+const WarehouseTotalGraph: React.FC<IWarehouseTotalGraph> = ({ minLevel, stockValue }) => {
   const [warehouseTotalChartInstance, setWarehouseTotalChartInstance] = useState(null);
   const warehouseTotalChartRef = useRef(null);
+
+  const warehouseTotalData = useMemo(
+    () => [
+      {
+        type: 'Above Min',
+        stock: 'Stock',
+        value: minLevel,
+      },
+      {
+        type: 'Min Level',
+        stock: 'Stock',
+        value: stockValue,
+      },
+    ],
+    [minLevel, stockValue],
+  );
 
   const handleTrendingChartPrint = useReactToPrint({
     content: () => warehouseTotalChartRef.current,
@@ -82,7 +90,6 @@ const WarehouseTotalGraph: React.FC = () => {
               text: 'Units',
               position: 'center',
             },
-            maxLimit: 1500000,
           }}
           legend={{
             position: 'bottom',
