@@ -134,7 +134,7 @@ const ItemsManagement = () => {
       onClick: () => setShowModal(modalType.Edit),
       btnText: 'Edit',
       disabled: !selectedRow,
-      // hidden: selectedPOStatus?.key !== '5' && selectedPOStatus?.key !== '9',
+      hidden: selectedPOStatus == null || [6, 7, 8, 9].includes(selectedPOStatus.status_id) || selectedRow?.status_id === 1,
     },
     {
       onClick: () => setShowModal(modalType.Receive),

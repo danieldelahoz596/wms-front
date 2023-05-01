@@ -123,6 +123,17 @@ export default () => {
     [selectedPO, getPOStatusFilterList, selectedPOStatus],
   );
 
+  const receivePOItems = useCallback(
+    (receivePOItemList) =>
+      httpClient.post(`/api/purchasing-orders/${selectedPO.id}/items/receive`, receivePOItemList).then((response) => {
+        if (response.data.status_id !== selectedPOStatus.status_id)
+          setPoList((prev) => prev.filter((item) => item.id !== response.data.id));
+        getPOStatusFilterList();
+        setSelectedPOIds([]);
+      }),
+    [selectedPO, getPOStatusFilterList, selectedPOStatus],
+  );
+
   const getPOItemCost = useCallback(
     (item) =>
       item.qty * item.product.vendor_cost * item.unit_of_measure.qty * (1 + item.tax / 100.0) -
@@ -164,5 +175,6 @@ export default () => {
     updatePOItem,
     deletePOItem,
     receivePOItem,
+    receivePOItems,
   };
 };
