@@ -1,6 +1,6 @@
 import { OModal } from '@/components/Globals/OModal';
 import { Row, Col, Input, Card, Form, Checkbox } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 const { TextArea } = Input;
 
 interface IStockLocationChangeModal {
@@ -8,15 +8,23 @@ interface IStockLocationChangeModal {
   vendorName: string;
   locationName: string;
   onClose: () => void;
-  onSave: (name: string) => void;
+  onSave: (values: any) => void;
 }
 
 const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({ isOpen, vendorName, locationName, onClose, onSave }) => {
-  const [name, setName] = useState('');
+  const [form] = Form.useForm();
 
   useEffect(() => {
-    setName(locationName);
-  }, [isOpen]);
+    if (isOpen) {
+      form.setFieldsValue({ name: locationName });
+    }
+  }, [isOpen, form, locationName]);
+
+  const handleSave = () => {
+    form.validateFields().then((values) => {
+      onSave(values);
+    });
+  };
 
   return (
     <OModal
@@ -36,7 +44,7 @@ const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({ isOpen,
           key: 'save',
           type: 'default',
           btnLabel: 'Save',
-          onClick: () => onSave(name),
+          onClick: handleSave,
         },
       ]}
     >
@@ -46,25 +54,27 @@ const StockLocationChangeModal: React.FC<IStockLocationChangeModal> = ({ isOpen,
             <h2>{vendorName}</h2>
           </Col>
         </Row>
-        <Card title="Location">
-          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        <Form layout="vertical" style={{ marginTop: 10 }} form={form}>
+          <Card title="Location">
+            <Form.Item name="name" rules={[{ required: true, message: 'Please input the location name' }]}>
+              <Input />
+            </Form.Item>
 
-          <Checkbox.Group
-            options={[
-              {
-                label: 'Is Pickable?',
-                value: 'is_pickable',
-              },
-              {
-                label: 'Is Receivable?',
-                value: 'is_receivable',
-              },
-            ]}
-            style={{ marginTop: 10 }}
-          />
-        </Card>
+            <Checkbox.Group
+              options={[
+                {
+                  label: 'Is Pickable?',
+                  value: 'is_pickable',
+                },
+                {
+                  label: 'Is Receivable?',
+                  value: 'is_receivable',
+                },
+              ]}
+              style={{ marginTop: 10 }}
+            />
+          </Card>
 
-        <Form layout="vertical" style={{ marginTop: 10 }}>
           <Form.Item label="Edit Notes:">
             <TextArea />
           </Form.Item>

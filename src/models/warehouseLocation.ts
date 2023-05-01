@@ -19,6 +19,14 @@ export default () => {
     [],
   );
 
+  const updateLocation = useCallback(
+    (warehouseId, locationData) =>
+      httpClient
+        .put(`/api/warehouses/${warehouseId}/locations/${locationData.id}`, locationData)
+        .then(({ data }) => setWarehouseLocationList((prev) => prev.map((item) => (item.id === locationData.id ? data : item)))),
+    [],
+  );
+
   const updateLocationStatus = useCallback(
     (warehouseId, locationId, status) =>
       httpClient
@@ -35,6 +43,7 @@ export default () => {
     warehouseLocationList,
     getLocationList,
     createLocation,
+    updateLocation,
     updateLocationStatus,
   };
 };
