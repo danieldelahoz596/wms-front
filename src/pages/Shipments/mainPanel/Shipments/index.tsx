@@ -44,14 +44,14 @@ const TColumns: ColumnsType<IShipmentItem> = [
     title: 'Created',
     dataIndex: 'created',
     key: 'created',
-    align: 'right',
+    align: 'right' as const,
     render: (created) => <>{moment(created).format('MM/D/YYYY')}</>,
   },
   {
     title: 'Ship Date',
     dataIndex: 'ship_date',
     key: 'ship_date',
-    align: 'right',
+    align: 'right' as const,
     render: (ship_date) => <>{moment(ship_date).format('MM/D/YYYY')}</>,
   },
   {
@@ -72,7 +72,7 @@ const TColumns: ColumnsType<IShipmentItem> = [
     title: 'Batch Number',
     dataIndex: 'batch_number',
     key: 'batch_number',
-    align: 'center',
+    align: 'center' as const,
     render: (batch_number) => <a>{batch_number}</a>,
   },
   {
@@ -85,7 +85,7 @@ const TColumns: ColumnsType<IShipmentItem> = [
     title: 'Items',
     dataIndex: 'items',
     key: 'items',
-    align: 'center',
+    align: 'center' as const,
   },
   {
     title: 'Provider',
@@ -96,7 +96,7 @@ const TColumns: ColumnsType<IShipmentItem> = [
     title: 'Carrier',
     dataIndex: 'carrier',
     key: 'carrier',
-    align: 'center',
+    align: 'center' as const,
   },
   {
     title: 'Service',
@@ -173,10 +173,42 @@ const ShipmentMainPanel: React.FC = () => {
         </div>
         <Card className="content-box">
           <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-            <OButton btnText="Print Labels" />
-            <OButton btnText="Print Packing Slips" />
-            <OButton btnText="Print Pick List(s)" />
-            <OButton btnText="Print Global Pick List" />
+            <OButton
+              btnText="Print Labels"
+              onClick={() =>
+                window.open(
+                  'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502906/Screen_Shot_2021-02-25_at_9.38.37_AM.png',
+                  '_blank',
+                )
+              }
+            />
+            <OButton
+              btnText="Print Packing Slips"
+              onClick={() =>
+                window.open(
+                  'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502908/print.PNG',
+                  '_blank',
+                )
+              }
+            />
+            <OButton
+              btnText="Print Pick List(s)"
+              onClick={() =>
+                window.open(
+                  'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502909/print__1_.PNG',
+                  '_blank',
+                )
+              }
+            />
+            <OButton
+              btnText="Print Global Pick List"
+              onClick={() =>
+                window.open(
+                  'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502910/print__2_.PNG',
+                  '_blank',
+                )
+              }
+            />
             <OButton
               btnText="Void Shipment(s)"
               disabled={selectedRows.length === 0}

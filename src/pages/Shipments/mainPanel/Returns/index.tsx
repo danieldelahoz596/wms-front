@@ -177,7 +177,16 @@ const ReturnMainPanel: React.FC = () => {
         </div>
         <Card className="content-box">
           <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
-            <OButton btnText="Print Labels" disabled={selectedRows.length === 0} />
+            <OButton
+              btnText="Print Labels"
+              disabled={selectedRows.length === 0}
+              onClick={() =>
+                window.open(
+                  'https://static.helpjuice.com/helpjuice_production/uploads/upload/image/12985/2502906/Screen_Shot_2021-02-25_at_9.38.37_AM.png',
+                  '_blank',
+                )
+              }
+            />
             <OButton btnText="Mark As Received" disabled={selectedRows.length === 0} />
             <Dropdown menu={{ items: importExportMenuItems }}>
               <Button size="small">
