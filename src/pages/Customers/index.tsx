@@ -62,16 +62,14 @@ const CustomerManagement: React.FC = () => {
           </div>
         </div>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        <div className="w-full flex flex-column h-screen">
-          <div className="horizon-content">
+        <div className="w-full flex flex-column h-screen overflow-hidden">
+          <div className="horizon-content" style={{ overflow: 'scroll' }}>
             <MainPanel />
 
             <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
-            <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: RightW }}>
-              <div className="">
-                <RightPanel />
-              </div>
+            <div className={cn('shrink-0 contents', isRightDragging && 'dragging')} style={{ width: RightW }}>
+              <RightPanel />
             </div>
           </div>
 
