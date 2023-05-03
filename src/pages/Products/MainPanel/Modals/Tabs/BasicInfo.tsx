@@ -6,6 +6,8 @@ import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Form, Input, InputNumber, Row, Select } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
+import AddCategoryModal from '../AddCategory';
+import ConfigCategoryModal from '../ConfigCategory';
 
 interface IBasicInfo {
   form: any;
@@ -27,6 +29,7 @@ const cateogryData = [
   {
     id: 1,
     name: 'Alcohol & Beer',
+    description: 'This is Alcohol & Beer',
     items: [
       {
         id: 1,
@@ -41,6 +44,7 @@ const cateogryData = [
   {
     id: 2,
     name: 'Beverage',
+    description: 'This is Beverage',
     items: [
       {
         id: 1,
@@ -230,14 +234,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <PlusOutlined
             className="plus-button"
             onClick={() => {
-              setCurrentModal(modalType.New);
+              setCurrentModal(modalType.NewCategory);
               setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
-              setCurrentModal(modalType.Edit);
+              setCurrentModal(modalType.ConfigCategory);
               setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories });
             }}
           />
@@ -445,6 +449,20 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
 
       <ConfigureItemModal
         isOpen={currentModal === modalType.Edit}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+        {...itemModalData}
+      />
+
+      <AddCategoryModal
+        isOpen={currentModal === modalType.NewCategory}
+        onSave={() => setCurrentModal(modalType.Close)}
+        onClose={() => setCurrentModal(modalType.Close)}
+        {...itemModalData}
+      />
+
+      <ConfigCategoryModal
+        isOpen={currentModal === modalType.ConfigCategory}
         onSave={() => setCurrentModal(modalType.Close)}
         onClose={() => setCurrentModal(modalType.Close)}
         {...itemModalData}
