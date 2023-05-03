@@ -112,6 +112,13 @@ export enum modalType {
   WarehouseDeactivate = 'WarehouseDeactivate',
   WarehouseHistory = 'WarehouseHistory',
 
+  // Discounts
+  SelectDiscountType = 'SelectDiscountType',
+  AmountOffProducts = 'AmountOffProducts',
+  AmountOffOrder = 'AmountOffOrder',
+  BuyXGetY = 'BuyXGetY',
+  FreeShipping = 'FreeShipping',
+
   //toolbar
   SKUAlerts = 'SKUAlerts',
 }

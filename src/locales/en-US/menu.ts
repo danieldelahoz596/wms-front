@@ -56,6 +56,7 @@ export default {
   'menu.shipments': 'Shipments',
   'menu.customers': 'Customers',
   'menu.products': 'Products',
+  'menu.discounts': 'Discounts',
   'menu.analytics': 'Analytics',
   'menu.settings': 'Settings',
   'menu.help': 'Help',

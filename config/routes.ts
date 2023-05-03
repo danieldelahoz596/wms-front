@@ -68,6 +68,12 @@ export default [
     access: 'routeFilter',
   },
   {
+    path: '/discounts',
+    component: './Discounts',
+    title: 'menu.discounts',
+    key: 'discounts',
+  },
+  {
     path: '/settings',
     component: './Settings',
     title: 'menu.settings',

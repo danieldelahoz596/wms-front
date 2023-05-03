@@ -56,6 +56,7 @@ export default {
   'menu.shipments': '出货量',
   'menu.customers': '顾客',
   'menu.products': '产品',
+  'menu.discounts': '折扣',
   'menu.analytics': '分析',
   'menu.settings': '设置',
   'menu.help': '帮助',

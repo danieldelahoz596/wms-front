@@ -38,7 +38,6 @@ const TColumns = [
     title: 'Sex',
     dataIndex: 'sex',
     key: 'sex',
-    render: (value) => (value == true ? 'Male' : 'Female'),
   },
   {
     title: 'Age',
@@ -80,7 +79,7 @@ const MainPanel: React.FC = () => {
         phone_number: item.phone_number,
         name: item.name,
         address: item.address,
-        sex: item.sex ? 'Male' : 'Female',
+        sex: item.sex == true ? 'Male' : 'Female',
         age: item.age,
         state: item.state && item.state.name,
         city: item.city && item.city.name,
