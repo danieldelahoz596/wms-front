@@ -69,7 +69,7 @@ const TVendorProductColumns = [
 const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   const { editableProduct } = useModel('product');
   const { fieldTypes } = useModel('customProductFields');
-  const [selectedMode, setSelectedMode] = useState<'vendorProduct' | 'fields' | 'gallery'>('vendorProduct');
+  const [selectedMode, setSelectedMode] = useState<'vendorProduct' | 'fields' | 'gallery'>('gallery');
   const { vendorList } = useModel('vendor');
 
   const fielUrls = useMemo(
@@ -105,7 +105,7 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
   );
 
   useEffect(() => {
-    if (!editableProduct) setSelectedMode('vendorProduct');
+    if (!editableProduct) setSelectedMode('gallery');
   }, [editableProduct]);
 
   const handleTabSelect = (e: RadioChangeEvent) => {

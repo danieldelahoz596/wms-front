@@ -1,11 +1,12 @@
 import { OInput } from '@/components/Globals/OInput';
 import { Line } from '@ant-design/charts';
 import { MenuOutlined } from '@ant-design/icons';
-import { Card, Col, Dropdown, Form, Row, Space, Radio } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { Card, Col, Dropdown, Form, Row, Space, Radio, Table } from 'antd';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import type { RadioChangeEvent } from 'antd';
 import { FormattedMessage, useModel } from '@umijs/max';
+import moment from 'moment';
 
 interface IPerformancePanel {
   height: number;
@@ -19,6 +20,29 @@ for (const d = new Date(2021, 10, 7); d <= new Date(2022, 0, 5); d.setDate(d.get
     value: 0,
   });
 }
+
+const TColumns = [
+  {
+    title: 'Order Num',
+    dataIndex: 'order_num',
+    key: 'order_num',
+  },
+  {
+    title: 'Order Date',
+    dataIndex: 'order_date',
+    key: 'order_num',
+  },
+  {
+    title: 'Quantity',
+    dataIndex: 'qty',
+    key: 'qty',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+];
 
 const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
   const [yoyChartInstance, setYOYChartInstance] = useState(null);
@@ -38,6 +62,17 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
     if (!editableProduct) setSelectedMode('yearOverYear');
   }, [editableProduct]);
 
+  const TRows = useMemo(() => {
+    if (editableProduct && selectedMode === 'recentOrders')
+      return editableProduct.orders.map((item) => ({
+        order_num: item.order.order_num,
+        order_date: moment(item.order.order_date).format('YYYY-MM-DD'),
+        qty: item.qty,
+        status: item.order.order_status.name,
+      }));
+    return [];
+  }, [editableProduct, selectedMode]);
+
   return (
     <>
       <div className="title-row space-between">
@@ -56,40 +91,40 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
         </Radio.Group>
       </div>
       <Card className="content-box" style={{ height, padding: '5px 10px' }}>
-        <Form style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Space size={HORIZONTAL_SPACE_SIZE}>
-            <Form.Item>
-              <OInput
-                type="select"
-                name="days"
-                defaultValue={'30'}
-                options={[
-                  {
-                    value: '30',
-                    text: '30 Days',
-                  },
-                ]}
-                style={{ width: 200 }}
-              />
-            </Form.Item>
-            <Form.Item>
-              <OInput
-                type="select"
-                name="quantity"
-                defaultValue={'quantitySold'}
-                options={[
-                  {
-                    value: 'quantitySold',
-                    text: 'Quantity Solds',
-                  },
-                ]}
-                style={{ width: 200 }}
-              />
-            </Form.Item>
-          </Space>
-        </Form>
-        {editableProduct && (
+        {editableProduct && selectedMode === 'yearOverYear' && (
           <>
+            <Form style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Space size={HORIZONTAL_SPACE_SIZE}>
+                <Form.Item>
+                  <OInput
+                    type="select"
+                    name="days"
+                    defaultValue={'30'}
+                    options={[
+                      {
+                        value: '30',
+                        text: '30 Days',
+                      },
+                    ]}
+                    style={{ width: 200 }}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <OInput
+                    type="select"
+                    name="quantity"
+                    defaultValue={'quantitySold'}
+                    options={[
+                      {
+                        value: 'quantitySold',
+                        text: 'Quantity Solds',
+                      },
+                    ]}
+                    style={{ width: 200 }}
+                  />
+                </Form.Item>
+              </Space>
+            </Form>
             <Row justify="end" style={{ marginTop: 5 }}>
               <Col>
                 <Dropdown.Button
@@ -165,6 +200,9 @@ const PerformancePanel: React.FC<IPerformancePanel> = ({ height }) => {
               />
             </div>
           </>
+        )}
+        {editableProduct && selectedMode === 'recentOrders' && (
+          <Table columns={TColumns} dataSource={TRows} pagination={{ hideOnSinglePage: true }} />
         )}
         {!editableProduct && (
           <h2 style={{ textAlign: 'center', marginTop: height / 2.0 - 50 }}>

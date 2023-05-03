@@ -37,4 +37,5 @@ export default interface IProduct {
   quantity?: number;
   attribute_group_id: number;
   images: IProductImage[];
+  orders: any[];
 }

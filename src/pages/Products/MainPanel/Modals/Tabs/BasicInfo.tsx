@@ -4,8 +4,8 @@ import { modalType } from '@/utils/helpers/types';
 import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
-import { useMemo, useState } from 'react';
+import { Card, Col, Form, Input, InputNumber, Row, Select } from 'antd';
+import { useEffect, useMemo, useState } from 'react';
 
 interface IBasicInfo {
   form: any;
@@ -17,13 +17,71 @@ interface INewItemModalData {
   setItems: (value: any) => void;
 }
 
+const tagData = [
+  { id: 1, name: 'Top Seller' },
+  { id: 2, name: 'Best Selling' },
+  { id: 3, name: '10% Sale' },
+];
+
+const cateogryData = [
+  {
+    id: 1,
+    name: 'Alcohol & Beer',
+    items: [
+      {
+        id: 1,
+        name: 'Alcohol',
+      },
+      {
+        id: 2,
+        name: 'Beer',
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Beverage',
+    items: [
+      {
+        id: 1,
+        name: 'Water',
+      },
+      {
+        id: 2,
+        name: 'Coffee',
+      },
+      {
+        id: 3,
+        name: 'Tea',
+      },
+      {
+        id: 4,
+        name: 'Soft drinks',
+      },
+      {
+        id: 5,
+        name: 'Milk',
+      },
+    ],
+  },
+];
+
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct } = useModel('product');
   const { brands, setBrands } = useModel('brand');
-  const { categories, setCategories } = useModel('category');
+  // const { categories, setCategories } = useModel('category');
+  const [categories, setCategories] = useState(cateogryData);
+  const [subcategories, setSubCategories] = useState([]);
   const { labels, setLabels } = useModel('label');
+  const [tags, setTags] = useState(tagData);
   const [currentModal, setCurrentModal] = useState(modalType.Close);
   const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
+  const categoryId = Form.useWatch('category_id', form);
+
+  useEffect(() => {
+    const selectedCategoryItem = categories.find((category) => category.id === categoryId);
+    if (selectedCategoryItem) setSubCategories(selectedCategoryItem.items);
+  }, [categoryId, categories]);
 
   const brandOptions = useMemo(
     () =>
@@ -36,20 +94,38 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
 
   const categoryOptions = useMemo(
     () =>
-      categories.map((brand) => ({
-        value: brand.id,
-        label: brand.name,
+      categories.map((category) => ({
+        value: category.id,
+        label: category.name,
       })),
     [categories],
   );
 
+  const subCategoryOptions = useMemo(
+    () =>
+      subcategories.map((subCategory) => ({
+        value: subCategory.id,
+        label: subCategory.name,
+      })),
+    [subcategories],
+  );
+
   const labelOptions = useMemo(
     () =>
-      labels.map((brand) => ({
-        value: brand.id,
-        label: brand.name,
+      labels.map((item) => ({
+        value: item.id,
+        label: item.name,
       })),
     [labels],
+  );
+
+  const tagOptions = useMemo(
+    () =>
+      tags.map((tag) => ({
+        value: tag.id,
+        label: tag.name,
+      })),
+    [tags],
   );
 
   return (
@@ -87,7 +163,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                     style={{
                       position: 'absolute',
                       top: 26,
-                      left: editableProduct?.status === 1 ? 2 : 1,
+                      left: editableProduct?.status == true ? 2 : 1,
                       backgroundColor: 'white',
                       color: 'blue',
                       paddingLeft: 7,
@@ -95,7 +171,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
                       borderRadius: 5,
                     }}
                   >
-                    <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status === 1 ? 'Active' : 'Inactive'}</i>
+                    <i style={{ textTransform: 'uppercase' }}>{editableProduct?.status == true ? 'Active' : 'Inactive'}</i>
                   </div>
                 </div>
               </Row>
@@ -147,7 +223,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           />
         </div>
         <div style={{ display: 'flex', gap: 4 }}>
-          {/* <span>Categories</span> */}
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="category_id" style={{ flex: '1' }}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={categoryOptions} />
@@ -164,6 +239,26 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             onClick={() => {
               setCurrentModal(modalType.Edit);
               setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories });
+            }}
+          />
+        </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          &nbsp;&nbsp;
+          <Form.Item label="SubCategory" name="sub_category_id" style={{ flex: '1' }}>
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={subCategoryOptions} />
+          </Form.Item>
+          <PlusOutlined
+            className="plus-button"
+            onClick={() => {
+              setCurrentModal(modalType.New);
+              setItemModalData({ title: 'Add New Sub Category', items: subcategories, setItems: setSubCategories });
+            }}
+          />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => {
+              setCurrentModal(modalType.Edit);
+              setItemModalData({ title: 'Configure Sub Category', items: subcategories, setItems: setSubCategories });
             }}
           />
         </div>
@@ -187,12 +282,42 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             }}
           />
         </div>
+        <div style={{ display: 'flex', gap: 4 }}>
+          &nbsp;&nbsp;
+          <Form.Item label="Tag" name="tag_id" style={{ flex: '1' }}>
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={tagOptions} />
+          </Form.Item>
+          <PlusOutlined
+            className="plus-button"
+            onClick={() => {
+              setCurrentModal(modalType.New);
+              setItemModalData({ title: 'Add New Tag', items: tags, setItems: setTags });
+            }}
+          />
+          <SettingOutlined
+            className="setting-button"
+            onClick={() => {
+              setCurrentModal(modalType.Edit);
+              setItemModalData({ title: 'Configure Tag', items: tags, setItems: setTags });
+            }}
+          />
+        </div>
 
         <Form.Item label={<FormattedMessage id="component.form.label.description" />} name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
-        <Form.Item label={<FormattedMessage id="component.form.label.vendorCost" />} name="vendor_cost" colon={false}>
-          <Input />
+
+        <Form.Item label={<FormattedMessage id="component.form.label.vendorCost" />} colon={false} style={{ marginBottom: 0 }}>
+          <Form.Item name="vendor_cost" style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}>
+            <InputNumber style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item
+            name="selling_cost"
+            label="Sell Cost"
+            style={{ display: 'inline-block', width: 'calc(50% - 12px)', marginLeft: '24px' }}
+          >
+            <InputNumber style={{ width: '100%' }} />
+          </Form.Item>
         </Form.Item>
         <Card title="Measurements" style={{ marginTop: 20 }}>
           <Row>

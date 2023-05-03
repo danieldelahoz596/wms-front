@@ -36,7 +36,10 @@ const CoreProductModal: React.FC<ICoreProductModal> = ({ isOpen, title = 'New Co
           response: image.url,
         })),
       );
-    } else form.resetFields();
+    } else {
+      form.resetFields();
+      setFileList([]);
+    }
 
     if (!!editableProduct) {
       setCustomFields(editableProduct.custom_fields);
