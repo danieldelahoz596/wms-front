@@ -13,17 +13,12 @@ interface IBasicInfo {
   form: any;
 }
 
-interface INewItemModalData {
+export interface INewItemModalData {
   title: string;
   items: any[];
+  type: 'tag' | 'brand' | 'label' | 'category' | 'subCategory';
   setItems: (value: any) => void;
 }
-
-const tagData = [
-  { id: 1, name: 'Top Seller' },
-  { id: 2, name: 'Best Selling' },
-  { id: 3, name: '10% Sale' },
-];
 
 const cateogryData = [
   {
@@ -77,7 +72,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const [categories, setCategories] = useState(cateogryData);
   const [subcategories, setSubCategories] = useState([]);
   const { labels, setLabels } = useModel('label');
-  const [tags, setTags] = useState(tagData);
+  const { tags, setTags } = useModel('tag');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
   const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
   const categoryId = Form.useWatch('category_id', form);
@@ -215,14 +210,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.New);
-              setItemModalData({ title: 'Add New Brand', items: brands, setItems: setBrands });
+              setItemModalData({ title: 'Add New Brand', items: brands, setItems: setBrands, type: 'brand' });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
               setCurrentModal(modalType.Edit);
-              setItemModalData({ title: 'Configure Brand', items: brands, setItems: setBrands });
+              setItemModalData({ title: 'Configure Brand', items: brands, setItems: setBrands, type: 'brand' });
             }}
           />
         </div>
@@ -235,14 +230,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.NewCategory);
-              setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories });
+              setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories, type: 'category' });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
               setCurrentModal(modalType.ConfigCategory);
-              setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories });
+              setItemModalData({ title: 'Configure Category', items: categories, setItems: setCategories, type: 'category' });
             }}
           />
         </div>
@@ -255,14 +250,24 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.New);
-              setItemModalData({ title: 'Add New Sub Category', items: subcategories, setItems: setSubCategories });
+              setItemModalData({
+                title: 'Add New Sub Category',
+                items: subcategories,
+                setItems: setSubCategories,
+                type: 'subCategory',
+              });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
               setCurrentModal(modalType.Edit);
-              setItemModalData({ title: 'Configure Sub Category', items: subcategories, setItems: setSubCategories });
+              setItemModalData({
+                title: 'Configure Sub Category',
+                items: subcategories,
+                setItems: setSubCategories,
+                type: 'subCategory',
+              });
             }}
           />
         </div>
@@ -275,14 +280,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.New);
-              setItemModalData({ title: 'Add New Label', items: labels, setItems: setLabels });
+              setItemModalData({ title: 'Add New Label', items: labels, setItems: setLabels, type: 'label' });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
               setCurrentModal(modalType.Edit);
-              setItemModalData({ title: 'Configure Label', items: labels, setItems: setLabels });
+              setItemModalData({ title: 'Configure Label', items: labels, setItems: setLabels, type: 'label' });
             }}
           />
         </div>
@@ -295,14 +300,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.New);
-              setItemModalData({ title: 'Add New Tag', items: tags, setItems: setTags });
+              setItemModalData({ title: 'Add New Tag', items: tags, setItems: setTags, type: 'tag' });
             }}
           />
           <SettingOutlined
             className="setting-button"
             onClick={() => {
               setCurrentModal(modalType.Edit);
-              setItemModalData({ title: 'Configure Tag', items: tags, setItems: setTags });
+              setItemModalData({ title: 'Configure Tag', items: tags, setItems: setTags, type: 'tag' });
             }}
           />
         </div>

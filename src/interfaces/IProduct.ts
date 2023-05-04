@@ -14,10 +14,12 @@ export default interface IProduct {
   brand_id: number;
   category_id: number;
   label_id: number;
+  tag_id: number;
   description: string;
   min_adv_price: number;
   max_shipping_cost: number;
   vendor_cost: number;
+  selling_cost: number;
   height: number;
   length: number;
   width: number;

@@ -2,28 +2,49 @@ import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CloseOutlined } from '@ant-design/icons';
 import { uuidv4 } from '@antv/xflow-core';
-import { Input, List } from 'antd';
+import { Input, List, message } from 'antd';
 import { useState } from 'react';
+import type { INewItemModalData } from '@/pages/Products/MainPanel/Modals/Tabs/BasicInfo';
+import { useModel } from '@umijs/max';
 
-interface IAddItemModal {
+interface IAddItemModal extends INewItemModalData {
   isOpen: boolean;
-  title: string;
-  items: any[];
-  setItems: (value: any) => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, setItems, onClose, onSave }) => {
+const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, type, setItems, onClose, onSave }) => {
   const [name, setName] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
+  const { createTag, updateStatusTag, tags } = useModel('tag');
 
   const handleAdd = () => {
-    setItems((prev) => [...prev, { id: uuidv4(), name }]);
-    setName(null);
+    if (type === 'tag') {
+      createTag({ name }).then(() => {
+        setName(null);
+        messageApi.open({
+          type: 'success',
+          content: 'Successful to create a tag',
+        });
+      });
+    } else {
+      setItems((prev) => [...prev, { id: uuidv4(), name }]);
+      setName(null);
+    }
   };
 
   const handleDelete = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
+    if (type === 'tag') {
+      updateStatusTag(id).then(() => {
+        setItems((prev) => prev.filter((item) => item.id !== id));
+        messageApi.open({
+          type: 'success',
+          content: 'Successful to delete a tag',
+        });
+      });
+    } else {
+      setItems((prev) => prev.filter((item) => item.id !== id));
+    }
   };
 
   return (
@@ -41,15 +62,10 @@ const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, setItems,
           btnLabel: 'Close',
           onClick: onClose,
         },
-        {
-          key: 'submit',
-          type: 'primary',
-          btnLabel: 'Save',
-          onClick: onSave,
-        },
       ]}
     >
       <>
+        {contextHolder}
         <Input
           placeholder="Enter a valid name"
           addonAfter={<OButton btnText="Add" style={{ height: 30 }} onClick={() => handleAdd()} />}
@@ -58,7 +74,7 @@ const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, setItems,
           onPressEnter={() => handleAdd()}
         />
         <List
-          dataSource={items}
+          dataSource={type === 'tag' ? tags : items}
           renderItem={(item) => (
             <List.Item
               actions={[<CloseOutlined key="list-edit" onClick={() => handleDelete(item.id)} style={{ color: 'blue' }} />]}

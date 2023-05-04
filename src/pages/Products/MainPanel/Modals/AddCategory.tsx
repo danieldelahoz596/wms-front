@@ -107,11 +107,11 @@ const AddCategoryModal: React.FC<IAddCategoryModal> = ({ isOpen, title, items, s
           </Form.Item>
           <Form.Item label="Image">
             <Upload
-              name="avatar"
+              name="file"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-              action={`${BACKEND_URL}/api/products/upload-image`}
+              action={`${BACKEND_URL}/api/images`}
               headers={{ Authorization: `Bearer ${authData?.access_token}` }}
               beforeUpload={beforeUpload}
               onChange={handleChange}

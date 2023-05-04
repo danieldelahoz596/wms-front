@@ -1,12 +1,12 @@
 import { OModal } from '@/components/Globals/OModal';
 import { EditableTable } from '@/components/Globals/EditableTable';
 import { useMemo } from 'react';
+import { useModel } from '@umijs/max';
+import type { INewItemModalData } from './Tabs/BasicInfo';
+import { message } from 'antd';
 
-interface IConfigureItemModal {
+interface IConfigureItemModal extends INewItemModalData {
   isOpen: boolean;
-  title: string;
-  items: any[];
-  setItems: (value: any) => void;
   onClose: () => void;
   onSave: () => void;
 }
@@ -19,8 +19,14 @@ const TColumns = [
   },
 ];
 
-const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], setItems, onClose, onSave }) => {
-  const itemRows = useMemo(() => items.map((item) => ({ ...item, key: item.id })), [items]);
+const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], type, setItems, onClose, onSave }) => {
+  const { tags, updateTag } = useModel('tag');
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const itemRows = useMemo(() => {
+    if (type === 'tag') return tags.map((item) => ({ ...item, key: item.id }));
+    return items.map((item) => ({ ...item, key: item.id }));
+  }, [items, type, tags]);
 
   return (
     <OModal
@@ -37,21 +43,27 @@ const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, item
           btnLabel: 'Close',
           onClick: onClose,
         },
-        {
-          key: 'submit',
-          type: 'primary',
-          btnLabel: 'Save',
-          onClick: onSave,
-        },
       ]}
     >
-      <EditableTable
-        columns={TColumns}
-        dataSource={itemRows}
-        handleSave={(key: any, name: any, value: any) => {
-          setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
-        }}
-      />
+      <>
+        {contextHolder}
+        <EditableTable
+          columns={TColumns}
+          dataSource={itemRows}
+          handleSave={(key: any, name: any, value: any) => {
+            if (type === 'tag') {
+              updateTag({ id: key, name: value }).then(() => {
+                messageApi.open({
+                  type: 'success',
+                  content: 'Successful to update the tag',
+                });
+              });
+            } else {
+              setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
+            }
+          }}
+        />
+      </>
     </OModal>
   );
 };

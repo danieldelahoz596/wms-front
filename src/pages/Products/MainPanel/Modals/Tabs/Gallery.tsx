@@ -48,7 +48,7 @@ const Gallery: React.FC<IGallery> = ({ fileList, setFileList }) => {
       <Upload
         accept="image/png, image/jpeg, image/jpg"
         multiple={true}
-        action={`${BACKEND_URL}/api/products/upload-image`}
+        action={`${BACKEND_URL}/api/images`}
         headers={{ Authorization: `Bearer ${authData?.access_token}` }}
         listType="picture-card"
         fileList={fileList}
