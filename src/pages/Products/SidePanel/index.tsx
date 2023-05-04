@@ -29,7 +29,7 @@ const SidePanel: React.FC = () => {
   ];
 
   return (
-    <div className="left-panel">
+    <div>
       <Tabs defaultActiveKey="1" items={items} />
     </div>
   );

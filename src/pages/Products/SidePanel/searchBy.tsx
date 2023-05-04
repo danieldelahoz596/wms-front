@@ -1,104 +1,69 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OInput } from '@/components/Globals/OInput';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Checkbox, Form, Space } from 'antd';
-import React from 'react';
+import { Form, Input, Select } from 'antd';
+import { useMemo } from 'react';
 
-const SearchByPanel: React.FC = () => {
-  const { initialState } = useModel('@@initialState');
-  const { fieldTypes } = useModel('customProductFields');
-  const { initialData } = initialState;
+const SearchByPanel = () => {
+  const { brands } = useModel('brand');
+  const { categories } = useModel('category');
+  const { labels } = useModel('label');
+  const { tags } = useModel('tag');
+  const { getProductList } = useModel('product');
+  const [form] = Form.useForm();
 
-  const formInputs = [
-    {
-      type: 'text',
-      label: <FormattedMessage id="component.form.label.productName" />,
-      name: 'productName',
-      placeholder: 'Name',
-    },
-    {
-      type: 'text',
-      label: <FormattedMessage id="component.form.label.sku" />,
-      name: 'sku',
-      placeholder: 'SKU',
-    },
-    {
-      type: 'checkbox',
-      label: <FormattedMessage id="component.form.label.includeRelatedBundles" />,
-      name: 'includeRelatedBundles',
-    },
-    {
-      type: 'text',
-      label: <FormattedMessage id="component.form.label.vendorSku" />,
-      name: 'vendorSku',
-      placeholder: 'SKU',
-    },
-    {
-      type: 'select',
-      label: <FormattedMessage id="component.form.label.customFieldName" />,
-      placeholder: 'Select...',
-      name: 'custom_field_name',
-      options: fieldTypes.map((item) => ({
-        value: item.id,
-        text: item.name,
-      })),
-    },
-    {
-      type: 'select',
-      label: <FormattedMessage id="component.form.label.brand" />,
-      placeholder: 'Select...',
-      name: 'brand',
-      options: initialData?.brands?.map((item) => ({
-        value: item.id,
-        text: item.name,
-      })),
-    },
-    {
-      type: 'select',
-      label: <FormattedMessage id="component.form.label.categories" />,
-      placeholder: 'Select...',
-      name: 'categories',
-      options: initialData?.categories?.map((item) => ({
-        value: item.id,
-        text: item.name,
-      })),
-    },
-    {
-      type: 'select',
-      label: <FormattedMessage id="component.form.label.labels" />,
-      placeholder: 'Select...',
-      name: 'labels',
-      options: initialData?.labels?.map((item) => ({
-        value: item.id,
-        text: item.name,
-      })),
-    },
-  ];
+  const brandOptions = useMemo(() => brands.map((item) => ({ value: item.id, label: item.name })), [brands]);
+  const categoryOptions = useMemo(() => categories.map((item) => ({ value: item.id, label: item.name })), [categories]);
+  const labelOptions = useMemo(() => labels.map((item) => ({ value: item.id, label: item.name })), [labels]);
+  const tagOptions = useMemo(() => tags.map((item) => ({ value: item.id, label: item.name })), [tags]);
+
+  const handleReset = () => {
+    form.resetFields();
+  };
+
+  const handleSearch = () => {
+    form.validateFields().then((values) => {
+      if (values.brand_id) values.brandIds = [values.brand_id];
+      if (values.category_id) values.categoryIds = [values.category_id];
+      if (values.label_id) values.labelIds = [values.label_id];
+      if (values.tag_id) values.tagIds = [values.tag_id];
+
+      getProductList(values).then(() => {});
+    });
+  };
 
   return (
-    <Card>
-      <Form layout="vertical">
-        <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
-          {formInputs?.map((inputItem, index) => {
-            return index !== 2 ? (
-              <Form.Item key={index} label={inputItem.label}>
-                <OInput {...inputItem} style={{ width: '100%' }} />
-              </Form.Item>
-            ) : (
-              <Form.Item>
-                <Checkbox>
-                  <FormattedMessage id="pages.products.sidepanel.searchBy.description" />
-                </Checkbox>
-              </Form.Item>
-            );
-          })}
-        </Space>
-        <div className="search-button-row space-between">
-          <OButton btnText={<FormattedMessage id="component.button.clear" />} />
-          <OButton btnText={<FormattedMessage id="component.button.search" />} />
-        </div>
+    <>
+      <Form layout="vertical" form={form}>
+        <Form.Item label="Product Name" name="name">
+          <Input />
+        </Form.Item>
+        <Form.Item label="SKU" name="sku">
+          <Input />
+        </Form.Item>
+        <Form.Item label="UPC" name="upc">
+          <Input />
+        </Form.Item>
+        <Form.Item label="MPN" name="mpn">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Brand" name="brand_id">
+          <Select options={brandOptions} />
+        </Form.Item>
+        <Form.Item label="Category" name="category_id">
+          <Select options={categoryOptions} />
+        </Form.Item>
+        <Form.Item label="Label" name="label_id">
+          <Select options={labelOptions} />
+        </Form.Item>
+        <Form.Item label="Tag" name="tag_id">
+          <Select options={tagOptions} />
+        </Form.Item>
       </Form>
-    </Card>
+      <div className="search-button-row space-between">
+        <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={handleReset} />
+        <OButton btnText={<FormattedMessage id="component.button.search" />} onClick={handleSearch} />
+      </div>
+    </>
   );
 };
 

@@ -18,11 +18,23 @@ export default () => {
   const [bundleItems, setBundleItems] = useState<IBundleItem[]>([]);
 
   const getProductList = useCallback(
-    (query?: { labelIds?: number[]; categoryIds?: number[]; tagIds?: number[] }) => {
-      const { labelIds = [], categoryIds = [], tagIds = [] } = query || {};
+    (query?: {
+      name?: string;
+      sku?: string;
+      mpn?: string;
+      upc?: string;
+      labelIds?: number[];
+      categoryIds?: number[];
+      tagIds?: number[];
+    }) => {
+      const { name = '', sku = '', mpn = '', upc = '', labelIds = [], categoryIds = [], tagIds = [] } = query || {};
 
       const queryString = qs.stringify(
         {
+          name,
+          sku,
+          mpn,
+          upc,
           status: showActive,
           label: labelIds,
           category: categoryIds,
@@ -31,7 +43,7 @@ export default () => {
         { arrayFormat: 'brackets' },
       );
 
-      httpClient.get(`/api/products?${queryString}`).then((response) => {
+      return httpClient.get(`/api/products?${queryString}`).then((response) => {
         setProductList(
           response.data.map((item) => {
             if (item.type === productType.BundleOrKit) {
