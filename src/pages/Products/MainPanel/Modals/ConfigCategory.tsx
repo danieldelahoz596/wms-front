@@ -1,21 +1,23 @@
 import { OModal } from '@/components/Globals/OModal';
-import { EditableTable } from '@/components/Globals/EditableTable';
 import { useMemo, useState } from 'react';
 import { ToolTwoTone } from '@ant-design/icons';
 import AddCategoryModal from './AddCategory';
+import { Table } from 'antd';
+import { useModel } from '@umijs/max';
+import type { INewItemModalData } from './Tabs/BasicInfo';
 
-interface IConfigCategoryModal {
+interface IConfigCategoryModal extends INewItemModalData {
   isOpen: boolean;
-  title: string;
-  items: any[];
-  setItems: (value: any) => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-const ConfigCategoryModal: React.FC<IConfigCategoryModal> = ({ isOpen, title, items = [], setItems, onClose, onSave }) => {
+const ConfigCategoryModal: React.FC<IConfigCategoryModal> = ({ isOpen, title, onClose, onSave }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const itemRows = useMemo(() => items.map((item) => ({ ...item, key: item.id })), [items]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const { categories } = useModel('category');
+
+  const itemRows = useMemo(() => categories.map((item) => ({ ...item, key: item.id })), [categories]);
 
   const TColumns = [
     {
@@ -31,9 +33,14 @@ const ConfigCategoryModal: React.FC<IConfigCategoryModal> = ({ isOpen, title, it
     {
       title: 'Action',
       key: 'action',
-      render: () => (
+      render: (_, record) => (
         <>
-          <ToolTwoTone onClick={() => setShowModal(true)} />
+          <ToolTwoTone
+            onClick={() => {
+              setShowModal(true);
+              setSelectedItem(categories.find((item) => item.id === record.key));
+            }}
+          />
         </>
       ),
     },
@@ -63,18 +70,13 @@ const ConfigCategoryModal: React.FC<IConfigCategoryModal> = ({ isOpen, title, it
       ]}
     >
       <>
-        <EditableTable
-          columns={TColumns}
-          dataSource={itemRows}
-          handleSave={(key: any, name: any, value: any) => {
-            setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
-          }}
-        />
+        <Table columns={TColumns} dataSource={itemRows} />
 
         <AddCategoryModal
           isOpen={showModal}
-          items={[]}
-          setItems={() => {}}
+          title="Edit a category"
+          type="category"
+          item={selectedItem}
           onClose={() => setShowModal(false)}
           onSave={() => setShowModal(false)}
         />

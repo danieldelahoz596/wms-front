@@ -5,7 +5,7 @@ import CoreProductsIcon from '@/utils/icons/coreProduct';
 import { PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { FormattedMessage, useModel } from '@umijs/max';
 import { Card, Col, Form, Input, InputNumber, Row, Select } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import AddCategoryModal from '../AddCategory';
 import ConfigCategoryModal from '../ConfigCategory';
 
@@ -15,72 +15,73 @@ interface IBasicInfo {
 
 export interface INewItemModalData {
   title: string;
-  items: any[];
+  items?: any[];
   type: 'tag' | 'brand' | 'label' | 'category' | 'subCategory';
-  setItems: (value: any) => void;
+  setItems?: (value: any) => void;
+  item?: any;
 }
 
-const cateogryData = [
-  {
-    id: 1,
-    name: 'Alcohol & Beer',
-    description: 'This is Alcohol & Beer',
-    items: [
-      {
-        id: 1,
-        name: 'Alcohol',
-      },
-      {
-        id: 2,
-        name: 'Beer',
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Beverage',
-    description: 'This is Beverage',
-    items: [
-      {
-        id: 1,
-        name: 'Water',
-      },
-      {
-        id: 2,
-        name: 'Coffee',
-      },
-      {
-        id: 3,
-        name: 'Tea',
-      },
-      {
-        id: 4,
-        name: 'Soft drinks',
-      },
-      {
-        id: 5,
-        name: 'Milk',
-      },
-    ],
-  },
-];
+// const cateogryData = [
+//   {
+//     id: 1,
+//     name: 'Alcohol & Beer',
+//     description: 'This is Alcohol & Beer',
+//     items: [
+//       {
+//         id: 1,
+//         name: 'Alcohol',
+//       },
+//       {
+//         id: 2,
+//         name: 'Beer',
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: 'Beverage',
+//     description: 'This is Beverage',
+//     items: [
+//       {
+//         id: 1,
+//         name: 'Water',
+//       },
+//       {
+//         id: 2,
+//         name: 'Coffee',
+//       },
+//       {
+//         id: 3,
+//         name: 'Tea',
+//       },
+//       {
+//         id: 4,
+//         name: 'Soft drinks',
+//       },
+//       {
+//         id: 5,
+//         name: 'Milk',
+//       },
+//     ],
+//   },
+// ];
 
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct } = useModel('product');
   const { brands, setBrands } = useModel('brand');
-  // const { categories, setCategories } = useModel('category');
-  const [categories, setCategories] = useState(cateogryData);
+  const { categories, setCategories } = useModel('category');
+  // const [categories, setCategories] = useState(cateogryData);
   const [subcategories, setSubCategories] = useState([]);
   const { labels, setLabels } = useModel('label');
   const { tags, setTags } = useModel('tag');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
   const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
-  const categoryId = Form.useWatch('category_id', form);
+  // const categoryId = Form.useWatch('category_id', form);
 
-  useEffect(() => {
-    const selectedCategoryItem = categories.find((category) => category.id === categoryId);
-    if (selectedCategoryItem) setSubCategories(selectedCategoryItem.items);
-  }, [categoryId, categories]);
+  // useEffect(() => {
+  //   const selectedCategoryItem = categories.find((category) => category.id === categoryId);
+  //   if (selectedCategoryItem) setSubCategories(selectedCategoryItem.items);
+  // }, [categoryId, categories]);
 
   const brandOptions = useMemo(
     () =>
@@ -100,14 +101,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
     [categories],
   );
 
-  const subCategoryOptions = useMemo(
-    () =>
-      subcategories.map((subCategory) => ({
-        value: subCategory.id,
-        label: subCategory.name,
-      })),
-    [subcategories],
-  );
+  // const subCategoryOptions = useMemo(
+  //   () =>
+  //     subcategories.map((subCategory) => ({
+  //       value: subCategory.id,
+  //       label: subCategory.name,
+  //     })),
+  //   [subcategories],
+  // );
 
   const labelOptions = useMemo(
     () =>
@@ -230,7 +231,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             className="plus-button"
             onClick={() => {
               setCurrentModal(modalType.NewCategory);
-              setItemModalData({ title: 'Add New Category', items: categories, setItems: setCategories, type: 'category' });
+              setItemModalData({
+                title: 'Add New Category',
+                items: categories,
+                setItems: setCategories,
+                type: 'category',
+                item: null,
+              });
             }}
           />
           <SettingOutlined
@@ -244,7 +251,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label="SubCategory" name="sub_category_id" style={{ flex: '1' }}>
-            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={subCategoryOptions} />
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={[]} />
           </Form.Item>
           <PlusOutlined
             className="plus-button"

@@ -11,6 +11,19 @@ export default () => {
     httpClient.get('/api/categories').then((response) => setCategories(response.data));
   }, []);
 
+  const createCategory = useCallback(
+    (createData) => httpClient.post('/api/categories', createData).then(({ data }) => setCategories((prev) => [...prev, data])),
+    [],
+  );
+
+  const updateCategory = useCallback(
+    (updateData) =>
+      httpClient
+        .put(`api/categories/${updateData.id}`, updateData)
+        .then(({ data }) => setCategories((prev) => prev.map((item) => (item.id === updateData.id ? data : item)))),
+    [],
+  );
+
   useEffect(() => {
     if (initialState?.currentUser) {
       getCategories();
@@ -20,5 +33,7 @@ export default () => {
   return {
     categories,
     setCategories,
+    createCategory,
+    updateCategory,
   };
 };
