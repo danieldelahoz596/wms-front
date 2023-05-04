@@ -8,8 +8,10 @@ import React, { useMemo, useState } from 'react';
 const FilterByPanel: React.FC = () => {
   const [selectedCategoryKeys, setSelectedCategoryKeys] = useState<React.Key[]>([]);
   const [selectedLabelKeys, setSelectedLabelKeys] = useState<React.Key[]>([]);
+  const [selectedTagKeys, setSelectedTagKeys] = useState<React.Key[]>([]);
   const { categories } = useModel('category');
   const { labels } = useModel('label');
+  const { tags } = useModel('tag');
   const { getProductList } = useModel('product');
 
   const categoryOptions = useMemo(
@@ -30,6 +32,16 @@ const FilterByPanel: React.FC = () => {
         icon: <BookIcon style={{ width: 15 }} />,
       })),
     [labels],
+  );
+
+  const tagOptions = useMemo(
+    () =>
+      tags.map((tag) => ({
+        title: tag.name,
+        key: tag.id,
+        icon: <BookIcon style={{ width: 15 }} />,
+      })),
+    [tags],
   );
 
   const treeCategoryData: DataNode[] = useMemo(
@@ -54,6 +66,17 @@ const FilterByPanel: React.FC = () => {
     [labelOptions],
   );
 
+  const treeTagData: DataNode[] = useMemo(
+    () => [
+      {
+        title: 'Tags',
+        key: 'tags',
+        children: tagOptions,
+      },
+    ],
+    [tagOptions],
+  );
+
   const onCategorySelect = (selectedKeysValue: React.Key[], event: any) => {
     let selectedKeys = [];
     if (event.nativeEvent.ctrlKey) {
@@ -64,6 +87,7 @@ const FilterByPanel: React.FC = () => {
 
     setSelectedCategoryKeys(selectedKeys);
     setSelectedLabelKeys([]);
+    setSelectedTagKeys([]);
 
     getProductList({ categoryIds: selectedKeys });
   };
@@ -78,8 +102,24 @@ const FilterByPanel: React.FC = () => {
 
     setSelectedCategoryKeys([]);
     setSelectedLabelKeys(selectedKeys);
+    setSelectedTagKeys([]);
 
     getProductList({ labelIds: selectedKeys });
+  };
+
+  const onTagSelect = (selectedKeysValue: React.Key[], event: any) => {
+    let selectedKeys = [];
+    if (event.nativeEvent.ctrlKey) {
+      selectedKeys = selectedKeysValue;
+    } else if (selectedLabelKeys[0] !== event.node.key) {
+      selectedKeys = [event.node.key];
+    }
+
+    setSelectedCategoryKeys([]);
+    setSelectedLabelKeys([]);
+    setSelectedTagKeys(selectedKeys);
+
+    getProductList({ tagIds: selectedKeys });
   };
 
   return (
@@ -100,6 +140,7 @@ const FilterByPanel: React.FC = () => {
         onSelect={onCategorySelect}
         multiple
       />
+
       <Tree
         showIcon
         defaultExpandAll
@@ -108,6 +149,17 @@ const FilterByPanel: React.FC = () => {
         rootStyle={{ fontSize: 15 }}
         selectedKeys={selectedLabelKeys}
         onSelect={onLabelSelect}
+        multiple
+      />
+
+      <Tree
+        showIcon
+        defaultExpandAll
+        switcherIcon={<CaretDownOutlined />}
+        treeData={treeTagData}
+        rootStyle={{ fontSize: 15 }}
+        selectedKeys={selectedTagKeys}
+        onSelect={onTagSelect}
         multiple
       />
     </Card>
