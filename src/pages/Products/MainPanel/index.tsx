@@ -8,7 +8,7 @@ import {
   VerticalAlignBottomOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip, Badge } from 'antd';
+import { Button, Card, Dropdown, Popconfirm, Select, Space, Table, Tooltip, Badge, message } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -40,12 +40,14 @@ import VirtualProductEditModal from './Modals/VirtualProductEdit';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
 const MainPanel: React.FC = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [modalOpen, setModal] = useState('');
   const {
     productList,
     editableProduct,
     getProductList,
     updateProductStatus,
+    updatePostStatus,
     setEditableProduct,
     handleUpdateProduct,
     showActive,
@@ -154,222 +156,113 @@ const MainPanel: React.FC = () => {
   ];
 
   const TColumns = useMemo(
-    () =>
-      showActive
-        ? [
-            {
-              key: 'expand',
-              title: '',
-              width: 30,
-            },
-            {
-              title: <FormattedMessage id="component.table.column.type" />,
-              dataIndex: 'type',
-              key: 'type',
-              align: 'center',
-              render: (text: any, record) => {
-                return (
-                  <>
-                    {text === productType.Variations || (text === productType.CoreProduct && record.children_item) ? (
-                      <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
-                    ) : text === productType.BundleOrKit ? (
-                      <Tooltip placement="bottomLeft" title="Bundle/Kit">
-                        <BundleIcon style={{ fontSize: 24 }} />
-                      </Tooltip>
-                    ) : text === productType.VirtualProduct ? (
-                      <VariationIcon style={{ fontSize: 24 }} />
-                    ) : text === productType.CoreProduct ? (
-                      <CoreProductsIcon style={{ fontSize: 24 }} />
-                    ) : (
-                      <span style={{ position: 'relative' }}>
-                        <CoreProductsIcon style={{ fontSize: 24 }} />
-                        <div style={{ position: 'absolute', top: 3, left: 12 }}>
-                          <VectorIcon style={{ fontSize: 14 }} />
-                        </div>
-                      </span>
-                    )}
-                  </>
-                );
-              },
-            },
-            {
-              title: <FormattedMessage id="component.table.column.masterSku" />,
-              dataIndex: 'sku',
-              key: 'sku',
-              render: (sku, record) => (
-                <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
-                  {record.type === productType.Variations && (
-                    <Tooltip placement="bottomLeft" title="Variation Core Product">
-                      <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />
-                    </Tooltip>
-                  )}
-                  {record.type === productType.CoreProduct && record.children_item && (
-                    <Badge count={`x${record.quantity}`} color="blue" size="small" style={{ marginRight: 5 }} />
-                  )}
-                  <u>{sku}</u>
-                </a>
-              ),
-            },
-            {
-              title: <FormattedMessage id="component.table.column.name" />,
-              dataIndex: 'name',
-              key: 'name',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.desc" />,
-              dataIndex: 'description',
-              key: 'description',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.brand" />,
-              dataIndex: ['brand', 'name'],
-              key: 'brand',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.categories" />,
-              dataIndex: ['category', 'name'],
-              key: 'categories',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.labels" />,
-              dataIndex: ['label', 'name'],
-              key: 'labels',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.weight" />,
-              key: 'weight',
-              render: (value, record) => {
-                return <>{record.pound + record.ounce / 12.0}</>;
-              },
-            },
-            {
-              title: <FormattedMessage id="component.table.column.hwl" />,
-              key: 'h/w/l',
-              render: (value, record) => {
-                return (
-                  <>
-                    {record.width}/{record.height}/{record.length}
-                  </>
-                );
-              },
-            },
-            {
-              title: 'Action',
-              key: 'action',
-              align: 'center' as const,
-              render: () => {
-                return (
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    type="text"
-                  >
-                    Publish to Store
-                  </Button>
-                );
-              },
-            },
-          ]
-        : [
-            {
-              key: 'expand',
-              title: '',
-              width: 30,
-            },
-            {
-              title: <FormattedMessage id="component.table.column.type" />,
-              dataIndex: 'type',
-              key: 'type',
-              align: 'center',
-              render: (text: any, record) => {
-                return (
-                  <>
-                    {text === productType.Variations || (text === productType.CoreProduct && record.children_item) ? (
-                      <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
-                    ) : text === productType.BundleOrKit ? (
-                      <Tooltip placement="bottomLeft" title="Bundle/Kit">
-                        <BundleIcon style={{ fontSize: 24 }} />
-                      </Tooltip>
-                    ) : text === productType.VirtualProduct ? (
-                      <VariationIcon style={{ fontSize: 24 }} />
-                    ) : text === productType.CoreProduct ? (
-                      <CoreProductsIcon style={{ fontSize: 24 }} />
-                    ) : (
-                      <span style={{ position: 'relative' }}>
-                        <CoreProductsIcon style={{ fontSize: 24 }} />
-                        <div style={{ position: 'absolute', top: 3, left: 12 }}>
-                          <VectorIcon style={{ fontSize: 14 }} />
-                        </div>
-                      </span>
-                    )}
-                  </>
-                );
-              },
-            },
-            {
-              title: <FormattedMessage id="component.table.column.masterSku" />,
-              dataIndex: 'sku',
-              key: 'sku',
-              render: (sku, record) => (
-                <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
-                  {record.type === productType.Variations && (
-                    <Tooltip placement="bottomLeft" title="Variation Core Product">
-                      <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />
-                    </Tooltip>
-                  )}
-                  {record.type === productType.CoreProduct && record.children_item && (
-                    <Badge count={`x${record.quantity}`} color="blue" size="small" style={{ marginRight: 5 }} />
-                  )}
-                  <u>{sku}</u>
-                </a>
-              ),
-            },
-            {
-              title: <FormattedMessage id="component.table.column.name" />,
-              dataIndex: 'name',
-              key: 'name',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.desc" />,
-              dataIndex: 'description',
-              key: 'description',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.brand" />,
-              dataIndex: ['brand', 'name'],
-              key: 'brand',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.categories" />,
-              dataIndex: ['category', 'name'],
-              key: 'categories',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.labels" />,
-              dataIndex: ['label', 'name'],
-              key: 'labels',
-            },
-            {
-              title: <FormattedMessage id="component.table.column.weight" />,
-              key: 'weight',
-              render: (value, record) => {
-                return <>{record.pound + record.ounce / 12.0}</>;
-              },
-            },
-            {
-              title: <FormattedMessage id="component.table.column.hwl" />,
-              key: 'h/w/l',
-              render: (value, record) => {
-                return (
-                  <>
-                    {record.width}/{record.height}/{record.length}
-                  </>
-                );
-              },
-            },
-          ],
-    [showActive, handleMasterSkuClick],
+    () => [
+      {
+        key: 'expand',
+        title: '',
+        width: 30,
+      },
+      {
+        title: <FormattedMessage id="component.table.column.type" />,
+        dataIndex: 'type',
+        key: 'type',
+        align: 'center',
+        render: (text: any, record) => {
+          return (
+            <>
+              {text === productType.Variations || (text === productType.CoreProduct && record.children_item) ? (
+                <ReturnDownForwardIcon fill="blue" style={{ fontSize: 24 }} />
+              ) : text === productType.BundleOrKit ? (
+                <Tooltip placement="bottomLeft" title="Bundle/Kit">
+                  <BundleIcon style={{ fontSize: 24 }} />
+                </Tooltip>
+              ) : text === productType.VirtualProduct ? (
+                <VariationIcon style={{ fontSize: 24 }} />
+              ) : text === productType.CoreProduct ? (
+                <CoreProductsIcon style={{ fontSize: 24 }} />
+              ) : (
+                <span style={{ position: 'relative' }}>
+                  <CoreProductsIcon style={{ fontSize: 24 }} />
+                  <div style={{ position: 'absolute', top: 3, left: 12 }}>
+                    <VectorIcon style={{ fontSize: 14 }} />
+                  </div>
+                </span>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        title: <FormattedMessage id="component.table.column.masterSku" />,
+        dataIndex: 'sku',
+        key: 'sku',
+        render: (sku, record) => (
+          <a onClick={(event) => handleMasterSkuClick(event, record)} style={{ display: 'flex', alignItems: 'center' }}>
+            {record.type === productType.Variations && (
+              <Tooltip placement="bottomLeft" title="Variation Core Product">
+                <VectorIcon style={{ fontSize: 14, marginRight: 5 }} />
+              </Tooltip>
+            )}
+            {record.type === productType.CoreProduct && record.children_item && (
+              <Badge count={`x${record.quantity}`} color="blue" size="small" style={{ marginRight: 5 }} />
+            )}
+            <u>{sku}</u>
+          </a>
+        ),
+      },
+      {
+        title: <FormattedMessage id="component.table.column.name" />,
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: <FormattedMessage id="component.table.column.desc" />,
+        dataIndex: 'description',
+        key: 'description',
+      },
+      {
+        title: <FormattedMessage id="component.table.column.brand" />,
+        dataIndex: ['brand', 'name'],
+        key: 'brand',
+      },
+      {
+        title: <FormattedMessage id="component.table.column.categories" />,
+        dataIndex: ['category', 'name'],
+        key: 'categories',
+      },
+      {
+        title: <FormattedMessage id="component.table.column.labels" />,
+        dataIndex: ['label', 'name'],
+        key: 'labels',
+      },
+      {
+        title: <FormattedMessage id="component.table.column.weight" />,
+        key: 'weight',
+        render: (value, record) => {
+          return <>{record.pound + record.ounce / 12.0}</>;
+        },
+      },
+      {
+        title: <FormattedMessage id="component.table.column.hwl" />,
+        key: 'h/w/l',
+        render: (value, record) => {
+          return (
+            <>
+              {record.width}/{record.height}/{record.length}
+            </>
+          );
+        },
+      },
+      {
+        title: 'Publishment',
+        dataIndex: 'post_status',
+        key: 'publishment',
+        align: 'center' as const,
+        render: (post_status) =>
+          post_status == true ? <Badge color="blue" count="Published" /> : <Badge count="Not Published" />,
+      },
+    ],
+    [handleMasterSkuClick],
   );
   // .concat(
   //   fieldTypes
@@ -402,8 +295,19 @@ const MainPanel: React.FC = () => {
     [productList, showActive],
   );
 
+  const handlePublishToStore = useCallback(() => {
+    updatePostStatus(editableProduct.id).then(() => {
+      messageApi.open({
+        type: 'success',
+        content: 'Publishing to the store is successful.',
+      });
+      setEditableProduct(null);
+    });
+  }, [editableProduct, messageApi, updatePostStatus, setEditableProduct]);
+
   return (
     <>
+      {contextHolder}
       <div className="title-row">
         <h1 className="page-title">
           <FormattedMessage id="pages.products.mainPage.title" /> ::{' '}
@@ -461,6 +365,13 @@ const MainPanel: React.FC = () => {
             <OButton
               btnText={<FormattedMessage id="component.button.converrtToCore" />}
               disabled={!editableProduct || !(editableProduct?.type === productType.Variations)}
+            />
+          </Popconfirm>
+          <Popconfirm title="Do you really want to publish this product to store?" onConfirm={handlePublishToStore}>
+            <OButton
+              btnText="Publish To Store"
+              disabled={!editableProduct || editableProduct?.post_status == true}
+              hidden={!showActive}
             />
           </Popconfirm>
           <Popconfirm

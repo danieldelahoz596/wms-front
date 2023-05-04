@@ -101,6 +101,15 @@ export default () => {
     [productList],
   );
 
+  const updatePostStatus = useCallback(
+    (id: number) => {
+      return httpClient.patch(`/api/products/${id}/update-post-status`, { post_status: true }).then(() => {
+        setProductList(productList.map((_item) => (_item.id === id ? { ..._item, post_status: true } : _item)));
+      });
+    },
+    [productList],
+  );
+
   // change selected product
   const onChangeSelectedProduct = useCallback((name: any, value: any) => {
     setEditableProduct((prevState: any) => ({ ...prevState, [name]: value }));
@@ -124,6 +133,7 @@ export default () => {
     createProduct,
     updateProduct,
     updateProductStatus,
+    updatePostStatus,
     setProductList,
     setEditableProduct,
     setBundleItems,

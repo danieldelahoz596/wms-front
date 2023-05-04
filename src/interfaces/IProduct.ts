@@ -34,6 +34,7 @@ export default interface IProduct {
   custom_fields: any[];
   children?: IProduct[];
   status: boolean;
+  post_status: boolean;
   quantity?: number;
   attribute_group_id: number;
   images: IProductImage[];
