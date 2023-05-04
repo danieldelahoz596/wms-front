@@ -69,7 +69,10 @@ const OrderManagement: React.FC = () => {
             <MainPanel selectedRows={selectedRows} setSelectedRows={setSelectedRows} />
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
-          <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
+          <div
+            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
+            style={{ height: bottomH, overflow: 'scroll' }}
+          >
             <div className="w-full">{selectedRows.length == 1 && <OrderItems />}</div>
           </div>
         </div>

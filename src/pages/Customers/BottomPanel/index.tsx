@@ -82,7 +82,7 @@ const BottomPanel: React.FC = () => {
     <>
       {selectedCustomer && (
         <Card title={<FormattedMessage id="pages.customers.bottomPanel.title" />}>
-          <OTable columns={TOrderColumns} rows={rows} />
+          <OTable columns={TOrderColumns} rows={rows} pagination={false} />
         </Card>
       )}
     </>

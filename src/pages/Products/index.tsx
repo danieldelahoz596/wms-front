@@ -48,7 +48,10 @@ const ProductManagement: React.FC = () => {
             </div>
           </div>
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
-          <div className={cn('shrink-0 contents', isBottomDragging && 'dragging')} style={{ height: bottomH }}>
+          <div
+            className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
+            style={{ height: bottomH, overflow: 'scroll' }}
+          >
             <div className="w-full">
               <BottomPanel height={bottomH} />
             </div>
