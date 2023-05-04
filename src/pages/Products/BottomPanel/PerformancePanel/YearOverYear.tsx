@@ -57,20 +57,22 @@ const YearOverYear: React.FC<IYearOverYear> = ({ height }) => {
 
   return (
     <>
-      <Space>
-        <Select
-          options={[
-            { value: 7, label: '1 week' },
-            { value: 30, label: '30 Days' },
-            { value: 60, label: '60 Days' },
-          ]}
-          style={{ width: '150px' }}
-          size="small"
-          value={days}
-          onChange={(value) => setDays(value)}
-        />
-      </Space>
-      <Row justify="end" style={{ marginTop: 5 }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Space>
+          <Select
+            options={[
+              { value: 7, label: '1 week' },
+              { value: 30, label: '30 Days' },
+              { value: 60, label: '60 Days' },
+            ]}
+            style={{ width: '150px' }}
+            size="small"
+            value={days}
+            onChange={(value) => setDays(value)}
+          />
+        </Space>
+      </div>
+      <Row justify="end" style={{ marginTop: 10 }}>
         <Col>
           <Dropdown.Button
             menu={{
