@@ -72,7 +72,12 @@ const RightPanel: React.FC = () => {
       {selectedCustomer ? (
         <Card title={selectedCustomer.name}>
           <Form layout="horizontal" form={form} labelCol={{ span: 8 }} labelAlign="left" onFieldsChange={handleFieldChange}>
-            <Form.Item name="phone_type" rules={[{ required: true, message: 'Please Select Phone Type!' }]} label="Phone Type">
+            <Form.Item
+              name="phone_type"
+              rules={[{ required: true, message: 'Please Select Phone Type!' }]}
+              label="Phone Type"
+              style={{ marginBottom: '5px' }}
+            >
               <Select
                 placeholder="Phone Type"
                 options={[
@@ -85,16 +90,21 @@ const RightPanel: React.FC = () => {
               name="phone_number"
               label={<FormattedMessage id="component.form.label.phone" />}
               rules={[{ required: true, message: 'Please Input Phone Number!' }]}
+              style={{ marginBottom: '5px' }}
             >
               <Input placeholder="Phone Number" />
             </Form.Item>
-            <Form.Item name="name" label={<FormattedMessage id="component.form.label.name" />}>
+            <Form.Item name="name" label={<FormattedMessage id="component.form.label.name" />} style={{ marginBottom: '5px' }}>
               <Input placeholder="Customer Name" />
             </Form.Item>
-            <Form.Item name="address" label={<FormattedMessage id="component.form.label.address" />}>
+            <Form.Item
+              name="address"
+              label={<FormattedMessage id="component.form.label.address" />}
+              style={{ marginBottom: '5px' }}
+            >
               <Input placeholder="Customer Address" />
             </Form.Item>
-            <Form.Item name="sex" label="Sex">
+            <Form.Item name="sex" label="Sex" style={{ marginBottom: '5px' }}>
               <Select
                 options={[
                   { value: 1, label: 'Male' },
@@ -102,16 +112,16 @@ const RightPanel: React.FC = () => {
                 ]}
               />
             </Form.Item>
-            <Form.Item name="age" label="Age">
+            <Form.Item name="age" label="Age" style={{ marginBottom: '5px' }}>
               <InputNumber style={{ width: '100%' }} min={1} />
             </Form.Item>
-            <Form.Item name="state_id" label="State">
+            <Form.Item name="state_id" label="State" style={{ marginBottom: '5px' }}>
               <Select options={stateOptions} />
             </Form.Item>
-            <Form.Item name="city_id" label="City">
+            <Form.Item name="city_id" label="City" style={{ marginBottom: '5px' }}>
               <Select options={cityOptions} />
             </Form.Item>
-            <Form.Item>
+            <Form.Item style={{ marginBottom: '5px' }}>
               <Space size={HORIZONTAL_SPACE_SIZE}>
                 <OButton btnText={<FormattedMessage id="component.button.update" />} onClick={handleUpdate} />
                 <OButton btnText={<FormattedMessage id="component.button.delete" />} onClick={handleDelete} />

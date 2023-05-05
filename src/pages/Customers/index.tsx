@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { useEffect } from 'react';
 import { useResizable } from 'react-resizable-layout';
+import { Card } from 'antd';
 import BottomPanel from './BottomPanel';
 import RightPanel from './RightPanel';
 import SidePanel from './SidePanel';
@@ -56,12 +57,18 @@ const CustomerManagement: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
+        <Card
+          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
+          style={{ width: LeftW }}
+          bodyStyle={{ padding: 0 }}
+        >
           <div className="w-full">
             <SidePanel />
           </div>
-        </div>
+        </Card>
+
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
+
         <div className="w-full flex flex-column h-screen overflow-hidden">
           <div className="horizon-content" style={{ overflow: 'scroll' }}>
             <MainPanel />
@@ -74,6 +81,7 @@ const CustomerManagement: React.FC = () => {
           </div>
 
           <SampleSplitter dir={'horizontal'} isDragging={isBottomDragging} {...bottomDragBarProps} />
+
           <div
             className={cn('shrink-0 contents', isBottomDragging && 'dragging')}
             style={{ height: bottomH, overflow: 'scroll' }}

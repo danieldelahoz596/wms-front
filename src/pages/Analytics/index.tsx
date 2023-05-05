@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Layout } from 'antd';
+import { Card } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
 import { useLocation } from '@umijs/max';
 import { useResizable } from 'react-resizable-layout';
@@ -109,23 +109,21 @@ const Analytics: React.FC = () => {
 
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'} header={{ breadcrumb: {} }}>
-      <Layout>
-        <div className={'flex grow'}>
-          <div className={cn('shrink-0 contents', isLeftDragging && 'dragging')} style={{ width: LeftW }}>
-            <div className="w-full">
-              <LeftPanel />
-            </div>
+      <div className={'flex grow'}>
+        <Card
+          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
+          style={{ width: LeftW }}
+          bodyStyle={{ padding: 0 }}
+        >
+          <div className="w-full">
+            <LeftPanel />
           </div>
-
-          <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-
-          <div className="w-full flex flex-column">
-            <div className="horizon-content">
-              <Layout className="site-layout">{mainContent}</Layout>
-            </div>
-          </div>
+        </Card>
+        <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
+        <div className="w-full flex flex-column h-screen" style={{ overflow: 'scroll' }}>
+          {mainContent}
         </div>
-      </Layout>
+      </div>
     </PageContainer>
   );
 };

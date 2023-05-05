@@ -1,12 +1,10 @@
-import { SampleSplitter } from '@/components/Globals/SampleSplitter';
+import { SampleSplitter, cn } from '@/components/Globals/SampleSplitter';
 import { PageContainer } from '@ant-design/pro-components';
-import { Layout } from 'antd';
+import { Card } from 'antd';
 import { useResizable } from 'react-resizable-layout';
 
 import MainPanel from './MainPanel';
 import SidePanel from './SidePanel';
-
-const { Sider } = Layout;
 
 const Help: React.FC = () => {
   const {
@@ -22,13 +20,19 @@ const Help: React.FC = () => {
   return (
     <PageContainer title={false} className={'flex flex-column overflow-hidden'}>
       <div className={'flex grow'}>
-        <Sider width={LeftW} trigger={null}>
-          <SidePanel />
-        </Sider>
-
+        <Card
+          className={cn('shrink-0 contents', isLeftDragging && 'dragging')}
+          style={{ width: LeftW }}
+          bodyStyle={{ padding: 0 }}
+        >
+          <div className="w-full">
+            <SidePanel />
+          </div>
+        </Card>
         <SampleSplitter isDragging={isLeftDragging} {...leftDragBarProps} />
-        
-        <MainPanel />
+        <div className="w-full flex flex-column h-screen" style={{ overflow: 'scroll' }}>
+          <MainPanel />
+        </div>
       </div>
     </PageContainer>
   );
