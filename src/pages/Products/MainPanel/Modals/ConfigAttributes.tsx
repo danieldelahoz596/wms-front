@@ -34,7 +34,7 @@ const ConfigAttributesModal: React.FC<IConfigAttributesModal> = ({ isOpen, onClo
     }
   }, [attributeGroups, attributeGroupId]);
 
-  const itemRows = useMemo(() => items.map((item) => ({ key: item.id, name: item.name })), [items]);
+  const itemRows = useMemo(() => items?.map((item) => ({ key: item.id, name: item.name })), [items]);
 
   return (
     <OModal
