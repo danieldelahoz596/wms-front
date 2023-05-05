@@ -19,7 +19,7 @@ import {
 } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 import { Row, Col, Space, Card, Input, Dropdown, Button, Table } from 'antd';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 
 // Modals
 import ImportExportSummaryModal from '@/components/Modals/ImportExportSummary';
@@ -40,6 +40,8 @@ const { Search } = Input;
 interface IMainPanel {
   tabButtons: React.ReactNode;
   dataSource: any[];
+  selectedShowWarehouseItems: any[];
+  setSelectedShowWarehouseItems: (value: any[]) => void;
 }
 
 export const stock_allocation = [
@@ -96,14 +98,26 @@ export const stock_history = [
   },
 ];
 
-const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
+const MainPanel: React.FC<IMainPanel> = ({
+  tabButtons,
+  dataSource,
+  selectedShowWarehouseItems,
+  setSelectedShowWarehouseItems,
+}) => {
   const { warehouseList } = useModel('warehouse');
-  const { stockLocationList, selectedStockItem, setSelectedStockItem, getStockDetails, stockDetails } = useModel('stockLocation');
+  const { stockLocationList, selectedStockItem, setSelectedStockItem, getStockDetails } = useModel('stockLocation');
   const [currentModal, setCurrentModal] = useState<modalType>(modalType.Close);
   const [stockHistorySource] = useState(stock_history);
   const [stockAllocationSource] = useState(stock_allocation);
   const { getInventoryImportExportSummary } = useModel('exportSummary');
   const [selectedWarehouseName, setSelectedWarehouseName] = useState('');
+  const [selectedShowItems, setSelectedShowItems] = useState([
+    'onHand',
+    'locked',
+    'allocated',
+    'inTransite',
+    'availableQuantities',
+  ]);
 
   const handleMasterSKU = useCallback(
     (event, id) => {
@@ -114,98 +128,60 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
     [setSelectedStockItem],
   );
 
-  const TColumns = useMemo(
-    () => [
-      {
-        key: 'expand',
-        title: '',
-        width: 30,
-      },
-      {
-        title: 'Type',
-        dataIndex: ['product', 'type'],
-        key: 'type',
-        align: 'center' as const,
-        render: (text: any) => (
-          <>
-            {text === productType.CoreProduct ? (
-              <CoreProductsIcon style={{ fontSize: 24 }} />
-            ) : text === productType.BundleOrKit ? (
-              <BundleIcon style={{ fontSize: 24 }} />
-            ) : text === productType.Variations ? (
-              <VariationIcon style={{ fontSize: 24 }} />
-            ) : (
-              <span style={{ position: 'relative' }}>
-                <CoreProductsIcon style={{ fontSize: 24 }} />
-                <div style={{ position: 'absolute', top: 3, left: 12 }}>
-                  <VectorIcon style={{ fontSize: 14 }} />
-                </div>
-              </span>
-            )}
-          </>
-        ),
-      },
-      {
-        title: 'MASTER SKU',
-        dataIndex: ['product', 'sku'],
-        key: 'master_sku',
-        render: (text: any, record) => (
-          <a onClick={(event) => handleMasterSKU(event, record.key)}>
-            <u>{text}</u>
-          </a>
-        ),
-      },
-      {
-        title: 'Name',
-        dataIndex: ['product', 'name'],
-        key: 'name',
-      },
-      {
-        title: 'Brand',
-        dataIndex: ['product', 'brand', 'name'],
-        key: 'brand',
-      },
-      {
-        title: 'Des',
-        dataIndex: 'description',
-        key: 'description',
-        render: (text: any) => <>{text && <NoteIcon />}</>,
-      },
-      {
-        title: 'On Hand',
-        dataIndex: 'on_hand',
-        key: 'on_hands',
-      },
-      {
-        title: 'Locked',
-        dataIndex: 'locked',
-        key: 'locked',
-      },
-      {
-        title: 'Allocated',
-        dataIndex: 'allocated',
-        key: 'allocated',
-        render: (text: any) => (
-          <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.StockAllocationDetails)}>
-            <u>{text}</u>
-          </span>
-        ),
-      },
-      {
-        title: 'In Transfer',
-        dataIndex: 'in_transfer',
-        key: 'in_transfer',
-        render: () => (
-          <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.IncomingUnits)}>
-            <u>0</u>
-          </span>
-        ),
-      },
-      {
-        title: 'Available',
-        dataIndex: 'available',
-        key: 'available',
-      },
+  const showedRows = useMemo(() => {
+    let rows = [];
+    if (selectedShowItems.includes('onHand'))
+      rows = rows.concat([
+        {
+          title: 'On Hand',
+          dataIndex: 'on_hand',
+          key: 'on_hands',
+        },
+      ]);
+    if (selectedShowItems.includes('locked'))
+      rows = rows.concat([
+        {
+          title: 'On Hand',
+          dataIndex: 'on_hand',
+          key: 'on_hands',
+        },
+      ]);
+    if (selectedShowItems.includes('allocated'))
+      rows = rows.concat([
+        {
+          title: 'Allocated',
+          dataIndex: 'allocated',
+          key: 'allocated',
+          render: (text: any) => (
+            <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.StockAllocationDetails)}>
+              <u>{text}</u>
+            </span>
+          ),
+        },
+      ]);
+    if (selectedShowItems.includes('inTransite'))
+      rows = rows.concat([
+        {
+          title: 'In Transfer',
+          dataIndex: 'in_transfer',
+          key: 'in_transfer',
+          render: () => (
+            <span style={{ cursor: 'pointer', color: 'blue' }} onClick={() => setCurrentModal(modalType.IncomingUnits)}>
+              <u>0</u>
+            </span>
+          ),
+        },
+      ]);
+    if (selectedShowItems.includes('availableQuantities'))
+      rows = rows.concat([
+        {
+          title: 'Available',
+          dataIndex: 'available',
+          key: 'available',
+        },
+      ]);
+
+    rows = rows.concat([
       {
         title: 'Discrepation',
         dataIndex: 'discrepation',
@@ -235,8 +211,71 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
           </>
         ),
       },
-    ],
-    [handleMasterSKU],
+    ]);
+
+    return rows;
+  }, [selectedShowItems]);
+
+  const TColumns = useMemo(
+    () =>
+      [
+        {
+          key: 'expand',
+          title: '',
+          width: 30,
+        },
+        {
+          title: 'Type',
+          dataIndex: ['product', 'type'],
+          key: 'type',
+          align: 'center' as const,
+          render: (text: any) => (
+            <>
+              {text === productType.CoreProduct ? (
+                <CoreProductsIcon style={{ fontSize: 24 }} />
+              ) : text === productType.BundleOrKit ? (
+                <BundleIcon style={{ fontSize: 24 }} />
+              ) : text === productType.Variations ? (
+                <VariationIcon style={{ fontSize: 24 }} />
+              ) : (
+                <span style={{ position: 'relative' }}>
+                  <CoreProductsIcon style={{ fontSize: 24 }} />
+                  <div style={{ position: 'absolute', top: 3, left: 12 }}>
+                    <VectorIcon style={{ fontSize: 14 }} />
+                  </div>
+                </span>
+              )}
+            </>
+          ),
+        },
+        {
+          title: 'MASTER SKU',
+          dataIndex: ['product', 'sku'],
+          key: 'master_sku',
+          render: (text: any, record) => (
+            <a onClick={(event) => handleMasterSKU(event, record.key)}>
+              <u>{text}</u>
+            </a>
+          ),
+        },
+        {
+          title: 'Name',
+          dataIndex: ['product', 'name'],
+          key: 'name',
+        },
+        {
+          title: 'Brand',
+          dataIndex: ['product', 'brand', 'name'],
+          key: 'brand',
+        },
+        {
+          title: 'Des',
+          dataIndex: 'description',
+          key: 'description',
+          render: (text: any) => <>{text && <NoteIcon />}</>,
+        },
+      ].concat(showedRows),
+    [handleMasterSKU, showedRows],
   );
 
   const TRows = useMemo(() => stockLocationList.map((item) => ({ ...item, key: item.id })), [stockLocationList]);
@@ -250,6 +289,10 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
     [warehouseList],
   );
 
+  useEffect(() => {
+    setSelectedShowWarehouseItems(warehouseList.map((warehouse) => warehouse.id));
+  }, [warehouseList, setSelectedShowWarehouseItems]);
+
   return (
     <>
       <Row style={{ marginBottom: 10 }}>
@@ -261,10 +304,11 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
             <Space size={5}>
               <SelectDropdown
                 options={warehouseOptions}
-                defaultSelectedItems={warehouseList.map((warehouse) => warehouse.id)}
                 type="warehouse"
                 style={{ width: '220px' }}
                 size={'middle'}
+                selectedItems={selectedShowWarehouseItems}
+                setSelectedItems={setSelectedShowWarehouseItems}
               />
               <SelectDropdown
                 options={[
@@ -274,10 +318,11 @@ const MainPanel: React.FC<IMainPanel> = ({ tabButtons, dataSource }) => {
                   { value: 'inTransite', label: 'In Transit' },
                   { value: 'availableQuantities', label: 'Available quantities' },
                 ]}
-                defaultSelectedItems={['onHand', 'locked', 'allocated', 'inTransite', 'availableQuantities']}
                 type="item"
                 style={{ width: '220px' }}
                 size={'middle'}
+                selectedItems={selectedShowItems}
+                setSelectedItems={setSelectedShowItems}
               />
             </Space>
           </div>

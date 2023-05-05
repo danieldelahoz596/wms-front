@@ -255,7 +255,8 @@ export const data = [
 ];
 
 const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
-  const { getStockLocationList, selectedStockItem, stockLocationList } = useModel('stockLocation');
+  const { getStockLocationList, selectedStockItem } = useModel('stockLocation');
+  const [showItems, setShowItems] = useState([]);
   const [dataSource] = useState(data);
 
   const {
@@ -276,17 +277,18 @@ const StockManagement: React.FC<IStockManagement> = ({ tabButtons }) => {
   return (
     <>
       <div className="w-full flex flex-column h-screen">
-        <MainPanel tabButtons={tabButtons} dataSource={dataSource} />
+        <MainPanel
+          tabButtons={tabButtons}
+          dataSource={dataSource}
+          selectedShowWarehouseItems={showItems}
+          setSelectedShowWarehouseItems={setShowItems}
+        />
       </div>
 
       <SampleSplitter isDragging={isRightDragging} {...rightDragBarProps} />
 
       <div className={cn('shrink-0 contents right-panel', isRightDragging && 'dragging')} style={{ width: RightW }}>
-        <div className="w-full">
-          {selectedStockItem && (
-            <StockDetailsPanel vendorData={stockLocationList.find((item) => item.id === selectedStockItem.id)} />
-          )}
-        </div>
+        <div className="w-full">{selectedStockItem && <StockDetailsPanel selectedShowWarehouseItems={showItems} />}</div>
       </div>
     </>
   );

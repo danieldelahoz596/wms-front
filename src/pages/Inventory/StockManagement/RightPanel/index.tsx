@@ -3,10 +3,10 @@ import { Collapse } from 'antd';
 import StockCollapse from './StockCollapse';
 
 interface IStockDetails {
-  vendorData: any;
+  selectedShowWarehouseItems: any[];
 }
 
-const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
+const StockDetails: React.FC<IStockDetails> = ({ selectedShowWarehouseItems }) => {
   const { warehouseList } = useModel('warehouse');
   const { stockDetails } = useModel('stockLocation');
 
@@ -16,9 +16,11 @@ const StockDetails: React.FC<IStockDetails> = ({ vendorData }) => {
         <FormattedMessage id="pages.inventory.stock.rightpanel.title" />
       </h2>
       <Collapse defaultActiveKey={warehouseList[0]?.id}>
-        {stockDetails.map((stockData) => (
-          <StockCollapse data={stockData} key={stockData.warehouse_id} />
-        ))}
+        {stockDetails
+          .filter((item) => selectedShowWarehouseItems.includes(item.warehouse_id))
+          .map((stockData) => (
+            <StockCollapse data={stockData} key={stockData.warehouse_id} />
+          ))}
       </Collapse>
     </div>
   );

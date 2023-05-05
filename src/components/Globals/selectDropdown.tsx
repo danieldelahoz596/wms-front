@@ -1,6 +1,6 @@
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Select, Row, Col, Checkbox, Divider, Button, Space } from 'antd';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { SelectProps } from 'antd';
 
 interface ISelectOption {
@@ -10,9 +10,11 @@ interface ISelectOption {
 
 interface ISelectDropdown {
   options: ISelectOption[];
-  defaultSelectedItems: any[];
+  defaultSelectedItems?: any[];
   type: string;
   showCheckAll?: boolean;
+  selectedItems: any[];
+  setSelectedItems: (value: any) => void;
 }
 
 const SelectDropdown: React.FC<ISelectDropdown & SelectProps> = ({
@@ -20,20 +22,16 @@ const SelectDropdown: React.FC<ISelectDropdown & SelectProps> = ({
   defaultSelectedItems,
   type,
   showCheckAll = true,
+  selectedItems,
+  setSelectedItems,
   ...props
 }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
-
-  useEffect(() => {
-    setSelectedItems(defaultSelectedItems);
-  }, [defaultSelectedItems]);
-
   const handleSelectItem = useCallback(
     (value) => {
       if (selectedItems.includes(value)) setSelectedItems(selectedItems.filter((item) => item !== value));
       else setSelectedItems([...selectedItems, value]);
     },
-    [selectedItems],
+    [selectedItems, setSelectedItems],
   );
 
   const selectOptions = useMemo(
