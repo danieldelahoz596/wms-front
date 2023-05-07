@@ -5,11 +5,13 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 
-const { REACT_APP_ENV, REACT_APP_BACKEND_URL } = process.env;
+const { REACT_APP_ENV, REACT_APP_BACKEND_URL, REACT_APP_PUSHER_API_KEY, REACT_APP_PUSHER_CLUSTER } = process.env;
 
 export default defineConfig({
   define: {
     BACKEND_URL: REACT_APP_BACKEND_URL || '',
+    PUSHER_API_KEY: REACT_APP_PUSHER_API_KEY || '',
+    PUSHER_CLUSTER: REACT_APP_PUSHER_CLUSTER || '',
     MODAL_WIDTH: 800,
     HORIZONTAL_SPACE_SIZE: 4,
     VERTICAL_SPACE_SIZE: 3,
