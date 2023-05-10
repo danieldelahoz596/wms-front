@@ -20,13 +20,13 @@ const TColumns = [
 ];
 
 const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], type, setItems, onClose, onSave }) => {
-  const { tags, updateTag } = useModel('tag');
-  const [messageApi, contextHolder] = message.useMessage();
+  // const { tags, updateTag } = useModel('tag');
+  // const [messageApi, contextHolder] = message.useMessage();
 
   const itemRows = useMemo(() => {
-    if (type === 'tag') return tags.map((item) => ({ ...item, key: item.id }));
+    // if (type === 'tag') return tags.map((item) => ({ ...item, key: item.id }));
     return items.map((item) => ({ ...item, key: item.id }));
-  }, [items, type, tags]);
+  }, [items]);
 
   return (
     <OModal
@@ -46,21 +46,21 @@ const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, item
       ]}
     >
       <>
-        {contextHolder}
+        {/* {contextHolder} */}
         <EditableTable
           columns={TColumns}
           dataSource={itemRows}
           handleSave={(key: any, name: any, value: any) => {
-            if (type === 'tag') {
-              updateTag({ id: key, name: value }).then(() => {
-                messageApi.open({
-                  type: 'success',
-                  content: 'Successful to update the tag',
-                });
-              });
-            } else {
-              setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
-            }
+            // if (type === 'tag') {
+            //   updateTag({ id: key, name: value }).then(() => {
+            //     messageApi.open({
+            //       type: 'success',
+            //       content: 'Successful to update the tag',
+            //     });
+            //   });
+            // } else {
+            setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
+            // }
           }}
         />
       </>

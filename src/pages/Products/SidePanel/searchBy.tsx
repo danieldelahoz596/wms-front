@@ -7,14 +7,12 @@ const SearchByPanel = () => {
   const { brands } = useModel('brand');
   const { categories } = useModel('category');
   const { labels } = useModel('label');
-  const { tags } = useModel('tag');
   const { getProductList } = useModel('product');
   const [form] = Form.useForm();
 
   const brandOptions = useMemo(() => brands.map((item) => ({ value: item.id, label: item.name })), [brands]);
   const categoryOptions = useMemo(() => categories.map((item) => ({ value: item.id, label: item.name })), [categories]);
   const labelOptions = useMemo(() => labels.map((item) => ({ value: item.id, label: item.name })), [labels]);
-  const tagOptions = useMemo(() => tags.map((item) => ({ value: item.id, label: item.name })), [tags]);
 
   const handleReset = () => {
     form.resetFields();
@@ -25,7 +23,6 @@ const SearchByPanel = () => {
       if (values.brand_id) values.brandIds = [values.brand_id];
       if (values.category_id) values.categoryIds = [values.category_id];
       if (values.label_id) values.labelIds = [values.label_id];
-      if (values.tag_id) values.tagIds = [values.tag_id];
 
       getProductList(values).then(() => {});
     });
@@ -55,9 +52,9 @@ const SearchByPanel = () => {
         <Form.Item label="Label" name="label_id">
           <Select options={labelOptions} />
         </Form.Item>
-        <Form.Item label="Tag" name="tag_id">
+        {/* <Form.Item label="Tag" name="tag_id">
           <Select options={tagOptions} />
-        </Form.Item>
+        </Form.Item> */}
       </Form>
       <div className="search-button-row space-between">
         <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={handleReset} />

@@ -71,9 +71,9 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { brands, setBrands } = useModel('brand');
   const { categories, setCategories } = useModel('category');
   // const [categories, setCategories] = useState(cateogryData);
-  const [subcategories, setSubCategories] = useState([]);
+  // const [subcategories, setSubCategories] = useState([]);
   const { labels, setLabels } = useModel('label');
-  const { tags, setTags } = useModel('tag');
+  // const { tags, setTags } = useModel('tag');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
   const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
   // const categoryId = Form.useWatch('category_id', form);
@@ -119,14 +119,14 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
     [labels],
   );
 
-  const tagOptions = useMemo(
-    () =>
-      tags.map((tag) => ({
-        value: tag.id,
-        label: tag.name,
-      })),
-    [tags],
-  );
+  // const tagOptions = useMemo(
+  //   () =>
+  //     tags.map((tag) => ({
+  //       value: tag.id,
+  //       label: tag.name,
+  //     })),
+  //   [tags],
+  // );
 
   return (
     <>
@@ -248,7 +248,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             }}
           />
         </div>
-        <div style={{ display: 'flex', gap: 4 }}>
+        {/* <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label="SubCategory" name="sub_category_id" style={{ flex: '1' }}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={[]} />
@@ -277,7 +277,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               });
             }}
           />
-        </div>
+        </div> */}
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="label_id" style={{ flex: '1' }}>
@@ -298,7 +298,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             }}
           />
         </div>
-        <div style={{ display: 'flex', gap: 4 }}>
+        {/* <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label="Tag" name="tag_id" style={{ flex: '1' }}>
             <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={tagOptions} />
@@ -317,7 +317,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
               setItemModalData({ title: 'Configure Tag', items: tags, setItems: setTags, type: 'tag' });
             }}
           />
-        </div>
+        </div> */}
 
         <Form.Item label={<FormattedMessage id="component.form.label.description" />} name="description">
           <Input.TextArea rows={4} />

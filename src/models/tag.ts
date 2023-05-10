@@ -32,11 +32,11 @@ export default () => {
     [],
   );
 
-  useEffect(() => {
-    if (initialState?.currentUser) {
-      getTags();
-    }
-  }, [getTags, initialState?.currentUser]);
+  // useEffect(() => {
+  //   if (initialState?.currentUser) {
+  //     getTags();
+  //   }
+  // }, [getTags, initialState?.currentUser]);
 
   return {
     tags,

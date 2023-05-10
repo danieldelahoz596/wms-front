@@ -47,13 +47,12 @@ const MainPanel: React.FC = () => {
     editableProduct,
     getProductList,
     updateProductStatus,
-    updatePostStatus,
     setEditableProduct,
     handleUpdateProduct,
     showActive,
     setShowActive,
   } = useModel('product');
-  const { fieldTypes } = useModel('customProductFields');
+  // const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
   const [importExportSummaryData, setImportExportSummaryData] = useState({ title: '', info: '' });
   const [virtualProductData, setVirtualProductData] = useState(null);
@@ -253,14 +252,14 @@ const MainPanel: React.FC = () => {
           );
         },
       },
-      {
-        title: 'Publishment',
-        dataIndex: 'post_status',
-        key: 'publishment',
-        align: 'center' as const,
-        render: (post_status) =>
-          post_status == true ? <Badge color="blue" count="Published" /> : <Badge count="Not Published" />,
-      },
+      // {
+      //   title: 'Publishment',
+      //   dataIndex: 'post_status',
+      //   key: 'publishment',
+      //   align: 'center' as const,
+      //   render: (post_status) =>
+      //     post_status == true ? <Badge color="blue" count="Published" /> : <Badge count="Not Published" />,
+      // },
     ],
     [handleMasterSkuClick],
   );
@@ -295,15 +294,15 @@ const MainPanel: React.FC = () => {
     [productList, showActive],
   );
 
-  const handlePublishToStore = useCallback(() => {
-    updatePostStatus(editableProduct.id).then(() => {
-      messageApi.open({
-        type: 'success',
-        content: 'Publishing to the store is successful.',
-      });
-      setEditableProduct(null);
-    });
-  }, [editableProduct, messageApi, updatePostStatus, setEditableProduct]);
+  // const handlePublishToStore = useCallback(() => {
+  //   updatePostStatus(editableProduct.id).then(() => {
+  //     messageApi.open({
+  //       type: 'success',
+  //       content: 'Publishing to the store is successful.',
+  //     });
+  //     setEditableProduct(null);
+  //   });
+  // }, [editableProduct, messageApi, updatePostStatus, setEditableProduct]);
 
   return (
     <>
@@ -367,13 +366,13 @@ const MainPanel: React.FC = () => {
               disabled={!editableProduct || !(editableProduct?.type === productType.Variations)}
             />
           </Popconfirm>
-          <Popconfirm title="Do you really want to publish this product to store?" onConfirm={handlePublishToStore}>
+          {/* <Popconfirm title="Do you really want to publish this product to store?" onConfirm={handlePublishToStore}>
             <OButton
               btnText="Publish To Store"
               disabled={!editableProduct || editableProduct?.post_status == true}
               hidden={!showActive}
             />
-          </Popconfirm>
+          </Popconfirm> */}
           <Popconfirm
             title={
               showActive ? (
