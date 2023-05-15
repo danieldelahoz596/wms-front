@@ -327,13 +327,13 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <Form.Item name="vendor_cost" style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="selling_cost"
             label="Sell Cost"
             style={{ display: 'inline-block', width: 'calc(50% - 12px)', marginLeft: '24px' }}
           >
             <InputNumber style={{ width: '100%' }} />
-          </Form.Item>
+          </Form.Item> */}
         </Form.Item>
         <Card title="Measurements" style={{ marginTop: 20 }}>
           <Row>

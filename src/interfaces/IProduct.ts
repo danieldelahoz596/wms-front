@@ -19,7 +19,7 @@ export default interface IProduct {
   min_adv_price: number;
   max_shipping_cost: number;
   vendor_cost: number;
-  selling_cost: number;
+  // selling_cost: number;
   height: number;
   length: number;
   width: number;
