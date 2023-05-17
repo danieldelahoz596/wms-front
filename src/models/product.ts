@@ -105,6 +105,12 @@ export default () => {
     [productList],
   );
 
+  const updateProductSKU = useCallback((id: number, sku: string) => {
+    return httpClient.patch(`/api/products/${id}/update-sku`, { sku }).then(() => {
+      setProductList((prev) => prev.map((item) => (item.id === id ? { ...item, sku } : item)));
+    });
+  }, []);
+
   const updatePostStatus = useCallback(
     (id: number) => {
       return httpClient.patch(`/api/products/${id}/update-post-status`, { post_status: true }).then(() => {
@@ -137,6 +143,7 @@ export default () => {
     createProduct,
     updateProduct,
     updateProductStatus,
+    updateProductSKU,
     updatePostStatus,
     setProductList,
     setEditableProduct,

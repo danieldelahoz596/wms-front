@@ -1,23 +1,32 @@
 import { OModal } from '@/components/Globals/OModal';
 import { useModel } from '@umijs/max';
 import { Alert, Form, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface IAdjustMasterSKUModal {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: string) => void;
+  onSave: () => void;
 }
 
 const AdjustMasterSKUModal: React.FC<IAdjustMasterSKUModal> = ({ isOpen, onClose, onSave }) => {
-  const { editableProduct } = useModel('product');
+  const { editableProduct, updateProductSKU } = useModel('product');
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isOpen) {
+      form.resetFields();
+    }
+  }, [isOpen, form]);
 
   const handleSave = () => {
     form.validateFields().then(({ master_sku }) => {
-      onSave(master_sku);
+      updateProductSKU(editableProduct.id, master_sku).then(() => {
+        onSave();
+      });
     });
   };
+
   return (
     <OModal
       title="Adjust Master SKU"
@@ -45,14 +54,11 @@ const AdjustMasterSKUModal: React.FC<IAdjustMasterSKUModal> = ({ isOpen, onClose
           description="Please note that changing the master SKU for a product could have adverse effects on
               analytics and data integrity. Adjust the master SKU <u>only</u>. if you made a typo."
         />
-        <Form form={form}>
-          <Form.Item label="Current Master SKU" labelCol={{ span: 10 }}>
-            {editableProduct?.master_sku}
-          </Form.Item>
+        <Form form={form} labelCol={{ span: 10 }}>
+          <Form.Item label="Current Master SKU">{editableProduct?.sku}</Form.Item>
           <Form.Item
             label="New Master SKU"
             name="master_sku"
-            labelCol={{ span: 11 }}
             rules={[{ required: true, message: 'Please input a New Master SKU!' }]}
           >
             <Input />
