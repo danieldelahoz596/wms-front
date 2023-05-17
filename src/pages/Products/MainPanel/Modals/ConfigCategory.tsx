@@ -70,7 +70,7 @@ const ConfigCategoryModal: React.FC<IConfigCategoryModal> = ({ isOpen, title, on
       ]}
     >
       <>
-        <Table columns={TColumns} dataSource={itemRows} />
+        <Table columns={TColumns} dataSource={itemRows} pagination={{ hideOnSinglePage: true }} />
 
         <AddCategoryModal
           isOpen={showModal}
