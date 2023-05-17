@@ -137,9 +137,11 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : selectedMode === 'gallery' ? (
           <Image.PreviewGroup>
-            {fielUrls.map((url, index) => (
-              <Image key={index} width={200} src={url} />
-            ))}
+            <Space size={20} wrap>
+              {fielUrls.map((url, index) => (
+                <Image key={index} width={150} height={150} src={url} />
+              ))}
+            </Space>
           </Image.PreviewGroup>
         ) : (
           <Table columns={TVendorProductColumns} dataSource={vendorProductTableRows} pagination={{ hideOnSinglePage: true }} />

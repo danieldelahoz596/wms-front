@@ -149,10 +149,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
             />
           </Form.Item>
           <Form.Item name="brand_id" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
-            <Select
-              placeholder={<FormattedMessage id="component.select.placeholder.select" />}
-              options={[{ value: 0, label: 'No Selected' }, ...brandOptions]}
-            />
+            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={brandOptions} />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
