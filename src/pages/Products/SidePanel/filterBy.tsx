@@ -32,16 +32,6 @@ const FilterByPanel: React.FC = () => {
     [labels],
   );
 
-  // const tagOptions = useMemo(
-  //   () =>
-  //     tags.map((tag) => ({
-  //       title: tag.name,
-  //       key: tag.id,
-  //       icon: <BookIcon style={{ width: 15 }} />,
-  //     })),
-  //   [tags],
-  // );
-
   const treeCategoryData: DataNode[] = useMemo(
     () => [
       {
@@ -64,17 +54,6 @@ const FilterByPanel: React.FC = () => {
     [labelOptions],
   );
 
-  // const treeTagData: DataNode[] = useMemo(
-  //   () => [
-  //     {
-  //       title: 'Tags',
-  //       key: 'tags',
-  //       children: tagOptions,
-  //     },
-  //   ],
-  //   [tagOptions],
-  // );
-
   const onCategorySelect = (selectedKeysValue: React.Key[], event: any) => {
     let selectedKeys = [];
     if (event.nativeEvent.ctrlKey) {
@@ -85,9 +64,8 @@ const FilterByPanel: React.FC = () => {
 
     setSelectedCategoryKeys(selectedKeys);
     setSelectedLabelKeys([]);
-    // setSelectedTagKeys([]);
 
-    getProductList({ categoryIds: selectedKeys });
+    getProductList({ categoryIds: selectedKeys.includes('categories') ? categories.map((item) => item.id) : selectedKeys });
   };
 
   const onLabelSelect = (selectedKeysValue: React.Key[], event: any) => {
@@ -100,25 +78,9 @@ const FilterByPanel: React.FC = () => {
 
     setSelectedCategoryKeys([]);
     setSelectedLabelKeys(selectedKeys);
-    // setSelectedTagKeys([]);
 
-    getProductList({ labelIds: selectedKeys });
+    getProductList({ labelIds: selectedKeys.includes('labels') ? labels.map((item) => item.id) : selectedKeys });
   };
-
-  // const onTagSelect = (selectedKeysValue: React.Key[], event: any) => {
-  //   let selectedKeys = [];
-  //   if (event.nativeEvent.ctrlKey) {
-  //     selectedKeys = selectedKeysValue;
-  //   } else if (selectedLabelKeys[0] !== event.node.key) {
-  //     selectedKeys = [event.node.key];
-  //   }
-
-  //   setSelectedCategoryKeys([]);
-  //   setSelectedLabelKeys([]);
-  //   setSelectedTagKeys(selectedKeys);
-
-  //   getProductList({ tagIds: selectedKeys });
-  // };
 
   return (
     <>
@@ -149,17 +111,6 @@ const FilterByPanel: React.FC = () => {
         onSelect={onLabelSelect}
         multiple
       />
-
-      {/* <Tree
-        showIcon
-        defaultExpandAll
-        switcherIcon={<CaretDownOutlined />}
-        treeData={treeTagData}
-        rootStyle={{ fontSize: 15 }}
-        selectedKeys={selectedTagKeys}
-        onSelect={onTagSelect}
-        multiple
-      /> */}
     </>
   );
 };
