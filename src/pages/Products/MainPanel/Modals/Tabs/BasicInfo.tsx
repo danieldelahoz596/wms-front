@@ -21,59 +21,11 @@ export interface INewItemModalData {
   item?: any;
 }
 
-// const cateogryData = [
-//   {
-//     id: 1,
-//     name: 'Alcohol & Beer',
-//     description: 'This is Alcohol & Beer',
-//     items: [
-//       {
-//         id: 1,
-//         name: 'Alcohol',
-//       },
-//       {
-//         id: 2,
-//         name: 'Beer',
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: 'Beverage',
-//     description: 'This is Beverage',
-//     items: [
-//       {
-//         id: 1,
-//         name: 'Water',
-//       },
-//       {
-//         id: 2,
-//         name: 'Coffee',
-//       },
-//       {
-//         id: 3,
-//         name: 'Tea',
-//       },
-//       {
-//         id: 4,
-//         name: 'Soft drinks',
-//       },
-//       {
-//         id: 5,
-//         name: 'Milk',
-//       },
-//     ],
-//   },
-// ];
-
 const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
   const { editableProduct } = useModel('product');
   const { brands, setBrands } = useModel('brand');
   const { categories, setCategories } = useModel('category');
-  // const [categories, setCategories] = useState(cateogryData);
-  // const [subcategories, setSubCategories] = useState([]);
   const { labels, setLabels } = useModel('label');
-  // const { tags, setTags } = useModel('tag');
   const [currentModal, setCurrentModal] = useState(modalType.Close);
   const [itemModalData, setItemModalData] = useState<INewItemModalData>(null);
   // const categoryId = Form.useWatch('category_id', form);
@@ -100,15 +52,6 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
       })),
     [categories],
   );
-
-  // const subCategoryOptions = useMemo(
-  //   () =>
-  //     subcategories.map((subCategory) => ({
-  //       value: subCategory.id,
-  //       label: subCategory.name,
-  //     })),
-  //   [subcategories],
-  // );
 
   const labelOptions = useMemo(
     () =>
