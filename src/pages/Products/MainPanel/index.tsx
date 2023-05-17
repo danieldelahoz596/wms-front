@@ -263,18 +263,14 @@ const MainPanel: React.FC = () => {
         title: <FormattedMessage id="component.table.column.weight" />,
         key: 'weight',
         render: (value, record) => {
-          return <>{record.pound + record.ounce / 12.0}</>;
+          return <>{record.pound && record.ounce ? `${record.pound + record.ounce / 12.0}` : ''}</>;
         },
       },
       {
         title: <FormattedMessage id="component.table.column.hwl" />,
         key: 'h/w/l',
         render: (value, record) => {
-          return (
-            <>
-              {record.width}/{record.height}/{record.length}
-            </>
-          );
+          return <>{record.width && record.height && record.length ? `${record.width}/${record.height}/${record.length}` : ''}</>;
         },
       },
       // {
