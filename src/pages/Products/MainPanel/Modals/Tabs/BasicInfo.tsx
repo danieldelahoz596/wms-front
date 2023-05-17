@@ -142,11 +142,17 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
           <Form.Item name="buyer" style={{ flex: '1' }}>
             <Select
               placeholder={<FormattedMessage id="component.select.placeholder.select" />}
-              options={[{ value: 'lucy', label: 'lucky' }]}
+              options={[
+                { value: 0, label: 'No Selected' },
+                { value: 'lucy', label: 'lucky' },
+              ]}
             />
           </Form.Item>
           <Form.Item name="brand_id" style={{ flex: '1' }} rules={[{ required: true, message: 'Please input Brand' }]}>
-            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={brandOptions} />
+            <Select
+              placeholder={<FormattedMessage id="component.select.placeholder.select" />}
+              options={[{ value: 0, label: 'No Selected' }, ...brandOptions]}
+            />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
@@ -166,7 +172,10 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.categories" />} name="category_id" style={{ flex: '1' }}>
-            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={categoryOptions} />
+            <Select
+              placeholder={<FormattedMessage id="component.select.placeholder.select" />}
+              options={[{ value: 0, label: 'No Selected' }, ...categoryOptions]}
+            />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
@@ -220,7 +229,10 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         <div style={{ display: 'flex', gap: 4 }}>
           &nbsp;&nbsp;
           <Form.Item label={<FormattedMessage id="component.form.label.labels" />} name="label_id" style={{ flex: '1' }}>
-            <Select placeholder={<FormattedMessage id="component.select.placeholder.select" />} options={labelOptions} />
+            <Select
+              placeholder={<FormattedMessage id="component.select.placeholder.select" />}
+              options={[{ value: 0, label: 'No Selected' }, ...labelOptions]}
+            />
           </Form.Item>
           <PlusOutlined
             className="plus-button"
@@ -391,11 +403,7 @@ const BasicInfo: React.FC<IBasicInfo> = ({ form }) => {
         </Card> */}
       </Form>
 
-      <AddItemModal
-        isOpen={currentModal === modalType.New}
-        onClose={() => setCurrentModal(modalType.Close)}
-        {...itemModalData}
-      />
+      <AddItemModal isOpen={currentModal === modalType.New} onClose={() => setCurrentModal(modalType.Close)} {...itemModalData} />
 
       <ConfigureItemModal
         isOpen={currentModal === modalType.Edit}
