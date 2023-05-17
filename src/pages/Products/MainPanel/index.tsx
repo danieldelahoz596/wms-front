@@ -36,8 +36,33 @@ import ProductVariationsModal from './Modals/ProductVariations';
 import NewProductSelectTypeModal from './Modals/NewProductSelectType';
 import ReturnDownForwardIcon from '@/utils/icons/returnDownForward';
 import VirtualProductEditModal from './Modals/VirtualProductEdit';
+import ProductHistoryModal from './Modals/History';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
+
+const historyData = [
+  {
+    key: 1,
+    edit_time: new Date(),
+    user: 'admin',
+    edit_type: 'Create',
+    description: 'Create a Product (sku: MSA23434, name: Heineken, brand: test)',
+  },
+  {
+    key: 2,
+    edit_time: new Date(),
+    user: 'admin',
+    edit_type: 'Update',
+    description: 'Update the Product (sku: MSA23445, name: Heineken, brand: test)',
+  },
+  {
+    key: 3,
+    edit_time: new Date(),
+    user: 'admin',
+    edit_type: 'Update',
+    description: 'Update the Product (sku: MSA234cvb, name: Heineken, brand: test)',
+  },
+];
 
 const MainPanel: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -399,7 +424,7 @@ const MainPanel: React.FC = () => {
           </Popconfirm>
           <OButton
             type="primary"
-            onClick={() => console.log('History')}
+            onClick={() => setModal(modalType.History)}
             disabled={!editableProduct}
             btnText={<FormattedMessage id="component.button.history" />}
           />
@@ -616,6 +641,12 @@ const MainPanel: React.FC = () => {
       <ExportCustomBundleKitModal
         isOpen={modalOpen === modalType.ExportCustomBundleKit}
         onSave={() => setModal(modalType.Close)}
+        onClose={() => setModal(modalType.Close)}
+      />
+
+      <ProductHistoryModal
+        isOpen={modalOpen === modalType.History}
+        dataSource={historyData}
         onClose={() => setModal(modalType.Close)}
       />
     </>
