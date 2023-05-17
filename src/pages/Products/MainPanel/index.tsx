@@ -40,30 +40,6 @@ import ProductHistoryModal from './Modals/History';
 // import EditProductModal from './components/Modals/EditProduct';
 // import NewVirtualProductModal from './components/Modals/NewVirtualProduct';
 
-const historyData = [
-  {
-    key: 1,
-    edit_time: new Date(),
-    user: 'admin',
-    edit_type: 'Create',
-    description: 'Create a Product (sku: MSA23434, name: Heineken, brand: test)',
-  },
-  {
-    key: 2,
-    edit_time: new Date(),
-    user: 'admin',
-    edit_type: 'Update',
-    description: 'Update the Product (sku: MSA23445, name: Heineken, brand: test)',
-  },
-  {
-    key: 3,
-    edit_time: new Date(),
-    user: 'admin',
-    edit_type: 'Update',
-    description: 'Update the Product (sku: MSA234cvb, name: Heineken, brand: test)',
-  },
-];
-
 const MainPanel: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [modalOpen, setModal] = useState('');
@@ -190,7 +166,7 @@ const MainPanel: React.FC = () => {
         title: <FormattedMessage id="component.table.column.type" />,
         dataIndex: 'type',
         key: 'type',
-        align: 'center',
+        align: 'center' as const,
         render: (text: any, record) => {
           return (
             <>
@@ -640,11 +616,7 @@ const MainPanel: React.FC = () => {
         onClose={() => setModal(modalType.Close)}
       />
 
-      <ProductHistoryModal
-        isOpen={modalOpen === modalType.History}
-        dataSource={historyData}
-        onClose={() => setModal(modalType.Close)}
-      />
+      <ProductHistoryModal isOpen={modalOpen === modalType.History} onClose={() => setModal(modalType.Close)} />
     </>
   );
 };

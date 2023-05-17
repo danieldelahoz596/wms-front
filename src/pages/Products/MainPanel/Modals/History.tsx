@@ -1,11 +1,20 @@
 import { OModal } from '@/components/Globals/OModal';
-import { Table } from 'antd';
+import { useModel } from '@umijs/max';
+import { Table, Spin } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import { useEffect, useState } from 'react';
+
+interface IProductHistory {
+  id: number;
+  product_id: number;
+  edit_time: Date;
+  type: string;
+  user: { id: number; username: string };
+  description: string;
+}
 
 interface IProductHistoryModal {
   isOpen: boolean;
-  dataSource: any[];
   onClose: () => void;
 }
 
@@ -18,12 +27,12 @@ const Tcolumns = [
   },
   {
     title: 'User',
-    dataIndex: 'user',
+    dataIndex: ['user', 'username'],
     key: 'user',
   },
   {
     title: 'Edit Type',
-    dataIndex: 'edit_type',
+    dataIndex: 'type',
     key: 'edit_type',
   },
   {
@@ -33,7 +42,21 @@ const Tcolumns = [
   },
 ];
 
-const ProductHistoryModal: React.FC<IProductHistoryModal> = ({ isOpen, dataSource, onClose }) => {
+const ProductHistoryModal: React.FC<IProductHistoryModal> = ({ isOpen, onClose }) => {
+  const { editableProduct, getProductHistories } = useModel('product');
+  const [histories, setHistories] = useState<IProductHistory[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+      getProductHistories(editableProduct.id).then((data) => {
+        setIsLoading(false);
+        setHistories(data);
+      });
+    }
+  }, [isOpen, getProductHistories, editableProduct]);
+
   return (
     <OModal
       title="Product History"
@@ -50,7 +73,22 @@ const ProductHistoryModal: React.FC<IProductHistoryModal> = ({ isOpen, dataSourc
         },
       ]}
     >
-      <Table columns={Tcolumns} dataSource={dataSource} pagination={{ hideOnSinglePage: true }} />
+      <>
+        {isLoading && (
+          <div style={{ height: 80 }}>
+            <Spin tip="Loading" size="large" style={{ marginTop: 30 }}>
+              <div className="content" />
+            </Spin>
+          </div>
+        )}
+        {!isLoading && (
+          <Table
+            columns={Tcolumns}
+            dataSource={histories.map((item) => ({ key: item.id, ...item }))}
+            pagination={{ hideOnSinglePage: true }}
+          />
+        )}
+      </>
     </OModal>
   );
 };

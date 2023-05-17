@@ -54,6 +54,8 @@ export default () => {
     [showActive],
   );
 
+  const getProductHistories = useCallback((id) => httpClient.get(`/api/products/${id}/histories`).then(({ data }) => data), []);
+
   const createProduct = useCallback(
     (product: IProduct) => {
       return httpClient.post('/api/products', product).then((response) => {
@@ -145,6 +147,7 @@ export default () => {
     updateProductStatus,
     updateProductSKU,
     updatePostStatus,
+    getProductHistories,
     setProductList,
     setEditableProduct,
     setBundleItems,
