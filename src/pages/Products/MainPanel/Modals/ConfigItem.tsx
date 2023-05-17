@@ -19,14 +19,28 @@ const TColumns = [
   },
 ];
 
-const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, items = [], type, setItems, onClose, onSave }) => {
-  // const { tags, updateTag } = useModel('tag');
-  // const [messageApi, contextHolder] = message.useMessage();
+const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, type, onClose }) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const { brands, updateBrand } = useModel('brand');
+  const { labels, updateLabel } = useModel('label');
 
   const itemRows = useMemo(() => {
-    // if (type === 'tag') return tags.map((item) => ({ ...item, key: item.id }));
-    return items.map((item) => ({ ...item, key: item.id }));
-  }, [items]);
+    if (type === 'brand') return brands.map((brand) => ({ ...brand, key: brand.id }));
+    else if (type === 'label') return labels.map((label) => ({ ...label, key: label.id }));
+    return [];
+  }, [type, brands, labels]);
+
+  const handleSave = (key: any, name: any, value: any) => {
+    if (type === 'brand') {
+      updateBrand(key, { name: value }).then(() => {
+        messageApi.success('Successful to update the brand');
+      });
+    } else if (type === 'label') {
+      updateLabel(key, { name: value }).then(() => {
+        messageApi.success('Successful to update the label');
+      });
+    }
+  };
 
   return (
     <OModal
@@ -46,23 +60,8 @@ const ConfigureItemModal: React.FC<IConfigureItemModal> = ({ isOpen, title, item
       ]}
     >
       <>
-        {/* {contextHolder} */}
-        <EditableTable
-          columns={TColumns}
-          dataSource={itemRows}
-          handleSave={(key: any, name: any, value: any) => {
-            // if (type === 'tag') {
-            //   updateTag({ id: key, name: value }).then(() => {
-            //     messageApi.open({
-            //       type: 'success',
-            //       content: 'Successful to update the tag',
-            //     });
-            //   });
-            // } else {
-            setItems((prev) => prev.map((item) => (item.id === key ? { ...item, name: value } : item)));
-            // }
-          }}
-        />
+        {contextHolder}
+        <EditableTable columns={TColumns} dataSource={itemRows} handleSave={handleSave} />
       </>
     </OModal>
   );

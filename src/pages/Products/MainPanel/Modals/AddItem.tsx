@@ -1,7 +1,6 @@
 import { OButton } from '@/components/Globals/OButton';
 import { OModal } from '@/components/Globals/OModal';
 import { CloseOutlined } from '@ant-design/icons';
-import { uuidv4 } from '@antv/xflow-core';
 import { Input, List, message } from 'antd';
 import { useState } from 'react';
 import type { INewItemModalData } from '@/pages/Products/MainPanel/Modals/Tabs/BasicInfo';
@@ -10,41 +9,38 @@ import { useModel } from '@umijs/max';
 interface IAddItemModal extends INewItemModalData {
   isOpen: boolean;
   onClose: () => void;
-  onSave: () => void;
 }
 
-const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, type, setItems, onClose, onSave }) => {
+const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, type, onClose }) => {
   const [name, setName] = useState(null);
-  // const [messageApi, contextHolder] = message.useMessage();
-  // const { createTag, updateStatusTag, tags } = useModel('tag');
+  const [messageApi, contextHolder] = message.useMessage();
+  const { brands, createBrand, updateBrandStatus } = useModel('brand');
+  const { labels, createLabel, updateLabelStatus } = useModel('label');
 
   const handleAdd = () => {
-    // if (type === 'tag') {
-    //   createTag({ name }).then(() => {
-    //     setName(null);
-    //     messageApi.open({
-    //       type: 'success',
-    //       content: 'Successful to create a tag',
-    //     });
-    //   });
-    // } else {
-    setItems((prev) => [...prev, { id: uuidv4(), name }]);
-    setName(null);
-    // }
+    if (type === 'brand') {
+      createBrand({ name }).then(() => {
+        messageApi.success('Successful to create a brand');
+        setName(null);
+      });
+    } else if (type === 'label') {
+      createLabel({ name }).then(() => {
+        messageApi.success('Successful to create a label');
+        setName(null);
+      });
+    }
   };
 
   const handleDelete = (id) => {
-    // if (type === 'tag') {
-    //   updateStatusTag(id).then(() => {
-    //     setItems((prev) => prev.filter((item) => item.id !== id));
-    //     messageApi.open({
-    //       type: 'success',
-    //       content: 'Successful to delete a tag',
-    //     });
-    //   });
-    // } else {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-    // }
+    if (type === 'brand') {
+      updateBrandStatus(id).then(() => {
+        messageApi.success('Successful to delete a brand');
+      });
+    } else if (type === 'label') {
+      updateLabelStatus(id).then(() => {
+        messageApi.success('Successful to delete a label');
+      });
+    }
   };
 
   return (
@@ -65,16 +61,16 @@ const AddItemModal: React.FC<IAddItemModal> = ({ isOpen, title, items, type, set
       ]}
     >
       <>
-        {/* {contextHolder} */}
+        {contextHolder}
         <Input
           placeholder="Enter a valid name"
           addonAfter={<OButton btnText="Add" style={{ height: 30 }} onClick={() => handleAdd()} />}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          onPressEnter={() => handleAdd()}
+          // onPressEnter={() => handleAdd()}
         />
         <List
-          dataSource={items}
+          dataSource={type === 'brand' ? brands : type === 'label' ? labels : []}
           renderItem={(item) => (
             <List.Item
               actions={[<CloseOutlined key="list-edit" onClick={() => handleDelete(item.id)} style={{ color: 'blue' }} />]}

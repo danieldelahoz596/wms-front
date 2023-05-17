@@ -11,6 +11,27 @@ export default () => {
     httpClient.get('/api/labels').then((response) => setLabels(response.data));
   }, []);
 
+  const createLabel = useCallback(
+    (newLabelData) => httpClient.post('/api/labels', newLabelData).then(({ data }) => setLabels((prev) => [...prev, data])),
+    [],
+  );
+
+  const updateLabel = useCallback(
+    (id, updateLabelData) =>
+      httpClient
+        .patch(`/api/labels/${id}`, updateLabelData)
+        .then(({ data }) => setLabels((prev) => prev.map((label) => (label.id === id ? data : label)))),
+    [],
+  );
+
+  const updateLabelStatus = useCallback(
+    (id) =>
+      httpClient
+        .patch(`/api/labels/${id}/update-status`, { status: false })
+        .then(() => setLabels((prev) => prev.filter((item) => item.id !== id))),
+    [],
+  );
+
   useEffect(() => {
     if (initialState?.currentUser) {
       getLabels();
@@ -20,5 +41,8 @@ export default () => {
   return {
     labels,
     setLabels,
+    createLabel,
+    updateLabel,
+    updateLabelStatus,
   };
 };
