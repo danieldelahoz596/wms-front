@@ -132,12 +132,12 @@ const ProductDetailsPanel: React.FC<IProductDetailsPanel> = ({ height }) => {
           </Space>
         </Radio.Group>
       </div>
-      <Card className="content-box" style={{ height: height - 20 }}>
+      <Card className="content-box">
         {selectedMode === 'fields' ? (
           <Table columns={TFieldColumns} dataSource={fieldTableRows} pagination={{ hideOnSinglePage: true }} />
         ) : selectedMode === 'gallery' ? (
           <Image.PreviewGroup>
-            <Space size={20} wrap>
+            <Space size={20} style={{ padding: 10 }} wrap>
               {fielUrls.map((url, index) => (
                 <Image key={index} width={150} height={150} src={url} />
               ))}

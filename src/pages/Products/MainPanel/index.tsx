@@ -477,7 +477,7 @@ const MainPanel: React.FC = () => {
         title={editableProduct?.sku}
         onSave={(value: any) => {
           setModal(value);
-          setEditableProduct(null);
+          // setEditableProduct(null);
         }}
         onClose={() => setModal(modalType.Close)}
       />
