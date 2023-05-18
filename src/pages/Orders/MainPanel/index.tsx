@@ -526,7 +526,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 color: Math.floor(item.age / 24) > 0 ? 'green' : 'red',
               }}
             >
-              {Math.floor(item.age / 24)}d {Math.floor(item.age % 24)}hr
+              {item.order_date && `${Math.floor(item.age / 24)}d ${Math.floor(item.age % 24)}hr`}
             </span>
           ),
           recipient: (
@@ -540,7 +540,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             </div>
           ),
           items: item.order_items.length,
-          itemNames: item.order_items.length > 0 && item.order_items[0].product.name,
+          itemNames: item.order_items.length > 0 && item.order_items.map((order_item) => order_item.product.name).join(', '),
         };
       }),
     [orderList, handleProductEdit],

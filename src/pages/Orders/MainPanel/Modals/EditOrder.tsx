@@ -24,13 +24,22 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
     if (editableOrder) {
       if (editableOrder.customer) recipientForm.setFieldsValue(editableOrder.customer);
       else recipientForm.resetFields();
-      orderDetailsForm.setFieldsValue({
-        ...editableOrder,
-        order_date: moment(new Date(editableOrder.order_date)),
-        paid_on: moment(new Date(editableOrder.paid_on)),
-        deliver_by: moment(new Date(editableOrder.deliver_by)),
-        ship_by: moment(new Date(editableOrder.ship_by)),
-      });
+
+      const { order_date, paid_on, deliver_by, ship_by, ...rest } = editableOrder;
+      if (order_date) rest.order_date = moment(new Date(editableOrder.order_date));
+      if (paid_on) rest.paid_on = moment(new Date(editableOrder.paid_on));
+      if (deliver_by) rest.deliver_by = moment(new Date(editableOrder.deliver_by));
+      if (ship_by) rest.ship_by = moment(new Date(editableOrder.ship_by));
+
+      orderDetailsForm.setFieldsValue(rest);
+
+      // orderDetailsForm.setFieldsValue({
+      //   ...editableOrder,
+      //   order_date: moment(new Date(editableOrder.order_date)),
+      //   paid_on: moment(new Date(editableOrder.paid_on)),
+      //   deliver_by: moment(new Date(editableOrder.deliver_by)),
+      //   ship_by: moment(new Date(editableOrder.ship_by)),
+      // });
       setProductRows(
         editableOrder.order_items.map((item) => ({
           key: item.product.id,

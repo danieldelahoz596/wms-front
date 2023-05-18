@@ -28,11 +28,18 @@ const OrderItems = () => {
         Out Of Stock
       </span>
       <Card>
-        {selectedOrders[0].order_items?.map((item) => {
+        {selectedOrders[0].order_items?.map((item, index) => {
           const subTotal = item.qty * item.product.vendor_cost;
 
           return (
-            <div key={item.id} style={{ borderBottom: '2px solid #ccc', padding: '0.5rem' }}>
+            <div
+              key={item.id}
+              style={
+                index !== selectedOrders[0].order_items?.length - 1
+                  ? { borderBottom: '2px solid #ccc', padding: '0.5rem' }
+                  : { padding: '0.5rem' }
+              }
+            >
               <Row gutter={32}>
                 <Col span={16}>
                   <div>
@@ -98,12 +105,17 @@ const OrderItems = () => {
               </Row>
               <Row style={{ marginTop: '1rem' }}>
                 <Col span={24}>
-                  <div style={{ textTransform: 'uppercase' }}>
-                    Unit Weight: {Number(item.product.pound + item.product.ounce / 12.0).toFixed(2)}
-                  </div>
-                  <div style={{ textTransform: 'uppercase' }}>
-                    Unit H/W/L: {item.product.height} / {item.product.width} / {item.product.length}
-                  </div>
+                  {item.product.pound && item.product.ounce && (
+                    <div style={{ textTransform: 'uppercase' }}>
+                      Unit Weight: {Number(item.product.pound + item.product.ounce / 12.0).toFixed(2)}
+                    </div>
+                  )}
+                  {item.product.height && item.product.width && item.product.length && (
+                    <div style={{ textTransform: 'uppercase' }}>
+                      Unit H/W/L:
+                      {`${item.product.height} / ${item.product.width} / ${item.product.length}`}
+                    </div>
+                  )}
                   <div style={{ textTransform: 'uppercase' }}>Warehouse: {item.warehouse}</div>
                   <div style={{ textTransform: 'uppercase' }}>Pick Location: {item.pickLocation}</div>
                 </Col>

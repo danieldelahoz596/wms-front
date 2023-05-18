@@ -7,7 +7,8 @@ export default () => {
   const { initialState } = useModel('@@initialState');
 
   const initialPaymentTermList = useCallback(() => {
-    setPaymentTermList(initialState?.initialData?.paymentTerms);
+    if (initialState?.initialData) setPaymentTermList(initialState.initialData.paymentTerms);
+    else setPaymentTermList([]);
   }, [initialState?.initialData]);
 
   useEffect(() => {

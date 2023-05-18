@@ -46,12 +46,12 @@ const TColumns = [
   },
   {
     title: 'State',
-    dataIndex: ['state', 'name'],
+    dataIndex: 'state',
     key: 'state',
   },
   {
     title: 'City',
-    dataIndex: ['city', 'name'],
+    dataIndex: 'city',
     key: 'city',
   },
   {

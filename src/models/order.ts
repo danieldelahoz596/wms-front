@@ -63,6 +63,7 @@ export default () => {
         .put(`/api/orders/${orderData.id}`, orderData)
         .then(({ data }) => {
           setOrderList((prev) => prev.map((item) => (item.id === data.id ? data : item)));
+          setSelectedOrders((prev) => prev.map((item) => (item.id === data.id ? data : item)));
         })
         .catch((error) => console.log(error)),
     [],

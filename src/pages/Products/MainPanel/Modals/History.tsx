@@ -23,7 +23,7 @@ const Tcolumns = [
     title: 'Edit Time',
     dataIndex: 'edit_time',
     key: 'edit_time',
-    render: (date) => moment(date).format('YYYY-MM-DD HH:mm A'),
+    render: (date) => moment(date).lang('en').format('YYYY-MM-DD HH:mm A'),
   },
   {
     title: 'User',

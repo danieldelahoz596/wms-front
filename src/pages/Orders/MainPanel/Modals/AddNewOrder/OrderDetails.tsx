@@ -17,18 +17,18 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
     [paymentTermList],
   );
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  // const onFinish = (values: any) => {
+  //   console.log('Success:', values);
+  // };
 
   return (
     <Card title="ORDER DETAILS">
       <Form
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        autoComplete="off"
+        // initialValues={{ remember: true }}
+        // onFinish={onFinish}
+        // autoComplete="off"
         form={form}
       >
         <Form.Item label="Channel">
@@ -65,7 +65,7 @@ const OrderDetails: React.FC<IOrderDetails> = ({ form }) => {
           <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
             <div style={{ flex: '1' }}>
               <Form.Item name="payment_type_id">
-                <Select options={paymentTermOptions} size="small" />
+                <Select options={[{ value: 0, label: 'No Selet' }, ...paymentTermOptions]} size="small" />
               </Form.Item>
             </div>
             <PlusOutlined

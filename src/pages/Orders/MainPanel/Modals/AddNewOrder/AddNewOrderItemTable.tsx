@@ -35,11 +35,13 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, se
         key: 'unitPrice',
         dataIndex: 'unitPrice',
         title: 'Unit Price',
+        editable: true,
       },
       {
         key: 'totalDiscount',
         dataIndex: 'totalDiscount',
         title: 'Total Discount',
+        editable: true,
       },
       {
         key: 'action',
