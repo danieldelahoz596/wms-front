@@ -69,6 +69,8 @@ export default () => {
     [],
   );
 
+  const getOrderHistories = useCallback((id) => httpClient.get(`/api/orders/${id}/histories`).then(({ data }) => data), []);
+
   return {
     orderList,
     editableOrder,
@@ -77,6 +79,7 @@ export default () => {
     shippingQueue,
     setNewOrder,
     getOrderList,
+    getOrderHistories,
     setOrderList,
     setEditableOrder,
     setSelectedOrders,

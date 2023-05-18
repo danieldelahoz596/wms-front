@@ -40,6 +40,7 @@ import DuplicateOrderModal from './Modals/DuplicateOrder';
 import EditOrderModal from './Modals/EditOrder';
 import ExportOrderModal from './Modals/ExportOrder';
 import ExportQueueOrderModal from './Modals/ExportQueueOrder';
+import OrderHistoryModal from './Modals/History';
 import ImportOrderModal from './Modals/ImportOrder';
 import ImportOrderShipmentModal from './Modals/ImportOrderShipment';
 import ManualOrderModal from './Modals/ManualOrder';
@@ -190,6 +191,11 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
       onClick: () => setModal(modalType.ExportQueueOrder),
       btnText: 'Queue',
       hidden: [5, 6, 7].includes(selectedOrderStatus?.status.id),
+    },
+    {
+      onClick: () => setModal(modalType.History),
+      btnText: 'History',
+      disabled: selectedRows.length !== 1,
     },
     {
       hidden: selectedOrderStatus?.status.id != 3,
@@ -793,6 +799,8 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
         onSave={() => setModal(modalType.Close)}
         onClose={() => setModal(modalType.Close)}
       />
+
+      <OrderHistoryModal isOpen={modalOpen === modalType.History} onClose={() => setModal(modalType.Close)} />
     </>
   );
 };
