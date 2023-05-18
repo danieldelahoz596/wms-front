@@ -47,11 +47,15 @@ export default () => {
     [],
   );
 
+  // get a customer history
+  const getCustomerHistories = useCallback((id) => httpClient.get(`/api/customers/${id}/histories`).then(({ data }) => data), []);
+
   return {
     customerList,
     selectedCustomer,
     setSelectedCustomer,
     getCustomerList,
+    getCustomerHistories,
     setCustomerList,
     getCustomer,
     createCustomer,

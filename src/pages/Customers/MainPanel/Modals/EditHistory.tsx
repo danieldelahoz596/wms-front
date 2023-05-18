@@ -1,40 +1,50 @@
 import { OModal } from '@/components/Globals/OModal';
-import { OTable } from '@/components/Globals/OTable';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Row, Col } from 'antd';
+import { Table, Spin } from 'antd';
 import moment from 'moment';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
+
+interface ICustomerHistory {
+  id: number;
+  customer_id: number;
+  edit_time: Date;
+  user: { id: number; username: string };
+  description: string;
+}
 
 const THistoryColumns = [
   {
     title: <FormattedMessage id="component.table.column.editTime" />,
-    dataIndex: 'editTime',
-    key: 'editTime',
+    dataIndex: 'edit_time',
+    key: 'edit_time',
+    render: (date) => moment(date).locale('en').format('YYYY-MM-DD HH:mm A'),
   },
   {
     title: <FormattedMessage id="component.table.column.user" />,
-    dataIndex: 'user',
+    dataIndex: ['user', 'username'],
     key: 'user',
   },
   {
     title: <FormattedMessage id="component.table.column.changedValues" />,
-    dataIndex: 'changedValues',
-    key: 'changedValues',
+    dataIndex: 'description',
+    key: 'description',
   },
 ];
 
 export default function EditHistoryModal({ isOpen, onSave, onClose }) {
-  const { selectedCustomer } = useModel('customer');
+  const { selectedCustomer, getCustomerHistories } = useModel('customer');
+  const [histories, setHistories] = useState<ICustomerHistory[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const historyData = useMemo(() => {
-    if (selectedCustomer) {
-      return selectedCustomer.edit_history?.map((_item) => ({
-        editTime: moment(_item.created_at).format('M/D/Y h:mm A'),
-        user: selectedCustomer.name,
-        changedValues: _item.details?.toUpperCase(),
-      }));
-    } else return [];
-  }, [selectedCustomer]);
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+      getCustomerHistories(selectedCustomer.id).then((data) => {
+        setIsLoading(false);
+        setHistories(data);
+      });
+    }
+  }, [isOpen, getCustomerHistories, selectedCustomer]);
 
   return (
     <OModal
@@ -58,11 +68,22 @@ export default function EditHistoryModal({ isOpen, onSave, onClose }) {
         },
       ]}
     >
-      <Row>
-        <Col span={24}>
-          <OTable columns={THistoryColumns} rows={historyData} />
-        </Col>
-      </Row>
+      <>
+        {isLoading && (
+          <div style={{ height: 80 }}>
+            <Spin tip="Loading" size="large" style={{ marginTop: 30 }}>
+              <div className="content" />
+            </Spin>
+          </div>
+        )}
+        {!isLoading && (
+          <Table
+            columns={THistoryColumns}
+            dataSource={histories.map((item) => ({ key: item.id, ...item }))}
+            pagination={{ hideOnSinglePage: true }}
+          />
+        )}
+      </>
     </OModal>
   );
 }
