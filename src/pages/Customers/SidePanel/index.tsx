@@ -2,7 +2,7 @@ import { OButton } from '@/components/Globals/OButton';
 import { OInput } from '@/components/Globals/OInput';
 import httpClient from '@/utils/http-client';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Card, Form, Space } from 'antd';
+import { Card, Space } from 'antd';
 import qs from 'qs';
 import { useState } from 'react';
 
@@ -75,21 +75,19 @@ export default function SidePanel() {
         </h1>
       </div>
       <Card>
-        <Form>
-          <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
-            {inputFields.map((_inputField, _index) => (
-              <div key={_index}>
-                <span>{_inputField.label}:</span>
-                <OInput
-                  type={_inputField.type}
-                  name={_inputField.name}
-                  value={searchQuery[_inputField.name]}
-                  onChange={handleSearchQueryChange}
-                />
-              </div>
-            ))}
-          </Space>
-        </Form>
+        <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
+          {inputFields.map((_inputField, _index) => (
+            <div key={_index}>
+              <span>{_inputField.label}:</span>
+              <OInput
+                type={_inputField.type}
+                name={_inputField.name}
+                value={searchQuery[_inputField.name]}
+                onChange={handleSearchQueryChange}
+              />
+            </div>
+          ))}
+        </Space>
         <div className="search-button-row space-between">
           <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={clearSearchQuery} />
           <OButton btnText={<FormattedMessage id="component.button.search" />} onClick={() => onSearch(searchQuery)} />

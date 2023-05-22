@@ -1,64 +1,108 @@
 import { OButton } from '@/components/Globals/OButton';
+import { OInput } from '@/components/Globals/OInput';
 import { FormattedMessage, useModel } from '@umijs/max';
-import { Form, Input, Select } from 'antd';
-import { useMemo } from 'react';
+import { Space } from 'antd';
+import { useMemo, useState } from 'react';
+
+const initailState = {
+  name: '',
+  sku: '',
+  upc: '',
+  mpn: '',
+  brand_id: 0,
+  catgory_id: 0,
+  label_id: 0,
+};
 
 const SearchByPanel = () => {
   const { brands } = useModel('brand');
   const { categories } = useModel('category');
   const { labels } = useModel('label');
   const { getProductList } = useModel('product');
-  const [form] = Form.useForm();
+  const [searchQuery, setSearchQuery] = useState(initailState);
 
-  const brandOptions = useMemo(() => brands.map((item) => ({ value: item.id, label: item.name })), [brands]);
-  const categoryOptions = useMemo(() => categories.map((item) => ({ value: item.id, label: item.name })), [categories]);
-  const labelOptions = useMemo(() => labels.map((item) => ({ value: item.id, label: item.name })), [labels]);
+  const brandOptions = useMemo(() => brands.map((item) => ({ value: item.id, text: item.name })), [brands]);
+  const categoryOptions = useMemo(() => categories.map((item) => ({ value: item.id, text: item.name })), [categories]);
+  const labelOptions = useMemo(() => labels.map((item) => ({ value: item.id, text: item.name })), [labels]);
 
-  const handleReset = () => {
-    form.resetFields();
+  const inputFields = useMemo(
+    () => [
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Product Name',
+      },
+      {
+        type: 'text',
+        name: 'sku',
+        label: 'SKU',
+      },
+      {
+        type: 'text',
+        name: 'mpn',
+        label: 'MPN',
+      },
+      {
+        type: 'text',
+        name: 'upc',
+        label: 'UPC',
+      },
+      {
+        type: 'select',
+        name: 'brand_id',
+        label: 'Brand',
+        options: brandOptions,
+      },
+      {
+        type: 'select',
+        name: 'catgory_id',
+        label: 'Category',
+        options: categoryOptions,
+      },
+      {
+        type: 'select',
+        name: 'label_id',
+        label: 'Label',
+        options: labelOptions,
+      },
+    ],
+    [brandOptions, categoryOptions, labelOptions],
+  );
+
+  const onSearch = (query) => {
+    query.brandIds = [];
+    query.categoryIds = [];
+    query.labelIds = [];
+
+    if (query.brand_id !== 0 && query.brand_id) query.brandIds = [query.brand_id];
+    if (query.category_id !== 0 && query.category_id) query.categoryIds = [query.category_id];
+    if (query.label_id !== 0 && query.label_id) query.labelIds = [query.label_id];
+
+    getProductList(query).then(() => {});
   };
 
-  const handleSearch = () => {
-    form.validateFields().then((values) => {
-      if (values.brand_id) values.brandIds = [values.brand_id];
-      if (values.category_id) values.categoryIds = [values.category_id];
-      if (values.label_id) values.labelIds = [values.label_id];
+  const handleSearchQueryChange = (name: string, value: string) => {
+    setSearchQuery((prevState) => ({ ...prevState, [name]: value }));
+  };
 
-      getProductList(values).then(() => {});
-    });
+  const clearSearchQuery = () => {
+    setSearchQuery(initailState);
+    onSearch(initailState);
   };
 
   return (
     <>
-      <Form layout="vertical" form={form}>
-        <Form.Item label="Product Name" name="name">
-          <Input />
-        </Form.Item>
-        <Form.Item label="SKU" name="sku">
-          <Input />
-        </Form.Item>
-        <Form.Item label="UPC" name="upc">
-          <Input />
-        </Form.Item>
-        <Form.Item label="MPN" name="mpn">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Brand" name="brand_id">
-          <Select options={brandOptions} />
-        </Form.Item>
-        <Form.Item label="Category" name="category_id">
-          <Select options={categoryOptions} />
-        </Form.Item>
-        <Form.Item label="Label" name="label_id">
-          <Select options={labelOptions} />
-        </Form.Item>
-        {/* <Form.Item label="Tag" name="tag_id">
-          <Select options={tagOptions} />
-        </Form.Item> */}
-      </Form>
-      <div className="search-button-row space-between">
-        <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={handleReset} />
-        <OButton btnText={<FormattedMessage id="component.button.search" />} onClick={handleSearch} />
+      <Space direction="vertical" size={VERTICAL_SPACE_SIZE} style={{ display: 'flex' }}>
+        {inputFields.map((_inputField, _index) => (
+          <div key={_index}>
+            <span>{_inputField.label}:</span>
+            <OInput {..._inputField} value={searchQuery[_inputField.name]} onChange={handleSearchQueryChange} />
+          </div>
+        ))}
+      </Space>
+      <div className="search-button-row space-between" style={{ marginTop: 10 }}>
+        <OButton btnText={<FormattedMessage id="component.button.clear" />} onClick={clearSearchQuery} />
+        <OButton btnText={<FormattedMessage id="component.button.search" />} onClick={() => onSearch(searchQuery)} />
       </div>
     </>
   );

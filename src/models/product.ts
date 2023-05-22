@@ -18,8 +18,16 @@ export default () => {
   const [bundleItems, setBundleItems] = useState<IBundleItem[]>([]);
 
   const getProductList = useCallback(
-    (query?: { name?: string; sku?: string; mpn?: string; upc?: string; labelIds?: number[]; categoryIds?: number[] }) => {
-      const { name = '', sku = '', mpn = '', upc = '', labelIds = [], categoryIds = [] } = query || {};
+    (query?: {
+      name?: string;
+      sku?: string;
+      mpn?: string;
+      upc?: string;
+      labelIds?: number[];
+      categoryIds?: number[];
+      brandIds: number[];
+    }) => {
+      const { name = '', sku = '', mpn = '', upc = '', labelIds = [], categoryIds = [], brandIds = [] } = query || {};
 
       const queryString = qs.stringify(
         {
@@ -30,6 +38,7 @@ export default () => {
           status: showActive,
           label: labelIds,
           category: categoryIds,
+          brand: brandIds,
         },
         { arrayFormat: 'brackets' },
       );
