@@ -22,7 +22,7 @@ const YearOverYear: React.FC<IYearOverYear> = ({ height }) => {
       let index = 0;
 
       while (
-        index < editableProduct.orders.length &&
+        index < editableProduct.orders?.length &&
         startDate > new Date(Date.parse(editableProduct.orders[index].order.order_date))
       ) {
         index = index + 1;
@@ -32,7 +32,7 @@ const YearOverYear: React.FC<IYearOverYear> = ({ height }) => {
       for (const d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
         let count = 0;
         while (
-          index < editableProduct.orders.length &&
+          index < editableProduct.orders?.length &&
           d.toDateString() === new Date(Date.parse(editableProduct.orders[index].order.order_date)).toDateString()
         ) {
           count = count + 1;
