@@ -11,7 +11,7 @@ interface IYearOverYear {
 
 const YearOverYear: React.FC<IYearOverYear> = ({ height }) => {
   const [yoyChartInstance, setYOYChartInstance] = useState(null);
-  const [days, setDays] = useState(7);
+  const [days, setDays] = useState(90);
   const yoyChartRef = useRef(null);
   const { editableProduct } = useModel('product');
 
@@ -64,6 +64,7 @@ const YearOverYear: React.FC<IYearOverYear> = ({ height }) => {
               { value: 7, label: '1 week' },
               { value: 30, label: '30 Days' },
               { value: 60, label: '60 Days' },
+              { value: 90, label: '90 Days' },
             ]}
             style={{ width: '150px' }}
             size="small"
