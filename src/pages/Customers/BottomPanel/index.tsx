@@ -69,7 +69,7 @@ const BottomPanel: React.FC = () => {
         ),
         order_number: <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{order.order_num}</span>,
         order_date: moment(order.order_date).format('Y-M-D'),
-        order_total: order.amount_paid,
+        order_total: order.order_total,
         items: order.order_items.length,
         item_names: order.order_items.length > 0 && order.order_items[0].product.name,
         item_skus: order.order_items.length > 0 && order.order_items[0].product.sku,

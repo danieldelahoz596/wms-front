@@ -84,7 +84,7 @@ const MainPanel: React.FC = () => {
         state: item.state && item.state.name,
         city: item.city && item.city.name,
         orders: item.orders.length,
-        totalsales: '$0.00',
+        totalsales: `$${item.total_sales.toFixed(2)}`,
       })),
     [customerList],
   );

@@ -16,5 +16,6 @@ export default interface ICustomer {
   address: string;
   state: IState;
   city: ICity;
+  total_sales: number;
   orders: IOrder[];
 }
