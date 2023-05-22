@@ -31,12 +31,22 @@ const AddNewOrderModal: React.FC<IAddNewOrderModal> = ({ isOpen, onClose, onSave
           !customerData.phone_number && !customerData.phone_type
             ? {
                 order: { ...orderData, status_id: 2 },
-                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+                order_items: productRows.map((item) => ({
+                  product_id: item.key,
+                  qty: item.quantity,
+                  unit_price: item.unit_price,
+                  discount: item.discount,
+                })),
               }
             : {
                 customer: customerData,
                 order: { ...orderData, status_id: 2 },
-                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+                order_items: productRows.map((item) => ({
+                  product_id: item.key,
+                  qty: item.quantity,
+                  unit_price: item.unit_price,
+                  discount: item.discount,
+                })),
               };
         createOrder(newOrderData).then(() => {
           onSave();

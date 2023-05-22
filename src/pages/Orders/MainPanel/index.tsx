@@ -506,7 +506,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
               <span>{item.sales_channel.name}</span> */}
             </span>
           ),
-          orderTotal: `$${item.amount_paid}`,
+          orderTotal: `$${item.order_total}`,
           order_number: (
             <div
               onClick={(e) => {
@@ -514,7 +514,9 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
                 handleProductEdit(item);
               }}
             >
-              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{item.order_number}</span>
+              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
+                {item.order_number ? item.order_number : item.order_num}
+              </span>
             </div>
           ),
           notes: (

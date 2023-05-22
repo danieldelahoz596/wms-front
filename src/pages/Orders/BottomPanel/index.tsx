@@ -29,7 +29,7 @@ const OrderItems = () => {
       </span>
       <Card>
         {selectedOrders[0].order_items?.map((item, index) => {
-          const subTotal = item.qty * item.product.vendor_cost;
+          const subTotal = item.qty * item.unit_price - item.discount;
 
           return (
             <div
@@ -82,7 +82,7 @@ const OrderItems = () => {
                       <b style={{ color: '#626262' }}>Unit Price:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <b style={{ color: '#626262' }}>${item.product.vendor_cost}</b>
+                      <b style={{ color: '#626262' }}>${item.unit_price}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem' }}>
@@ -90,7 +90,7 @@ const OrderItems = () => {
                       <b style={{ color: '#626262' }}>Total Discount:</b>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
-                      <b style={{ color: '#626262' }}>-${0}</b>
+                      <b style={{ color: '#626262' }}>-${item.discount}</b>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: '0.2rem', padding: '0.4rem', background: '#5F5FFF' }}>

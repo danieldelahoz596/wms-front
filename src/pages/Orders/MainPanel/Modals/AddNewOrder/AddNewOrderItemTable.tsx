@@ -32,14 +32,14 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, se
         editable: true,
       },
       {
-        key: 'unitPrice',
-        dataIndex: 'unitPrice',
+        key: 'unit_price',
+        dataIndex: 'unit_price',
         title: 'Unit Price',
         editable: true,
       },
       {
-        key: 'totalDiscount',
-        dataIndex: 'totalDiscount',
+        key: 'discount',
+        dataIndex: 'discount',
         title: 'Total Discount',
         editable: true,
       },
@@ -70,8 +70,8 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, se
           key: selectedProduct.id,
           product: selectedProduct.name,
           quantity: 1,
-          unitPrice: 10,
-          totalDiscount: 0,
+          unit_price: 0,
+          discount: 0,
         },
       ]);
     }
@@ -86,7 +86,6 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, se
     const productItems = [];
     navigator.clipboard.readText().then((text) => {
       const items = text.split(/\r\n|\r|\n/);
-      console.log('items: ', items);
       items.forEach((item) => {
         const details = item.split(',');
         if (details.length !== 3)
@@ -100,15 +99,15 @@ const AddNewOrderItemTable: React.FC<IAddNewOrderItemTable> = ({ productRows, se
             content: `${item} Unit Price should have decimal points.`,
           });
         else {
-          const [name, quantity, price] = details;
+          const [name, quantity] = details;
           productItems.push({
             key: uuidv4(),
             product: name,
             notes: '',
             available: '',
             quantity: quantity,
-            unitPrice: price,
-            totalDiscount: 0,
+            unit_price: 0,
+            discount: 0,
           });
         }
       });

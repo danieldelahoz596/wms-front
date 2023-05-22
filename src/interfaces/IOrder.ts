@@ -6,6 +6,7 @@ interface IOrderItem {
   order_id: number;
   product_id: number;
   unit_price: number;
+  discount: number;
   qty: number;
   product: IProduct;
 }
@@ -26,6 +27,7 @@ export default interface IOrder {
   deliver_by: Date;
   payment_type_id: number;
   amount_paid: number;
+  order_total: number;
   discount: number;
   note: string;
   customer?: ICustomer;

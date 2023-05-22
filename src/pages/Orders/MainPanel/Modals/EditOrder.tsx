@@ -45,8 +45,8 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
           key: item.product.id,
           product: item.product.name,
           quantity: item.qty,
-          unitPrice: 10,
-          totalDiscount: 0,
+          unit_price: item.unit_price,
+          discount: item.discount,
         })),
       );
     }
@@ -99,13 +99,23 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
             ? {
                 ...editableOrder,
                 ...orderData,
-                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+                order_items: productRows.map((item) => ({
+                  product_id: item.key,
+                  qty: item.quantity,
+                  unit_price: item.unit_price,
+                  discount: item.discount,
+                })),
               }
             : {
                 ...editableOrder,
                 customer: { ...editableOrder.customer, ...customerData },
                 ...orderData,
-                order_items: productRows.map((item) => ({ product_id: item.key, qty: item.quantity })),
+                order_items: productRows.map((item) => ({
+                  product_id: item.key,
+                  qty: item.quantity,
+                  unit_price: item.unit_price,
+                  discount: item.discount,
+                })),
               };
         updateOrder(updateOrderData).then(() => {
           onSave();
