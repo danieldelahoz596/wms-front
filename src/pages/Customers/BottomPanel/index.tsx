@@ -6,11 +6,11 @@ import { useMemo } from 'react';
 import moment from 'moment';
 
 const TOrderColumns = [
-  {
-    title: <FormattedMessage id="component.table.column.labels" />,
-    dataIndex: 'labels',
-    key: 'labels',
-  },
+  // {
+  //   title: <FormattedMessage id="component.table.column.labels" />,
+  //   dataIndex: 'labels',
+  //   key: 'labels',
+  // },
   {
     title: <FormattedMessage id="component.table.column.notes" />,
     dataIndex: 'notes',
@@ -75,8 +75,8 @@ const BottomPanel: React.FC = () => {
         order_date: moment(order.order_date).format('Y-M-D'),
         order_total: order.order_total,
         items: order.order_items.length,
-        item_names: order.order_items.length > 0 && order.order_items[0].product.name,
-        item_skus: order.order_items.length > 0 && order.order_items[0].product.sku,
+        item_names: order.order_items.length > 0 && order.order_items.map((item) => item.product.name).join(', '),
+        item_skus: order.order_items.length > 0 && order.order_items.map((item) => item.product.sku).join(', '),
         status: order.order_status.name,
       })),
     [selectedCustomer],

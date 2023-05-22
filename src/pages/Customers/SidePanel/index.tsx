@@ -7,18 +7,16 @@ import qs from 'qs';
 import { useState } from 'react';
 
 const initailState = {
-  phonenumber: '',
-  card_number: '',
+  phone_number: '',
   name: '',
   city: '',
   state: '',
-  country: '',
 };
 
 const inputFields = [
   {
     type: 'text',
-    name: 'phonenumber',
+    name: 'phone_number',
     label: <FormattedMessage id="component.form.label.phoneNumber" />,
   },
   {
@@ -27,25 +25,20 @@ const inputFields = [
     label: <FormattedMessage id="component.form.label.name" />,
   },
   {
-    type: 'text',
-    name: 'city',
-    label: <FormattedMessage id="component.form.label.city" />,
-  },
-  {
-    type: 'text',
+    type: 'select',
     name: 'state',
     label: <FormattedMessage id="component.form.label.stateProvince" />,
   },
   {
-    type: 'text',
-    name: 'country',
-    label: <FormattedMessage id="component.form.label.country" />,
+    type: 'select',
+    name: 'city',
+    label: <FormattedMessage id="component.form.label.city" />,
   },
 ];
 
 export default function SidePanel() {
   const [searchQuery, setSearchQuery] = useState(initailState);
-  const { setCustomerList } = useModel('customer');
+  const { setCustomerList, setSelectedCustomer } = useModel('customer');
 
   const handleSearchQueryChange = (name: string, value: string) => {
     setSearchQuery((prevState) => ({ ...prevState, [name]: value }));
@@ -55,6 +48,7 @@ export default function SidePanel() {
     httpClient
       .get('/api/customers?' + qs.stringify(query))
       .then((response) => {
+        setSelectedCustomer(null);
         setCustomerList(response.data);
       })
       .catch((error) => {

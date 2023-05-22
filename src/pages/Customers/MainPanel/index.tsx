@@ -100,13 +100,13 @@ const MainPanel: React.FC = () => {
 
   return (
     <>
-      <Card className="main-panel">
-        <div className="title-row">
+      <div className="main-panel">
+        <div className="title-row space-between">
           <h1 className="page-title">
             <FormattedMessage id="pages.customers.title" />
           </h1>
         </div>
-        <div className="main-box">
+        <Card className="content-box">
           <Space size={HORIZONTAL_SPACE_SIZE} className="button-row">
             <OButton btnText={<FormattedMessage id="component.button.merge" />} onClick={() => setModal(modalType.Merge)} />
             <OButton
@@ -129,8 +129,8 @@ const MainPanel: React.FC = () => {
             selectedRows={selectedRows}
             setSelectedRows={setSelectedRows}
           />
-        </div>
-      </Card>
+        </Card>
+      </div>
 
       <EditHistoryModal
         isOpen={modalOpen === modalType.History}
