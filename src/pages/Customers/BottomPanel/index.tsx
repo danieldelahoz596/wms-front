@@ -67,7 +67,11 @@ const BottomPanel: React.FC = () => {
             <MessageOutlined style={{ color: '#5F5FFF', cursor: 'pointer', transform: 'scaleX(-1)' }} />
           </div>
         ),
-        order_number: <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{order.order_num}</span>,
+        order_number: (
+          <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>
+            {order.order_number ? order.order_number : order.order_num}
+          </span>
+        ),
         order_date: moment(order.order_date).format('Y-M-D'),
         order_total: order.order_total,
         items: order.order_items.length,

@@ -32,7 +32,7 @@ const RecentOrders = () => {
   const TRows = useMemo(() => {
     if (editableProduct)
       return editableProduct.orders.map((item) => ({
-        order_num: item.order.order_num,
+        order_num: item.order.order_number ? item.order.order_number : item.order.order_num,
         order_date: moment(item.order.order_date).format('YYYY-MM-DD'),
         qty: item.qty,
         status: item.order.order_status.name,
