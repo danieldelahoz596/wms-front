@@ -80,8 +80,8 @@ const defaultShowColumns = [
 const defaultOrderTableColumns = [
   {
     title: 'Order Number',
-    dataIndex: 'order_num',
-    key: 'order_num',
+    dataIndex: 'order_number',
+    key: 'order_number',
   },
   {
     title: 'Labels',
@@ -507,14 +507,14 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
             </span>
           ),
           orderTotal: `$${item.amount_paid}`,
-          order_num: (
+          order_number: (
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 handleProductEdit(item);
               }}
             >
-              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{item.order_num}</span>
+              <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5F5FFF' }}>{item.order_number}</span>
             </div>
           ),
           notes: (
