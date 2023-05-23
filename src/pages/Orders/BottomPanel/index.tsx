@@ -29,7 +29,7 @@ const OrderItems = () => {
       </span>
       <Card>
         {selectedOrders[0].order_items?.map((item, index) => {
-          const subTotal = item.qty * item.unit_price - item.discount;
+          const subTotal = (item.qty * item.unit_price * 100 - item.discount * 100) / 100;
 
           return (
             <div
