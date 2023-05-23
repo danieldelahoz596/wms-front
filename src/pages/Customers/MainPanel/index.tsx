@@ -122,13 +122,15 @@ const MainPanel: React.FC = () => {
               }}
             />
           </Space>
-          <OTable
-            columns={TColumns}
-            rows={prepareCustomersTableData}
-            type="radio"
-            selectedRows={selectedRows}
-            setSelectedRows={setSelectedRows}
-          />
+          {customerList.length !== 0 && (
+            <OTable
+              columns={TColumns}
+              rows={prepareCustomersTableData}
+              type="radio"
+              selectedRows={selectedRows}
+              setSelectedRows={setSelectedRows}
+            />
+          )}
         </Card>
       </div>
 
