@@ -149,6 +149,14 @@ export default () => {
     return httpClient.get('/api/products/export-csv').then(({ data }) => data);
   }, []);
 
+  const handleImportProductsToCSV = useCallback((data) => {
+    return httpClient
+      .post('/api/products/import-csv', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(() => true);
+  }, []);
+
   return {
     productList,
     editableProduct,
@@ -168,5 +176,6 @@ export default () => {
     onChangeSelectedProduct,
     handleUpdateProduct,
     handleExportProductsToCSV,
+    handleImportProductsToCSV,
   };
 };

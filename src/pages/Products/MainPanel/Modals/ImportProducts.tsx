@@ -1,7 +1,9 @@
 import { OModal } from '@/components/Globals/OModal';
-import { fileUploadProps } from '@/utils/helpers/base';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Select, Upload } from 'antd';
+import { useModel } from '@umijs/max';
+import { Button, Select, Upload, message } from 'antd';
+import type { RcFile } from 'antd/es/upload/interface';
+import { useState } from 'react';
 
 interface IImportProductModal {
   isOpen: boolean;
@@ -10,7 +12,38 @@ interface IImportProductModal {
 }
 
 const ImportProductModal: React.FC<IImportProductModal> = ({ isOpen, onClose, onSave }) => {
-  const handleSave = () => onSave();
+  const [file, setFile] = useState<RcFile>();
+  const { handleImportProductsToCSV, getProductList } = useModel('product');
+  const { getBrands } = useModel('brand');
+  const { getCategories } = useModel('category');
+  const { getLabels } = useModel('label');
+
+  const beforeUpload = (data: RcFile) => {
+    const isCsv = data.type === 'text/csv';
+    if (!isCsv) {
+      message.error('You can only upload CSV file!');
+    }
+    const isLt2M = data.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    setFile(data);
+    return isCsv && isLt2M;
+  };
+
+  const handleSave = () => {
+    const formData = new FormData();
+    formData.append('file', file, 'file');
+    handleImportProductsToCSV(formData).then(() => {
+      message.success('Success to upload the CSV file');
+      onSave();
+      getProductList();
+      getBrands();
+      getCategories();
+      getLabels();
+    });
+    // onSave();
+  };
 
   return (
     <OModal
@@ -54,10 +87,12 @@ const ImportProductModal: React.FC<IImportProductModal> = ({ isOpen, onClose, on
           at the end, which you can use to correct duplicate values and re-submit.
         </p>
         <div style={{ textAlign: 'right', marginTop: 20 }}>
-          <span>Products File: &nbsp;</span>
-          <Upload {...fileUploadProps}>
-            <Button icon={<UploadOutlined />}>Select...</Button>
-          </Upload>
+          <div>
+            <span>Products File: &nbsp;</span>
+            <Upload name="upload" showUploadList={false} beforeUpload={beforeUpload}>
+              <Button icon={<UploadOutlined />}>Select...</Button>
+            </Upload>
+          </div>
           <span>Update existing products if changes found in the Excel file? &nbsp;</span>
           <Select
             placeholder="Yes - Update existing products and import new"

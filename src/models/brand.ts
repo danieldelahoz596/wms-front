@@ -40,6 +40,7 @@ export default () => {
 
   return {
     brands,
+    getBrands,
     setBrands,
     createBrand,
     updateBrand,

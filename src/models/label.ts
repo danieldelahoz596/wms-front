@@ -40,6 +40,7 @@ export default () => {
 
   return {
     labels,
+    getLabels,
     setLabels,
     createLabel,
     updateLabel,

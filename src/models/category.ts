@@ -32,6 +32,7 @@ export default () => {
 
   return {
     categories,
+    getCategories,
     setCategories,
     createCategory,
     updateCategory,
