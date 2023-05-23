@@ -9,6 +9,7 @@ import moment from 'moment';
 
 export default () => {
   const { setSkuAlerts } = useModel('skuAlerts');
+  const { setOrderStatusList } = useModel('orderStatus');
   const [orderList, setOrderList] = useState<IOrder[]>([]);
   const [editableOrder, setEditableOrder] = useState<IOrder>(null);
   const [selectedOrders, setSelectedOrders] = useState([]);
@@ -52,9 +53,12 @@ export default () => {
         .post('/api/orders', orderData)
         .then(({ data }) => {
           setOrderList((prev) => [...prev, data]);
+          setOrderStatusList((prev) =>
+            prev.map((item) => (item.id === data.status_id ? { ...item, num: parseInt(item.num) + 1 } : item)),
+          );
         })
         .catch((error) => console.log(error)),
-    [],
+    [setOrderStatusList],
   );
 
   const updateOrder = useCallback(
