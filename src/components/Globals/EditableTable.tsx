@@ -7,6 +7,9 @@ interface EditableRowProps {
 }
 
 interface EditableCellProps {
+  index: number;
+  focused: boolean;
+  setFocusIndex: (value: any) => void;
   title: React.ReactNode;
   editable: boolean;
   options: { value; label }[];
@@ -44,6 +47,9 @@ const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
 };
 
 export const EditableCell: React.FC<EditableCellProps> = ({
+  index,
+  focused,
+  setFocusIndex,
   title,
   editable,
   options,
@@ -63,7 +69,17 @@ export const EditableCell: React.FC<EditableCellProps> = ({
     }
   }, [editing]);
 
+  useEffect(() => {
+    if (focused) {
+      setEditing(true);
+      form.setFieldsValue({ [dataIndex]: record[dataIndex] });
+    }
+  }, [focused, form, dataIndex, record, index]);
+
   const toggleEdit = () => {
+    if (!editing) {
+      setFocusIndex(index);
+    }
     setEditing(!editing);
     form.setFieldsValue({ [dataIndex]: record[dataIndex] });
   };
@@ -75,6 +91,20 @@ export const EditableCell: React.FC<EditableCellProps> = ({
       const value = Object.values(values)[0];
       handleSave(record.key, name, value);
       toggleEdit();
+    } catch (errInfo) {
+      console.log('Save failed:', errInfo);
+    }
+  };
+
+  const handlePressEnter = async () => {
+    setFocusIndex((prev) => prev + 1);
+    setEditing(!editing);
+
+    try {
+      const values = await form.validateFields();
+      const name = Object.keys(values)[0];
+      const value = Object.values(values)[0];
+      handleSave(record.key, name, value);
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
     }
@@ -115,7 +145,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
             },
           ]}
         >
-          <Input ref={inputRef} onPressEnter={save} onBlur={save} autoFocus={true} />
+          <Input ref={inputRef} onPressEnter={handlePressEnter} onBlur={save} autoFocus={true} />
         </Form.Item>
       )
     ) : (
@@ -129,6 +159,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 export const EditableTable: React.FC<ITable> = ({ dataSource, columns, handleSave, pagination = false, props }) => {
+  const [focusIndex, setFocusIndex] = useState<number>(0);
   const components = {
     body: {
       row: EditableRow,
@@ -136,26 +167,31 @@ export const EditableTable: React.FC<ITable> = ({ dataSource, columns, handleSav
     },
   };
 
-  const _columns = useMemo(
-    () =>
-      columns.map((col: any) => {
-        if (!col.editable) {
-          return col;
-        }
-        return {
-          ...col,
-          onCell: (record: IColumn) => ({
+  const _columns = useMemo(() => {
+    let index = 0;
+    return columns.map((col: any) => {
+      if (!col.editable) {
+        return col;
+      }
+      return {
+        ...col,
+        onCell: (record: IColumn) => {
+          index++;
+          return {
+            index,
+            focused: index === focusIndex,
+            setFocusIndex,
             record,
             editable: col.editable,
             options: col.options,
             dataIndex: col.dataIndex,
             title: col.title,
             handleSave,
-          }),
-        };
-      }),
-    [columns, handleSave],
-  );
+          };
+        },
+      };
+    });
+  }, [columns, handleSave, focusIndex]);
 
   return (
     <div>
