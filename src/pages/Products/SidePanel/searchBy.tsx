@@ -10,7 +10,7 @@ const initailState = {
   upc: '',
   mpn: '',
   brand_id: 0,
-  catgory_id: 0,
+  category_id: 0,
   label_id: 0,
 };
 
@@ -55,7 +55,7 @@ const SearchByPanel = () => {
       },
       {
         type: 'select',
-        name: 'catgory_id',
+        name: 'category_id',
         label: 'Category',
         options: categoryOptions,
       },
