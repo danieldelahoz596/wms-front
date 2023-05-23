@@ -136,13 +136,18 @@ export default () => {
     setEditableProduct((prevState: any) => ({ ...prevState, [name]: value }));
   }, []);
 
-  //updated selected product
+  // updated selected product
   const handleUpdateProduct = useCallback(
     (product) => {
       setProductList(productList.map((_item) => (_item.id === product.id ? product : _item)));
     },
     [productList],
   );
+
+  // export product data to csv
+  const handleExportProductsToCSV = useCallback(() => {
+    return httpClient.get('/api/products/export-csv');
+  }, []);
 
   return {
     productList,
@@ -162,5 +167,6 @@ export default () => {
     setBundleItems,
     onChangeSelectedProduct,
     handleUpdateProduct,
+    handleExportProductsToCSV,
   };
 };

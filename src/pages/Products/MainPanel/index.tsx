@@ -73,6 +73,15 @@ const MainPanel: React.FC = () => {
     [setEditableProduct],
   );
 
+  const exportProductDataToCSV = useCallback(() => {
+    setModal(modalType.Export);
+    // const _url = event.target.data('href');
+    // handleExportProductsToCSV().then(() => {
+    //   console.log('success');
+    // });
+    window.location.href = `${BACKEND_URL || 'http://127.0.0.1:8000'}/api/products/export-csv`;
+  }, []);
+
   const importExportMenuItems: ItemType[] = [
     {
       key: '1',
@@ -116,7 +125,7 @@ const MainPanel: React.FC = () => {
     {
       key: '5',
       label: (
-        <span onClick={() => setModal(modalType.Export)}>
+        <span data-href={`${BACKEND_URL || 'http://127.0.0.1:8000'}/api/products/export-csv`} onClick={exportProductDataToCSV}>
           <FormattedMessage id="component.button.exportProducts" />
         </span>
       ),
