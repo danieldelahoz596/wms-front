@@ -146,7 +146,7 @@ export default () => {
 
   // export product data to csv
   const handleExportProductsToCSV = useCallback(() => {
-    return httpClient.get('/api/products/export-csv');
+    return httpClient.get('/api/products/export-csv').then(({ data }) => data);
   }, []);
 
   return {

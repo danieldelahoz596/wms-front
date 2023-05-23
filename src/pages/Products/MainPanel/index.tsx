@@ -52,6 +52,7 @@ const MainPanel: React.FC = () => {
     handleUpdateProduct,
     showActive,
     setShowActive,
+    handleExportProductsToCSV,
   } = useModel('product');
   // const { fieldTypes } = useModel('customProductFields');
   const { getVendorProductImportExportSummary } = useModel('exportSummary');
@@ -75,12 +76,16 @@ const MainPanel: React.FC = () => {
 
   const exportProductDataToCSV = useCallback(() => {
     setModal(modalType.Export);
-    // const _url = event.target.data('href');
-    // handleExportProductsToCSV().then(() => {
-    //   console.log('success');
-    // });
-    window.location.href = `${BACKEND_URL || 'http://127.0.0.1:8000'}/api/products/export-csv`;
-  }, []);
+    handleExportProductsToCSV().then((data) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'products.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  }, [handleExportProductsToCSV]);
 
   const importExportMenuItems: ItemType[] = [
     {
