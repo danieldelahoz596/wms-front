@@ -1,102 +1,82 @@
 import { OButton } from '@/components/Globals/OButton';
-import { OInput } from '@/components/Globals/OInput';
-import type { IOInput } from '@/components/Globals/OInput';
 import { useModel } from '@umijs/max';
-import { Card, Form, Space, Select, Input, InputNumber } from 'antd';
-import React from 'react';
+import { Card, Form, Space, Select, Input, DatePicker } from 'antd';
+import moment from 'moment';
+import React, { useMemo } from 'react';
 
 const SearchByPanel: React.FC = () => {
-  const { clearOrderSearchQuery, setOrderSearchQuery } = useModel('orderSearch');
-  const { initialState } = useModel('@@initialState');
-  const { initialData } = initialState;
+  const { orderStatusList } = useModel('orderStatus');
+  const { warehouseList } = useModel('warehouse');
+  const { getOrderList } = useModel('order');
   const [form] = Form.useForm();
 
-  const formInputs: IOInput[] = [
-    {
-      type: 'select',
-      label: 'Status',
-      placeholder: 'Select...',
-      name: 'status',
-      options: initialData?.order_statuses?.map((item) => ({ value: item.id, label: item.name })),
-      mode: 'multiple',
-    },
-    {
-      type: 'number',
-      label: 'Order Number',
-      name: 'orderNumber',
-    },
-    {
-      type: 'select',
-      label: 'Warehouse',
-      name: 'warehouse',
-      placeholder: 'Select...',
-      options: initialData?.warehouses?.map((item) => ({ value: item.id, label: item.name })),
-    },
-    {
-      type: 'text',
-      label: 'Recipient',
-      name: 'recipient',
-      placeholder: 'Name',
-    },
-    {
-      type: 'text',
-      label: 'Buyer Email',
-      name: 'buyerEmail',
-      placeholder: 'Email',
-    },
-    {
-      type: 'text',
-      label: 'Buyer Username',
-      name: 'buyerUsername',
-      placeholder: 'Username',
-    },
-    {
-      type: 'text',
-      label: 'SKU',
-      name: 'sku',
-      placeholder: 'Master SKU, Listing SKU',
-    },
-  ];
+  const orderStatusOptions = useMemo(
+    () => orderStatusList.map((item) => ({ value: item.id, label: item.name })),
+    [orderStatusList],
+  );
+
+  const warehouseOptions = useMemo(
+    () => [
+      { value: 0, label: 'Select ...' },
+      ...warehouseList.map((warehouse) => ({ value: warehouse.id, label: warehouse.name })),
+    ],
+    [warehouseList],
+  );
 
   const handleSearch = () => {
-    form.validateFields().then((values) => setOrderSearchQuery(values));
+    // form.validateFields().then((values) => setOrderSearchQuery(values));
+    form.validateFields().then((values) => {
+      if (values.from_order_date) values.from_order_date = moment(values.from_order_date).format('YYYY-MM-DD');
+      if (values.to_order_date) values.to_order_date = moment(values.to_order_date).format('YYYY-MM-DD');
+      if (values.from_ship_date) values.from_ship_date = moment(values.from_ship_date).format('YYYY-MM-DD');
+      if (values.to_ship_date) values.to_ship_date = moment(values.to_ship_date).format('YYYY-MM-DD');
+
+      getOrderList(values);
+    });
   };
 
   const handleClear = () => {
     form.resetFields();
-    clearOrderSearchQuery();
   };
 
   return (
     <Card>
       <Form layout="vertical" form={form}>
         <Space direction="vertical" size={VERTICAL_SPACE_SIZE}>
-          {formInputs?.map((inputItem, index) => (
-            <Form.Item key={index} label={inputItem.label} name={inputItem.name}>
-              {inputItem.type === 'select' && <Select options={inputItem.options} mode={inputItem.mode} />}
-              {inputItem.type === 'text' && <Input />}
-              {inputItem.type === 'number' && <InputNumber style={{ width: '100%' }} />}
-            </Form.Item>
-          ))}
+          <Form.Item label="Status" name="status">
+            <Select options={orderStatusOptions} mode="multiple" placeholder="Select..." />
+          </Form.Item>
+          <Form.Item label="Order Number" name="order_number">
+            <Input placeholder="Number" />
+          </Form.Item>
+          <Form.Item label="Warehouse" name="warehouse_id">
+            <Select options={warehouseOptions} placeholder="Select..." />
+          </Form.Item>
+          <Form.Item label="Recipient" name="recipient">
+            <Input placeholder="Name" />
+          </Form.Item>
+          <Form.Item label="SKU" name="sku">
+            <Input placeholder="Master SKU, Listing SKU" />
+          </Form.Item>
           <Form.Item label={'Order Date'}>
             <Space size={3} align={'baseline'}>
-              <Form.Item name="fromOrderDate">
-                <OInput type="date" name="fromorder_date" />
+              <Form.Item name="from_order_date">
+                <DatePicker />
               </Form.Item>
               <span>to</span>
-              <Form.Item name="toOrderDate">
-                <OInput type="date" name="toorder_date" />
+              <Form.Item name="to_order_date">
+                <DatePicker />
               </Form.Item>
             </Space>
           </Form.Item>
           <Form.Item label={'Ship Date'}>
             <Space size={3} align={'baseline'}>
-              <Form.Item name="fromShipDate">
-                <OInput type="date" name="fromShipDate" />
+              <Form.Item name="from_ship_date">
+                <DatePicker />
               </Form.Item>
               <span>to</span>
-              <Form.Item name="toShipDate">
-                <OInput type="date" name="toShipDate" />
+              <Form.Item name="to_ship_date">
+                <DatePicker />
               </Form.Item>
             </Space>
           </Form.Item>

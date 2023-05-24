@@ -159,7 +159,7 @@ const MainPanel: React.FC<IMainPanel> = ({ selectedRows, setSelectedRows }) => {
 
   useEffect(() => {
     getOrderList({
-      order_status: selectedOrderStatus?.status?.id,
+      status: [selectedOrderStatus?.status?.id],
     });
   }, [getOrderList, selectedOrderStatus]);
 
