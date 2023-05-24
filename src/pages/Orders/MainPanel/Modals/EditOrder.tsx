@@ -7,6 +7,7 @@ import BasicInfo from '@/pages/Orders/MainPanel/Modals/EditOrder/BasicInfo';
 import Processing from './EditOrder/Processing';
 import AddNewOrderItemTable from './AddNewOrder/AddNewOrderItemTable';
 import moment from 'moment';
+import History from './EditOrder/History';
 
 interface IEditOrderModal {
   isOpen: boolean;
@@ -87,7 +88,7 @@ const EditOrderModal: React.FC<IEditOrderModal> = ({ isOpen, onClose, onSave }) 
     {
       key: '7',
       label: 'History',
-      children: <>History</>,
+      children: <History />,
     },
   ];
 

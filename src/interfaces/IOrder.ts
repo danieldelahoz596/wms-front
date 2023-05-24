@@ -1,6 +1,15 @@
 import type ICustomer from './ICustomer';
 import type IProduct from './IProduct';
 
+export interface IOrderHistory {
+  id: number;
+  product_id: number;
+  edit_time: Date;
+  type: string;
+  user: { id: number; username: string };
+  description: string;
+}
+
 interface IOrderItem {
   id: number;
   order_id: number;

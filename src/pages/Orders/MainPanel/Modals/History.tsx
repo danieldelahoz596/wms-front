@@ -1,17 +1,9 @@
 import { OModal } from '@/components/Globals/OModal';
+import type { IOrderHistory } from '@/interfaces/IOrder';
 import { useModel } from '@umijs/max';
 import { Table, Spin } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-
-interface IOrderHistory {
-  id: number;
-  product_id: number;
-  edit_time: Date;
-  type: string;
-  user: { id: number; username: string };
-  description: string;
-}
 
 interface IOrderHistoryModal {
   isOpen: boolean;
